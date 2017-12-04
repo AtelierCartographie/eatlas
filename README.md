@@ -42,6 +42,8 @@ yarn install --prod
 
 ### Client
 
+* Configurer le client par variables d'environnement (voir le fichier ``.env`` pour les valeurs par défaut)
+  * **TODO** utiliser plutôt le dossier `config/`
 * Préparer les fichiers scripts & assets : ``yarn build``
 * Placer les fichiers dans le document root de nginx
 

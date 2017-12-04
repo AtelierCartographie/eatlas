@@ -9,12 +9,11 @@ class AuthButton extends Component {
   state = { error: null }
 
   render() {
-    // TODO configuration
     return (
       <div className="AuthButton">
         { this.renderError() }
         <GoogleLogin
-          clientId="348912836815-tk0l6mspavgeia4ufcbs3h2637rik6mr.apps.googleusercontent.com"
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="Log in with Google"
           onSuccess={({ tokenObj }) => this.login(tokenObj)}
           onFailure={({ error, details }) => this.fail(error, details)}
@@ -32,7 +31,6 @@ class AuthButton extends Component {
   }
 
   login(token) {
-    // TODO API call
     // TODO redux-actions
     this.props.dispatch({ type: 'ui', payload: { verifying: true } })
     login(token)

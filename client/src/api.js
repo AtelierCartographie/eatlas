@@ -1,9 +1,53 @@
-// Mock api
-
-export const checkSession = () => new Promise((resolve, reject) => {
-  setTimeout(() => resolve('fake user'), 250)
+// Check if user has an active session on server
+export const checkSession = () => query({
+  url: '/session',
+  fake: () => ({
+    token_type: "Bearer",
+    access_token: "ya29.xxxxxxxxx",
+    scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.me openid email profile",
+    login_hint: "xxxxxxxxx",
+    expires_in: 3600,
+    id_token: "xxxxxxxxx",
+    session_state: { "extraQueryParams": { "authuser": "0" } },
+    first_issued_at: Date.now(),
+    expires_at: Date.now() + 3600 * 1000,
+    idpId: "google",
+  }),
 })
 
-export const login = token => new Promise((resolve, reject) => {
-  setTimeout(() => resolve(), 2000)
+// Try to login onto server once we got a Google Auth Token
+export const login = token => console.log(token) || query({
+  method: 'POST',
+  url: '/login',
+  body: { token },
 })
+
+// Return a fake async response
+const fakeResponse = (fake, delay) => new Promise((resolve, reject) => setTimeout(() => {
+  const result = fake()
+  if (result instanceof Error) {
+    reject(result)
+  } else {
+    resolve(result)
+  }
+}, delay))
+
+// Get from server or return fake, depends on environment configuration
+const query = ({ method = 'GET', url, body, delay = 0, fake = () => null } = {}) => {
+  if (process.env.REACT_APP_MOCK_API) {
+    return fakeResponse(fake, delay)
+  } else {
+    const headers = method === 'post'
+      ? { 'Content-Type': 'application/json; charset=UTF-8' }
+      : {}
+    const options = {
+      credentials: 'include',
+      method,
+      headers,
+      body,
+    }
+    const fullUrl = process.env.REACT_APP_API_SERVER + url
+    return fetch(fullUrl, options).then(response => response.json())
+    // TODO catch authentication errors and force login
+  }
+}

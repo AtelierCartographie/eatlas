@@ -9,7 +9,6 @@ import store from './store'
 import { checkSession } from './api'
 
 // Immediately ask to server for user's session
-// FIXME API call
 checkSession()
   .then(token => store.dispatch({ type: 'login', payload: token }))
   .catch(() => {}) // error = not logged in, whatever

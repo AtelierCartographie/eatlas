@@ -6,7 +6,7 @@ import AuthButton from './AuthButton'
 
 class Login extends Component {
   render() {
-    if (this.props.login) {
+    if (this.props.authenticated) {
       // Already authenticated: redirect to referer
       const { from } = this.props.location.state || { from: { pathname: '/' } }
       return <Redirect to={from} />
@@ -22,5 +22,5 @@ class Login extends Component {
 }
 
 export default connect(state => ({
-  login: state.user.login,
+  authenticated: !!state.user.email,
 }))(Login)

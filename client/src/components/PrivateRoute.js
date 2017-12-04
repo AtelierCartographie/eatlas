@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const PrivateRoute = ({ component: Component, checkedServerLogin, login, ...rest }) => {
-  const render = login // when not logged in, login is null
+const PrivateRoute = ({ component: Component, checkedServerLogin, authenticated, ...rest }) => {
+  const render = authenticated
     ? loggedInRender(Component) // I had to inject Component or the generated code was fucked
     : checkedServerLogin // did we already ask to server if user was actually already known?
       ? loginFormRender // already, and he's still not logged in: display login form
@@ -29,5 +29,5 @@ const waitCheckServerLogin = props => (
 
 export default connect(state => ({
   checkedServerLogin: state.user.checkedServerLogin,
-  login: state.user.login
+  authenticated: !!state.user.email,
 }))(PrivateRoute)

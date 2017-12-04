@@ -11,7 +11,7 @@ import { userLogin, notifyCheckedUserSession } from './actions'
 
 // Immediately ask to server for user's session
 checkSession()
-  .then(({ login, role }) => store.dispatch(userLogin(login, role)))
+  .then(({ name, email, role }) => store.dispatch(userLogin({ name, email, role })))
   .catch(() => {}) // error = not logged in, whatever
   // finally
   .then(() => store.dispatch(notifyCheckedUserSession()))

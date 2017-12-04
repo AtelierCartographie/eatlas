@@ -1,5 +1,6 @@
 const FAKE_USER = {
-  login: 'Fake User',
+  name: 'Fake User',
+  email: 'fake@fake',
   role: 'admin',
 }
 

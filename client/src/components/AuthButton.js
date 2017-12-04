@@ -33,7 +33,7 @@ class AuthButton extends Component {
   login(token) {
     this.props.notifyVerifyingUser()
     login(token)
-      .then(({ login, role }) => this.props.userLogin(token, role))
+      .then(({ name, email, role }) => this.props.userLogin(token, role))
       .catch(err => {
         this.props.notifyVerifyingUser(false)
         this.fail('EATLAS_SERVER', err.message)

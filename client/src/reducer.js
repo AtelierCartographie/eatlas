@@ -4,8 +4,9 @@ const initialState = {
     list: [],
   },
   user: { // current user (session)
-    login: null, // contains google oauth response
-    role: null, // user's role (once logged in), should be 'visitor' or 'admin'
+    name: null,
+    email: null,
+    role: 'anonymous', // should be 'anonymous', 'visitor' or 'admin'
     checkedServerLogin: false, // true once we asked to server if user was already logged in
     verifying: false, // true when sending google oauth code to API server for verification
   },

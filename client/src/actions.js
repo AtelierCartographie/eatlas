@@ -41,9 +41,9 @@ export const fetchUsers = () => dispatch => {
   }, 500)
 }
 
-export const userLogin = (login, role = 'visitor') => ({
+export const userLogin = ({ name, email, role = 'visitor' }) => ({
   type: 'LOGIN',
-  payload: { login, role },
+  payload: { name, email, role },
 })
 
 export const userLogout = () => ({

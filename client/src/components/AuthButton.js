@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 
 import { login } from '../api'
-import { userLogin, notifyCheckedUserSession, notifyVerifyingUser } from './../actions'
+import { userLogin, notifyVerifyingUser } from './../actions'
 
 class AuthButton extends Component {
   state = { error: null }
@@ -33,7 +33,7 @@ class AuthButton extends Component {
   login(token) {
     this.props.notifyVerifyingUser()
     login(token)
-      .then(({ name, email, role }) => this.props.userLogin(token, role))
+      .then(({ name, email, role }) => this.props.userLogin({ name, email, role }))
       .catch(err => {
         this.props.notifyVerifyingUser(false)
         this.fail('EATLAS_SERVER', err.message)

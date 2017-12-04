@@ -4,6 +4,7 @@ import { Link, Switch, Route } from 'react-router-dom'
 import './App.css'
 import Home from './Home'
 import Users from './Users'
+import UserForm from './UserForm'
 
 class App extends Component {
   render() {
@@ -23,7 +24,8 @@ class App extends Component {
           <div className="container">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/users" component={Users} />
+              <Route exact path="/users" component={Users} />
+              <Route path="/users/:id" component={UserForm} />
             </Switch>
           </div>
         </main>

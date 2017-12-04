@@ -1,10 +1,10 @@
 'use strict'
 
 const express = require('express')
-const passport = require('passport')
-const { Strategy: GoogleStrategy } = require('passport-google-oauth20')
-const { sign, verify } = require('jsonwebtoken')
-const { jwt, cookie } = require('config')
+//const passport = require('passport')
+//const { Strategy: GoogleStrategy } = require('passport-google-oauth20')
+//const { sign, verify } = require('jsonwebtoken')
+//const { jwt, cookie } = require('config')
 
 
 /*

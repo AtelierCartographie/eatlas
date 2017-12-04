@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Link, Switch, Route } from 'react-router-dom'
 
 import './App.css'
@@ -21,14 +20,16 @@ class App extends Component {
           </div>
         </nav>
         <main>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/users" component={Users} />
-          </Switch>
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/users" component={Users} />
+            </Switch>
+          </div>
         </main>
       </div>
     )
   }
 }
 
-export default connect()(App)
+export default App

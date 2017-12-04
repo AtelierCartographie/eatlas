@@ -3,7 +3,15 @@ import './App.css'
 
 class App extends Component {
   render() {
-    return <div className="App">eAtlas</div>
+    return (
+      <div className="App">
+        <div className="hero">
+          <div className="hero-body">
+            <div className="container">eAtlas</div>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 

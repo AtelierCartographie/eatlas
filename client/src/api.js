@@ -30,7 +30,7 @@ const fakeResponse = (fake, delay) => new Promise((resolve, reject) => setTimeou
 
 // Get from server or return fake, depends on environment configuration
 const query = ({ method = 'GET', url, body, delay = 0, fake = () => null } = {}) => {
-  if (process.env.REACT_APP_MOCK_API) {
+  if (process.env.REACT_APP_MOCK_API === 'yes') {
     return fakeResponse(fake, delay)
   } else {
     const headers = method === 'post'

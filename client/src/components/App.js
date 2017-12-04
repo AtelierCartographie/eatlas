@@ -1,6 +1,6 @@
 import './App.css';
 
-import { Link, Route, Switch } from 'react-router-dom';
+import { NavLink, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Home from './Home';
@@ -9,16 +9,15 @@ import Users from './Users';
 import classNames from 'classnames';
 
 class App extends Component {
-
   state = {
     menuActive: false
-  }
+  };
 
   toggleActive = () => {
     this.setState({
       menuActive: !this.state.menuActive
     });
-  }
+  };
 
   render() {
     return (
@@ -29,20 +28,41 @@ class App extends Component {
           aria-label="main navigation"
         >
           <div className="navbar-brand">
-            <button className={classNames('button', 'navbar-burger', {'is-active': this.state.menuActive})} onClick={this.toggleActive}>
+            <button
+              className={classNames('button', 'navbar-burger', {
+                'is-active': this.state.menuActive
+              })}
+              onClick={this.toggleActive}
+            >
               <span />
               <span />
               <span />
             </button>
           </div>
 
-          <div className={classNames('navbar-menu', {'is-active': this.state.menuActive})} onClick={this.toggleActive}>
-            <Link className="navbar-item" to="/">
-              Home
-            </Link>
-            <Link className="navbar-item" to="/users">
-              Users
-            </Link>
+          <div
+            className={classNames('navbar-menu', {
+              'is-active': this.state.menuActive
+            })}
+            onClick={this.toggleActive}
+          >
+            <div class="navbar-start">
+              <NavLink
+                activeClassName="is-active"
+                className="navbar-item"
+                exact
+                to="/"
+              >
+                Home
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                className="navbar-item"
+                to="/users"
+              >
+                Users
+              </NavLink>
+            </div>
           </div>
         </nav>
         <main>

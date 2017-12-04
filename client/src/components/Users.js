@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { fetchUsers } from './../actions'
 
 class Users extends Component {
@@ -17,12 +17,12 @@ class Users extends Component {
         {loading ? (
           <span>loading…</span>
         ) : (
-          <table className="table">
+          <table className="table is-striped is-bordered is-fullwidth">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Actions</th>
+                <th style={{width: '1px'}}></th>
               </tr>
             </thead>
             <tbody>

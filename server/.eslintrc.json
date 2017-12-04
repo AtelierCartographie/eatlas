@@ -1,0 +1,31 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": false
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "rules": {
+    "prefer-arrow-callback": "error",
+    "handle-callback-err": "error",
+    "indent": [
+      "warn",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ]
+  }
+}

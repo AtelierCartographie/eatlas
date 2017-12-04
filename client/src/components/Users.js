@@ -1,10 +1,21 @@
+// @flow
+
 import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUsers } from './../actions'
 
-class Users extends Component {
+type Props = {
+  users: {
+    loading: boolean,
+    list: Array<User>,
+  },
+  // actions
+  fetchUsers: typeof fetchUsers,
+}
+
+class Users extends Component<Props> {
   componentDidMount() {
     this.props.fetchUsers()
   }
@@ -22,7 +33,7 @@ class Users extends Component {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th style={{width: '1px'}}></th>
+                <th style={{ width: '1px' }} />
               </tr>
             </thead>
             <tbody>

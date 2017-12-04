@@ -1,10 +1,25 @@
+// @flow
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { fetchUser } from './../actions'
 
-class UserForm extends Component {
+type Props = {
+  loading: boolean,
+  user: User,
+  // router
+  match: {
+    params: {
+      id: string,
+    },
+  },
+  // actions
+  fetchUser: typeof fetchUser,
+}
+
+class UserForm extends Component<Props> {
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.id)
   }
@@ -55,7 +70,9 @@ class UserForm extends Component {
                 <button className="button is-primary">Submit</button>
               </div>
               <div className="control">
-                <Link className="button is-danger is-outlined" to="/users">Cancel</Link>
+                <Link className="button is-danger is-outlined" to="/users">
+                  Cancel
+                </Link>
               </div>
             </div>
           </form>

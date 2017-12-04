@@ -7,7 +7,7 @@
     "test": "mocha --reporter xunit",
     "dev": "run-p dev:*",
     "dev:es": "docker-compose -f docker-compose.dev.yml up",
-    "dev:server": "cross-env DEBUG='eatlas:*' nodemon server.js",
+    "dev:server": "cross-env NODE_CONFIG_DIR='../config' DEBUG='eatlas:*' nodemon server.js",
     "dev:test": "mocha --watch --growl --reporter list"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",
@@ -20,6 +20,7 @@
     "npm-run-all": "^4.1.2"
   },
   "dependencies": {
+    "config": "^1.28.1",
     "cross-env": "^5.1.1"
   }
 }

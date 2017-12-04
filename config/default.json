@@ -1,0 +1,10 @@
+{
+  "server": {
+    "port": 4000,
+    "host": "127.0.0.1"
+  },
+  "es": {
+    "host": "localhost",
+    "port": 9200
+  }
+}

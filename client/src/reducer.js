@@ -6,6 +6,7 @@ const initialState = {
   login: null, // contains google oauth response
   admin: false, // user's role (once logged in)
   ui: { // progress bars, loaders 'n co
+    checkedServerLogin: false, // true once we asked to server if user was already logged in
     verifying: false, // true when sending google oauth code to API server for verification
   },
 }

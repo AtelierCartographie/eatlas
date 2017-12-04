@@ -25,7 +25,7 @@ class AuthButton extends Component {
       return null
     }
 
-    return <strong>Authentication failed : {this.state.error}</strong>
+    return <strong>Authentication failed: {this.state.error}</strong>
   }
 
   login(token) {

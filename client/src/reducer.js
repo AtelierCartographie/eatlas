@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
     case 'LOGIN':
       return { ...state, user: { ...state.user, ...action.payload, verifying: false } }
     case 'LOGOUT':
-      return { ...state, user: { ...state.user, login: null, role: null } }
+      return { ...state, user: { ...state.user, name: null, email: null, role: null } }
     default:
       return state
   }

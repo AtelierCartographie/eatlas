@@ -12,6 +12,7 @@ import UserForm from './UserForm';
 import Users from './Users';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
+import { userLogout } from '../actions';
 
 
 class App extends Component {
@@ -75,6 +76,9 @@ class App extends Component {
                 Upload
               </NavLink>{' '}
             </div>
+            <div className="navbar-end">
+              { this.renderUserBox() }
+            </div>
           </div>
         </nav>
         <main>
@@ -91,6 +95,28 @@ class App extends Component {
       </div>
     );
   }
+
+  renderUserBox() {
+    const { authenticated, name, role } = this.props
+    if (!authenticated) {
+      return (
+        <NavLink className="navbar-item" activeClassName="is-active" exact to="/login">
+          Log In
+        </NavLink>
+      )
+    }
+
+    // TODO proper user box with link to profile 'n co
+    return (
+      <a className="navbar-item" onClick={this.props.userLogout}>
+        <strong title={`Role: ${role} (click to log out)`}>{name}</strong>
+      </a>
+    )
+  }
 }
 
-export default withRouter(connect()(App));
+export default withRouter(connect(state => ({
+  authenticated: !!state.user.email,
+  name: state.user.name,
+  role: state.user.role,
+}), { userLogout })(App));

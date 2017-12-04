@@ -10,6 +10,7 @@ export const fetchUser = id => dispatch => {
           id,
           name: `user_${id}`,
           email: `user_${id}@example.com`,
+          role: 'admin',
         },
       },
     })
@@ -29,11 +30,13 @@ export const fetchUsers = () => dispatch => {
             id: 1,
             name: 'user_1',
             email: 'user_1@example.com',
+            role: 'admin',
           },
           {
             id: 2,
             name: 'user_2',
             email: 'user_2@example.com',
+            role: 'admin',
           },
         ],
       },
@@ -47,7 +50,7 @@ export const userLogin = ({ name, email, role = 'visitor' }) => ({
 })
 
 export const userLogout = () => ({
-  type: 'LOGOUT'
+  type: 'LOGOUT',
 })
 
 export const notifyCheckedUserSession = (isChecked = true) => ({

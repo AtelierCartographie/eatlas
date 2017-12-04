@@ -33,6 +33,7 @@ class Users extends Component<Props> {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Role</th>
                 <th style={{ width: '1px' }} />
               </tr>
             </thead>
@@ -41,6 +42,7 @@ class Users extends Component<Props> {
                 <tr key={u.email}>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
+                  <td>{u.role}</td>
                   <td>
                     <div className="field is-grouped">
                       <div className="control">

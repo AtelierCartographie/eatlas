@@ -19,14 +19,42 @@ type Props = {
   fetchUser: typeof fetchUser,
 }
 
-class UserForm extends Component<Props> {
+type State = {
+  user?: User,
+}
+
+class UserForm extends Component<Props, State> {
+  state = {}
+
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.id)
   }
 
+  componentWillReceiveProps({ user }) {
+    if (!this.state.user) this.setState({ user })
+  }
+
+  handleChange = ({ target }) => {
+    const { name, value } = target
+    this.setState(state => ({
+      user: {
+        ...state.user,
+        [name]: value,
+      },
+    }))
+  }
+
+  handleSubmit = evt => {
+    evt.preventDefault()
+    // TODO
+    console.log(this.state.user)
+  }
+
   render() {
     const { id } = this.props.match.params
-    const { user, loading } = this.props
+    const { loading } = this.props
+    const { user } = this.state
+    const roles = ['admin']
 
     return (
       <div className="UserForm">
@@ -34,15 +62,17 @@ class UserForm extends Component<Props> {
         {loading || !user ? (
           <span>loading…</span>
         ) : (
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <div className="field">
               <label className="label">Name</label>
               <div className="control has-icons-left has-icons-right">
                 <input
                   className="input"
+                  name="name"
                   type="text"
                   placeholder="name"
                   value={user.name}
+                  onChange={this.handleChange}
                 />
                 <span className="icon is-small is-left">
                   <i className="fa fa-user" />
@@ -55,13 +85,30 @@ class UserForm extends Component<Props> {
               <div className="control has-icons-left has-icons-right">
                 <input
                   className="input"
+                  name="email"
                   type="email"
                   placeholder="email"
                   value={user.email}
+                  onChange={this.handleChange}
                 />
                 <span className="icon is-small is-left">
                   <i className="fa fa-envelope" />
                 </span>
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="label">Role</label>
+              <div className="control">
+                <div className="select">
+                  <select name="role" onChange={this.handleChange}>
+                    {roles.map(r => (
+                      <option key={r} value={r}>
+                        {r}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 

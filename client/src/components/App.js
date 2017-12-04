@@ -2,12 +2,15 @@ import './App.css';
 
 import { NavLink, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import Home from './Home';
 import Upload from './Upload';
 import UserForm from './UserForm';
 import Users from './Users';
-import classNames from 'classnames';
+import PrivateRoute from './PrivateRoute'
+import Login from './Login'
+
 
 class App extends Component {
   state = {
@@ -76,10 +79,11 @@ class App extends Component {
         <main>
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/users" component={Users} />
-              <Route path="/users/:id" component={UserForm} />
-              <Route path="/upload" component={Upload} />
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/" component={Home} />
+              <PrivateRoute exact path="/users" component={Users} />
+              <PrivateRoute path="/users/:id" component={UserForm} />
+              <PrivateRoute path="/upload" component={Upload} />
             </Switch>
           </div>
         </main>
@@ -88,4 +92,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(connect()(App))

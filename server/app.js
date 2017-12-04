@@ -35,4 +35,6 @@ app.use(bodyParser.json())
 app.get('/session', routes.user.session)
 app.post('/login', validate(routes.user.login.schema), routes.user.login)
 
+app.get('/users', routes.users.get)
+
 module.exports = app

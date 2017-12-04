@@ -1,4 +1,5 @@
 const FAKE_USER = {
+  id: '1',
   name: 'Fake User',
   email: 'fake@fake',
   role: 'admin',
@@ -18,6 +19,16 @@ export const login = token => query({
   fake: () => FAKE_USER,
 })
 
+export const getUser = () => query({
+  url: '/user',
+  fake: () => FAKE_USER
+})
+
+export const getUsers = () => query({
+  url: '/users',
+  fake: () => [ FAKE_USER ]
+})
+
 // Return a fake async response
 const fakeResponse = (fake, delay) => new Promise((resolve, reject) => setTimeout(() => {
   const result = fake()
@@ -32,18 +43,19 @@ const fakeResponse = (fake, delay) => new Promise((resolve, reject) => setTimeou
 const query = ({ method = 'GET', url, body, delay = 0, fake = () => null } = {}) => {
   if (process.env.REACT_APP_MOCK_API === 'yes') {
     return fakeResponse(fake, delay)
-  } else {
-    const headers = body
-      ? { 'Content-Type': 'application/json; charset=UTF-8' }
-      : {}
-    const options = {
-      credentials: 'include',
-      method,
-      headers,
-      body,
-    }
-    const fullUrl = process.env.REACT_APP_API_SERVER + url
-    return fetch(fullUrl, options).then(response => response.json())
-    // TODO catch authentication errors and force login
   }
+
+  const headers = body
+    ? { 'Content-Type': 'application/json; charset=UTF-8' }
+    : {}
+  const options = {
+    credentials: 'include',
+    method,
+    headers,
+    body,
+  }
+  const fullUrl = process.env.REACT_APP_API_SERVER + url
+  return fetch(fullUrl, options).then(response => response.json())
+  // TODO catch authentication errors and force login
+
 }

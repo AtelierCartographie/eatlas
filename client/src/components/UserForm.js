@@ -31,7 +31,7 @@ class UserForm extends Component<Props, State> {
   }
 
   componentWillReceiveProps({ user }) {
-    if (!this.state.user) this.setState({ user })
+    if (user && !this.state.user) this.setState({ user })
   }
 
   handleChange = ({ target }) => {
@@ -54,7 +54,7 @@ class UserForm extends Component<Props, State> {
     const { id } = this.props.match.params
     const { loading } = this.props
     const { user } = this.state
-    const roles = ['admin']
+    const roles = ['admin', 'visitor']
 
     return (
       <div className="UserForm">

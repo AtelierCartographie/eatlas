@@ -46,7 +46,7 @@ class App extends Component {
             })}
             onClick={this.toggleActive}
           >
-            <div class="navbar-start">
+            <div className="navbar-start">
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"

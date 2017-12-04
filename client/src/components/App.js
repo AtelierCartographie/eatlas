@@ -30,7 +30,6 @@ class App extends Component {
       <div className="App">
         <nav
           className="navbar is-fixed-top is-primary"
-          role="navigation"
           aria-label="main navigation"
         >
           <div className="navbar-brand">

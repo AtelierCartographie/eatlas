@@ -28,7 +28,19 @@ cd server && npm run dev
 
 ## Prod
 
+**ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f docker-compose.prod.yml up`` sera suffisante.
+
 ```sh
 npm i --production
-docker-compose -f docker-compose.prod.yml yp
 ```
+
+### Client
+
+* Préparer les fichiers scripts & assets : ``npm run build``
+* Placer les fichiers dans le document root de nginx
+
+### Serveur
+
+* Configurer le serveur (fichier ``config/local.json`` écrasant ``config/default.json`` et ``config.production.json``)
+* Lancer la base de données Elastic Search : ``docker-compose -f docker-compose.prod.yml up``
+* Lancer le serveur ``NODE_CONFIG_DIR=/path/to/config/ npm start``

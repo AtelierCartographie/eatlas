@@ -4,6 +4,7 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import Home from './Home';
+import Upload from './Upload';
 import UserForm from './UserForm';
 import Users from './Users';
 import classNames from 'classnames';
@@ -62,6 +63,13 @@ class App extends Component {
               >
                 Users
               </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                className="navbar-item"
+                to="/upload"
+              >
+                Upload
+              </NavLink>{' '}
             </div>
           </div>
         </nav>
@@ -71,6 +79,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/users" component={Users} />
               <Route path="/users/:id" component={UserForm} />
+              <Route path="/upload" component={Upload} />
             </Switch>
           </div>
         </main>

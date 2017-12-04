@@ -6,5 +6,16 @@
   "es": {
     "host": "localhost",
     "port": 9200
+  },
+  "jwt": {
+    "secret": "E-Atlas S3cr3T"
+  },
+  "cookie": {
+    
+  },
+  "google": {
+    "clientId": "see https://console.cloud.google.com/apis/credentials",
+    "clientSecret": "see https://console.cloud.google.com/apis/credentials",
+    "callbackURL": "http://localhost:4000/google-oauth-callback"
   }
 }

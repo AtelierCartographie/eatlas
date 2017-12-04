@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 
+import { login } from '../api'
+
+
 class AuthButton extends Component {
   state = { error: null }
 
@@ -32,10 +35,14 @@ class AuthButton extends Component {
     // TODO API call
     // TODO redux-actions
     this.props.dispatch({ type: 'ui', payload: { verifying: true } })
-    setTimeout(() => {
-      this.props.dispatch({ type: 'ui', payload: { verifying: false } })
-      this.props.dispatch({ type: 'login', payload: token })
-    }, 1000)
+    login(token)
+      .then(() => {
+        this.props.dispatch({ type: 'ui', payload: { verifying: false } })
+        this.props.dispatch({ type: 'login', payload: token })
+      })
+      .catch(err => {
+        this.fail('EATLAS_SERVER', 'Token refused by server')
+      })
   }
 
   fail(code, details) {

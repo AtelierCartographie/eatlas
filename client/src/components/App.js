@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
-import { Link, Switch, Route } from 'react-router-dom'
-
 import './App.css'
+
+import { Link, Route, Switch } from 'react-router-dom'
+import React, { Component } from 'react'
+
 import Home from './Home'
-import Users from './Users'
 import UserForm from './UserForm'
+import Users from './Users'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav className="navbar" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
           <div className="navbar-menu">
             <Link className="navbar-item" to="/">
               Home

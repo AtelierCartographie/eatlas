@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "mocha --reporter xunit",
     "dev": "run-p dev:*",
@@ -22,6 +22,11 @@
   },
   "dependencies": {
     "config": "^1.28.1",
-    "cross-env": "^5.1.1"
+    "cookie-session": "^2.0.0-beta.3",
+    "cross-env": "^5.1.1",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^7.4.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
   }
 }

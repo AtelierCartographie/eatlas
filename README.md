@@ -1,10 +1,16 @@
 # eatlas
 
+## Dépendances
+
+* Docker
+* Yarn
+* Temporaire : Node (sera inclus dans Docker à terme)
+
 ## Dév
 
 ```sh
-npm i
-npm run dev
+yarn install
+yarn dev
 ```
 
 * Environnement de dév React
@@ -15,9 +21,9 @@ Note : l'environnement de dév de React vide la console à chaque rebuild, ça
 
 ```sh
 # Terminal 1 (client)
-cd client && npm start
+cd client && yarn start
 # Terminal 2 (serveur)
-cd server && npm run dev
+cd server && yarn dev
 ```
 
 ### Elastic Search
@@ -31,19 +37,19 @@ cd server && npm run dev
 **ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f docker-compose.prod.yml up`` sera suffisante.
 
 ```sh
-npm i --production
+yarn install --prod
 ```
 
 ### Client
 
-* Préparer les fichiers scripts & assets : ``npm run build``
+* Préparer les fichiers scripts & assets : ``yarn build``
 * Placer les fichiers dans le document root de nginx
 
 ### Serveur
 
 * Configurer le serveur (fichier ``config/local.json`` écrasant ``config/default.json`` et ``config.production.json``)
 * Lancer la base de données Elastic Search : ``docker-compose -f docker-compose.prod.yml up``
-* Lancer le serveur ``NODE_CONFIG_DIR=/path/to/config/ npm start``
+* Lancer le serveur ``NODE_CONFIG_DIR=/path/to/config/ yarn start``
 
 ## Maintenance
 

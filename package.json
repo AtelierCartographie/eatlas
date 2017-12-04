@@ -6,14 +6,14 @@
   "main": "server/index.js",
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:client": "cd client && npm start",
-    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && yarn start",
+    "dev:server": "cd server && yarn dev",
     "test": "run-p test:*",
-    "test:client": "cd client && npm test",
-    "test:server": "cd server && npm test",
+    "test:client": "cd client && yarn test",
+    "test:server": "cd server && yarn test",
     "postinstall": "run-p install:*",
-    "install:client": "cd client && npm install",
-    "install:server": "cd server && npm install"
+    "install:client": "cd client && yarn install",
+    "install:server": "cd server && yarn install"
   },
   "repository": {
     "type": "git",

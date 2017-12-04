@@ -14,7 +14,7 @@ export const checkSession = () => query({
 export const login = token => query({
   method: 'POST',
   url: '/login',
-  body: { token },
+  body: JSON.stringify({ token }),
   fake: () => FAKE_USER,
 })
 
@@ -33,7 +33,7 @@ const query = ({ method = 'GET', url, body, delay = 0, fake = () => null } = {})
   if (process.env.REACT_APP_MOCK_API === 'yes') {
     return fakeResponse(fake, delay)
   } else {
-    const headers = method === 'post'
+    const headers = body
       ? { 'Content-Type': 'application/json; charset=UTF-8' }
       : {}
     const options = {

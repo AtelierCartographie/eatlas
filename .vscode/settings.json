@@ -1,5 +1,6 @@
 {
     "emmet.syntaxProfiles": {
         "javascript": "jsx"
-    }
+    },
+    "prettier.singleQuote": true
 }

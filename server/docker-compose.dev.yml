@@ -17,6 +17,10 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./data/es:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+
+volumes:
+  esdata:
+    driver: local

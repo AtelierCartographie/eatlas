@@ -17,6 +17,13 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./data/es:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data
     networks:
       - es
+
+networks:
+  es:
+
+volumes:
+  esdata:
+    driver: local

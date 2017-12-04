@@ -1,10 +1,22 @@
+// @flow
+
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
 
 import AuthButton from './AuthButton'
 
-class Login extends Component {
+type Props = {
+  authenticated: boolean,
+  // router
+  location: {
+    state: {
+      from: { pathname: string },
+    },
+  },
+}
+
+class Login extends Component<Props> {
   render() {
     if (this.props.authenticated) {
       // Already authenticated: redirect to referer

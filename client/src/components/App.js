@@ -1,3 +1,5 @@
+// @flow
+
 import './App.css';
 
 import { NavLink, Route, Switch } from 'react-router-dom';
@@ -14,8 +16,19 @@ import PrivateRoute from './PrivateRoute';
 import Login from './Login';
 import { userLogout } from '../actions';
 
+type Props = {
+  authenticated: boolean,
+  name: string,
+  role: string,
+  // actions
+  userLogout: typeof userLogout
+}
 
-class App extends Component {
+type State = {
+  menuActive: boolean
+}
+
+class App extends Component<Props, State> {
   state = {
     menuActive: false
   };

@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
@@ -5,7 +7,17 @@ import { connect } from 'react-redux'
 import { login } from '../api'
 import { userLogin, notifyVerifyingUser } from './../actions'
 
-class AuthButton extends Component {
+type Props = {
+  // actions
+  userLogin: typeof userLogin,
+  notifyVerifyingUser: typeof notifyVerifyingUser
+}
+
+type State = {
+  error: ?string
+}
+
+class AuthButton extends Component<Props, State> {
   state = { error: null }
 
   render() {

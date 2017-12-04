@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -22,5 +24,6 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </Provider>,
+  // $FlowFixMe
   document.getElementById('root'),
 )

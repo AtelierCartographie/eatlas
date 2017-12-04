@@ -1,8 +1,10 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import GooglePicker from 'react-google-picker';
 
-class Upload extends Component {
+class Upload extends Component<{}> {
   render() {
     return (
       <GooglePicker

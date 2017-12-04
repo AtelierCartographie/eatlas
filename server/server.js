@@ -1,1 +1,1 @@
-require('http').createServer((req, res) => res.end('Coucou'))
+require('http').createServer((req, res) => res.end('Coucou')).listen(4000)

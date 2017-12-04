@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 
 import { login } from '../api'
-
+import { userLogin, notifyCheckedUserSession, notifyVerifyingUser } from './../actions'
 
 class AuthButton extends Component {
   state = { error: null }
@@ -31,15 +31,12 @@ class AuthButton extends Component {
   }
 
   login(token) {
-    // TODO redux-actions
-    this.props.dispatch({ type: 'ui', payload: { verifying: true } })
+    this.props.notifyVerifyingUser()
     login(token)
-      .then(() => {
-        this.props.dispatch({ type: 'ui', payload: { verifying: false } })
-        this.props.dispatch({ type: 'login', payload: token })
-      })
+      .then(({ login, role }) => this.props.userLogin(token, role))
       .catch(err => {
-        this.fail('EATLAS_SERVER', 'Token refused by server')
+        this.props.notifyVerifyingUser(false)
+        this.fail('EATLAS_SERVER', err.message)
       })
   }
 
@@ -48,4 +45,4 @@ class AuthButton extends Component {
   }
 }
 
-export default connect()(AuthButton)
+export default connect(null, { userLogin, notifyVerifyingUser })(AuthButton)

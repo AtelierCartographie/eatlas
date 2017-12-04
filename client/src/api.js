@@ -1,25 +1,20 @@
+const FAKE_USER = {
+  login: 'Fake User',
+  role: 'admin',
+}
+
 // Check if user has an active session on server
 export const checkSession = () => query({
   url: '/session',
-  fake: () => ({
-    token_type: "Bearer",
-    access_token: "ya29.xxxxxxxxx",
-    scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.me openid email profile",
-    login_hint: "xxxxxxxxx",
-    expires_in: 3600,
-    id_token: "xxxxxxxxx",
-    session_state: { "extraQueryParams": { "authuser": "0" } },
-    first_issued_at: Date.now(),
-    expires_at: Date.now() + 3600 * 1000,
-    idpId: "google",
-  }),
+  fake: () => FAKE_USER,
 })
 
 // Try to login onto server once we got a Google Auth Token
-export const login = token => console.log(token) || query({
+export const login = token => query({
   method: 'POST',
   url: '/login',
   body: { token },
+  fake: () => FAKE_USER,
 })
 
 // Return a fake async response

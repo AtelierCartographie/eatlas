@@ -3,13 +3,15 @@ import './App.css';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 import Home from './Home';
 import Upload from './Upload';
 import UserForm from './UserForm';
 import Users from './Users';
-import PrivateRoute from './PrivateRoute'
-import Login from './Login'
+import PrivateRoute from './PrivateRoute';
+import Login from './Login';
 
 
 class App extends Component {
@@ -92,4 +94,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect()(App))
+export default withRouter(connect()(App));

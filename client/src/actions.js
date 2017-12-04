@@ -40,3 +40,22 @@ export const fetchUsers = () => dispatch => {
     })
   }, 500)
 }
+
+export const userLogin = (login, role = 'visitor') => ({
+  type: 'LOGIN',
+  payload: { login, role },
+})
+
+export const userLogout = () => ({
+  type: 'LOGOUT'
+})
+
+export const notifyCheckedUserSession = (isChecked = true) => ({
+  type: 'CHECKED_USER_SESSION',
+  payload: isChecked,
+})
+
+export const notifyVerifyingUser = (isVerifying = true) => ({
+  type: 'VERIFYING_USER',
+  payload: isVerifying,
+})

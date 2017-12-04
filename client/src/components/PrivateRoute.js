@@ -28,6 +28,6 @@ const waitCheckServerLogin = props => (
 )
 
 export default connect(state => ({
-  checkedServerLogin: state.ui.checkedServerLogin,
-  login: state.login
+  checkedServerLogin: state.user.checkedServerLogin,
+  login: state.user.login
 }))(PrivateRoute)

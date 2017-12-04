@@ -3,9 +3,9 @@ const initialState = {
     loading: true,
     list: [],
   },
-  login: null, // contains google oauth response
-  admin: false, // user's role (once logged in)
-  ui: { // progress bars, loaders 'n co
+  user: { // current user (session)
+    login: null, // contains google oauth response
+    role: null, // user's role (once logged in), should be 'visitor' or 'admin'
     checkedServerLogin: false, // true once we asked to server if user was already logged in
     verifying: false, // true when sending google oauth code to API server for verification
   },
@@ -31,12 +31,14 @@ export default (state = initialState, action) => {
         },
       }
 
-    case 'ui':
-      return { ...state, ui: { ...state.ui, ...action.payload } }
-    case 'login':
-      return { ...state, login: action.payload, admin: true } // FIXME user's role
-    case 'logout':
-      return { ...state, login: null, admin: false }
+    case 'CHECKED_USER_SESSION':
+      return { ...state, user: { ...state.user, checkedServerLogin: action.payload } }
+    case 'VERIFYING_USER':
+      return { ...state, user: { ...state.user, verifying: action.payload } }
+    case 'LOGIN':
+      return { ...state, user: { ...state.user, ...action.payload, verifying: false } }
+    case 'LOGOUT':
+      return { ...state, user: { ...state.user, login: null, role: null } }
     default:
       return state
   }

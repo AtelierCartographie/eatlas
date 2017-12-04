@@ -1,4 +1,4 @@
-version: "2"
+version: "2.1"
 
 services:
 
@@ -24,3 +24,4 @@ services:
 volumes:
   esdata:
     driver: local
+    name: eatlas_esdata_dev

@@ -44,3 +44,16 @@ npm i --production
 * Configurer le serveur (fichier ``config/local.json`` écrasant ``config/default.json`` et ``config.production.json``)
 * Lancer la base de données Elastic Search : ``docker-compose -f docker-compose.prod.yml up``
 * Lancer le serveur ``NODE_CONFIG_DIR=/path/to/config/ npm start``
+
+## Maintenance
+
+### Sauvegarde des données Docker
+
+* Les données sont dans un volume Docker (voir le nom du volume dans le fichier ``docker-compose.{dev,prod}.yml``)
+* Sauvegarde du volume : utiliser ``docker volume inspect <nom du volume>`` pour récupérer le "mountpoint", c'est le dossier à sauvegarder
+  * Exemple en une commande avec `tar` et `jq` : ``sudo tar zcvf backup.tgz $(docker volume inspect eatlas_esdata_dev | jq -r '.[0].Mountpoint')``
+
+### Suppression
+
+* Arrêt avec suppression des images : ``docker-compose -f <fichier.yml> down --rmi all``
+* Arrêt avec suppression des images **et des données** : ``docker-compose -f <fichier.yml> down --rmi all --volumes``

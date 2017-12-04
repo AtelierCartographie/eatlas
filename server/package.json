@@ -22,9 +22,16 @@
     "npm-run-all": "^4.1.2"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "config": "^1.28.1",
     "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.4",
     "cross-env": "^5.1.1",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "express-boom": "^2.0.0",
+    "express-joi-validate": "^1.0.3",
+    "express-session": "^1.15.6",
+    "googleapis": "^23.0.0",
+    "joi": "^13.0.2"
   }
 }

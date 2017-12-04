@@ -7,15 +7,13 @@
     "host": "localhost",
     "port": 9200
   },
-  "jwt": {
+  "session": {
     "secret": "E-Atlas S3cr3T"
   },
-  "cookie": {
-    
+  "cors": {
+    "origins": [ "http://localhost:3000" ]
   },
   "google": {
-    "clientId": "see https://console.cloud.google.com/apis/credentials",
-    "clientSecret": "see https://console.cloud.google.com/apis/credentials",
-    "callbackURL": "http://localhost:4000/google-oauth-callback"
+    "clientId": "see https://console.cloud.google.com/apis/credentials"
   }
 }

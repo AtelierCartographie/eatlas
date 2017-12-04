@@ -1,58 +1,38 @@
 'use strict'
 
 const express = require('express')
-//const passport = require('passport')
-//const { Strategy: GoogleStrategy } = require('passport-google-oauth20')
-//const { sign, verify } = require('jsonwebtoken')
-//const { jwt, cookie } = require('config')
+const config = require('config')
+const session = require('express-session')
+const boom = require('express-boom')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const validate = require('express-joi-validate')
 
-
-/*
-const tryCatch = (fn, cb) => {
-  let result, error
-  try {
-    result = fn()
-  } catch (e) {
-    error = e
-  }
-  cb(error, result)
-}
-
-passport.serializeUser((user, cb) => {
-  const payload = {
-    provider: user.provider,
-    account: user.account,
-  }
-  tryCatch(() => sign(payload, jwt.secret), cb)
-})
-
-passport.deserializeUser((str, cb) => {
-  tryCatch(() => verify(str, jwt.secret), cb)
-})
-
-// Use google auth to log in
-// clientID & clientSecret → https://console.cloud.google.com/apis/credentials
-passport.use(new GoogleStrategy(
-  {
-    clientID: google.clientId,
-    clientSecret: google.clientSecret,
-    callbackURL: google.callbackURL,
-  },
-  (accessToken, refreshToken, profile, cb) => {
-    const email = profile.emails.find(e => e.type === 'account')
-    if (!email) {
-      return cb(new Error('No account email found'))
-    }
-    // TODO check valid user
-    cb(null, { provider: profile.provider, account: email.value })
-  }
-))
-*/
-
+const routes = require('./lib/routes')
 
 const app = express()
 
-app.get('/', (req, res) => res.send('Coucou'))
+app.use(cors({
+  origin: (origin, cb) => {
+    if (config.cors.origins.includes(origin)) {
+      return cb(null, true)
+    }
+    cb(new Error('Not allowed by CORS'))
+  },
+  credentials: true, // required for fetch({ credentials: 'include' })
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
 
+app.use(session(Object.assign({
+  resave: true,
+  saveUninitialized: false,
+}, config.session)))
+
+app.use(boom())
+
+app.use(bodyParser.json())
+
+app.get('/session', routes.user.session)
+app.post('/login', validate(routes.user.login.schema), routes.user.login)
 
 module.exports = app

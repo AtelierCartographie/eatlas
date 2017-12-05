@@ -3,20 +3,81 @@
 import React, { Component } from 'react'
 
 import GooglePicker from 'react-google-picker'
+import loadScript from 'load-script'
+
+const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js'
+let scriptLoadingStarted = false
 
 class Upload extends Component<{}> {
+  componentDidMount() {
+    if (this.isGoogleReady()) {
+      // google api is already exists
+      // init immediately
+      this.onApiLoad()
+    } else if (!scriptLoadingStarted) {
+      // load google api and the init
+      scriptLoadingStarted = true
+      loadScript(GOOGLE_SDK_URL, this.onApiLoad)
+    } else {
+      // is loading ????
+    }
+  }
+
+  isGoogleReady() {
+    return !!window.gapi
+  }
+
+  isGoogleAuthReady() {
+    return !!window.gapi.auth
+  }
+
+  onApiLoad() {
+    window.gapi.load('client:auth2', () => {
+      window.gapi.client
+        .init({
+          apiKey: process.env.REACT_APP_GOOGLE_DEV_KEY,
+          clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+          discoveryDocs: [
+            'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
+          ],
+          scope: ['https://www.googleapis.com/auth/drive'],
+        })
+        .then(function() {
+          window.gapi.auth2.getAuthInstance().signIn()
+        })
+    })
+  }
+
+  onPick(data: any) {
+    if (!data.docs) return
+    window.gapi.client.drive.files
+      .export({
+        fileId: data.docs[0].id,
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      })
+      .then(response => {
+        console.log(response)
+      })
+  }
+
   render() {
     return (
       <GooglePicker
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         developerKey={process.env.REACT_APP_GOOGLE_DEV_KEY}
         scope={['https://www.googleapis.com/auth/drive.readonly']}
-        onChange={data => console.log('on change:', data)}
-        multiselect={true}
-        navHidden={true}
-        authImmediate={false}
+        createPicker={(google, oauthToken) => {
+          const picker = new window.google.picker.PickerBuilder()
+            .addView(new google.picker.View(google.picker.ViewId.DOCS))
+            .addView(new google.picker.DocsUploadView())
+            .setOAuthToken(oauthToken)
+            .setDeveloperKey(process.env.REACT_APP_GOOGLE_DEV_KEY)
+            .setCallback(this.onPick)
+          picker.build().setVisible(true)
+        }}
         // mimeTypes={['image/png', 'image/jpeg', 'image/jpg']}
-        viewId={'DOCS'}>
+      >
         <button className="button is-primary">picker</button>
       </GooglePicker>
     )

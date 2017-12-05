@@ -2,10 +2,13 @@
 
 const { Client } = require('elasticsearch')
 const { es: { connection, index } } = require('config')
+const initIndex = require('./init-es-index')
 
 const client = new Client(connection)
 
 const formatHit = ({ _source, _id }) => Object.assign({}, _source, { id: _id })
+
+initIndex(client, index)
 
 module.exports = type => {
   const find = body =>

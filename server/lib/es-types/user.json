@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "name": {
+      "type": "text"
+    },
+    "email": {
+      "type": "keyword"
+    },
+    "role": {
+      "type": "keyword"
+    }
+  }
+}

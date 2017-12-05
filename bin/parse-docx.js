@@ -9,8 +9,14 @@ const getText = ($, el) =>
     .text()
     .trim()
 
-const parseResource = ($, el) => {
-  const text = getText($, el).slice(1, -1)
+const getList = ($, el) =>
+  $(el)
+    .children()
+    .map((i, el) => getText($, el))
+    .get()
+
+const parseResource = text => {
+  text = text.slice(1, -1)
   const [id, ...rest] = text.split('-').map(s => s.trim())
   return {
     type: 'resource',
@@ -19,31 +25,65 @@ const parseResource = ($, el) => {
   }
 }
 
+const parseMeta = text => {
+  const regexp = /^\{(.*?)\}:(.*)/
+  const [, id, value] = regexp.exec(text)
+  return {
+    type: 'meta',
+    id,
+    // remove quotes
+    text: value.trim().slice(1, -1),
+  }
+}
+
+const parseMetaNext = ($, { next }, meta) => {
+  switch (next.name) {
+    case 'p':
+      meta.text = getText($, next)
+      break
+
+    case 'ul':
+      delete meta.text
+      meta.list = getList($, next)
+      break
+  }
+  return meta
+}
+
 const parseFootnotes = ($, el) => ({
   type: 'footnotes',
-  footnotes: $(el)
-    .children()
-    .map((i, el) => getText($, el))
-    .get(),
+  list: getList($, el),
 })
 
 const parseChild = $ => (i, el) => {
-  if (i === 0) return { type: 'title', text: getText($, el) }
+  const text = getText($, el)
+  if (i === 0) return { type: 'title', text }
 
   switch (el.name) {
+    case 'p':
+      if (text.startsWith('[') && text.endsWith(']')) return parseResource(text)
+      break
+
+    case 'h3':
+      if (text.startsWith('{')) {
+        let meta = parseMeta(text)
+        // meta content is in next node
+        if (!meta.text) {
+          el.skipNext = true
+          meta = parseMetaNext($, el, meta)
+        }
+        return meta
+      }
+      break
+
     case 'ol':
       return parseFootnotes($, el)
-
-    case 'p': {
-      const text = getText($, el)
-      if (text.startsWith('[') && text.endsWith(']'))
-        return parseResource($, el)
+  }
+  if (!el.prev.skipNext)
+    return {
+      type: el.name,
+      text,
     }
-  }
-  return {
-    type: el.name,
-    text: getText($, el),
-  }
 }
 
 const main = async () => {
@@ -53,7 +93,9 @@ const main = async () => {
     .children()
     .map(parseChild($))
     .get()
-    .filter(n => typeof n.text !== 'string' || n.text)
+    .filter(n => n && (typeof n.text !== 'string' || n.text))
 }
 
-main().then(console.log, console.error)
+main()
+  .then(nodes => JSON.stringify({ nodes }, null, 2))
+  .then(console.log, console.error)

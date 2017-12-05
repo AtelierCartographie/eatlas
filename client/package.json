@@ -21,5 +21,11 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all"
   }
 }

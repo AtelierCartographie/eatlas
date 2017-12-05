@@ -8,10 +8,8 @@ class Upload extends Component<{}> {
   render() {
     return (
       <GooglePicker
-        clientId={
-          '937774650140-tvfga32rphg3p3ubh53stscagmtb9tf5.apps.googleusercontent.com'
-        }
-        developerKey={'AIzaSyAy4sF8n9pZ_pbWR1aECiz9gk9x70f0reg'}
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        developerKey={process.env.REACT_APP_GOOGLE_DEV_KEY}
         scope={['https://www.googleapis.com/auth/drive.readonly']}
         onChange={data => console.log('on change:', data)}
         multiselect={true}

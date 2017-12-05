@@ -1,58 +1,56 @@
 // @flow
 
-import './App.css';
+import './App.css'
 
-import { NavLink, Route, Switch } from 'react-router-dom';
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import { NavLink, Route, Switch } from 'react-router-dom'
+import React, { Component } from 'react'
+import classNames from 'classnames'
+import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
 
-import Home from './Home';
-import Upload from './Upload';
-import UserForm from './UserForm';
-import Users from './Users';
-import PrivateRoute from './PrivateRoute';
-import Login from './Login';
-import { userLogout } from '../actions';
+import Home from './Home'
+import Upload from './Upload'
+import UserForm from './UserForm'
+import Users from './Users'
+import PrivateRoute from './PrivateRoute'
+import Login from './Login'
+import { userLogout } from '../actions'
 
 type Props = {
   authenticated: boolean,
   name: string,
   role: string,
   // actions
-  userLogout: typeof userLogout
+  userLogout: typeof userLogout,
 }
 
 type State = {
-  menuActive: boolean
+  menuActive: boolean,
 }
 
 class App extends Component<Props, State> {
   state = {
-    menuActive: false
-  };
+    menuActive: false,
+  }
 
   toggleActive = () => {
     this.setState({
-      menuActive: !this.state.menuActive
-    });
-  };
+      menuActive: !this.state.menuActive,
+    })
+  }
 
   render() {
     return (
       <div className="App">
         <nav
           className="navbar is-fixed-top is-primary"
-          aria-label="main navigation"
-        >
+          aria-label="main navigation">
           <div className="navbar-brand">
             <button
               className={classNames('button', 'navbar-burger', {
-                'is-active': this.state.menuActive
+                'is-active': this.state.menuActive,
               })}
-              onClick={this.toggleActive}
-            >
+              onClick={this.toggleActive}>
               <span />
               <span />
               <span />
@@ -61,37 +59,31 @@ class App extends Component<Props, State> {
 
           <div
             className={classNames('navbar-menu', {
-              'is-active': this.state.menuActive
+              'is-active': this.state.menuActive,
             })}
-            onClick={this.toggleActive}
-          >
+            onClick={this.toggleActive}>
             <div className="navbar-start">
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"
                 exact
-                to="/"
-              >
+                to="/">
                 Home
               </NavLink>
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"
-                to="/users"
-              >
+                to="/users">
                 Users
               </NavLink>
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"
-                to="/upload"
-              >
+                to="/upload">
                 Upload
               </NavLink>{' '}
             </div>
-            <div className="navbar-end">
-              { this.renderUserBox() }
-            </div>
+            <div className="navbar-end">{this.renderUserBox()}</div>
           </div>
         </nav>
         <main>
@@ -106,14 +98,18 @@ class App extends Component<Props, State> {
           </div>
         </main>
       </div>
-    );
+    )
   }
 
   renderUserBox() {
     const { authenticated, name, role } = this.props
     if (!authenticated) {
       return (
-        <NavLink className="navbar-item" activeClassName="is-active" exact to="/login">
+        <NavLink
+          className="navbar-item"
+          activeClassName="is-active"
+          exact
+          to="/login">
           Log In
         </NavLink>
       )
@@ -128,8 +124,13 @@ class App extends Component<Props, State> {
   }
 }
 
-export default withRouter(connect(state => ({
-  authenticated: !!state.user.email,
-  name: state.user.name,
-  role: state.user.role,
-}), { userLogout })(App));
+export default withRouter(
+  connect(
+    state => ({
+      authenticated: !!state.user.email,
+      name: state.user.name,
+      role: state.user.role,
+    }),
+    { userLogout },
+  )(App),
+)

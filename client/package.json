@@ -27,5 +27,8 @@
     "singleQuote": true,
     "jsxBracketSameLine": true,
     "trailingComma": "all"
+  },
+  "devDependencies": {
+    "prettier": "^1.9.0"
   }
 }

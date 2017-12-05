@@ -10,11 +10,11 @@ import { userLogin, notifyVerifyingUser } from './../actions'
 type Props = {
   // actions
   userLogin: typeof userLogin,
-  notifyVerifyingUser: typeof notifyVerifyingUser
+  notifyVerifyingUser: typeof notifyVerifyingUser,
 }
 
 type State = {
-  error: ?string
+  error: ?string,
 }
 
 class AuthButton extends Component<Props, State> {
@@ -23,7 +23,7 @@ class AuthButton extends Component<Props, State> {
   render() {
     return (
       <div className="AuthButton">
-        { this.renderError() }
+        {this.renderError()}
         <GoogleLogin
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="Log in with Google"
@@ -34,7 +34,7 @@ class AuthButton extends Component<Props, State> {
     )
   }
 
-  renderError () {
+  renderError() {
     if (!this.state.error) {
       return null
     }
@@ -45,7 +45,9 @@ class AuthButton extends Component<Props, State> {
   login(token) {
     this.props.notifyVerifyingUser()
     login(token)
-      .then(({ name, email, role }) => this.props.userLogin({ name, email, role }))
+      .then(({ name, email, role }) =>
+        this.props.userLogin({ name, email, role }),
+      )
       .catch(err => {
         this.props.notifyVerifyingUser(false)
         this.fail('EATLAS_SERVER', err.message)

@@ -75,3 +75,4 @@ L'application nécessite une connexion via Google OAuth et l'accès à Google Dr
   * Configurer "REACT_APP_GOOGLE_CLIENT_ID" à la valeur du "client id"
 * Menu burger → APIs & Services → Library → activer les APIs suivantes :
   * Google Picker API
+* Menu burger → IAM & administration → Paramètres → relever le n° du projet

@@ -3,12 +3,47 @@
 const { Client } = require('elasticsearch')
 const { es: { connection, indices } } = require('config')
 const initIndices = require('./init-es-index')
+const AgentKeepAlive = require('agentkeepalive')
+const { promisify } = require('util')
 
-const client = new Client(connection)
+const client = new Client(
+  Object.assign(
+    {
+      keepAlive: true,
+      createNodeAgent: (conn, conf) =>
+        new AgentKeepAlive(conn.makeAgentConfig(conf)),
+    },
+    connection,
+  ),
+)
+
+const ready = (() => {
+  const sleep = promisify(setTimeout)
+  let readyP = null
+  const check = () => {
+    if (readyP) {
+      return readyP
+    }
+    return (
+      client
+        .ping() // TODO find a more silent way, this logs a awful bunch of messages
+        // Connection ready: we can start querying
+        .then(() => {
+          readyP = Promise.resolve()
+        })
+        // Not ready: try again later
+        .catch(() => {
+          console.error('Connection to ES server failed, trying again…') // eslint-disable-line no-console
+          return sleep(2000).then(check) // TODO configurable timeout
+        })
+    )
+  }
+  return check()
+})()
 
 const formatHit = ({ _source, _id }) => Object.assign({}, _source, { id: _id })
 
-initIndices(client, indices)
+ready.then(() => initIndices(client, indices))
 
 module.exports = type => {
   const find = body =>
@@ -48,3 +83,4 @@ module.exports = type => {
 }
 
 module.exports.client = client
+module.exports.ready = ready

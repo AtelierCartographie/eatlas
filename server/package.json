@@ -23,6 +23,7 @@
     "prettier": "^1.9.0"
   },
   "dependencies": {
+    "agentkeepalive": "^3.3.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "config": "^1.28.1",

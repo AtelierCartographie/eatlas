@@ -27,7 +27,6 @@ exports.login = (req, res) => {
     .then(envelope => envelope.getPayload())
     .then(({ email }) => users.findByEmail(email))
     .then(user => {
-      console.log('FOUND USER', user)
       req.session.user = user
       res.send(user)
     })

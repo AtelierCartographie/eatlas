@@ -65,3 +65,13 @@ yarn install --prod
 
 * Arrêt avec suppression des images : ``docker-compose -f <fichier.yml> down --rmi all``
 * Arrêt avec suppression des images **et des données** : ``docker-compose -f <fichier.yml> down --rmi all --volumes``
+
+## Google
+
+L'application nécessite une connexion via Google OAuth et l'accès à Google Drive, il faut donc créer une application Google avec les bons paramètres :
+
+* Créer une application sur https://console.developers.google.com
+* Menu burger → APIs & Services → Credentials → créer un nouveau projet :
+  * Configurer "REACT_APP_GOOGLE_CLIENT_ID" à la valeur du "client id"
+* Menu burger → APIs & Services → Library → activer les APIs suivantes :
+  * Google Picker API

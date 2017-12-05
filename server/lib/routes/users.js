@@ -4,7 +4,7 @@ const { users } = require('../model')
 
 exports.list = (req, res) =>
   users
-    .find()
+    .list()
     .then(users => res.send(users))
     .catch(err => res.boom.badImplementation(err))
 

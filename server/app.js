@@ -21,5 +21,6 @@ app.get('/users', users.list)
 app.get('/users/:id', users.findUser, users.get)
 app.post('/users/:id', users.findUser, validateBody(users.update))
 app.post('/users', validateBody(users.create))
+app.delete('/users/:id', users.findUser, users.remove)
 
 module.exports = app

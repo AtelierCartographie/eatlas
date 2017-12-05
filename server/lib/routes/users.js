@@ -1,15 +1,17 @@
 'use strict'
 
 const schemas = require('../schemas')
-const { listUsers, addUser, updateUser, findUserById } = require('../model')
+const { users } = require('../model')
 
 exports.list = (req, res) =>
-  listUsers()
+  users
+    .find()
     .then(users => res.send(users))
     .catch(err => res.boom.badImplementation(err))
 
 exports.findUser = (req, res, next) =>
-  findUserById(req.params.id)
+  users
+    .findById(req.params.id)
     .then(user => {
       if (!user) {
         return res.boom.notFound('Unknown User Id')
@@ -22,13 +24,21 @@ exports.findUser = (req, res, next) =>
 exports.get = (req, res) => res.send(req.foundUser)
 
 exports.update = (req, res) =>
-  updateUser(req.foundUser.id, req.body)
+  users
+    .update(req.foundUser.id, req.body)
     .then(updatedUser => res.send(updatedUser))
     .catch(err => res.boom.badImplementation(err))
 exports.update.schema = schemas.userUpdate
 
 exports.add = (req, res) =>
-  addUser(req.body)
+  users
+    .create(req.body)
     .then(user => res.send(user))
     .catch(err => res.boom.badImplementation(err))
 exports.add.schema = schemas.fullUser
+
+exports.remove = (req, res) =>
+  users
+    .remove(req.params.id)
+    .then(() => res.status(204).end())
+    .catch(err => res.boom.badImplementation(err))

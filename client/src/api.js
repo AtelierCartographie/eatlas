@@ -17,13 +17,13 @@ export const login = token =>
   query({
     method: 'POST',
     url: '/login',
-    body: JSON.stringify({ token }),
+    body: { token },
     fake: () => FAKE_USER,
   })
 
-export const getUser = () =>
+export const getUser = id =>
   query({
-    url: '/user',
+    url: `/users/${id}`,
     fake: () => FAKE_USER,
   })
 
@@ -31,6 +31,22 @@ export const getUsers = () =>
   query({
     url: '/users',
     fake: () => [FAKE_USER],
+  })
+
+export const updateUser = (id, body) =>
+  query({
+    method: 'POST',
+    url: `/users/${id}`,
+    body,
+    fake: () => Object.assign(FAKE_USER, body),
+  })
+
+export const addUser = (body) =>
+  query({
+    method: 'POST',
+    url: '/users',
+    body,
+    fake: () => FAKE_USER,
   })
 
 // Return a fake async response
@@ -61,7 +77,7 @@ const query = (
     credentials: 'include',
     method,
     headers,
-    body,
+    body: body && JSON.stringify(body),
   }
   const fullUrl = process.env.REACT_APP_API_SERVER + url
   return fetch(fullUrl, options).then(response => response.json())

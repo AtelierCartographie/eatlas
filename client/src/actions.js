@@ -3,7 +3,7 @@ import { getUser, getUsers } from './api'
 export const fetchUser = id => dispatch => {
   dispatch({ type: 'FETCH_USER', payload: { id } })
 
-  getUser().then(user =>
+  getUser(id).then(user =>
     dispatch({
       type: 'RECEIVE_USER',
       payload: { user },

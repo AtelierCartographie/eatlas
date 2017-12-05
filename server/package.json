@@ -30,7 +30,6 @@
     "cross-env": "^5.1.1",
     "express": "^4.16.2",
     "express-boom": "^2.0.0",
-    "express-joi-validate": "^1.0.3",
     "express-session": "^1.15.6",
     "googleapis": "^23.0.0",
     "joi": "^13.0.2"

@@ -1,6 +1,5 @@
 'use strict'
 
-const schemas = require('../schemas')
 const { users } = require('../model')
 
 exports.list = (req, res) =>
@@ -28,14 +27,12 @@ exports.update = (req, res) =>
     .update(req.foundUser.id, req.body)
     .then(updatedUser => res.send(updatedUser))
     .catch(err => res.boom.badImplementation(err))
-exports.update.schema = schemas.userUpdate
 
 exports.add = (req, res) =>
   users
     .create(req.body)
     .then(user => res.send(user))
     .catch(err => res.boom.badImplementation(err))
-exports.add.schema = schemas.fullUser
 
 exports.remove = (req, res) =>
   users

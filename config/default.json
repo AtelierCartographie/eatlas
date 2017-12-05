@@ -7,7 +7,9 @@
     "connection": {
       "host": "localhost:9200"
     },
-    "index": "eatlas"
+    "index": "eatlas",
+    "autoMigration": true,
+    "acceptObsoleteMapping": false
   },
   "session": {
     "secret": "E-Atlas S3cr3T"

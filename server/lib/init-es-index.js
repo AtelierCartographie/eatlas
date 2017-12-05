@@ -2,6 +2,7 @@
 
 const chalk = require('chalk')
 const isEqual = require('lodash.isequal')
+const { es: { autoMigration, acceptObsoleteMapping } } = require('config')
 
 const mappings = {
   user: require('./es-types/user.json'),
@@ -55,11 +56,25 @@ const upgradeMappings = (client, index, currentMappings) => {
     Object.keys(mappings).map(type =>
       client.indices.putMapping({ index, type, body: mappings[type] }),
     ),
-  ).then(() => true)
+  ).then(() => 'Simple putMapping')
 }
 
 const migrateIndex = (client, index, oldIndex) => {
-  console.error(chalk.bold.red('Obsolete mapping: upgrading…')) // eslint-disable-line no-console
+  console.error(chalk.bold.red('Obsolete mapping')) // eslint-disable-line no-console
+  // Disabled auto-migration: reject
+  if (!autoMigration) {
+    console.error(chalk.bold.red('Automatic index migration: disabled')) // eslint-disable-line no-console
+    console.error(chalk.bold('You should manually upgrade mapping ASAP:')) // eslint-disable-line no-console
+    console.error(chalk.bold(JSON.stringify(mappings))) // eslint-disable-line no-console
+    if (!acceptObsoleteMapping) {
+      console.error(chalk.bold.red('Obsolete mapping unaccepted: exit now')) // eslint-disable-line no-console
+      process.exit(1)
+    } else {
+      console.error(chalk.bold('Obsolete mapping accepted')) // eslint-disable-line no-console
+    }
+    return
+  }
+  console.error(chalk.bold('Automatic index upgrade…')) // eslint-disable-line no-console
   // Force upgrade mapping by reindexing
   const newIndex = index + '_' + Date.now()
   return client.indices
@@ -71,7 +86,7 @@ const migrateIndex = (client, index, oldIndex) => {
       }),
     )
     .then(() => renameIndex(client, index, oldIndex, newIndex))
-    .then(() => true)
+    .then(() => `New index "${newIndex}"`)
 }
 
 const renameIndex = (client, alias, oldIndex, newIndex) => {
@@ -105,8 +120,8 @@ module.exports = (client, index) =>
         // Note: checkIndex will process.exit() in case of error, we're sure this catch() is about putMappings
         .catch(() => migrateIndex(client, index, realIndex))
         .then(
-          migrated =>
-            migrated && console.error(chalk.bold.green('Index migrated.')), // eslint-disable-line no-console
+          info =>
+            info && console.error(chalk.bold.green(`Index updated: ${info}`)), // eslint-disable-line no-console
         ),
     )
     .catch(err => {

@@ -19,7 +19,8 @@
     "eslint": "^4.12.1",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.2",
+    "prettier": "^1.9.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -33,5 +34,12 @@
     "express-session": "^1.15.6",
     "googleapis": "^23.0.0",
     "joi": "^13.0.2"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all",
+    "useTabs": false
   }
 }

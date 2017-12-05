@@ -18,6 +18,10 @@
   "session": {
     "secret": "E-Atlas S3cr3T"
   },
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  },
   "cors": {
     "origins": [ "http://localhost:3000" ]
   },

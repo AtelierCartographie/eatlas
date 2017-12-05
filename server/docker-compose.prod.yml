@@ -21,10 +21,22 @@ services:
     networks:
       - es
 
+  redis:
+    container_name: eatlas_redis
+    image: "redis:4"
+    volumes:
+      - redisdata:/data
+    networks:
+      - redis
+
 networks:
   es:
+  redis:
 
 volumes:
   esdata:
     driver: local
     name: eatlas_esdata
+  redisdata:
+    driver: local
+    name: eatlas_redisdata

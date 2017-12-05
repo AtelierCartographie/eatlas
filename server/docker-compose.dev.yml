@@ -21,7 +21,18 @@ services:
     ports:
       - 9200:9200
 
+  redis:
+    container_name: eatlas_redis_dev
+    image: "redis:4"
+    volumes:
+      - redisdata:/data
+    ports:
+      - 6379:6379
+
 volumes:
   esdata:
     driver: local
     name: eatlas_esdata_dev
+  redisdata:
+    driver: local
+    name: eatlas_redisdata_dev

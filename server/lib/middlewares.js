@@ -2,6 +2,7 @@
 
 const config = require('config')
 const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
 const cors = require('cors')
 const { validate } = require('./schemas')
 
@@ -21,6 +22,7 @@ exports.session = session(
     {
       resave: true,
       saveUninitialized: false,
+      store: new RedisStore(config.redis),
     },
     config.session,
   ),

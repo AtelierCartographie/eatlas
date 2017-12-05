@@ -9,7 +9,7 @@ exports.list = (req, res) =>
     .catch(err => res.boom.badImplementation(err))
 
 exports.findUser = (req, res, next) =>
-  findUserById(Number(req.params.id))
+  findUserById(req.params.id)
     .then(user => {
       if (!user) {
         return res.boom.notFound('Unknown User Id')
@@ -25,10 +25,10 @@ exports.update = (req, res) =>
   updateUser(req.foundUser.id, req.body)
     .then(updatedUser => res.send(updatedUser))
     .catch(err => res.boom.badImplementation(err))
-exports.update.schema = schemas.user
+exports.update.schema = schemas.userUpdate
 
 exports.add = (req, res) =>
   addUser(req.body)
     .then(user => res.send(user))
     .catch(err => res.boom.badImplementation(err))
-exports.add.schema = schemas.user
+exports.add.schema = schemas.fullUser

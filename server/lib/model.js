@@ -1,34 +1,55 @@
 'use strict'
 
-// TODO elasticsearch
+const { Client } = require('elasticsearch')
+const { es: { connection, index } } = require('config')
 
-const users = [
-  {
-    id: 1,
-    name: 'user_1',
-    email: 'user_1@example.com',
-    role: 'admin',
-  },
-  {
-    id: 2,
-    name: 'user_2',
-    email: 'user_2@example.com',
-    role: 'admin',
-  },
-]
+const client = new Client(connection)
 
-exports.listUsers = () => Promise.resolve(users)
+const formatHit = ({ _source, _id }) => Object.assign({}, _source, { id: _id })
 
-exports.findUserByEmail = email => Promise.resolve(users[0]) // eslint-disable-line no-unused-vars
+exports.listUsers = () =>
+  client
+    .search({
+      index,
+      type: 'user',
+    })
+    .then(res => res.hits.hits.map(formatHit))
 
-exports.findUserById = id => Promise.resolve(users.find(u => u.id === id))
+exports.findUserByEmail = email =>
+  client
+    .search({
+      index,
+      type: 'user',
+      body: { query: { term: { email } } },
+    })
+    .then(res => (res.hits.total === 0 ? null : formatHit(res.hits.hits[0])))
 
-exports.addUser = body => {
-  const id = Math.max(...users.map(u => u.id)) + 1
-  const user = Object.assign({}, body, { id })
-  users.push(user)
-  return Promise.resolve(user)
-}
+exports.findUserById = id =>
+  client
+    .get({
+      index,
+      type: 'user',
+      id,
+    })
+    .then(hit => (hit.found ? formatHit(hit) : null))
+
+exports.addUser = body =>
+  client
+    .index({
+      index,
+      type: 'user',
+      body,
+    })
+    .then(({ _id }) => formatHit({ _source: body, _id }))
 
 exports.updateUser = (id, updates) =>
-  exports.findUserById(id).then(u => Object.assign(u, updates))
+  client
+    .update({
+      index,
+      type: 'user',
+      id,
+      body: {
+        doc: updates,
+      },
+    })
+    .then(() => exports.findUserById(id))

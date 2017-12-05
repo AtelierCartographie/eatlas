@@ -2,7 +2,15 @@
 
 const Joi = require('joi')
 
-exports.user = {
+exports.userUpdate = {
+  name: Joi.string()
+    .min(2)
+    .max(250),
+  email: Joi.string().email(),
+  role: Joi.string().valid(['admin', 'visitor']),
+}
+
+exports.fullUser = {
   name: Joi.string()
     .min(2)
     .max(250)
@@ -10,7 +18,9 @@ exports.user = {
   email: Joi.string()
     .email()
     .required(),
-  role: Joi.string().valid(['admin', 'visitor']),
+  role: Joi.string()
+    .valid(['admin', 'visitor'])
+    .required(),
 }
 
 exports.googleOauth = {

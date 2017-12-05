@@ -4,8 +4,10 @@
     "host": "127.0.0.1"
   },
   "es": {
-    "host": "localhost",
-    "port": 9200
+    "connection": {
+      "host": "localhost:9200"
+    },
+    "index": "eatlas"
   },
   "session": {
     "secret": "E-Atlas S3cr3T"

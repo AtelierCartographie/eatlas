@@ -15,6 +15,13 @@ const getList = ($, el) =>
     .map((i, el) => getText($, el))
     .get()
 
+const parseLinks = ($, el) =>
+  $(el)
+    .children()
+    .filter((i, el) => el.name === 'a' && el.attribs.href)
+    .map((i, el) => [getText($, el), el.attribs.href])
+    .get()
+
 const parseResource = text => {
   text = text.slice(1, -1)
   const [id, ...rest] = text.split('-').map(s => s.trim())
@@ -83,6 +90,7 @@ const parseChild = $ => (i, el) => {
     return {
       type: el.name,
       text,
+      links: parseLinks($, el),
     }
 }
 

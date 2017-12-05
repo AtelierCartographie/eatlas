@@ -3,7 +3,7 @@
 const config = require('config')
 const session = require('express-session')
 const cors = require('cors')
-const Joi = require('joi')
+const { validate } = require('./schemas')
 
 exports.cors = cors({
   origin: (origin, cb) => {
@@ -33,11 +33,10 @@ exports.validateBody = handler => (req, res, next) => {
     )
   }
 
-  const { error, value } = Joi.validate(req.body, handler.schema)
-  if (error) {
-    return res.boom.badRequest(error.message, error)
-  }
-
-  req.body = value
-  handler(req, res, next)
+  validate(req.body, handler.schema)
+    .then(value => {
+      req.body = value
+      setImmediate(() => handler(req, res, next))
+    })
+    .catch(err => res.boom.badRequest(err))
 }

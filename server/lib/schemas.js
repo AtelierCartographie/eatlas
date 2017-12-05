@@ -1,6 +1,9 @@
 'use strict'
 
 const Joi = require('joi')
+const { promisify } = require('util')
+
+exports.validate = promisify(Joi.validate)
 
 exports.userUpdate = {
   name: Joi.string()

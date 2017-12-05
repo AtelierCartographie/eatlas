@@ -4,17 +4,17 @@ import './App.css'
 
 import { NavLink, Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
-import classNames from 'classnames'
-import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
 
 import Home from './Home'
+import Login from './Login'
+import PrivateRoute from './PrivateRoute'
 import Upload from './Upload'
 import UserForm from './UserForm'
 import Users from './Users'
-import PrivateRoute from './PrivateRoute'
-import Login from './Login'
+import classNames from 'classnames'
+import { connect } from 'react-redux'
 import { userLogout } from '../actions'
+import { withRouter } from 'react-router'
 
 type Props = {
   authenticated: boolean,
@@ -86,7 +86,7 @@ class App extends Component<Props, State> {
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>
         </nav>
-        <main>
+        <main className="section">
           <div className="container">
             <Switch>
               <Route exact path="/login" component={Login} />

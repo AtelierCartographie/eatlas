@@ -19,7 +19,8 @@ const parseLinks = ($, el) =>
   $(el)
     .children()
     .filter((i, el) => el.name === 'a' && el.attribs.href)
-    .map((i, el) => [getText($, el), el.attribs.href])
+    // beware of cheerio and flatMap
+    .map((i, el) => [[getText($, el), el.attribs.href]])
     .get()
 
 const parseResource = text => {
@@ -59,7 +60,19 @@ const parseMetaNext = ($, { next }, meta) => {
 
 const parseFootnotes = ($, el) => ({
   type: 'footnotes',
-  list: getList($, el),
+  list: $(el)
+    .children()
+    .map((i, el) => ({
+      // trim up arrow ↑
+      text: getText($, el).slice(0, -2),
+      links: parseLinks(
+        $,
+        $(el)
+          .children()
+          .first(),
+      ).filter(([label]) => label !== '↑'),
+    }))
+    .get(),
 })
 
 const parseChild = $ => (i, el) => {

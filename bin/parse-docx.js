@@ -9,6 +9,16 @@ const getText = ($, el) =>
     .text()
     .trim()
 
+const parseResource = ($, el) => {
+  const text = getText($, el).slice(1, -1)
+  const [id, ...rest] = text.split('-').map(s => s.trim())
+  return {
+    type: 'resource',
+    id,
+    text: rest.join(''),
+  }
+}
+
 const parseFootnotes = ($, el) => ({
   type: 'footnotes',
   footnotes: $(el)
@@ -24,11 +34,15 @@ const parseChild = $ => (i, el) => {
     case 'ol':
       return parseFootnotes($, el)
 
-    default:
-      return {
-        type: el.name,
-        text: getText($, el),
-      }
+    case 'p': {
+      const text = getText($, el)
+      if (text.startsWith('[') && text.endsWith(']'))
+        return parseResource($, el)
+    }
+  }
+  return {
+    type: el.name,
+    text: getText($, el),
   }
 }
 

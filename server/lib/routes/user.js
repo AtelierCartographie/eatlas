@@ -2,30 +2,32 @@
 
 const schemas = require('../schemas')
 const { verify } = require('../google')
-const { getRole } = require('../model')
+const { findUserByEmail } = require('../model')
 
 exports.session = (req, res) => {
   if (!req.session.user) {
     return res.boom.forbidden('Not authenticated')
   }
 
-  // Always grab role dynamically
-  const { name, email } = req.session.user
-  getRole(email)
-    .then(role => res.send({ name, email, role }))
+  // Always grab role dynamically, even if already in session (we want this to be always up to date)
+  const { email } = req.session.user
+  findUserByEmail(email)
+    .then(user => {
+      if (!user) {
+        return res.boom.notFound('Invalid user: account deleted)')
+      }
+      return res.send(user)
+    })
     .catch(err => res.boom.badImplementation(err))
 }
 
 exports.login = (req, res) => {
   verify(req.body.token.id_token)
     .then(envelope => envelope.getPayload())
-    .then(({ name, email }) =>
-      getRole(email).then(role => ({ name, email, role })),
-    )
-    .then(({ name, email, role }) => {
-      req.session.user = { name, email }
-      // TODO grab role from user info
-      res.send({ name, email, role })
+    .then(({ email }) => findUserByEmail(email))
+    .then(user => {
+      req.session.user = user
+      res.send(user)
     })
     .catch(err => res.boom.forbidden(`Authentication failed: ${err.message}`))
 }

@@ -18,8 +18,8 @@ app.get('/session', user.session)
 app.post('/login', validateBody(user.login))
 
 app.get('/users', users.list)
-app.get('/users/:id', users.findUser, users.get)
-app.post('/users/:id', users.findUser, validateBody(users.update))
+app.get('/users/:id([0-9]+)', users.findUser, users.get)
+app.post('/users/:id([0-9]+)', users.findUser, validateBody(users.update))
 app.post('/users', validateBody(users.create))
 
 module.exports = app

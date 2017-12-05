@@ -2,7 +2,7 @@
 
 const schemas = require('../schemas')
 const { verify } = require('../google')
-const { findUserByEmail } = require('../model')
+const { users } = require('../model')
 
 exports.session = (req, res) => {
   if (!req.session.user) {
@@ -11,7 +11,8 @@ exports.session = (req, res) => {
 
   // Always grab role dynamically, even if already in session (we want this to be always up to date)
   const { email } = req.session.user
-  findUserByEmail(email)
+  users
+    .findByEmail(email)
     .then(user => {
       if (!user) {
         return res.boom.notFound('Invalid user: account deleted)')
@@ -24,7 +25,7 @@ exports.session = (req, res) => {
 exports.login = (req, res) => {
   verify(req.body.token.id_token)
     .then(envelope => envelope.getPayload())
-    .then(({ email }) => findUserByEmail(email))
+    .then(({ email }) => users.findByEmail(email))
     .then(user => {
       req.session.user = user
       res.send(user)

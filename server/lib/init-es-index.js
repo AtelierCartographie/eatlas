@@ -2,13 +2,22 @@
 
 const chalk = require('chalk')
 const isEqual = require('lodash.isequal')
-const { es: { autoMigration, acceptObsoleteMapping } } = require('config')
+const {
+  es: {
+    autoMigration,
+    acceptObsoleteMapping,
+    indices,
+    indexSettings: settings,
+  },
+} = require('config')
 
-const mappings = {
-  user: require('./es-types/user.json'),
-}
-
-const settings = {}
+const indexMapping = Object.keys(indices).reduce(
+  (mappings, type) =>
+    Object.assign(mappings, {
+      [indices[type]]: { [type]: require(`./es-types/${type}.json`) },
+    }),
+  {},
+)
 
 const checkIndex = (client, index) =>
   client.indices
@@ -19,7 +28,11 @@ const checkIndex = (client, index) =>
         found ||
         client.indices.create({
           index: index + '_' + Date.now(),
-          body: { aliases: { [index]: {} }, settings, mappings },
+          body: {
+            aliases: { [index]: {} },
+            settings,
+            mappings: indexMapping[index],
+          },
         }),
     )
     .then(() => client.indices.get({ index }))
@@ -35,17 +48,17 @@ const checkIndex = (client, index) =>
       process.exit(1)
     })
 
-const upgradeMappings = (client, index, currentMappings) => {
+const upgradeMappings = (client, index, currentMappings, newMappings) => {
   // Mapping unchanged: nothing to do
-  if (isEqual(mappings, currentMappings)) {
+  if (isEqual(newMappings, currentMappings)) {
     return Promise.resolve(false)
   }
   // Field or mapping to be deleted: trigger full reindex
   const hasDeletedField = Object.keys(currentMappings).some(
     type =>
-      !(type in mappings) ||
+      !(type in newMappings) ||
       Object.keys(currentMappings[type].properties).some(
-        field => !(field in mappings[type].properties),
+        field => !(field in newMappings[type].properties),
       ),
   )
   if (hasDeletedField) {
@@ -53,13 +66,15 @@ const upgradeMappings = (client, index, currentMappings) => {
   }
   // Try to just put mapping
   return Promise.all(
-    Object.keys(mappings).map(type =>
-      client.indices.putMapping({ index, type, body: mappings[type] }),
+    Object.keys(newMappings).map(type =>
+      client.indices.putMapping({ index, type, body: newMappings[type] }),
     ),
   ).then(() => 'Simple putMapping')
 }
 
 const migrateIndex = (client, index, oldIndex) => {
+  const mappings = indexMapping[index]
+
   console.error(chalk.bold.red('Obsolete mapping')) // eslint-disable-line no-console
   // Disabled auto-migration: reject
   if (!autoMigration) {
@@ -74,9 +89,11 @@ const migrateIndex = (client, index, oldIndex) => {
     }
     return
   }
+
   console.error(chalk.bold('Automatic index upgrade…')) // eslint-disable-line no-console
   // Force upgrade mapping by reindexing
   const newIndex = index + '_' + Date.now()
+
   return client.indices
     .create({ index: newIndex, body: { settings, mappings } })
     .then(() => console.error(chalk.bold(`Reindexing into ${newIndex}…`))) // eslint-disable-line no-console
@@ -113,20 +130,29 @@ const renameIndex = (client, alias, oldIndex, newIndex) => {
     .then(() => client.indices.delete({ index: oldIndex }))
 }
 
-module.exports = (client, index) =>
+const upgradeIndex = (client, index) => ({ index: realIndex, params }) => {
+  const message = info => chalk.bold.green(`Updated ${index}: ${info}`)
+  return upgradeMappings(
+    client,
+    realIndex,
+    params.mappings,
+    indexMapping[index],
+  )
+    .catch(() => migrateIndex(client, index, realIndex))
+    .then(info => info && console.error(message(info))) // eslint-disable-line no-console
+}
+
+const initIndex = (client, index) =>
   checkIndex(client, index)
-    .then(({ index: realIndex, params }) =>
-      upgradeMappings(client, realIndex, params.mappings)
-        // Note: checkIndex will process.exit() in case of error, we're sure this catch() is about putMappings
-        .catch(() => migrateIndex(client, index, realIndex))
-        .then(
-          info =>
-            info && console.error(chalk.bold.green(`Index updated: ${info}`)), // eslint-disable-line no-console
-        ),
-    )
+    .then(upgradeIndex(client, index))
     .catch(err => {
       console.error(err) // eslint-disable-line no-console
       console.error(chalk.bold.red('Server failure: obsolete mapping')) // eslint-disable-line no-console
       console.error(chalk.bold.red('Automatic migration failed')) // eslint-disable-line no-console
       process.exit(1)
     })
+
+module.exports = (client, indices) =>
+  Promise.all(
+    Object.keys(indices).map(type => initIndex(client, indices[type])),
+  )

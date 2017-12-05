@@ -7,7 +7,11 @@
     "connection": {
       "host": "localhost:9200"
     },
-    "index": "eatlas",
+    "indices": {
+      "user": "eatlas_user",
+      "resource": "eatlas_resource"
+    },
+    "indexSettings": {},
     "autoMigration": true,
     "acceptObsoleteMapping": false
   },

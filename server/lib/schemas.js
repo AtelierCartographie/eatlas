@@ -5,6 +5,10 @@ const { promisify } = require('util')
 
 exports.validate = promisify(Joi.validate)
 
+exports.email = Joi.string()
+  .email()
+  .required()
+
 exports.userUpdate = {
   name: Joi.string()
     .min(2)

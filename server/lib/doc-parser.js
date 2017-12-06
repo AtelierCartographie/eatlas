@@ -114,6 +114,5 @@ exports.parseDocx = async buffer => {
     .map(parseChild($))
     .get()
     .filter(n => n && (typeof n.text !== 'string' || n.text))
-  console.log(nodes)
   return { nodes }
 }

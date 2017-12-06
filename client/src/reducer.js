@@ -3,6 +3,10 @@ const initialState = {
     loading: true,
     list: [],
   },
+  resources: {
+    loading: true,
+    list: [],
+  },
   user: { // current user (session)
     name: null,
     email: null,

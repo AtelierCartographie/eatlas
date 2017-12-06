@@ -9,6 +9,7 @@ import { FormattedMessage as T } from 'react-intl'
 import Home from './Home'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
+import Resources from './Resources'
 import Upload from './Upload'
 import UserForm from './UserForm'
 import Users from './Users'
@@ -74,6 +75,12 @@ class App extends Component<Props, State> {
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"
+                to="/resources">
+                <T id="resources" />
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                className="navbar-item"
                 to="/users">
                 <T id="users" />
               </NavLink>
@@ -91,6 +98,7 @@ class App extends Component<Props, State> {
           <div className="container">
             <Switch>
               <Route exact path="/login" component={Login} />
+              <Route exact path="/resources" component={Resources} />
               <PrivateRoute exact path="/" component={Home} />
               <PrivateRoute exact path="/users" component={Users} />
               <PrivateRoute path="/users/:id" component={UserForm} />

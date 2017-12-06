@@ -22,6 +22,17 @@ export const fetchUsers = () => dispatch => {
   )
 }
 
+export const fetchResources = () => dispatch => {
+  dispatch({ type: 'FETCH_RESOURCES' })
+
+  getUsers().then(resources =>
+    dispatch({
+      type: 'RECEIVE_RESOURCES',
+      payload: { resources },
+    }),
+  )
+}
+
 export const userLogin = ({ name, email, role = 'visitor' }) => ({
   type: 'LOGIN',
   payload: { name, email, role },

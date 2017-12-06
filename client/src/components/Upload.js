@@ -1,11 +1,10 @@
 // @flow
 
 import React, { Component } from 'react'
+import { addResourceFromGoogleDrive, getResource } from '../api'
 
 import GooglePicker from 'react-google-picker'
 import loadScript from 'load-script'
-
-import { addResourceFromGoogleDrive, getResource } from '../api'
 
 const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js'
 let scriptLoadingStarted = false
@@ -74,7 +73,7 @@ class Upload extends Component<{}> {
       <GooglePicker
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         developerKey={process.env.REACT_APP_GOOGLE_DEV_KEY}
-        scope={['https://www.googleapis.com/auth/drive.readonly']}
+        scope={['https://www.googleapis.com/auth/drive']}
         createPicker={(google, oauthToken) => {
           const picker = new window.google.picker.PickerBuilder()
             .addView(new google.picker.View(google.picker.ViewId.DOCS))

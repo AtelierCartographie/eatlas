@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { FormattedMessage as T } from 'react-intl'
 
 import { fetchUser } from './../actions'
 
@@ -64,7 +65,7 @@ class UserForm extends Component<Props, State> {
         ) : (
           <form onSubmit={this.handleSubmit}>
             <div className="field">
-              <label className="label">Name</label>
+              <label className="label"><T id="name" /></label>
               <div className="control has-icons-left has-icons-right">
                 <input
                   className="input"
@@ -81,7 +82,7 @@ class UserForm extends Component<Props, State> {
             </div>
 
             <div className="field">
-              <label className="label">Email</label>
+              <label className="label">email</label>
               <div className="control has-icons-left has-icons-right">
                 <input
                   className="input"
@@ -98,7 +99,7 @@ class UserForm extends Component<Props, State> {
             </div>
 
             <div className="field">
-              <label className="label">Role</label>
+              <label className="label">role</label>
               <div className="control">
                 <div className="select">
                   <select name="role" onChange={this.handleChange}>
@@ -114,11 +115,13 @@ class UserForm extends Component<Props, State> {
 
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-primary">Submit</button>
+                <button className="button is-primary">
+                  <T id="submit" />
+                </button>
               </div>
               <div className="control">
                 <Link className="button is-danger is-outlined" to="/users">
-                  Cancel
+                  <T id="cancel" />
                 </Link>
               </div>
             </div>

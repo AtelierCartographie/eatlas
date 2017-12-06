@@ -4,6 +4,7 @@ import './App.css'
 
 import { NavLink, Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
+import { FormattedMessage as T } from 'react-intl'
 
 import Home from './Home'
 import Login from './Login'
@@ -68,20 +69,20 @@ class App extends Component<Props, State> {
                 className="navbar-item"
                 exact
                 to="/">
-                Home
+                <T id="home" />
               </NavLink>
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"
                 to="/users">
-                Users
+                <T id="users" />
               </NavLink>
               <NavLink
                 activeClassName="is-active"
                 className="navbar-item"
                 to="/upload">
-                Upload
-              </NavLink>{' '}
+                <T id="upload" />
+              </NavLink>
             </div>
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>
@@ -111,6 +112,7 @@ class App extends Component<Props, State> {
           exact
           to="/login">
           Log In
+          <T id="connection" />
         </NavLink>
       )
     }

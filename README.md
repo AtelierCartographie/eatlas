@@ -3,9 +3,85 @@
 ## Dépendances
 
 * Docker
-* Yarn
-* Temporaire : Node (sera inclus dans Docker à terme)
+* Temporaire (sera inclus dans Docker à terme) :
+  * Node
+  * Yarn
 
+## Configuration
+
+### Client (généré)
+
+Le côté client est configuré à l'aide de variables d'environnement :
+
+* ``REACT_APP_MOCK_API`` : si ``yes`` alors le serveur d'API ne sera pas utilisé et les requêtes seront simulés à la place
+* ``REACT_APP_API_SERVER`` : racine de l'URL du serveur d'API (exemple : ``https://api.eatlas.com``)
+* ``REACT_APP_GOOGLE_CLIENT_ID`` : *client id* de l'application Google créée (cf. section "Google" de cette documentation)
+* ``REACT_APP_GOOGLE_PROJECT_NUM`` : Numéro de l'application Google créée (cf. section "Google" de cette documentation)
+* ``REACT_APP_GOOGLE_DEV_KEY`` : Clé d'API Google (cf. section "Google" de cette documentation)
+
+**Attention** si un fichier ``.env`` est présent, il définit des valeurs par défaut pour ces variables d'environnement (actuellement utilisées pour le développement).
+
+Pour prendre en compte une modification de la configuration, le client doit être régénéré avec ``yarn build`` et re-déployé.
+
+### Serveur (fichier)
+
+Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``/config``, au format JSON. Voici les options commentées :
+
+```js
+{
+  // Adresse IP et port "bindés" sur le serveur HTTP
+  "server": {
+    "port": 4000,
+    "host": "127.0.0.1"
+  },
+  // Configuration Elastic Search
+  "es": {
+    // Options de connexion passées au client Elastic Search
+    // cf. https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html#config-options
+    "connection": {
+      "host": "localhost:9200"
+    },
+    // Index utilisés pour le stockage des données (un par type de données)
+    // Note : cet index sera utilisé en tant qu'alias, l'index réel sera de la forme "<nom>_<timestamp>"
+    "indices": {
+      "user": "eatlas_user",
+      "resource": "eatlas_resource"
+    },
+    // "settings" par défaut passés aux index lors de leur création
+    // cf. https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#create-index-settings
+    "indexSettings": {},
+    // Configuration de la mise à jour automatique des index au démarrage du serveur
+    // Dans tous les cas l'index sera créé, mais lors d'une mise à jour de l'application
+    // si un "mapping" a été modifié, le serveur essaiera de mettre à jour l'index (PUT mappings)
+    // Si cela échoue, une migration complète (création d'un nouvel index + reindex) peut être lancée
+    "autoMigration": true, // false pour désactiver la réindexation (dans ce cas les mises à jour de mappings devront être effectuées manuellement)
+    "acceptObsoleteMapping": false // true pour laisser le serveur démarrer même si le mapping a été modifié (risque de dysfonctionnements !)
+  },
+  // Paramètres de session
+  "session": {
+    "secret": "E-Atlas S3cr3T"
+  },
+  // Connexion à Redis (stockage des sessions)
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  },
+  // CORS : URLs des pages ayant le droit d'interroger le serveur d'API
+  "cors": {
+    "origins": [ "https://eatlas.com" ]
+  },
+  // Configuration des accès aux APIs Google
+  "google": {
+    "clientId": "see https://console.cloud.google.com/apis/credentials", // Pour valider le token passé après authentification côté client
+    "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT", // Endpoint de l'API Google Drive
+    "exportFormat": "application/vnd.openxmlformats-officedocument.wordprocessingml.document" // Format d'export pour les articles
+  }
+}
+```
+
+Pour modifier cette configuration **ne pas modifier** ``default.json`` ni ``production.json`` mais plutôt créer un fichier ``local.json`` et y placer seulement les options surchargées.
+
+Pour prendre en compte une modification de la configuration, le serveur doit être redémarré (tué puis relancé avec ``yarn start``).
 ## Dév
 
 ```sh

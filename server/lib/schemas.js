@@ -3,7 +3,8 @@
 const Joi = require('joi')
 const { promisify } = require('util')
 
-exports.validate = promisify(Joi.validate)
+const validateP = promisify(Joi.validate)
+exports.validate = (value, schema) => validateP(value, schema)
 
 exports.email = Joi.string()
   .email()

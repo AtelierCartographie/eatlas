@@ -85,7 +85,11 @@ class Upload extends Component<{}> {
         }}
         // mimeTypes={['image/png', 'image/jpeg', 'image/jpg']}
       >
-        <button className="button is-primary">picker</button>
+        <button
+          className="button is-primary"
+          onClick={() => this.setState({ error: null, result: null })}>
+          picker
+        </button>
       </GooglePicker>
     )
   }

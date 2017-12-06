@@ -5,6 +5,25 @@ const FAKE_USER = {
   role: 'admin',
 }
 
+const FAKE_RESOURCE = {
+  id: 1,
+  nodes: [],
+}
+
+export const addResourceFromGoogleDrive = (fileId, accessToken) =>
+  query({
+    url: '/upload/google-drive',
+    method: 'POST',
+    body: { fileId, accessToken },
+    fake: () => ({ id: FAKE_RESOURCE.id }),
+  })
+
+export const getResource = id =>
+  query({
+    url: `/resource/${id}`,
+    fake: () => FAKE_RESOURCE,
+  })
+
 // Check if user has an active session on server
 export const checkSession = () =>
   query({
@@ -41,7 +60,7 @@ export const updateUser = (id, body) =>
     fake: () => Object.assign(FAKE_USER, body),
   })
 
-export const addUser = (body) =>
+export const addUser = body =>
   query({
     method: 'POST',
     url: '/users',

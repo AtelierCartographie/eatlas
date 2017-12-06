@@ -5,6 +5,8 @@ import React, { Component } from 'react'
 import GooglePicker from 'react-google-picker'
 import loadScript from 'load-script'
 
+import { addResourceFromGoogleDrive, getResource } from '../api'
+
 const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js'
 let scriptLoadingStarted = false
 
@@ -49,15 +51,21 @@ class Upload extends Component<{}> {
   }
 
   onPick(data: any) {
-    if (!data.docs) return
-    window.gapi.client.drive.files
-      .export({
-        fileId: data.docs[0].id,
-        mimeType:
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    if (!data.docs) {
+      return
+    }
+    const fileId = data.docs[0].id
+    const token = window.gapi.auth.getToken().access_token
+    addResourceFromGoogleDrive(fileId, token)
+      .then(({ id }) => {
+        console.log('Conversion done, resource id', id)
+        return getResource(id)
       })
-      .then(response => {
-        console.log(response)
+      .then(res => {
+        console.log('Full resource', res)
+      })
+      .catch(err => {
+        console.error(err)
       })
   }
 

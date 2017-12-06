@@ -5,6 +5,7 @@ const config = require('config')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
+const { parseDocx } = require('../doc-parser')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -27,13 +28,8 @@ exports.addFromGoogle = (req, res) => {
   const options = { encoding: null, auth: { bearer: req.body.accessToken } }
 
   request(url, options)
-    .then(body => {
-      // TODO convert body to resource
-      const resource = {
-        nodes: [],
-      }
-      return resources.create(resource)
-    })
+    .then(body => parseDocx(body))
+    .then(resource => resources.create(resource))
     // Respond only with resource's id
     .then(resource => res.send({ id: resource.id }))
     .catch(err => res.boom.badImplementation(err))

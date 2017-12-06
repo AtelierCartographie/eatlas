@@ -32,6 +32,7 @@ exports.addFromGoogle = (req, res) => {
     .then(resource => resources.create(resource))
     // Respond only with resource's id
     .then(resource => res.send({ id: resource.id }))
+    // TODO more info about parsing errors
     .catch(err => res.boom.badImplementation(err))
 }
 exports.addFromGoogle.schema = schemas.uploadFromGoogleDrive

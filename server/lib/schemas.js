@@ -59,13 +59,8 @@ exports.fullResource = {
   nodes: Joi.array()
     .items(
       Joi.object().keys({
-        type: Joi.string()
-          .valid(['title', 'h1', 'p', 'resource', 'meta', 'footnotes'])
-          .required(),
-        text: Joi.string().when('type', {
-          is: Joi.valid(['title', 'h1', 'p']),
-          then: Joi.required(),
-        }),
+        type: Joi.string().required(),
+        text: Joi.string(),
         list: Joi.array()
           .items(Joi.string().required())
           .when('type', {

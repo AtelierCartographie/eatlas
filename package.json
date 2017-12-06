@@ -13,7 +13,8 @@
     "test:server": "cd server && yarn test",
     "postinstall": "run-p install:*",
     "install:client": "cd client && yarn install",
-    "install:server": "cd server && yarn install"
+    "install:server": "cd server && yarn install",
+    "add-user": "cd server && yarn add-user"
   },
   "repository": {
     "type": "git",

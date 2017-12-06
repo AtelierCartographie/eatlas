@@ -13,20 +13,24 @@
           }
         },
         "links": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
+          "type": "nested",
+          "properties": {
+            "label": {
+              "type": "text"
+            },
+            "url": {
+              "type": "keyword"
             }
           }
         },
         "list": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
+          "type": "nested",
+          "properties": {
+            "text": {
+              "type": "text"
+            },
+            "list": {
+              "type": "text"
             }
           }
         },

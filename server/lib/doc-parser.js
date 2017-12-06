@@ -19,7 +19,7 @@ const parseLinks = ($, el) =>
     .children()
     .filter((i, el) => el.name === 'a' && el.attribs.href)
     // beware of cheerio and flatMap
-    .map((i, el) => [[getText($, el), el.attribs.href]])
+    .map((i, el) => [{ label: getText($, el), url: el.attribs.href }])
     .get()
 
 const parseResource = text => {
@@ -51,28 +51,32 @@ const parseMetaNext = ($, { next }, meta) => {
 
     case 'ul':
       delete meta.text
-      meta.list = getList($, next)
+      meta.list = getList($, next).map(text => ({ text }))
       break
   }
   return meta
 }
 
-const parseFootnotes = ($, el) => ({
-  type: 'footnotes',
-  list: $(el)
-    .children()
-    .map((i, el) => ({
-      // trim up arrow ↑
-      text: getText($, el).slice(0, -2),
-      links: parseLinks(
-        $,
-        $(el)
-          .children()
-          .first(),
-      ).filter(([label]) => label !== '↑'),
-    }))
-    .get(),
-})
+const parseFootnotes = ($, el) => {
+  const links = parseLinks(
+    $,
+    $(el)
+      .children()
+      .first(),
+  ).filter(([label]) => label !== '↑')
+
+  return {
+    type: 'footnotes',
+    list: $(el)
+      .children()
+      .map((i, el) => ({
+        // trim up arrow ↑
+        text: getText($, el).slice(0, -2),
+        links,
+      }))
+      .get(),
+  }
+}
 
 const parseChild = $ => (i, el) => {
   const text = getText($, el)

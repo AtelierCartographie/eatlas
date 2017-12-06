@@ -145,6 +145,23 @@ yarn install --prod
 
 ## Maintenance
 
+### Supprimer un index Elastic Search
+
+* Trouver le nom réel de l'index s'il est aliasé :
+
+```sh
+# Retourne un JSON: la clé est le nom de l'index réel
+curl -XGET 'localhost:9200/eatlas_resource/_alias'
+# {"eatlas_resource_1512598117510":{"aliases":{"eatlas_resource":{}}}}
+```
+
+* Supprimer l'index réel
+
+```sh
+curl -XDELETE 'localhost:9200/eatlas_resource_1512597721716'
+# {"acknowledged":true}
+```
+
 ### Sauvegarde des données Docker
 
 * Les données sont dans un volume Docker (voir le nom du volume dans le fichier ``docker-compose.{dev,prod}.yml``)

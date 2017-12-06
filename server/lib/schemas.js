@@ -67,6 +67,13 @@ exports.uploadFromGoogleDrive = {
   accessToken: Joi.string().required(),
 }
 
+const links = Joi.array().items(
+  Joi.object().keys({
+    label: Joi.string().required(),
+    url: Joi.string().required(),
+  }),
+)
+
 exports.fullResource = {
   name: Joi.string().required(),
   type: resourceType.required(),
@@ -76,7 +83,12 @@ exports.fullResource = {
         type: Joi.string().required(),
         text: Joi.string(),
         list: Joi.array()
-          .items(Joi.string().required())
+          .items(
+            Joi.object().keys({
+              text: Joi.string().required(),
+              links,
+            }),
+          )
           .when('type', {
             is: Joi.valid(['meta', 'footnotes']),
             otherwise: Joi.forbidden(),
@@ -85,11 +97,7 @@ exports.fullResource = {
             is: Joi.valid('footnotes'),
             then: Joi.required(),
           }),
-        links: Joi.array().items(
-          Joi.array()
-            .length(2) // couple [label, url]
-            .items(Joi.string().required()),
-        ),
+        links,
         id: Joi.string().when('type', {
           is: Joi.valid(['resource', 'meta']),
           then: Joi.required(),

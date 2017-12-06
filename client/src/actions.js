@@ -1,4 +1,4 @@
-import { getUser, getUsers } from './api'
+import { getUser, getUsers, getResource, getResources } from './api'
 
 export const fetchUser = id => dispatch => {
   dispatch({ type: 'FETCH_USER', payload: { id } })
@@ -25,7 +25,7 @@ export const fetchUsers = () => dispatch => {
 export const fetchResources = () => dispatch => {
   dispatch({ type: 'FETCH_RESOURCES' })
 
-  getUsers().then(resources =>
+  getResources().then(resources =>
     dispatch({
       type: 'RECEIVE_RESOURCES',
       payload: { resources },

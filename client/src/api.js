@@ -7,6 +7,8 @@ const FAKE_USER = {
 
 const FAKE_RESOURCE = {
   id: 1,
+  type: 'video',
+  name: 'Fake video',
   nodes: [],
 }
 
@@ -22,6 +24,12 @@ export const getResource = id =>
   query({
     url: `/resource/${id}`,
     fake: () => FAKE_RESOURCE,
+  })
+
+export const getResources = id =>
+  query({
+    url: `/resources/${id}`,
+    fake: () => [FAKE_RESOURCE],
   })
 
 // Check if user has an active session on server

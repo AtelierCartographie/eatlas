@@ -36,6 +36,24 @@ export default (state = initialState, action) => {
         },
       }
 
+    case 'FETCH_RESOURCES':
+    case 'FETCH_RESOURCE':
+      return { ...state, resources: { loading: true, list: [] } }
+
+    case 'RECEIVE_RESOURCES':
+      return { ...state, resources: { loading: false, list: action.payload.resources } }
+
+    case 'RECEIVE_RESOURCE':
+      return {
+        ...state,
+        resources: {
+          loading: false,
+          list: state.resources.list
+            .filter(r => r.id !== action.payload.resource.id)
+            .concat(action.payload.resource),
+        },
+      }
+
     case 'CHECKED_USER_SESSION':
       return { ...state, user: { ...state.user, checkedServerLogin: action.payload } }
     case 'VERIFYING_USER':

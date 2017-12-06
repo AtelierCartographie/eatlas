@@ -9,5 +9,6 @@ declare type User = {
 
 declare type Resource = {
   id: string,
-  type: string
+  type: string,
+  name: string,
 }

@@ -26,6 +26,7 @@ exports.login = (req, res) => {
   verify(req.body.token.id_token)
     .then(envelope => envelope.getPayload())
     .then(({ email }) => users.findByEmail(email))
+    .then(user => user || Promise.reject(new Error('Uknown User')))
     .then(user => {
       req.session.user = user
       res.send(user)

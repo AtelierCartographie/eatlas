@@ -39,7 +39,7 @@ class AuthButton extends Component<Props, State> {
       return null
     }
 
-    return <strong>Authentication failed: {this.state.error}</strong>
+    return <strong>{this.state.error}</strong>
   }
 
   login(token) {
@@ -50,7 +50,7 @@ class AuthButton extends Component<Props, State> {
       )
       .catch(err => {
         this.props.notifyVerifyingUser(false)
-        this.fail('EATLAS_SERVER', err.message)
+        this.fail(err.code, err.message)
       })
   }
 

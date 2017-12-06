@@ -10,6 +10,8 @@ const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js'
 let scriptLoadingStarted = false
 
 class Upload extends Component<{}> {
+  state = { error: null, result: null }
+
   componentDidMount() {
     if (this.isGoogleReady()) {
       // google api is already exists
@@ -49,7 +51,7 @@ class Upload extends Component<{}> {
     })
   }
 
-  onPick(data: any) {
+  onPick = (data: any) => {
     if (!data.docs) {
       return
     }
@@ -60,15 +62,11 @@ class Upload extends Component<{}> {
         console.log('Conversion done, resource id', id)
         return getResource(id)
       })
-      .then(res => {
-        console.log('Full resource', res)
-      })
-      .catch(err => {
-        console.error(err)
-      })
+      .then(res => this.setState({ result: res }))
+      .catch(err => this.setState({ error: err }))
   }
 
-  render() {
+  renderPicker() {
     return (
       <GooglePicker
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
@@ -87,6 +85,32 @@ class Upload extends Component<{}> {
       >
         <button className="button is-primary">picker</button>
       </GooglePicker>
+    )
+  }
+
+  renderResult() {
+    if (this.state.error) {
+      return (
+        <div>
+          <p>
+            <strong>Error:</strong>
+          </p>
+          <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
+        </div>
+      )
+    }
+
+    if (this.state.result) {
+      return <pre>{JSON.stringify(this.state.result, null, 2)}</pre>
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderPicker()}
+        {this.renderResult()}
+      </div>
     )
   }
 }

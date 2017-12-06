@@ -6,3 +6,8 @@ declare type User = {
   email: string,
   role: string,
 }
+
+declare type Resource = {
+  id: string,
+  type: string
+}

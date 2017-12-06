@@ -28,17 +28,18 @@ exports.session = session(
   ),
 )
 
-exports.validateBody = handler => (req, res, next) => {
+exports.validateBody = handler => {
   if (!handler.schema) {
     throw new Error(
       'validateBody requires a "schema" property on passed handler',
     )
   }
 
-  validate(req.body, handler.schema)
-    .then(value => {
-      req.body = value
-      setImmediate(() => handler(req, res, next))
-    })
-    .catch(err => res.boom.badRequest(err))
+  return (req, res, next) =>
+    validate(req.body, handler.schema)
+      .then(value => {
+        req.body = value
+        setImmediate(() => handler(req, res, next))
+      })
+      .catch(err => res.boom.badRequest(err))
 }

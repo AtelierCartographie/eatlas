@@ -107,6 +107,17 @@ const query = (
     body: body && JSON.stringify(body),
   }
   const fullUrl = process.env.REACT_APP_API_SERVER + url
-  return fetch(fullUrl, options).then(response => response.json())
+
+  return fetch(fullUrl, options)
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        let err = new Error(data.message || data.error)
+        err.code = data.error
+        err.status = data.statusCode
+        throw err
+      }
+      return data
+    })
   // TODO catch authentication errors and force login
 }

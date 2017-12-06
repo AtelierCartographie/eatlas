@@ -14,7 +14,9 @@
     "postinstall": "run-p install:*",
     "install:client": "cd client && yarn install",
     "install:server": "cd server && yarn install",
-    "add-user": "cd server && yarn add-user"
+    "add-user": "cd server && yarn add-user",
+    "build": "cd client && yarn build",
+    "start": "cd server && yarn start"
   },
   "repository": {
     "type": "git",
@@ -26,8 +28,8 @@
     "url": "https://github.com/byteclubfr/eatlas/issues"
   },
   "homepage": "https://github.com/byteclubfr/eatlas#readme",
-  "devDependencies": {
+  "dependencies": {
     "npm-run-all": "^4.1.2"
   },
-  "dependencies": {}
+  "devDependencies": {}
 }

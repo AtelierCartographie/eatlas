@@ -1,5 +1,7 @@
 # eatlas
 
+**Note :** toutes les commandes indiquées dans ce document sont prévues pour être exécutées depuis la racine du projet, sauf mention contraire (sous la forme ``cd server && …``).
+
 ## Dépendances
 
 * Docker
@@ -25,7 +27,7 @@ Pour prendre en compte une modification de la configuration, le client doit êtr
 
 ### Serveur (fichier)
 
-Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``/config``, au format JSON. Voici les options commentées :
+Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``config``, au format JSON. Voici les options commentées :
 
 ```js
 {
@@ -79,7 +81,9 @@ Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``/confi
 }
 ```
 
-Pour modifier cette configuration **ne pas modifier** ``default.json`` ni ``production.json`` mais plutôt créer un fichier ``local.json`` et y placer seulement les options surchargées.
+**Note :** l'emplacement du dossier de configuration peut être modifié à l'aide de la variable d'environnement ``NODE_CONFIG_DIR`` (absolu ou relatif au dossier ``server``, par défaut ``../config``).
+
+Pour modifier cette configuration **ne pas modifier** ``config/default.json`` ni ``config/production.json`` mais plutôt créer un fichier ``config/local.json`` et y placer seulement les options surchargées.
 
 Pour prendre en compte une modification de la configuration, le serveur doit être redémarré (tué puis relancé avec ``yarn start``).
 
@@ -116,12 +120,12 @@ cd server && yarn dev
 ### Elastic Search
 
 * Le container est nommé "eatlas_es_dev"
-* Pour le démarrer manuellement : ``docker-compose -f docker-compose.dev.yml up``
+* Pour le démarrer manuellement : ``docker-compose -f server/docker-compose.dev.yml up``
 * Pour consulter les logs : ``docker logs eatlas_es_dev``
 
 ## Prod
 
-**ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f docker-compose.prod.yml up`` sera suffisante.
+**ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f server/docker-compose.prod.yml up`` sera suffisante.
 
 ```sh
 yarn install --prod
@@ -129,16 +133,15 @@ yarn install --prod
 
 ### Client
 
-* Configurer le client par variables d'environnement (voir le fichier ``.env`` pour les valeurs par défaut)
-  * **TODO** utiliser plutôt le dossier `config/`
+* Configurer le client (cf. section *configuration*)
 * Préparer les fichiers scripts & assets : ``yarn build``
 * Placer les fichiers dans le document root de nginx
 
 ### Serveur
 
-* Configurer le serveur (fichier ``config/local.json`` écrasant ``config/default.json`` et ``config.production.json``)
-* Lancer la base de données Elastic Search : ``docker-compose -f docker-compose.prod.yml up``
-* Lancer le serveur ``NODE_CONFIG_DIR=/path/to/config/ yarn start``
+* Configurer le serveur (cf. section *configuration*)
+* Lancer les services : ``docker-compose -f server/docker-compose.prod.yml up``
+* Lancer le serveur ``yarn start``
 
 ## Maintenance
 

@@ -11,10 +11,7 @@
   "rules": {
     "prefer-arrow-callback": "error",
     "handle-callback-err": "error",
-    "indent": [
-      "warn",
-      2
-    ],
+    "indent": "off",
     "linebreak-style": [
       "error",
       "unix"

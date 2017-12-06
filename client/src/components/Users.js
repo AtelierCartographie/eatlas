@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUsers } from './../actions'
 import IconButton from './IconButton'
+import Spinner from './Spinner'
 
 type Props = {
   users: {
@@ -30,7 +31,7 @@ class Users extends Component<Props> {
           <T id="users" />
         </h1>
         {loading ? (
-          <span>loading…</span>
+          <Spinner />
         ) : (
           <table className="table is-striped is-bordered is-fullwidth">
             <thead>

@@ -7,6 +7,7 @@ import { FormattedMessage as T } from 'react-intl'
 
 import { fetchUser } from './../actions'
 import IconButton from './IconButton'
+import Spinner from './Spinner'
 
 type Props = {
   loading: boolean,
@@ -62,7 +63,7 @@ class UserForm extends Component<Props, State> {
       <div className="UserForm">
         <h1 className="title">User {id}</h1>
         {loading || !user ? (
-          <span>loading…</span>
+          <Spinner />
         ) : (
           <form onSubmit={this.handleSubmit}>
             <div className="field">

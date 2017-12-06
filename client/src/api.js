@@ -12,11 +12,16 @@ const FAKE_RESOURCE = {
   nodes: [],
 }
 
-export const addResourceFromGoogleDrive = (fileId, accessToken) =>
+export const addResourceFromGoogleDrive = (body: {
+  type: string,
+  name: string,
+  fileId: string,
+  accessToken: string,
+}) =>
   query({
     url: '/resources/google-drive',
     method: 'POST',
-    body: { fileId, accessToken },
+    body,
     fake: () => ({ id: FAKE_RESOURCE.id }),
   })
 

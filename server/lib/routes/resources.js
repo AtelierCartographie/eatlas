@@ -28,8 +28,14 @@ exports.addFromGoogle = (req, res) => {
   const options = { encoding: null, auth: { bearer: req.body.accessToken } }
 
   request(url, options)
-    .then(body => parseDocx(body))
-    .then(resource => resources.create(resource))
+    .then(parseDocx)
+    .then(data =>
+      Object.assign({}, data, {
+        name: req.body.name,
+        type: req.body.type,
+      }),
+    )
+    .then(resources.create)
     // Respond only with resource's id
     .then(resource => res.send({ id: resource.id }))
     .catch(err => {

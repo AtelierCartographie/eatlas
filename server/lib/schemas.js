@@ -50,12 +50,26 @@ exports.googleOauth = {
   }),
 }
 
+// TODO missing types
+const resourceType = Joi.string().valid([
+  'article',
+  'focus',
+  'map',
+  'image',
+  'video',
+  'sound',
+])
+
 exports.uploadFromGoogleDrive = {
+  name: Joi.string().required(),
+  type: resourceType.required(),
   fileId: Joi.string().required(),
   accessToken: Joi.string().required(),
 }
 
 exports.fullResource = {
+  name: Joi.string().required(),
+  type: resourceType.required(),
   nodes: Joi.array()
     .items(
       Joi.object().keys({
@@ -83,5 +97,8 @@ exports.fullResource = {
         }),
       }),
     )
-    .required(),
+    .when('type', {
+      is: Joi.valid(['article', 'focus']),
+      then: Joi.required(),
+    }),
 }

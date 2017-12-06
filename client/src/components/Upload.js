@@ -56,8 +56,13 @@ class Upload extends Component<{}> {
       return
     }
     const fileId = data.docs[0].id
-    const token = window.gapi.auth.getToken().access_token
-    addResourceFromGoogleDrive(fileId, token)
+    const accessToken = window.gapi.auth.getToken().access_token
+    addResourceFromGoogleDrive({
+      name: 'My Article',
+      type: 'article',
+      fileId,
+      accessToken,
+    })
       .then(({ id }) => {
         console.log('Conversion done, resource id', id)
         return getResource(id)

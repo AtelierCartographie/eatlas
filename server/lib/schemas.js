@@ -71,6 +71,11 @@ exports.fullResource = {
             is: Joi.valid('footnotes'),
             then: Joi.required(),
           }),
+        links: Joi.array().items(
+          Joi.array()
+            .length(2) // couple [label, url]
+            .items(Joi.string().required()),
+        ),
         id: Joi.string().when('type', {
           is: Joi.valid(['resource', 'meta']),
           then: Joi.required(),

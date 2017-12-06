@@ -26,6 +26,8 @@
     "origins": [ "http://localhost:3000" ]
   },
   "google": {
-    "clientId": "see https://console.cloud.google.com/apis/credentials"
+    "clientId": "see https://console.cloud.google.com/apis/credentials",
+    "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
+    "exportFormat": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   }
 }

@@ -45,3 +45,8 @@ exports.googleOauth = {
     session_state: Joi.any(),
   }),
 }
+
+exports.uploadFromGoogleDrive = {
+  fileId: Joi.string().required(),
+  accessToken: Joi.string().required(),
+}

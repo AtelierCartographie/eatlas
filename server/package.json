@@ -37,7 +37,8 @@
     "express-session": "^1.15.6",
     "googleapis": "^23.0.0",
     "joi": "^13.0.2",
-    "lodash.isequal": "^4.5.0"
+    "lodash.isequal": "^4.5.0",
+    "request-promise-native": "^1.0.5"
   },
   "prettier": {
     "semi": false,

@@ -5,7 +5,7 @@ const boom = require('express-boom')
 const bodyParser = require('body-parser')
 
 const { cors, session, validateBody } = require('./lib/middlewares')
-const { user, users } = require('./lib/routes')
+const { user, users, resources } = require('./lib/routes')
 
 const app = express()
 
@@ -22,5 +22,8 @@ app.get('/users/:id', users.findUser, users.get)
 app.post('/users/:id', users.findUser, users.update)
 app.post('/users', users.add)
 app.delete('/users/:id', users.findUser, users.remove)
+
+app.get('/resources/:id', resources.findResource, resources.get)
+app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 
 module.exports = app

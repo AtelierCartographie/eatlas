@@ -54,3 +54,34 @@ exports.uploadFromGoogleDrive = {
   fileId: Joi.string().required(),
   accessToken: Joi.string().required(),
 }
+
+exports.fullResource = {
+  nodes: Joi.array()
+    .items(
+      Joi.object().keys({
+        type: Joi.string()
+          .valid(['title', 'h1', 'p', 'resource', 'meta', 'footnotes'])
+          .required(),
+        text: Joi.string().when('type', {
+          is: Joi.valid(['title', 'h1', 'p']),
+          then: Joi.required(),
+        }),
+        list: Joi.array()
+          .items(Joi.string().required())
+          .when('type', {
+            is: Joi.valid(['meta', 'footnotes']),
+            otherwise: Joi.forbidden(),
+          })
+          .when('type', {
+            is: Joi.valid('footnotes'),
+            then: Joi.required(),
+          }),
+        id: Joi.string().when('type', {
+          is: Joi.valid(['resource', 'meta']),
+          then: Joi.required(),
+          otherwise: Joi.forbidden(),
+        }),
+      }),
+    )
+    .required(),
+}

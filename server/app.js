@@ -24,7 +24,9 @@ app.post('/users/:id', users.findUser, users.update)
 app.post('/users', users.add)
 app.delete('/users/:id', users.findUser, users.remove)
 
+app.get('/resources', resources.list)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
+app.delete('/resources/:id', resources.findResource, resources.remove)
 
 module.exports = app

@@ -1,6 +1,6 @@
 'use strict'
 
-// const { email: _email, fullUser, userUpdate, validate } = require('../schemas')
+const { fullResource, validate } = require('../schemas')
 
 const {
   find,
@@ -15,7 +15,7 @@ exports.list = () => find()
 
 exports.findById = findById
 
-exports.create = insert
+exports.create = resource => validate(resource, fullResource).then(insert)
 
 exports.update = update
 

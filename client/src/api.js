@@ -14,7 +14,7 @@ const FAKE_RESOURCE = {
 
 export const addResourceFromGoogleDrive = (fileId, accessToken) =>
   query({
-    url: '/upload/google-drive',
+    url: '/resources/google-drive',
     method: 'POST',
     body: { fileId, accessToken },
     fake: () => ({ id: FAKE_RESOURCE.id }),
@@ -22,13 +22,13 @@ export const addResourceFromGoogleDrive = (fileId, accessToken) =>
 
 export const getResource = id =>
   query({
-    url: `/resource/${id}`,
+    url: `/resources/${id}`,
     fake: () => FAKE_RESOURCE,
   })
 
 export const getResources = id =>
   query({
-    url: `/resources/${id}`,
+    url: `/resources`,
     fake: () => [FAKE_RESOURCE],
   })
 

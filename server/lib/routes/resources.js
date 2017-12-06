@@ -28,7 +28,6 @@ exports.addFromGoogle = (req, res) => {
 
   request(url, options)
     .then(body => {
-      console.log(body)
       // TODO convert body to resource
       const resource = {
         nodes: [],
@@ -36,10 +35,19 @@ exports.addFromGoogle = (req, res) => {
       return resources.create(resource)
     })
     // Respond only with resource's id
-    .then(res => res.send({ id: res.id }))
-    .catch(err => {
-      console.error(err)
-      res.boom.badImplementation(err)
-    })
+    .then(resource => res.send({ id: resource.id }))
+    .catch(err => res.boom.badImplementation(err))
 }
 exports.addFromGoogle.schema = schemas.uploadFromGoogleDrive
+
+exports.list = (req, res) =>
+  resources
+    .list()
+    .then(resources => res.send(resources))
+    .catch(err => res.boom.badImplementation(err))
+
+exports.remove = (req, res) =>
+  resources
+    .remove(req.params.id)
+    .then(() => res.status(204).end())
+    .catch(err => res.boom.badImplementation(err))

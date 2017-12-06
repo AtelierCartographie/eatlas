@@ -111,7 +111,6 @@ class App extends Component<Props, State> {
           activeClassName="is-active"
           exact
           to="/login">
-          Log In
           <T id="connection" />
         </NavLink>
       )

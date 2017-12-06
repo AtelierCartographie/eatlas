@@ -6,6 +6,7 @@ import { FormattedMessage as T } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUsers } from './../actions'
+import IconButton from './IconButton'
 
 type Props = {
   users: {
@@ -25,14 +26,18 @@ class Users extends Component<Props> {
     const { list, loading } = this.props.users
     return (
       <div className="Users">
-        <h1 className="title"><T id="users" /></h1>
+        <h1 className="title">
+          <T id="users" />
+        </h1>
         {loading ? (
           <span>loading…</span>
         ) : (
           <table className="table is-striped is-bordered is-fullwidth">
             <thead>
               <tr>
-                <th><T id="name" /></th>
+                <th>
+                  <T id="name" />
+                </th>
                 <th>email</th>
                 <th>role</th>
                 <th style={{ width: '1px' }} />
@@ -50,18 +55,12 @@ class Users extends Component<Props> {
                         <Link
                           className="button is-primary"
                           to={`/users/${u.id}/edit`}>
-                          <span><T id="edit" /></span>{' '}
-                          <span className="icon is-small">
-                            <i className="fa fa-pencil" />
-                          </span>
+                          <IconButton label="edit" icon="pencil" />
                         </Link>
                       </div>
                       <div className="control">
                         <button className="button is-danger is-outlined">
-                          <span><T id="delete" /></span>{' '}
-                          <span className="icon is-small">
-                            <i className="fa fa-times" />
-                          </span>
+                          <IconButton label="delete" icon="times" />
                         </button>
                       </div>
                     </div>

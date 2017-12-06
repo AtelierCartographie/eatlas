@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 
 import { fetchUser } from './../actions'
+import IconButton from './IconButton'
 
 type Props = {
   loading: boolean,
@@ -65,7 +66,9 @@ class UserForm extends Component<Props, State> {
         ) : (
           <form onSubmit={this.handleSubmit}>
             <div className="field">
-              <label className="label"><T id="name" /></label>
+              <label className="label">
+                <T id="name" />
+              </label>
               <div className="control has-icons-left has-icons-right">
                 <input
                   className="input"
@@ -116,7 +119,7 @@ class UserForm extends Component<Props, State> {
             <div className="field is-grouped">
               <div className="control">
                 <button className="button is-primary">
-                  <T id="submit" />
+                  <IconButton label="submit" icon="check" />
                 </button>
               </div>
               <div className="control">

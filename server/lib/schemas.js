@@ -74,37 +74,38 @@ const links = Joi.array().items(
   }),
 )
 
+const list = Joi.array().items(
+  Joi.object().keys({
+    text: Joi.string().required(),
+    links,
+  }),
+)
+
+const node = Joi.object().keys({
+  type: Joi.string().required(),
+  text: Joi.string(),
+  list: list
+    .when('type', {
+      is: Joi.valid(['meta', 'footnotes']),
+      otherwise: Joi.forbidden(),
+    })
+    .when('type', {
+      is: Joi.valid('footnotes'),
+      then: Joi.required(),
+    }),
+  links,
+  id: Joi.string().when('type', {
+    is: Joi.valid(['resource', 'meta']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
+})
+
 exports.fullResource = {
   name: Joi.string().required(),
   type: resourceType.required(),
   nodes: Joi.array()
-    .items(
-      Joi.object().keys({
-        type: Joi.string().required(),
-        text: Joi.string(),
-        list: Joi.array()
-          .items(
-            Joi.object().keys({
-              text: Joi.string().required(),
-              links,
-            }),
-          )
-          .when('type', {
-            is: Joi.valid(['meta', 'footnotes']),
-            otherwise: Joi.forbidden(),
-          })
-          .when('type', {
-            is: Joi.valid('footnotes'),
-            then: Joi.required(),
-          }),
-        links,
-        id: Joi.string().when('type', {
-          is: Joi.valid(['resource', 'meta']),
-          then: Joi.required(),
-          otherwise: Joi.forbidden(),
-        }),
-      }),
-    )
+    .items(node)
     .when('type', {
       is: Joi.valid(['article', 'focus']),
       then: Joi.required(),

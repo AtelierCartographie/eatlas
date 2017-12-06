@@ -4,7 +4,7 @@ const express = require('express')
 const boom = require('express-boom')
 const bodyParser = require('body-parser')
 
-const { cors, session, validateBody } = require('./lib/middlewares')
+const { cors, session, validateBody, logBoom500 } = require('./lib/middlewares')
 const { user, users, resources } = require('./lib/routes')
 
 const app = express()
@@ -12,6 +12,7 @@ const app = express()
 app.use(cors)
 app.use(session)
 app.use(boom())
+app.use(logBoom500)
 app.use(bodyParser.json())
 
 app.get('/session', user.session)

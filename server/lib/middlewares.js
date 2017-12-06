@@ -43,3 +43,12 @@ exports.validateBody = handler => {
       })
       .catch(err => res.boom.badRequest(err))
 }
+
+exports.logBoom500 = (req, res, next) => {
+  const original = res.boom.badImplementation.bind(res.boom)
+  res.boom.badImplementation = (...args) => {
+    console.error('Error 500', ...args) // eslint-disable-line no-console
+    original(...args)
+  }
+  next()
+}

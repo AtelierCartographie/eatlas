@@ -2,7 +2,7 @@
 
 import './App.css'
 
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { NavLink as NavLinko, Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 
@@ -17,6 +17,16 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { userLogout } from '../actions'
 import { withRouter } from 'react-router'
+
+const NavLink = ({ to, label, exact }: { to: string, label: string, exact?: boolean }) => (
+  <NavLinko
+    activeClassName="is-active"
+    className="navbar-item"
+    exact={exact}
+    to={to}>
+    <T id={label || 'label'} />
+  </NavLinko>
+)
 
 type Props = {
   authenticated: boolean,
@@ -65,31 +75,10 @@ class App extends Component<Props, State> {
             })}
             onClick={this.toggleActive}>
             <div className="navbar-start">
-              <NavLink
-                activeClassName="is-active"
-                className="navbar-item"
-                exact
-                to="/">
-                <T id="home" />
-              </NavLink>
-              <NavLink
-                activeClassName="is-active"
-                className="navbar-item"
-                to="/resources">
-                <T id="resources" />
-              </NavLink>
-              <NavLink
-                activeClassName="is-active"
-                className="navbar-item"
-                to="/users">
-                <T id="users" />
-              </NavLink>
-              <NavLink
-                activeClassName="is-active"
-                className="navbar-item"
-                to="/upload">
-                <T id="upload" />
-              </NavLink>
+              <NavLink to="/" label="home" exact />
+              <NavLink to="/resources" label="resources" />
+              <NavLink to="/users" label="users" />
+              <NavLink to="/upload" label="upload" />
             </div>
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>
@@ -113,15 +102,7 @@ class App extends Component<Props, State> {
   renderUserBox() {
     const { authenticated, name, role } = this.props
     if (!authenticated) {
-      return (
-        <NavLink
-          className="navbar-item"
-          activeClassName="is-active"
-          exact
-          to="/login">
-          <T id="connection" />
-        </NavLink>
-      )
+      return <NavLink to="/login" label="connection" exact />
     }
 
     // TODO proper user box with link to profile 'n co

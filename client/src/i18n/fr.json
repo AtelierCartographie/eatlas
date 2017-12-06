@@ -6,9 +6,11 @@
   "home": "accueil",
   "maps": "cartes",
   "name": "nom",
+  "photos": "photos",
   "resources": "ressources",
   "sounds": "sons",
   "submit": "envoyer",
   "upload": "envoi",
-  "users": "utilisateurs"
+  "users": "utilisateurs",
+  "videos": "videos"
 }

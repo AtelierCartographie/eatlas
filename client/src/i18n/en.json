@@ -5,8 +5,10 @@
   "edit": "edit",
   "home": "home",
   "name": "name",
+  "photos": "photos",
   "resources": "resources",
   "submit": "submit",
   "upload": "upload",
-  "users": "users"
+  "users": "users",
+  "videos": "videos"
 }

@@ -18,17 +18,20 @@ exports.userUpdate = {
   role: Joi.string().valid(['admin', 'visitor']),
 }
 
+const defaultUserName = ({ email }) => email.replace(/@.*$/, '')
+defaultUserName.description = 'left part of email'
+
 exports.fullUser = {
   name: Joi.string()
     .min(2)
     .max(250)
-    .required(),
+    .default(defaultUserName),
   email: Joi.string()
     .email()
     .required(),
   role: Joi.string()
     .valid(['admin', 'visitor'])
-    .required(),
+    .default('visitor'),
 }
 
 exports.googleOauth = {

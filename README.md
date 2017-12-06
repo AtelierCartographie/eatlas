@@ -82,6 +82,17 @@ Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``/confi
 Pour modifier cette configuration **ne pas modifier** ``default.json`` ni ``production.json`` mais plutôt créer un fichier ``local.json`` et y placer seulement les options surchargées.
 
 Pour prendre en compte une modification de la configuration, le serveur doit être redémarré (tué puis relancé avec ``yarn start``).
+
+### Création du premier compte admin
+
+Une fois l'application configurée, les services démarrés, il faut au moins un utilisateur pour pouvoir commencer à administrer l'application. L'ajout du tout premier utilisateur se fait en ligne de commande :
+
+```sh
+yarn add-user "user@gmail.com" "Nom Complet" admin
+```
+
+On peut dès lors se connecter avec ce compte et effectuer tout le reste depuis l'interface Web.
+
 ## Dév
 
 ```sh
@@ -104,9 +115,9 @@ cd server && yarn dev
 
 ### Elastic Search
 
-* Le container est nommé "eatlas_es"
+* Le container est nommé "eatlas_es_dev"
 * Pour le démarrer manuellement : ``docker-compose -f docker-compose.dev.yml up``
-* Pour consulter les logs : ``docker logs eatlas_es``
+* Pour consulter les logs : ``docker logs eatlas_es_dev``
 
 ## Prod
 

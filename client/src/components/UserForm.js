@@ -75,13 +75,22 @@ class UserForm extends Component<Props, State> {
   }
 
   render() {
-    const { loading, saving, userId } = this.props
+    const { loading, saving, userId, loggedUserId } = this.props
     const { user } = this.state
     const roles = ['admin', 'visitor']
 
     return (
       <div className="UserForm">
-        <h1 className="title">User {userId}</h1>
+        <h1 className="title">
+          User {userId}
+          {loggedUserId === userId && (
+            <span>
+              {' ('}
+              <T id="myself" />
+              {')'}
+            </span>
+          )}
+        </h1>
         {saving && <Spinner />}
         {loading || !user ? (
           <Spinner />
@@ -164,7 +173,7 @@ class UserForm extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ users }, props) => {
+    ({ users, user }, props) => {
       const id = props.match.params.id
       const redirect = props.history.push.bind(props.history)
       return {
@@ -173,6 +182,7 @@ export default withRouter(
         user: users.list.find(u => u.id === id) || null,
         userId: id === 'new' ? null : id,
         redirect,
+        loggedUserId: user.id,
       }
     },
     { fetchUser, saveUser },

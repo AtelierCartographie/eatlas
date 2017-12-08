@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 
-import { fetchUser } from './../actions'
-import { addUser, updateUser } from '../api'
+import { fetchUser, saveUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
@@ -15,7 +14,8 @@ type Props = {
   user: User,
   userId: string, // From router
   // actions
-  fetchUser: typeof fetchUser,
+  fetchUser: Function,
+  saveUser: Function,
 }
 
 type State = {
@@ -58,24 +58,15 @@ class UserForm extends Component<Props, State> {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    // TODO use a redux action?
-    // Not required yet as 'fetchUsers' is always called on /users and this does not impact any other part of the app
-    // But it's just about laziness
     // TODO when updating myself, changes should impact global UI (to be done in reducer)
     const { user, updating } = this.state
     if (updating) {
       return // already updating: cancel
     }
 
-    console.log(user)
-
-    // data = user without id
-    const data = Object.assign({}, user)
-    delete data.id
-
-    this.setState({ updating: false })
-    const save = () => (user.id ? updateUser(user.id, data) : addUser(data))
-    save().then(saved => this.setState({ updating: false, user: saved }))
+    this.props.saveUser(this.state.user).then(({ payload }) => {
+      this.setState({ updating: false, user: payload.user })
+    })
   }
 
   render() {
@@ -103,6 +94,7 @@ class UserForm extends Component<Props, State> {
                   placeholder="name"
                   value={user.name}
                   onChange={this.handleChange}
+                  required
                 />
                 <span className="icon is-small is-left">
                   <i className="fa fa-user" />
@@ -120,6 +112,7 @@ class UserForm extends Component<Props, State> {
                   placeholder="email"
                   value={user.email}
                   onChange={this.handleChange}
+                  required
                 />
                 <span className="icon is-small is-left">
                   <i className="fa fa-envelope" />

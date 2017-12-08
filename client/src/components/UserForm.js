@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
+import { withRouter } from 'react-router'
 
 import { fetchUser, saveUser } from './../actions'
 import IconButton from './IconButton'
@@ -16,6 +17,8 @@ type Props = {
   // actions
   fetchUser: Function,
   saveUser: Function,
+  // router
+  redirect: Function,
 }
 
 type State = {
@@ -66,6 +69,10 @@ class UserForm extends Component<Props, State> {
 
     this.props.saveUser(this.state.user).then(({ payload }) => {
       this.setState({ updating: false, user: payload.user })
+      if (!this.props.userId) {
+        // It was a user creation, redirect to user form now it exists
+        this.props.redirect('/users/' + payload.user.id + '/edit')
+      }
     })
   }
 
@@ -157,18 +164,29 @@ class UserForm extends Component<Props, State> {
   }
 }
 
-export default connect(
-  ({ users }, props) => {
-    const id = props.match.params.id
-    if (id === 'new') {
-      return { loading: false, user: null, userId: null }
-    } else {
-      return {
-        loading: users.loading,
-        user: users.list.find(u => u.id === id),
-        userId: id,
+export default withRouter(
+  connect(
+    ({ users }, props) => {
+      const id = props.match.params.id
+      const redirect = props.history.push.bind(props.history)
+      if (id === 'new') {
+        return {
+          loading: false,
+          updating: false,
+          user: null,
+          userId: null,
+          redirect,
+        }
+      } else {
+        return {
+          loading: users.loading,
+          updating: users.updating,
+          user: users.list.find(u => u.id === id),
+          userId: id,
+          redirect,
+        }
       }
-    }
-  },
-  { fetchUser, addUser },
-)(UserForm)
+    },
+    { fetchUser, saveUser },
+  )(UserForm),
+)

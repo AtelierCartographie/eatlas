@@ -45,9 +45,7 @@ class AuthButton extends Component<Props, State> {
   login(token) {
     this.props.notifyVerifyingUser()
     login(token)
-      .then(({ name, email, role }) =>
-        this.props.userLogin({ name, email, role }),
-      )
+      .then(user => this.props.userLogin(user))
       .catch(err => {
         this.props.notifyVerifyingUser(false)
         this.fail(err.code, err.message)

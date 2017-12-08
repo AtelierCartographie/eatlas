@@ -33,6 +33,6 @@ class Login extends Component<Props> {
   }
 }
 
-export default connect(state => ({
-  authenticated: !!state.user.email,
+export default connect(({ user }) => ({
+  authenticated: !!user.id,
 }))(Login)

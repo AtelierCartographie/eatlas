@@ -10,6 +10,7 @@ const initialState = {
   },
   // current user (session)
   user: {
+    id: null,
     name: null,
     email: null,
     role: 'anonymous', // should be 'anonymous', 'visitor' or 'admin'
@@ -81,7 +82,7 @@ export default (state = initialState, action) => {
     case 'LOGOUT':
       return {
         ...state,
-        user: { ...state.user, name: null, email: null, role: null },
+        user: { ...state.user, id: null, name: null, email: null, role: null },
       }
     default:
       return state

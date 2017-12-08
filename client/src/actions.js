@@ -52,9 +52,9 @@ export const fetchResources = () => dispatch => {
   )
 }
 
-export const userLogin = ({ name, email, role = 'visitor' }) => ({
+export const userLogin = ({ id, name, email, role = 'visitor' }) => ({
   type: 'LOGIN',
-  payload: { name, email, role },
+  payload: { id, name, email, role },
 })
 
 export const userLogout = () => ({

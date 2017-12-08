@@ -7,7 +7,7 @@
     "test": "mocha --reporter xunit",
     "dev": "run-p dev:*",
     "dev:services": "docker-compose -f docker-compose.dev.yml up",
-    "dev:server": "cross-env NODE_CONFIG_DIR='../config' NODE_ENV=development 'DEBUG=eatlas:*,$DEBUG' nodemon server.js",
+    "dev:server": "cross-env NODE_CONFIG_DIR='../config' NODE_ENV=development 'DEBUG=eatlas:*,$DEBUG' nodemon server.js | bunyan",
     "dev:test": "mocha --watch --growl --reporter list",
     "start": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
     "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js"
@@ -27,6 +27,7 @@
     "@naholyr/cross-env": "^1.0.0",
     "agentkeepalive": "^3.3.0",
     "body-parser": "^1.18.2",
+    "bunyan": "^1.8.12",
     "chalk": "^2.3.0",
     "cheerio": "^1.0.0-rc.2",
     "config": "^1.28.1",

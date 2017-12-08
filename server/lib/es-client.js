@@ -2,9 +2,10 @@
 
 const { Client } = require('elasticsearch')
 const { es: { connection, indices } } = require('config')
-const initIndices = require('./init-es-index')
 const AgentKeepAlive = require('agentkeepalive')
 const { promisify } = require('util')
+const initIndices = require('./init-es-index')
+const EsLogger = require('./es-logger')
 
 const client = new Client(
   Object.assign(
@@ -12,6 +13,7 @@ const client = new Client(
       keepAlive: true,
       createNodeAgent: (conn, conf) =>
         new AgentKeepAlive(conn.makeAgentConfig(conf)),
+      log: EsLogger,
     },
     connection,
   ),

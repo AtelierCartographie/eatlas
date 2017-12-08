@@ -6,35 +6,44 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 
 import { fetchUser } from './../actions'
+import { addUser, updateUser } from '../api'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
 type Props = {
   loading: boolean,
   user: User,
-  // router
-  match: {
-    params: {
-      id: string,
-    },
-  },
+  userId: string, // From router
   // actions
   fetchUser: typeof fetchUser,
 }
 
 type State = {
   user?: User,
+  updating: boolean,
+}
+
+const newUser: User = {
+  name: '',
+  email: '',
+  role: 'visitor',
 }
 
 class UserForm extends Component<Props, State> {
-  state = {}
+  state = { updating: false }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.match.params.id)
+    if (this.props.userId) {
+      this.props.fetchUser(this.props.userId)
+    } else {
+      this.setState(() => ({ user: newUser }))
+    }
   }
 
   componentWillReceiveProps({ user }) {
-    if (user && !this.state.user) this.setState({ user })
+    if (user && !this.state.user) {
+      this.setState({ user })
+    }
   }
 
   handleChange = ({ target }) => {
@@ -49,19 +58,35 @@ class UserForm extends Component<Props, State> {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    // TODO
-    console.log(this.state.user)
+    // TODO use a redux action?
+    // Not required yet as 'fetchUsers' is always called on /users and this does not impact any other part of the app
+    // But it's just about laziness
+    // TODO when updating myself, changes should impact global UI (to be done in reducer)
+    const { user, updating } = this.state
+    if (updating) {
+      return // already updating: cancel
+    }
+
+    console.log(user)
+
+    // data = user without id
+    const data = Object.assign({}, user)
+    delete data.id
+
+    this.setState({ updating: false })
+    const save = () => (user.id ? updateUser(user.id, data) : addUser(data))
+    save().then(saved => this.setState({ updating: false, user: saved }))
   }
 
   render() {
-    const { id } = this.props.match.params
-    const { loading } = this.props
-    const { user } = this.state
+    const { loading, userId } = this.props
+    const { updating, user } = this.state
     const roles = ['admin', 'visitor']
 
     return (
       <div className="UserForm">
-        <h1 className="title">User {id}</h1>
+        <h1 className="title">User {userId}</h1>
+        {updating && <Spinner />}
         {loading || !user ? (
           <Spinner />
         ) : (
@@ -106,7 +131,10 @@ class UserForm extends Component<Props, State> {
               <label className="label">role</label>
               <div className="control">
                 <div className="select">
-                  <select name="role" onChange={this.handleChange}>
+                  <select
+                    name="role"
+                    onChange={this.handleChange}
+                    value={user.role}>
                     {roles.map(r => (
                       <option key={r} value={r}>
                         {r}
@@ -119,7 +147,7 @@ class UserForm extends Component<Props, State> {
 
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-primary">
+                <button className="button is-primary" disabled={updating}>
                   <IconButton label="submit" icon="check" />
                 </button>
               </div>
@@ -138,10 +166,16 @@ class UserForm extends Component<Props, State> {
 
 export default connect(
   ({ users }, props) => {
-    return {
-      loading: users.loading,
-      user: users.list.find(u => u.id === props.match.params.id),
+    const id = props.match.params.id
+    if (id === 'new') {
+      return { loading: false, user: null, userId: null }
+    } else {
+      return {
+        loading: users.loading,
+        user: users.list.find(u => u.id === id),
+        userId: id,
+      }
     }
   },
-  { fetchUser },
+  { fetchUser, addUser },
 )(UserForm)

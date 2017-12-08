@@ -29,6 +29,9 @@ class Users extends Component<Props> {
       <div className="Users">
         <h1 className="title">
           <T id="users" />
+          <Link className="button is-primary" to={`/users/new`}>
+            <IconButton label="add" icon="plus" />
+          </Link>
         </h1>
         {loading ? (
           <Spinner />

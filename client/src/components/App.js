@@ -18,7 +18,15 @@ import { connect } from 'react-redux'
 import { userLogout } from '../actions'
 import { withRouter } from 'react-router'
 
-const NavLink = ({ to, label, exact }: { to: string, label: string, exact?: boolean }) => (
+const NavLink = ({
+  to,
+  label,
+  exact,
+}: {
+  to: string,
+  label: string,
+  exact?: boolean,
+}) => (
   <NavLinko
     activeClassName="is-active"
     className="navbar-item"

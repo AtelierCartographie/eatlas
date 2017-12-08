@@ -1,6 +1,8 @@
 'use strict'
 
-const chalk = require('chalk')
+const logger = require('./logger').child({
+  domain: 'elasticsearch-index-migration',
+})
 const isEqual = require('lodash.isequal')
 const {
   es: {
@@ -43,8 +45,7 @@ const checkIndex = (client, index) =>
     })
     .catch(err => {
       const message = 'Server failure: ES index could not be found or created'
-      console.error(chalk.bold.red(message)) // eslint-disable-line no-console
-      console.error(err) // eslint-disable-line no-console
+      logger.error(message, err)
       process.exit(1)
     })
 
@@ -75,28 +76,27 @@ const upgradeMappings = (client, index, currentMappings, newMappings) => {
 const migrateIndex = (client, index, oldIndex) => {
   const mappings = indexMapping[index]
 
-  console.error(chalk.bold.red('Obsolete mapping')) // eslint-disable-line no-console
+  logger.warn('Obsolete mapping')
   // Disabled auto-migration: reject
   if (!autoMigration) {
-    console.error(chalk.bold.red('Automatic index migration: disabled')) // eslint-disable-line no-console
-    console.error(chalk.bold('You should manually upgrade mapping ASAP:')) // eslint-disable-line no-console
-    console.error(chalk.bold(JSON.stringify(mappings))) // eslint-disable-line no-console
+    logger.warn('Automatic index migration: disabled')
+    logger.warn('You should manually upgrade mapping ASAP', { mappings })
     if (!acceptObsoleteMapping) {
-      console.error(chalk.bold.red('Obsolete mapping unaccepted: exit now')) // eslint-disable-line no-console
+      logger.error('Obsolete mapping unaccepted: exit now')
       process.exit(1)
     } else {
-      console.error(chalk.bold('Obsolete mapping accepted')) // eslint-disable-line no-console
+      logger.warn('Obsolete mapping accepted')
     }
     return
   }
 
-  console.error(chalk.bold('Automatic index upgrade…')) // eslint-disable-line no-console
+  logger.info('Automatic index upgrade…')
   // Force upgrade mapping by reindexing
   const newIndex = index + '_' + Date.now()
 
   return client.indices
     .create({ index: newIndex, body: { settings, mappings } })
-    .then(() => console.error(chalk.bold(`Reindexing into ${newIndex}…`))) // eslint-disable-line no-console
+    .then(() => logger.info(`Reindexing into ${newIndex}…`))
     .then(() =>
       client.reindex({
         body: { source: { index: oldIndex }, dest: { index: newIndex } },
@@ -109,7 +109,7 @@ const migrateIndex = (client, index, oldIndex) => {
 const renameIndex = (client, alias, oldIndex, newIndex) => {
   if (alias === oldIndex) {
     const message = `Unaliased index: drop ${oldIndex} then alias ${alias} → ${newIndex}…`
-    console.error(chalk.bold.red(message)) // eslint-disable-line no-console
+    logger.info(message)
     return client.indices.delete({ index: oldIndex }).then(() =>
       client.indices.updateAliases({
         body: { actions: [{ add: { index: newIndex, alias } }] },
@@ -117,7 +117,7 @@ const renameIndex = (client, alias, oldIndex, newIndex) => {
     )
   }
   const message = `Aliased index: update alias ${alias} → ${newIndex}, then drop ${oldIndex}…`
-  console.error(chalk.bold(message)) // eslint-disable-line no-console
+  logger.info(message)
   return client.indices
     .updateAliases({
       body: {
@@ -131,7 +131,7 @@ const renameIndex = (client, alias, oldIndex, newIndex) => {
 }
 
 const upgradeIndex = (client, index) => ({ index: realIndex, params }) => {
-  const message = info => chalk.bold.green(`Updated ${index}: ${info}`)
+  const message = info => `Updated ${index}: ${info}`
   return upgradeMappings(
     client,
     realIndex,
@@ -139,16 +139,16 @@ const upgradeIndex = (client, index) => ({ index: realIndex, params }) => {
     indexMapping[index],
   )
     .catch(() => migrateIndex(client, index, realIndex))
-    .then(info => info && console.error(message(info))) // eslint-disable-line no-console
+    .then(info => info && logger.info(message(info)))
 }
 
 const initIndex = (client, index) =>
   checkIndex(client, index)
     .then(upgradeIndex(client, index))
     .catch(err => {
-      console.error(err) // eslint-disable-line no-console
-      console.error(chalk.bold.red('Server failure: obsolete mapping')) // eslint-disable-line no-console
-      console.error(chalk.bold.red('Automatic migration failed')) // eslint-disable-line no-console
+      logger.error(err)
+      logger.error('Server failure: obsolete mapping')
+      logger.error('Automatic migration failed')
       process.exit(1)
     })
 

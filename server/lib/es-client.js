@@ -6,6 +6,7 @@ const AgentKeepAlive = require('agentkeepalive')
 const { promisify } = require('util')
 const initIndices = require('./init-es-index')
 const EsLogger = require('./es-logger')
+const logger = require('./logger')
 
 const client = new Client(
   Object.assign(
@@ -35,7 +36,7 @@ const ready = (() => {
         })
         // Not ready: try again later
         .catch(() => {
-          console.error('Connection to ES server failed, trying again…') // eslint-disable-line no-console
+          logger.error('Connection to ES server failed, trying again…') // eslint-disable-line no-console
           return sleep(2000).then(check) // TODO configurable timeout
         })
     )

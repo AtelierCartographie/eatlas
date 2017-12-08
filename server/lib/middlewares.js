@@ -5,6 +5,7 @@ const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const cors = require('cors')
 const { validate } = require('./schemas')
+const logger = require('./logger').child({ domain: 'app' })
 
 exports.cors = cors({
   origin: (origin, cb) => {
@@ -50,7 +51,7 @@ exports.validateBody = handler => {
 exports.logBoom500 = (req, res, next) => {
   const original = res.boom.badImplementation.bind(res.boom)
   res.boom.badImplementation = (...args) => {
-    console.error('Error 500', ...args) // eslint-disable-line no-console
+    logger.error('Error 500', ...args)
     original(...args)
   }
   next()

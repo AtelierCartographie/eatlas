@@ -23,7 +23,8 @@
     "port": 6379
   },
   "cors": {
-    "origins": [ "http://localhost:3000" ]
+    "origins": [ "http://localhost:3000" ],
+    "allowNoOrigin": false
   },
   "google": {
     "clientId": "see https://console.cloud.google.com/apis/credentials",

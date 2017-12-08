@@ -8,6 +8,9 @@ const { validate } = require('./schemas')
 
 exports.cors = cors({
   origin: (origin, cb) => {
+    if (!origin && config.cors.allowNoOrigin) {
+      return cb(null, true)
+    }
     if (config.cors.origins.includes(origin)) {
       return cb(null, true)
     }

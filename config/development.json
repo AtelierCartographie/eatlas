@@ -4,5 +4,9 @@
   },
   "cors": {
     "allowNoOrigin": true
+  },
+  "logger": {
+    "level": "debug",
+    "src": true
   }
 }

@@ -44,6 +44,10 @@ export default (state = initialState, action) => {
             .filter(u => u.id !== action.payload.user.id)
             .concat(action.payload.user),
         },
+        user:
+          state.user.id === action.payload.user.id
+            ? { ...state.user, ...action.payload.user }
+            : state.user,
       }
 
     case 'FETCH_RESOURCES':

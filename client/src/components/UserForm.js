@@ -61,7 +61,6 @@ class UserForm extends Component<Props, State> {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    // TODO when updating myself, changes should impact global UI (to be done in reducer)
     if (this.props.saving) {
       return // already saving: cancel
     }

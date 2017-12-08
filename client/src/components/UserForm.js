@@ -12,6 +12,7 @@ import Spinner from './Spinner'
 
 type Props = {
   loading: boolean,
+  saving: boolean,
   user: User,
   userId: string, // From router
   // actions
@@ -23,7 +24,6 @@ type Props = {
 
 type State = {
   user?: User,
-  updating: boolean,
 }
 
 const newUser: User = {
@@ -33,7 +33,7 @@ const newUser: User = {
 }
 
 class UserForm extends Component<Props, State> {
-  state = { updating: false }
+  state = {}
 
   componentDidMount() {
     if (this.props.userId) {
@@ -62,13 +62,11 @@ class UserForm extends Component<Props, State> {
   handleSubmit = evt => {
     evt.preventDefault()
     // TODO when updating myself, changes should impact global UI (to be done in reducer)
-    const { user, updating } = this.state
-    if (updating) {
-      return // already updating: cancel
+    if (this.props.saving) {
+      return // already saving: cancel
     }
 
     this.props.saveUser(this.state.user).then(({ payload }) => {
-      this.setState({ updating: false, user: payload.user })
       if (!this.props.userId) {
         // It was a user creation, redirect to user form now it exists
         this.props.redirect('/users/' + payload.user.id + '/edit')
@@ -77,14 +75,14 @@ class UserForm extends Component<Props, State> {
   }
 
   render() {
-    const { loading, userId } = this.props
-    const { updating, user } = this.state
+    const { loading, saving, userId } = this.props
+    const { user } = this.state
     const roles = ['admin', 'visitor']
 
     return (
       <div className="UserForm">
         <h1 className="title">User {userId}</h1>
-        {updating && <Spinner />}
+        {saving && <Spinner />}
         {loading || !user ? (
           <Spinner />
         ) : (
@@ -147,7 +145,7 @@ class UserForm extends Component<Props, State> {
 
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-primary" disabled={updating}>
+                <button className="button is-primary" disabled={saving}>
                   <IconButton label="submit" icon="check" />
                 </button>
               </div>
@@ -169,22 +167,12 @@ export default withRouter(
     ({ users }, props) => {
       const id = props.match.params.id
       const redirect = props.history.push.bind(props.history)
-      if (id === 'new') {
-        return {
-          loading: false,
-          updating: false,
-          user: null,
-          userId: null,
-          redirect,
-        }
-      } else {
-        return {
-          loading: users.loading,
-          updating: users.updating,
-          user: users.list.find(u => u.id === id),
-          userId: id,
-          redirect,
-        }
+      return {
+        loading: users.loading,
+        saving: users.saving,
+        user: users.list.find(u => u.id === id) || null,
+        userId: id === 'new' ? null : id,
+        redirect,
       }
     },
     { fetchUser, saveUser },

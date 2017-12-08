@@ -55,3 +55,16 @@ exports.logBoom500 = (req, res, next) => {
   }
   next()
 }
+
+exports.resBoomSend = (req, res, next) => {
+  if (res.boom) {
+    res.boom.send = (err, additionalData = {}) => {
+      const boomed = err.isBoom
+        ? err
+        : res.boom.create(err.status || 500, err.message || String(err))
+      const payload = Object.assign(boomed.output.payload, additionalData)
+      res.status(boomed.output.statusCode).send(payload)
+    }
+  }
+  next()
+}

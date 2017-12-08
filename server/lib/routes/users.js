@@ -6,7 +6,7 @@ exports.list = (req, res) =>
   users
     .list()
     .then(users => res.send(users))
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 
 exports.findUser = (req, res, next) =>
   users
@@ -18,7 +18,7 @@ exports.findUser = (req, res, next) =>
       req.foundUser = user
       next()
     })
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 
 exports.get = (req, res) => res.send(req.foundUser)
 
@@ -26,16 +26,16 @@ exports.update = (req, res) =>
   users
     .update(req.foundUser.id, req.body)
     .then(updatedUser => res.send(updatedUser))
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 
 exports.add = (req, res) =>
   users
     .create(req.body)
     .then(user => res.send(user))
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 
 exports.remove = (req, res) =>
   users
     .remove(req.params.id)
     .then(() => res.status(204).end())
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)

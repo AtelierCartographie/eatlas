@@ -19,7 +19,7 @@ exports.session = (req, res) => {
       }
       return res.send(user)
     })
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 }
 
 exports.login = (req, res) => {

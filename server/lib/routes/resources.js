@@ -17,7 +17,7 @@ exports.findResource = (req, res, next) =>
       req.foundResource = resource
       next()
     })
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 
 exports.get = (req, res) => res.send(req.foundResource)
 
@@ -55,10 +55,10 @@ exports.list = (req, res) =>
   resources
     .list()
     .then(resources => res.send(resources))
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)
 
 exports.remove = (req, res) =>
   resources
     .remove(req.params.id)
     .then(() => res.status(204).end())
-    .catch(err => res.boom.badImplementation(err))
+    .catch(res.boom.send)

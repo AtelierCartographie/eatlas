@@ -183,3 +183,13 @@ L'application nécessite une connexion via Google OAuth et l'accès à Google Dr
 * Menu burger → APIs & Services → Library → activer les APIs suivantes :
   * Google Picker API
 * Menu burger → IAM & administration → Paramètres → relever le n° du projet
+
+## Participants
+
+* Delphine Lereculeur - delphine.lereculeur@sciencespo.fr (chef de projet)
+* Anne Lhote - anne.lhote@sciencespo.fr (développement)
+* Thomas Ansart - thomas.ansart@sciencespo.fr (carto)
+* Atelier de carto - carto@sciencespo.fr
+* Nicolas Chambrier - naholyr@gmail.com
+* Bruno Héridet - delapouite@gmail.com
+* Thomas Moyse - tmoyse@gmail.com

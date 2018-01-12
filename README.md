@@ -173,7 +173,34 @@ curl -XDELETE 'localhost:9200/eatlas_resource_1512597721716'
 * Arrêt avec suppression des images : ``docker-compose -f <fichier.yml> down --rmi all``
 * Arrêt avec suppression des images **et des données** : ``docker-compose -f <fichier.yml> down --rmi all --volumes``
 
-## Google
+
+### First install on localhost
+
+- Ouvrir une console
+- Se placer à l'endroit où on veut enregistrer le projet
+
+`> cd /go/to/the/right/folder`
+- Cloner le projet depuis le repo Github
+
+`> git clone https://github.com/byteclubfr/eatlas.git`
+- Aller à la racine du projet
+
+`> cd eatlas/`
+- Si nécessaire, installer [Homebrew](https://brew.sh/index_fr.html)
+- Si nécessaire, installer yarn
+
+`> brew install yarn`
+- Installer les dépendances du projet
+
+`> yarn install`
+- Lancer le projet
+
+`> yarn dev`
+
+Un nouvel onglet présentant le projet doit alors s'ouvrir dans votre navigateur.
+
+
+### Google
 
 L'application nécessite une connexion via Google OAuth et l'accès à Google Drive, il faut donc créer une application Google avec les bons paramètres :
 
@@ -184,7 +211,7 @@ L'application nécessite une connexion via Google OAuth et l'accès à Google Dr
   * Google Picker API
 * Menu burger → IAM & administration → Paramètres → relever le n° du projet
 
-## Participants
+### Participants
 
 * Delphine Lereculeur - delphine.lereculeur@sciencespo.fr (chef de projet)
 * Anne Lhote - anne.lhote@sciencespo.fr (développement)

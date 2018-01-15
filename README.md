@@ -222,3 +222,6 @@ L'application nécessite une connexion via Google OAuth et l'accès à Google Dr
 * Nicolas Chambrier - naholyr@gmail.com
 * Bruno Héridet - delapouite@gmail.com
 * Thomas Moyse - tmoyse@gmail.com
+
+### TEST
+Can I write on it ?

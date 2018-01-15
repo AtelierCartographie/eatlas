@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react'
-import { FormattedMessage as T } from 'react-intl'
 import cx from 'classnames'
 
 class Icon extends Component {

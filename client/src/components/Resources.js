@@ -1,8 +1,13 @@
 // @flow
 
+import './Resources.css'
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
+import { withRouter } from 'react-router'
+import cx from 'classnames'
+import qs from 'query-string'
 
 import { connect } from 'react-redux'
 import { fetchResources } from './../actions'
@@ -15,6 +20,9 @@ type Props = {
     loading: boolean,
     list: Array<Resource>,
   },
+  filter: {
+    type: string,
+  },
   // actions
   fetchResources: typeof fetchResources,
 }
@@ -26,7 +34,8 @@ type MenuItem = {
 }
 
 const typeItems: Array<MenuItem> = [
-  { label: 'all', icon: 'list', type: null },
+  { label: 'all', icon: 'list', type: '' },
+  { label: 'articles', icon: 'file-text', type: 'article' },
   { label: 'maps', icon: 'map', type: 'map' },
   { label: 'photos', icon: 'camera-retro', type: 'image' },
   { label: 'videos', icon: 'film', type: 'video' },
@@ -39,24 +48,76 @@ class Resources extends Component<Props> {
   }
 
   renderTypeMenuItem(item: MenuItem) {
-    const url = 'coucou'
+    const { filter, location } = this.props
 
     return (
       <li key={item.type}>
-        <a href={url}>
+        <Link
+          className={cx({ active: filter.type === item.type })}
+          to={location.pathname + item.type ? `?type=${item.type}` : ''}>
           <Icon size="medium" icon={item.icon} />
           <T id={item.label} />
-        </a>
+        </Link>
       </li>
     )
   }
 
   renderTypeMenu(items: Array<MenuItem>) {
-    return <ul className="menu-list">{items.map(this.renderTypeMenuItem)}</ul>
+    return (
+      <ul className="menu-list">
+        {items.map(i => this.renderTypeMenuItem(i))}
+      </ul>
+    )
+  }
+
+  renderRow(resource: Resource) {
+    return (
+      <tr key={resource.id}>
+        <td>{resource.name}</td>
+        <td>{resource.type}</td>
+        <td>
+          <div className="field is-grouped">
+            <div className="control">
+              <Link
+                className="button is-primary"
+                to={`/resources/${resource.id}/edit`}>
+                <IconButton label="edit" icon="pencil" />
+              </Link>
+            </div>
+            <div className="control">
+              <button className="button is-danger is-outlined">
+                <IconButton label="delete" icon="times" />
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    )
+  }
+
+  renderTable(resources: Array<Resource>) {
+    return (
+      <table className="table is-striped is-bordered is-fullwidth">
+        <thead>
+          <tr>
+            <th>
+              <T id="name" />
+            </th>
+            <th>type</th>
+            <th style={{ width: '1px' }} />
+          </tr>
+        </thead>
+        <tbody>{resources.map(this.renderRow)}</tbody>
+      </table>
+    )
   }
 
   render() {
     const { loading, list } = this.props.resources
+    const filteredResources = this.props.filter.type
+      ? list.filter(r => r.type === this.props.filter.type)
+      : list
+
     return (
       <div className="Resources">
         <h1 className="title">
@@ -70,45 +131,7 @@ class Resources extends Component<Props> {
             </aside>
           </div>
           <div className="column">
-            {loading ? (
-              <Spinner />
-            ) : (
-              <table className="table is-striped is-bordered is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>
-                      <T id="name" />
-                    </th>
-                    <th>type</th>
-                    <th style={{ width: '1px' }} />
-                  </tr>
-                </thead>
-                <tbody>
-                  {list.map(r => (
-                    <tr key={r.id}>
-                      <td>{r.name}</td>
-                      <td>{r.type}</td>
-                      <td>
-                        <div className="field is-grouped">
-                          <div className="control">
-                            <Link
-                              className="button is-primary"
-                              to={`/resources/${r.id}/edit`}>
-                              <IconButton label="edit" icon="pencil" />
-                            </Link>
-                          </div>
-                          <div className="control">
-                            <button className="button is-danger is-outlined">
-                              <IconButton label="delete" icon="times" />
-                            </button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+            {loading ? <Spinner /> : this.renderTable(filteredResources)}
           </div>
         </div>
       </div>
@@ -116,6 +139,16 @@ class Resources extends Component<Props> {
   }
 }
 
-export default connect(({ resources }) => ({ resources }), { fetchResources })(
-  Resources,
+export default withRouter(
+  connect(
+    ({ resources }, { location }) => ({
+      resources,
+      filter: {
+        type: qs.parse(location.search).type || '',
+      },
+    }),
+    {
+      fetchResources,
+    },
+  )(Resources),
 )

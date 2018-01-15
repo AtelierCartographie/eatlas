@@ -6,6 +6,7 @@
     "classnames": "^2.2.5",
     "flow-bin": "^0.60.1",
     "load-script": "^1.0.0",
+    "query-string": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-google-login": "^3.0.2",

@@ -13,7 +13,6 @@ import PrivateRoute from './PrivateRoute'
 import Resources from './Resources'
 import ResourceCreate from './ResourceCreate'
 import ResourceEdit from './ResourceEdit'
-import Upload from './Upload'
 import UserForm from './UserForm'
 import Users from './Users'
 import classNames from 'classnames'
@@ -72,7 +71,6 @@ class App extends Component<Props, State> {
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/users" component={Users} />
         <PrivateRoute path="/users/:id" component={UserForm} />
-        <PrivateRoute path="/upload" component={Upload} />
       </Switch>
     )
   }
@@ -104,7 +102,7 @@ class App extends Component<Props, State> {
               <NavLink to="/" label="home" exact />
               <NavLink to="/resources" label="resources" />
               <NavLink to="/users" label="users" />
-              <NavLink to="/upload" label="import" />
+              <NavLink to="/resources/article/new" label="import" />
             </div>
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>

@@ -1,9 +1,12 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
+import { addResourceFromGoogleDrive, getResource } from '../api'
+
+import DocPicker from './DocPicker'
 
 type Props = {
   type: ResourceType,
@@ -27,8 +30,40 @@ class ResourceForm extends Component<Props, State> {
     )
   }
 
+  upload([{ name, id: fileId }], gapi) {
+    const type = this.props.type
+    const accessToken = gapi.auth.getToken().access_token
+
+    return addResourceFromGoogleDrive({ name, type, fileId, accessToken }).then(
+      ({ id }) => getResource(id),
+    )
+  }
+
+  renderError(error) {
+    return (
+      <p>
+        <strong>Error: {error}</strong>
+      </p>
+    )
+  }
+
+  renderResource(resource) {
+    return <pre>{JSON.stringify(resource, null, '  ')}</pre>
+  }
+
   renderForm(type) {
-    return <p>TODO: form depending on type: {type}</p>
+    return (
+      <Fragment>
+        <DocPicker
+          render={({ error, result }) =>
+            error ? this.renderError(error) : this.renderResource(result)
+          }
+          onPick={(docs, gapi) => this.upload(docs, gapi)}
+          showPickerAfterUpload={false}
+        />
+        <p>TODO: form depending on type: {type}</p>
+      </Fragment>
+    )
   }
 }
 

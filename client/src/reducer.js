@@ -5,6 +5,7 @@ const initialState = {
     list: [], // full users list
   },
   resources: {
+    fetched: false, // did we already request server data (note: fetched is true as soon as data is requested)?
     loading: false, // loading resources list
     list: [], // full resources list
   },
@@ -52,12 +53,16 @@ export default (state = initialState, action) => {
 
     case 'FETCH_RESOURCES':
     case 'FETCH_RESOURCE':
-      return { ...state, resources: { loading: true, list: [] } }
+      return { ...state, resources: { fetched: true, loading: true, list: [] } }
 
     case 'RECEIVE_RESOURCES':
       return {
         ...state,
-        resources: { loading: false, list: action.payload.resources },
+        resources: {
+          fetched: true,
+          loading: false,
+          list: action.payload.resources,
+        },
       }
 
     case 'RECEIVE_RESOURCE':

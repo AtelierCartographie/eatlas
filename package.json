@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/byteclubfr/eatlas#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "npm-run-all": "^4.1.2"
   },
   "devDependencies": {}

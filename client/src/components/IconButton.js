@@ -1,4 +1,5 @@
 // @flow
+
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 

@@ -64,7 +64,7 @@ class App extends Component<Props, State> {
     return (
       <div className="App">
         <nav
-          className="navbar is-fixed-top is-primary"
+          className="navbar is-fixed-top is-dark"
           aria-label="main navigation">
           <div className="navbar-brand">
             <button
@@ -87,7 +87,7 @@ class App extends Component<Props, State> {
               <NavLink to="/" label="home" exact />
               <NavLink to="/resources" label="resources" />
               <NavLink to="/users" label="users" />
-              <NavLink to="/upload" label="upload" />
+              <NavLink to="/upload" label="import" />
             </div>
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>

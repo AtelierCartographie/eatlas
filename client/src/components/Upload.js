@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
+import { FormattedMessage as T } from 'react-intl'
 import { addResourceFromGoogleDrive, getResource } from '../api'
 
 import GooglePicker from 'react-google-picker'
@@ -55,7 +56,7 @@ class Upload extends Component<{}> {
     if (!data.docs) {
       return
     }
-    const name = data.docs[0].name
+    const { name } = data.docs[0]
     const type = 'article'
     const fileId = data.docs[0].id
     const accessToken = window.gapi.auth.getToken().access_token
@@ -88,7 +89,7 @@ class Upload extends Component<{}> {
         <button
           className="button is-primary"
           onClick={() => this.setState({ error: null, result: null })}>
-          picker
+          <T id="to-import" />
         </button>
       </GooglePicker>
     )

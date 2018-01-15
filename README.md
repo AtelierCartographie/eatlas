@@ -21,7 +21,9 @@ Le côté client est configuré à l'aide de variables d'environnement :
 * ``REACT_APP_GOOGLE_PROJECT_NUM`` : Numéro de l'application Google créée (cf. section "Google" de cette documentation)
 * ``REACT_APP_GOOGLE_DEV_KEY`` : Clé d'API Google (cf. section "Google" de cette documentation)
 
-**Attention** si un fichier ``.env`` est présent, il définit des valeurs par défaut pour ces variables d'environnement (actuellement utilisées pour le développement).
+**Attention** si un fichier `client/.env` est présent, il définit des valeurs par défaut pour ces variables d'environnement (actuellement utilisées pour le développement).
+Ce fichier est lu par [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-development-environment-variables-in-env)
+(lui même se basant sur [dotenv](https://github.com/motdotla/dotenv)).
 
 Pour prendre en compte une modification de la configuration, le client doit être régénéré avec ``yarn build`` et re-déployé.
 
@@ -112,9 +114,9 @@ Note : l'environnement de dév de React vide la console à chaque rebuild, ça
 
 ```sh
 # Terminal 1 (client)
-cd client && yarn start
+yarn dev:client
 # Terminal 2 (serveur)
-cd server && yarn dev
+yarn dev:server
 ```
 
 ### Elastic Search

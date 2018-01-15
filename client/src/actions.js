@@ -62,7 +62,7 @@ export const fetchResources = () => dispatch => {
       type: 'RECEIVE_RESOURCES',
       payload: { resources },
     }),
-  )
+  ) // TODO handle error
 }
 
 export const userLogin = ({ id, name, email, role = 'visitor' }) => ({

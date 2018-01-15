@@ -7,8 +7,10 @@ declare type User = {
   role: string,
 }
 
+declare type ResourceType = '' | 'article' | 'map' | 'sound' | 'image' | 'video'
+
 declare type Resource = {
   id: string,
-  type: string,
+  type: ResourceType,
   name: string,
 }

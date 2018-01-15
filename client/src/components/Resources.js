@@ -21,7 +21,7 @@ type Props = {
     list: Array<Resource>,
   },
   filter: {
-    type: string,
+    type: ResourceType,
   },
   // actions
   fetchResources: typeof fetchResources,
@@ -30,7 +30,7 @@ type Props = {
 type MenuItem = {
   label: string,
   icon: string,
-  type: string,
+  type: ResourceType,
 }
 
 const typeItems: Array<MenuItem> = [

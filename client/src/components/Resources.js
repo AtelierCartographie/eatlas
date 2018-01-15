@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import IconButton from './IconButton'
+import Icon from './Icon'
 
 type Props = {
   resources: {
@@ -18,9 +19,40 @@ type Props = {
   fetchResources: typeof fetchResources,
 }
 
+type MenuItem = {
+  label: string,
+  icon: string,
+  type: string,
+}
+
+const typeItems: Array<MenuItem> = [
+  { label: 'all', icon: 'list', type: null },
+  { label: 'maps', icon: 'map', type: 'map' },
+  { label: 'photos', icon: 'camera-retro', type: 'image' },
+  { label: 'videos', icon: 'film', type: 'video' },
+  { label: 'sounds', icon: 'microphone', type: 'sound' },
+]
+
 class Resources extends Component<Props> {
   componentDidMount() {
     this.props.fetchResources()
+  }
+
+  renderTypeMenuItem(item: MenuItem) {
+    const url = 'coucou'
+
+    return (
+      <li key={item.type}>
+        <a href={url}>
+          <Icon size="medium" icon={item.icon} />
+          <T id={item.label} />
+        </a>
+      </li>
+    )
+  }
+
+  renderTypeMenu(items: Array<MenuItem>) {
+    return <ul className="menu-list">{items.map(this.renderTypeMenuItem)}</ul>
   }
 
   render() {
@@ -34,40 +66,7 @@ class Resources extends Component<Props> {
           <div className="column is-one-quarter">
             <aside className="menu">
               <p className="menu-label">Type</p>
-              <ul className="menu-list">
-                <li>
-                  <a>
-                    <span className="icon is-medium">
-                      <i className="fa fa-map" />
-                    </span>
-                    <T id="maps" />
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <span className="icon is-medium">
-                      <i className="fa fa-camera-retro" />
-                    </span>
-                    <T id="photos" />
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <span className="icon is-medium">
-                      <i className="fa fa-film" />
-                    </span>
-                    <T id="videos" />
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <span className="icon is-medium">
-                      <i className="fa fa-microphone" />
-                    </span>
-                    <T id="sounds" />
-                  </a>
-                </li>
-              </ul>
+              {this.renderTypeMenu(typeItems)}
             </aside>
           </div>
           <div className="column">

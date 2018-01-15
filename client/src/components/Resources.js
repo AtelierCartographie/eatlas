@@ -104,18 +104,24 @@ class Resources extends Component<Props> {
     )
   }
 
-  renderUpload(type: ResourceType) {
+  renderCreate(type: ResourceType) {
     if (!type) {
       return null
     }
 
-    return <span>create {type}</span>
+    return (
+      <Link
+        className="button is-primary"
+        to={`/resources/${this.props.type}/new`}>
+        <IconButton label="add" icon="plus" />
+      </Link>
+    )
   }
 
   renderResources(resources: Array<Resource>, type: ResourceType) {
     return (
       <Fragment>
-        {this.renderUpload(type)}
+        {this.renderCreate(type)}
         {this.renderList(resources)}
       </Fragment>
     )

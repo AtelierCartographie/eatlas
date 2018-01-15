@@ -14,7 +14,7 @@ module.exports = class LogToBunyan {
   }
 
   warning(...args) {
-    this.logger.warning(...args)
+    this.logger.warn(...args)
   }
 
   error(...args) {

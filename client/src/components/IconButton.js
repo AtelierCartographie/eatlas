@@ -1,3 +1,4 @@
+// @flow
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 
@@ -11,10 +12,8 @@ class IconButton extends Component<Props> {
     const { label, icon } = this.props
     return (
       <Fragment>
-        <span>
-          <T id={label} />
-        </span>{' '}
-        <span className="icon is-small">
+        <T id={label} />
+        <span className="icon is-small" style={{ 'marginLeft': '.5em' }}>
           <i className={`fa fa-${icon}`} />
         </span>
       </Fragment>

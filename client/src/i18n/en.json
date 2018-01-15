@@ -3,6 +3,7 @@
   "cancel": "cancel",
   "connection": "connection",
   "delete": "delete",
+  "disconnection": "disconnection",
   "edit": "edit",
   "home": "home",
   "myself": "myself",
@@ -12,5 +13,6 @@
   "submit": "submit",
   "upload": "upload",
   "users": "users",
+  "validate": "validate",
   "videos": "videos"
 }

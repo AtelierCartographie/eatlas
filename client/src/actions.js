@@ -1,8 +1,10 @@
 import {
+  // users
   getUser,
   getUsers,
   addUser,
   updateUser,
+  deleteUser,
   //getResource,
   getResources,
 } from './api'
@@ -39,6 +41,17 @@ export const saveUser = ({ id, ...data }) => dispatch => {
       payload: { user },
     }),
   )
+}
+
+export const _deleteUser = id => dispatch => {
+  dispatch({ type: 'DELETE_USER' })
+  deleteUser().then(() => {
+    dispatch({
+      // TODO: consistent naming of all actions trio
+      type: 'DELETE_USER_SUCCESS',
+      payload: { id },
+    })
+  })
 }
 
 export const fetchResources = () => dispatch => {

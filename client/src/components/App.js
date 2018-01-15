@@ -3,10 +3,11 @@
 import './App.css'
 
 import { NavLink as NavLinko, Route, Switch } from 'react-router-dom'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 
 import Home from './Home'
+import IconButton from './IconButton'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
 import Resources from './Resources'
@@ -110,14 +111,27 @@ class App extends Component<Props, State> {
   renderUserBox() {
     const { authenticated, name, role } = this.props
     if (!authenticated) {
-      return <NavLink to="/login" label="connection" exact />
+      return (
+        <NavLinko
+          activeClassName="is-active"
+          className="navbar-item"
+          exact
+          to="/login">
+          <IconButton label="connection" icon="sign-in" />
+        </NavLinko>
+      )
     }
 
     // TODO proper user box with link to profile 'n co
     return (
-      <a className="navbar-item" onClick={this.props.userLogout}>
-        <strong title={`Role: ${role} (click to log out)`}>{name}</strong>
-      </a>
+      <Fragment>
+        <div className="navbar-item">
+          {name} ({role})
+        </div>
+        <a className="navbar-item" onClick={this.props.userLogout}>
+          <IconButton label="disconnection" icon="sign-out" />
+        </a>
+      </Fragment>
     )
   }
 }

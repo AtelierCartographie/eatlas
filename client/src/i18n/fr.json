@@ -3,6 +3,7 @@
   "cancel": "annuler",
   "connection": "connexion",
   "delete": "supprimer",
+  "disconnection": "déconnexion",
   "edit": "modifier",
   "home": "accueil",
   "maps": "cartes",
@@ -14,5 +15,6 @@
   "submit": "envoyer",
   "upload": "envoi",
   "users": "utilisateurs",
+  "validate": "valider",
   "videos": "videos"
 }

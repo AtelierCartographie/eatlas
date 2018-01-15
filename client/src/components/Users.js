@@ -5,7 +5,7 @@ import { FormattedMessage as T } from 'react-intl'
 
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchUsers } from './../actions'
+import { fetchUsers, _deleteUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
@@ -16,6 +16,7 @@ type Props = {
   },
   // actions
   fetchUsers: typeof fetchUsers,
+  _deleteUser: typeof _deleteUser,
 }
 
 class Users extends Component<Props> {
@@ -23,16 +24,30 @@ class Users extends Component<Props> {
     this.props.fetchUsers()
   }
 
+  deleteUser(id) {
+    this.props._deleteUser(id)
+  }
+
   render() {
     const { list, loading } = this.props.users
     return (
       <div className="Users">
-        <h1 className="title">
-          <T id="users" />
-          <Link className="button is-primary" to={`/users/new`}>
-            <IconButton label="add" icon="plus" />
-          </Link>
-        </h1>
+        <div className="level">
+          <div className="level-left">
+            <div className="level-item">
+              <h1 className="title">
+                <T id="users" />
+              </h1>
+            </div>
+          </div>
+          <div className="level-right">
+            <div className="level-item">
+              <Link className="button is-primary" to={`/users/new`}>
+                <IconButton label="add" icon="plus" />
+              </Link>
+            </div>
+          </div>
+        </div>
         {loading ? (
           <Spinner />
         ) : (
@@ -63,7 +78,9 @@ class Users extends Component<Props> {
                         </Link>
                       </div>
                       <div className="control">
-                        <button className="button is-danger is-outlined">
+                        <button
+                          className="button is-danger is-outlined"
+                          onClick={() => this.deleteUser(u.id)}>
                           <IconButton label="delete" icon="times" />
                         </button>
                       </div>
@@ -79,4 +96,4 @@ class Users extends Component<Props> {
   }
 }
 
-export default connect(({ users }) => ({ users }), { fetchUsers })(Users)
+export default connect(({ users }) => ({ users }), { fetchUsers, _deleteUser })(Users)

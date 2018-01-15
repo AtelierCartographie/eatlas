@@ -12,6 +12,7 @@ import Spinner from './Spinner'
 
 type Props = {
   loading: boolean,
+  loggedUserId: string,
   saving: boolean,
   user: User,
   userId: string, // From router
@@ -65,10 +66,9 @@ class UserForm extends Component<Props, State> {
       return // already saving: cancel
     }
 
-    this.props.saveUser(this.state.user).then(({ payload }) => {
+    this.props.saveUser(this.state.user).then(() => {
       if (!this.props.userId) {
-        // It was a user creation, redirect to user form now it exists
-        this.props.redirect('/users/' + payload.user.id + '/edit')
+        this.props.redirect('/users')
       }
     })
   }
@@ -81,7 +81,7 @@ class UserForm extends Component<Props, State> {
     return (
       <div className="UserForm">
         <h1 className="title">
-          User {userId}
+          User {user && user.name}
           {loggedUserId === userId && (
             <span>
               {' ('}
@@ -99,7 +99,7 @@ class UserForm extends Component<Props, State> {
               <label className="label">
                 <T id="name" />
               </label>
-              <div className="control has-icons-left has-icons-right">
+              <div className="control has-icons-left">
                 <input
                   className="input"
                   name="name"
@@ -117,7 +117,7 @@ class UserForm extends Component<Props, State> {
 
             <div className="field">
               <label className="label">email</label>
-              <div className="control has-icons-left has-icons-right">
+              <div className="control has-icons-left">
                 <input
                   className="input"
                   name="email"
@@ -154,7 +154,7 @@ class UserForm extends Component<Props, State> {
             <div className="field is-grouped">
               <div className="control">
                 <button className="button is-primary" disabled={saving}>
-                  <IconButton label="submit" icon="check" />
+                  <IconButton label="validate" icon="check" />
                 </button>
               </div>
               <div className="control">
@@ -172,9 +172,9 @@ class UserForm extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ users, user }, props) => {
-      const id = props.match.params.id
-      const redirect = props.history.push.bind(props.history)
+    ({ users, user }, { match, history }) => {
+      const { id } = match.params
+      const redirect = history.push.bind(history)
       return {
         loading: users.loading,
         saving: users.saving,

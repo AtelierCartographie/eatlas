@@ -31,7 +31,7 @@ export const getResource = id =>
     fake: () => FAKE_RESOURCE,
   })
 
-export const getResources = id =>
+export const getResources = () =>
   query({
     url: `/resources`,
     fake: () => [FAKE_RESOURCE],
@@ -79,6 +79,12 @@ export const addUser = body =>
     url: '/users',
     body,
     fake: () => FAKE_USER,
+  })
+
+export const deleteUser = id =>
+  query({
+    method: 'DELETE',
+    url: `/users/${id}`,
   })
 
 // Return a fake async response

@@ -14,3 +14,30 @@ declare type Resource = {
   type: ResourceType,
   name: string,
 }
+
+declare type UploadDoc = {
+  id: string,
+  name: string,
+}
+
+// WIP, see https://developers.google.com/api-client-library/javascript/reference/referencedocs
+declare type GoogleApi = {
+  client: {
+    init: ({
+      apiKey: string,
+      clientId: string,
+      discoveryDocs: Array<string>,
+      scope: Array<string>,
+    }) => Promise<any>,
+  },
+  auth2: {
+    getAuthInstance: () => {
+      signIn: () => Promise<any>,
+    },
+  },
+  auth: {
+    getToken: () => {
+      access_token: string,
+    },
+  },
+}

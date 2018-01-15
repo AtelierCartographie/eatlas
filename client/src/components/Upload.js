@@ -4,120 +4,37 @@ import React, { Component } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 import { addResourceFromGoogleDrive, getResource } from '../api'
 
-import GooglePicker from 'react-google-picker'
-import loadScript from 'load-script'
+import DocPicker from './DocPicker'
 
-const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js'
-let scriptLoadingStarted = false
+const onPick = ([{ name, id: fileId }], gapi) => {
+  const type = 'article'
+  const accessToken = gapi.auth.getToken().access_token
 
-class Upload extends Component<{}> {
-  state = { error: null, result: null }
+  return addResourceFromGoogleDrive({ name, type, fileId, accessToken }).then(
+    ({ id }) => getResource(id),
+  )
+}
 
-  componentDidMount() {
-    if (this.isGoogleReady()) {
-      // google api is already exists
-      // init immediately
-      this.onApiLoad()
-    } else if (!scriptLoadingStarted) {
-      // load google api and the init
-      scriptLoadingStarted = true
-      loadScript(GOOGLE_SDK_URL, this.onApiLoad)
-    } else {
-      // is loading ????
-    }
-  }
-
-  isGoogleReady() {
-    return !!window.gapi
-  }
-
-  isGoogleAuthReady() {
-    return !!window.gapi.auth
-  }
-
-  onApiLoad() {
-    window.gapi.load('client:auth2', () => {
-      window.gapi.client
-        .init({
-          apiKey: process.env.REACT_APP_GOOGLE_DEV_KEY,
-          clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-          discoveryDocs: [
-            'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
-          ],
-          scope: ['https://www.googleapis.com/auth/drive'],
-        })
-        .then(function() {
-          window.gapi.auth2.getAuthInstance().signIn()
-        })
-    })
-  }
-
-  onPick = (data: any) => {
-    if (!data.docs) {
-      return
-    }
-    const { name } = data.docs[0]
-    const type = 'article'
-    const fileId = data.docs[0].id
-    const accessToken = window.gapi.auth.getToken().access_token
-    addResourceFromGoogleDrive({ name, type, fileId, accessToken })
-      .then(({ id }) => {
-        console.log('Conversion done, resource id', id)
-        return getResource(id)
-      })
-      .then(res => this.setState({ result: res }))
-      .catch(err => this.setState({ error: err }))
-  }
-
-  renderPicker() {
+const render = ({ error, result }) => {
+  if (error) {
     return (
-      <GooglePicker
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        developerKey={process.env.REACT_APP_GOOGLE_DEV_KEY}
-        scope={['https://www.googleapis.com/auth/drive']}
-        createPicker={(google, oauthToken) => {
-          const picker = new window.google.picker.PickerBuilder()
-            .addView(new google.picker.View(google.picker.ViewId.DOCS))
-            .addView(new google.picker.DocsUploadView())
-            .setOAuthToken(oauthToken)
-            .setDeveloperKey(process.env.REACT_APP_GOOGLE_DEV_KEY)
-            .setCallback(this.onPick)
-          picker.build().setVisible(true)
-        }}
-        // mimeTypes={['image/png', 'image/jpeg', 'image/jpg']}
-      >
-        <button
-          className="button is-primary"
-          onClick={() => this.setState({ error: null, result: null })}>
-          <T id="to-import" />
-        </button>
-      </GooglePicker>
+      <p>
+        <strong>Error: {error.message}</strong>
+      </p>
     )
   }
 
-  renderResult() {
-    if (this.state.error) {
-      return (
-        <div>
-          <p>
-            <strong>Error:</strong>
-          </p>
-          <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
-        </div>
-      )
-    }
+  return <pre>{JSON.stringify(result, null, '  ')}</pre>
+}
 
-    if (this.state.result) {
-      return <pre>{JSON.stringify(this.state.result, null, 2)}</pre>
-    }
-  }
-
+class Upload extends Component {
   render() {
     return (
-      <div>
-        {this.renderPicker()}
-        {this.renderResult()}
-      </div>
+      <DocPicker
+        render={render}
+        onPick={onPick}
+        showPickerAfterUpload={false}
+      />
     )
   }
 }

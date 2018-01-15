@@ -116,7 +116,6 @@ class Upload extends Component<Props, State> {
   }
 
   renderResult() {
-    console.log('renderResult', this.state)
     return this.props.render(this.state)
   }
 

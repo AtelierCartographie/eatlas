@@ -60,6 +60,19 @@ class App extends Component<Props, State> {
     })
   }
 
+  renderRoutes() {
+    return (
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute exact path="/resources/:type?" component={Resources} />
+        <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute exact path="/users" component={Users} />
+        <PrivateRoute path="/users/:id" component={UserForm} />
+        <PrivateRoute path="/upload" component={Upload} />
+      </Switch>
+    )
+  }
+
   render() {
     return (
       <div className="App">
@@ -93,16 +106,7 @@ class App extends Component<Props, State> {
           </div>
         </nav>
         <main className="section">
-          <div className="container">
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/resources" component={Resources} />
-              <PrivateRoute exact path="/" component={Home} />
-              <PrivateRoute exact path="/users" component={Users} />
-              <PrivateRoute path="/users/:id" component={UserForm} />
-              <PrivateRoute path="/upload" component={Upload} />
-            </Switch>
-          </div>
+          <div className="container">{this.renderRoutes()}</div>
         </main>
       </div>
     )

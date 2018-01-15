@@ -2,12 +2,10 @@
 
 import './Resources.css'
 
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component, Fragment } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
-import cx from 'classnames'
-import qs from 'query-string'
 
 import { connect } from 'react-redux'
 import { fetchResources } from './../actions'
@@ -20,9 +18,7 @@ type Props = {
     loading: boolean,
     list: Array<Resource>,
   },
-  filter: {
-    type: ResourceType,
-  },
+  type: ResourceType,
   // actions
   fetchResources: typeof fetchResources,
 }
@@ -48,16 +44,12 @@ class Resources extends Component<Props> {
   }
 
   renderTypeMenuItem(item: MenuItem) {
-    const { filter, location } = this.props
-
     return (
       <li key={item.type}>
-        <Link
-          className={cx({ active: filter.type === item.type })}
-          to={location.pathname + item.type ? `?type=${item.type}` : ''}>
+        <NavLink activeClassName="active" exact to={'/resources/' + item.type}>
           <Icon size="medium" icon={item.icon} />
           <T id={item.label} />
-        </Link>
+        </NavLink>
       </li>
     )
   }
@@ -95,7 +87,7 @@ class Resources extends Component<Props> {
     )
   }
 
-  renderTable(resources: Array<Resource>) {
+  renderList(resources: Array<Resource>) {
     return (
       <table className="table is-striped is-bordered is-fullwidth">
         <thead>
@@ -112,10 +104,27 @@ class Resources extends Component<Props> {
     )
   }
 
+  renderUpload(type: ResourceType) {
+    if (!type) {
+      return null
+    }
+
+    return <span>create {type}</span>
+  }
+
+  renderResources(resources: Array<Resource>, type: ResourceType) {
+    return (
+      <Fragment>
+        {this.renderUpload(type)}
+        {this.renderList(resources)}
+      </Fragment>
+    )
+  }
+
   render() {
     const { loading, list } = this.props.resources
-    const filteredResources = this.props.filter.type
-      ? list.filter(r => r.type === this.props.filter.type)
+    const filteredResources = this.props.type
+      ? list.filter(r => r.type === this.props.type)
       : list
 
     return (
@@ -131,7 +140,11 @@ class Resources extends Component<Props> {
             </aside>
           </div>
           <div className="column">
-            {loading ? <Spinner /> : this.renderTable(filteredResources)}
+            {loading ? (
+              <Spinner />
+            ) : (
+              this.renderResources(filteredResources, this.props.type)
+            )}
           </div>
         </div>
       </div>
@@ -141,11 +154,9 @@ class Resources extends Component<Props> {
 
 export default withRouter(
   connect(
-    ({ resources }, { location }) => ({
+    ({ resources }, { match }) => ({
       resources,
-      filter: {
-        type: qs.parse(location.search).type || '',
-      },
+      type: match.params.type || '',
     }),
     {
       fetchResources,

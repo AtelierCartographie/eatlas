@@ -14,7 +14,7 @@ type Props = {
   loading: boolean,
   loggedUserId: string,
   saving: boolean,
-  user: User,
+  user: UserNew | User,
   userId: string, // From router
   // actions
   fetchUser: Function,
@@ -24,10 +24,10 @@ type Props = {
 }
 
 type State = {
-  user?: User,
+  user?: UserNew | User,
 }
 
-const newUser: User = {
+const newUser: UserNew = {
   name: '',
   email: '',
   role: 'visitor',
@@ -81,7 +81,7 @@ class UserForm extends Component<Props, State> {
     return (
       <div className="UserForm">
         <h1 className="title">
-          User {user && user.name}
+          User {user ? user.name : ''}
           {loggedUserId === userId && (
             <span>
               {' ('}

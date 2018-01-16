@@ -3,7 +3,13 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 
-class Icon extends Component {
+type Props = {
+  size?: string,
+  icon: string,
+  className?: string,
+}
+
+class Icon extends Component<Props> {
   render() {
     const { size = 'medium', icon, className, ...rest } = this.props
 

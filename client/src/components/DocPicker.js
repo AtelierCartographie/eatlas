@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react'
-import { FormattedMessage as T } from 'react-intl'
 
 import GooglePicker from 'react-google-picker'
 import IconButton from './IconButton'
@@ -21,11 +20,11 @@ type Props = {
     gapi: GoogleApi,
     viewToken: string,
   ) => Promise<any>,
-  render: State => JSX.Element,
-  mimeTypes: ?Array<string>,
-  label: ?string,
-  icon: ?string,
-  showPickerAfterUpload: ?boolean,
+  render: State => React$Element<any>,
+  mimeTypes?: Array<string>,
+  label?: string,
+  icon?: string,
+  showPickerAfterUpload?: boolean,
 }
 
 class Upload extends Component<Props, State> {

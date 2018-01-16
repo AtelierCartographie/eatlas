@@ -1,11 +1,12 @@
 // @flow
 
-declare type User = {
-  id?: string,
+declare type UserNew = {
   name: string,
   email: string,
   role: string,
 }
+
+declare type User = UserNew & { id: string }
 
 declare type ResourceType = '' | 'article' | 'map' | 'sound' | 'image' | 'video'
 

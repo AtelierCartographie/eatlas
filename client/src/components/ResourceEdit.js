@@ -14,6 +14,8 @@ type Props = {
   id: string,
   loading: boolean,
   shouldLoad: boolean,
+  // Actions
+  fetchResources: Function,
 }
 
 type State = {}

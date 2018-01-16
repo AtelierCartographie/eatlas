@@ -42,7 +42,7 @@ class ResourceForm extends Component<Props, State> {
   renderError(error) {
     return (
       <p>
-        <strong>Error: {error}</strong>
+        <strong>Error: {error.message}</strong>
       </p>
     )
   }

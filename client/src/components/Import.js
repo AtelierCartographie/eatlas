@@ -328,7 +328,7 @@ class Import extends Component<Props, State> {
     }
 
     // TODO Redux
-    this.setState({ saving: true })
+    this.setState({ saving: true, error: null })
     try {
       const { id } = await addResourceFromGoogleDrive({
         name: resource.name,

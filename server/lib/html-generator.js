@@ -1,4 +1,4 @@
-const { parseDocx } = require('./docx-parser')
+const { parseDocx } = require('./doc-parser')
 const cheerio = require('cheerio')
 
 const generateTitle = doc => {
@@ -48,6 +48,20 @@ const generateResume = doc => {
     </section>`
 }
 
+// TODO remove this global
+let lexiconId = 0
+const generateParagraph = p => {
+  const paragraph = p.lexicon.reduce(
+    (acc, l) =>
+      acc.replace(
+        l,
+        `<a href="#keyword-${++lexiconId}" class="keyword" data-toggle="collapse">${l}</a>`,
+      ),
+    p.text,
+  )
+  return `<p>${paragraph}</p>`
+}
+
 const generateDivContainer = container => {
   const parts = container.map(p => {
     switch (p.type) {
@@ -56,7 +70,8 @@ const generateDivContainer = container => {
         return `<h2>${p.text}</h2>`
 
       case 'p':
-        return `<p>${p.text}</p>`
+        return generateParagraph(p)
+
       default:
         return '<div>other</div>'
     }
@@ -187,6 +202,26 @@ const generateFooter = doc => {
   return `<footer class="footer-article">${footer.join('')}</footer>`
 }
 
+const generateLexicon = doc => {
+  const lexicons = doc.nodes
+    .reduce(
+      (acc, node) =>
+        node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
+      [],
+    )
+    .map(
+      (l, k) => `
+      <div class="collapse container" id="keyword-${k + 1}">
+          <dl>
+              <dt>${l}</dt>
+              <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id tellus at eros molestie efficitur. Nunc vitae tempor mi. Aenean suscipit erat non purus eleifend, et feugiat erat gravida. Etiam at leo vel enim pulvinar dignissim vitae vitae odio. Quisque mattis consequat condimentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc quis turpis cras amet.</dd>
+          </dl>
+      </div>`,
+    )
+
+  return `<section class="article-def">${lexicons}</section>`
+}
+
 const generateArticle = doc => {
   const article = [
     generateTitle(doc),
@@ -194,6 +229,7 @@ const generateArticle = doc => {
     generateResume(doc),
     generateContainers(doc),
     generateFooter(doc),
+    generateLexicon(doc),
   ]
   return article.join('')
 }

@@ -69,9 +69,33 @@ class ResourceForm extends Component<Props, State> {
       )
     }
 
+    let content = null
+    if (resource.type === 'article' && resource.nodes) {
+      content = (
+        <Fragment>
+          <strong>Nodes:</strong>
+          <pre>{JSON.stringify(resource.nodes, null, '  ')}</pre>
+        </Fragment>
+      )
+    } else if (resource.type === 'image' && resource.file) {
+      content = (
+        <img
+          src={(process.env.REACT_APP_PUBLIC_PATH_image || '') + resource.file}
+          alt={resource.file}
+        />
+      )
+    } else {
+      content = (
+        <Fragment>
+          <strong>Data:</strong>
+          <pre>{JSON.stringify(resource, null, '  ')}</pre>
+        </Fragment>
+      )
+    }
+
     return (
       <Fragment>
-        <table>
+        <table class="table">
           <tbody>
             <tr>
               <th>id</th>
@@ -87,7 +111,7 @@ class ResourceForm extends Component<Props, State> {
             </tr>
           </tbody>
         </table>
-        <pre>{JSON.stringify(resource, null, '  ')}</pre>
+        {content}
       </Fragment>
     )
   }

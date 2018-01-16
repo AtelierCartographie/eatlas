@@ -15,7 +15,11 @@ declare type ResourceNew = {
   name: string,
 }
 
-declare type Resource = ResourceNew & { id: string }
+declare type Resource = ResourceNew & {
+  id: string,
+  file?: string,
+  nodes?: any[],
+}
 
 declare type UploadDocBase = {
   id: string,

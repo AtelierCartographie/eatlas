@@ -327,7 +327,7 @@ class Import extends Component<Props, State> {
       return // Nothing to do here
     }
 
-    // TODO Redux
+    // TODO Redux (this is important to update store and make redirection actually work)
     this.setState({ saving: true, error: null })
     try {
       const { id } = await addResourceFromGoogleDrive({

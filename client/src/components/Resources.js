@@ -104,29 +104,6 @@ class Resources extends Component<Props> {
     )
   }
 
-  renderCreate(type: ResourceType) {
-    if (!type) {
-      return null
-    }
-
-    return (
-      <Link
-        className="button is-primary"
-        to={`/resources/${this.props.type}/new`}>
-        <IconButton label="add" icon="plus" />
-      </Link>
-    )
-  }
-
-  renderResources(resources: Array<Resource>, type: ResourceType) {
-    return (
-      <Fragment>
-        {this.renderCreate(type)}
-        {this.renderList(resources)}
-      </Fragment>
-    )
-  }
-
   render() {
     const { loading, list } = this.props.resources
     const filteredResources = this.props.type
@@ -146,11 +123,7 @@ class Resources extends Component<Props> {
             </aside>
           </div>
           <div className="column">
-            {loading ? (
-              <Spinner />
-            ) : (
-              this.renderResources(filteredResources, this.props.type)
-            )}
+            {loading ? <Spinner /> : this.renderList(filteredResources)}
           </div>
         </div>
       </div>

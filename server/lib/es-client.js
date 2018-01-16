@@ -64,6 +64,7 @@ module.exports = type => {
     client
       .get({ index: indices[type], type, id })
       .then(hit => (hit.found ? formatHit(hit) : null))
+      .catch(err => (err.status === 404 ? null : Promise.reject(err)))
 
   const insert = (body, id = null) =>
     client

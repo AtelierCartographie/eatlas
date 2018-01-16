@@ -41,7 +41,7 @@
     "googleapis": "^23.0.0",
     "joi": "^13.0.2",
     "lodash.isequal": "^4.5.0",
-    "mammoth": "^1.4.3",
+    "mammoth": "https://github.com/byteclubfr/mammoth.js#color",
     "request-promise-native": "^1.0.5"
   },
   "prettier": {

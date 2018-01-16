@@ -22,6 +22,14 @@ const parseLinks = ($, el) =>
     .map((i, el) => [{ label: getText($, el), url: el.attribs.href }])
     .get()
 
+const parseLexicon = ($, el) =>
+  $(el)
+    .children()
+    .filter((i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000')
+    // beware of cheerio and flatMap
+    .map((i, el) => [getText($, el)])
+    .get()
+
 const parseResource = text => {
   text = text.slice(1, -1)
   const [id, ...rest] = text.split('-').map(s => s.trim())
@@ -107,6 +115,7 @@ const parseChild = $ => (i, el) => {
       type: el.name,
       text,
       links: parseLinks($, el),
+      lexicon: parseLexicon($, el),
     }
 }
 

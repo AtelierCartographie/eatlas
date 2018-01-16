@@ -75,7 +75,7 @@ class Import extends Component<Props, State> {
     return (
       <div className="ResourceCreate">
         <h1>
-          <T id="resource-create" values={{ type: this.state.type }} />
+          <T id="resource-create" />
         </h1>
         {this.renderForm()}
       </div>
@@ -85,17 +85,8 @@ class Import extends Component<Props, State> {
   renderForm() {
     return (
       <form onSubmit={this.onSubmit}>
-        <h2>
-          1. <T id="select-file" />
-        </h2>
         {this.renderDocSelector()}
-        <h2>
-          2. <T id="edit-metadata" />
-        </h2>
         {this.renderMetadataForm()}
-        <h2>
-          3. <T id="save-changes" />
-        </h2>
         {this.renderSave()}
       </form>
     )
@@ -192,7 +183,13 @@ class Import extends Component<Props, State> {
   }
 
   renderPicker() {
-    return <DocPicker onPick={this.onPick} showPickerAfterUpload={false} />
+    return (
+      <DocPicker
+        label="select-file"
+        onPick={this.onPick}
+        showPickerAfterUpload={false}
+      />
+    )
   }
 
   unselectFile = () => {
@@ -204,7 +201,11 @@ class Import extends Component<Props, State> {
     return {}
   }
 
-  guessResource(doc: UploadDoc) {
+  guessResource(doc: ?UploadDoc) {
+    if (!doc) {
+      return null
+    }
+
     const type = resourceType[doc.mimeType]
 
     if (!type) {
@@ -221,7 +222,7 @@ class Import extends Component<Props, State> {
     const { doc, resource } = this.state
 
     if (!doc || !resource) {
-      return <p>You must select a valid file first</p>
+      return null
     }
 
     return (
@@ -291,15 +292,13 @@ class Import extends Component<Props, State> {
     const { doc, resource } = this.state
 
     if (!doc || !resource) {
-      return <p>You must select a valid file first</p>
-    }
-
-    if (!this.isSaveable(resource)) {
-      return <p>You must properly fill metadata first</p>
+      return null
     }
 
     return (
-      <button className="button is-primary is-large">
+      <button
+        className="button is-primary is-large"
+        disabled={!this.isSaveable(resource)}>
         <Icon icon="check" />
         <span>
           <T id="save-changes" />

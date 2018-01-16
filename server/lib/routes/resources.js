@@ -46,6 +46,9 @@ exports.addFromGoogle = (req, res) => {
           annotated: err.annotate(),
         })
       }
+      if (err.code === 'EDUPLICATE') {
+        return res.boom.conflict(err.message)
+      }
       res.boom.badImplementation(err)
     })
 }

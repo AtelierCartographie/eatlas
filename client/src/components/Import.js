@@ -63,14 +63,16 @@ class Import extends Component<Props, State> {
   gapi: GoogleApi
 
   render() {
+    const type = this.props.match.params.type
+
     return (
       <div className="ResourceCreate">
         <h1>
-          <T id="resource-create" />
+          <T id="resource-create" /> {type ? <T id={'type-' + type} /> : null}
         </h1>
         {this.state.error ? this.renderError(this.state.error.message) : null}
         <form onSubmit={this.onSubmit}>
-          {this.renderDocSelector()}
+          {this.renderDocSelector(type)}
           {this.renderMetadataForm()}
           {this.renderSave()}
         </form>
@@ -78,11 +80,11 @@ class Import extends Component<Props, State> {
     )
   }
 
-  renderDocSelector() {
+  renderDocSelector(type) {
     const { doc, resource } = this.state
 
     if (!doc) {
-      return this.renderPicker()
+      return this.renderPicker(type)
     }
 
     if (!resource) {
@@ -92,7 +94,7 @@ class Import extends Component<Props, State> {
           {this.renderError(
             <T id="error-invalid-resource-type" values={doc} />,
           )}
-          {this.renderPicker()}
+          {this.renderPicker(type)}
         </Fragment>
       )
     }
@@ -178,12 +180,20 @@ class Import extends Component<Props, State> {
     )
   }
 
-  renderPicker() {
+  renderPicker(type: ?string) {
+    let mimeTypes = []
+    if (type) {
+      mimeTypes = Object.keys(resourceType).filter(
+        mimeType => resourceType[mimeType] === type,
+      )
+    }
+
     return (
       <DocPicker
         label="select-file"
         onPick={this.onPick}
         showPickerAfterUpload={false}
+        mimeTypes={mimeTypes}
       />
     )
   }

@@ -177,9 +177,24 @@ class Resources extends Component<Props, State> {
 
     return (
       <div className="Resources">
-        <h1 className="title">
-          <T id="resources" />
-        </h1>
+        <div className="level">
+          <div className="level-left">
+            <div className="level-item">
+              <h1 className="title">
+                <T id="resources" />
+              </h1>
+            </div>
+          </div>
+          <div className="level-right">
+            <div className="level-item">
+              <Link
+                className="button is-primary"
+                to={`/import/${this.props.type}`}>
+                <IconButton label="add" icon="plus" />
+              </Link>
+            </div>
+          </div>
+        </div>
         <div className="columns">
           <div className="column is-one-quarter">
             <aside className="menu">

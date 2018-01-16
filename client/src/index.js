@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -22,7 +22,7 @@ checkSession()
 
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider locale="en" messages={messages}>
+    <IntlProvider locale="en" messages={messages} textComponent={Fragment}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

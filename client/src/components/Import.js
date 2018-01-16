@@ -15,6 +15,7 @@ import type { ContextRouter } from 'react-router'
 const resourceType: { [string]: ResourceType } = {
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
     'article',
+  'application/vnd.google-apps.document': 'article',
   'image/svg+xml': 'map',
   'image/jpeg': 'image',
   'image/png': 'image',

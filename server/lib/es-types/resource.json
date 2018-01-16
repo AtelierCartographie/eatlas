@@ -55,7 +55,7 @@
       }
     },
     "name": {
-      "type": "text"
+      "type": "keyword"
     },
     "type": {
       "type": "keyword"

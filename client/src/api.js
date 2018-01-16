@@ -14,6 +14,7 @@ const FAKE_RESOURCE = {
 
 export const addResourceFromGoogleDrive = (body: {
   type: string,
+  mimeType: string,
   name: string,
   fileId: string,
   accessToken: string,

@@ -334,6 +334,7 @@ class Import extends Component<Props, State> {
         name: resource.name,
         fileId: doc.id,
         type: resource.type,
+        mimeType: doc.mimeType,
         accessToken,
       })
       this.setState({ saving: false, error: null })

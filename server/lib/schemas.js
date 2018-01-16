@@ -65,6 +65,7 @@ exports.uploadFromGoogleDrive = {
   type: resourceType.required(),
   fileId: Joi.string().required(),
   accessToken: Joi.string().required(),
+  mimeType: Joi.string().required(),
 }
 
 const links = Joi.array().items(

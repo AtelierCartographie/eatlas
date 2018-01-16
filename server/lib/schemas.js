@@ -111,4 +111,8 @@ exports.fullResource = {
       is: Joi.valid(['article', 'focus']),
       then: Joi.required(),
     }),
+  file: Joi.string().when('type', {
+    is: Joi.valid(['image']),
+    then: Joi.required(),
+  }),
 }

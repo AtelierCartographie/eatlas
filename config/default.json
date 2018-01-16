@@ -38,5 +38,9 @@
     "name": "eatlas",
     "level": "info",
     "src": false
+  },
+  "publicPath": {
+    "~": "path relative to server's root (if not absolute)",
+    "image": "../client/public/media/images"
   }
 }

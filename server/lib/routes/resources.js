@@ -6,6 +6,7 @@ const config = require('config')
 const { resources } = require('../model')
 const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
+const { saveMedia } = require('../public-fs')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -77,7 +78,15 @@ const fileHandler = (req, res) => {
     return parseDocx
   }
 
-  return async buffer => {
-    throw res.boom.notImplemented()
+  if (type === 'image') {
+    return buffer =>
+      saveMedia({
+        name: req.body.name,
+        type: req.body.type,
+        mimeType: req.body.mimeType,
+        buffer,
+      })
   }
+
+  return () => Promise.reject(res.boom.notImplemented())
 }

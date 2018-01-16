@@ -118,14 +118,14 @@ class DocPicker extends Component<Props, State> {
         onChange={this.callback}
         mimeTypes={this.props.mimeTypes}
         multiselect={false}>
-        <button
+        <a
           className="button is-primary"
           onClick={() => this.setState(initialState)}>
           <IconButton
             label={this.props.label || 'to-import'}
             icon={this.props.icon || 'upload'}
           />
-        </button>
+        </a>
       </GooglePicker>
     )
   }

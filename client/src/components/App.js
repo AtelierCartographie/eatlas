@@ -65,7 +65,7 @@ class App extends Component<Props, State> {
     return (
       <Switch>
         <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/resources/:type?" component={Resources} />
+        <PrivateRoute exact path="/resources/:type?" component={Resources} />
         <PrivateRoute exact path="/import" component={Import} />
         <PrivateRoute path="/import/:type" component={Import} />
         <PrivateRoute path="/resources/:id/edit" component={ResourceEdit} />

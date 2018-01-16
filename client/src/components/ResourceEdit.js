@@ -95,7 +95,7 @@ class ResourceForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <table class="table">
+        <table className="table">
           <tbody>
             <tr>
               <th>id</th>

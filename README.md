@@ -184,7 +184,7 @@ curl -XDELETE 'localhost:9200/eatlas_resource_1512597721716'
 `> cd /go/to/the/right/folder`
 - Cloner le projet depuis le repo Github
 
-`> git clone https://github.com/byteclubfr/eatlas.git`
+`> git clone https://github.com/AtelierCartographie/eatlas.git`
 - Aller à la racine du projet
 
 `> cd eatlas/`

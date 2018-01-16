@@ -3,6 +3,7 @@
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 import { addResourceFromGoogleDrive, getResource } from '../api'
+import cx from 'classnames'
 
 import DocPicker from './DocPicker'
 import IconButton from './IconButton'
@@ -29,6 +30,18 @@ type State = {
   type: ?ResourceType,
   saveable: ?boolean,
   resource: ?ResourceNew,
+}
+
+type FieldParams = {
+  label: string,
+  leftIcon?: string,
+  rightIcon?: string,
+  input: React$Element<any>,
+  action?: {
+    icon: string,
+    onClick: Function,
+    buttonType?: string,
+  },
 }
 
 const initialDoc = {
@@ -109,18 +122,69 @@ class Import extends Component<Props, State> {
   }
 
   renderSelectedDoc(doc: UploadDoc) {
-    return (
-      <p>
-        Selected file:{' '}
-        <a href={doc.embedUrl} target="_blank">
-          <strong>{doc.name}</strong> (#{doc.id})
-        </a>
+    return this.field({
+      label: 'selected-file',
+      leftIcon: 'file',
+      input: (
+        <input
+          className="input"
+          type="text"
+          placeholder="type"
+          value={`${doc.name} (#${doc.id})`}
+          readonly={true}
+          required
+        />
+      ),
+      action: {
+        icon: 'remove',
+        buttonType: 'danger',
+        onClick: this.unselectFile,
+      },
+    })
+  }
+
+  field({ label, leftIcon, rightIcon, input, action }: FieldParams) {
+    const ctrlClass = cx('control', {
+      'is-expanded': action,
+      'has-icons-left': leftIcon,
+      'has-icons-right': rightIcon,
+    })
+    const $leftIcon = leftIcon ? (
+      <span class="icon is-small is-left">
+        <i class={`fa fa-${leftIcon}`} />
+      </span>
+    ) : null
+    const $rightIcon = rightIcon ? (
+      <span class="icon is-small is-right">
+        <i class={`fa fa-${rightIcon}`} />
+      </span>
+    ) : null
+    const $action = action ? (
+      <div className="control">
         <button
-          className="button is-small is-danger is-outlined"
-          onClick={this.unselectFile}>
-          <IconButton icon="remove" size="small" />
+          className={cx('button', `is-${action.buttonType || 'primary'}`)}
+          onClick={action.onClick}>
+          <span class="icon">
+            <i class={`fa fa-${action.icon}`} />
+          </span>
         </button>
-      </p>
+      </div>
+    ) : null
+
+    return (
+      <Fragment>
+        <label className="label">
+          <T id={label} />
+        </label>
+        <div className={cx('field', { 'has-addons': action })}>
+          <div className={ctrlClass}>
+            {input}
+            {$leftIcon}
+            {$rightIcon}
+          </div>
+          {$action}
+        </div>
+      </Fragment>
     )
   }
 
@@ -159,9 +223,10 @@ class Import extends Component<Props, State> {
 
     return (
       <Fragment>
-        <div className="field">
-          <label className="label">type</label>
-          <div className="control has-icons-left">
+        {this.field({
+          label: 'resource-type',
+          leftIcon: 'info',
+          input: (
             <input
               className="input"
               name="type"
@@ -171,12 +236,12 @@ class Import extends Component<Props, State> {
               readonly={true}
               required
             />
-            <Icon icon="info" size="small" />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">code</label>
-          <div className="control has-icons-left">
+          ),
+        })}
+        {this.field({
+          label: 'resource-code',
+          leftIcon: 'key',
+          input: (
             <input
               className="input"
               name="name"
@@ -185,9 +250,8 @@ class Import extends Component<Props, State> {
               value={resource.name}
               required
             />
-            <Icon icon="key" size="small" />
-          </div>
-        </div>
+          ),
+        })}
       </Fragment>
     )
   }

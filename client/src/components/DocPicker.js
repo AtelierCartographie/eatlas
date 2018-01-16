@@ -21,13 +21,17 @@ type State = {
   }),
 }
 
+type OnPickFunction = (
+  doc: UploadDoc,
+  viewToken: string,
+  gapi: GoogleApi,
+) => Promise<Result>
+
+type RenderFunction = State => ?React$Element<any>
+
 type Props = {
-  onPick: (
-    doc: UploadDoc,
-    viewToken: string,
-    gapi: GoogleApi,
-  ) => Promise<Result>,
-  render: State => React$Element<any>,
+  onPick?: OnPickFunction,
+  render?: RenderFunction,
   mimeTypes?: Array<string>,
   label?: string,
   icon?: string,
@@ -90,10 +94,14 @@ class DocPicker extends Component<Props, State> {
 
     const doc = docs[0]
 
-    this.props
-      .onPick(doc, this.viewToken, window.gapi)
-      .then(result => this.setState({ result: { doc, ...result } }))
-      .catch(error => this.setState({ error }))
+    if (!this.props.onPick) {
+      this.setState({ result: { doc } })
+    } else {
+      this.props
+        .onPick(doc, this.viewToken, window.gapi)
+        .then(result => this.setState({ result: { doc, ...result } }))
+        .catch(error => this.setState({ error }))
+    }
   }
 
   setViewToken = (token: string) => {
@@ -123,7 +131,7 @@ class DocPicker extends Component<Props, State> {
   }
 
   renderResult() {
-    return this.props.render(this.state)
+    return this.props.render ? this.props.render(this.state) : null
   }
 
   render() {

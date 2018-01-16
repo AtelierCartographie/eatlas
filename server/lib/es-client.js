@@ -8,6 +8,10 @@ const initIndices = require('./init-es-index')
 const EsLogger = require('./es-logger')
 const logger = require('./logger')
 
+// https://github.com/elastic/elasticsearch-js/issues/117
+// needs to be true to have IMMEDIATE and CORRECT results in a search succeeding a delete for example
+const refresh = true
+
 const client = new Client(
   Object.assign(
     {
@@ -63,15 +67,15 @@ module.exports = type => {
 
   const insert = body =>
     client
-      .index({ index: indices[type], type, body })
+      .index({ index: indices[type], type, body, refresh })
       .then(({ _id }) => formatHit({ _source: body, _id }))
 
   const update = (id, doc) =>
     client
-      .update({ index: indices[type], type, id, body: { doc } })
+      .update({ index: indices[type], type, id, body: { doc }, refresh })
       .then(() => findById(id))
 
-  const remove = id => client.delete({ index: indices[type], type, id })
+  const remove = id => client.delete({ index: indices[type], type, id, refresh })
 
   return {
     find,

@@ -7,6 +7,8 @@
   "delete": "delete",
   "disconnection": "disconnection",
   "edit": "edit",
+  "error": "Error",
+  "error-invalid-resource-type": "Unknown resource type for file \"{name}\" ({mimeType}). Please select another file.",
   "home": "home",
   "import": "import",
   "myself": "myself",

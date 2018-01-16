@@ -7,6 +7,8 @@
   "delete": "supprimer",
   "disconnection": "déconnexion",
   "edit": "modifier",
+  "error": "Erreur",
+  "error-invalid-resource-type": "Type de ressource inconnu pour le fichier \"{name}\" ({mimeType}). Merci de sélectionner un autre fichier.",
   "home": "accueil",
   "import": "import",
   "maps": "cartes",

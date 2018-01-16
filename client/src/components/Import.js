@@ -31,6 +31,9 @@ type State = {
   accessToken: ?string,
   type: ?ResourceType,
   resource: ?ResourceNew,
+  saved: boolean,
+  saving: boolean,
+  error: ?Error,
 }
 
 type FieldParams = {
@@ -70,6 +73,9 @@ class Import extends Component<Props, State> {
     resource: this.guessResource(initialDoc),
     accessToken: null,
     type: null,
+    saving: false,
+    saved: false,
+    error: null,
   }
 
   gapi: GoogleApi
@@ -80,18 +86,13 @@ class Import extends Component<Props, State> {
         <h1>
           <T id="resource-create" />
         </h1>
-        {this.renderForm()}
+        {this.state.error ? this.renderError(this.state.error.message) : null}
+        <form onSubmit={this.onSubmit}>
+          {this.renderDocSelector()}
+          {this.renderMetadataForm()}
+          {this.renderSave()}
+        </form>
       </div>
-    )
-  }
-
-  renderForm() {
-    return (
-      <form onSubmit={this.onSubmit}>
-        {this.renderDocSelector()}
-        {this.renderMetadataForm()}
-        {this.renderSave()}
-      </form>
     )
   }
 
@@ -106,16 +107,26 @@ class Import extends Component<Props, State> {
       return (
         <Fragment>
           {this.renderSelectedDoc(doc)}
-          <p>
-            <strong>Error:</strong> Resource type invalid: please select another
-            doc.
-          </p>
+          {this.renderError(
+            <T id="error-invalid-resource-type" values={doc} />,
+          )}
           {this.renderPicker()}
         </Fragment>
       )
     }
 
     return this.renderSelectedDoc(doc)
+  }
+
+  renderError(message: any) {
+    return (
+      <p>
+        <strong>
+          <T id="error" />:
+        </strong>
+        {message}
+      </p>
+    )
   }
 
   renderSelectedDoc(doc: UploadDoc) {
@@ -221,6 +232,9 @@ class Import extends Component<Props, State> {
     }
   }
 
+  // TODO specific form for each resource type
+  // - article → +nodes
+  // - others?
   renderMetadataForm() {
     const { doc, resource } = this.state
 
@@ -239,6 +253,7 @@ class Import extends Component<Props, State> {
                 name="type"
                 onChange={this.onChangeType}
                 value={resource.type}
+                readOnly={this.state.saving}
                 required>
                 <option value="article">
                   <T id="type-article" />
@@ -270,6 +285,7 @@ class Import extends Component<Props, State> {
               placeholder="unique code"
               value={resource.name}
               onChange={this.onChangeName}
+              readOnly={this.state.saving}
               required
             />
           ),
@@ -280,6 +296,7 @@ class Import extends Component<Props, State> {
 
   onChangeType = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
+      error: null,
       //$FlowFixMe I really don't want to list all possible values here
       resource: { ...this.state.resource, type: e.target.value },
     })
@@ -287,6 +304,7 @@ class Import extends Component<Props, State> {
 
   onChangeName = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
+      error: null,
       resource: { ...this.state.resource, name: e.target.value },
     })
   }
@@ -300,7 +318,9 @@ class Import extends Component<Props, State> {
 
     return (
       <button
-        className="button is-primary is-large"
+        className={cx('button is-primary is-large', {
+          'is-loading': this.state.saving,
+        })}
         disabled={!this.isSaveable(resource)}>
         <Icon icon="check" />
         <span>
@@ -311,11 +331,14 @@ class Import extends Component<Props, State> {
   }
 
   // TODO implement more complex validations here?
+  // Will probably dependon resource type
   isSaveable(resource: ResourceNew) {
     return resource.type && resource.name
   }
 
-  onSubmit = async () => {
+  onSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     const { resource, doc, accessToken } = this.state
 
     if (!doc || !resource) {
@@ -323,14 +346,19 @@ class Import extends Component<Props, State> {
     }
 
     // TODO Redux
-    const { id } = await addResourceFromGoogleDrive({
-      name: resource.name,
-      fileId: doc.id,
-      type: resource.type,
-      accessToken,
-    })
-
-    this.props.history.push(`/resources/${id}/edit`)
+    this.setState({ saving: true })
+    try {
+      const { id } = await addResourceFromGoogleDrive({
+        name: resource.name,
+        fileId: doc.id,
+        type: resource.type,
+        accessToken,
+      })
+      this.setState({ saving: false, error: null })
+      this.props.history.push(`/resources/${id}/edit`)
+    } catch (error) {
+      this.setState({ saving: false, error })
+    }
   }
 }
 

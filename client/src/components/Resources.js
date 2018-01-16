@@ -120,7 +120,7 @@ class Resources extends Component<Props, State> {
             />
           </header>
           <section className="modal-card-body">
-            <T id="confirm-delete" values={resource || {}} />
+            {resource ? <T id="confirm-delete" values={resource} /> : null}
           </section>
           <footer className="modal-card-foot">
             <button

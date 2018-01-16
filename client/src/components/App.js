@@ -11,7 +11,7 @@ import IconButton from './IconButton'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
 import Resources from './Resources'
-import ResourceCreate from './ResourceCreate'
+import Import from './Import'
 import ResourceEdit from './ResourceEdit'
 import UserForm from './UserForm'
 import Users from './Users'
@@ -66,7 +66,7 @@ class App extends Component<Props, State> {
       <Switch>
         <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/resources/:type?" component={Resources} />
-        <PrivateRoute path="/resources/:type/new" component={ResourceCreate} />
+        <PrivateRoute path="/import" component={Import} />
         <PrivateRoute path="/resources/:id/edit" component={ResourceEdit} />
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/users" component={Users} />
@@ -102,7 +102,7 @@ class App extends Component<Props, State> {
               <NavLink to="/" label="home" exact />
               <NavLink to="/resources" label="resources" />
               <NavLink to="/users" label="users" />
-              <NavLink to="/resources/article/new" label="import" />
+              <NavLink to="/import" label="import" />
             </div>
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>

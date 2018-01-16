@@ -10,11 +10,12 @@ declare type User = UserNew & { id: string }
 
 declare type ResourceType = 'article' | 'map' | 'sound' | 'image' | 'video'
 
-declare type Resource = {
-  id: string,
+declare type ResourceNew = {
   type: ResourceType,
   name: string,
 }
+
+declare type Resource = ResourceNew & { id: string }
 
 declare type UploadDocBase = {
   id: string,

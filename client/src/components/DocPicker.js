@@ -9,17 +9,24 @@ import loadScript from 'load-script'
 const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js'
 let scriptLoadingStarted = false
 
+type Result = {
+  resource?: Resource,
+  data?: any,
+}
+
 type State = {
   error: ?Error,
-  result: ?any,
+  result: ?(Result & {
+    doc: UploadDoc,
+  }),
 }
 
 type Props = {
   onPick: (
-    docs: Array<UploadDoc>,
-    gapi: GoogleApi,
+    doc: UploadDoc,
     viewToken: string,
-  ) => Promise<any>,
+    gapi: GoogleApi,
+  ) => Promise<Result>,
   render: State => React$Element<any>,
   mimeTypes?: Array<string>,
   label?: string,
@@ -27,8 +34,17 @@ type Props = {
   showPickerAfterUpload?: boolean,
 }
 
-class Upload extends Component<Props, State> {
-  state = { error: null, result: null }
+type PickerData = {
+  action: string,
+  docs: Array<UploadDoc>,
+}
+
+const initialState: State = { error: null, result: null }
+
+class DocPicker extends Component<Props, State> {
+  state = initialState
+
+  viewToken: string
 
   componentDidMount() {
     if (this.isGoogleReady()) {
@@ -67,23 +83,21 @@ class Upload extends Component<Props, State> {
     })
   }
 
-  callback = ({
-    action,
-    viewToken,
-    docs,
-  }: {
-    action: string,
-    viewToken: string,
-    docs: Array<UploadDoc>,
-  }) => {
+  callback = ({ action, docs }: PickerData) => {
     if (action !== 'picked') {
       return
     }
 
+    const doc = docs[0]
+
     this.props
-      .onPick(docs, window.gapi, viewToken)
-      .then(result => this.setState({ result }))
+      .onPick(doc, this.viewToken, window.gapi)
+      .then(result => this.setState({ result: { doc, ...result } }))
       .catch(error => this.setState({ error }))
+  }
+
+  setViewToken = (token: string) => {
+    this.viewToken = token
   }
 
   renderPicker() {
@@ -92,19 +106,13 @@ class Upload extends Component<Props, State> {
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         developerKey={process.env.REACT_APP_GOOGLE_DEV_KEY}
         scope={['https://www.googleapis.com/auth/drive']}
-        createPicker={(google, oauthToken) => {
-          const picker = new window.google.picker.PickerBuilder()
-            .addView(new google.picker.View(google.picker.ViewId.DOCS))
-            .addView(new google.picker.DocsUploadView())
-            .setOAuthToken(oauthToken)
-            .setDeveloperKey(process.env.REACT_APP_GOOGLE_DEV_KEY)
-            .setCallback(this.callback)
-          picker.build().setVisible(true)
-        }}
-        mimeTypes={this.props.mimeTypes}>
+        onAuthenticate={this.setViewToken}
+        onChange={this.callback}
+        mimeTypes={this.props.mimeTypes}
+        multiselect={false}>
         <button
           className="button is-primary"
-          onClick={() => this.setState({ error: null, result: null })}>
+          onClick={() => this.setState(initialState)}>
           <IconButton
             label={this.props.label || 'to-import'}
             icon={this.props.icon || 'upload'}
@@ -126,11 +134,11 @@ class Upload extends Component<Props, State> {
 
     return (
       <div className="DocPicker">
-        {showPicker && this.renderPicker()}
-        {showResult && this.renderResult()}
+        {showPicker ? this.renderPicker() : null}
+        {showResult ? this.renderResult() : null}
       </div>
     )
   }
 }
 
-export default Upload
+export default DocPicker

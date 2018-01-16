@@ -18,7 +18,7 @@ type Props = {
     loading: boolean,
     list: Array<Resource>,
   },
-  type: ResourceType,
+  type: ResourceType | '',
   // actions
   fetchResources: typeof fetchResources,
 }
@@ -26,7 +26,7 @@ type Props = {
 type MenuItem = {
   label: string,
   icon: string,
-  type: ResourceType,
+  type: ResourceType | '',
 }
 
 const typeItems: Array<MenuItem> = [

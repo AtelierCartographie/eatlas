@@ -8,20 +8,32 @@ import { addResourceFromGoogleDrive, getResource } from '../api'
 
 import DocPicker from './DocPicker'
 
+const mimeTypes = {
+  article: [''],
+  map: ['svg'],
+  sound: ['?'], // TODO
+  image: ['image/png'],
+  video: ['?'], // TODO
+}
+
 type Props = {
   type: ResourceType,
 }
 
-type State = {}
+type State = {
+  doc?: UploadDoc,
+}
 
-class ResourceForm extends Component<Props, State> {
+class ResourceCreate extends Component<Props, State> {
   state = {}
+
+  gapi: GoogleApi
 
   render() {
     const { type } = this.props
 
     return (
-      <div className="ResourceForm">
+      <div className="ResourceCreate">
         <h1>
           <T id="resource-create" values={{ type }} />
         </h1>
@@ -30,9 +42,8 @@ class ResourceForm extends Component<Props, State> {
     )
   }
 
-  upload([{ name, id: fileId }], gapi) {
+  upload([{ name, id: fileId }]: Array<UploadDoc>, accessToken: string) {
     const type = this.props.type
-    const accessToken = gapi.auth.getToken().access_token
 
     return addResourceFromGoogleDrive({ name, type, fileId, accessToken }).then(
       ({ id }) => getResource(id),
@@ -47,8 +58,45 @@ class ResourceForm extends Component<Props, State> {
     )
   }
 
-  renderResource(resource) {
-    return <pre>{JSON.stringify(resource, null, '  ')}</pre>
+  renderResult(result) {
+    const { doc, data: url } = result
+
+    if (doc.type === 'photo') {
+      return (
+        <Fragment>
+          <strong>{doc.name}</strong>
+          <img src={String(url)} alt={doc.name} />
+        </Fragment>
+      )
+    }
+
+    return (
+      <strong>
+        {doc.name} ({doc.type})
+      </strong>
+    )
+  }
+
+  renderNone() {
+    return <p>No selection</p>
+  }
+
+  onPick = (doc, accessToken) => {
+    return new Promise((resolve, reject) => {
+      const request = window.gapi.client.drive.files.get({
+        fileId: doc.id,
+        fields: 'webContentLink',
+      })
+      request.execute(res => {
+        if (res.error) {
+          reject(new Error(res.error))
+        } else {
+          resolve({
+            data: res.webContentLink,
+          })
+        }
+      })
+    })
   }
 
   renderForm(type) {
@@ -56,10 +104,13 @@ class ResourceForm extends Component<Props, State> {
       <Fragment>
         <DocPicker
           render={({ error, result }) =>
-            error ? this.renderError(error) : this.renderResource(result)
+            error
+              ? this.renderError(error)
+              : result ? this.renderResult(result) : this.renderNone()
           }
-          onPick={(docs, gapi) => this.upload(docs, gapi)}
-          showPickerAfterUpload={false}
+          onPick={this.onPick}
+          mimeTypes={mimeTypes[this.props.type]}
+          showPickerAfterUpload={true}
         />
         <p>TODO: form depending on type: {type}</p>
       </Fragment>
@@ -72,5 +123,5 @@ export default withRouter(
     const type = match.params.type
 
     return { type }
-  })(ResourceForm),
+  })(ResourceCreate),
 )

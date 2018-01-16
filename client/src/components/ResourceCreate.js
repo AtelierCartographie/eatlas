@@ -42,12 +42,17 @@ class ResourceCreate extends Component<Props, State> {
     )
   }
 
-  upload([{ name, id: fileId }]: Array<UploadDoc>, accessToken: string) {
+  async upload(doc: UploadDoc, accessToken: string) {
     const type = this.props.type
 
-    return addResourceFromGoogleDrive({ name, type, fileId, accessToken }).then(
-      ({ id }) => getResource(id),
-    )
+    const { id } = await addResourceFromGoogleDrive({
+      name: doc.name,
+      fileId: doc.id,
+      type,
+      accessToken,
+    })
+
+    return getResource(id)
   }
 
   renderError(error) {

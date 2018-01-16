@@ -55,7 +55,7 @@ ready.then(() => initIndices(client, indices))
 module.exports = type => {
   const find = body =>
     client
-      .search({ index: indices[type], type, body })
+      .search({ index: indices[type], type, body, size: 1000 }) // FIXME pagination
       .then(res => res.hits.hits.map(formatHit))
 
   const findOne = body => find(body).then(([result]) => result || null)
@@ -75,7 +75,8 @@ module.exports = type => {
       .update({ index: indices[type], type, id, body: { doc }, refresh })
       .then(() => findById(id))
 
-  const remove = id => client.delete({ index: indices[type], type, id, refresh })
+  const remove = id =>
+    client.delete({ index: indices[type], type, id, refresh })
 
   return {
     find,

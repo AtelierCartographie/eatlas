@@ -2,11 +2,14 @@
 
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
-import { addResourceFromGoogleDrive, getResource } from '../api'
+import { addResourceFromGoogleDrive } from '../api'
 import cx from 'classnames'
 
 import DocPicker from './DocPicker'
 import Icon from './Icon'
+import withRouter from 'react-router/withRouter'
+
+import type { ContextRouter } from 'react-router'
 
 // TODO configurable list
 const resourceType: { [string]: ResourceType } = {
@@ -21,7 +24,7 @@ const resourceType: { [string]: ResourceType } = {
   'video/mpeg': 'video',
 }
 
-type Props = {}
+type Props = ContextRouter
 
 type State = {
   doc: ?UploadDoc,
@@ -327,8 +330,8 @@ class Import extends Component<Props, State> {
       accessToken,
     })
 
-    return getResource(id)
+    this.props.history.push(`/resources/${id}/edit`)
   }
 }
 
-export default Import
+export default withRouter(Import)

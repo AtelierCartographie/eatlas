@@ -65,9 +65,9 @@ module.exports = type => {
       .get({ index: indices[type], type, id })
       .then(hit => (hit.found ? formatHit(hit) : null))
 
-  const insert = body =>
+  const insert = (body, id = null) =>
     client
-      .index({ index: indices[type], type, body, refresh })
+      .index({ index: indices[type], type, body, refresh, id })
       .then(({ _id }) => formatHit({ _source: body, _id }))
 
   const update = (id, doc) =>

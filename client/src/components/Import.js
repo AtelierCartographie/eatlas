@@ -6,7 +6,6 @@ import { addResourceFromGoogleDrive, getResource } from '../api'
 import cx from 'classnames'
 
 import DocPicker from './DocPicker'
-import IconButton from './IconButton'
 import Icon from './Icon'
 
 // TODO configurable list
@@ -26,9 +25,8 @@ type Props = {}
 
 type State = {
   doc: ?UploadDoc,
-  viewToken: ?string,
+  accessToken: ?string,
   type: ?ResourceType,
-  saveable: ?boolean,
   resource: ?ResourceNew,
 }
 
@@ -67,9 +65,8 @@ class Import extends Component<Props, State> {
   state = {
     doc: initialDoc,
     resource: this.guessResource(initialDoc),
-    viewToken: null,
+    accessToken: null,
     type: null,
-    saveable: false,
   }
 
   gapi: GoogleApi
@@ -88,11 +85,17 @@ class Import extends Component<Props, State> {
   renderForm() {
     return (
       <form onSubmit={this.onSubmit}>
-        <h2>1. Select doc</h2>
+        <h2>
+          1. <T id="select-file" />
+        </h2>
         {this.renderDocSelector()}
-        <h2>2. Edit meta-data</h2>
+        <h2>
+          2. <T id="edit-metadata" />
+        </h2>
         {this.renderMetadataForm()}
-        <h2>3. Save</h2>
+        <h2>
+          3. <T id="save-changes" />
+        </h2>
         {this.renderSave()}
       </form>
     )
@@ -131,7 +134,7 @@ class Import extends Component<Props, State> {
           type="text"
           placeholder="type"
           value={`${doc.name} (#${doc.id})`}
-          readonly={true}
+          readOnly={true}
           required
         />
       ),
@@ -150,13 +153,13 @@ class Import extends Component<Props, State> {
       'has-icons-right': rightIcon,
     })
     const $leftIcon = leftIcon ? (
-      <span class="icon is-small is-left">
-        <i class={`fa fa-${leftIcon}`} />
+      <span className="icon is-small is-left">
+        <i className={`fa fa-${leftIcon}`} />
       </span>
     ) : null
     const $rightIcon = rightIcon ? (
-      <span class="icon is-small is-right">
-        <i class={`fa fa-${rightIcon}`} />
+      <span className="icon is-small is-right">
+        <i className={`fa fa-${rightIcon}`} />
       </span>
     ) : null
     const $action = action ? (
@@ -164,8 +167,8 @@ class Import extends Component<Props, State> {
         <button
           className={cx('button', `is-${action.buttonType || 'primary'}`)}
           onClick={action.onClick}>
-          <span class="icon">
-            <i class={`fa fa-${action.icon}`} />
+          <span className="icon">
+            <i className={`fa fa-${action.icon}`} />
           </span>
         </button>
       </div>
@@ -196,8 +199,8 @@ class Import extends Component<Props, State> {
     this.setState({ doc: null })
   }
 
-  onPick = async (doc: UploadDoc, viewToken: string) => {
-    this.setState({ doc, viewToken, resource: this.guessResource(doc) })
+  onPick = async (doc: UploadDoc, accessToken: string) => {
+    this.setState({ doc, accessToken, resource: this.guessResource(doc) })
     return {}
   }
 
@@ -227,15 +230,29 @@ class Import extends Component<Props, State> {
           label: 'resource-type',
           leftIcon: 'info',
           input: (
-            <input
-              className="input"
-              name="type"
-              type="text"
-              placeholder="type"
-              value={resource.type}
-              readonly={true}
-              required
-            />
+            <div className="select is-fullwidth">
+              <select
+                name="type"
+                onChange={this.onChangeType}
+                value={resource.type}
+                required>
+                <option value="article">
+                  <T id="type-article" />
+                </option>
+                <option value="map">
+                  <T id="type-map" />
+                </option>
+                <option value="image">
+                  <T id="type-image" />
+                </option>
+                <option value="video">
+                  <T id="type-video" />
+                </option>
+                <option value="sound">
+                  <T id="type-sound" />
+                </option>
+              </select>
+            </div>
           ),
         })}
         {this.field({
@@ -248,6 +265,7 @@ class Import extends Component<Props, State> {
               type="text"
               placeholder="unique code"
               value={resource.name}
+              onChange={this.onChangeName}
               required
             />
           ),
@@ -256,29 +274,57 @@ class Import extends Component<Props, State> {
     )
   }
 
-  renderSave() {
-    const { doc, saveable } = this.state
+  onChangeType = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.setState({
+      //$FlowFixMe I really don't want to list all possible values here
+      resource: { ...this.state.resource, type: e.target.value },
+    })
+  }
 
-    if (!doc) {
-      return <p>You must select a file first</p>
+  onChangeName = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.setState({
+      resource: { ...this.state.resource, name: e.target.value },
+    })
+  }
+
+  renderSave() {
+    const { doc, resource } = this.state
+
+    if (!doc || !resource) {
+      return <p>You must select a valid file first</p>
     }
 
-    if (!saveable) {
+    if (!this.isSaveable(resource)) {
       return <p>You must properly fill metadata first</p>
     }
 
-    return <button>TODO save button</button>
+    return (
+      <button className="button is-primary is-large">
+        <Icon icon="check" />
+        <span>
+          <T id="save-changes" />
+        </span>
+      </button>
+    )
   }
 
-  onSubmit = () => {}
+  // TODO implement more complex validations here?
+  isSaveable(resource: ResourceNew) {
+    return resource.type && resource.name
+  }
 
-  async upload(doc: UploadDoc, accessToken: string) {
-    const type = this.state.type
+  onSubmit = async () => {
+    const { resource, doc, accessToken } = this.state
 
+    if (!doc || !resource) {
+      return // Nothing to do here
+    }
+
+    // TODO Redux
     const { id } = await addResourceFromGoogleDrive({
-      name: doc.name,
+      name: resource.name,
       fileId: doc.id,
-      type,
+      type: resource.type,
       accessToken,
     })
 

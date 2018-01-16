@@ -59,16 +59,7 @@ class ResourceCreate extends Component<Props, State> {
   }
 
   renderResult(result) {
-    const { doc, data: url } = result
-
-    if (doc.type === 'photo') {
-      return (
-        <Fragment>
-          <strong>{doc.name}</strong>
-          <img src={String(url)} alt={doc.name} />
-        </Fragment>
-      )
-    }
+    const { doc } = result
 
     return (
       <strong>
@@ -81,22 +72,8 @@ class ResourceCreate extends Component<Props, State> {
     return <p>No selection</p>
   }
 
-  onPick = (doc, accessToken) => {
-    return new Promise((resolve, reject) => {
-      const request = window.gapi.client.drive.files.get({
-        fileId: doc.id,
-        fields: 'webContentLink',
-      })
-      request.execute(res => {
-        if (res.error) {
-          reject(new Error(res.error))
-        } else {
-          resolve({
-            data: res.webContentLink,
-          })
-        }
-      })
-    })
+  onPick = async (doc, accessToken) => {
+    return {}
   }
 
   renderForm(type) {

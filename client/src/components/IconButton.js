@@ -15,7 +15,11 @@ class IconButton extends Component<Props> {
     const { label, icon } = this.props
 
     const $icon = icon ? (
-      <Icon icon={icon} size="small" style={{ marginLeft: '.5em' }} />
+      <Icon
+        icon={icon}
+        size="small"
+        style={label ? { marginLeft: '.5em' } : null}
+      />
     ) : null
     const $label = label ? <T id={label} /> : null
 

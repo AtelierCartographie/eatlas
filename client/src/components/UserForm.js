@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
 
-import { fetchUser, saveUser } from './../actions'
+import { getUser, saveUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
@@ -17,8 +17,8 @@ type Props = {
   user: UserNew | User,
   userId: string, // From router
   // actions
-  fetchUser: Function,
-  saveUser: Function,
+  getUser: typeof getUser,
+  saveUser: typeof saveUser,
   // router
   redirect: Function,
 }
@@ -38,7 +38,7 @@ class UserForm extends Component<Props, State> {
 
   componentDidMount() {
     if (this.props.userId) {
-      this.props.fetchUser(this.props.userId)
+      this.props.getUser(this.props.userId)
     } else {
       this.setState(() => ({ user: newUser }))
     }
@@ -184,6 +184,6 @@ export default withRouter(
         loggedUserId: user.id,
       }
     },
-    { fetchUser, saveUser },
+    { getUser, saveUser },
   )(UserForm),
 )

@@ -22,32 +22,32 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'SAVE_USER':
+    case 'SAVE_USER_REQUEST':
       return { ...state, users: { ...state.users, saving: true } }
 
-    case 'FETCH_USERS':
-    case 'FETCH_USER':
+    case 'GET_USERS_REQUEST':
+    case 'GET_USER_REQUEST':
       return { ...state, users: { ...state.users, loading: true, list: [] } }
 
-    case 'RECEIVE_USERS':
+    case 'GET_USERS_SUCCESS':
       return {
         ...state,
-        users: { ...state.users, loading: false, list: action.payload.users },
+        users: { ...state.users, loading: false, list: action.payload },
       }
 
-    case 'RECEIVE_USER':
+    case 'GET_USER_SUCCESS':
       return {
         ...state,
         users: {
           saving: false, // TODO we may need to be smarter about this flag
           loading: false, // TODO we may need to be smarter about this flag
           list: state.users.list
-            .filter(u => u.id !== action.payload.user.id)
-            .concat(action.payload.user),
+            .filter(u => u.id !== action.payload.id)
+            .concat(action.payload),
         },
         user:
-          state.user.id === action.payload.user.id
-            ? { ...state.user, ...action.payload.user }
+          state.user.id === action.payload.id
+            ? { ...state.user, ...action.payload }
             : state.user,
       }
 
@@ -81,13 +81,16 @@ export default (state = initialState, action) => {
         ...state,
         user: { ...state.user, checkedServerLogin: action.payload },
       }
+
     case 'VERIFYING_USER':
       return { ...state, user: { ...state.user, verifying: action.payload } }
+
     case 'LOGIN':
       return {
         ...state,
         user: { ...state.user, ...action.payload, verifying: false },
       }
+
     case 'LOGOUT':
       return {
         ...state,

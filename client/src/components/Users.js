@@ -5,7 +5,7 @@ import { FormattedMessage as T } from 'react-intl'
 
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchUsers, _deleteUser } from './../actions'
+import { getUsers, deleteUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
@@ -15,17 +15,17 @@ type Props = {
     list: Array<User>,
   },
   // actions
-  fetchUsers: typeof fetchUsers,
-  _deleteUser: typeof _deleteUser,
+  getUsers: typeof getUsers,
+  deleteUser: typeof deleteUser,
 }
 
 class Users extends Component<Props> {
   componentDidMount() {
-    this.props.fetchUsers()
+    this.props.getUsers()
   }
 
   deleteUser(id) {
-    this.props._deleteUser(id)
+    this.props.deleteUser(id).then(() => this.props.getUsers())
   }
 
   render() {
@@ -96,4 +96,6 @@ class Users extends Component<Props> {
   }
 }
 
-export default connect(({ users }) => ({ users }), { fetchUsers, _deleteUser })(Users)
+export default connect(({ users }) => ({ users }), { getUsers, deleteUser })(
+  Users,
+)

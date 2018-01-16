@@ -120,7 +120,7 @@ const query = (
   const fullUrl = process.env.REACT_APP_API_SERVER + url
 
   return fetch(fullUrl, options)
-    .then(response => response.json())
+    .then(res => (res.status === 204 ? {} : res.json()))
     .then(data => {
       if (data.error) {
         let err = new Error(data.message || data.error)

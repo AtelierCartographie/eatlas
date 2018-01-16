@@ -49,29 +49,10 @@ type FieldParams = {
   },
 }
 
-const initialDoc = {
-  id: '1xRv-TIW2r64sPp_2CyOsdZrKwQgECxpF',
-  serviceId: 'docs',
-  mimeType: 'image/png',
-  name: 'tmp-no-entry-2.png',
-  description: '',
-  type: 'photo',
-  lastEditedUtc: 1516028294500,
-  iconUrl: 'https://drive-thirdparty.googleusercontent.com/16/type/image/png',
-  url:
-    'https://drive.google.com/file/d/1xRv-TIW2r64sPp_2CyOsdZrKwQgECxpF/view?usp=drive_web',
-  embedUrl:
-    'https://drive.google.com/file/d/1xRv-TIW2r64sPp_2CyOsdZrKwQgECxpF/preview?usp=drive_web',
-  sizeBytes: 556,
-  rotation: 0,
-  rotationDegree: 0,
-  parentId: '0AFalxNPyUWElUk9PVA',
-}
-
 class Import extends Component<Props, State> {
   state = {
-    doc: initialDoc,
-    resource: this.guessResource(initialDoc),
+    doc: null,
+    resource: null,
     accessToken: null,
     type: null,
     saving: false,

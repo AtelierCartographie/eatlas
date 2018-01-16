@@ -38,6 +38,13 @@ export const getResources = () =>
     fake: () => [FAKE_RESOURCE],
   })
 
+export const deleteResource = id =>
+  query({
+    method: 'DELETE',
+    url: `/resources/${id}`,
+    fake: () => null,
+  })
+
 // Check if user has an active session on server
 export const checkSession = () =>
   query({
@@ -86,6 +93,7 @@ export const deleteUser = id =>
   query({
     method: 'DELETE',
     url: `/users/${id}`,
+    fake: () => null,
   })
 
 // Return a fake async response

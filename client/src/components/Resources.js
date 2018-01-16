@@ -2,16 +2,18 @@
 
 import './Resources.css'
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
+import cx from 'classnames'
 
 import { connect } from 'react-redux'
 import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import IconButton from './IconButton'
 import Icon from './Icon'
+import { deleteResource } from '../api'
 
 type Props = {
   resources: {
@@ -21,6 +23,11 @@ type Props = {
   type: ResourceType | '',
   // actions
   fetchResources: typeof fetchResources,
+}
+
+type State = {
+  removeResource: ?Resource,
+  removing: boolean,
 }
 
 type MenuItem = {
@@ -38,7 +45,9 @@ const typeItems: Array<MenuItem> = [
   { label: 'sounds', icon: 'microphone', type: 'sound' },
 ]
 
-class Resources extends Component<Props> {
+class Resources extends Component<Props, State> {
+  state = { removeResource: null, removing: false }
+
   componentDidMount() {
     this.props.fetchResources()
   }
@@ -62,7 +71,7 @@ class Resources extends Component<Props> {
     )
   }
 
-  renderRow(resource: Resource) {
+  renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
         <td>{resource.name}</td>
@@ -77,7 +86,9 @@ class Resources extends Component<Props> {
               </Link>
             </div>
             <div className="control">
-              <button className="button is-danger is-outlined">
+              <button
+                className="button is-danger is-outlined"
+                onClick={() => this.askRemove(resource)}>
                 <IconButton label="delete" icon="times" />
               </button>
             </div>
@@ -85,6 +96,60 @@ class Resources extends Component<Props> {
         </td>
       </tr>
     )
+  }
+
+  askRemove(resource: ?Resource) {
+    this.setState({ removeResource: resource })
+  }
+
+  renderRemoveModal() {
+    const resource = this.state.removeResource
+
+    return (
+      <div className={cx('modal', { 'is-active': !!resource })}>
+        <div className="modal-background" />
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">
+              <T id="delete" /> {resource ? resource.name : ''}
+            </p>
+            <button
+              className="delete"
+              aria-label="close"
+              onClick={() => this.askRemove(null)}
+            />
+          </header>
+          <section className="modal-card-body">
+            <T id="confirm-delete" values={resource || {}} />
+          </section>
+          <footer className="modal-card-foot">
+            <button
+              className="button is-success"
+              onClick={() => this.doRemove()}>
+              <T id="delete" />
+            </button>
+            <button
+              className={cx('button', { 'is-loading': this.state.removing })}
+              onClick={() => this.askRemove(null)}>
+              <T id="cancel" />
+            </button>
+          </footer>
+        </div>
+      </div>
+    )
+  }
+
+  async doRemove() {
+    const resource = this.state.removeResource
+    if (!resource) {
+      return
+    }
+
+    // TODO Redux
+    this.setState({ removing: true })
+    await deleteResource(resource.id)
+    this.setState({ removing: false, removeResource: null })
+    this.props.fetchResources()
   }
 
   renderList(resources: Array<Resource>) {
@@ -126,6 +191,7 @@ class Resources extends Component<Props> {
             {loading ? <Spinner /> : this.renderList(filteredResources)}
           </div>
         </div>
+        {this.renderRemoveModal()}
       </div>
     )
   }

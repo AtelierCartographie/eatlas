@@ -3,6 +3,7 @@
   "all": "all",
   "articles": "articles",
   "cancel": "cancel",
+  "confirm-delete": "Do you confirm removal of {type} resource “{name}”? This cannot be undone.",
   "connection": "connection",
   "delete": "delete",
   "disconnection": "disconnection",

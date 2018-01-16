@@ -22,13 +22,12 @@ exports.findResource = (req, res, next) =>
 exports.get = (req, res) => res.send(req.foundResource)
 
 exports.addFromGoogle = (req, res) => {
-  const url = config.google.exportUrl
-    .replace(/FILE_ID/g, encodeURIComponent(req.body.fileId))
-    .replace(/FORMAT/g, encodeURIComponent(config.google.exportFormat))
+  // Export to requested format (or keep original if not forced by config)
+  const url = getFileUrl(req.body)
   const options = { encoding: null, auth: { bearer: req.body.accessToken } }
 
   request(url, options)
-    .then(parseDocx)
+    .then(fileHandler(req, res))
     .then(data =>
       Object.assign({}, data, {
         name: req.body.name,
@@ -62,3 +61,23 @@ exports.remove = (req, res) =>
     .remove(req.params.id)
     .then(() => res.status(204).end())
     .catch(res.boom.send)
+
+const getFileUrl = ({ type, fileId }) => {
+  const exportFormat = config.google.exportFormat[type]
+  const url = exportFormat ? config.google.exportUrl : config.google.downloadUrl
+  return url
+    .replace(/FILE_ID/g, encodeURIComponent(fileId))
+    .replace(/FORMAT/g, encodeURIComponent(exportFormat))
+}
+
+const fileHandler = (req, res) => {
+  const { type } = req.body
+
+  if (type === 'article') {
+    return parseDocx
+  }
+
+  return async buffer => {
+    throw res.boom.notImplemented()
+  }
+}

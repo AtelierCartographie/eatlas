@@ -29,7 +29,10 @@
   "google": {
     "clientId": "see https://console.cloud.google.com/apis/credentials",
     "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
-    "exportFormat": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    "downloadUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
+    "exportFormat": {
+      "article": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    }
   },
   "logger": {
     "name": "eatlas",

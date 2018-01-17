@@ -21,6 +21,7 @@ class Login extends Component<Props> {
     if (this.props.authenticated) {
       // Already authenticated: redirect to referer
       const { from } = this.props.location.state || { from: { pathname: '/' } }
+      // $FlowFixMe: from is a correct location
       return <Redirect to={from} />
     }
 

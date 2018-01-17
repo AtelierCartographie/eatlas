@@ -77,6 +77,7 @@ class App extends Component<Props, State> {
   }
 
   render() {
+    const { authenticated } = this.props
     return (
       <div className="App">
         <nav
@@ -99,12 +100,18 @@ class App extends Component<Props, State> {
               'is-active': this.state.menuActive,
             })}
             onClick={this.toggleActive}>
-            <div className="navbar-start">
-              <NavLink to="/" label="home" exact />
-              <NavLink to="/resources" label="resources" />
-              <NavLink to="/users" label="users" />
-              <NavLink to="/import" label="import" />
-            </div>
+            {!authenticated ? (
+              <div className="navbar-start">
+                <NavLink to="/" label="home" exact />
+              </div>
+            ) : (
+              <div className="navbar-start">
+                <NavLink to="/" label="home" exact />
+                <NavLink to="/resources" label="resources" />
+                <NavLink to="/users" label="users" />
+                <NavLink to="/import" label="import" />
+              </div>
+            )}
             <div className="navbar-end">{this.renderUserBox()}</div>
           </div>
         </nav>

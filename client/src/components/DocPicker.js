@@ -116,8 +116,24 @@ class DocPicker extends Component<Props, State> {
         scope={['https://www.googleapis.com/auth/drive']}
         onAuthenticate={this.setViewToken}
         onChange={this.callback}
-        mimeTypes={this.props.mimeTypes}
-        multiselect={false}>
+        createPicker={(google, oauthToken) => {
+          const docsView = new google.picker.View(google.picker.ViewId.DOCS)
+          if (this.props.mimeTypes) {
+            docsView.setMimeTypes(this.props.mimeTypes.join(','))
+          }
+
+          const uploadView = new google.picker.DocsUploadView()
+
+          const picker = new window.google.picker.PickerBuilder()
+            .enableFeature(google.picker.Feature.MULTISELECT_DISABLED)
+            .addView(docsView)
+            .addView(uploadView)
+            .setOAuthToken(oauthToken)
+            .setDeveloperKey(process.env.REACT_APP_GOOGLE_DEV_KEY)
+            .setCallback(this.callback)
+
+          picker.build().setVisible(true)
+        }}>
         <a
           className="button is-primary"
           onClick={() => this.setState(initialState)}>

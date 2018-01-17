@@ -61,7 +61,7 @@ const resourceType = Joi.string().valid([
 ])
 
 exports.uploadFromGoogleDrive = {
-  name: Joi.string().required(),
+  id: Joi.string().required(),
   type: resourceType.required(),
   fileId: Joi.string().required(),
   accessToken: Joi.string().required(),
@@ -100,10 +100,11 @@ const node = Joi.object().keys({
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
+  lexicon: Joi.array().items(Joi.string()),
 })
 
 exports.fullResource = {
-  name: Joi.string().required(),
+  id: Joi.string().required(),
   type: resourceType.required(),
   nodes: Joi.array()
     .items(node)

@@ -20,7 +20,7 @@
   "myself": "myself",
   "name": "name",
   "photos": "photos",
-  "resource-code": "Unique code",
+  "resource-id": "Identifier",
   "resource-create": "Add resource",
   "resource-edit": "Edit {type}: {name}",
   "resource-edit-loading": "Loading resource #{id}",

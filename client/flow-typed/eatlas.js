@@ -21,11 +21,10 @@ declare type ResourceType =
 
 declare type ResourceNew = {
   type: ResourceType,
-  name: string,
+  id: string,
 }
 
 declare type Resource = ResourceNew & {
-  id: string,
   file?: string,
   nodes?: any[],
 }

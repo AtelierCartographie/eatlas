@@ -4,7 +4,7 @@ const { fullResource, validate } = require('../schemas')
 
 const {
   find,
-  findOne,
+  // findOne,
   findById,
   insert,
   update,
@@ -15,17 +15,15 @@ exports.list = () => find()
 
 exports.findById = findById
 
-exports.findByName = name => findOne({ query: { term: { name } } })
-
 exports.create = async resource => {
   const body = await validate(resource, fullResource)
-  const found = await exports.findById(body.name)
+  const found = await exports.findById(body.id)
   if (found) {
     const error = new Error('Duplicate Name')
     error.code = 'EDUPLICATE'
     throw error
   }
-  const result = await insert(body, body.name)
+  const result = await insert(body, body.id)
   return result
 }
 

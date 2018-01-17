@@ -31,7 +31,7 @@ exports.addFromGoogle = (req, res) => {
     .then(fileHandler(req, res))
     .then(data =>
       Object.assign({}, data, {
-        name: req.body.name,
+        id: req.body.id,
         type: req.body.type,
       }),
     )
@@ -84,7 +84,7 @@ const fileHandler = (req, res) => {
   if (type === 'image') {
     return buffer =>
       saveMedia({
-        name: req.body.name,
+        id: req.body.id,
         type: req.body.type,
         mimeType: req.body.mimeType,
         buffer,

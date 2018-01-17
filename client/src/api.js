@@ -6,16 +6,15 @@ const FAKE_USER = {
 }
 
 const FAKE_RESOURCE = {
-  id: 1,
+  id: '0V00',
   type: 'video',
-  name: 'Fake video',
-  nodes: [],
+  file: 'fake-video.avi',
 }
 
 export const addResourceFromGoogleDrive = (body: {
   type: string,
   mimeType: string,
-  name: string,
+  id: string,
   fileId: string,
   accessToken: string,
 }) =>

@@ -223,7 +223,7 @@ class Import extends Component<Props, State> {
     }
 
     return {
-      name: doc.name.replace(/\..*$/, ''),
+      id: doc.name.replace(/[-\s].*$/, ''),
       type,
     }
   }
@@ -271,16 +271,15 @@ class Import extends Component<Props, State> {
           ),
         })}
         {this.field({
-          label: 'resource-code',
+          label: 'resource-id',
           leftIcon: 'key',
           input: (
             <input
               className="input"
               name="name"
               type="text"
-              placeholder="unique code"
-              value={resource.name}
-              onChange={this.onChangeName}
+              value={resource.id}
+              onChange={this.onChangeId}
               readOnly={this.state.saving}
               required
             />
@@ -298,10 +297,10 @@ class Import extends Component<Props, State> {
     })
   }
 
-  onChangeName = (e: SyntheticInputEvent<HTMLInputElement>) => {
+  onChangeId = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
       error: null,
-      resource: { ...this.state.resource, name: e.target.value },
+      resource: { ...this.state.resource, id: e.target.value },
     })
   }
 
@@ -329,7 +328,7 @@ class Import extends Component<Props, State> {
   // TODO implement more complex validations here?
   // Will probably dependon resource type
   isSaveable(resource: ResourceNew) {
-    return resource.type && resource.name
+    return resource.type && resource.id
   }
 
   onSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
@@ -345,7 +344,7 @@ class Import extends Component<Props, State> {
     this.setState({ saving: true, error: null })
     try {
       const { id } = await addResourceFromGoogleDrive({
-        name: resource.name,
+        id: resource.id,
         fileId: doc.id,
         type: resource.type,
         mimeType: doc.mimeType,

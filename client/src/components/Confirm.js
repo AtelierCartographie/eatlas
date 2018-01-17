@@ -5,7 +5,7 @@ import { FormattedMessage as T } from 'react-intl'
 import cx from 'classnames'
 
 type Props = {
-  model: Object,
+  model: { name: string },
   removing: Boolean,
   // actions
   onConfirm: Function,
@@ -23,19 +23,13 @@ class Confirm extends Component<Props> {
             <p className="modal-card-title">
               <T id="delete" /> {model ? model.name : ''}
             </p>
-            <button
-              className="delete"
-              aria-label="close"
-              onClick={onClose}
-            />
+            <button className="delete" aria-label="close" onClick={onClose} />
           </header>
           <section className="modal-card-body">
             {model ? <T id="confirm-delete" values={model} /> : null}
           </section>
           <footer className="modal-card-foot">
-            <button
-              className="button is-success"
-              onClick={onConfirm}>
+            <button className="button is-success" onClick={onConfirm}>
               <T id="delete" />
             </button>
             <button

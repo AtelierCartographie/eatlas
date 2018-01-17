@@ -102,10 +102,6 @@ class ResourceForm extends Component<Props, State> {
               <td>{resource.id}</td>
             </tr>
             <tr>
-              <th>name</th>
-              <td>{resource.name}</td>
-            </tr>
-            <tr>
               <th>type</th>
               <td>{resource.type}</td>
             </tr>

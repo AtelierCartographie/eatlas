@@ -13,17 +13,15 @@ import Icon from './Icon'
 import type { ContextRouter } from 'react-router'
 
 // TODO configurable list
-const resourceType: { [string]: ResourceType } = {
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-    'article',
-  'application/vnd.google-apps.document': 'article',
-  'image/svg+xml': 'map',
-  'image/jpeg': 'image',
-  'image/png': 'image',
-  'image/gif': 'image',
-  'audio/mpeg': 'sound',
-  'video/x-msvideo': 'video',
-  'video/mpeg': 'video',
+const mimeTypes: { [ResourceType]: string[] } = {
+  article: [
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.google-apps.document',
+  ],
+  map: ['image/svg+xml'],
+  image: ['image/jpeg', 'image/png', 'image/gif'],
+  sound: ['audio/mpeg'],
+  video: ['video/x-msvideo', 'video/mpeg'],
 }
 
 type Props = ContextRouter & {
@@ -33,7 +31,6 @@ type Props = ContextRouter & {
 type State = {
   doc: ?UploadDoc,
   accessToken: ?string,
-  type: ?ResourceType,
   resource: ?ResourceNew,
   saved: boolean,
   saving: boolean,
@@ -41,7 +38,8 @@ type State = {
 }
 
 type FieldParams = {
-  label: string,
+  labelId: string,
+  labelValues?: Object,
   leftIcon?: string,
   rightIcon?: string,
   input: React$Element<any>,
@@ -50,14 +48,75 @@ type FieldParams = {
     onClick: Function,
     buttonType?: string,
   },
+  key?: string,
+}
+
+const field = ({
+  labelId,
+  labelValues,
+  leftIcon,
+  rightIcon,
+  input,
+  action,
+  key,
+}: FieldParams) => {
+  const ctrlClass = cx('control', {
+    'is-expanded': action,
+    'has-icons-left': leftIcon,
+    'has-icons-right': rightIcon,
+  })
+  const $leftIcon = leftIcon ? (
+    <span className="icon is-small is-left">
+      <i className={`fa fa-${leftIcon}`} />
+    </span>
+  ) : null
+  const $rightIcon = rightIcon ? (
+    <span className="icon is-small is-right">
+      <i className={`fa fa-${rightIcon}`} />
+    </span>
+  ) : null
+  const $action = action ? (
+    <div className="control" key={key || labelId}>
+      <button
+        className={cx('button', `is-${action.buttonType || 'primary'}`)}
+        onClick={action.onClick}>
+        <span className="icon">
+          <i className={`fa fa-${action.icon}`} />
+        </span>
+      </button>
+    </div>
+  ) : null
+
+  return (
+    <Fragment key={key || labelId}>
+      <label className="label">
+        <T id={labelId} values={labelValues} />
+      </label>
+      <div className={cx('field', { 'has-addons': action })}>
+        <div className={ctrlClass}>
+          {input}
+          {$leftIcon}
+          {$rightIcon}
+        </div>
+        {$action}
+      </div>
+    </Fragment>
+  )
 }
 
 class Import extends Component<Props, State> {
-  state = {
+  initialResource: ?ResourceNew = this.props.match.params.type
+    ? {
+        // $FlowFixMe
+        type: this.props.match.params.type,
+        id: '',
+      }
+    : null
+
+  state: State = {
     doc: null,
-    resource: null,
+    resource: this.initialResource,
     accessToken: null,
-    type: null,
     saving: false,
     saved: false,
     error: null,
@@ -66,43 +125,127 @@ class Import extends Component<Props, State> {
   gapi: GoogleApi
 
   render() {
-    const type = this.props.match.params.type
+    const { value: type, readOnly } = this.getType()
 
     return (
       <div className="ResourceCreate">
         <h1>
-          <T id="resource-create" /> {type ? <T id={'type-' + type} /> : null}
+          <T id="resource-create" />
         </h1>
         {this.state.error ? this.renderError(this.state.error.message) : null}
         <form onSubmit={this.onSubmit}>
-          {this.renderDocSelector(type)}
-          {this.renderMetadataForm()}
+          {this.renderSelectType(type, readOnly || this.state.saving)}
+          {this.renderForm(this.state.resource, this.state.saving)}
           {this.renderSave()}
         </form>
       </div>
     )
   }
 
-  renderDocSelector(type) {
-    const { doc, resource } = this.state
+  getType(): { readOnly: boolean, value: ?ResourceType } {
+    const stateType = this.state.resource && this.state.resource.type
+    const paramType = this.props.match.params.type
 
-    if (!doc) {
-      return this.renderPicker(type)
-    }
+    const readOnly = !!paramType
+    // $FlowFixMe: type from URL
+    const value: ?ResourceType = readOnly ? paramType : stateType
 
-    if (!resource) {
-      return (
-        <Fragment>
-          {this.renderSelectedDoc(doc)}
-          {this.renderError(
-            <T id="error-invalid-resource-type" values={doc} />,
-          )}
-          {this.renderPicker(type)}
-        </Fragment>
+    return { readOnly, value }
+  }
+
+  renderSelectType(value: ?ResourceType, readOnly: boolean) {
+    let input
+    if (readOnly && value) {
+      input = (
+        <span className="input">
+          <T id={'type-' + String(value)} />
+        </span>
+      )
+    } else {
+      input = (
+        <div className="select is-fullwidth is-disabled">
+          <select
+            name="type"
+            onChange={this.onChangeType}
+            value={value || undefined}
+            readOnly={readOnly}
+            required>
+            <option value={undefined} />
+            <option value="article">
+              <T id="type-article" />
+            </option>
+            <option value="map">
+              <T id="type-map" />
+            </option>
+            <option value="image">
+              <T id="type-image" />
+            </option>
+            <option value="video">
+              <T id="type-video" />
+            </option>
+            <option value="sound">
+              <T id="type-sound" />
+            </option>
+          </select>
+        </div>
       )
     }
 
-    return this.renderSelectedDoc(doc)
+    return field({
+      labelId: 'resource-type',
+      leftIcon: 'info',
+      input,
+    })
+  }
+
+  onChangeType = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    if (!e.target.value) {
+      // Cancelled
+      this.setState({ error: null, resource: null })
+      return
+    }
+
+    // $FlowFixMe I don't want to test all possible values here
+    const type: ResourceType = e.target.value
+    const resource = this.state.resource
+      ? { ...this.state.resource, type }
+      : { type, id: '' }
+
+    this.setState({
+      error: null,
+      resource,
+    })
+  }
+
+  renderForm(resource: ?ResourceNew, readOnly: boolean) {
+    if (!resource) {
+      return null
+    }
+
+    const fields = this.getFormFields(resource, readOnly)
+
+    if (!fields) {
+      return this.renderError('Type not implemented')
+    }
+
+    // Always prepend 'id' field
+    fields.unshift({
+      labelId: 'resource-id',
+      leftIcon: 'key',
+      input: (
+        <input
+          className="input"
+          name="name"
+          type="text"
+          value={this.state.resource ? this.state.resource.id : null}
+          onChange={this.onChangeId}
+          readOnly={this.state.saving}
+          required
+        />
+      ),
+    })
+
+    return <Fragment>{fields.map(opts => field(opts))}</Fragment>
   }
 
   renderError(message: any) {
@@ -116,185 +259,69 @@ class Import extends Component<Props, State> {
     )
   }
 
-  renderSelectedDoc(doc: UploadDoc) {
-    return this.field({
-      label: 'selected-file',
-      leftIcon: 'file',
-      input: (
-        <input
-          className="input"
-          type="text"
-          placeholder="type"
-          value={`${doc.name} (#${doc.id})`}
-          readOnly={true}
-          required
-        />
-      ),
-      action: {
-        icon: 'remove',
-        buttonType: 'danger',
-        onClick: this.unselectFile,
-      },
-    })
-  }
+  getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
+    if (resource.type === 'article') {
+      // $FlowFixMe: 'input' is set just below
+      const opts: FieldParams = { labelId: 'selected-file' }
+      const { doc } = this.state
 
-  field({ label, leftIcon, rightIcon, input, action }: FieldParams) {
-    const ctrlClass = cx('control', {
-      'is-expanded': action,
-      'has-icons-left': leftIcon,
-      'has-icons-right': rightIcon,
-    })
-    const $leftIcon = leftIcon ? (
-      <span className="icon is-small is-left">
-        <i className={`fa fa-${leftIcon}`} />
-      </span>
-    ) : null
-    const $rightIcon = rightIcon ? (
-      <span className="icon is-small is-right">
-        <i className={`fa fa-${rightIcon}`} />
-      </span>
-    ) : null
-    const $action = action ? (
-      <div className="control">
-        <button
-          className={cx('button', `is-${action.buttonType || 'primary'}`)}
-          onClick={action.onClick}>
-          <span className="icon">
-            <i className={`fa fa-${action.icon}`} />
-          </span>
-        </button>
-      </div>
-    ) : null
+      if (doc) {
+        opts.leftIcon = 'file'
+        opts.input = (
+          <input
+            className="input"
+            type="text"
+            placeholder="type"
+            value={`${doc.name} (#${doc.id})`}
+            readOnly={true}
+            required
+          />
+        )
+        opts.action = {
+          icon: 'remove',
+          buttonType: 'danger',
+          onClick: this.unselectFile,
+        }
+      } else {
+        opts.input = this.renderPicker(resource.type)
+      }
 
-    return (
-      <Fragment>
-        <label className="label">
-          <T id={label} />
-        </label>
-        <div className={cx('field', { 'has-addons': action })}>
-          <div className={ctrlClass}>
-            {input}
-            {$leftIcon}
-            {$rightIcon}
-          </div>
-          {$action}
-        </div>
-      </Fragment>
-    )
-  }
-
-  renderPicker(type: ?string) {
-    let mimeTypes = []
-    if (type) {
-      mimeTypes = Object.keys(resourceType).filter(
-        mimeType => resourceType[mimeType] === type,
-      )
+      return [opts]
     }
 
-    return (
-      <DocPicker
-        locale={this.props.locale}
-        label="select-file"
-        onPick={this.onPick}
-        showPickerAfterUpload={false}
-        mimeTypes={mimeTypes}
-      />
-    )
+    return null
+  }
+
+  onPick = async (doc: UploadDoc, accessToken: string) => {
+    this.setState(({ resource }) => {
+      const state = { doc, accessToken, resource }
+      if (resource && !resource.id) {
+        state.resource = { ...resource, id: this.guessResourceId(doc) }
+      }
+      return state
+    })
+
+    return {}
+  }
+
+  guessResourceId(doc: UploadDoc) {
+    return doc.name.replace(/[-\s].*$/, '')
   }
 
   unselectFile = () => {
     this.setState({ doc: null })
   }
 
-  onPick = async (doc: UploadDoc, accessToken: string) => {
-    this.setState({ doc, accessToken, resource: this.guessResource(doc) })
-    return {}
-  }
-
-  guessResource(doc: ?UploadDoc) {
-    if (!doc) {
-      return null
-    }
-
-    const type = resourceType[doc.mimeType]
-
-    if (!type) {
-      return null
-    }
-
-    return {
-      id: doc.name.replace(/[-\s].*$/, ''),
-      type,
-    }
-  }
-
-  // TODO specific form for each resource type
-  // - article → +nodes
-  // - others?
-  renderMetadataForm() {
-    const { doc, resource } = this.state
-
-    if (!doc || !resource) {
-      return null
-    }
-
+  renderPicker(type: ?ResourceType) {
     return (
-      <Fragment>
-        {this.field({
-          label: 'resource-type',
-          leftIcon: 'info',
-          input: (
-            <div className="select is-fullwidth">
-              <select
-                name="type"
-                onChange={this.onChangeType}
-                value={resource.type}
-                readOnly={this.state.saving}
-                required>
-                <option value="article">
-                  <T id="type-article" />
-                </option>
-                <option value="map">
-                  <T id="type-map" />
-                </option>
-                <option value="image">
-                  <T id="type-image" />
-                </option>
-                <option value="video">
-                  <T id="type-video" />
-                </option>
-                <option value="sound">
-                  <T id="type-sound" />
-                </option>
-              </select>
-            </div>
-          ),
-        })}
-        {this.field({
-          label: 'resource-id',
-          leftIcon: 'key',
-          input: (
-            <input
-              className="input"
-              name="name"
-              type="text"
-              value={resource.id}
-              onChange={this.onChangeId}
-              readOnly={this.state.saving}
-              required
-            />
-          ),
-        })}
-      </Fragment>
+      <DocPicker
+        locale={this.props.locale}
+        label="select-file"
+        onPick={this.onPick}
+        showPickerAfterUpload={false}
+        mimeTypes={type ? mimeTypes[type] : []}
+      />
     )
-  }
-
-  onChangeType = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({
-      error: null,
-      //$FlowFixMe I really don't want to list all possible values here
-      resource: { ...this.state.resource, type: e.target.value },
-    })
   }
 
   onChangeId = (e: SyntheticInputEvent<HTMLInputElement>) => {

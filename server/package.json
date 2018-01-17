@@ -27,6 +27,7 @@
     "@naholyr/cross-env": "^1.0.0",
     "agentkeepalive": "^3.3.0",
     "body-parser": "^1.18.2",
+    "boom": "^7.1.1",
     "bunyan": "^1.8.12",
     "chalk": "^2.3.0",
     "cheerio": "^1.0.0-rc.2",

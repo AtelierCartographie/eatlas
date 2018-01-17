@@ -2,6 +2,7 @@
 
 const request = require('request-promise-native')
 const config = require('config')
+const Boom = require('boom')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
@@ -13,7 +14,7 @@ exports.findResource = (req, res, next) =>
     .findById(req.params.id)
     .then(resource => {
       if (!resource) {
-        return res.boom.notFound('Unknown Resource Id')
+        return Boom.notFound('Unknown Resource Id')
       }
       req.foundResource = resource
       next()
@@ -85,27 +86,27 @@ const getFileUrl = (type, fileId) => {
 
 // TODO check mime-type too
 // TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
-const validateUploads = (req, res) => {
+const validateUploads = req => {
   const { uploads, type } = req.body
   switch (type) {
     case 'article':
       if (uploads.length !== 1 || uploads[0].key !== 'article') {
-        throw res.boom.badRequest(
+        throw Boom.badRequest(
           'Upload error: expecting a single "article" document',
         )
       }
       break
     case 'map':
       if (uploads.length !== 1 || uploads[0].key !== 'map') {
-        throw res.boom.badRequest('Upload error: expecting a single "map" document')
+        throw Boom.badRequest('Upload error: expecting a single "map" document')
       }
       break
     default:
-      throw res.boom.notImplemented()
+      throw Boom.notImplemented()
   }
 }
 
-const handleUploads = async (req, res) => {
+const handleUploads = async req => {
   const { uploads, type } = req.body
   switch (type) {
     case 'article':
@@ -117,6 +118,6 @@ const handleUploads = async (req, res) => {
         upload: uploads[0],
       })
     default:
-      throw res.boom.notImplemented()
+      throw Boom.notImplemented()
   }
 }

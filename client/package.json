@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "browser-locale": "^1.0.3",
     "classnames": "^2.2.5",
     "load-script": "^1.0.0",
     "react": "^16.2.0",

@@ -11,11 +11,13 @@ type Props = {
 }
 
 const Root = ({ locale }: Props) => {
+  const lang = locale.substring(0, 2)
+
   return (
     <IntlProvider
       key={locale}
       locale={locale}
-      messages={messages[locale]}
+      messages={messages[lang]}
       textComponent={Fragment}>
       <BrowserRouter>
         <App />

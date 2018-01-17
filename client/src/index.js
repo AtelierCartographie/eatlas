@@ -8,14 +8,11 @@ import './index.css'
 import Root from './components/Root'
 import store from './store'
 import { checkSession } from './api'
-import { userLogin, notifyCheckedUserSession, setLocale } from './actions'
+import { userLogin, notifyCheckedUserSession } from './actions'
 
 // Immediately ask to server for user's session
 checkSession()
-  .then(user => {
-    store.dispatch(userLogin(user))
-    store.dispatch(setLocale('fr'))
-  })
+  .then(user => store.dispatch(userLogin(user)))
   .catch(() => {}) // error = not logged in, whatever
   // finally
   .then(() => store.dispatch(notifyCheckedUserSession()))

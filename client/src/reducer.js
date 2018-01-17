@@ -1,5 +1,7 @@
+import browserLocale from 'browser-locale'
+
 const initialState = {
-  locale: 'en',
+  locale: browserLocale(),
   users: {
     loading: false, // loading users list
     saving: false, // adding/updating a user

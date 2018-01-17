@@ -1,6 +1,10 @@
+// @flow
+
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { FormattedMessage as T } from 'react-intl'
+import Spinner from './Spinner'
 
 const PrivateRoute = ({
   component: Component,
@@ -28,7 +32,7 @@ const loginFormRender = props => (
   />
 )
 
-const waitCheckServerLogin = props => <div>Checking your credentials…</div>
+const waitCheckServerLogin = () => <div><Spinner /><T id="checking-credentials" /></div>
 
 export default connect(state => ({
   checkedServerLogin: state.user.checkedServerLogin,

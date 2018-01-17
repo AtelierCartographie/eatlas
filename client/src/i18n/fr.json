@@ -3,6 +3,7 @@
   "all": "tous",
   "articles": "articles",
   "cancel": "annuler",
+  "checking-credentials": "Vérification de l'identification…",
   "confirm-delete": "Confirmez-vous la suppression de « {name} » ? Cette opération est irréversible.",
   "connection": "connexion",
   "definitions": "définitions",

@@ -3,6 +3,7 @@
   "all": "all",
   "articles": "articles",
   "cancel": "cancel",
+  "checking-credentials": "Checking your credentials…",
   "confirm-delete": "Do you confirm removal of “{name}”? This cannot be undone.",
   "connection": "connection",
   "definitions": "definitions",

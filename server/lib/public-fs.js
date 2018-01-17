@@ -5,7 +5,7 @@ const mime = require('mime')
 const { writeFile, ensureDir } = require('fs-extra')
 const path = require('path')
 
-exports.saveMedia = async ({ name, type, mimeType, key, buffer }) => {
+exports.saveMedia = async ({ id, type, upload: { mimeType, key, buffer } }) => {
   const fileDir = config.publicPath[type]
   if (!fileDir) {
     throw new Error('Unknown storage directory for this type "' + type + '"')
@@ -13,11 +13,11 @@ exports.saveMedia = async ({ name, type, mimeType, key, buffer }) => {
 
   const extension = mime.getExtension(mimeType)
   if (!extension) {
-    throw new Error('Unknown mime type')
+    throw new Error('Unknown mime type "' + mimeType + '"')
   }
 
   const absFileDir = path.resolve(__dirname, '..', fileDir)
-  const fileName = name + '.' + extension
+  const fileName = id + '.' + extension
   const absFilePath = path.join(absFileDir, fileName)
 
   await ensureDir(absFileDir)

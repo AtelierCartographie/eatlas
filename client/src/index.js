@@ -1,32 +1,28 @@
 // @flow
 
-import React, { Fragment } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import { IntlProvider } from 'react-intl'
-import { fr as messages } from './i18n'
 
 import './index.css'
-import App from './components/App'
+import Root from './components/Root'
 import store from './store'
 import { checkSession } from './api'
-import { userLogin, notifyCheckedUserSession } from './actions'
+import { userLogin, notifyCheckedUserSession, setLocale } from './actions'
 
 // Immediately ask to server for user's session
 checkSession()
-  .then(user => store.dispatch(userLogin(user)))
+  .then(user => {
+    store.dispatch(userLogin(user))
+    store.dispatch(setLocale('fr'))
+  })
   .catch(() => {}) // error = not logged in, whatever
   // finally
   .then(() => store.dispatch(notifyCheckedUserSession()))
 
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider locale="en" messages={messages} textComponent={Fragment}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </IntlProvider>
+    <Root />
   </Provider>,
   // $FlowFixMe
   document.getElementById('root'),

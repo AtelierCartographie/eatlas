@@ -1,4 +1,5 @@
 const initialState = {
+  locale: 'en',
   users: {
     loading: false, // loading users list
     saving: false, // adding/updating a user
@@ -11,7 +12,7 @@ const initialState = {
   },
   topics: {
     loading: false,
-    list: [], 
+    list: [],
   },
   // current user (session)
   user: {
@@ -26,8 +27,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // users
+    case 'SET_LOCALE':
+      return { ...state, locale: action.payload }
 
+    // users
     case 'SAVE_USER_REQUEST':
       return { ...state, users: { ...state.users, saving: true } }
 
@@ -45,9 +48,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         users: {
-          saving: false, // TODO we may need to be smarter about this flag
-          loading: false, // TODO we may need to be smarter about this flag
-          list: state.users.list
+          saving: false,
+          loading: false,
+          list: state.users.list // TODO we may need to be smarter about this flag // TODO we may need to be smarter about this flag
             .filter(u => u.id !== action.payload.id)
             .concat(action.payload),
         },

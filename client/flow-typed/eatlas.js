@@ -1,5 +1,7 @@
 // @flow
 
+declare type Locale = 'fr' | 'en'
+
 declare type UserNew = {
   name: string,
   email: string,

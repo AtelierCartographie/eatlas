@@ -34,7 +34,7 @@ function helper(actionName, fn) {
                 type: actionFailure,
                 // to see them in redux devtools
                 error: { message: error.message, stack: error.stack },
-              })
+              }),
             )
         } else {
           dispatch({
@@ -61,8 +61,9 @@ function helper(actionName, fn) {
   }
 }
 
-// users
+export const setLocale = (payload: Locale) => ({ type: 'SET_LOCALE', payload })
 
+// users
 export const getUser = helper('GET_USER', api.getUser).action
 export const getUsers = helper('GET_USERS', api.getUsers).action
 export const deleteUser = helper('DELETE_USER', api.deleteUser).action

@@ -85,22 +85,28 @@ const list = Joi.array().items(
 const node = Joi.object().keys({
   type: Joi.string().required(),
   text: Joi.string(),
-  list: list
-    .when('type', {
-      is: Joi.valid(['meta', 'footnotes']),
-      otherwise: Joi.forbidden(),
-    })
-    .when('type', {
-      is: Joi.valid('footnotes'),
-      then: Joi.required(),
-    }),
-  links,
-  id: Joi.string().when('type', {
-    is: Joi.valid(['resource', 'meta']),
+  list: list.when('type', {
+    is: Joi.valid('footnotes'),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
+  id: Joi.string().when('type', {
+    is: Joi.valid(['resource']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
+  links,
   lexicon: Joi.array().items(Joi.string()),
+})
+
+const meta = Joi.object().keys({
+  type: Joi.string().required(),
+  text: Joi.string(),
+  list: list.when('type', {
+    is: Joi.valid(['keywords', 'related', 'references']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
 })
 
 exports.fullResource = {
@@ -108,6 +114,12 @@ exports.fullResource = {
   type: resourceType.required(),
   nodes: Joi.array()
     .items(node)
+    .when('type', {
+      is: Joi.valid(['article', 'focus']),
+      then: Joi.required(),
+    }),
+  metas: Joi.array()
+    .items(meta)
     .when('type', {
       is: Joi.valid(['article', 'focus']),
       then: Joi.required(),

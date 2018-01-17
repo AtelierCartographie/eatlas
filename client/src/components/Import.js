@@ -359,7 +359,7 @@ class Import extends Component<Props, State> {
 
     return (
       <button
-        className={cx('button is-primary is-large', {
+        className={cx('button is-primary', {
           'is-loading': this.state.saving,
         })}
         disabled={!this.isSaveable(resource)}>

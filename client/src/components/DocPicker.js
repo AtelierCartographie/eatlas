@@ -137,7 +137,7 @@ class DocPicker extends Component<Props, State> {
           picker.build().setVisible(true)
         }}>
         <a
-          className="button is-primary"
+          className="button is-link is-outlined"
           onClick={() => this.setState(initialState)}>
           <IconButton
             label={this.props.label || 'to-import'}

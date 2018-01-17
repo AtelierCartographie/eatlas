@@ -5,8 +5,8 @@ import { FormattedMessage as T } from 'react-intl'
 import cx from 'classnames'
 
 type Props = {
-  model: { name: string },
-  removing: Boolean,
+  model: ?{ name: string },
+  removing: boolean,
   // actions
   onConfirm: Function,
   onClose: Function,

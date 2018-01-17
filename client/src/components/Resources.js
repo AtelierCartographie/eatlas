@@ -26,7 +26,7 @@ type Props = {
 }
 
 type State = {
-  removeModel: ?Resource,
+  removeResource: ?Resource,
   removing: boolean,
 }
 
@@ -48,7 +48,7 @@ const typeItems: Array<MenuItem> = [
 ]
 
 class Resources extends Component<Props, State> {
-  state = { removeModel: null, removing: false }
+  state = { removeResource: null, removing: false }
 
   componentDidMount() {
     this.props.fetchResources()
@@ -76,7 +76,7 @@ class Resources extends Component<Props, State> {
   renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
-        <td>{resource.name}</td>
+        <td>{resource.id}</td>
         <td>{resource.type}</td>
         <td>
           <div className="field is-grouped">
@@ -101,17 +101,17 @@ class Resources extends Component<Props, State> {
   }
 
   askRemove(resource: ?Resource) {
-    this.setState({ removeModel: resource })
+    this.setState({ removeResource: resource })
   }
 
   async doRemove() {
-    const resource = this.state.removeModel
+    const resource = this.state.removeResource
     if (!resource) return
 
     // TODO Redux
     this.setState({ removing: true })
     await deleteResource(resource.id)
-    this.setState({ removing: false, removeModel: null })
+    this.setState({ removing: false, removeResource: null })
     this.props.fetchResources()
   }
 
@@ -121,9 +121,11 @@ class Resources extends Component<Props, State> {
         <thead>
           <tr>
             <th>
-              <T id="name" />
+              <T id="resource-id" />
             </th>
-            <th>type</th>
+            <th>
+              <T id="resource-type" />
+            </th>
             <th style={{ width: '1px' }} />
           </tr>
         </thead>
@@ -182,7 +184,11 @@ class Resources extends Component<Props, State> {
           </div>
         </div>
         <Confirm
-          model={this.state.removeModel}
+          model={
+            this.state.removeResource
+              ? { name: this.state.removeResource.id }
+              : null
+          }
           removing={this.state.removing}
           onClose={() => this.askRemove(null)}
           onConfirm={() => this.doRemove()}

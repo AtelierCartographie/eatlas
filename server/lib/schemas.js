@@ -106,6 +106,18 @@ const node = Joi.object().keys({
   lexicon: Joi.array().items(Joi.string()),
 })
 
+const densities = Joi.object().keys({
+  '1x': Joi.string().required(),
+  '2x': Joi.string(),
+  '3x': Joi.string(),
+})
+
+const images = Joi.object().keys({
+  small: densities,
+  medium: densities.required(),
+  large: densities,
+})
+
 const meta = Joi.object().keys({
   type: Joi.string().required(),
   text: Joi.string(),
@@ -124,15 +136,23 @@ exports.fullResource = {
     .when('type', {
       is: Joi.valid(['article', 'focus']),
       then: Joi.required(),
+      otherwise: Joi.forbidden(),
     }),
   metas: Joi.array()
     .items(meta)
     .when('type', {
       is: Joi.valid(['article', 'focus']),
       then: Joi.required(),
+      otherwise: Joi.forbidden(),
     }),
   file: Joi.string().when('type', {
+    is: Joi.valid(['map']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
+  images: images.when('type', {
     is: Joi.valid(['image']),
     then: Joi.required(),
+    otherwise: Joi.forbidden(),
   }),
 }

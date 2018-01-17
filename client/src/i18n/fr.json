@@ -32,6 +32,7 @@
   "save-changes": "Sauver",
   "select-file": "Sélectionner ou importer un fichier",
   "selected-file": "Fichier sélectionné",
+  "selected-image": "Fichier image « {size}@{density} »",
   "sounds": "sons",
   "submit": "envoyer",
   "topics": "rubriques",

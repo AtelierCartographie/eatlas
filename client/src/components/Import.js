@@ -267,13 +267,52 @@ class Import extends Component<Props, State> {
   getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
     switch (resource.type) {
       case 'article':
-        return [this.getDocField(resource, 'article')]
+        return [this.getDocField(resource, 'article', { mandatory: true })]
       case 'map':
-        return [this.getDocField(resource, 'map')]
+        return [this.getDocField(resource, 'map', { mandatory: true })]
+      case 'image':
+        return [
+          this.getDocField(resource, 'image-small-1x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'small', density: '1x' },
+          }),
+          this.getDocField(resource, 'image-small-2x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'small', density: '2x' },
+          }),
+          this.getDocField(resource, 'image-small-3x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'small', density: '3x' },
+          }),
+          this.getDocField(resource, 'image-medium-1x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'medium', density: '1x' },
+            mandatory: true,
+          }),
+          this.getDocField(resource, 'image-medium-2x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'medium', density: '2x' },
+          }),
+          this.getDocField(resource, 'image-medium-3x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'medium', density: '3x' },
+          }),
+          this.getDocField(resource, 'image-large-1x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'large', density: '1x' },
+          }),
+          this.getDocField(resource, 'image-large-2x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'large', density: '2x' },
+          }),
+          this.getDocField(resource, 'image-large-3x', {
+            labelId: 'selected-image',
+            labelValues: { size: 'large', density: '3x' },
+          }),
+        ]
       //case 'sound':
       //case 'definition':
       //case 'focus':
-      //case 'image':
       //case 'video':
       default:
         return null
@@ -443,10 +482,15 @@ class Import extends Component<Props, State> {
           return false
         }
         break
+      case 'image':
+        // Mandatory sizes
+        if (!docs['image-medium-1x']) {
+          return false
+        }
+        break
       //case 'sound':
       //case 'definition':
       //case 'focus':
-      //case 'image':
       //case 'video':
       default:
         return null

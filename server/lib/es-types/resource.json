@@ -62,6 +62,53 @@
     },
     "file": {
       "type": "keyword"
+    },
+    "images": {
+      "type": "nested",
+      "properties": {
+        "small": {
+          "type": "nested",
+          "properties": {
+            "1x": {
+              "type": "keyword"
+            },
+            "2x": {
+              "type": "keyword"
+            },
+            "3x": {
+              "type": "keyword"
+            }
+          }
+        },
+        "medium": {
+          "type": "nested",
+          "properties": {
+            "1x": {
+              "type": "keyword"
+            },
+            "2x": {
+              "type": "keyword"
+            },
+            "3x": {
+              "type": "keyword"
+            }
+          }
+        },
+        "large": {
+          "type": "nested",
+          "properties": {
+            "1x": {
+              "type": "keyword"
+            },
+            "2x": {
+              "type": "keyword"
+            },
+            "3x": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
     }
   }
 }

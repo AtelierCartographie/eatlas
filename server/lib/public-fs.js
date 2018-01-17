@@ -17,13 +17,11 @@ exports.saveMedia = async ({ id, type, upload: { mimeType, key, buffer } }) => {
   }
 
   const absFileDir = path.resolve(__dirname, '..', fileDir)
-  const fileName = id + '.' + extension
+  const fileName = id + '-' + key + '.' + extension
   const absFilePath = path.join(absFileDir, fileName)
 
   await ensureDir(absFileDir)
   await writeFile(absFilePath, buffer)
 
-  return {
-    file: fileName,
-  }
+  return fileName
 }

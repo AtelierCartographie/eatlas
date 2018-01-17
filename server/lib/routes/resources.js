@@ -26,7 +26,11 @@ exports.get = (req, res) => res.send(req.foundResource)
 exports.addFromGoogle = async (req, res) => {
   try {
     // Handle uploaded files
-    validateUploads(req, res)
+    try {
+      validateUploads(req, res)
+    } catch (e) {
+      throw Boom.badRequest('Upload error: ' + e.message)
+    }
     const urls = req.body.uploads.map(up =>
       getFileUrl(req.body.type, up.fileId),
     )
@@ -85,6 +89,8 @@ const getFileUrl = (type, fileId) => {
     .replace(/FORMAT/g, encodeURIComponent(exportFormat))
 }
 
+const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
+
 // TODO check mime-type too
 // TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
 const validateUploads = req => {
@@ -92,14 +98,23 @@ const validateUploads = req => {
   switch (type) {
     case 'article':
       if (uploads.length !== 1 || uploads[0].key !== 'article') {
-        throw Boom.badRequest(
-          'Upload error: expecting a single "article" document',
-        )
+        throw new Error('expecting a single "article" document')
       }
       break
     case 'map':
       if (uploads.length !== 1 || uploads[0].key !== 'map') {
-        throw Boom.badRequest('Upload error: expecting a single "map" document')
+        throw new Error('expecting a single "map" document')
+      }
+      break
+    case 'image':
+      uploads.forEach(u => {
+        if (!u.key.match(RE_IMAGE_UPLOAD_KEY)) {
+          throw new Error('invalid upload key "' + u.key + '"')
+        }
+      })
+      // Mandatory sizes
+      if (!uploads.some(u => u.key === 'image-medium-1x')) {
+        throw new Error('required document "image-medium-1x"')
       }
       break
     default:
@@ -107,17 +122,38 @@ const validateUploads = req => {
   }
 }
 
+// Returns additional metadata to be merged into resource before creation
 const handleUploads = async req => {
   const { uploads, type } = req.body
   switch (type) {
-    case 'article':
+    case 'article': {
       return parseDocx(uploads[0].buffer)
-    case 'map':
-      return saveMedia({
+    }
+    case 'map': {
+      const file = await saveMedia({
         id: req.body.id,
         type: req.body.type,
         upload: uploads[0],
       })
+      return { file }
+    }
+    case 'image': {
+      const files = await Promise.all(
+        uploads.map(upload =>
+          saveMedia({
+            id: req.body.id,
+            type: req.body.type,
+            upload,
+          }),
+        ),
+      )
+      const images = { small: {}, medium: {}, large: {} }
+      uploads.forEach(({ key }, index) => {
+        const [, size, density] = key.match(RE_IMAGE_UPLOAD_KEY)
+        images[size][density] = files[index]
+      })
+      return { images }
+    }
     default:
       throw Boom.notImplemented()
   }

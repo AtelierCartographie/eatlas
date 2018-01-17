@@ -3,6 +3,8 @@
 const mammoth = require('mammoth')
 const cheerio = require('cheerio')
 
+// helpers
+
 const getText = ($, el) =>
   $(el)
     .text()
@@ -14,6 +16,24 @@ const getList = ($, el) =>
     .map((i, el) => getText($, el))
     .get()
 
+// semantic agnostic
+const conversions = {
+  // nodes
+  h1: 'header',
+  // metas
+  auteur: 'author',
+  partie: 'parts',
+  identifiant: 'id',
+  'Mots-clés': 'keywords',
+  'Résumé-FR': 'summary-fr',
+  "Continuer dans l'Atlas": 'related',
+}
+
+const getType = name => {
+  return conversions[name] ? conversions[name] : name
+}
+
+// hyperlinks found in paragraphs and footnotes
 const parseLinks = ($, el) =>
   $(el)
     .children()
@@ -22,10 +42,13 @@ const parseLinks = ($, el) =>
     .map((i, el) => [{ label: getText($, el), url: el.attribs.href }])
     .get()
 
+// "definitions" found in paragraphs
 const parseLexicon = ($, el) =>
   $(el)
     .children()
-    .filter((i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000')
+    .filter(
+      (i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000',
+    )
     // beware of cheerio and flatMap
     .map((i, el) => [getText($, el)])
     .get()
@@ -88,13 +111,14 @@ const parseFootnotes = ($, el) => {
 
 const parseChild = $ => (i, el) => {
   const text = getText($, el)
-  if (i === 0) return { type: 'title', text }
+  if (i === 0) return { type: 'meta', id: 'title', text }
 
   switch (el.name) {
     case 'p':
       if (text.startsWith('[') && text.endsWith(']')) return parseResource(text)
       break
 
+    // meta
     case 'h3':
       if (text.startsWith('{')) {
         let meta = parseMeta(text)
@@ -112,12 +136,22 @@ const parseChild = $ => (i, el) => {
   }
   if (!el.prev.skipNext)
     return {
-      type: el.name,
+      type: getType(el.name),
       text,
       links: parseLinks($, el),
       lexicon: parseLexicon($, el),
     }
 }
+
+const extractMetas = nodes =>
+  nodes.filter(n => n.type === 'meta').map(m => {
+    const meta = {
+      type: getType(m.id),
+    }
+    if (m.text) meta.text = m.text
+    if (m.list) meta.list = m.list
+    return meta
+  })
 
 exports.parseDocx = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })
@@ -127,5 +161,9 @@ exports.parseDocx = async buffer => {
     .map(parseChild($))
     .get()
     .filter(n => n && (typeof n.text !== 'string' || n.text))
-  return { nodes }
+
+  return {
+    nodes: nodes.filter(n => n.type !== 'meta'),
+    metas: extractMetas(nodes),
+  }
 }

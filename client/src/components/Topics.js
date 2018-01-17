@@ -5,63 +5,39 @@ import { FormattedMessage as T } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getUsers, deleteUser } from './../actions'
+import { getTopics } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
-import Confirm from './Confirm'
 
 type Props = {
-  users: {
+  topics: {
     loading: boolean,
-    list: Array<User>,
+    list: Array<Object>,
   },
   // actions
-  getUsers: typeof getUsers,
-  deleteUser: typeof deleteUser,
+  getTopics: typeof getTopics,
 }
 
-type State = {
-  removeModel: ?User,
-  removing: boolean,
-}
-
-class Users extends Component<Props, State> {
-  state = { removeModel: null, removing: false }
-
+class Topics extends Component<Props> {
   componentDidMount() {
-    this.props.getUsers()
-  }
-
-  askRemove(model: ?User) {
-    this.setState({ removeModel: model })
-  }
-
-  deleteUser() {
-    const { removeModel } = this.state
-    if (!removeModel) return
-
-    this.setState({ removing: true })
-    this.props.deleteUser(removeModel.id).then(() => {
-      this.setState({ removing: false, removeModel: null })
-      this.props.getUsers()
-    })
+    this.props.getTopics()
   }
 
   render() {
-    const { list, loading } = this.props.users
+    const { list, loading } = this.props.topics
     return (
-      <div className="Users">
+      <div className="Topics">
         <div className="level">
           <div className="level-left">
             <div className="level-item">
               <h1 className="title">
-                <T id="users" />
+                <T id="topics" />
               </h1>
             </div>
           </div>
           <div className="level-right">
             <div className="level-item">
-              <Link className="button is-primary" to={`/users/new`}>
+              <Link className="button is-primary" to={`/topics/new`}>
                 <IconButton label="add" icon="plus" />
               </Link>
             </div>
@@ -74,32 +50,35 @@ class Users extends Component<Props, State> {
             <thead>
               <tr>
                 <th>
+                  <T id="icon" />
+                </th>
+                <th>
                   <T id="name" />
                 </th>
-                <th>email</th>
-                <th>role</th>
+                <th>
+                  <T id="articles" />
+                </th>
                 <th style={{ width: '1px' }} />
               </tr>
             </thead>
             <tbody>
-              {list.map(u => (
-                <tr key={u.email}>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>{u.role}</td>
+              {list.map((t, k) => (
+                <tr key={t.name}>
+                  <td><img alt="icon" src={`/topics/pictos-parties_${k}.svg`} /></td>
+                  <td>{t.name}</td>
+                  <td>{Math.floor(Math.random() * 6) + 1}</td>
                   <td>
                     <div className="field is-grouped">
                       <div className="control">
                         <Link
                           className="button is-primary"
-                          to={`/users/${u.id}/edit`}>
+                          to={`/topics/${t.id}/edit`}>
                           <IconButton label="edit" icon="pencil" />
                         </Link>
                       </div>
                       <div className="control">
                         <button
-                          className="button is-danger is-outlined"
-                          onClick={() => this.askRemove(u)}>
+                          className="button is-danger is-outlined">
                           <IconButton label="delete" icon="times" />
                         </button>
                       </div>
@@ -110,17 +89,9 @@ class Users extends Component<Props, State> {
             </tbody>
           </table>
         )}
-        <Confirm
-          model={this.state.removeModel}
-          removing={this.state.removing}
-          onClose={() => this.askRemove(null)}
-          onConfirm={() => this.deleteUser()}
-        />
       </div>
     )
   }
 }
 
-export default connect(({ users }) => ({ users }), { getUsers, deleteUser })(
-  Users,
-)
+export default connect(({ topics }) => ({ topics }), { getTopics })(Topics)

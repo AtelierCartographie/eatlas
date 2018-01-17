@@ -96,6 +96,32 @@ export const deleteUser = id =>
     fake: () => null,
   })
 
+export const getTopics = () =>
+  query({
+    url: '/users',
+    fake: () => [
+      {
+        name: 'Présentation',
+      },
+      {
+        name: 'Contrastes et inégalités',
+      },
+      {
+        name: 'Mobilitiés',
+      },
+      {
+        name: 'Stratégies des acteurs transnationaux',
+      },
+      {
+        name: '(in)sécurités/paix',
+      },
+      {
+        name: 'Vulnérabilités et défis',
+      },
+    ],
+    forceFake: true,
+  })
+
 // Return a fake async response
 const fakeResponse = (fake, delay) =>
   new Promise((resolve, reject) =>
@@ -111,9 +137,9 @@ const fakeResponse = (fake, delay) =>
 
 // Get from server or return fake, depends on environment configuration
 const query = (
-  { method = 'GET', url, body, delay = 0, fake = () => null } = {},
+  { method = 'GET', url, body, delay = 0, fake = () => null, forceFake } = {},
 ) => {
-  if (process.env.REACT_APP_MOCK_API === 'yes') {
+  if (process.env.REACT_APP_MOCK_API === 'yes' || forceFake) {
     return fakeResponse(fake, delay)
   }
 

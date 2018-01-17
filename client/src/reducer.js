@@ -9,6 +9,10 @@ const initialState = {
     loading: false, // loading resources list
     list: [], // full resources list
   },
+  topics: {
+    loading: false,
+    list: [], 
+  },
   // current user (session)
   user: {
     id: null,
@@ -22,6 +26,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    // users
+
     case 'SAVE_USER_REQUEST':
       return { ...state, users: { ...state.users, saving: true } }
 
@@ -51,6 +57,8 @@ export default (state = initialState, action) => {
             : state.user,
       }
 
+    // resources
+
     case 'FETCH_RESOURCES':
     case 'FETCH_RESOURCE':
       return { ...state, resources: { fetched: true, loading: true, list: [] } }
@@ -75,6 +83,16 @@ export default (state = initialState, action) => {
             .concat(action.payload.resource),
         },
       }
+
+    // topics
+
+    case 'GET_TOPICS_SUCCESS':
+      return {
+        ...state,
+        topics: { ...state.topics, loading: false, list: action.payload },
+      }
+
+    // session
 
     case 'CHECKED_USER_SESSION':
       return {

@@ -5,6 +5,9 @@ import './App.css'
 import { NavLink as NavLinko, Route, Switch } from 'react-router-dom'
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import classNames from 'classnames'
 
 import Home from './Home'
 import IconButton from './IconButton'
@@ -13,12 +16,10 @@ import PrivateRoute from './PrivateRoute'
 import Resources from './Resources'
 import Import from './Import'
 import ResourceEdit from './ResourceEdit'
+import Topics from './Topics'
 import UserForm from './UserForm'
 import Users from './Users'
-import classNames from 'classnames'
-import { connect } from 'react-redux'
 import { userLogout } from '../actions'
-import { withRouter } from 'react-router'
 
 const NavLink = ({
   to,
@@ -72,6 +73,7 @@ class App extends Component<Props, State> {
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/users" component={Users} />
         <PrivateRoute path="/users/:id" component={UserForm} />
+        <PrivateRoute exact path="/topics" component={Topics} />
       </Switch>
     )
   }
@@ -107,6 +109,7 @@ class App extends Component<Props, State> {
             ) : (
               <div className="navbar-start">
                 <NavLink to="/" label="home" exact />
+                <NavLink to="/topics" label="topics" />
                 <NavLink to="/resources" label="resources" />
                 <NavLink to="/users" label="users" />
                 <NavLink to="/import" label="import" />

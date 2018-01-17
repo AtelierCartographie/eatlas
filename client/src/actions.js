@@ -61,6 +61,8 @@ function helper(actionName, fn) {
   }
 }
 
+// users
+
 export const getUser = helper('GET_USER', api.getUser).action
 export const getUsers = helper('GET_USERS', api.getUsers).action
 export const deleteUser = helper('DELETE_USER', api.deleteUser).action
@@ -84,6 +86,8 @@ export const saveUser = ({ id, ...data }) => dispatch => {
     )
 }
 
+// resources
+
 export const fetchResources = () => dispatch => {
   dispatch({ type: 'FETCH_RESOURCES' })
 
@@ -94,6 +98,12 @@ export const fetchResources = () => dispatch => {
     }),
   ) // TODO handle error
 }
+
+// topics
+
+export const getTopics = helper('GET_TOPICS', api.getTopics).action
+
+// session
 
 export const userLogin = ({ id, name, email, role = 'visitor' }) => ({
   type: 'LOGIN',

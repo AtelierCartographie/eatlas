@@ -239,7 +239,7 @@ class Import extends Component<Props, State> {
           type="text"
           value={this.state.resource ? this.state.resource.id : null}
           onChange={this.onChangeId}
-          readOnly={this.state.saving}
+          readOnly={readOnly}
           required
         />
       ),
@@ -262,9 +262,9 @@ class Import extends Component<Props, State> {
   getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
     switch (resource.type) {
       case 'article':
-        return [this.getDocField(resource, false)]
+        return [this.getDocField(resource)]
       case 'map':
-        return [this.getDocField(resource, false)]
+        return [this.getDocField(resource)]
       //case 'sound':
       //case 'definition':
       //case 'focus':
@@ -275,9 +275,16 @@ class Import extends Component<Props, State> {
     }
   }
 
-  getDocField(resource: ResourceNew, multiple: boolean) {
+  getDocField(
+    resource: ResourceNew,
+    {
+      multiple = false,
+      labelId = 'selected-file',
+      labelValues = {},
+    }: { multiple?: boolean, labelId?: string, labelValues?: Object } = {},
+  ) {
     // $FlowFixMe: 'input' is set just below
-    const opts: FieldParams = { labelId: 'selected-file' }
+    const opts: FieldParams = { labelId, labelValues }
     const { doc } = this.state
 
     if (doc) {
@@ -365,7 +372,7 @@ class Import extends Component<Props, State> {
   }
 
   // TODO implement more complex validations here?
-  // Will probably dependon resource type
+  // Will probably depend on resource type
   isSaveable(resource: ResourceNew) {
     return resource.type && resource.id
   }

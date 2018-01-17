@@ -27,7 +27,7 @@ class Login extends Component<Props> {
 
     return (
       <div className="Auth">
-        <h1>Log in</h1>
+        <h1 className="title">Log in</h1>
         <AuthButton />
       </div>
     )

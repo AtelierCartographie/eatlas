@@ -32,7 +32,7 @@ class ResourceForm extends Component<Props, State> {
   render() {
     return (
       <div className="ResourceForm">
-        <h1>
+        <h1 className="title">
           <T {...this.getTitle()} />
         </h1>
         {this.renderContent()}

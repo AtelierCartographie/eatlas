@@ -136,7 +136,7 @@ class Import extends Component<Props, State> {
 
     return (
       <div className="ResourceCreate">
-        <h1>
+        <h1 className="title">
           <T id="resource-create" />
         </h1>
         {this.state.error ? this.renderError(this.state.error.message) : null}

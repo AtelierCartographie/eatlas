@@ -6,7 +6,6 @@ import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
-import cx from 'classnames'
 
 import { connect } from 'react-redux'
 import { fetchResources } from './../actions'
@@ -40,6 +39,8 @@ type MenuItem = {
 const typeItems: Array<MenuItem> = [
   { label: 'all', icon: 'list', type: '' },
   { label: 'articles', icon: 'file-text', type: 'article' },
+  { label: 'focus', icon: 'bullseye', type: 'focus' },
+  { label: 'definitions', icon: 'book', type: 'definition' },
   { label: 'maps', icon: 'map', type: 'map' },
   { label: 'photos', icon: 'camera-retro', type: 'image' },
   { label: 'videos', icon: 'film', type: 'video' },

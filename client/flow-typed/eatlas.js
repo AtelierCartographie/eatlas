@@ -8,7 +8,14 @@ declare type UserNew = {
 
 declare type User = UserNew & { id: string }
 
-declare type ResourceType = 'article' | 'map' | 'sound' | 'image' | 'video'
+declare type ResourceType =
+  | 'article'
+  | 'definition'
+  | 'focus'
+  | 'map'
+  | 'sound'
+  | 'image'
+  | 'video'
 
 declare type ResourceNew = {
   type: ResourceType,

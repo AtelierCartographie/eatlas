@@ -2,12 +2,13 @@
 
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
-import { addResourceFromGoogleDrive } from '../api'
 import cx from 'classnames'
+import withRouter from 'react-router/withRouter'
+import { connect } from 'react-redux'
 
+import { addResourceFromGoogleDrive } from '../api'
 import DocPicker from './DocPicker'
 import Icon from './Icon'
-import withRouter from 'react-router/withRouter'
 
 import type { ContextRouter } from 'react-router'
 
@@ -25,7 +26,9 @@ const resourceType: { [string]: ResourceType } = {
   'video/mpeg': 'video',
 }
 
-type Props = ContextRouter
+type Props = ContextRouter & {
+  locale: Locale,
+}
 
 type State = {
   doc: ?UploadDoc,
@@ -190,6 +193,7 @@ class Import extends Component<Props, State> {
 
     return (
       <DocPicker
+        locale={this.props.locale}
         label="select-file"
         onPick={this.onPick}
         showPickerAfterUpload={false}
@@ -355,4 +359,4 @@ class Import extends Component<Props, State> {
   }
 }
 
-export default withRouter(Import)
+export default withRouter(connect(({ locale }) => ({ locale }))(Import))

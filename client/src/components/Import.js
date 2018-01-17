@@ -90,20 +90,24 @@ const field = ({
   ) : null
 
   return (
-    <Fragment key={key || labelId}>
-      <label className="label">
-        <T id={labelId} values={labelValues} />
-        {mandatory ? <Icon icon="asterisk" /> : null}
-      </label>
-      <div className={cx('field', { 'has-addons': action })}>
-        <div className={ctrlClass}>
-          {input}
-          {$leftIcon}
-          {$rightIcon}
-        </div>
-        {$action}
+    <div className="field is-horizontal" key={key || labelId}>
+      <div className="field-label is-normal">
+        <label className="label">
+          <T id={labelId} values={labelValues} />
+          {mandatory ? <Icon icon="asterisk" /> : null}
+        </label>
       </div>
-    </Fragment>
+      <div className="field-body">
+        <div className={cx('field', { 'has-addons': action })}>
+          <div className={ctrlClass}>
+            {input}
+            {$leftIcon}
+            {$rightIcon}
+          </div>
+          {$action}
+        </div>
+      </div>
+    </div>
   )
 }
 

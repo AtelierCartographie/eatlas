@@ -36,6 +36,7 @@ type Props = {
   label?: string,
   icon?: string,
   showPickerAfterUpload?: boolean,
+  locale?: Locale,
 }
 
 type PickerData = {
@@ -125,6 +126,7 @@ class DocPicker extends Component<Props, State> {
           const uploadView = new google.picker.DocsUploadView()
 
           const picker = new window.google.picker.PickerBuilder()
+            .setLocale(this.props.locale || 'en')
             .enableFeature(google.picker.Feature.MULTISELECT_DISABLED)
             .addView(docsView)
             .addView(uploadView)

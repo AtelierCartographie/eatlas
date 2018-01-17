@@ -70,6 +70,17 @@ class ArticleForm extends Component<Props> {
     )
   }
 
+  renderFootnotes(node, k) {
+    return (
+      <div className="field" key={k}>
+        <label className="label">Footnotes</label>
+        <div className="control">
+          <ul>{node.list.map((f, k) => <li key={k}>{f.text}</li>)}</ul>
+        </div>
+      </div>
+    )
+  }
+
   renderMeta(meta, k) {
     if (meta.list) {
       return (
@@ -108,6 +119,9 @@ class ArticleForm extends Component<Props> {
 
             case 'resource':
               return this.renderResource(node, k)
+
+            case 'footnotes':
+              return this.renderFootnotes(node, k)
 
             default:
               return null

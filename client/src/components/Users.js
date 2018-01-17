@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { getUsers, deleteUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
+import Confirm from './Confirm'
 
 type Props = {
   users: {
@@ -19,13 +20,31 @@ type Props = {
   deleteUser: typeof deleteUser,
 }
 
-class Users extends Component<Props> {
+type State = {
+  removeModel: ?User,
+  removing: boolean,
+}
+
+class Users extends Component<Props, State> {
+  state = { removeModel: null, removing: false }
+
   componentDidMount() {
     this.props.getUsers()
   }
 
-  deleteUser(id) {
-    this.props.deleteUser(id).then(() => this.props.getUsers())
+  askRemove(model: ?User) {
+    this.setState({ removeModel: model })
+  }
+
+  deleteUser() {
+    const { removeModel } = this.state
+    if (!removeModel) return
+
+    this.setState({ removing: true })
+    this.props.deleteUser(removeModel.id).then(() => {
+      this.setState({ removing: false, removeModel: null })
+      this.props.getUsers()
+    })
   }
 
   render() {
@@ -80,7 +99,7 @@ class Users extends Component<Props> {
                       <div className="control">
                         <button
                           className="button is-danger is-outlined"
-                          onClick={() => this.deleteUser(u.id)}>
+                          onClick={() => this.askRemove(u)}>
                           <IconButton label="delete" icon="times" />
                         </button>
                       </div>
@@ -91,6 +110,12 @@ class Users extends Component<Props> {
             </tbody>
           </table>
         )}
+        <Confirm
+          model={this.state.removeModel}
+          removing={this.state.removing}
+          onClose={() => this.askRemove(null)}
+          onConfirm={() => this.deleteUser()}
+        />
       </div>
     )
   }

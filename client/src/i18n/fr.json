@@ -3,7 +3,7 @@
   "all": "tous",
   "articles": "articles",
   "cancel": "annuler",
-  "confirm-delete": "Confirmez-vous la suppression de la ressource {type} « {name} » ? Cette opération est irréversible.",
+  "confirm-delete": "Confirmez-vous la suppression de « {name} » ? Cette opération est irréversible.",
   "connection": "connexion",
   "delete": "supprimer",
   "disconnection": "déconnexion",

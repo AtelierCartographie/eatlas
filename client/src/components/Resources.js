@@ -13,6 +13,7 @@ import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import IconButton from './IconButton'
 import Icon from './Icon'
+import Confirm from './Confirm'
 import { deleteResource } from '../api'
 
 type Props = {
@@ -26,7 +27,7 @@ type Props = {
 }
 
 type State = {
-  removeResource: ?Resource,
+  removeModel: ?Resource,
   removing: boolean,
 }
 
@@ -46,7 +47,7 @@ const typeItems: Array<MenuItem> = [
 ]
 
 class Resources extends Component<Props, State> {
-  state = { removeResource: null, removing: false }
+  state = { removeModel: null, removing: false }
 
   componentDidMount() {
     this.props.fetchResources()
@@ -99,11 +100,11 @@ class Resources extends Component<Props, State> {
   }
 
   askRemove(resource: ?Resource) {
-    this.setState({ removeResource: resource })
+    this.setState({ removeModel: resource })
   }
 
   renderRemoveModal() {
-    const resource = this.state.removeResource
+    const resource = this.state.removeModel
 
     return (
       <div className={cx('modal', { 'is-active': !!resource })}>
@@ -140,15 +141,13 @@ class Resources extends Component<Props, State> {
   }
 
   async doRemove() {
-    const resource = this.state.removeResource
-    if (!resource) {
-      return
-    }
+    const resource = this.state.removeModel
+    if (!resource) return
 
     // TODO Redux
     this.setState({ removing: true })
     await deleteResource(resource.id)
-    this.setState({ removing: false, removeResource: null })
+    this.setState({ removing: false, removeModel: null })
     this.props.fetchResources()
   }
 
@@ -206,7 +205,12 @@ class Resources extends Component<Props, State> {
             {loading ? <Spinner /> : this.renderList(filteredResources)}
           </div>
         </div>
-        {this.renderRemoveModal()}
+        <Confirm
+          model={this.state.removeModel}
+          removing={this.state.removing}
+          onClose={() => this.askRemove(null)}
+          onConfirm={() => this.doRemove()}
+        />
       </div>
     )
   }

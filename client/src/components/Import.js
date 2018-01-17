@@ -49,6 +49,7 @@ type FieldParams = {
     buttonType?: string,
   },
   key?: string,
+  mandatory?: boolean,
 }
 
 const field = ({
@@ -59,6 +60,7 @@ const field = ({
   input,
   action,
   key,
+  mandatory,
 }: FieldParams) => {
   const ctrlClass = cx('control', {
     'is-expanded': action,
@@ -91,6 +93,7 @@ const field = ({
     <Fragment key={key || labelId}>
       <label className="label">
         <T id={labelId} values={labelValues} />
+        {mandatory ? <Icon icon="asterisk" /> : null}
       </label>
       <div className={cx('field', { 'has-addons': action })}>
         <div className={ctrlClass}>
@@ -195,6 +198,7 @@ class Import extends Component<Props, State> {
       labelId: 'resource-type',
       leftIcon: 'info',
       input,
+      mandatory: true,
     })
   }
 
@@ -243,6 +247,7 @@ class Import extends Component<Props, State> {
           required
         />
       ),
+      mandatory: true,
     })
 
     return <Fragment>{fields.map(opts => field(opts))}</Fragment>
@@ -282,10 +287,16 @@ class Import extends Component<Props, State> {
       multiple = false,
       labelId = 'selected-file',
       labelValues = {},
-    }: { multiple?: boolean, labelId?: string, labelValues?: Object } = {},
+      mandatory = false,
+    }: {
+      multiple?: boolean,
+      labelId?: string,
+      labelValues?: Object,
+      mandatory?: boolean,
+    } = {},
   ) {
     // $FlowFixMe: 'input' is set just below
-    const opts: FieldParams = { labelId, labelValues }
+    const opts: FieldParams = { labelId, labelValues, mandatory }
     const doc = this.state.docs[docKey]
 
     if (doc) {

@@ -296,7 +296,7 @@ class Import extends Component<Props, State> {
     } = {},
   ) {
     // $FlowFixMe: 'input' is set just below
-    const opts: FieldParams = { labelId, labelValues, mandatory }
+    const opts: FieldParams = { labelId, labelValues, mandatory, key: docKey }
     const doc = this.state.docs[docKey]
 
     if (doc) {

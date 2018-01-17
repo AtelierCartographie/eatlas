@@ -51,7 +51,10 @@ class ResourceForm extends Component<Props, State> {
       return { id: 'resource-not-found', values: { id } }
     }
 
-    return { id: 'resource-edit', values: resource }
+    return {
+      id: 'resource-edit',
+      values: { id: resource.id, type: <T id={'type-' + resource.type} /> },
+    }
   }
 
   renderContent() {

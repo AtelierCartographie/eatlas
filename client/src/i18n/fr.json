@@ -24,7 +24,7 @@
   "resource-id": "Identifiant",
   "resource-code": "Code unique",
   "resource-create": "Ajout d'une ressource",
-  "resource-edit": "Édition {type}: {id}",
+  "resource-edit": "{type} : {id}",
   "resource-edit-loading": "Chargement de la ressource #{id}…",
   "resource-not-found": "Ressource introuvable",
   "resource-type": "Type de ressource",

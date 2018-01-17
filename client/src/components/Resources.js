@@ -103,43 +103,6 @@ class Resources extends Component<Props, State> {
     this.setState({ removeModel: resource })
   }
 
-  renderRemoveModal() {
-    const resource = this.state.removeModel
-
-    return (
-      <div className={cx('modal', { 'is-active': !!resource })}>
-        <div className="modal-background" />
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">
-              <T id="delete" /> {resource ? resource.name : ''}
-            </p>
-            <button
-              className="delete"
-              aria-label="close"
-              onClick={() => this.askRemove(null)}
-            />
-          </header>
-          <section className="modal-card-body">
-            {resource ? <T id="confirm-delete" values={resource} /> : null}
-          </section>
-          <footer className="modal-card-foot">
-            <button
-              className="button is-success"
-              onClick={() => this.doRemove()}>
-              <T id="delete" />
-            </button>
-            <button
-              className={cx('button', { 'is-loading': this.state.removing })}
-              onClick={() => this.askRemove(null)}>
-              <T id="cancel" />
-            </button>
-          </footer>
-        </div>
-      </div>
-    )
-  }
-
   async doRemove() {
     const resource = this.state.removeModel
     if (!resource) return

@@ -98,7 +98,7 @@ export const deleteUser = id =>
 
 export const getTopics = () =>
   query({
-    url: '/users',
+    url: '/topics',
     fake: () => [
       {
         name: 'Présentation',
@@ -107,7 +107,7 @@ export const getTopics = () =>
         name: 'Contrastes et inégalités',
       },
       {
-        name: 'Mobilitiés',
+        name: 'Mobilités',
       },
       {
         name: 'Stratégies des acteurs transnationaux',

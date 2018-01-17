@@ -11,7 +11,7 @@ const {
   logBoom500,
   resBoomSend,
 } = require('./lib/middlewares')
-const { user, users, resources } = require('./lib/routes')
+const { user, users, resources, topics } = require('./lib/routes')
 
 const app = express()
 
@@ -35,5 +35,7 @@ app.get('/resources', resources.list)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 app.delete('/resources/:id', resources.findResource, resources.remove)
+
+app.get('/topics', topics.list)
 
 module.exports = app

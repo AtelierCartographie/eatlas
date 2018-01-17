@@ -79,6 +79,11 @@ class Resources extends Component<Props, State> {
         <td>{resource.id}</td>
         <td>{resource.type}</td>
         <td>
+          {resource.type !== 'image' ? null : (
+            <img className="preview" src={`/media/images/${resource.id}.png`} alt="preview" />
+          )}
+        </td>
+        <td>
           <div className="field is-grouped">
             <div className="control">
               <Link
@@ -125,6 +130,9 @@ class Resources extends Component<Props, State> {
             </th>
             <th>
               <T id="resource-type" />
+            </th>
+            <th>
+              <T id="preview" />
             </th>
             <th style={{ width: '1px' }} />
           </tr>

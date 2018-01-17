@@ -260,36 +260,48 @@ class Import extends Component<Props, State> {
   }
 
   getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
-    if (resource.type === 'article') {
-      // $FlowFixMe: 'input' is set just below
-      const opts: FieldParams = { labelId: 'selected-file' }
-      const { doc } = this.state
+    switch (resource.type) {
+      case 'article':
+        return [this.getDocField(resource, false)]
+      case 'map':
+        return [this.getDocField(resource, false)]
+      //case 'sound':
+      //case 'definition':
+      //case 'focus':
+      //case 'image':
+      //case 'video':
+      default:
+        return null
+    }
+  }
 
-      if (doc) {
-        opts.leftIcon = 'file'
-        opts.input = (
-          <input
-            className="input"
-            type="text"
-            placeholder="type"
-            value={`${doc.name} (#${doc.id})`}
-            readOnly={true}
-            required
-          />
-        )
-        opts.action = {
-          icon: 'remove',
-          buttonType: 'danger',
-          onClick: this.unselectFile,
-        }
-      } else {
-        opts.input = this.renderPicker(resource.type)
+  getDocField(resource: ResourceNew, multiple: boolean) {
+    // $FlowFixMe: 'input' is set just below
+    const opts: FieldParams = { labelId: 'selected-file' }
+    const { doc } = this.state
+
+    if (doc) {
+      opts.leftIcon = 'file'
+      opts.input = (
+        <input
+          className="input"
+          type="text"
+          placeholder="type"
+          value={`${doc.name} (#${doc.id})`}
+          readOnly={true}
+          required
+        />
+      )
+      opts.action = {
+        icon: 'remove',
+        buttonType: 'danger',
+        onClick: this.unselectFile,
       }
-
-      return [opts]
+    } else {
+      opts.input = this.renderPicker(resource.type)
     }
 
-    return null
+    return opts
   }
 
   onPick = async (doc: UploadDoc, accessToken: string) => {

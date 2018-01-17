@@ -58,7 +58,8 @@ exports.addFromGoogle = async (req, res) => {
     } else if (err.code === 'EDUPLICATE') {
       res.boom.conflict(err.message)
     } else {
-      res.boom.send(err)
+      // Force output message to be kept
+      res.boom.send(err, { message: err.message })
     }
   }
 }

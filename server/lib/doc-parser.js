@@ -27,6 +27,7 @@ const conversions = {
   'Mots-clés': 'keywords',
   'Résumé-FR': 'summary-fr',
   "Continuer dans l'Atlas": 'related',
+  Références: 'references',
 }
 
 const getType = name => {

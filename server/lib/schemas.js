@@ -60,12 +60,19 @@ const resourceType = Joi.string().valid([
   'sound',
 ])
 
+const upload = Joi.object().keys({
+  fileId: Joi.string().required(),
+  mimeType: Joi.string().required(),
+  key: Joi.string().required(),
+})
+
 exports.uploadFromGoogleDrive = {
   id: Joi.string().required(),
   type: resourceType.required(),
-  fileId: Joi.string().required(),
   accessToken: Joi.string().required(),
-  mimeType: Joi.string().required(),
+  uploads: Joi.array()
+    .items(upload)
+    .required(),
 }
 
 const links = Joi.array().items(

@@ -29,7 +29,7 @@ type Props = ContextRouter & {
 }
 
 type State = {
-  doc: ?UploadDoc,
+  docs: { [string]: ?UploadDoc },
   accessToken: ?string,
   resource: ?ResourceNew,
   saved: boolean,
@@ -114,7 +114,7 @@ class Import extends Component<Props, State> {
     : null
 
   state: State = {
-    doc: null,
+    docs: {},
     resource: this.initialResource,
     accessToken: null,
     saving: false,
@@ -262,9 +262,9 @@ class Import extends Component<Props, State> {
   getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
     switch (resource.type) {
       case 'article':
-        return [this.getDocField(resource)]
+        return [this.getDocField(resource, 'article')]
       case 'map':
-        return [this.getDocField(resource)]
+        return [this.getDocField(resource, 'map')]
       //case 'sound':
       //case 'definition':
       //case 'focus':
@@ -277,6 +277,7 @@ class Import extends Component<Props, State> {
 
   getDocField(
     resource: ResourceNew,
+    docKey: string,
     {
       multiple = false,
       labelId = 'selected-file',
@@ -285,7 +286,7 @@ class Import extends Component<Props, State> {
   ) {
     // $FlowFixMe: 'input' is set just below
     const opts: FieldParams = { labelId, labelValues }
-    const { doc } = this.state
+    const doc = this.state.docs[docKey]
 
     if (doc) {
       opts.leftIcon = 'file'
@@ -305,15 +306,15 @@ class Import extends Component<Props, State> {
         onClick: this.unselectFile,
       }
     } else {
-      opts.input = this.renderPicker(resource.type)
+      opts.input = this.renderPicker(resource.type, docKey)
     }
 
     return opts
   }
 
-  onPick = async (doc: UploadDoc, accessToken: string) => {
-    this.setState(({ resource }) => {
-      const state = { doc, accessToken, resource }
+  onPick = (docKey: string) => async (doc: UploadDoc, accessToken: string) => {
+    this.setState(({ resource, docs }) => {
+      const state = { docs: { ...docs, [docKey]: doc }, accessToken, resource }
       if (resource && !resource.id) {
         state.resource = { ...resource, id: this.guessResourceId(doc) }
       }
@@ -327,16 +328,16 @@ class Import extends Component<Props, State> {
     return doc.name.replace(/[-\s].*$/, '')
   }
 
-  unselectFile = () => {
-    this.setState({ doc: null })
+  unselectFile = (docKey: string) => {
+    this.setState({ docs: { ...this.state.docs, [docKey]: null } })
   }
 
-  renderPicker(type: ?ResourceType) {
+  renderPicker(type: ?ResourceType, docKey: string) {
     return (
       <DocPicker
         locale={this.props.locale}
         label="select-file"
-        onPick={this.onPick}
+        onPick={this.onPick(docKey)}
         showPickerAfterUpload={false}
         mimeTypes={type ? mimeTypes[type] : []}
       />
@@ -351,9 +352,7 @@ class Import extends Component<Props, State> {
   }
 
   renderSave() {
-    const { doc, resource } = this.state
-
-    if (!doc || !resource) {
+    if (!this.state.resource) {
       return null
     }
 
@@ -362,7 +361,7 @@ class Import extends Component<Props, State> {
         className={cx('button is-primary', {
           'is-loading': this.state.saving,
         })}
-        disabled={!this.isSaveable(resource)}>
+        disabled={!this.isSaveable()}>
         <Icon icon="check" />
         <span>
           <T id="save-changes" />
@@ -371,29 +370,34 @@ class Import extends Component<Props, State> {
     )
   }
 
-  // TODO implement more complex validations here?
-  // Will probably depend on resource type
-  isSaveable(resource: ResourceNew) {
-    return resource.type && resource.id
-  }
-
   onSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { resource, doc, accessToken } = this.state
+    const { resource, docs, accessToken } = this.state
 
-    if (!doc || !resource) {
-      return // Nothing to do here
+    if (!resource || !this.isSaveable()) {
+      return
     }
 
     // TODO Redux (this is important to update store and make redirection actually work)
     this.setState({ saving: true, error: null })
     try {
+      const uploads = Object.keys(docs).reduce((ups, key) => {
+        const doc = docs[key]
+        return doc
+          ? ups.concat([
+              {
+                key,
+                fileId: doc.id,
+                mimeType: doc.mimeType,
+              },
+            ])
+          : ups
+      }, [])
       const { id } = await addResourceFromGoogleDrive({
         id: resource.id,
-        fileId: doc.id,
         type: resource.type,
-        mimeType: doc.mimeType,
+        uploads,
         accessToken,
       })
       this.setState({ saving: false, error: null })
@@ -401,6 +405,44 @@ class Import extends Component<Props, State> {
     } catch (error) {
       this.setState({ saving: false, error })
     }
+  }
+
+  // TODO implement more complex validations here?
+  // Will probably depend on resource type
+  isSaveable() {
+    const { resource, docs } = this.state
+
+    // Common mandatory fields
+    if (!resource) {
+      return false
+    }
+    if (!resource.type || !resource.id) {
+      return false
+    }
+
+    // Type-specific validation
+    switch (resource.type) {
+      case 'article':
+        if (!docs.article) {
+          return false
+        }
+        break
+      case 'map':
+        if (!docs.map) {
+          return false
+        }
+        break
+      //case 'sound':
+      //case 'definition':
+      //case 'focus':
+      //case 'image':
+      //case 'video':
+      default:
+        return null
+    }
+
+    // All good!
+    return true
   }
 }
 

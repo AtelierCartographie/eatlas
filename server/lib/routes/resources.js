@@ -22,35 +22,44 @@ exports.findResource = (req, res, next) =>
 
 exports.get = (req, res) => res.send(req.foundResource)
 
-exports.addFromGoogle = (req, res) => {
-  // Export to requested format (or keep original if not forced by config)
-  const url = getFileUrl(req.body)
-  const options = { encoding: null, auth: { bearer: req.body.accessToken } }
+exports.addFromGoogle = async (req, res) => {
+  try {
+    // Handle uploaded files
+    validateUploads(req, res)
+    const urls = req.body.uploads.map(up =>
+      getFileUrl(req.body.type, up.fileId),
+    )
+    const options = { encoding: null, auth: { bearer: req.body.accessToken } }
+    const buffers = await Promise.all(urls.map(url => request(url, options)))
 
-  request(url, options)
-    .then(fileHandler(req, res))
-    .then(data =>
+    // Inject buffer into each upload object
+    req.body.uploads.forEach((upload, index) => {
+      upload.buffer = buffers[index]
+    })
+
+    const data = await handleUploads(req, res)
+
+    const resource = await resources.create(
       Object.assign({}, data, {
         id: req.body.id,
         type: req.body.type,
       }),
     )
-    .then(resources.create)
-    // Respond only with resource's id
-    .then(resource => res.send({ id: resource.id }))
-    .catch(err => {
-      if (err.isJoi) {
-        return res.boom.badRequest(err.message, {
-          details: err.details,
-          object: err._object,
-          annotated: err.annotate(),
-        })
-      }
-      if (err.code === 'EDUPLICATE') {
-        return res.boom.conflict(err.message)
-      }
-      res.boom.badImplementation(err)
-    })
+
+    res.send({ id: resource.id })
+  } catch (err) {
+    if (err.isJoi) {
+      res.boom.badRequest(err.message, {
+        details: err.details,
+        object: err._object,
+        annotated: err.annotate(),
+      })
+    } else if (err.code === 'EDUPLICATE') {
+      res.boom.conflict(err.message)
+    } else {
+      res.boom.send(err)
+    }
+  }
 }
 exports.addFromGoogle.schema = schemas.uploadFromGoogleDrive
 
@@ -66,7 +75,7 @@ exports.remove = (req, res) =>
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 
-const getFileUrl = ({ type, fileId }) => {
+const getFileUrl = (type, fileId) => {
   const exportFormat = config.google.exportFormat[type]
   const url = exportFormat ? config.google.exportUrl : config.google.downloadUrl
   return url
@@ -74,22 +83,40 @@ const getFileUrl = ({ type, fileId }) => {
     .replace(/FORMAT/g, encodeURIComponent(exportFormat))
 }
 
-const fileHandler = (req, res) => {
-  const { type } = req.body
-
-  if (type === 'article') {
-    return parseDocx
+// TODO check mime-type too
+// TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
+const validateUploads = (req, res) => {
+  const { uploads, type } = req.body
+  switch (type) {
+    case 'article':
+      if (uploads.length !== 1 || uploads[0].key !== 'article') {
+        throw res.boom.badRequest(
+          'Upload error: expecting a single "article" document',
+        )
+      }
+      break
+    case 'map':
+      if (uploads.length !== 1 || uploads[0].key !== 'map') {
+        throw res.boom.badRequest('Upload error: expecting a single "map" document')
+      }
+      break
+    default:
+      throw res.boom.notImplemented()
   }
+}
 
-  if (type === 'image') {
-    return buffer =>
-      saveMedia({
+const handleUploads = async (req, res) => {
+  const { uploads, type } = req.body
+  switch (type) {
+    case 'article':
+      return parseDocx(uploads[0].buffer)
+    case 'map':
+      return saveMedia({
         id: req.body.id,
         type: req.body.type,
-        mimeType: req.body.mimeType,
-        buffer,
+        upload: uploads[0],
       })
+    default:
+      throw res.boom.notImplemented()
   }
-
-  return () => Promise.reject(res.boom.notImplemented())
 }

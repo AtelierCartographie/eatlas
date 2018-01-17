@@ -27,6 +27,11 @@ declare type ResourceNew = {
 declare type Resource = ResourceNew & {
   file?: string,
   nodes?: any[],
+  images?: {
+    small: { '1x'?: string, '2x'?: string, '3x'?: string },
+    medium: { '1x': string, '2x'?: string, '3x'?: string },
+    large: { '1x'?: string, '2x'?: string, '3x'?: string },
+  },
 }
 
 declare type UploadDocBase = {

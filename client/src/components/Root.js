@@ -13,6 +13,7 @@ type Props = {
 const Root = ({ locale }: Props) => {
   return (
     <IntlProvider
+      key={locale}
       locale={locale}
       messages={messages[locale]}
       textComponent={Fragment}>

@@ -2,7 +2,7 @@ const { parseDocx } = require('./doc-parser')
 const cheerio = require('cheerio')
 
 const generateTitle = doc => {
-  const title = doc.nodes.find(n => n.type === 'title')
+  const title = doc.metas.find(n => n.type === 'title')
   // TODO date
   return `
     <header class="headerwrap">
@@ -23,8 +23,8 @@ const generateBreadcrumb = doc => {
     </section>`
 }
 
-const generateResume = doc => {
-  const resume = doc.nodes.find(n => n.type === 'meta' && n.id === 'Résumé-FR')
+const generateSummary = doc => {
+  const resume = doc.metas.find(n => n.type === 'summary-fr')
   return `
     <section class="container resume">
         <div class="tab-content">
@@ -33,7 +33,7 @@ const generateResume = doc => {
                 <p>${resume.text}</p>
             </div>
             <div role="tabpanel" class="tab-pane" id="english" lang="en" xml:lang="en">
-                <h2 class="line">Resume</h2>
+                <h2 class="line">Summary</h2>
                 <p>Lorem ipsum dolor <strong>EN</strong> amet, consectetur adipiscing elit. Proin laoreet eu felis sit amet blandit. Fusce magna dui, lobortis in malesuada non, eleifend nec erat. Proin semper nulla lacus, non facilisis dolor tempus blandit. Duis in lectus eu quam pellentesque tincidunt id ac dolor. Aliquam scelerisque nunc sed nulla volutpat hendrerit.
                 </p>
             </div>
@@ -65,8 +65,7 @@ const generateParagraph = p => {
 const generateDivContainer = container => {
   const parts = container.map(p => {
     switch (p.type) {
-      // TODO fix h1 → h2 makes no sense!
-      case 'h1':
+      case 'header':
         return `<h2>${p.text}</h2>`
 
       case 'p':
@@ -119,7 +118,7 @@ const generateContainers = doc => {
   const containers = []
   let container = []
   doc.nodes.forEach(n => {
-    if (n.type === 'h1' || n.type === 'resource') {
+    if (n.type === 'header' || n.type === 'resource') {
       containers.push(container)
       container = []
       container.type = n.type
@@ -131,7 +130,7 @@ const generateContainers = doc => {
     .filter(c => c.type)
     .map(c => {
       switch (c.type) {
-        case 'h1':
+        case 'header':
           return generateDivContainer(c)
         case 'resource':
           return generateFigureContainer(c)
@@ -141,8 +140,8 @@ const generateContainers = doc => {
 }
 
 const generateKeywords = doc => {
-  const keywords = doc.nodes
-    .find(n => n.id === 'Mots-clés')
+  const keywords = doc.metas
+    .find(n => n.type === 'keywords')
     .list.map(kw => `<a href="#">${kw.text}</a>`)
   return `
     <section class="container article-keyword">
@@ -173,8 +172,8 @@ const generateNotes = doc => {
 }
 
 const generateSeeAlso = doc => {
-  const seeAlsos = doc.nodes
-    .find(n => n.id === "Continuer dans l'Atlas")
+  const seeAlsos = doc.metas
+    .find(n => n.type === 'related')
     .list.map(
       s =>
         `
@@ -226,7 +225,7 @@ const generateArticle = doc => {
   const article = [
     generateTitle(doc),
     generateBreadcrumb(doc),
-    generateResume(doc),
+    generateSummary(doc),
     generateContainers(doc),
     generateFooter(doc),
     generateLexicon(doc),

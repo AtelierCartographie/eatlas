@@ -5,18 +5,18 @@ import React, { Component } from 'react'
 type Props = {}
 
 class ArticleForm extends Component<Props> {
-  state = { nodes: [] }
+  state = { nodes: [], metas: [] }
 
   componentDidMount() {
     fetch('/tmp-article.json')
       .then(res => res.json())
-      .then(({ nodes }) => this.setState({ nodes }))
+      .then(({ nodes, metas }) => this.setState({ nodes, metas }))
   }
 
-  renderH1(node, k) {
+  renderHeader(node, k) {
     return (
       <div className="field" key={k}>
-        <label className="label">SubTitle</label>
+        <label className="label">Header</label>
         <div className="control">
           <input className="input" defaultValue={node.text} />
         </div>
@@ -70,39 +70,44 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderMeta(node, k) {
-    switch (node.id) {
-      // TODO rename in english
-      case 'Mots-clés':
-        return (
-          <div className="field" key={k}>
-            <label className="label">Keywords</label>
-            <ul>{node.list.map((kw, k) => <li key={k}>{kw.text}</li>)}</ul>
-          </div>
-        )
-
-      default:
-        return null
+  renderMeta(meta, k) {
+    if (meta.list) {
+      return (
+        <div className="field" key={k}>
+          <label className="label">{meta.type}</label>
+          <ul>{meta.list.map((kw, k) => <li key={k}>{kw.text}</li>)}</ul>
+        </div>
+      )
     }
+    return (
+      <div className="field" key={k}>
+        <label className="label">{meta.type}</label>
+        <div className="control">
+          <input className="input" defaultValue={meta.text} />
+        </div>
+      </div>
+    )
   }
 
   render() {
     return (
       <div className="ArticleForm">
         <h1 className="title">Article form (tmp)</h1>
+
+        <h2 className="subtitle">Metas</h2>
+        {this.state.metas.map(this.renderMeta)}
+
+        <h2 className="subtitle">Content</h2>
         {this.state.nodes.map((node, k) => {
           switch (node.type) {
-            case 'h1':
-              return this.renderH1(node, k)
+            case 'header':
+              return this.renderHeader(node, k)
 
             case 'p':
               return this.renderParagraph(node, k)
 
             case 'resource':
               return this.renderResource(node, k)
-
-            case 'meta':
-              return this.renderMeta(node, k)
 
             default:
               return null

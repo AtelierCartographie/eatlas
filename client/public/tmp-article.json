@@ -1,11 +1,7 @@
 {
   "nodes": [
     {
-      "type": "title",
-      "text": "Maintenir la paix"
-    },
-    {
-      "type": "h1",
+      "type": "header",
       "text": "« Maintenir la paix et la sécurité internationales »",
       "links": [],
       "lexicon": []
@@ -49,7 +45,7 @@
       "lexicon": []
     },
     {
-      "type": "h1",
+      "type": "header",
       "text": "Multiplication et complexification des missions",
       "links": [],
       "lexicon": []
@@ -89,7 +85,7 @@
       "text": "Principaux donateurs aux missions de paix de l'ONU, 2016"
     },
     {
-      "type": "h1",
+      "type": "header",
       "text": "Ressources limitées et critiques",
       "links": [],
       "lexicon": []
@@ -131,73 +127,6 @@
       ]
     },
     {
-      "type": "meta",
-      "id": "type",
-      "text": "article"
-    },
-    {
-      "type": "meta",
-      "id": "auteur",
-      "text": "Lucile Maertens"
-    },
-    {
-      "type": "meta",
-      "id": "partie",
-      "text": "4"
-    },
-    {
-      "type": "meta",
-      "id": "identifiant",
-      "text": "4A07"
-    },
-    {
-      "type": "meta",
-      "id": "Résumé-FR",
-      "text": "Depuis 1948, l’Organisation des Nations Unies envoie des casques bleus dans le but de maintenir la paix. Peu utilisées jusque la fin de la Guerre froide, les missions de maintien de la paix se sont depuis largement multipliées et complexifiées. Relevant d’une inégale répartition des responsabilités entre États membres de l’ONU, elles font l’objet de multiples critiques."
-    },
-    {
-      "type": "meta",
-      "id": "Mots-clés",
-      "list": [
-        {
-          "text": "Mot-clé 1"
-        },
-        {
-          "text": "Mot-clé 2"
-        },
-        {
-          "text": "Mot-clé 3"
-        },
-        {
-          "text": "Mot-clé 4"
-        },
-        {
-          "text": "Mot-clé 5"
-        }
-      ]
-    },
-    {
-      "type": "meta",
-      "id": "Continuer dans l'Atlas",
-      "list": [
-        {
-          "text": "xAxx - Titre de l’article 1"
-        },
-        {
-          "text": "xAxx - Titre de l’article 2"
-        },
-        {
-          "text": "xAxx - Titre de l’article 3"
-        },
-        {
-          "text": "xAxx - Titre de l’article 4"
-        },
-        {
-          "text": "xAxx - Titre de l’article 5"
-        }
-      ]
-    },
-    {
       "type": "footnotes",
       "list": [
         {
@@ -227,6 +156,72 @@
         {
           "text": "S. Autesserre, Peaceland: Conflict Resolution and the Everyday Politics of International Intervention, 2014 ; B. Pouligny, Ils nous avaient promis la paix : opérations de l'ONU et populations locales, 2004 ; L Zanotti, « Taming Chaos: A Foucauldian View of UN Peacekeeping, Democracy and Normalization », International Peacekeeping, 2006.",
           "links": []
+        }
+      ]
+    }
+  ],
+  "metas": [
+    {
+      "type": "title",
+      "text": "Maintenir la paix"
+    },
+    {
+      "type": "type",
+      "text": "article"
+    },
+    {
+      "type": "author",
+      "text": "Lucile Maertens"
+    },
+    {
+      "type": "parts",
+      "text": "4"
+    },
+    {
+      "type": "id",
+      "text": "4A07"
+    },
+    {
+      "type": "summary-fr",
+      "text": "Depuis 1948, l’Organisation des Nations Unies envoie des casques bleus dans le but de maintenir la paix. Peu utilisées jusque la fin de la Guerre froide, les missions de maintien de la paix se sont depuis largement multipliées et complexifiées. Relevant d’une inégale répartition des responsabilités entre États membres de l’ONU, elles font l’objet de multiples critiques."
+    },
+    {
+      "type": "keywords",
+      "list": [
+        {
+          "text": "Mot-clé 1"
+        },
+        {
+          "text": "Mot-clé 2"
+        },
+        {
+          "text": "Mot-clé 3"
+        },
+        {
+          "text": "Mot-clé 4"
+        },
+        {
+          "text": "Mot-clé 5"
+        }
+      ]
+    },
+    {
+      "type": "related",
+      "list": [
+        {
+          "text": "xAxx - Titre de l’article 1"
+        },
+        {
+          "text": "xAxx - Titre de l’article 2"
+        },
+        {
+          "text": "xAxx - Titre de l’article 3"
+        },
+        {
+          "text": "xAxx - Titre de l’article 4"
+        },
+        {
+          "text": "xAxx - Titre de l’article 5"
         }
       ]
     }

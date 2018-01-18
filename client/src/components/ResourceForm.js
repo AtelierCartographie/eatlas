@@ -460,7 +460,7 @@ class ResourceForm extends Component<Props, State> {
       opts.action = {
         icon: 'remove',
         buttonType: 'danger',
-        onClick: this.unselectFile,
+        onClick: this.unselectFile(docKey),
       }
     } else {
       opts.input = this.renderPicker(resource.type, docKey)
@@ -497,7 +497,8 @@ class ResourceForm extends Component<Props, State> {
     return doc.name.replace(/[-\s].*$/, '')
   }
 
-  unselectFile = (docKey: string) => {
+  unselectFile = (docKey: string) => e => {
+    e.preventDefault()
     this.setState({ docs: { ...this.state.docs, [docKey]: null } })
   }
 

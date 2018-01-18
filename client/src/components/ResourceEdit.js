@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { FormattedMessage as T } from 'react-intl'
+import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 
 import { fetchResources } from './../actions'
@@ -14,7 +14,7 @@ import { updateResource } from '../api'
 
 import type { SaveCallback } from './ResourceForm'
 
-type Props = {
+type Props = ContextIntl & {
   resource: ?Resource,
   id: string,
   loading: boolean,
@@ -59,7 +59,10 @@ class ResourceEdit extends Component<Props, State> {
 
     return {
       id: 'resource-edit',
-      values: { id: resource.id, type: <T id={'type-' + resource.type} /> },
+      values: {
+        id: resource.id,
+        type: this.props.intl.formatMessage({ id: 'type-' + resource.type }),
+      },
     }
   }
 
@@ -171,5 +174,5 @@ export default withRouter(
       return { loading, shouldLoad, id, resource }
     },
     { fetchResources },
-  )(ResourceEdit),
+  )(injectIntl(ResourceEdit)),
 )

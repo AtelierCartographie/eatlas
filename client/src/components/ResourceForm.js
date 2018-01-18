@@ -188,6 +188,12 @@ class ResourceForm extends Component<Props, State> {
             <option value="article">
               <T id="type-article" />
             </option>
+            <option value="focus">
+              <T id="type-focus" />
+            </option>
+            <option value="definition">
+              <T id="type-definition" />
+            </option>
             <option value="map">
               <T id="type-map" />
             </option>

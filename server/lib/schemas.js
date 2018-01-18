@@ -53,11 +53,12 @@ exports.googleOauth = {
 // TODO missing types
 const resourceType = Joi.string().valid([
   'article',
+  'definition',
   'focus',
   'map',
+  'sound',
   'image',
   'video',
-  'sound',
 ])
 
 const upload = Joi.object().keys({

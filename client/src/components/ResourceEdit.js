@@ -77,6 +77,11 @@ class ResourceEdit extends Component<Props, State> {
       )
     }
 
+    // TODO only use ResourceForm?
+    if (resource.type === 'article' && resource.nodes) {
+      return <ArticleForm article={resource} />
+    }
+
     return <ResourceForm resource={resource} onSubmit={this.save} />
   }
 

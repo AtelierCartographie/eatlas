@@ -74,6 +74,10 @@ class Resources extends Component<Props, State> {
   }
 
   renderPreview(resource: Resource) {
+    if (resource.type === 'article') {
+      return <span>{resource.title}</span>
+    }
+
     if (resource.type === 'image' && resource.images) {
       // medium@1x is mandatory, we can count on it
       const file = resource.images.medium['1x']

@@ -23,6 +23,12 @@ exports.findResource = (req, res, next) =>
 
 exports.get = (req, res) => res.send(req.foundResource)
 
+exports.update = (req, res) =>
+  resources
+    .update(req.foundResource.id, req.body)
+    .then(updatedResource => res.send(updatedResource))
+    .catch(res.boom.send)
+
 exports.addFromGoogle = async (req, res) => {
   try {
     // Handle uploaded files

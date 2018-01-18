@@ -10,6 +10,7 @@ import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import ArticleForm from './ArticleForm'
 import ResourceForm from './ResourceForm'
+import { updateResource } from '../api'
 
 import type { SaveCallback } from './ResourceForm'
 
@@ -141,7 +142,21 @@ class ResourceEdit extends Component<Props, State> {
   }
 
   save: SaveCallback = async (resource, docs, accessToken) => {
-    throw new Error('Update not implemented yet')
+    if (!this.props.resource || !this.props.resource.id) {
+      throw new Error('No resource to save!')
+    }
+    const id: string = this.props.resource.id
+
+    return updateResource(id, {
+      // FIXME make id editable?
+      // id: resource.id,
+      title: resource.title,
+      subtitle: resource.subtitle,
+      topic: resource.topic,
+      language: resource.language,
+      description: resource.description,
+      copyright: resource.copyright,
+    })
   }
 }
 

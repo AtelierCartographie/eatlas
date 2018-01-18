@@ -58,6 +58,14 @@ export const addResourceFromGoogleDrive = (
     fake: () => ({ id: FAKE_RESOURCE.id }),
   })
 
+export const updateResource = (id: string, body: Object): Promise<Resource> =>
+  query({
+    method: 'POST',
+    url: `/resources/${id}`,
+    body,
+    fake: () => Object.assign(FAKE_USER, body),
+  })
+
 export const getResource = (id: string): Promise<Resource> =>
   query({
     url: `/resources/${id}`,

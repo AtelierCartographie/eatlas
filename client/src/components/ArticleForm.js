@@ -4,6 +4,7 @@ import './ArticleForm.css'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import Icon from './Icon'
 
@@ -39,16 +40,21 @@ class _ResourceField extends Component<RProps> {
 
     return (
       <div className="field">
-        <label className="label">Resource {resource.id}</label>
+        <label className="label">Resource</label>
         <div className="control">{preview}</div>
+        <div className="control">
+          <Link to={`/resources/${resource.id}/edit`}>
+            Edit resource {resource.id}
+          </Link>
+        </div>
       </div>
     )
   }
 }
 
-const ResourceField = connect(({ resources }, { node }) => {
-  return { resource: resources.list.find(r => r.id === node.id) }
-})(_ResourceField)
+const ResourceField = connect(({ resources }, { node }) => ({
+  resource: resources.list.find(r => r.id === node.id),
+}))(_ResourceField)
 
 type Props = {
   article: any,

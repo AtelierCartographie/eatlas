@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 
 import DocPicker from './DocPicker'
 import Icon from './Icon'
+import { RESOURCE_TYPES } from '../constants'
 
 // TODO configurable list
 const mimeTypes: { [ResourceType]: string[] } = {
@@ -186,27 +187,11 @@ class ResourceForm extends Component<Props, State> {
             readOnly={readOnly}
             required>
             <option value={undefined} />
-            <option value="article">
-              <T id="type-article" />
-            </option>
-            <option value="focus">
-              <T id="type-focus" />
-            </option>
-            <option value="definition">
-              <T id="type-definition" />
-            </option>
-            <option value="map">
-              <T id="type-map" />
-            </option>
-            <option value="image">
-              <T id="type-image" />
-            </option>
-            <option value="video">
-              <T id="type-video" />
-            </option>
-            <option value="sound">
-              <T id="type-sound" />
-            </option>
+            {RESOURCE_TYPES.map(t => (
+              <option value={t} key={t}>
+                <T id={'type-' + t} />
+              </option>
+            ))}
           </select>
         </div>
       )
@@ -304,6 +289,7 @@ class ResourceForm extends Component<Props, State> {
       ].concat(
         this.props.mode === 'edit'
           ? [
+              // TODO select
               this.getAttrField('status', {
                 leftIcon: 'question-circle-o',
                 mandatory: true,

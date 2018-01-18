@@ -1,28 +1,10 @@
 // @flow
 
-declare type AppState = {
-  locale: string,
-  users: { loading: boolean, saving: boolean, list: User[] },
-  resources: { loading: boolean, fetched: boolean, list: Resource[] },
-  topics: { loading: boolean, list: Topic[] },
-  user: { current: ?User, checkedServerLogin: boolean, verifying: boolean },
-}
+// See https://github.com/facebook/flow/issues/961 for the sad state of DRY and enums with Flow
 
 declare type Locale = 'fr' | 'en'
 
 declare type UserRole = 'anonymous' | 'visitor' | 'admin'
-
-declare type UserNew = {
-  name: string,
-  email: string,
-  role: UserRole,
-}
-
-declare type User = UserNew & { id: string }
-
-declare type Topic = {
-  name: string,
-}
 
 declare type ResourceType =
   | 'article'
@@ -38,6 +20,26 @@ declare type ResourceStatus =
   | 'validated'
   | 'published'
   | 'deleted'
+
+declare type AppState = {
+  locale: string,
+  users: { loading: boolean, saving: boolean, list: User[] },
+  resources: { loading: boolean, fetched: boolean, list: Resource[] },
+  topics: { loading: boolean, list: Topic[] },
+  user: { current: ?User, checkedServerLogin: boolean, verifying: boolean },
+}
+
+declare type UserNew = {
+  name: string,
+  email: string,
+  role: UserRole,
+}
+
+declare type User = UserNew & { id: string }
+
+declare type Topic = {
+  name: string,
+}
 
 declare type ResourceNew = {
   type: ResourceType,

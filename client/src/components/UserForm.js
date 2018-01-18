@@ -9,6 +9,7 @@ import { withRouter } from 'react-router'
 import { getUser, saveUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
+import { ROLES } from '../constants'
 
 import type { ContextRouter } from 'react-router'
 
@@ -78,7 +79,6 @@ class UserForm extends Component<Props, State> {
   render() {
     const { loading, saving, userId, loggedUserId } = this.props
     const { user } = this.state
-    const roles = ['admin', 'visitor']
 
     return (
       <div className="UserForm">
@@ -143,7 +143,7 @@ class UserForm extends Component<Props, State> {
                     name="role"
                     onChange={this.handleChange}
                     value={user.role}>
-                    {roles.map(r => (
+                    {ROLES.map(r => (
                       <option key={r} value={r}>
                         {r}
                       </option>

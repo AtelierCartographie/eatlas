@@ -36,7 +36,8 @@ class ResourceForm extends Component<Props, State> {
         <h1 className="title">
           <T {...this.getTitle()} />
         </h1>
-        {this.renderContent()}
+        {this.renderForm()}
+        {process.env.NODE_ENV === 'development' ? this.renderDebug() : null}
       </div>
     )
   }
@@ -58,7 +59,7 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  renderContent() {
+  renderForm() {
     const { resource, loading, shouldLoad } = this.props
 
     if (loading || shouldLoad) {
@@ -72,41 +73,59 @@ class ResourceForm extends Component<Props, State> {
         </Link>
       )
     }
+  }
 
-    let content = null
-    if (resource.type === 'article' && resource.nodes) {
-      content = <ArticleForm article={resource} />
-    } else if (resource.type === 'image' && resource.file) {
-      content = (
-        <img
-          src={(process.env.REACT_APP_PUBLIC_PATH_image || '') + resource.file}
-          alt={resource.file}
-        />
-      )
-    } else {
-      content = (
-        <Fragment>
-          <strong>Data:</strong>
-          <pre>{JSON.stringify(resource, null, '  ')}</pre>
-        </Fragment>
-      )
+  renderDebug() {
+    const { resource } = this.props
+
+    if (!resource) {
+      return null
     }
+
+    const keys = []
+    const appendKeys = (object, prefix = []) => {
+      Object.keys(object).forEach(k => {
+        const k2 = prefix.concat(k)
+        if (object[k] && typeof object[k] === 'object') {
+          appendKeys(object[k], k2)
+        } else {
+          keys.push(k2)
+        }
+      })
+    }
+    appendKeys(resource)
+
+    const get = (object: any, key: string[]) =>
+      // $FlowFixMe: it seems like "o && typeof o === 'object'" is not enough to know it's an object
+      key.reduce((o, k) => (o && typeof o === 'object' ? o[k] : null), object)
 
     return (
       <Fragment>
+        <hr />
+        <h1 className="title">Debug (development only)</h1>
         <table className="table">
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Type</th>
+              <th>Content</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr>
-              <th>id</th>
-              <td>{resource.id}</td>
-            </tr>
-            <tr>
-              <th>type</th>
-              <td>{resource.type}</td>
-            </tr>
+            {keys.map(key => {
+              const k = key.join('.')
+              const v = get(resource, key)
+              return (
+                <tr key={k}>
+                  <th>{k}</th>
+                  <td>{typeof v}</td>
+                  <td>{JSON.stringify(v)}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
-        {content}
+        <pre>{JSON.stringify(resource, null, '  ')}</pre>
       </Fragment>
     )
   }

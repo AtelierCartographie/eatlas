@@ -9,6 +9,9 @@ import { withRouter } from 'react-router'
 import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import ArticleForm from './ArticleForm'
+import ResourceForm from './ResourceForm'
+
+import type { SaveCallback } from './ResourceForm'
 
 type Props = {
   resource: ?Resource,
@@ -73,6 +76,8 @@ class ResourceEdit extends Component<Props, State> {
         </Link>
       )
     }
+
+    return <ResourceForm resource={resource} onSubmit={this.save} />
   }
 
   renderDebug() {
@@ -128,6 +133,10 @@ class ResourceEdit extends Component<Props, State> {
         <pre>{JSON.stringify(resource, null, '  ')}</pre>
       </Fragment>
     )
+  }
+
+  save: SaveCallback = async (resource, docs, accessToken) => {
+    throw new Error('Update not implemented yet')
   }
 }
 

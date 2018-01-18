@@ -20,15 +20,17 @@ const mimeTypes: { [ResourceType]: string[] } = {
   video: ['video/x-msvideo', 'video/mpeg'],
 }
 
+export type SaveCallback = (
+  resource: ResourceNew | Resource,
+  docs: { [string]: ?UploadDoc },
+  accessToken: string,
+) => Promise<*>
+
 type Props = {
   locale: Locale,
   // Own props
   resource: ?Resource,
-  onSubmit: (
-    resource: ResourceNew | Resource,
-    docs: { [string]: ?UploadDoc },
-    accessToken: string,
-  ) => Promise<*>,
+  onSubmit: SaveCallback,
 }
 
 type State = {
@@ -116,7 +118,7 @@ const field = ({
 
 class ResourceForm extends Component<Props, State> {
   state: State = {
-    docs: {},
+    docs: this.docsFromResource(this.props.resource),
     resource: this.props.resource,
     accessToken: null,
     saving: false,
@@ -444,7 +446,7 @@ class ResourceForm extends Component<Props, State> {
           className="input"
           type="text"
           placeholder="type"
-          value={`${doc.name} (#${doc.id})`}
+          value={`${doc.name}${doc.id ? ` (#${doc.id})` : ''}`}
           readOnly={true}
           required
         />
@@ -598,6 +600,41 @@ class ResourceForm extends Component<Props, State> {
 
     // All good!
     return true
+  }
+
+  // Convert resource files to docs (to make DocPicker aware)
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.resource)
+    if (nextProps.resource !== this.props.resource) {
+      this.setState({
+        docs: this.docsFromResource(nextProps.resource),
+        resource: nextProps.resource,
+      })
+    }
+  }
+
+  docsFromResource(resource: ?Resource): { [string]: ?UploadDoc } {
+    const docs = {}
+
+    if (!resource) {
+      return docs
+    }
+
+    if (resource.type === 'image') {
+      const images = resource.images
+      for (let size in images) {
+        for (let density in images[size]) {
+          docs[`image-${size}-${density}`] = {
+            type: 'photo',
+            id: '',
+            mimeType: '',
+            name: images[size][density],
+          }
+        }
+      }
+    }
+
+    return docs
   }
 }
 

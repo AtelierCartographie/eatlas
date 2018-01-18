@@ -9,6 +9,7 @@ import { addResourceFromGoogleDrive } from '../api'
 import ResourceForm from './ResourceForm'
 
 import type { ContextRouter } from 'react-router'
+import type { SaveCallback } from './ResourceForm'
 
 type Props = ContextRouter & {
   forcedType: ?ResourceType,
@@ -30,11 +31,7 @@ class Import extends Component<Props> {
     )
   }
 
-  save = async (
-    resource: Resource,
-    docs: { [string]: ?UploadDoc },
-    accessToken: string,
-  ) => {
+  save: SaveCallback = async (resource, docs, accessToken) => {
     const uploads = Object.keys(docs).reduce((ups, key) => {
       const doc = docs[key]
       return doc

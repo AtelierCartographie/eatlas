@@ -38,6 +38,7 @@
   "resource-topic": "Topic",
   "resource-type": "Type",
   "resources": "resources",
+  "restore": "restore",
   "save-changes": "Save changes",
   "select-file": "Select or import file",
   "selected-file": "Selected file",

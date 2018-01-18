@@ -4,8 +4,9 @@ import './Resources.css'
 
 import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { FormattedMessage as T } from 'react-intl'
+import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
+import cx from 'classnames'
 
 import { connect } from 'react-redux'
 import { fetchResources } from './../actions'
@@ -13,11 +14,11 @@ import Spinner from './Spinner'
 import IconButton from './IconButton'
 import Icon from './Icon'
 import Confirm from './Confirm'
-import { deleteResource } from '../api'
+import { deleteResource, updateResource } from '../api'
 
 import type { ContextRouter } from 'react-router'
 
-type Props = {
+type Props = ContextIntl & {
   resources: {
     loading: boolean,
     list: Array<Resource>,
@@ -30,6 +31,7 @@ type Props = {
 type State = {
   removeResource: ?Resource,
   removing: boolean,
+  restoring: ?Resource,
 }
 
 type MenuItem = {
@@ -50,7 +52,7 @@ const typeItems: Array<MenuItem> = [
 ]
 
 class Resources extends Component<Props, State> {
-  state = { removeResource: null, removing: false }
+  state = { removeResource: null, removing: false, restoring: null }
 
   componentDidMount() {
     this.props.fetchResources()
@@ -115,28 +117,76 @@ class Resources extends Component<Props, State> {
             <div className="control">
               <Link
                 className="button is-primary"
-                to={`/resources/${resource.id}/edit`}>
-                <IconButton label="edit" icon="pencil" />
+                to={`/resources/${resource.id}/edit`}
+                title={this.props.intl.formatMessage({ id: 'edit' })}>
+                <IconButton icon="pencil" />
               </Link>
             </div>
             <div className="control">
               <button
-                className="button is-danger is-outlined"
-                onClick={() => this.askRemove(resource)}>
-                <IconButton label="delete" icon="times" />
+                className={cx('button is-danger is-outlined', {
+                  'is-loading':
+                    this.state.removing &&
+                    this.state.removeResource === resource,
+                })}
+                onClick={() =>
+                  resource.status === 'deleted'
+                    ? this.askHardRemove(resource)
+                    : this.softRemove(resource)
+                }
+                title={this.props.intl.formatMessage({ id: 'delete' })}>
+                <IconButton
+                  icon={resource.status === 'deleted' ? 'times' : 'trash'}
+                />
               </button>
             </div>
+            {resource.status !== 'deleted' ? null : (
+              <div className="control">
+                <button
+                  className={cx('button is-info is-outlined', {
+                    'is-loading': this.state.restoring === resource,
+                  })}
+                  onClick={() => this.restore(resource)}
+                  title={this.props.intl.formatMessage({ id: 'restore' })}>
+                  <IconButton icon="history" />
+                </button>
+              </div>
+            )}
           </div>
         </td>
       </tr>
     )
   }
 
-  askRemove(resource: ?Resource) {
+  askHardRemove(resource: ?Resource) {
     this.setState({ removeResource: resource })
   }
 
-  async doRemove() {
+  async restore(resource: Resource) {
+    if (resource.status !== 'deleted') {
+      return
+    }
+
+    // TODO Redux
+    this.setState({ restoring: resource })
+    await updateResource(resource.id, { status: 'submitted' })
+    this.setState({ restoring: null })
+    this.props.fetchResources()
+  }
+
+  async softRemove(resource: Resource) {
+    if (resource.status === 'deleted') {
+      return
+    }
+
+    // TODO Redux
+    this.setState({ removing: true })
+    await updateResource(resource.id, { status: 'deleted' })
+    this.setState({ removing: false, removeResource: null })
+    this.props.fetchResources()
+  }
+
+  async hardRemove() {
     const resource = this.state.removeResource
     if (!resource) return
 
@@ -237,8 +287,8 @@ class Resources extends Component<Props, State> {
               : null
           }
           removing={this.state.removing}
-          onClose={() => this.askRemove(null)}
-          onConfirm={() => this.doRemove()}
+          onClose={() => this.askHardRemove(null)}
+          onConfirm={() => this.hardRemove()}
         />
       </div>
     )
@@ -254,5 +304,5 @@ export default withRouter(
     {
       fetchResources,
     },
-  )(Resources),
+  )(injectIntl(Resources)),
 )

@@ -141,7 +141,6 @@ export const getTopics = (): Promise<Topic[]> =>
     url: '/topics',
     fake: () => FAKE_TOPICS,
     forceFake: true,
-    delay: 5000,
   })
 
 // Return a fake async response

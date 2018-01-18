@@ -52,7 +52,7 @@ exports.addFromGoogle = async (req, res) => {
       Object.assign({}, data, {
         author: req.session.user.email,
         status: 'submitted',
-        createdAt: +new Date(),
+        createdAt: Date.now(),
         id: req.body.id,
         type: req.body.type,
         title: req.body.title,

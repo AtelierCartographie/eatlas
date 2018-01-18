@@ -59,7 +59,7 @@ class Import extends Component<Props> {
 }
 
 export default withRouter(
-  connect(({ locale }, { match, location }) => ({
+  connect(({ locale }: AppState, { match, location }: ContextRouter) => ({
     forcedType: match.params.type,
     initialId: location.search.substring(1),
   }))(Import),

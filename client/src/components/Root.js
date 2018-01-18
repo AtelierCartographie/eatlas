@@ -26,4 +26,4 @@ const Root = ({ locale }: Props) => {
   )
 }
 
-export default connect(({ locale }) => ({ locale }))(Root)
+export default connect(({ locale }: AppState) => ({ locale }))(Root)

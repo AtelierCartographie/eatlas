@@ -61,7 +61,7 @@ type Props = {
 }
 
 class ArticleForm extends Component<Props> {
-  renderHeader(node, k) {
+  renderHeader(node, k: string) {
     return (
       <div className="field" key={k}>
         <label className="label">Header</label>
@@ -72,7 +72,7 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderParagraph(node, k) {
+  renderParagraph(node, k: string) {
     return (
       <div className="field" key={k}>
         <label className="label">Paragraph</label>
@@ -107,11 +107,11 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderResource(node, k) {
+  renderResource(node, k: string) {
     return <ResourceField node={node} key={k} />
   }
 
-  renderFootnotes(node, k) {
+  renderFootnotes(node, k: string) {
     return (
       <div className="field" key={k}>
         <label className="label">Footnotes</label>
@@ -122,7 +122,7 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderMeta(meta, k) {
+  renderMeta(meta, k: string) {
     if (meta.list) {
       return (
         <div className="field" key={k}>

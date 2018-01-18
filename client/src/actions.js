@@ -1,3 +1,5 @@
+//TODO flow but thunk actions mess with typing :(
+
 // under a namespace to avoid collision with action creators
 // example api.deleteUser vs action creator deleteUser
 import * as api from './api'
@@ -16,8 +18,8 @@ function helper(actionName, fn) {
   const actionSuccess = actionNameUpper + '_SUCCESS'
   const actionFailure = actionNameUpper + '_FAILURE'
 
-  const action = function(...args) {
-    return dispatch => {
+  const action = function(...args: any[]) {
+    return (dispatch: Function) => {
       dispatch({ type: actionRequest })
       try {
         const result = fn(...args)
@@ -68,7 +70,7 @@ export const getUser = helper('GET_USER', api.getUser).action
 export const getUsers = helper('GET_USERS', api.getUsers).action
 export const deleteUser = helper('DELETE_USER', api.deleteUser).action
 
-export const saveUser = ({ id, ...data }) => dispatch => {
+export const saveUser = ({ id, ...data }) => (dispatch: Function) => {
   dispatch({ type: 'SAVE_USER_REQUEST' })
 
   const save = () => (id ? api.updateUser(id, data) : api.addUser(data))

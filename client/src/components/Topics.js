@@ -64,7 +64,9 @@ class Topics extends Component<Props> {
             <tbody>
               {list.map((t, k) => (
                 <tr key={t.name}>
-                  <td><img alt="icon" src={`/topics/pictos-parties_${k}.svg`} /></td>
+                  <td>
+                    <img alt="icon" src={`/topics/pictos-parties_${k}.svg`} />
+                  </td>
                   <td>{t.name}</td>
                   <td>{Math.floor(Math.random() * 6) + 1}</td>
                   <td>
@@ -77,8 +79,7 @@ class Topics extends Component<Props> {
                         </Link>
                       </div>
                       <div className="control">
-                        <button
-                          className="button is-danger is-outlined">
+                        <button className="button is-danger is-outlined">
                           <IconButton label="delete" icon="times" />
                         </button>
                       </div>
@@ -94,4 +95,6 @@ class Topics extends Component<Props> {
   }
 }
 
-export default connect(({ topics }) => ({ topics }), { getTopics })(Topics)
+export default connect(({ topics }: AppState) => ({ topics }), { getTopics })(
+  Topics,
+)

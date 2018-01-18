@@ -10,6 +10,8 @@ import { getUser, saveUser } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
+import type { ContextRouter } from 'react-router'
+
 type Props = {
   loading: boolean,
   loggedUserId: string,
@@ -172,7 +174,7 @@ class UserForm extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ users, user }, { match, history }) => {
+    ({ users, user }: AppState, { match, history }: ContextRouter) => {
       const { id } = match.params
       const redirect = history.push.bind(history)
       return {
@@ -181,7 +183,7 @@ export default withRouter(
         user: users.list.find(u => u.id === id) || null,
         userId: id === 'new' ? null : id,
         redirect,
-        loggedUserId: user.id,
+        loggedUserId: user.current && user.current.id,
       }
     },
     { getUser, saveUser },

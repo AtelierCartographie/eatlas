@@ -154,10 +154,10 @@ class App extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ user }) => ({
-      authenticated: !!user.id,
-      name: user.name,
-      role: user.role,
+    ({ user }: AppState) => ({
+      authenticated: !!user.current,
+      name: user.current && user.current.name,
+      role: user.current && user.current.role,
     }),
     { userLogout },
   )(App),

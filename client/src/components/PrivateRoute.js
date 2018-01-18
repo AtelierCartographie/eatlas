@@ -32,9 +32,14 @@ const loginFormRender = props => (
   />
 )
 
-const waitCheckServerLogin = () => <div><Spinner /><T id="checking-credentials" /></div>
+const waitCheckServerLogin = () => (
+  <div>
+    <Spinner />
+    <T id="checking-credentials" />
+  </div>
+)
 
-export default connect(state => ({
-  checkedServerLogin: state.user.checkedServerLogin,
-  authenticated: !!state.user.email,
+export default connect(({ user }: AppState) => ({
+  checkedServerLogin: user.checkedServerLogin,
+  authenticated: !!user.current,
 }))(PrivateRoute)

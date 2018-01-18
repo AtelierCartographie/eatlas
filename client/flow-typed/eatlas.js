@@ -1,11 +1,21 @@
 // @flow
 
+declare type AppState = {
+  locale: string,
+  users: { loading: boolean, saving: boolean, list: User[] },
+  resources: { loading: boolean, fetched: boolean, list: Resource[] },
+  topics: { loading: boolean, list: Topic[] },
+  user: { current: ?User, checkedServerLogin: boolean, verifying: boolean },
+}
+
 declare type Locale = 'fr' | 'en'
+
+declare type UserRole = 'anonymous' | 'visitor' | 'admin'
 
 declare type UserNew = {
   name: string,
   email: string,
-  role: string,
+  role: UserRole,
 }
 
 declare type User = UserNew & { id: string }

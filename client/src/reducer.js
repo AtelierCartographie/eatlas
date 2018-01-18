@@ -1,6 +1,8 @@
+//@flow
+
 import browserLocale from 'browser-locale'
 
-const initialState = {
+const initialState: AppState = {
   locale: browserLocale(),
   users: {
     loading: false, // loading users list
@@ -8,6 +10,7 @@ const initialState = {
     list: [], // full users list
   },
   resources: {
+    // TODO fetched = false should be replaced by list = null
     fetched: false, // did we already request server data (note: fetched is true as soon as data is requested)?
     loading: false, // loading resources list
     list: [], // full resources list
@@ -18,16 +21,13 @@ const initialState = {
   },
   // current user (session)
   user: {
-    id: null,
-    name: null,
-    email: null,
-    role: 'anonymous', // should be 'anonymous', 'visitor' or 'admin'
+    current: null,
     checkedServerLogin: false, // true once we asked to server if user was already logged in
     verifying: false, // true when sending google oauth code to API server for verification
   },
 }
 
-export default (state = initialState, action) => {
+export default (state: AppState = initialState, action: any): AppState => {
   switch (action.type) {
     case 'SET_LOCALE':
       return { ...state, locale: action.payload }
@@ -83,6 +83,7 @@ export default (state = initialState, action) => {
         ...state,
         resources: {
           loading: false,
+          fetched: true,
           list: state.resources.list
             .filter(r => r.id !== action.payload.resource.id)
             .concat(action.payload.resource),
@@ -111,14 +112,15 @@ export default (state = initialState, action) => {
     case 'LOGIN':
       return {
         ...state,
-        user: { ...state.user, ...action.payload, verifying: false },
+        user: { ...state.user, current: action.payload, verifying: false },
       }
 
     case 'LOGOUT':
       return {
         ...state,
-        user: { ...state.user, id: null, name: null, email: null, role: null },
+        user: { ...state.user, current: null },
       }
+
     default:
       return state
   }

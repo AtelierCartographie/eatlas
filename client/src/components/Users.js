@@ -121,6 +121,7 @@ class Users extends Component<Props, State> {
   }
 }
 
-export default connect(({ users }) => ({ users }), { getUsers, deleteUser })(
-  Users,
-)
+export default connect(({ users }: AppState) => ({ users }), {
+  getUsers,
+  deleteUser,
+})(Users)

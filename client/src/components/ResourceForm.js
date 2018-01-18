@@ -645,6 +645,6 @@ class ResourceForm extends Component<Props, State> {
   }
 }
 
-export default connect(({ locale }) => ({
+export default connect(({ locale }: AppState) => ({
   locale,
 }))(ResourceForm)

@@ -15,6 +15,8 @@ import Icon from './Icon'
 import Confirm from './Confirm'
 import { deleteResource } from '../api'
 
+import type { ContextRouter } from 'react-router'
+
 type Props = {
   resources: {
     loading: boolean,
@@ -245,7 +247,7 @@ class Resources extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ resources }, { match }) => ({
+    ({ resources }: AppState, { match }: ContextRouter) => ({
       resources,
       type: match.params.type || '',
     }),

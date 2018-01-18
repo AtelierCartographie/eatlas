@@ -162,7 +162,7 @@ class ResourceEdit extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ resources }, { match }) => {
+    ({ resources }: AppState, { match }) => {
       const { id } = match.params
       const { loading } = resources
       const resource = resources.list.find(r => r.id === id)

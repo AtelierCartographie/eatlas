@@ -103,7 +103,9 @@ class Resources extends Component<Props, State> {
         <td className="cell-status">
           <span
             className={'status status-' + resource.status}
-            title={resource.status}
+            title={this.props.intl.formatMessage({
+              id: 'status-' + (resource.status || 'null'),
+            })}
           />
         </td>
         <td>{resource.id}</td>

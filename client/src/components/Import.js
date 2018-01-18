@@ -26,6 +26,8 @@ const mimeTypes: { [ResourceType]: string[] } = {
 
 type Props = ContextRouter & {
   locale: Locale,
+  forcedType: ?ResourceType,
+  initialId: ?string,
 }
 
 type State = {
@@ -112,11 +114,10 @@ const field = ({
 }
 
 class Import extends Component<Props, State> {
-  initialResource: ?ResourceNew = this.props.match.params.type
+  initialResource: ?ResourceNew = this.props.forcedType
     ? {
-        // $FlowFixMe
-        type: this.props.match.params.type,
-        id: '',
+        type: this.props.forcedType,
+        id: this.props.initialId || '',
       }
     : null
 
@@ -151,7 +152,7 @@ class Import extends Component<Props, State> {
 
   getType(): { readOnly: boolean, value: ?ResourceType } {
     const stateType = this.state.resource && this.state.resource.type
-    const paramType = this.props.match.params.type
+    const paramType = this.props.forcedType
 
     const readOnly = !!paramType
     // $FlowFixMe: type from URL
@@ -217,7 +218,7 @@ class Import extends Component<Props, State> {
     const type: ResourceType = e.target.value
     const resource = this.state.resource
       ? { ...this.state.resource, type }
-      : { type, id: '' }
+      : { type, id: this.props.initialId || '' }
 
     this.setState({
       error: null,
@@ -370,7 +371,10 @@ class Import extends Component<Props, State> {
     this.setState(({ resource, docs }) => {
       const state = { docs: { ...docs, [docKey]: doc }, accessToken, resource }
       if (resource && !resource.id) {
-        state.resource = { ...resource, id: this.guessResourceId(doc) }
+        state.resource = {
+          ...resource,
+          id: this.props.initialId || this.guessResourceId(doc),
+        }
       }
       return state
     })
@@ -505,4 +509,10 @@ class Import extends Component<Props, State> {
   }
 }
 
-export default withRouter(connect(({ locale }) => ({ locale }))(Import))
+export default withRouter(
+  connect(({ locale }, { match, location }) => ({
+    locale,
+    forcedType: match.params.type,
+    initialId: location.search.substring(1),
+  }))(Import),
+)

@@ -5,6 +5,8 @@ import { FormattedMessage as T, injectIntl } from 'react-intl'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
+import './ResourceForm.css'
+
 import DocPicker from './DocPicker'
 import Icon from './Icon'
 import {

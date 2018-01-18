@@ -57,24 +57,24 @@ declare type Resource = ResourceNew & {
 
 declare type UploadDocBase = {
   id: string,
-  serviceId: string, // 'docs', 'doc'?
+  //serviceId: string, // 'docs', 'doc'?
   mimeType: string,
   name: string,
-  description: string,
+  //description: string,
   type: string,
-  lastEditedUtc: number,
-  iconUrl: string, // e.g. 'https://drive-thirdparty.googleusercontent.com/16/type/image/png',
-  url: string,
-  embedUrl: string,
-  sizeBytes: number,
-  parentId?: string,
-  isShared?: boolean,
+  //lastEditedUtc: number,
+  //iconUrl: string, // e.g. 'https://drive-thirdparty.googleusercontent.com/16/type/image/png',
+  //url: string,
+  //embedUrl: string,
+  //sizeBytes: number,
+  //parentId?: string,
+  //isShared?: boolean,
 }
 
 declare type UploadDocPhoto = UploadDocBase & {
   type: 'photo',
-  rotation: number,
-  rotationDegree: number,
+  //rotation: number,
+  //rotationDegree: number,
 }
 
 declare type UploadDocWord = UploadDocBase & {

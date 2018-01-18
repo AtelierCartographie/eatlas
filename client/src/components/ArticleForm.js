@@ -2,16 +2,11 @@
 
 import React, { Component } from 'react'
 
-type Props = {}
+type Props = {
+  article: any
+}
 
 class ArticleForm extends Component<Props> {
-  state = { nodes: [], metas: [] }
-
-  componentDidMount() {
-    fetch('/tmp-article.json')
-      .then(res => res.json())
-      .then(({ nodes, metas }) => this.setState({ nodes, metas }))
-  }
 
   renderHeader(node, k) {
     return (
@@ -50,7 +45,7 @@ class ArticleForm extends Component<Props> {
             {!node.lexicon.length ? null : (
               <div>
                 <label className="label">Lexicon</label>
-                <ul>{node.lexicon.map(l => <li key={l.label}>{l}</li>)}</ul>
+                <ul>{node.lexicon.map(l => <li key={l}>{l}</li>)}</ul>
               </div>
             )}
           </div>
@@ -101,15 +96,16 @@ class ArticleForm extends Component<Props> {
   }
 
   render() {
+    const { article } = this.props
     return (
       <div className="ArticleForm">
-        <h1 className="title">Article form (tmp)</h1>
+        <h1 className="title">Article form</h1>
 
         <h2 className="subtitle">Metas</h2>
-        {this.state.metas.map(this.renderMeta)}
+        {article.metas.map(this.renderMeta)}
 
         <h2 className="subtitle">Content</h2>
-        {this.state.nodes.map((node, k) => {
+        {article.nodes.map((node, k) => {
           switch (node.type) {
             case 'header':
               return this.renderHeader(node, k)

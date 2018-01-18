@@ -21,9 +21,6 @@ import UserForm from './UserForm'
 import Users from './Users'
 import { userLogout } from '../actions'
 
-// tmp
-import ArticleForm from './ArticleForm'
-
 const NavLink = ({
   to,
   label,
@@ -76,7 +73,6 @@ class App extends Component<Props, State> {
         <PrivateRoute exact path="/users" component={Users} />
         <PrivateRoute path="/users/:id" component={UserForm} />
         <PrivateRoute exact path="/topics" component={Topics} />
-        <PrivateRoute exact path="/tmp" component={ArticleForm} />
       </Switch>
     )
   }

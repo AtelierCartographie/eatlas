@@ -8,6 +8,7 @@ import { withRouter } from 'react-router'
 
 import { fetchResources } from './../actions'
 import Spinner from './Spinner'
+import ArticleForm from './ArticleForm'
 
 type Props = {
   resource: ?Resource,
@@ -74,12 +75,7 @@ class ResourceForm extends Component<Props, State> {
 
     let content = null
     if (resource.type === 'article' && resource.nodes) {
-      content = (
-        <Fragment>
-          <strong>Nodes:</strong>
-          <pre>{JSON.stringify(resource.nodes, null, '  ')}</pre>
-        </Fragment>
-      )
+      content = <ArticleForm article={resource} />
     } else if (resource.type === 'image' && resource.file) {
       content = (
         <img
@@ -118,9 +114,9 @@ class ResourceForm extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ resources }, { match, history }) => {
-      const id = match.params.id
-      const loading = resources.loading
+    ({ resources }, { match }) => {
+      const { id } = match.params
+      const { loading } = resources
       const resource = resources.list.find(r => r.id === id)
       const shouldLoad = !resource && !resources.fetched
 

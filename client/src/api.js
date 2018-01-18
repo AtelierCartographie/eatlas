@@ -52,7 +52,7 @@ export const addResourceFromGoogleDrive = (
   },
 ): Promise<Resource> =>
   query({
-    url: '/resources/google-drive',
+    url: '/resources',
     method: 'POST',
     body,
     fake: () => ({ id: FAKE_RESOURCE.id }),

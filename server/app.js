@@ -33,8 +33,8 @@ app.delete('/users/:id', users.findUser, users.remove)
 
 app.get('/resources', resources.list)
 app.get('/resources/:id', resources.findResource, resources.get)
+app.post('/resources', validateBody(resources.addFromGoogle))
 app.post('/resources/:id', resources.findResource, resources.update)
-app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 app.delete('/resources/:id', resources.findResource, resources.remove)
 
 app.get('/topics', topics.list)

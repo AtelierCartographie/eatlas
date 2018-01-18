@@ -11,6 +11,7 @@ import {
   RESOURCE_TYPES,
   MIME_TYPES,
   RESOURCE_STATUSES,
+  LOCALES,
 } from '../constants'
 import { getTopics } from '../actions'
 
@@ -314,10 +315,10 @@ class ResourceForm extends Component<Props, State> {
                 }),
           }),
           this.getAttrField('language', {
-            // TODO select
             leftIcon: 'language',
             mandatory: true,
             readOnly,
+            options: this.buildSelectOptions(LOCALES),
           }),
           this.getAttrField('description', {
             // TODO textarea

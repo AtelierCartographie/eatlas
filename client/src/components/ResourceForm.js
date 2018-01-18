@@ -1,13 +1,18 @@
 // @flow
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
 import DocPicker from './DocPicker'
 import Icon from './Icon'
-import { RESOURCE_TYPES, MIME_TYPES, RESOURCE_STATUSES } from '../constants'
+import {
+  RESOURCE_TYPES,
+  MIME_TYPES,
+  RESOURCE_STATUSES,
+} from '../constants'
+import { getTopics } from '../actions'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
@@ -17,10 +22,14 @@ export type SaveCallback = (
 
 type Props = ContextIntl & {
   locale: Locale,
+  topics: { list: Topic[], loading: boolean },
+  shouldLoadTopics: boolean,
   // Own props
   mode: 'create' | 'edit',
   resource: ?Resource,
   onSubmit: SaveCallback,
+  // Actions
+  getTopics: Function,
 }
 
 type State = {
@@ -108,7 +117,8 @@ const renderField = ({
 
 class ResourceForm extends Component<Props, State> {
   state: State = {
-    docs: this.docsFromResource(this.props.resource),
+    // Convert resource files to docs (to make DocPicker aware in edit mode)
+    docs: this.docsFromResource(),
     resource: this.props.resource,
     accessToken: null,
     saving: false,
@@ -132,6 +142,12 @@ class ResourceForm extends Component<Props, State> {
         </form>
       </div>
     )
+  }
+
+  componentDidMount() {
+    if (this.props.shouldLoadTopics) {
+      this.props.getTopics()
+    }
   }
 
   renderError(message: any) {
@@ -283,10 +299,19 @@ class ResourceForm extends Component<Props, State> {
         )
         .concat([
           this.getAttrField('topic', {
-            // TODO select
             leftIcon: 'paragraph',
             mandatory: true,
-            readOnly,
+            readOnly:
+              readOnly ||
+              this.props.topics.loading ||
+              this.props.shouldLoadTopics,
+            ...(this.props.topics.loading || this.props.shouldLoadTopics
+              ? { rightIcon: 'spinner fa-pulse' }
+              : {
+                  options: this.buildSelectOptions(
+                    this.props.topics.list.map(topic => topic.name),
+                  ),
+                }),
           }),
           this.getAttrField('language', {
             // TODO select
@@ -573,18 +598,8 @@ class ResourceForm extends Component<Props, State> {
     return true
   }
 
-  // Convert resource files to docs (to make DocPicker aware)
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.resource)
-    if (nextProps.resource !== this.props.resource) {
-      this.setState({
-        docs: this.docsFromResource(nextProps.resource),
-        resource: nextProps.resource,
-      })
-    }
-  }
-
-  docsFromResource(resource: ?Resource): { [string]: ?UploadDoc } {
+  docsFromResource(): { [string]: ?UploadDoc } {
+    const { resource } = this.props
     const docs = {}
 
     if (!resource) {
@@ -609,6 +624,11 @@ class ResourceForm extends Component<Props, State> {
   }
 }
 
-export default connect(({ locale }: AppState) => ({
-  locale,
-}))(injectIntl(ResourceForm))
+export default connect(
+  ({ locale, topics }: AppState) => ({
+    locale,
+    shouldLoadTopics: topics.list.length === 0,
+    topics,
+  }),
+  { getTopics },
+)(injectIntl(ResourceForm))

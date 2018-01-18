@@ -50,7 +50,6 @@ exports.googleOauth = {
   }),
 }
 
-// TODO missing types
 const resourceType = Joi.string().valid([
   'article',
   'definition',
@@ -61,11 +60,20 @@ const resourceType = Joi.string().valid([
   'video',
 ])
 
+const resourceStatus = Joi.string().valid([
+  'submitted',
+  'validated',
+  'published',
+  'deleted',
+])
+
 const upload = Joi.object().keys({
   fileId: Joi.string().required(),
   mimeType: Joi.string().required(),
   key: Joi.string().required(),
 })
+
+const language = Joi.string()
 
 exports.uploadFromGoogleDrive = {
   id: Joi.string().required(),
@@ -74,6 +82,12 @@ exports.uploadFromGoogleDrive = {
   uploads: Joi.array()
     .items(upload)
     .required(),
+  title: Joi.string().required(),
+  subtitle: Joi.string().optional(),
+  topic: Joi.string().required(),
+  language: language.required(),
+  description: Joi.string().required(),
+  copyright: Joi.string().optional(),
 }
 
 const links = Joi.array().items(
@@ -156,4 +170,36 @@ exports.fullResource = {
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
+  // Resource metadata
+  title: Joi.string().required(),
+  subtitle: Joi.string().when('type', {
+    is: Joi.valid(['article', 'focus', 'map']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
+  author: Joi.string()
+    .email()
+    .required(),
+  createdAt: Joi.date()
+    .timestamp()
+    .required(),
+  updatedAt: Joi.date()
+    .timestamp()
+    .when('type', {
+      is: Joi.valid(['article', 'focus', 'definition', 'map']),
+      then: Joi.optional(),
+      otherwise: Joi.forbidden(),
+    }),
+  publishedAt: Joi.date()
+    .timestamp()
+    .optional(),
+  topic: Joi.string().required(),
+  language: language.required(),
+  description: Joi.string().required(),
+  copyright: Joi.string().when('type', {
+    is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
+    then: Joi.optional(),
+    otherwise: Joi.forbidden(),
+  }),
+  status: resourceStatus.required(),
 }

@@ -109,6 +109,39 @@
           }
         }
       }
+    },
+    "title": {
+      "type": "text"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "author": {
+      "type": "text"
+    },
+    "createdAt": {
+      "type": "date"
+    },
+    "updatedAt": {
+      "type": "date"
+    },
+    "publishedAt": {
+      "type": "date"
+    },
+    "language": {
+      "type": "keyword"
+    },
+    "description": {
+      "type": "text"
+    },
+    "copyright": {
+      "type": "text"
+    },
+    "status": {
+      "type": "keyword"
+    },
+    "topic": {
+      "type": "keyword"
     }
   }
 }

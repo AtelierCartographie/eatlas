@@ -44,8 +44,17 @@ exports.addFromGoogle = async (req, res) => {
 
     const resource = await resources.create(
       Object.assign({}, data, {
+        author: req.session.user.email,
+        status: 'submitted',
+        createdAt: +new Date(),
         id: req.body.id,
         type: req.body.type,
+        title: req.body.title,
+        subtitle: req.body.subtitle,
+        topic: req.body.topic,
+        language: req.body.language,
+        description: req.body.description,
+        copyright: req.body.copyright,
       }),
     )
 
@@ -148,9 +157,12 @@ const handleUploads = async req => {
           }),
         ),
       )
-      const images = { small: {}, medium: {}, large: {} }
+      const images = {}
       uploads.forEach(({ key }, index) => {
         const [, size, density] = key.match(RE_IMAGE_UPLOAD_KEY)
+        if (!images[size]) {
+          images[size] = {}
+        }
         images[size][density] = files[index]
       })
       return { images }

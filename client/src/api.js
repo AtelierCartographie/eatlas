@@ -11,6 +11,13 @@ const FAKE_RESOURCE: Resource = {
   id: '0V00',
   type: 'video',
   file: 'fake-video.avi',
+  description: 'some fake video',
+  language: 'en',
+  author: 'me@myself',
+  createdAt: +new Date(),
+  status: 'submitted',
+  title: 'some video',
+  topic: 'ze topic',
 }
 
 const FAKE_TOPICS: Topic[] = [

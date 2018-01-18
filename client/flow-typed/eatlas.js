@@ -23,9 +23,21 @@ declare type ResourceType =
   | 'image'
   | 'video'
 
+declare type ResourceStatus =
+  | 'submitted'
+  | 'validated'
+  | 'published'
+  | 'deleted'
+
 declare type ResourceNew = {
   type: ResourceType,
   id: string,
+  title: string,
+  subtitle?: string, // only article, focus, map
+  topic: string,
+  language: string,
+  description: string,
+  copyright?: string, // only definition, map, image, video, sound
 }
 
 declare type Resource = ResourceNew & {
@@ -36,6 +48,11 @@ declare type Resource = ResourceNew & {
     medium: { '1x': string, '2x'?: string, '3x'?: string },
     large: { '1x'?: string, '2x'?: string, '3x'?: string },
   },
+  author: string,
+  createdAt: number, // timestamp
+  updatedAt?: number, // timestamp
+  publishedAt?: number, // timestamp
+  status: ResourceStatus,
 }
 
 declare type UploadDocBase = {

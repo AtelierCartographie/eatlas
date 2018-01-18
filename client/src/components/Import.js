@@ -94,7 +94,7 @@ const field = ({
   return (
     <div className="field is-horizontal" key={key || labelId}>
       <div className="field-label is-normal">
-        <label className="label">
+        <label className={cx('label', { 'has-text-grey-light': !mandatory })}>
           <T id={labelId} values={labelValues} />
           {mandatory ? <Icon icon="asterisk" /> : null}
         </label>
@@ -118,6 +118,10 @@ class Import extends Component<Props, State> {
     ? {
         type: this.props.forcedType,
         id: this.props.initialId || '',
+        title: '',
+        topic: '',
+        language: '',
+        description: '',
       }
     : null
 
@@ -218,7 +222,7 @@ class Import extends Component<Props, State> {
     const type: ResourceType = e.target.value
     const resource = this.state.resource
       ? { ...this.state.resource, type }
-      : { type, id: this.props.initialId || '' }
+      : { ...this.initialResource, type }
 
     this.setState({
       error: null,
@@ -237,24 +241,6 @@ class Import extends Component<Props, State> {
       return this.renderError('Type not implemented')
     }
 
-    // Always prepend 'id' field
-    fields.unshift({
-      labelId: 'resource-id',
-      leftIcon: 'key',
-      input: (
-        <input
-          className="input"
-          name="name"
-          type="text"
-          value={this.state.resource ? this.state.resource.id : null}
-          onChange={this.onChangeId}
-          readOnly={readOnly}
-          required
-        />
-      ),
-      mandatory: true,
-    })
-
     return <Fragment>{fields.map(opts => field(opts))}</Fragment>
   }
 
@@ -269,56 +255,169 @@ class Import extends Component<Props, State> {
     )
   }
 
+  getAttrField(
+    attr: string,
+    {
+      readOnly = false,
+      mandatory = false,
+      type = 'text',
+      leftIcon,
+      rightIcon,
+    }: {
+      readOnly?: boolean,
+      mandatory?: boolean,
+      type?: string,
+      leftIcon?: string,
+      rightIcon?: string,
+    } = {},
+  ): FieldParams {
+    return {
+      labelId: 'resource-' + attr,
+      leftIcon,
+      rightIcon,
+      input: (
+        <input
+          className="input"
+          type={type}
+          value={this.state.resource ? this.state.resource[attr] : null}
+          onChange={this.onChangeResourceAttribute(attr)}
+          readOnly={readOnly}
+          required={mandatory}
+        />
+      ),
+      mandatory,
+    }
+  }
+
   getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
+    const prependFields = () => [
+      this.getAttrField('id', {
+        leftIcon: 'key',
+        mandatory: true,
+        readOnly,
+      }),
+    ]
+
+    const appendFields = ({ subtitle, copyright }) =>
+      [
+        this.getAttrField('title', {
+          leftIcon: 'header',
+          mandatory: true,
+          readOnly,
+        }),
+      ]
+        .concat(
+          subtitle
+            ? [
+                this.getAttrField('subtitle', {
+                  leftIcon: 'header',
+                  readOnly,
+                }),
+              ]
+            : [],
+        )
+        .concat([
+          this.getAttrField('topic', {
+            leftIcon: 'paragraph',
+            mandatory: true,
+            readOnly,
+          }),
+          this.getAttrField('language', {
+            // TODO select
+            leftIcon: 'language',
+            mandatory: true,
+            readOnly,
+          }),
+          this.getAttrField('description', {
+            // TODO select
+            leftIcon: 'info',
+            mandatory: true,
+            readOnly,
+          }),
+        ])
+        .concat(
+          copyright
+            ? [
+                this.getAttrField('copyright', {
+                  // TODO textarea
+                  leftIcon: 'copyright',
+                  readOnly,
+                }),
+              ]
+            : [],
+        )
+
+    const buildFields = (
+      fields: Array<FieldParams>,
+      {
+        subtitle = false,
+        copyright = false,
+      }: { subtitle?: boolean, copyright?: boolean },
+    ) =>
+      prependFields()
+        .concat(fields)
+        .concat(appendFields({ subtitle, copyright }))
+
     switch (resource.type) {
       case 'article':
-        return [this.getDocField(resource, 'article', { mandatory: true })]
+        return buildFields(
+          [this.getDocField(resource, 'article', { mandatory: true })],
+          { subtitle: true },
+        )
       case 'map':
-        return [this.getDocField(resource, 'map', { mandatory: true })]
+        return buildFields(
+          [this.getDocField(resource, 'map', { mandatory: true })],
+          { subtitle: true, copyright: true },
+        )
       case 'image':
-        return [
-          this.getDocField(resource, 'image-small-1x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'small', density: '1x' },
-          }),
-          this.getDocField(resource, 'image-small-2x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'small', density: '2x' },
-          }),
-          this.getDocField(resource, 'image-small-3x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'small', density: '3x' },
-          }),
-          this.getDocField(resource, 'image-medium-1x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'medium', density: '1x' },
-            mandatory: true,
-          }),
-          this.getDocField(resource, 'image-medium-2x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'medium', density: '2x' },
-          }),
-          this.getDocField(resource, 'image-medium-3x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'medium', density: '3x' },
-          }),
-          this.getDocField(resource, 'image-large-1x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'large', density: '1x' },
-          }),
-          this.getDocField(resource, 'image-large-2x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'large', density: '2x' },
-          }),
-          this.getDocField(resource, 'image-large-3x', {
-            labelId: 'selected-image',
-            labelValues: { size: 'large', density: '3x' },
-          }),
-        ]
-      //case 'sound':
-      //case 'definition':
-      //case 'focus':
-      //case 'video':
+        return buildFields(
+          [
+            this.getDocField(resource, 'image-small-1x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'small', density: '1x' },
+            }),
+            this.getDocField(resource, 'image-small-2x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'small', density: '2x' },
+            }),
+            this.getDocField(resource, 'image-small-3x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'small', density: '3x' },
+            }),
+            this.getDocField(resource, 'image-medium-1x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'medium', density: '1x' },
+              mandatory: true,
+            }),
+            this.getDocField(resource, 'image-medium-2x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'medium', density: '2x' },
+            }),
+            this.getDocField(resource, 'image-medium-3x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'medium', density: '3x' },
+            }),
+            this.getDocField(resource, 'image-large-1x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'large', density: '1x' },
+            }),
+            this.getDocField(resource, 'image-large-2x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'large', density: '2x' },
+            }),
+            this.getDocField(resource, 'image-large-3x', {
+              labelId: 'selected-image',
+              labelValues: { size: 'large', density: '3x' },
+            }),
+          ],
+          { copyright: true },
+        )
+
+      //case 'sound': // subtitle: false, copyright: true
+      //case 'definition': // subtitle: false, copyright: true
+      //case 'focus': // subtitle: true, copyright: false
+      //case 'video': // subtitle: false, copyright: true
+
       default:
         return null
     }
@@ -402,10 +501,12 @@ class Import extends Component<Props, State> {
     )
   }
 
-  onChangeId = (e: SyntheticInputEvent<HTMLInputElement>) => {
+  onChangeResourceAttribute = (attr: string) => (
+    e: SyntheticInputEvent<HTMLInputElement>,
+  ) => {
     this.setState({
       error: null,
-      resource: { ...this.state.resource, id: e.target.value },
+      resource: { ...this.state.resource, [attr]: e.target.value },
     })
   }
 
@@ -453,10 +554,9 @@ class Import extends Component<Props, State> {
           : ups
       }, [])
       const { id } = await addResourceFromGoogleDrive({
-        id: resource.id,
-        type: resource.type,
+        ...resource,
         uploads,
-        accessToken,
+        accessToken: accessToken || '',
       })
       this.setState({ saving: false, error: null })
       this.props.history.push(`/resources/${id}/edit`)

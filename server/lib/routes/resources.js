@@ -14,7 +14,7 @@ exports.findResource = (req, res, next) =>
     .findById(req.params.id)
     .then(resource => {
       if (!resource) {
-        return Boom.notFound('Unknown Resource Id')
+        return res.boom.notFound('Unknown Resource Id')
       }
       req.foundResource = resource
       next()

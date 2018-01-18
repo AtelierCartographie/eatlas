@@ -96,9 +96,18 @@ class Resources extends Component<Props, State> {
   renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
+        <td className="cell-status">
+          <span
+            className={'status status-' + resource.status}
+            title={resource.status}
+          />
+        </td>
         <td>{resource.id}</td>
         <td>{resource.type}</td>
         <td>{this.renderPreview(resource)}</td>
+        <td>{resource.topic}</td>
+        <td>{resource.author}</td>
+        <td>{resource.title}</td>
         <td>
           <div className="field is-grouped">
             <div className="control">
@@ -142,6 +151,9 @@ class Resources extends Component<Props, State> {
         <thead>
           <tr>
             <th>
+              <T id="resource-status" />
+            </th>
+            <th>
               <T id="resource-id" />
             </th>
             <th>
@@ -149,6 +161,15 @@ class Resources extends Component<Props, State> {
             </th>
             <th>
               <T id="preview" />
+            </th>
+            <th>
+              <T id="resource-topic" />
+            </th>
+            <th>
+              <T id="resource-author" />
+            </th>
+            <th>
+              <T id="resource-title" />
             </th>
             <th style={{ width: '1px' }} />
           </tr>

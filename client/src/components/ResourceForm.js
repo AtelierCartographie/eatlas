@@ -29,6 +29,7 @@ export type SaveCallback = (
 type Props = {
   locale: Locale,
   // Own props
+  mode: 'create' | 'edit',
   resource: ?Resource,
   onSubmit: SaveCallback,
 }
@@ -293,13 +294,24 @@ class ResourceForm extends Component<Props, State> {
   }
 
   getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
-    const prependFields = () => [
-      this.getAttrField('id', {
-        leftIcon: 'key',
-        mandatory: true,
-        readOnly,
-      }),
-    ]
+    const prependFields = () =>
+      [
+        this.getAttrField('id', {
+          leftIcon: 'key',
+          mandatory: true,
+          readOnly: readOnly || this.props.mode === 'edit',
+        }),
+      ].concat(
+        this.props.mode === 'edit'
+          ? [
+              this.getAttrField('status', {
+                leftIcon: 'question-circle-o',
+                mandatory: true,
+                readOnly,
+              }),
+            ]
+          : [],
+      )
 
     const appendFields = ({ subtitle, copyright }) =>
       [

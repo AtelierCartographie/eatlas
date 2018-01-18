@@ -24,6 +24,7 @@ class Import extends Component<Props> {
           <T id="resource-create" />
         </h1>
         <ResourceForm
+          mode="create"
           onSubmit={this.save}
           resource={{ type: this.props.forcedType, id: this.props.initialId }}
         />

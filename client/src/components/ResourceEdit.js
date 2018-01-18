@@ -86,7 +86,7 @@ class ResourceEdit extends Component<Props, State> {
       return <ArticleForm article={resource} />
     }
 
-    return <ResourceForm resource={resource} onSubmit={this.save} />
+    return <ResourceForm mode="edit" resource={resource} onSubmit={this.save} />
   }
 
   renderDebug() {

@@ -22,3 +22,14 @@ export const RESOURCE_STATUSES: ResourceStatus[] = [
   'published',
   'deleted',
 ]
+
+export const MIME_TYPES: { [ResourceType]: string[] } = {
+  article: [
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.google-apps.document',
+  ],
+  map: ['image/svg+xml'],
+  image: ['image/jpeg', 'image/png', 'image/gif'],
+  sound: ['audio/mpeg'],
+  video: ['video/x-msvideo', 'video/mpeg'],
+}

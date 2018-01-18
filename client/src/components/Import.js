@@ -52,7 +52,7 @@ class Import extends Component<Props> {
       accessToken,
     })
 
-    // TODO Add resource to redux
+    // TODO Add resource to redux before redirection
     this.props.history.push(`/resources/${result.id}/edit`)
 
     return result

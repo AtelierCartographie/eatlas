@@ -1,25 +1,13 @@
 // @flow
 
 import React, { Component, Fragment } from 'react'
-import { FormattedMessage as T } from 'react-intl'
+import { FormattedMessage as T, injectIntl } from 'react-intl'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
 import DocPicker from './DocPicker'
 import Icon from './Icon'
-import { RESOURCE_TYPES } from '../constants'
-
-// TODO configurable list
-const mimeTypes: { [ResourceType]: string[] } = {
-  article: [
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/vnd.google-apps.document',
-  ],
-  map: ['image/svg+xml'],
-  image: ['image/jpeg', 'image/png', 'image/gif'],
-  sound: ['audio/mpeg'],
-  video: ['video/x-msvideo', 'video/mpeg'],
-}
+import { RESOURCE_TYPES, MIME_TYPES, RESOURCE_STATUSES } from '../constants'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
@@ -27,7 +15,7 @@ export type SaveCallback = (
   accessToken: string,
 ) => Promise<*>
 
-type Props = {
+type Props = ContextIntl & {
   locale: Locale,
   // Own props
   mode: 'create' | 'edit',
@@ -59,7 +47,7 @@ type FieldParams = {
   mandatory?: boolean,
 }
 
-const field = ({
+const renderField = ({
   labelId,
   labelValues,
   leftIcon,
@@ -130,17 +118,16 @@ class ResourceForm extends Component<Props, State> {
 
   gapi: GoogleApi
 
-  cached_onChangeResourceAttribute: { [string]: Function } = {}
+  cached_onChangeAttr: { [string]: Function } = {}
 
   render() {
-    const { value: type, readOnly } = this.getType()
+    const fields = this.getFormFields()
 
     return (
       <div className="ResourceForm">
         {this.state.error ? this.renderError(this.state.error.message) : null}
         <form onSubmit={this.onSubmit}>
-          {this.renderSelectType(type, readOnly || this.state.saving)}
-          {this.renderForm(this.state.resource, this.state.saving)}
+          {fields.map(renderField)}
           {this.renderSave()}
         </form>
       </div>
@@ -158,129 +145,106 @@ class ResourceForm extends Component<Props, State> {
     )
   }
 
-  getType(): { readOnly: boolean, value: ?ResourceType } {
-    const stateType = this.state.resource && this.state.resource.type
-    const paramType = this.props.resource && this.props.resource.type
-
-    const readOnly = !!paramType
-    // $FlowFixMe: type from URL
-    const value: ?ResourceType = readOnly ? paramType : stateType
-
-    return { readOnly, value }
-  }
-
-  renderSelectType(value: ?ResourceType, readOnly: boolean) {
-    let input
-    if (readOnly && value) {
-      input = (
-        <span className="input">
-          <T id={'type-' + String(value)} />
-        </span>
-      )
-    } else {
-      input = (
-        <div className="select is-fullwidth is-disabled">
-          <select
-            name="type"
-            onChange={this.onChangeType}
-            value={value || undefined}
-            readOnly={readOnly}
-            required>
-            <option value={undefined} />
-            {RESOURCE_TYPES.map(t => (
-              <option value={t} key={t}>
-                <T id={'type-' + t} />
-              </option>
-            ))}
-          </select>
-        </div>
-      )
-    }
-
-    return field({
-      labelId: 'resource-type',
-      leftIcon: 'info',
-      input,
-      mandatory: true,
-    })
-  }
-
-  onChangeType = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    if (!e.target.value) {
-      // Cancelled
-      this.setState({ error: null, resource: null, docs: {} })
-      return
-    }
-
-    // $FlowFixMe I don't want to test all possible values here
-    const type: ResourceType = e.target.value
-    const resource = this.state.resource
-      ? { ...this.state.resource, type }
-      : { ...this.props.resource, type }
-
-    this.setState({
-      error: null,
-      resource,
-      docs: {},
-    })
-  }
-
-  renderForm(resource: ?ResourceNew, readOnly: boolean) {
-    if (!resource || !resource.type) {
-      return null
-    }
-
-    const fields = this.getFormFields(resource, readOnly)
-
-    if (!fields) {
-      return this.renderError('Type not implemented')
-    }
-
-    return <Fragment>{fields.map(opts => field(opts))}</Fragment>
-  }
-
   getAttrField(
     attr: string,
     {
       readOnly = false,
       mandatory = false,
-      type = 'text',
       leftIcon,
       rightIcon,
+      options,
+      onChange,
+      value,
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
-      type?: string,
       leftIcon?: string,
       rightIcon?: string,
+      options?: { label: string, value: any }[],
+      onChange?: Function,
+      value?: any,
     } = {},
   ): FieldParams {
+    const props = {
+      value: value || this.getAttrValue(attr),
+      onChange: onChange || this.onChangeAttr(attr),
+      readOnly: readOnly,
+      required: mandatory,
+    }
+
+    let input
+    if (options) {
+      if (readOnly) {
+        const selected = options.find(({ value }) => value === props.value)
+        const label = selected ? selected.label : String(props.value)
+        input = <span className="input">{label}</span>
+      } else {
+        input = (
+          <div className="select is-fullwidth">
+            <select {...props}>
+              {options.map(({ label, value }) => (
+                <option value={value} key={String(value)}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+    } else {
+      input = <input className="input" type="text" {...props} />
+    }
+
     return {
       labelId: 'resource-' + attr,
       leftIcon,
       rightIcon,
-      input: (
-        <input
-          className="input"
-          type={type}
-          value={
-            /* avoid null values to keep this input controlled */
-            this.state.resource && this.state.resource[attr]
-              ? this.state.resource[attr]
-              : ''
-          }
-          onChange={this.onChangeResourceAttribute(attr)}
-          readOnly={readOnly}
-          required={mandatory}
-        />
-      ),
+      input,
       mandatory,
     }
   }
 
-  getFormFields(resource: ResourceNew, readOnly: boolean): ?(FieldParams[]) {
+  buildSelectOptions(
+    values: any[],
+    intlPrefix: ?string,
+    prependEmpty: boolean = false,
+  ): { label: string, value: any }[] {
+    return (prependEmpty ? [{ label: '', value: undefined }] : []).concat(
+      values.map(v => ({
+        label: intlPrefix
+          ? this.props.intl.formatMessage({ id: intlPrefix + String(v) })
+          : String(v),
+        value: v,
+      })),
+    )
+  }
+
+  getAttrValue(attr: string): string {
+    /* avoid null values to keep this input controlled */
+    return this.state.resource && this.state.resource[attr]
+      ? this.state.resource[attr]
+      : ''
+  }
+
+  getFormFields(): FieldParams[] {
+    const { resource, saving: readOnly } = this.state
+    const forcedType = this.props.resource && this.props.resource.type
+
+    const typeField = this.getAttrField('type', {
+      readOnly: readOnly || !!forcedType,
+      value: forcedType || this.getAttrValue('status'),
+      onChange: this.onChangeAttr('type', true),
+      mandatory: true,
+      options: this.buildSelectOptions(RESOURCE_TYPES, 'type-', true),
+    })
+
+    if (!resource || !resource.type) {
+      return [typeField]
+    }
+
     const prependFields = () =>
       [
+        typeField,
         this.getAttrField('id', {
           leftIcon: 'key',
           mandatory: true,
@@ -289,11 +253,11 @@ class ResourceForm extends Component<Props, State> {
       ].concat(
         this.props.mode === 'edit'
           ? [
-              // TODO select
               this.getAttrField('status', {
                 leftIcon: 'question-circle-o',
                 mandatory: true,
                 readOnly,
+                options: this.buildSelectOptions(RESOURCE_STATUSES, 'status-'),
               }),
             ]
           : [],
@@ -319,6 +283,7 @@ class ResourceForm extends Component<Props, State> {
         )
         .concat([
           this.getAttrField('topic', {
+            // TODO select
             leftIcon: 'paragraph',
             mandatory: true,
             readOnly,
@@ -330,7 +295,7 @@ class ResourceForm extends Component<Props, State> {
             readOnly,
           }),
           this.getAttrField('description', {
-            // TODO select
+            // TODO textarea
             leftIcon: 'info',
             mandatory: true,
             readOnly,
@@ -340,7 +305,6 @@ class ResourceForm extends Component<Props, State> {
           copyright
             ? [
                 this.getAttrField('copyright', {
-                  // TODO textarea
                   leftIcon: 'copyright',
                   readOnly,
                 }),
@@ -420,7 +384,15 @@ class ResourceForm extends Component<Props, State> {
       //case 'video': // subtitle: false, copyright: true
 
       default:
-        return null
+        return [
+          typeField,
+          this.getAttrField('error', {
+            leftIcon: 'exclamation-triangle',
+            mandatory: false,
+            readOnly: true,
+            value: 'Type not implemented',
+          }),
+        ]
     }
   }
 
@@ -438,7 +410,7 @@ class ResourceForm extends Component<Props, State> {
       labelValues?: Object,
       mandatory?: boolean,
     } = {},
-  ) {
+  ): FieldParams {
     // $FlowFixMe: 'input' is set just below
     const opts: FieldParams = { labelId, labelValues, mandatory, key: docKey }
     const doc = this.state.docs[docKey]
@@ -450,7 +422,7 @@ class ResourceForm extends Component<Props, State> {
           className="input"
           type="text"
           placeholder="type"
-          value={`${doc.name}${doc.id ? ` (#${doc.id})` : ''}`}
+          value={doc.name}
           readOnly={true}
           required
         />
@@ -461,7 +433,15 @@ class ResourceForm extends Component<Props, State> {
         onClick: this.unselectFile(docKey),
       }
     } else {
-      opts.input = this.renderPicker(resource.type, docKey)
+      opts.input = (
+        <DocPicker
+          locale={this.props.locale}
+          label="select-file"
+          onPick={this.onPick(docKey)}
+          showPickerAfterUpload={false}
+          mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
+        />
+      )
     }
 
     return opts
@@ -500,33 +480,15 @@ class ResourceForm extends Component<Props, State> {
     this.setState({ docs: { ...this.state.docs, [docKey]: null } })
   }
 
-  renderPicker(type: ?ResourceType, docKey: string) {
-    return (
-      <DocPicker
-        locale={this.props.locale}
-        label="select-file"
-        onPick={this.onPick(docKey)}
-        showPickerAfterUpload={false}
-        mimeTypes={type ? mimeTypes[type] : []}
-      />
-    )
-  }
-
   // Cache generated callbacks to avoid useless re-renders
-  onChangeResourceAttribute = (attr: string) => {
-    if (this.cached_onChangeResourceAttribute[attr]) {
-      return this.cached_onChangeResourceAttribute[attr]
-    }
-
-    return (this.cached_onChangeResourceAttribute[attr] = (
-      e: SyntheticInputEvent<HTMLInputElement>,
-    ) => {
-      this.setState({
-        error: null,
-        resource: { ...this.state.resource, [attr]: e.target.value },
-      })
+  onChangeAttr = (attr: string, clearDocs: boolean = false) => (
+    e: SyntheticInputEvent<HTMLInputElement>,
+  ) =>
+    this.setState({
+      error: null,
+      resource: { ...this.state.resource, [attr]: e.target.value },
+      docs: clearDocs ? {} : this.state.docs,
     })
-  }
 
   renderSave() {
     if (!this.state.resource) {
@@ -558,10 +520,14 @@ class ResourceForm extends Component<Props, State> {
 
     this.props
       .onSubmit(resource, docs, accessToken || '')
-      .then((resource: Resource) =>
-        this.setState({ resource: { ...this.state.resource, ...resource } }),
-      )
-      .catch(error => this.setState({ error }))
+      .then((resource: Resource) => {
+        console.log({ resource })
+        this.setState({ resource: { ...this.state.resource, ...resource } })
+      })
+      .catch(error => {
+        console.log({ error })
+        this.setState({ error })
+      })
   }
 
   // TODO implement more complex validations here?
@@ -645,4 +611,4 @@ class ResourceForm extends Component<Props, State> {
 
 export default connect(({ locale }: AppState) => ({
   locale,
-}))(ResourceForm)
+}))(injectIntl(ResourceForm))

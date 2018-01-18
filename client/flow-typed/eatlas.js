@@ -10,6 +10,10 @@ declare type UserNew = {
 
 declare type User = UserNew & { id: string }
 
+declare type Topic = {
+  name: string,
+}
+
 declare type ResourceType =
   | 'article'
   | 'definition'

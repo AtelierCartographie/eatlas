@@ -1,26 +1,49 @@
-const FAKE_USER = {
+//@flow
+
+const FAKE_USER: User = {
   id: '1',
   name: 'Fake User',
   email: 'fake@fake',
   role: 'admin',
 }
 
-const FAKE_RESOURCE = {
+const FAKE_RESOURCE: Resource = {
   id: '0V00',
   type: 'video',
   file: 'fake-video.avi',
 }
 
-export const addResourceFromGoogleDrive = (body: {
-  type: string,
-  id: string,
-  uploads: Array<{
-    mimeType: string,
-    fileId: string,
-    key: string,
-  }>,
-  accessToken: string,
-}) =>
+const FAKE_TOPICS: Topic[] = [
+  {
+    name: 'Présentation',
+  },
+  {
+    name: 'Contrastes et inégalités',
+  },
+  {
+    name: 'Mobilités',
+  },
+  {
+    name: 'Stratégies des acteurs transnationaux',
+  },
+  {
+    name: '(in)sécurités/paix',
+  },
+  {
+    name: 'Vulnérabilités et défis',
+  },
+]
+
+export const addResourceFromGoogleDrive = (
+  body: ResourceNew & {
+    uploads: Array<{
+      mimeType: string,
+      fileId: string,
+      key: string,
+    }>,
+    accessToken: string,
+  },
+): Promise<Resource> =>
   query({
     url: '/resources/google-drive',
     method: 'POST',
@@ -28,19 +51,19 @@ export const addResourceFromGoogleDrive = (body: {
     fake: () => ({ id: FAKE_RESOURCE.id }),
   })
 
-export const getResource = id =>
+export const getResource = (id: string): Promise<Resource> =>
   query({
     url: `/resources/${id}`,
     fake: () => FAKE_RESOURCE,
   })
 
-export const getResources = () =>
+export const getResources = (): Promise<Resource[]> =>
   query({
     url: `/resources`,
     fake: () => [FAKE_RESOURCE],
   })
 
-export const deleteResource = id =>
+export const deleteResource = (id: string): Promise<null> =>
   query({
     method: 'DELETE',
     url: `/resources/${id}`,
@@ -48,14 +71,14 @@ export const deleteResource = id =>
   })
 
 // Check if user has an active session on server
-export const checkSession = () =>
+export const checkSession = (): Promise<User> =>
   query({
     url: '/session',
     fake: () => FAKE_USER,
   })
 
 // Try to login onto server once we got a Google Auth Token
-export const login = token =>
+export const login = (token: string): Promise<User> =>
   query({
     method: 'POST',
     url: '/login',
@@ -63,19 +86,19 @@ export const login = token =>
     fake: () => FAKE_USER,
   })
 
-export const getUser = id =>
+export const getUser = (id: string): Promise<User> =>
   query({
     url: `/users/${id}`,
     fake: () => FAKE_USER,
   })
 
-export const getUsers = () =>
+export const getUsers = (): Promise<User[]> =>
   query({
     url: '/users',
     fake: () => [FAKE_USER],
   })
 
-export const updateUser = (id, body) =>
+export const updateUser = (id: string, body: Object): Promise<User> =>
   query({
     method: 'POST',
     url: `/users/${id}`,
@@ -83,7 +106,7 @@ export const updateUser = (id, body) =>
     fake: () => Object.assign(FAKE_USER, body),
   })
 
-export const addUser = body =>
+export const addUser = (body: UserNew): Promise<User> =>
   query({
     method: 'POST',
     url: '/users',
@@ -91,36 +114,17 @@ export const addUser = body =>
     fake: () => FAKE_USER,
   })
 
-export const deleteUser = id =>
+export const deleteUser = (id: string): Promise<null> =>
   query({
     method: 'DELETE',
     url: `/users/${id}`,
     fake: () => null,
   })
 
-export const getTopics = () =>
+export const getTopics = (): Promise<Topic[]> =>
   query({
     url: '/topics',
-    fake: () => [
-      {
-        name: 'Présentation',
-      },
-      {
-        name: 'Contrastes et inégalités',
-      },
-      {
-        name: 'Mobilités',
-      },
-      {
-        name: 'Stratégies des acteurs transnationaux',
-      },
-      {
-        name: '(in)sécurités/paix',
-      },
-      {
-        name: 'Vulnérabilités et défis',
-      },
-    ],
+    fake: () => FAKE_TOPICS,
     forceFake: true,
   })
 
@@ -138,9 +142,23 @@ const fakeResponse = (fake, delay) =>
   )
 
 // Get from server or return fake, depends on environment configuration
-const query = (
-  { method = 'GET', url, body, delay = 0, fake = () => null, forceFake } = {},
-) => {
+const query = <T>(
+  {
+    method = 'GET',
+    url,
+    body,
+    delay = 0,
+    fake = () => null,
+    forceFake,
+  }: {
+    method?: string,
+    url: string,
+    body?: Object,
+    delay?: number,
+    fake?: Function,
+    forceFake?: boolean,
+  } = {},
+): Promise<T> => {
   if (process.env.REACT_APP_MOCK_API === 'yes' || forceFake) {
     return fakeResponse(fake, delay)
   }
@@ -154,14 +172,17 @@ const query = (
     headers,
     body: body && JSON.stringify(body),
   }
-  const fullUrl = process.env.REACT_APP_API_SERVER + url
+  const fullUrl = (process.env.REACT_APP_API_SERVER || '') + url
 
+  // $FlowFixMe: I can't make him understand, fuck it
   return fetch(fullUrl, options)
     .then(res => (res.status === 204 ? {} : res.json()))
     .then(data => {
       if (data.error) {
         let err = new Error(data.message || data.error)
+        // $FlowFixMe: enhancing Error object
         err.code = data.error
+        // $FlowFixMe: enhancing Error object
         err.status = data.statusCode
         throw err
       }

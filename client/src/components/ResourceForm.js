@@ -172,6 +172,7 @@ class ResourceForm extends Component<Props, State> {
       options,
       onChange,
       value,
+      rows = 1,
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
@@ -180,6 +181,7 @@ class ResourceForm extends Component<Props, State> {
       options?: { label: string, value: any }[],
       onChange?: Function,
       value?: any,
+      rows?: number,
     } = {},
   ): FieldParams {
     const props = {
@@ -208,6 +210,8 @@ class ResourceForm extends Component<Props, State> {
           </div>
         )
       }
+    } else if (rows > 1) {
+      input = <textarea className="textarea" rows={rows} {...props} />
     } else {
       input = <input className="input" type="text" {...props} />
     }
@@ -321,10 +325,10 @@ class ResourceForm extends Component<Props, State> {
             options: this.buildSelectOptions(LOCALES),
           }),
           this.getAttrField('description', {
-            // TODO textarea
             leftIcon: 'info',
             mandatory: true,
             readOnly,
+            rows: 5,
           }),
         ])
         .concat(

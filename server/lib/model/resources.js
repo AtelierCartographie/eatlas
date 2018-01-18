@@ -16,7 +16,6 @@ exports.list = () => find()
 exports.findById = findById
 
 exports.create = async resource => {
-  console.log('VALIDATE RESOURCE', resource)
   const body = await validate(resource, fullResource)
   const found = await exports.findById(body.id)
   if (found) {

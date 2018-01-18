@@ -21,7 +21,7 @@ type Props = {
 
 type State = {}
 
-class ResourceForm extends Component<Props, State> {
+class ResourceEdit extends Component<Props, State> {
   state = {}
 
   componentDidMount() {
@@ -142,5 +142,5 @@ export default withRouter(
       return { loading, shouldLoad, id, resource }
     },
     { fetchResources },
-  )(ResourceForm),
+  )(ResourceEdit),
 )

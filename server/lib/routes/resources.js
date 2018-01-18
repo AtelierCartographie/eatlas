@@ -31,9 +31,7 @@ exports.addFromGoogle = async (req, res) => {
     } catch (e) {
       throw Boom.badRequest('Upload error: ' + e.message)
     }
-    const urls = req.body.uploads.map(up =>
-      getFileUrl(req.body.type, up.fileId),
-    )
+    const urls = req.body.uploads.map(getFileUrl(req.body.type))
     const options = { encoding: null, auth: { bearer: req.body.accessToken } }
     const buffers = await Promise.all(urls.map(url => request(url, options)))
 
@@ -81,8 +79,11 @@ exports.remove = (req, res) =>
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 
-const getFileUrl = (type, fileId) => {
-  const exportFormat = config.google.exportFormat[type]
+const getFileUrl = type => ({ fileId, mimeType }) => {
+  const exportTrigger = config.google.exportTrigger[type]
+  const shouldExport =
+    Array.isArray(exportTrigger) && exportTrigger.includes(mimeType)
+  const exportFormat = shouldExport && config.google.exportFormat[type]
   const url = exportFormat ? config.google.exportUrl : config.google.downloadUrl
   return url
     .replace(/FILE_ID/g, encodeURIComponent(fileId))

@@ -30,6 +30,9 @@
     "clientId": "see https://console.cloud.google.com/apis/credentials",
     "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
     "downloadUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
+    "exportTrigger": {
+      "article": ["application/vnd.google-apps.document"]
+    },
     "exportFormat": {
       "article": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     }

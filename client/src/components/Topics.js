@@ -37,6 +37,8 @@ class Topics extends Component<Props> {
       .sort((t1, t2) => t1.order - t2.order)
     const loading = topics.loading || resources.loading
 
+    const articles = resources.list.filter(r => r.type === 'article')
+
     return (
       <div className="Topics">
         <div className="level">
@@ -83,7 +85,13 @@ class Topics extends Component<Props> {
                     />
                   </td>
                   <td>{t.name}</td>
-                  <td>{Math.floor(Math.random() * 6) + 1}</td>
+                  <td>
+                    {resources.loading ? (
+                      <Spinner small />
+                    ) : (
+                      articles.filter(r => r.topic === t.name).length
+                    )}
+                  </td>
                   <td>
                     <div className="field is-grouped">
                       <div className="control">

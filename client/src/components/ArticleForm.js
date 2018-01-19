@@ -2,7 +2,7 @@
 
 import './ArticleForm.css'
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -16,12 +16,18 @@ type AMeta = any
 type RProps = {
   node: Object,
   resource: Object,
+  onIsMissing: boolean => any,
 }
 
 class _ResourceField extends Component<RProps> {
+  componentDidMount() {
+    this.props.onIsMissing(!this.props.resource)
+  }
+
   render() {
     const { node, resource } = this.props
-    if (!resource)
+
+    if (!resource) {
       return (
         <div className="field">
           <label className="label has-text-danger">
@@ -30,8 +36,10 @@ class _ResourceField extends Component<RProps> {
           <div className="control">
             {node.id} {node.text}
           </div>
+          <Link to={'/import?' + node.id}>Create resource {node.id}</Link>
         </div>
       )
+    }
 
     let preview = renderPreview(resource)
 
@@ -57,7 +65,13 @@ type Props = {
   article: any,
 }
 
-class ArticleForm extends Component<Props> {
+type State = {
+  missingResources: ANode[],
+}
+
+class ArticleForm extends Component<Props, State> {
+  state = { missingResources: [] }
+
   renderHeader(node: ANode, k: string) {
     return (
       <div className="field" key={k}>
@@ -105,7 +119,42 @@ class ArticleForm extends Component<Props> {
   }
 
   renderResource(node: ANode, k: string) {
-    return <ResourceField node={node} key={k} />
+    return (
+      <ResourceField onIsMissing={this.onIsMissing(node)} node={node} key={k} />
+    )
+  }
+
+  onIsMissing = (node: ANode) => (missing: boolean) => {
+    this.setState(state => ({
+      missingResources: state.missingResources
+        .filter(r => r.id !== node.id)
+        .concat(missing ? [node] : []),
+    }))
+  }
+
+  renderMissingResources() {
+    const nodes = this.state.missingResources
+
+    if (nodes.length === 0) {
+      return null
+    }
+
+    return (
+      <Fragment>
+        <h2 className="subtitle">Missing resources</h2>
+        <ul>
+          {nodes.map(node => (
+            <li key={node.id}>
+              <label className="has-text-danger">
+                <Icon icon="warning" />
+                <strong className="has-text-danger">{node.id}</strong>
+              </label>
+              <Link to={'/import?' + node.id}> Import “{node.text}”</Link>
+            </li>
+          ))}
+        </ul>
+      </Fragment>
+    )
   }
 
   renderFootnotes(node: ANode, k: string) {
@@ -143,6 +192,8 @@ class ArticleForm extends Component<Props> {
     return (
       <div className="ArticleForm">
         <h1 className="title">Article form</h1>
+
+        {this.renderMissingResources()}
 
         <h2 className="subtitle">Metas</h2>
         {article.metas.map(this.renderMeta)}

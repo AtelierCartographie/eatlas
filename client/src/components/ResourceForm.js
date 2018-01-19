@@ -15,7 +15,7 @@ import {
   RESOURCE_STATUSES,
   LOCALES,
 } from '../constants'
-import { getTopics } from '../actions'
+import { getTopics, replaceResource } from '../actions'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
@@ -35,6 +35,7 @@ type Props = ContextIntl & {
   onSubmit: SaveCallback,
   // Actions
   getTopics: Function,
+  replaceResource: Function,
 }
 
 type State = {
@@ -591,6 +592,7 @@ class ResourceForm extends Component<Props, State> {
     this.props
       .onSubmit(resource, uploads, accessToken || '')
       .then((resource: Resource) => {
+        this.props.replaceResource(resource)
         this.setState({
           resource: { ...this.state.resource, ...resource },
           docs: this.docsFromResource(resource),
@@ -679,5 +681,5 @@ export default connect(
     shouldLoadTopics: topics.list.length === 0,
     topics,
   }),
-  { getTopics },
+  { getTopics, replaceResource },
 )(injectIntl(ResourceForm))

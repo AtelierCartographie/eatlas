@@ -102,6 +102,12 @@ export const fetchResources = () => dispatch => {
   ) // TODO handle error
 }
 
+// Manual add/replace of a resource
+export const replaceResource = resource => ({
+  type: 'RECEIVE_RESOURCE',
+  payload: { resource },
+})
+
 // topics
 
 export const getTopics = helper('GET_TOPICS', api.getTopics).action

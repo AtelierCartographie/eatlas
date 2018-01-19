@@ -9,6 +9,10 @@ import { Link } from 'react-router-dom'
 import Icon from './Icon'
 import { renderPreview } from './Resources'
 
+// TODO proper typing
+type ANode = any
+type AMeta = any
+
 type RProps = {
   node: Object,
   resource: Object,
@@ -54,7 +58,7 @@ type Props = {
 }
 
 class ArticleForm extends Component<Props> {
-  renderHeader(node, k: string) {
+  renderHeader(node: ANode, k: string) {
     return (
       <div className="field" key={k}>
         <label className="label">Header</label>
@@ -65,7 +69,7 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderParagraph(node, k: string) {
+  renderParagraph(node: ANode, k: string) {
     return (
       <div className="field" key={k}>
         <label className="label">Paragraph</label>
@@ -100,11 +104,11 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderResource(node, k: string) {
+  renderResource(node: ANode, k: string) {
     return <ResourceField node={node} key={k} />
   }
 
-  renderFootnotes(node, k: string) {
+  renderFootnotes(node: ANode, k: string) {
     return (
       <div className="field" key={k}>
         <label className="label">Footnotes</label>
@@ -115,7 +119,7 @@ class ArticleForm extends Component<Props> {
     )
   }
 
-  renderMeta(meta, k: string) {
+  renderMeta(meta: AMeta, k: string) {
     if (meta.list) {
       return (
         <div className="field" key={k}>

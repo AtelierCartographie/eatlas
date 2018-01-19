@@ -578,7 +578,7 @@ class ResourceForm extends Component<Props, State> {
 
   onPickArticle = async (doc: GoogleDoc, accessToken: string) => {
     this.onPick('article')(doc, accessToken)
-    this.setState({ parsing: true, parsed: null })
+    this.setState({ parsing: true, parsed: null, error: null })
     try {
       const parsed = await parseArticleDoc({
         uploads: [
@@ -592,7 +592,12 @@ class ResourceForm extends Component<Props, State> {
       })
       this.setState({ parsing: false, parsed })
     } catch (error) {
-      this.setState({ parsing: false, parsed: null, error })
+      this.setState(state => ({
+        parsing: false,
+        parsed: null,
+        error,
+        docs: { ...state.docs, article: null },
+      }))
     }
   }
 

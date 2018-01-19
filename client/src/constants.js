@@ -23,6 +23,13 @@ export const RESOURCE_STATUSES: ResourceStatus[] = [
   'deleted',
 ]
 
+export const STATUS_STYLE: { [ResourceStatus]: string } = {
+  submitted: 'warning',
+  validated: 'info',
+  published: 'success',
+  deleted: 'danger',
+}
+
 export const MIME_TYPES: { [ResourceType]: string[] } = {
   article: [
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',

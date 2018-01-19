@@ -15,6 +15,7 @@ import IconButton from './IconButton'
 import Icon from './Icon'
 import Confirm from './Confirm'
 import { deleteResource, updateResource } from '../api'
+import { STATUS_STYLE } from '../constants'
 
 import type { ContextRouter } from 'react-router'
 
@@ -110,7 +111,10 @@ class Resources extends Component<Props, State> {
       <tr key={resource.id}>
         <td className="cell-status">
           <span
-            className={'status status-' + resource.status}
+            className={cx(
+              'button is-small is-rounded',
+              'is-' + STATUS_STYLE[resource.status],
+            )}
             title={this.props.intl.formatMessage({
               id: 'status-' + (resource.status || 'null'),
             })}

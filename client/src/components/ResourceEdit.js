@@ -151,6 +151,7 @@ class ResourceEdit extends Component<Props, State> {
     const id: string = this.props.resource.id
 
     return updateResource(id, {
+      // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
       status: resource.status,
       // FIXME make id editable?
       // id: resource.id,

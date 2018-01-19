@@ -12,23 +12,3 @@
   text-align: center;
   vertical-align: middle;
 }
-
-.Resources .status {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-.Resources .status-submitted {
-  background: rgb(253, 192, 79);
-}
-.Resources .status-validated {
-  background: rgb(236, 255, 67);
-}
-.Resources .status-published {
-  background: rgb(39, 204, 47);
-}
-.Resources .status-deleted {
-  background: rgb(238, 54, 54);
-}

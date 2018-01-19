@@ -14,6 +14,7 @@ import {
   MIME_TYPES,
   RESOURCE_STATUSES,
   LOCALES,
+  STATUS_STYLE,
 } from '../constants'
 import { getTopics, replaceResource } from '../actions'
 
@@ -62,6 +63,8 @@ type FieldParams = {
   key?: string,
   mandatory?: boolean,
 }
+
+type SelectOptions = { label: string, value: any, buttonStyle?: string }[]
 
 const renderField = ({
   labelId,
@@ -177,6 +180,7 @@ class ResourceForm extends Component<Props, State> {
       leftIcon,
       rightIcon,
       options,
+      optionsStyle = 'select',
       onChange,
       value,
       rows = 1,
@@ -185,7 +189,8 @@ class ResourceForm extends Component<Props, State> {
       mandatory?: boolean,
       leftIcon?: string,
       rightIcon?: string,
-      options?: { label: string, value: any }[],
+      options?: SelectOptions,
+      optionsStyle?: 'select' | 'buttons',
       onChange?: Function,
       value?: any,
       rows?: number,
@@ -200,7 +205,29 @@ class ResourceForm extends Component<Props, State> {
 
     let input
     if (options) {
-      if (readOnly) {
+      if (optionsStyle === 'buttons') {
+        input = (
+          <div className="buttons has-addons">
+            {options.map(({ label, value, buttonStyle }) => (
+              <button
+                key={value}
+                className={cx(
+                  'button',
+                  buttonStyle ? 'is-' + buttonStyle : null,
+                  {
+                    'is-outlined has-text-weight-light': props.value !== value,
+                    'has-text-weight-bold': props.value === value,
+                  },
+                )}
+                value={value}
+                onClick={props.onChange}
+                disabled={props.readOnly}>
+                {label}
+              </button>
+            ))}
+          </div>
+        )
+      } else if (readOnly) {
         const selected = options.find(({ value }) => value === props.value)
         const label = selected ? selected.label : String(props.value)
         input = <span className="input">{label}</span>
@@ -236,7 +263,7 @@ class ResourceForm extends Component<Props, State> {
     values: any[],
     intlPrefix: ?string,
     prependEmpty: boolean = false,
-  ): { label: string, value: any }[] {
+  ): SelectOptions {
     return (prependEmpty ? [{ label: '', value: undefined }] : []).concat(
       values.map(v => ({
         label: intlPrefix

@@ -598,9 +598,10 @@ class ResourceForm extends Component<Props, State> {
       this.setState(state => {
         // $FlowFixMe: temporarily partial resource now, but it'll be filled later
         const resource: Resource = { ...(state.resource || {}) }
-        ;['id', 'title', 'subtitle', 'copyright'].forEach(meta => {
-          resource[meta] = getMetaText(meta) || resource[meta] || ''
-        })
+        resource.id = getMetaText('id') || resource.id
+        resource.title = getMetaText('title') || resource.title
+        resource.subtitle = getMetaText('subtitle') || resource.subtitle
+        resource.copyright = getMetaText('copyright') || resource.copyright
         resource.topic = getMetaText('parts') || resource.topic
         // language = first summary's language found
         const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(

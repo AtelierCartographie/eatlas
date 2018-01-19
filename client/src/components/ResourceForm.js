@@ -251,11 +251,12 @@ class ResourceForm extends Component<Props, State> {
 
   getFormFields(): FieldParams[] {
     const { resource, saving: readOnly } = this.state
-    const forcedType = this.props.resource && this.props.resource.type
 
     const typeField = this.getAttrField('type', {
-      readOnly: readOnly || !!forcedType,
-      value: forcedType || this.getAttrValue('status'),
+      readOnly: readOnly,
+      value:
+        this.getAttrValue('type') ||
+        (this.props.resource && this.props.resource.type),
       onChange: this.onChangeAttr('type', true),
       mandatory: true,
       options: this.buildSelectOptions(RESOURCE_TYPES, 'type-', true),

@@ -19,6 +19,7 @@ import {
 import { getTopics, replaceResource } from '../actions'
 import Spinner from './Spinner'
 import { parseArticleDoc } from '../api'
+import ObjectDebug from './ObjectDebug'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
@@ -157,6 +158,7 @@ class ResourceForm extends Component<Props, State> {
           {fields.map(renderField)}
           {this.renderSave()}
         </form>
+        <ObjectDebug title="Parsed article" object={this.state.parsed} />
       </div>
     )
   }

@@ -590,7 +590,33 @@ class ResourceForm extends Component<Props, State> {
         ],
         accessToken,
       })
-      this.setState({ parsing: false, parsed })
+      const getMetaText = type => {
+        const meta = parsed.metas.find(m => m.type === type)
+        console.log('meta', type, meta)
+        return meta ? meta.text : null
+      }
+      this.setState(state => {
+        // $FlowFixMe: temporarily partial resource now, but it'll be filled later
+        const resource: Resource = { ...(state.resource || {}) }
+        ;['id', 'title', 'subtitle', 'copyright'].forEach(meta => {
+          resource[meta] = getMetaText(meta) || resource[meta] || ''
+        })
+        resource.topic = getMetaText('parts') || resource.topic
+        resource.description =
+          (resource.language
+            ? getMetaText('summary-' + resource.language)
+            : null) ||
+          // First locale found
+          LOCALES.reduce(
+            (found, lang) => found || getMetaText('summary-' + lang) || '',
+            '',
+          )
+        return {
+          parsing: false,
+          parsed,
+          resource,
+        }
+      })
     } catch (error) {
       this.setState(state => ({
         parsing: false,

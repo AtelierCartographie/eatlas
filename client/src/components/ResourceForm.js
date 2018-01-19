@@ -525,13 +525,15 @@ class ResourceForm extends Component<Props, State> {
   // Cache generated callbacks to avoid useless re-renders
   onChangeAttr = (attr: string, clearDocs: boolean = false) => (
     e: SyntheticInputEvent<HTMLInputElement>,
-  ) =>
+  ) => {
+    const value = e.target.value // beware recycled synthetic events
     this.setState(state => ({
       error: null,
-      resource: { ...state.resource, [attr]: e.target.value },
+      resource: { ...state.resource, [attr]: value },
       docs: clearDocs ? {} : state.docs,
       removedDocs: clearDocs ? [] : state.removedDocs,
     }))
+  }
 
   renderSave() {
     if (!this.state.resource) {

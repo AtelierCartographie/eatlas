@@ -89,9 +89,15 @@ exports.remove = (req, res) =>
 
 // TODO: redo - this is a quick n dirty impl to test iframe
 exports.preview = async (req, res) => {
+  req.foundResource.resources = await resources.list()
+
   const mockupPath = resolve(__dirname, '../../../docs/samples/4/mockup.html')
   const mockup = readFileSync(mockupPath, 'utf8')
-  const html = await generateHTML(req.foundResource, mockup, 'http://localhost:3000')
+  const html = await generateHTML(
+    req.foundResource,
+    mockup,
+    'http://localhost:3000',
+  )
   res.send(html)
 }
 

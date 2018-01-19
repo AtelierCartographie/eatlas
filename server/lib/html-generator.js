@@ -78,27 +78,35 @@ const generateDivContainer = container => {
 
   return `<div class="container">${parts.join('\n')}</div>`
 }
+String.prototype.replaceAll = function(search, replacement) {
+  var target = this
+  return target.replace(new RegExp(search, 'g'), replacement)
+}
 
-const generateFigureContainer = container => {
-  return `
+const generateFigureContainer = (container, doc) => {
+  const r = (doc.resources || []).find(r => r.id === container[0].id)
+  if (!r) return ''
+  const rid = r.id + '-image'
+
+  const figure = `
     <figure class="container">
-      <h2 class="figure-title">${container[0].text}</h2>
+      <h2 class="figure-title">${r.title}</h2>
 
       <picture>
           <!--[if IE 9]><video style="display: none;"><![endif]-->
-          <source srcset="assets/figure/${container[0].id}-medium.png,
-                    assets/figure/${container[0].id}-medium@2x.png 2x,
+          <source srcset="assets/figure/${rid}-medium-1x.png,
+                    assets/figure/${rid}-medium@2x.png 2x,
                     assets/figure/${
-                      container[0].id
+                      rid
                     }-medium@3x.png 3x" media="(min-width: 560px)">
-          <source srcset="assets/figure/${container[0].id}-small.png,
-                    assets/figure/${container[0].id}-small@2x.png 2x,
-                    assets/figure/${container[0].id}-small@3x.png 3x">
+          <source srcset="assets/figure/${rid}-small.png,
+                    assets/figure/${rid}-small@2x.png 2x,
+                    assets/figure/${rid}-small@3x.png 3x">
           <!--[if IE 9]></video><![endif]-->
-          <img srcset="assets/figure/${container[0].id}-small.png,
-                    assets/figure/${container[0].id}-small@2x.png 2x,
+          <img srcset="assets/figure/${rid}-small.png,
+                    assets/figure/${rid}-small@2x.png 2x,
                     assets/figure/${
-                      container[0].id
+                      rid
                     }-small@3x.png 3x" alt="Budget des opérations de paix de l’ONU" class="img-responsive">
       </picture>
 
@@ -112,6 +120,7 @@ const generateFigureContainer = container => {
         </div>
       </div>
     </figure>`
+  return figure.replaceAll(/assets\/figure/, 'http://localhost:3000/media/images')
 }
 
 const generateContainers = doc => {
@@ -133,7 +142,7 @@ const generateContainers = doc => {
         case 'header':
           return generateDivContainer(c)
         case 'resource':
-          return generateFigureContainer(c)
+          return generateFigureContainer(c, doc)
       }
     })
     .join('\n')

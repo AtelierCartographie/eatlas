@@ -613,6 +613,7 @@ class ResourceForm extends Component<Props, State> {
             if (summary) {
               return { summary, lang }
             }
+            return null
           },
           null,
         )

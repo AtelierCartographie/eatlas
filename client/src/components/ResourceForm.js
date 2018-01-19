@@ -123,7 +123,7 @@ const renderField = ({
 class ResourceForm extends Component<Props, State> {
   state: State = {
     // Convert resource files to docs (to make DocPicker aware in edit mode)
-    docs: this.docsFromResource(),
+    docs: this.docsFromResource(this.props.resource),
     resource: this.props.resource,
     accessToken: null,
     saving: false,
@@ -573,7 +573,10 @@ class ResourceForm extends Component<Props, State> {
     this.props
       .onSubmit(resource, uploads, accessToken || '')
       .then((resource: Resource) => {
-        this.setState({ resource: { ...this.state.resource, ...resource } })
+        this.setState({
+          resource: { ...this.state.resource, ...resource },
+          docs: this.docsFromResource(resource),
+        })
       })
       .catch(error => {
         this.setState({ error })
@@ -623,8 +626,7 @@ class ResourceForm extends Component<Props, State> {
     return true
   }
 
-  docsFromResource(): GoogleDocs {
-    const { resource } = this.props
+  docsFromResource(resource: ?Resource): GoogleDocs {
     const docs = {}
 
     if (!resource) {

@@ -261,19 +261,18 @@ class ResourceForm extends Component<Props, State> {
       options: this.buildSelectOptions(RESOURCE_TYPES, 'type-', true),
     })
 
+    const idField = this.getAttrField('id', {
+      leftIcon: 'key',
+      mandatory: true,
+      readOnly: readOnly || this.props.mode === 'edit',
+    })
+
     if (!resource || !resource.type) {
-      return [typeField]
+      return [typeField].concat(resource && resource.id ? [idField] : [])
     }
 
     const prependFields = () =>
-      [
-        typeField,
-        this.getAttrField('id', {
-          leftIcon: 'key',
-          mandatory: true,
-          readOnly: readOnly || this.props.mode === 'edit',
-        }),
-      ].concat(
+      [typeField, idField].concat(
         this.props.mode === 'edit'
           ? [
               this.getAttrField('status', {

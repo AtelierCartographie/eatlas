@@ -92,6 +92,9 @@ export default (state: AppState = initialState, action: any): AppState => {
 
     // topics
 
+    case 'GET_TOPICS_REQUEST':
+      return { ...state, topics: { ...state.topics, loading: true, list: [] } }
+
     case 'GET_TOPICS_SUCCESS':
       return {
         ...state,

@@ -66,7 +66,7 @@ exports.addFromGoogle = (req, res) => {
       err =>
         err.code === 'EDUPLICATE'
           ? res.boom.conflict(err.message)
-          : res.boom.send(err, { message: err.message }),
+          : res.boom.send(err),
     )
 }
 

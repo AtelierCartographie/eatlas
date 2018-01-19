@@ -309,10 +309,15 @@ class ResourceForm extends Component<Props, State> {
         this.props.mode === 'edit'
           ? [
               this.getAttrField('status', {
-                leftIcon: 'question-circle-o',
                 mandatory: true,
                 readOnly,
-                options: this.buildSelectOptions(RESOURCE_STATUSES, 'status-'),
+                options: this.buildSelectOptions(
+                  RESOURCE_STATUSES,
+                  'status-',
+                ).map(o =>
+                  Object.assign(o, { buttonStyle: STATUS_STYLE[o.value] }),
+                ),
+                optionsStyle: 'buttons',
               }),
             ]
           : [],

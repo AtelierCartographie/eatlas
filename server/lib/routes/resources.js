@@ -24,52 +24,52 @@ exports.findResource = (req, res, next) =>
 
 exports.get = (req, res) => res.send(req.foundResource)
 
+// TODO add Joi schema
 exports.update = async (req, res) => {
-  resources
-    .update(req.foundResource.id, req.body)
-    .then(updatedResource => res.send(updatedResource))
+  const baseData = Object.assign({}, req.body)
+  // Every field is a resource's field to be updated, except 'uploads' & 'accessToken'
+  delete baseData.uploads
+  delete baseData.accessToken
+
+  const body = Object.assign(
+    { id: req.foundResource.id, type: req.foundResource.type },
+    req.body,
+  )
+
+  handleUploads(body, false)
+    .then(data => merge(baseData, data))
+    .then(updates => resources.update(req.foundResource.id, updates))
+    .then(resource => res.send(resource))
     .catch(res.boom.send)
 }
 
-exports.addFromGoogle = async (req, res) => {
-  try {
-    const data = await handleUploads(req.body)
-
-    const resource = await resources.create(
-      merge(
-        {
-          author: req.session.user.email,
-          status: 'submitted',
-          createdAt: Date.now(),
-          id: req.body.id,
-          type: req.body.type,
-          title: req.body.title,
-          subtitle: req.body.subtitle,
-          topic: req.body.topic,
-          language: req.body.language,
-          description: req.body.description,
-          copyright: req.body.copyright,
-        },
-        data,
-      ),
-    )
-
-    res.send({ id: resource.id })
-  } catch (err) {
-    if (err.isJoi) {
-      res.boom.badRequest(err.message, {
-        details: err.details,
-        object: err._object,
-        annotated: err.annotate(),
-      })
-    } else if (err.code === 'EDUPLICATE') {
-      res.boom.conflict(err.message)
-    } else {
-      // Force output message to be kept
-      res.boom.send(err, { message: err.message })
-    }
+exports.addFromGoogle = (req, res) => {
+  const baseData = {
+    author: req.session.user.email,
+    status: 'submitted',
+    createdAt: Date.now(),
+    id: req.body.id,
+    type: req.body.type,
+    title: req.body.title,
+    subtitle: req.body.subtitle,
+    topic: req.body.topic,
+    language: req.body.language,
+    description: req.body.description,
+    copyright: req.body.copyright,
   }
+
+  handleUploads(req.body, true)
+    .then(data => merge(baseData, data))
+    .then(resources.create)
+    .then(resource => res.send(resource))
+    .catch(
+      err =>
+        err.code === 'EDUPLICATE'
+          ? res.boom.conflict(err.message)
+          : res.boom.send(err, { message: err.message }),
+    )
 }
+
 exports.addFromGoogle.schema = schemas.uploadFromGoogleDrive
 
 exports.list = (req, res) =>
@@ -105,21 +105,27 @@ const expectUploadKeys = (uploads, test) => {
   })
 }
 
-// TODO check mime-type too
-// TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
-const validateUploads = (uploads, type, required) => {
+// Returns additional metadata to be merged into resource before creation
+const handleUploads = async (body, required) => {
+  const { uploads, type, accessToken } = body
+
+  // Validate input
+  // TODO check mime-type too
+  // TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
   switch (type) {
     case 'article': {
       expectUploadKeys(uploads, k => k === 'article')
       if (required && uploads.length !== 1) {
-        throw new Error('expecting a single "article" document')
+        throw Boom.badRequest(
+          'Upload error: expecting a single "article" document',
+        )
       }
       break
     }
     case 'map': {
       expectUploadKeys(uploads, k => k === 'map')
       if (required && uploads.length !== 1) {
-        throw new Error('expecting a single "map" document')
+        throw Boom.badRequest('Upload error: expecting a single "map" document')
       }
       break
     }
@@ -127,24 +133,14 @@ const validateUploads = (uploads, type, required) => {
       expectUploadKeys(uploads, k => k.match(RE_IMAGE_UPLOAD_KEY))
       // Mandatory sizes
       if (required && !uploads.some(u => u.key === 'image-medium-1x')) {
-        throw new Error('required document "image-medium-1x"')
+        throw Boom.badRequest(
+          'Upload error: required document "image-medium-1x"',
+        )
       }
       break
     }
     default:
       throw Boom.notImplemented()
-  }
-}
-
-// Returns additional metadata to be merged into resource before creation
-const handleUploads = async body => {
-  const { uploads, type, accessToken } = body
-
-  // Check uploaded files
-  try {
-    validateUploads(uploads, type, true)
-  } catch (e) {
-    throw Boom.badRequest('Upload error: ' + e.message)
   }
 
   // Fetch contents

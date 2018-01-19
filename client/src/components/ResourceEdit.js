@@ -159,6 +159,8 @@ class ResourceEdit extends Component<Props, State> {
       language: resource.language,
       description: resource.description,
       copyright: resource.copyright,
+      uploads,
+      accessToken,
     })
   }
 }

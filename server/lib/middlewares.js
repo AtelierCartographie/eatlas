@@ -60,6 +60,15 @@ exports.logBoom500 = (req, res, next) => {
 exports.resBoomSend = (req, res, next) => {
   if (res.boom) {
     res.boom.send = (err, additionalData = {}) => {
+      if (err.isJoi) {
+        res.boom.badRequest(err.message, {
+          details: err.details,
+          object: err._object,
+          annotated: err.annotate(),
+        })
+        return
+      }
+
       const boomed = err.isBoom
         ? err
         : res.boom.create(err.status || 500, err.message || String(err))

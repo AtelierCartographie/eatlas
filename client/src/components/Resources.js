@@ -88,11 +88,14 @@ class Resources extends Component<Props, State> {
   }
 
   renderTypeMenuItem(item: MenuItem) {
+    const count = this.props.resources.list.filter(r => r.type === item.type)
+      .length
+
     return (
       <li key={item.type}>
         <NavLink activeClassName="active" exact to={'/resources/' + item.type}>
           <Icon size="medium" icon={item.icon} />
-          <T id={item.label} />
+          <T id={item.label} /> {count !== 0 ? `(${count})` : ''}
         </NavLink>
       </li>
     )

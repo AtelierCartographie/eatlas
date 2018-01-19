@@ -5,27 +5,37 @@ import { FormattedMessage as T } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getTopics } from './../actions'
+import { getTopics, fetchResources } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 
 type Props = {
   topics: {
     loading: boolean,
-    list: Array<Object>,
+    list: Array<Topic>,
+  },
+  resources: {
+    loading: boolean,
+    list: Array<Resource>,
   },
   // actions
   getTopics: typeof getTopics,
+  fetchResources: typeof fetchResources,
 }
 
 class Topics extends Component<Props> {
   componentDidMount() {
     this.props.getTopics()
+    this.props.fetchResources()
   }
 
   render() {
-    const { list, loading } = this.props.topics
-    const orderedList = list.slice().sort((t1, t2) => t1.order - t2.order)
+    const { topics, resources } = this.props
+
+    const orderedList = topics.list
+      .slice()
+      .sort((t1, t2) => t1.order - t2.order)
+    const loading = topics.loading || resources.loading
 
     return (
       <div className="Topics">
@@ -64,7 +74,7 @@ class Topics extends Component<Props> {
               </tr>
             </thead>
             <tbody>
-              {list.map(t => (
+              {orderedList.map(t => (
                 <tr key={t.name}>
                   <td>
                     <img
@@ -100,6 +110,10 @@ class Topics extends Component<Props> {
   }
 }
 
-export default connect(({ topics }: AppState) => ({ topics }), { getTopics })(
-  Topics,
-)
+export default connect(
+  ({ topics, resources }: AppState) => ({ topics, resources }),
+  {
+    getTopics,
+    fetchResources,
+  },
+)(Topics)

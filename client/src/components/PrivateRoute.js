@@ -34,7 +34,7 @@ const loginFormRender = props => (
 
 const waitCheckServerLogin = () => (
   <div>
-    <Spinner />
+    <Spinner small />
     <T id="checking-credentials" />
   </div>
 )

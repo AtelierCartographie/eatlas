@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import Icon from './Icon'
 
-class Spinner extends Component<{}> {
+class Spinner extends Component<{ small: boolean }> {
   render() {
-    // bulma does not offer the is-loading class on span :(
-    return <Icon icon="spinner fa-pulse" />
+    return (
+      <Icon icon={`spinner fa-pulse${this.props.small ? '' : ' is-size-2'}`} />
+    )
   }
 }
 

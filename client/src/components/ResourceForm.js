@@ -18,6 +18,7 @@ import {
 } from '../constants'
 import { getTopics, replaceResource } from '../actions'
 import Spinner from './Spinner'
+import { parseArticleDoc } from '../api'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
@@ -48,6 +49,8 @@ type State = {
   saving: boolean,
   error: ?Error,
   removedDocs: string[],
+  parsing: boolean,
+  parsed: ?any,
 }
 
 type FieldParams = {
@@ -136,6 +139,8 @@ class ResourceForm extends Component<Props, State> {
     saved: false,
     error: null,
     removedDocs: [],
+    parsing: false,
+    parsed: null,
   }
 
   gapi: GoogleApi
@@ -202,7 +207,7 @@ class ResourceForm extends Component<Props, State> {
     const props = {
       value: value || this.getAttrValue(attr),
       onChange: onChange || this.onChangeAttr(attr),
-      readOnly: readOnly,
+      readOnly: readOnly || loading,
       required: mandatory,
     }
 
@@ -338,6 +343,7 @@ class ResourceForm extends Component<Props, State> {
           leftIcon: 'header',
           mandatory: true,
           readOnly,
+          loading: this.state.parsing,
         }),
       ]
         .concat(
@@ -346,6 +352,7 @@ class ResourceForm extends Component<Props, State> {
                 this.getAttrField('subtitle', {
                   leftIcon: 'header',
                   readOnly,
+                  loading: this.state.parsing,
                   mandatory: false,
                 }),
               ]
@@ -356,7 +363,10 @@ class ResourceForm extends Component<Props, State> {
             leftIcon: 'paragraph',
             mandatory: true,
             readOnly,
-            loading: this.props.topics.loading || this.props.shouldLoadTopics,
+            loading:
+              this.state.parsing ||
+              this.props.topics.loading ||
+              this.props.shouldLoadTopics,
             options: (this.props.mode === 'create'
               ? [{ label: '', value: null }]
               : []
@@ -371,6 +381,7 @@ class ResourceForm extends Component<Props, State> {
             leftIcon: 'language',
             mandatory: true,
             readOnly,
+            loading: this.state.parsing,
             options: this.buildSelectOptions(
               LOCALES,
               null,
@@ -381,6 +392,7 @@ class ResourceForm extends Component<Props, State> {
             leftIcon: 'info',
             mandatory: true,
             readOnly,
+            loading: this.state.parsing,
             rows: 5,
           }),
         ])
@@ -410,7 +422,12 @@ class ResourceForm extends Component<Props, State> {
     switch (resource.type) {
       case 'article':
         return buildFields(
-          [this.getDocField(resource, 'article', { mandatory: true })],
+          [
+            this.getDocField(resource, 'article', {
+              mandatory: true,
+              onPick: this.onPickArticle,
+            }),
+          ],
           { subtitle: true },
         )
       case 'map':
@@ -488,11 +505,13 @@ class ResourceForm extends Component<Props, State> {
       labelId = 'selected-file',
       labelValues = {},
       mandatory = false,
+      onPick = this.onPick(docKey),
     }: {
       multiple?: boolean,
       labelId?: string,
       labelValues?: Object,
       mandatory?: boolean,
+      onPick?: Function,
     } = {},
   ): FieldParams {
     // $FlowFixMe: 'input' is set just below
@@ -521,7 +540,7 @@ class ResourceForm extends Component<Props, State> {
         <DocPicker
           locale={this.props.locale}
           label="select-file"
-          onPick={this.onPick(docKey)}
+          onPick={onPick}
           showPickerAfterUpload={false}
           mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
         />
@@ -553,6 +572,26 @@ class ResourceForm extends Component<Props, State> {
     })
 
     return {}
+  }
+
+  onPickArticle = async (doc: GoogleDoc, accessToken: string) => {
+    this.onPick('article')(doc, accessToken)
+    this.setState({ parsing: true, parsed: null })
+    try {
+      const parsed = await parseArticleDoc({
+        uploads: [
+          {
+            fileId: doc.id,
+            key: 'article',
+            mimeType: doc.mimeType,
+          },
+        ],
+        accessToken,
+      })
+      this.setState({ parsing: false, parsed })
+    } catch (error) {
+      this.setState({ parsing: false, parsed: null, error })
+    }
   }
 
   guessResourceId(doc: GoogleDoc) {

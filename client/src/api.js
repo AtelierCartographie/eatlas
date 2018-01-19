@@ -66,6 +66,16 @@ export const addResourceFromGoogleDrive = (
     fake: () => FAKE_RESOURCE,
   })
 
+export const parseArticleDoc = (body: {
+  uploads: Upload[],
+  accessToken: string,
+}): Promise<any> =>
+  query({
+    url: '/parse/article',
+    method: 'POST',
+    body,
+  })
+
 export const updateResource = (id: string, body: Object): Promise<Resource> =>
   query({
     method: 'POST',

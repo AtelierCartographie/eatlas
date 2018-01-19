@@ -11,7 +11,7 @@ const {
   logBoom500,
   resBoomSend,
 } = require('./lib/middlewares')
-const { user, users, resources, topics } = require('./lib/routes')
+const { user, users, resources, topics, parsers } = require('./lib/routes')
 
 const app = express()
 
@@ -30,6 +30,8 @@ app.get('/users/:id', users.findUser, users.get)
 app.post('/users/:id', users.findUser, users.update)
 app.post('/users', users.add)
 app.delete('/users/:id', users.findUser, users.remove)
+
+app.post('/parse/article', parsers.article)
 
 app.get('/resources', resources.list)
 app.get('/resources/:id/preview', resources.findResource, resources.preview)

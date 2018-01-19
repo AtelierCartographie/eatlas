@@ -32,7 +32,7 @@ exports.update = async (req, res) => {
   delete baseData.accessToken
 
   const body = Object.assign(
-    { id: req.foundResource.id, type: req.foundResource.type },
+    { id: req.foundResource.id, type: req.foundResource.type, uploads: [] },
     req.body,
   )
 

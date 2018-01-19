@@ -36,7 +36,9 @@ class _ResourceField extends Component<RProps> {
           <div className="control">
             {node.id} {node.text}
           </div>
-          <Link to={'/import?' + node.id}>Create resource {node.id}</Link>
+          <Link to={'/resources/new/?' + node.id}>
+            Create resource {node.id}
+          </Link>
         </div>
       )
     }
@@ -149,7 +151,10 @@ class ArticleForm extends Component<Props, State> {
                 <Icon icon="warning" />
                 <strong className="has-text-danger">{node.id}</strong>
               </label>
-              <Link to={'/import?' + node.id}> Import “{node.text}”</Link>
+              <Link to={'/resources/new/?' + node.id}>
+                {' '}
+                Import “{node.text}”
+              </Link>
             </li>
           ))}
         </ul>

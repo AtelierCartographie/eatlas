@@ -239,27 +239,21 @@ class Resources extends Component<Props, State> {
     )
   }
 
-  renderHeader(includeAdd = false) {
-    const title = (
-      <h1 className="title">
-        <T id="resources" />
-      </h1>
-    )
-
-    if (!includeAdd) {
-      return title
-    }
-
+  renderHeader() {
     return (
       <div className="level">
         <div className="level-left">
-          <div className="level-item">{title}</div>
+          <div className="level-item">
+            <h1 className="title">
+              <T id="resources" />
+            </h1>
+          </div>
         </div>
         <div className="level-right">
           <div className="level-item">
             <Link
               className="button is-primary"
-              to={`/import/${this.props.type}`}>
+              to={`/resources/new/${this.props.type}`}>
               <IconButton label="add" icon="plus" />
             </Link>
           </div>

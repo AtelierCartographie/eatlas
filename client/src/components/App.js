@@ -66,9 +66,9 @@ class App extends Component<Props, State> {
     return (
       <Switch>
         <Route exact path="/login" component={Login} />
-        <PrivateRoute exact path="/resources/:type?" component={Resources} />
-        <PrivateRoute path="/import/:type?" component={Import} />
+        <PrivateRoute path="/resources/new/:type?" component={Import} />
         <PrivateRoute path="/resources/:id/edit" component={ResourceEdit} />
+        <PrivateRoute path="/resources/:type?" component={Resources} />
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/users" component={Users} />
         <PrivateRoute path="/users/:id" component={UserForm} />
@@ -111,7 +111,6 @@ class App extends Component<Props, State> {
                 <NavLink to="/topics" label="topics" />
                 <NavLink to="/resources" label="resources" />
                 <NavLink to="/users" label="users" />
-                <NavLink to="/import" label="import" />
               </div>
             )}
             <div className="navbar-end">{this.renderUserBox()}</div>

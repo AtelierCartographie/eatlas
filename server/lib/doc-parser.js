@@ -78,6 +78,8 @@ const parseMeta = text => {
 }
 
 const parseMetaNext = ($, { next }, meta) => {
+  if (!next) return meta
+
   switch (next.name) {
     case 'p':
       meta.text = getText($, next)

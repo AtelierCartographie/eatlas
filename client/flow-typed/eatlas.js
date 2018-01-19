@@ -58,9 +58,9 @@ declare type Resource = ResourceNew & {
   file?: string,
   nodes?: any[],
   images?: {
-    small: { '1x'?: string, '2x'?: string, '3x'?: string },
-    medium: { '1x': string, '2x'?: string, '3x'?: string },
-    large: { '1x'?: string, '2x'?: string, '3x'?: string },
+    small: { '1x'?: ?string, '2x'?: ?string, '3x'?: ?string },
+    medium: { '1x': ?string, '2x'?: ?string, '3x'?: ?string },
+    large: { '1x'?: ?string, '2x'?: ?string, '3x'?: ?string },
   },
   author: string,
   createdAt: string, // Date (ISO 8601)

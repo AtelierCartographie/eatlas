@@ -654,6 +654,9 @@ class ResourceForm extends Component<Props, State> {
       const images = resource.images
       for (let size in images) {
         for (let density in images[size]) {
+          if (!images[size][density]) {
+            continue // skip null documents (was deleted)
+          }
           docs[`image-${size}-${density}`] = {
             type: 'photo',
             id: '', // No GoogleDoc id → will not be included in onSubmit's uploads

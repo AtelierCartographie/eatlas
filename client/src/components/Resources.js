@@ -64,8 +64,10 @@ export const renderPreview = (resource: Resource) => {
   if (resource.type === 'image' && resource.images) {
     // medium@1x is mandatory, we can count on it
     const file = resource.images.medium['1x']
-    const url = (process.env.REACT_APP_PUBLIC_PATH_image || '/') + file
-    return <img className="preview" src={url} alt={file} />
+    if (file) {
+      const url = (process.env.REACT_APP_PUBLIC_PATH_image || '/') + file
+      return <img className="preview" src={url} alt={file} />
+    }
   }
 
   if (resource.type === 'map' && resource.file) {

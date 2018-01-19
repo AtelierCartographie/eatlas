@@ -25,6 +25,8 @@ class Topics extends Component<Props> {
 
   render() {
     const { list, loading } = this.props.topics
+    const orderedList = list.slice().sort((t1, t2) => t1.order - t2.order)
+
     return (
       <div className="Topics">
         <div className="level">
@@ -62,10 +64,13 @@ class Topics extends Component<Props> {
               </tr>
             </thead>
             <tbody>
-              {list.map((t, k) => (
+              {list.map(t => (
                 <tr key={t.name}>
                   <td>
-                    <img alt="icon" src={`/topics/pictos-parties_${k}.svg`} />
+                    <img
+                      alt="icon"
+                      src={`/topics/pictos-parties_${t.id}.svg`}
+                    />
                   </td>
                   <td>{t.name}</td>
                   <td>{Math.floor(Math.random() * 6) + 1}</td>

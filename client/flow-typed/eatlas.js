@@ -39,6 +39,8 @@ declare type User = UserNew & { id: string }
 
 declare type Topic = {
   name: string,
+  id: string,
+  order: number,
 }
 
 declare type ResourceNew = {

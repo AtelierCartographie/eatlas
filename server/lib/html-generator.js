@@ -172,18 +172,16 @@ const generateNotes = doc => {
 }
 
 const generateSeeAlso = doc => {
-  const seeAlsos = doc.metas
-    .find(n => n.type === 'related')
-    .list.map(
-      s =>
-        `
+  const seeAlsos = doc.metas.find(n => n.type === 'related').list.map(
+    s =>
+      `
       <div class="col-sm-6">
           <a href="#" class="thumbnail">
               <img src="assets/img/thumbnails-article1.svg" alt="...">
               <h3>${s.text}</h3>
           </a>
       </div>`,
-    )
+  )
   return `
     <section class="container article-seealso">
         <h2>Continuer dans l'Atlas</h2>
@@ -216,7 +214,7 @@ const generateLexicon = doc => {
               <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id tellus at eros molestie efficitur. Nunc vitae tempor mi. Aenean suscipit erat non purus eleifend, et feugiat erat gravida. Etiam at leo vel enim pulvinar dignissim vitae vitae odio. Quisque mattis consequat condimentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc quis turpis cras amet.</dd>
           </dl>
       </div>`,
-    )
+    ).join('')
 
   return `<section class="article-def">${lexicons}</section>`
 }
@@ -233,9 +231,43 @@ const generateArticle = doc => {
   return article.join('')
 }
 
-exports.generateHTML = async (docx, mockup) => {
-  const doc = await parseDocx(docx)
+exports.generateHTML = async (doc, mockup, root) => {
+  // TODO better separate api
+  doc = doc.nodes ? doc : await parseDocx(doc)
   const $ = cheerio.load(mockup)
   $('article.article').html(generateArticle(doc))
+  console.log({ root })
+  // TODO miam miam !
+  if (root)
+    // styles
+    $('link').each(function(i, elem) {
+      if (
+        !$(elem)
+          .attr('href')
+          .startsWith('http')
+      )
+        $(elem).attr('href', `${root}/${$(elem).attr('href')}`)
+    })
+  // scripts
+  $('script').each(function(i, elem) {
+    if (
+      $(elem).attr('src') &&
+      !$(elem)
+        .attr('src')
+        .startsWith('http')
+    )
+      $(elem).attr('src', `${root}/${$(elem).attr('src')}`)
+  })
+
+  // icons
+  $('img').each(function(i, elem) {
+    if (
+      $(elem).attr('src') &&
+      !$(elem)
+        .attr('src')
+        .startsWith('http')
+    )
+      $(elem).attr('src', `${root}/${$(elem).attr('src')}`)
+  })
   return $.html()
 }

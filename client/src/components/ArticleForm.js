@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import Icon from './Icon'
+import IconButton from './IconButton'
 import { renderPreview } from './Resources'
 
 // TODO proper typing
@@ -69,10 +70,11 @@ type Props = {
 
 type State = {
   missingResources: ANode[],
+  previewMode: boolean,
 }
 
 class ArticleForm extends Component<Props, State> {
-  state = { missingResources: [] }
+  state = { missingResources: [], previewMode: false }
 
   renderHeader(node: ANode, k: string) {
     return (
@@ -192,17 +194,17 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  render() {
+  renderForm() {
     const { article } = this.props
     return (
       <div className="ArticleForm">
-        <h1 className="title">Article form</h1>
-
         {this.renderMissingResources()}
 
+        <hr />
         <h2 className="subtitle">Metas</h2>
         {article.metas.map(this.renderMeta)}
 
+        <hr />
         <h2 className="subtitle">Content</h2>
         {article.nodes.map((node, k) => {
           switch (node.type) {
@@ -223,6 +225,50 @@ class ArticleForm extends Component<Props, State> {
           }
         })}
       </div>
+    )
+  }
+
+  renderPreview() {
+    // TODO
+    return (
+      <iframe
+        width="100%"
+        height="700px"
+        src={`http://localhost:4000/resources/${
+          this.props.article.id
+        }/preview`}
+      />
+    )
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="field is-grouped">
+          <div className="control">
+            <button
+              className="button is-outlined"
+              onClick={() =>
+                this.setState({ previewMode: !this.state.previewMode })
+              }>
+              {this.state.previewMode ? (
+                <IconButton label="hide-preview" icon="eye-slash" />
+              ) : (
+                <IconButton label="show-preview" icon="eye" />
+              )}
+            </button>
+          </div>
+          <div className="control">
+            <button className="button is-primary" disabled={true}>
+              <IconButton label="publish" icon="play" />
+            </button>
+          </div>
+        </div>
+
+        <hr />
+
+        {this.state.previewMode ? this.renderPreview() : this.renderForm()}
+      </Fragment>
     )
   }
 }

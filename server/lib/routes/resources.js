@@ -1,5 +1,7 @@
 'use strict'
 
+const { readFileSync } = require('fs')
+const { resolve } = require('path')
 const request = require('request-promise-native')
 const config = require('config')
 const Boom = require('boom')
@@ -9,6 +11,7 @@ const { resources } = require('../model')
 const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
 const { saveMedia } = require('../public-fs')
+const { generateHTML } = require('../html-generator')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -83,6 +86,14 @@ exports.remove = (req, res) =>
     .remove(req.params.id)
     .then(() => res.status(204).end())
     .catch(res.boom.send)
+
+// TODO: redo - this is a quick n dirty impl to test iframe
+exports.preview = async (req, res) => {
+  const mockupPath = resolve(__dirname, '../../../docs/samples/4/mockup.html')
+  const mockup = readFileSync(mockupPath, 'utf8')
+  const html = await generateHTML(req.foundResource, mockup, 'http://localhost:3000')
+  res.send(html)
+}
 
 const getFileUrl = type => ({ fileId, mimeType }) => {
   const exportTrigger = config.google.exportTrigger[type]

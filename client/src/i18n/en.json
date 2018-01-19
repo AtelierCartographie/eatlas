@@ -15,6 +15,7 @@
   "error-invalid-resource-type":
     "Unknown resource type for file \"{name}\" ({mimeType}). Please select another file.",
   "focus": "focus",
+  "hide-preview": "hide preview",
   "home": "home",
   "icon": "icon",
   "import": "import",
@@ -23,6 +24,7 @@
   "name": "name",
   "photos": "photos",
   "preview": "preview",
+  "publish": "publish",
   "resource-author": "Author",
   "resource-copyright": "Copyright",
   "resource-create": "Add resource",
@@ -44,6 +46,7 @@
   "selected-image": "Image « {size}@{density} »",
   "selected-file": "Selected file",
   "selected-image": "Image « {size}@{density} »",
+  "show-preview": "show preview",
   "sounds": "sounds",
   "status-deleted": "deleted",
   "status-null": "UNDEFINED STATUS!",

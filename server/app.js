@@ -32,6 +32,7 @@ app.post('/users', users.add)
 app.delete('/users/:id', users.findUser, users.remove)
 
 app.get('/resources', resources.list)
+app.get('/resources/:id/preview', resources.findResource, resources.preview)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources', validateBody(resources.addFromGoogle))
 app.post('/resources/:id', resources.findResource, resources.update)

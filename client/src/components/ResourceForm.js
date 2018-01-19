@@ -44,6 +44,7 @@ type State = {
   saved: boolean,
   saving: boolean,
   error: ?Error,
+  removedDocs: string[],
 }
 
 type FieldParams = {
@@ -129,6 +130,7 @@ class ResourceForm extends Component<Props, State> {
     saving: false,
     saved: false,
     error: null,
+    removedDocs: [],
   }
 
   gapi: GoogleApi
@@ -514,18 +516,22 @@ class ResourceForm extends Component<Props, State> {
 
   unselectFile = (docKey: string) => e => {
     e.preventDefault()
-    this.setState({ docs: { ...this.state.docs, [docKey]: null } })
+    this.setState(state => ({
+      docs: { ...state.docs, [docKey]: null },
+      removedDocs: state.removedDocs.concat([docKey]),
+    }))
   }
 
   // Cache generated callbacks to avoid useless re-renders
   onChangeAttr = (attr: string, clearDocs: boolean = false) => (
     e: SyntheticInputEvent<HTMLInputElement>,
   ) =>
-    this.setState({
+    this.setState(state => ({
       error: null,
-      resource: { ...this.state.resource, [attr]: e.target.value },
-      docs: clearDocs ? {} : this.state.docs,
-    })
+      resource: { ...state.resource, [attr]: e.target.value },
+      docs: clearDocs ? {} : state.docs,
+      removedDocs: clearDocs ? [] : state.removedDocs,
+    }))
 
   renderSave() {
     if (!this.state.resource) {
@@ -549,14 +555,14 @@ class ResourceForm extends Component<Props, State> {
   onSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { resource, docs, accessToken } = this.state
+    const { resource, docs, accessToken, removedDocs } = this.state
 
     if (!resource || !this.isSaveable()) {
       return
     }
 
     const uploads = Object.keys(docs)
-      .filter(key => docs[key] && !!docs[key].id)
+      .filter(key => docs[key] && !!docs[key].id && !removedDocs.includes(key))
       .reduce((ups, key) => {
         const doc = docs[key]
         return doc
@@ -569,6 +575,16 @@ class ResourceForm extends Component<Props, State> {
             ])
           : ups
       }, [])
+      .concat(
+        // In 'edit' mode: we include deleted docs
+        this.props.mode === 'edit'
+          ? removedDocs.map(key => ({
+              key,
+              fileId: '', // Convention: empty fileId means deletion
+              mimeType: '',
+            }))
+          : [],
+      )
 
     this.props
       .onSubmit(resource, uploads, accessToken || '')
@@ -576,6 +592,7 @@ class ResourceForm extends Component<Props, State> {
         this.setState({
           resource: { ...this.state.resource, ...resource },
           docs: this.docsFromResource(resource),
+          removedDocs: [],
         })
       })
       .catch(error => {

@@ -108,6 +108,7 @@ const expectUploadKeys = (uploads, test) => {
 // Returns additional metadata to be merged into resource before creation
 const handleUploads = async (body, required) => {
   const { uploads, type, accessToken } = body
+  const newUploads = uploads.filter(u => !!u.fileId)
 
   // Validate input
   // TODO check mime-type too
@@ -115,27 +116,23 @@ const handleUploads = async (body, required) => {
   switch (type) {
     case 'article': {
       expectUploadKeys(uploads, k => k === 'article')
-      if (required && uploads.length !== 1) {
-        throw Boom.badRequest(
-          'Upload error: expecting a single "article" document',
-        )
+      if (required && newUploads.length !== 1) {
+        throw Boom.badRequest('Upload: expecting a single "article" document')
       }
       break
     }
     case 'map': {
       expectUploadKeys(uploads, k => k === 'map')
-      if (required && uploads.length !== 1) {
-        throw Boom.badRequest('Upload error: expecting a single "map" document')
+      if (required && newUploads.length !== 1) {
+        throw Boom.badRequest('Upload: expecting a single "map" document')
       }
       break
     }
     case 'image': {
       expectUploadKeys(uploads, k => k.match(RE_IMAGE_UPLOAD_KEY))
       // Mandatory sizes
-      if (required && !uploads.some(u => u.key === 'image-medium-1x')) {
-        throw Boom.badRequest(
-          'Upload error: required document "image-medium-1x"',
-        )
+      if (required && !newUploads.some(u => u.key === 'image-medium-1x')) {
+        throw Boom.badRequest('Upload: required document "image-medium-1x"')
       }
       break
     }
@@ -144,40 +141,50 @@ const handleUploads = async (body, required) => {
   }
 
   // Fetch contents
-  const urls = uploads.map(getFileUrl(type))
+  const urls = newUploads.map(getFileUrl(type))
   const options = { encoding: null, auth: { bearer: accessToken } }
   const buffers = await Promise.all(urls.map(url => request(url, options)))
 
-  // Inject buffer into each upload object
-  uploads.forEach((upload, index) => {
+  // Inject buffer into each upload object (mutates 'uploads' too by reference, which is what we want to achieve)
+  newUploads.forEach((upload, index) => {
     upload.buffer = buffers[index]
   })
 
   switch (type) {
     case 'article': {
-      const upload = uploads.find(u => u.key === 'article')
+      const upload = newUploads.find(u => u.key === 'article')
       if (!upload) {
         return null
+      }
+      // Deletion
+      if (!upload.buffer) {
+        return { file: null }
       }
       return parseDocx(upload.buffer)
     }
     case 'map': {
-      const upload = uploads.find(u => u.key === 'map')
+      const upload = newUploads.find(u => u.key === 'map')
       if (!upload) {
         return null
+      }
+      // Deletion
+      if (!upload.buffer) {
+        return { file: null }
       }
       const file = await saveMedia(body)(upload)
       return { file }
     }
     case 'image': {
-      const files = await Promise.all(uploads.map(saveMedia(body)))
+      // Save new uploads
+      const files = await Promise.all(newUploads.map(saveMedia(body)))
       const images = {}
+      // Handle *all* uploads (deletions included)
       uploads.forEach(({ key }, index) => {
         const [, size, density] = key.match(RE_IMAGE_UPLOAD_KEY)
         if (!images[size]) {
           images[size] = {}
         }
-        images[size][density] = files[index]
+        images[size][density] = files[index] || null
       })
       return { images }
     }

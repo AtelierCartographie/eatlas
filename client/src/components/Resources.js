@@ -2,14 +2,14 @@
 
 import './Resources.css'
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
 
 import { connect } from 'react-redux'
-import { fetchResources } from './../actions'
+import { fetchResources, getTopics } from './../actions'
 import Spinner from './Spinner'
 import IconButton from './IconButton'
 import Icon from './Icon'
@@ -23,9 +23,14 @@ type Props = ContextIntl & {
     loading: boolean,
     list: Array<Resource>,
   },
+  topics: {
+    loading: boolean,
+    list: Array<Topic>,
+  },
   type: ResourceType | '',
   // actions
   fetchResources: typeof fetchResources,
+  getTopics: typeof getTopics,
 }
 
 type State = {
@@ -56,6 +61,7 @@ class Resources extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchResources()
+    this.props.getTopics()
   }
 
   renderTypeMenuItem(item: MenuItem) {
@@ -111,7 +117,7 @@ class Resources extends Component<Props, State> {
         <td>{resource.id}</td>
         <td>{resource.type}</td>
         <td>{this.renderPreview(resource)}</td>
-        <td>{resource.topic}</td>
+        <td>{this.renderTopic(resource)}</td>
         <td>{resource.author}</td>
         <td>{resource.title}</td>
         <td>
@@ -262,6 +268,32 @@ class Resources extends Component<Props, State> {
     )
   }
 
+  renderTopic(resource: Resource) {
+    if (!resource.topic) {
+      return null
+    }
+
+    if (this.props.topics.loading) {
+      return (
+        <Fragment>
+          <Spinner small /> {resource.topic}
+        </Fragment>
+      )
+    }
+
+    const topic = this.props.topics.list.find(t => t.id === resource.topic)
+
+    if (!topic) {
+      return (
+        <Fragment>
+          <Icon icon="exclamation-triangle" /> {resource.topic}
+        </Fragment>
+      )
+    }
+
+    return topic.name
+  }
+
   render() {
     const { loading, list } = this.props.resources
     const filteredResources = this.props.type
@@ -299,11 +331,13 @@ class Resources extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ resources }: AppState, { match }: ContextRouter) => ({
+    ({ resources, topics }: AppState, { match }: ContextRouter) => ({
+      topics,
       resources,
       type: match.params.type || '',
     }),
     {
+      getTopics,
       fetchResources,
     },
   )(injectIntl(Resources)),

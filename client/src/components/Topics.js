@@ -89,7 +89,7 @@ class Topics extends Component<Props> {
                     {resources.loading ? (
                       <Spinner small />
                     ) : (
-                      articles.filter(r => r.topic === t.name).length
+                      articles.filter(r => r.topic === t.id).length
                     )}
                   </td>
                   <td>

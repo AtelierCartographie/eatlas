@@ -315,9 +315,10 @@ class ResourceForm extends Component<Props, State> {
             ...(this.props.topics.loading || this.props.shouldLoadTopics
               ? { rightIcon: 'spinner fa-pulse' }
               : {
-                  options: this.buildSelectOptions(
-                    this.props.topics.list.map(topic => topic.name),
-                  ),
+                  options: this.props.topics.list.map(({ name, id }) => ({
+                    label: name,
+                    value: id,
+                  })),
                 }),
           }),
           this.getAttrField('language', {

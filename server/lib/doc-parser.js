@@ -28,6 +28,8 @@ const conversions = {
   'Résumé-FR': 'summary-fr',
   "Continuer dans l'Atlas": 'related',
   Références: 'references',
+  // focus only
+  'article-associé': 'related-article',
 }
 
 const getType = name => {

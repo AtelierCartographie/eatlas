@@ -69,7 +69,7 @@ declare type Resource = ResourceNew & {
   status: ResourceStatus,
 }
 
-declare type UploadDocBase = {
+declare type GoogleDocBase = {
   id: string,
   //serviceId: string, // 'docs', 'doc'?
   mimeType: string,
@@ -85,17 +85,23 @@ declare type UploadDocBase = {
   //isShared?: boolean,
 }
 
-declare type UploadDocPhoto = UploadDocBase & {
+declare type GoogleDocPhoto = GoogleDocBase & {
   type: 'photo',
   //rotation: number,
   //rotationDegree: number,
 }
 
-declare type UploadDocWord = UploadDocBase & {
+declare type GoogleDocWord = GoogleDocBase & {
   type: 'document',
 }
 
-declare type UploadDoc = UploadDocPhoto | UploadDocWord
+declare type GoogleDoc = GoogleDocPhoto | GoogleDocWord
+
+declare type Upload = {
+  mimeType: string,
+  fileId: string,
+  key: string,
+}
 
 // WIP, see https://developers.google.com/api-client-library/javascript/reference/referencedocs
 declare type GoogleApi = {

@@ -19,9 +19,11 @@ import { getTopics } from '../actions'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
-  docs: { [string]: ?UploadDoc },
+  uploads: Upload[],
   accessToken: string,
 ) => Promise<*>
+
+type GoogleDocs = { [string]: ?GoogleDoc }
 
 type Props = ContextIntl & {
   locale: Locale,
@@ -36,7 +38,7 @@ type Props = ContextIntl & {
 }
 
 type State = {
-  docs: { [string]: ?UploadDoc },
+  docs: GoogleDocs,
   accessToken: ?string,
   resource: ?Resource,
   saved: boolean,
@@ -482,7 +484,7 @@ class ResourceForm extends Component<Props, State> {
     return opts
   }
 
-  onPick = (docKey: string) => async (doc: UploadDoc, accessToken: string) => {
+  onPick = (docKey: string) => async (doc: GoogleDoc, accessToken: string) => {
     this.setState(state => {
       const newState = {
         ...state,
@@ -553,8 +555,23 @@ class ResourceForm extends Component<Props, State> {
       return
     }
 
+    const uploads = Object.keys(docs)
+      .filter(key => docs[key] && !!docs[key].id)
+      .reduce((ups, key) => {
+        const doc = docs[key]
+        return doc
+          ? ups.concat([
+              {
+                key,
+                fileId: doc.id,
+                mimeType: doc.mimeType,
+              },
+            ])
+          : ups
+      }, [])
+
     this.props
-      .onSubmit(resource, docs, accessToken || '')
+      .onSubmit(resource, uploads, accessToken || '')
       .then((resource: Resource) => {
         this.setState({ resource: { ...this.state.resource, ...resource } })
       })
@@ -606,7 +623,7 @@ class ResourceForm extends Component<Props, State> {
     return true
   }
 
-  docsFromResource(): { [string]: ?UploadDoc } {
+  docsFromResource(): GoogleDocs {
     const { resource } = this.props
     const docs = {}
 
@@ -620,7 +637,7 @@ class ResourceForm extends Component<Props, State> {
         for (let density in images[size]) {
           docs[`image-${size}-${density}`] = {
             type: 'photo',
-            id: '',
+            id: '', // No GoogleDoc id → will not be included in onSubmit's uploads
             mimeType: '',
             name: images[size][density],
           }

@@ -3,6 +3,7 @@
 const request = require('request-promise-native')
 const config = require('config')
 const Boom = require('boom')
+const merge = require('lodash.merge')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
@@ -23,45 +24,34 @@ exports.findResource = (req, res, next) =>
 
 exports.get = (req, res) => res.send(req.foundResource)
 
-exports.update = (req, res) =>
+exports.update = async (req, res) => {
   resources
     .update(req.foundResource.id, req.body)
     .then(updatedResource => res.send(updatedResource))
     .catch(res.boom.send)
+}
 
 exports.addFromGoogle = async (req, res) => {
   try {
-    // Handle uploaded files
-    try {
-      validateUploads(req, res)
-    } catch (e) {
-      throw Boom.badRequest('Upload error: ' + e.message)
-    }
-    const urls = req.body.uploads.map(getFileUrl(req.body.type))
-    const options = { encoding: null, auth: { bearer: req.body.accessToken } }
-    const buffers = await Promise.all(urls.map(url => request(url, options)))
-
-    // Inject buffer into each upload object
-    req.body.uploads.forEach((upload, index) => {
-      upload.buffer = buffers[index]
-    })
-
-    const data = await handleUploads(req, res)
+    const data = await handleUploads(req.body)
 
     const resource = await resources.create(
-      Object.assign({}, data, {
-        author: req.session.user.email,
-        status: 'submitted',
-        createdAt: Date.now(),
-        id: req.body.id,
-        type: req.body.type,
-        title: req.body.title,
-        subtitle: req.body.subtitle,
-        topic: req.body.topic,
-        language: req.body.language,
-        description: req.body.description,
-        copyright: req.body.copyright,
-      }),
+      merge(
+        {
+          author: req.session.user.email,
+          status: 'submitted',
+          createdAt: Date.now(),
+          id: req.body.id,
+          type: req.body.type,
+          title: req.body.title,
+          subtitle: req.body.subtitle,
+          topic: req.body.topic,
+          language: req.body.language,
+          description: req.body.description,
+          copyright: req.body.copyright,
+        },
+        data,
+      ),
     )
 
     res.send({ id: resource.id })
@@ -107,62 +97,84 @@ const getFileUrl = type => ({ fileId, mimeType }) => {
 
 const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
 
+const expectUploadKeys = (uploads, test) => {
+  uploads.forEach(u => {
+    if (!test(u.key)) {
+      throw new Error('invalid upload key "' + u.key + '"')
+    }
+  })
+}
+
 // TODO check mime-type too
 // TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
-const validateUploads = req => {
-  const { uploads, type } = req.body
+const validateUploads = (uploads, type, required) => {
   switch (type) {
-    case 'article':
-      if (uploads.length !== 1 || uploads[0].key !== 'article') {
+    case 'article': {
+      expectUploadKeys(uploads, k => k === 'article')
+      if (required && uploads.length !== 1) {
         throw new Error('expecting a single "article" document')
       }
       break
-    case 'map':
-      if (uploads.length !== 1 || uploads[0].key !== 'map') {
+    }
+    case 'map': {
+      expectUploadKeys(uploads, k => k === 'map')
+      if (required && uploads.length !== 1) {
         throw new Error('expecting a single "map" document')
       }
       break
-    case 'image':
-      uploads.forEach(u => {
-        if (!u.key.match(RE_IMAGE_UPLOAD_KEY)) {
-          throw new Error('invalid upload key "' + u.key + '"')
-        }
-      })
+    }
+    case 'image': {
+      expectUploadKeys(uploads, k => k.match(RE_IMAGE_UPLOAD_KEY))
       // Mandatory sizes
-      if (!uploads.some(u => u.key === 'image-medium-1x')) {
+      if (required && !uploads.some(u => u.key === 'image-medium-1x')) {
         throw new Error('required document "image-medium-1x"')
       }
       break
+    }
     default:
       throw Boom.notImplemented()
   }
 }
 
 // Returns additional metadata to be merged into resource before creation
-const handleUploads = async req => {
-  const { uploads, type } = req.body
+const handleUploads = async body => {
+  const { uploads, type, accessToken } = body
+
+  // Check uploaded files
+  try {
+    validateUploads(uploads, type, true)
+  } catch (e) {
+    throw Boom.badRequest('Upload error: ' + e.message)
+  }
+
+  // Fetch contents
+  const urls = uploads.map(getFileUrl(type))
+  const options = { encoding: null, auth: { bearer: accessToken } }
+  const buffers = await Promise.all(urls.map(url => request(url, options)))
+
+  // Inject buffer into each upload object
+  uploads.forEach((upload, index) => {
+    upload.buffer = buffers[index]
+  })
+
   switch (type) {
     case 'article': {
-      return parseDocx(uploads[0].buffer)
+      const upload = uploads.find(u => u.key === 'article')
+      if (!upload) {
+        return null
+      }
+      return parseDocx(upload.buffer)
     }
     case 'map': {
-      const file = await saveMedia({
-        id: req.body.id,
-        type: req.body.type,
-        upload: uploads[0],
-      })
+      const upload = uploads.find(u => u.key === 'map')
+      if (!upload) {
+        return null
+      }
+      const file = await saveMedia(body)(upload)
       return { file }
     }
     case 'image': {
-      const files = await Promise.all(
-        uploads.map(upload =>
-          saveMedia({
-            id: req.body.id,
-            type: req.body.type,
-            upload,
-          }),
-        ),
-      )
+      const files = await Promise.all(uploads.map(saveMedia(body)))
       const images = {}
       uploads.forEach(({ key }, index) => {
         const [, size, density] = key.match(RE_IMAGE_UPLOAD_KEY)

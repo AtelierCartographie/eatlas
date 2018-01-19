@@ -55,11 +55,7 @@ const FAKE_TOPICS: Topic[] = [
 
 export const addResourceFromGoogleDrive = (
   body: ResourceNew & {
-    uploads: Array<{
-      mimeType: string,
-      fileId: string,
-      key: string,
-    }>,
+    uploads: Upload[],
     accessToken: string,
   },
 ): Promise<Resource> =>

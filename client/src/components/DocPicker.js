@@ -17,12 +17,12 @@ type Result = {
 type State = {
   error: ?Error,
   result: ?(Result & {
-    doc: UploadDoc,
+    doc: GoogleDoc,
   }),
 }
 
 type OnPickFunction = (
-  doc: UploadDoc,
+  doc: GoogleDoc,
   viewToken: string,
   gapi: GoogleApi,
 ) => Promise<Result>
@@ -41,7 +41,7 @@ type Props = {
 
 type PickerData = {
   action: string,
-  docs: Array<UploadDoc>,
+  docs: Array<GoogleDoc>,
 }
 
 const initialState: State = { error: null, result: null }

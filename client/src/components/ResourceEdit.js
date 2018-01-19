@@ -144,7 +144,7 @@ class ResourceEdit extends Component<Props, State> {
     )
   }
 
-  save: SaveCallback = async (resource, docs, accessToken) => {
+  save: SaveCallback = async (resource, uploads, accessToken) => {
     if (!this.props.resource || !this.props.resource.id) {
       throw new Error('No resource to save!')
     }

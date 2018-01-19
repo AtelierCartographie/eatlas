@@ -5,7 +5,7 @@ const mime = require('mime')
 const { writeFile, ensureDir } = require('fs-extra')
 const path = require('path')
 
-exports.saveMedia = async ({ id, type, upload: { mimeType, key, buffer } }) => {
+exports.saveMedia = ({ id, type }) => async ({ mimeType, key, buffer }) => {
   const fileDir = config.publicPath[type]
   if (!fileDir) {
     throw new Error('Unknown storage directory for this type "' + type + '"')

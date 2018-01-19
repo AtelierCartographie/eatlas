@@ -32,20 +32,7 @@ class Import extends Component<Props> {
     )
   }
 
-  save: SaveCallback = async (resource, docs, accessToken) => {
-    const uploads = Object.keys(docs).reduce((ups, key) => {
-      const doc = docs[key]
-      return doc
-        ? ups.concat([
-            {
-              key,
-              fileId: doc.id,
-              mimeType: doc.mimeType,
-            },
-          ])
-        : ups
-    }, [])
-
+  save: SaveCallback = async (resource, uploads, accessToken) => {
     const result = await addResourceFromGoogleDrive({
       ...resource,
       uploads,

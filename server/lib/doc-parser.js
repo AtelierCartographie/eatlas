@@ -22,7 +22,7 @@ const conversions = {
   h1: 'header',
   // metas
   auteur: 'author',
-  partie: 'parts',
+  partie: 'topic',
   identifiant: 'id',
   'Mots-clés': 'keywords',
   'Résumé-FR': 'summary-fr',

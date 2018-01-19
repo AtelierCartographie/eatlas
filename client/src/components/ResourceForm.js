@@ -601,7 +601,7 @@ class ResourceForm extends Component<Props, State> {
         ;['id', 'title', 'subtitle', 'copyright'].forEach(meta => {
           resource[meta] = getMetaText(meta) || resource[meta] || ''
         })
-        resource.topic = getMetaText('parts') || resource.topic
+        resource.topic = getMetaText('topic') || resource.topic
         resource.description =
           (resource.language
             ? getMetaText('summary-' + resource.language)

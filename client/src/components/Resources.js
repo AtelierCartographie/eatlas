@@ -327,13 +327,13 @@ class Resources extends Component<Props, State> {
       <div className="Resources">
         {this.renderHeader()}
         <div className="columns">
-          <div className="column is-one-quarter">
+          <div className="column is-one-fifth">
             <aside className="menu">
               <p className="menu-label">Type</p>
               {this.renderTypeMenu(typeItems)}
             </aside>
           </div>
-          <div className="column">
+          <div className="column is-four-fifths">
             {loading ? <Spinner /> : this.renderList(filteredResources)}
           </div>
         </div>

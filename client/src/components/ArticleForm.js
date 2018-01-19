@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import Icon from './Icon'
+import { renderPreview } from './Resources'
 
 type RProps = {
   node: Object,
@@ -28,15 +29,7 @@ class _ResourceField extends Component<RProps> {
         </div>
       )
 
-    let preview = null
-
-    // TODO dry with renderPreview in Resources
-    if (resource.type === 'image' && resource.images) {
-      // medium@1x is mandatory, we can count on it
-      const file = resource.images.medium['1x']
-      const url = (process.env.REACT_APP_PUBLIC_PATH_image || '/') + file
-      preview = <img className="preview" src={url} alt={file} />
-    }
+    let preview = renderPreview(resource)
 
     return (
       <div className="field">

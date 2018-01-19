@@ -56,6 +56,26 @@ const typeItems: Array<MenuItem> = [
   { label: 'sounds', icon: 'microphone', type: 'sound' },
 ]
 
+export const renderPreview = (resource: Resource) => {
+  if (resource.type === 'article') {
+    return <span>{resource.title}</span>
+  }
+
+  if (resource.type === 'image' && resource.images) {
+    // medium@1x is mandatory, we can count on it
+    const file = resource.images.medium['1x']
+    const url = (process.env.REACT_APP_PUBLIC_PATH_image || '/') + file
+    return <img className="preview" src={url} alt={file} />
+  }
+
+  if (resource.type === 'map' && resource.file) {
+    const url = (process.env.REACT_APP_PUBLIC_PATH_map || '/') + resource.file
+    return <img className="preview" src={url} alt={resource.file} />
+  }
+
+  return null
+}
+
 class Resources extends Component<Props, State> {
   state = { removeResource: null, removing: false, restoring: null }
 
@@ -83,26 +103,6 @@ class Resources extends Component<Props, State> {
     )
   }
 
-  renderPreview(resource: Resource) {
-    if (resource.type === 'article') {
-      return <span>{resource.title}</span>
-    }
-
-    if (resource.type === 'image' && resource.images) {
-      // medium@1x is mandatory, we can count on it
-      const file = resource.images.medium['1x']
-      const url = (process.env.REACT_APP_PUBLIC_PATH_image || '/') + file
-      return <img className="preview" src={url} alt={file} />
-    }
-
-    if (resource.type === 'map' && resource.file) {
-      const url = (process.env.REACT_APP_PUBLIC_PATH_map || '/') + resource.file
-      return <img className="preview" src={url} alt={resource.file} />
-    }
-
-    return null
-  }
-
   renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
@@ -116,7 +116,7 @@ class Resources extends Component<Props, State> {
         </td>
         <td>{resource.id}</td>
         <td>{resource.type}</td>
-        <td>{this.renderPreview(resource)}</td>
+        <td>{renderPreview(resource)}</td>
         <td>{this.renderTopic(resource)}</td>
         <td>{resource.author}</td>
         <td>{resource.title}</td>

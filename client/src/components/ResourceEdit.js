@@ -11,6 +11,7 @@ import Spinner from './Spinner'
 import ArticleForm from './ArticleForm'
 import ResourceForm from './ResourceForm'
 import { updateResource } from '../api'
+import ObjectDebug from './ObjectDebug'
 
 import type { SaveCallback } from './ResourceForm'
 
@@ -41,7 +42,7 @@ class ResourceEdit extends Component<Props, State> {
           <T {...this.getTitle()} />
         </h1>
         {this.renderForm()}
-        {process.env.NODE_ENV === 'development' ? this.renderDebug() : null}
+        <ObjectDebug object={this.props.resource} title="Resource" />
       </div>
     )
   }
@@ -87,61 +88,6 @@ class ResourceEdit extends Component<Props, State> {
     }
 
     return <ResourceForm mode="edit" resource={resource} onSubmit={this.save} />
-  }
-
-  renderDebug() {
-    const { resource } = this.props
-
-    if (!resource) {
-      return null
-    }
-
-    const keys = []
-    const appendKeys = (object, prefix = []) => {
-      Object.keys(object).forEach(k => {
-        const k2 = prefix.concat(k)
-        if (object[k] && typeof object[k] === 'object') {
-          appendKeys(object[k], k2)
-        } else {
-          keys.push(k2)
-        }
-      })
-    }
-    appendKeys(resource)
-
-    const get = (object: any, key: string[]) =>
-      // $FlowFixMe: it seems like "o && typeof o === 'object'" is not enough to know it's an object
-      key.reduce((o, k) => (o && typeof o === 'object' ? o[k] : null), object)
-
-    return (
-      <Fragment>
-        <hr />
-        <h1 className="title">Debug (development only)</h1>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Attribute</th>
-              <th>Type</th>
-              <th>Content</th>
-            </tr>
-          </thead>
-          <tbody>
-            {keys.map(key => {
-              const k = key.join('.')
-              const v = get(resource, key)
-              return (
-                <tr key={k}>
-                  <th>{k}</th>
-                  <td>{typeof v}</td>
-                  <td>{JSON.stringify(v)}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-        <pre>{JSON.stringify(resource, null, '  ')}</pre>
-      </Fragment>
-    )
   }
 
   save: SaveCallback = async (resource, uploads, accessToken) => {

@@ -211,7 +211,22 @@ class Resources extends Component<Props, State> {
     this.props.fetchResources()
   }
 
+  static STATUS_ORDER = ['published', 'validated', 'submitted', 'deleted']
+  static statusOrder = (status: ?ResourceStatus): number =>
+    status ? Resources.STATUS_ORDER.indexOf(status) : -1
+
   renderList(resources: Array<Resource>) {
+    // Status then id asc
+    const sorted = resources.slice().sort((r1, r2) => {
+      if (r1.status === r2.status) {
+        return r1.id > r2.id ? +1 : -1
+      } else {
+        return (
+          Resources.statusOrder(r1.status) - Resources.statusOrder(r2.status)
+        )
+      }
+    })
+
     return (
       <table className="table is-striped is-bordered is-fullwidth">
         <thead>
@@ -240,7 +255,7 @@ class Resources extends Component<Props, State> {
             <th style={{ width: '1px' }} />
           </tr>
         </thead>
-        <tbody>{resources.map(this.renderRow)}</tbody>
+        <tbody>{sorted.map(this.renderRow)}</tbody>
       </table>
     )
   }

@@ -299,6 +299,7 @@ class ResourceForm extends Component<Props, State> {
                 this.getAttrField('subtitle', {
                   leftIcon: 'header',
                   readOnly,
+                  mandatory: false,
                 }),
               ]
             : [],
@@ -339,6 +340,7 @@ class ResourceForm extends Component<Props, State> {
                 this.getAttrField('copyright', {
                   leftIcon: 'copyright',
                   readOnly,
+                  mandatory: false,
                 }),
               ]
             : [],

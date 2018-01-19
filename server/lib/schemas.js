@@ -174,7 +174,7 @@ exports.fullResource = {
   title: Joi.string().required(),
   subtitle: Joi.string().when('type', {
     is: Joi.valid(['article', 'focus', 'map']),
-    then: Joi.required(),
+    then: Joi.optional(),
     otherwise: Joi.forbidden(),
   }),
   author: Joi.string()

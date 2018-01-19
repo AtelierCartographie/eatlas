@@ -43,6 +43,7 @@
   "select-file": "Select or import file",
   "selected-image": "Image « {size}@{density} »",
   "selected-file": "Selected file",
+  "selected-image": "Image « {size}@{density} »",
   "sounds": "sounds",
   "status-deleted": "deleted",
   "status-null": "UNDEFINED STATUS!",

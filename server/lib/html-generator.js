@@ -140,9 +140,10 @@ const generateContainers = doc => {
 }
 
 const generateKeywords = doc => {
-  const keywords = doc.metas
-    .find(n => n.type === 'keywords')
-    .list.map(kw => `<a href="#">${kw.text}</a>`)
+  const keywordsMeta = doc.metas.find(n => n.type === 'keywords')
+  if (!keywordsMeta) return ''
+
+  const keywords = keywordsMeta.list.map(kw => `<a href="#">${kw.text}</a>`)
   return `
     <section class="container article-keyword">
         <h2>Mots-clés</h2>
@@ -161,9 +162,10 @@ const generateCitation = doc => {
 }
 
 const generateNotes = doc => {
-  const notes = doc.nodes
-    .find(n => n.type === 'footnotes')
-    .list.map(f => `<li>${f.text}</li>`)
+  const notesMeta = doc.nodes.find(n => n.type === 'footnotes')
+  if (!notesMeta) return ''
+
+  const notes = notesMeta.list.map(f => `<li>${f.text}</li>`)
   return `
     <section class="container article-ref">
         <h2>Notes</h2>
@@ -214,7 +216,8 @@ const generateLexicon = doc => {
               <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id tellus at eros molestie efficitur. Nunc vitae tempor mi. Aenean suscipit erat non purus eleifend, et feugiat erat gravida. Etiam at leo vel enim pulvinar dignissim vitae vitae odio. Quisque mattis consequat condimentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc quis turpis cras amet.</dd>
           </dl>
       </div>`,
-    ).join('')
+    )
+    .join('')
 
   return `<section class="article-def">${lexicons}</section>`
 }

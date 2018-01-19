@@ -2,8 +2,6 @@
 
 const { readFileSync } = require('fs')
 const { resolve } = require('path')
-const request = require('request-promise-native')
-const config = require('config')
 const Boom = require('boom')
 const merge = require('lodash.merge')
 
@@ -12,6 +10,7 @@ const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
 const { saveMedia } = require('../public-fs')
 const { generateHTML } = require('../html-generator')
+const { download } = require('../google')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -101,17 +100,6 @@ exports.preview = async (req, res) => {
   res.send(html)
 }
 
-const getFileUrl = type => ({ fileId, mimeType }) => {
-  const exportTrigger = config.google.exportTrigger[type]
-  const shouldExport =
-    Array.isArray(exportTrigger) && exportTrigger.includes(mimeType)
-  const exportFormat = shouldExport && config.google.exportFormat[type]
-  const url = exportFormat ? config.google.exportUrl : config.google.downloadUrl
-  return url
-    .replace(/FILE_ID/g, encodeURIComponent(fileId))
-    .replace(/FORMAT/g, encodeURIComponent(exportFormat))
-}
-
 const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
 
 const expectUploadKeys = (uploads, test) => {
@@ -158,9 +146,9 @@ const handleUploads = async (body, required) => {
   }
 
   // Fetch contents
-  const urls = newUploads.map(getFileUrl(type))
-  const options = { encoding: null, auth: { bearer: accessToken } }
-  const buffers = await Promise.all(urls.map(url => request(url, options)))
+  const buffers = await Promise.all(
+    newUploads.map(up => download(up.fileId, type, up.mimeType, accessToken)),
+  )
 
   // Inject buffer into each upload object (mutates 'uploads' too by reference, which is what we want to achieve)
   newUploads.forEach((upload, index) => {

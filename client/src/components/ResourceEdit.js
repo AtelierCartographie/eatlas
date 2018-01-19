@@ -151,6 +151,7 @@ class ResourceEdit extends Component<Props, State> {
     const id: string = this.props.resource.id
 
     return updateResource(id, {
+      status: resource.status,
       // FIXME make id editable?
       // id: resource.id,
       title: resource.title,

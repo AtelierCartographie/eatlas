@@ -321,17 +321,26 @@ class ResourceForm extends Component<Props, State> {
             ...(this.props.topics.loading || this.props.shouldLoadTopics
               ? { rightIcon: 'spinner fa-pulse' }
               : {
-                  options: this.props.topics.list.map(({ name, id }) => ({
-                    label: name,
-                    value: id,
-                  })),
+                  options: (this.props.mode === 'create'
+                    ? [{ label: '', value: null }]
+                    : []
+                  ).concat(
+                    this.props.topics.list.map(({ name, id }) => ({
+                      label: name,
+                      value: id,
+                    })),
+                  ),
                 }),
           }),
           this.getAttrField('language', {
             leftIcon: 'language',
             mandatory: true,
             readOnly,
-            options: this.buildSelectOptions(LOCALES),
+            options: this.buildSelectOptions(
+              LOCALES,
+              null,
+              this.props.mode === 'create',
+            ),
           }),
           this.getAttrField('description', {
             leftIcon: 'info',

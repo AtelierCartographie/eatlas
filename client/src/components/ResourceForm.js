@@ -17,6 +17,7 @@ import {
   STATUS_STYLE,
 } from '../constants'
 import { getTopics, replaceResource } from '../actions'
+import Spinner from './Spinner'
 
 export type SaveCallback = (
   resource: ResourceNew | Resource,
@@ -184,6 +185,7 @@ class ResourceForm extends Component<Props, State> {
       onChange,
       value,
       rows = 1,
+      loading = false,
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
@@ -194,6 +196,7 @@ class ResourceForm extends Component<Props, State> {
       onChange?: Function,
       value?: any,
       rows?: number,
+      loading?: boolean,
     } = {},
   ): FieldParams {
     const props = {
@@ -204,7 +207,13 @@ class ResourceForm extends Component<Props, State> {
     }
 
     let input
-    if (options) {
+    if (loading) {
+      input = (
+        <span className="input" disabled>
+          <Spinner small />
+        </span>
+      )
+    } else if (options) {
       if (optionsStyle === 'buttons') {
         input = (
           <div className="buttons has-addons">
@@ -346,23 +355,17 @@ class ResourceForm extends Component<Props, State> {
           this.getAttrField('topic', {
             leftIcon: 'paragraph',
             mandatory: true,
-            readOnly:
-              readOnly ||
-              this.props.topics.loading ||
-              this.props.shouldLoadTopics,
-            ...(this.props.topics.loading || this.props.shouldLoadTopics
-              ? { rightIcon: 'spinner fa-pulse' }
-              : {
-                  options: (this.props.mode === 'create'
-                    ? [{ label: '', value: null }]
-                    : []
-                  ).concat(
-                    this.props.topics.list.map(({ name, id }) => ({
-                      label: name,
-                      value: id,
-                    })),
-                  ),
-                }),
+            readOnly,
+            loading: this.props.topics.loading || this.props.shouldLoadTopics,
+            options: (this.props.mode === 'create'
+              ? [{ label: '', value: null }]
+              : []
+            ).concat(
+              this.props.topics.list.map(({ name, id }) => ({
+                label: name,
+                value: id,
+              })),
+            ),
           }),
           this.getAttrField('language', {
             leftIcon: 'language',

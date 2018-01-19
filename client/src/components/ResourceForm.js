@@ -601,16 +601,22 @@ class ResourceForm extends Component<Props, State> {
         ;['id', 'title', 'subtitle', 'copyright'].forEach(meta => {
           resource[meta] = getMetaText(meta) || resource[meta] || ''
         })
-        resource.topic = getMetaText('topic') || resource.topic
-        resource.description =
-          (resource.language
-            ? getMetaText('summary-' + resource.language)
-            : null) ||
-          // First locale found
-          LOCALES.reduce(
-            (found, lang) => found || getMetaText('summary-' + lang) || '',
-            '',
-          )
+        resource.topic = getMetaText('parts') || resource.topic
+        // language = first summary's language found
+        const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(
+          (found, lang) => {
+            if (found) {
+              return found
+            }
+            const summary = getMetaText('summary-' + lang)
+            if (summary) {
+              return { summary, lang }
+            }
+          },
+          null,
+        )
+        resource.language = foundSummary ? foundSummary.lang : ''
+        resource.description = foundSummary ? foundSummary.summary : ''
         return {
           parsing: false,
           parsed,

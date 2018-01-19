@@ -163,12 +163,12 @@ class ResourceForm extends Component<Props, State> {
 
   renderError(message: any) {
     return (
-      <p>
+      <div className="notification is-danger">
         <strong>
           <T id="error" />:
         </strong>
         {message}
-      </p>
+      </div>
     )
   }
 

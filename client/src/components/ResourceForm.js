@@ -553,11 +553,9 @@ class ResourceForm extends Component<Props, State> {
     this.props
       .onSubmit(resource, docs, accessToken || '')
       .then((resource: Resource) => {
-        console.log({ resource })
         this.setState({ resource: { ...this.state.resource, ...resource } })
       })
       .catch(error => {
-        console.log({ error })
         this.setState({ error })
       })
   }

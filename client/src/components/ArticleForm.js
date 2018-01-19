@@ -232,11 +232,10 @@ class ArticleForm extends Component<Props, State> {
     // TODO
     return (
       <iframe
+        title="Preview"
         width="100%"
         height="700px"
-        src={`http://localhost:4000/resources/${
-          this.props.article.id
-        }/preview`}
+        src={`http://localhost:4000/resources/${this.props.article.id}/preview`}
       />
     )
   }

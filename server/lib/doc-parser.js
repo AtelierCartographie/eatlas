@@ -41,6 +41,8 @@ const parseLinks = ($, el) =>
     .filter((i, el) => el.name === 'a' && el.attribs.href)
     // beware of cheerio and flatMap
     .map((i, el) => [{ label: getText($, el), url: el.attribs.href }])
+    // weird edge case
+    .filter(l => l.label)
     .get()
 
 // "definitions" found in paragraphs

@@ -506,8 +506,8 @@ class ResourceForm extends Component<Props, State> {
     return {}
   }
 
-  guessResourceId(doc: UploadDoc) {
-    return doc.name.replace(/[-\s].*$/, '')
+  guessResourceId(doc: GoogleDoc) {
+    return doc.name.replace(/[-\s.].*$/, '')
   }
 
   unselectFile = (docKey: string) => e => {

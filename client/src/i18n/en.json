@@ -41,6 +41,7 @@
   "restore": "restore",
   "save-changes": "Save changes",
   "select-file": "Select or import file",
+  "selected-image": "Image « {size}@{density} »",
   "selected-file": "Selected file",
   "sounds": "sounds",
   "status-deleted": "deleted",

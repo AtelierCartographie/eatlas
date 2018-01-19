@@ -7,6 +7,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
+import timeago from "timeago.js"
 
 import { connect } from 'react-redux'
 import { fetchResources, getTopics } from './../actions'
@@ -129,6 +130,7 @@ class Resources extends Component<Props, State> {
         <td>{this.renderTopic(resource)}</td>
         <td>{resource.author}</td>
         <td>{resource.title}</td>
+        <td>{timeago().format(resource.createdAt)}</td>
         <td>
           <div className="field is-grouped">
             <div className="control">
@@ -254,6 +256,9 @@ class Resources extends Component<Props, State> {
             </th>
             <th>
               <T id="resource-title" />
+            </th>
+            <th>
+              <T id="resource-created-at" />
             </th>
             <th style={{ width: '1px' }} />
           </tr>

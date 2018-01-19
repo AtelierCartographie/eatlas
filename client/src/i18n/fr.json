@@ -28,6 +28,7 @@
   "resource-author": "Auteur",
   "resource-copyright": "Copyright",
   "resource-create": "Ajout d'une ressource",
+  "resource-created-at": "Créée",
   "resource-description": "Description",
   "resource-edit": "{type} : {id}",
   "resource-edit-loading": "Chargement de la ressource #{id}…",

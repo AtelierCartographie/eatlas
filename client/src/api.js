@@ -22,32 +22,32 @@ const FAKE_RESOURCE: Resource = {
 
 const FAKE_TOPICS: Topic[] = [
   {
-    id: '0',
+    id: '1',
     order: 1,
     name: 'Présentation',
   },
   {
-    id: '1',
+    id: '2',
     order: 2,
     name: 'Contrastes et inégalités',
   },
   {
-    id: '2',
+    id: '3',
     order: 3,
     name: 'Mobilités',
   },
   {
-    id: '3',
+    id: '4',
     order: 4,
     name: 'Stratégies des acteurs transnationaux',
   },
   {
-    id: '4',
+    id: '5',
     order: 5,
     name: '(in)sécurités/paix',
   },
   {
-    id: '5',
+    id: '6',
     order: 6,
     name: 'Vulnérabilités et défis',
   },

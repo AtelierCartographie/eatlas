@@ -7,7 +7,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import timeago from "timeago.js"
+import timeago from 'timeago.js'
 
 import { connect } from 'react-redux'
 import { fetchResources, getTopics } from './../actions'
@@ -327,13 +327,13 @@ class Resources extends Component<Props, State> {
       <div className="Resources">
         {this.renderHeader()}
         <div className="columns">
-          <div className="column is-one-fifth">
+          <div className="column is-2">
             <aside className="menu">
               <p className="menu-label">Type</p>
               {this.renderTypeMenu(typeItems)}
             </aside>
           </div>
-          <div className="column is-four-fifths">
+          <div className="column is-10">
             {loading ? <Spinner /> : this.renderList(filteredResources)}
           </div>
         </div>

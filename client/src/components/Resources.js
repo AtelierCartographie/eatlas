@@ -30,6 +30,7 @@ type Props = ContextIntl & {
     list: Array<Topic>,
   },
   type: ResourceType | '',
+  locale: Locale,
   // actions
   fetchResources: typeof fetchResources,
   getTopics: typeof getTopics,
@@ -130,7 +131,7 @@ class Resources extends Component<Props, State> {
         <td>{this.renderTopic(resource)}</td>
         <td>{resource.author}</td>
         <td>{resource.title}</td>
-        <td>{timeago().format(resource.createdAt)}</td>
+        <td>{timeago().format(resource.createdAt, this.props.locale)}</td>
         <td>
           <div className="field is-grouped">
             <div className="control">
@@ -354,7 +355,8 @@ class Resources extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ resources, topics }: AppState, { match }: ContextRouter) => ({
+    ({ resources, topics, locale }: AppState, { match }: ContextRouter) => ({
+      locale,
       topics,
       resources,
       type: match.params.type || '',

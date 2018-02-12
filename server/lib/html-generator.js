@@ -288,8 +288,8 @@ exports.generateHTML = async (doc, mockup, root) => {
   return $.html()
 }
 
-exports.generateHTMLFromReact = doc => {
+exports.generateHTMLFromReact = (article, topics) => {
   return `<!DOCTYPE html>${renderToStaticMarkup(
-    React.createElement(ArticlePreview, { article: doc }),
+    React.createElement(ArticlePreview, { article, topics }),
   )}`
 }

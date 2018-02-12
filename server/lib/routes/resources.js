@@ -5,7 +5,7 @@ const { resolve } = require('path')
 const Boom = require('boom')
 const merge = require('lodash.merge')
 
-const { resources } = require('../model')
+const { resources, topics } = require('../model')
 const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
 const { saveMedia } = require('../public-fs')
@@ -102,7 +102,7 @@ exports.preview = async (req, res) => {
 
 exports.previewSSR = async (req, res) => {
   req.foundResource.resources = await resources.list()
-  const html = generateHTMLFromReact(req.foundResource)
+  const html = generateHTMLFromReact(req.foundResource, await topics.list())
   res.send(html)
 }
 

@@ -129,11 +129,11 @@ const ArticleFigureContainer = ({ article, container }) => {
     h('h2', r.title),
     h('picture', [
       h('source', {
-        srcset: srcset(rid, 'medium'),
+        srcSet: srcset(rid, 'medium'),
         media: '(min-width: 560px)',
       }),
-      h('source', { srcset: srcset(rid, 'small') }),
-      h('img.img-responsive', { srcset: srcset(rid, 'small') }),
+      h('source', { srcSet: srcset(rid, 'small') }),
+      h('img.img-responsive', { srcSet: srcset(rid, 'small') }),
     ]),
     h('figcaption', 'TODO'),
     h('a.btn.btn-figComment', 'Commentaire'),
@@ -334,14 +334,14 @@ const NavMenuToggle = () =>
 // TODO left and right arrows
 const NavTopics = () => h('div.nav-article-wrapper')
 
-const NavFooter = () =>
+const NavFooter = ({ topics }) =>
   h('div.table-content-bg', [
     h('footer.footer-page', [
       h('div.container', [
         h('div.row', [
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Sommaire'),
-            h('nav', ['TODO']),
+            h('nav', [h('ul', topics.map(t => h('li', [h('a', t)])))]),
           ]),
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Resources'),
@@ -380,11 +380,11 @@ const NavFooter = () =>
 const Body = props =>
   h('body', [
     h(NavBar),
-    h(NavMenu),
+    h(NavMenu, props),
     h(NavMenuToggle),
     h(Article, props),
-    h(NavTopics),
-    h(NavFooter),
+    h(NavTopics, props),
+    h(NavFooter, props),
     h('script', {
       src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
     }),
@@ -394,10 +394,10 @@ const Body = props =>
 
 class ArticlePreview extends Component {
   render() {
-    const { article } = this.props
+    const { article, topics } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { article }),
-      h(Body, { article }),
+      h(Body, { article, topics }),
     ])
   }
 }

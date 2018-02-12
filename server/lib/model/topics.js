@@ -5,6 +5,3 @@ const {
 } = require('../es-client')('topic')
 
 exports.list = () => find()
-
-
-

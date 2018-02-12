@@ -70,7 +70,7 @@ class Topics extends Component<Props> {
                   <T id="name" />
                 </th>
                 <th>
-                  <T id="articles" />
+                  <T id="type-article" />
                 </th>
                 <th style={{ width: '1px' }} />
               </tr>

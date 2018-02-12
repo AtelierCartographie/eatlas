@@ -12,3 +12,8 @@
   text-align: center;
   vertical-align: middle;
 }
+
+.Resources .status-menu .button {
+  font-size: 0.5em;
+  margin: 0 1em;
+}

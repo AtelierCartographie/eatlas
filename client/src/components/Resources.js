@@ -114,19 +114,53 @@ class Resources extends Component<Props, State> {
     )
   }
 
+  renderStatusMenu() {
+    const statuses = ['submitted', 'validated', 'published', 'deleted']
+    return (
+      <ul className="menu-list status-menu">
+        <li key="all">
+          <NavLink
+            activeClassName="active"
+            isActive={() => '' === this.props.status}
+            to={`/resources/${this.props.type}`}>
+            <span className="button is-small is-rounded" />
+            <T id="type-all" />
+          </NavLink>
+        </li>
+        {statuses.map(s => (
+          <li key={s}>
+            <NavLink
+              activeClassName="active"
+              isActive={() => s === this.props.status}
+              to={`/resources/${this.props.type}?${s}`}>
+              {this.renderStatusIcon(s)}
+              <T id={`status-${s}`} />
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  renderStatusIcon(status) {
+    return (
+      <span
+        className={cx(
+          'button is-small is-rounded',
+          'is-' + STATUS_STYLE[status],
+        )}
+        title={this.props.intl.formatMessage({
+          id: 'status-' + (status || 'null'),
+        })}
+      />
+    )
+  }
+
   renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
         <td className="cell-status">
-          <span
-            className={cx(
-              'button is-small is-rounded',
-              'is-' + STATUS_STYLE[resource.status],
-            )}
-            title={this.props.intl.formatMessage({
-              id: 'status-' + (resource.status || 'null'),
-            })}
-          />
+          {this.renderStatusIcon(resource.status)}
         </td>
         <td>{resource.id}</td>
         <td>{resource.type}</td>
@@ -224,17 +258,19 @@ class Resources extends Component<Props, State> {
   static statusOrder = (status: ?ResourceStatus): number =>
     status ? Resources.STATUS_ORDER.indexOf(status) : -1
 
-  renderList(resources: Array<Resource>) {
+  renderList(resources: Array<Resource>, status) {
     // Status then id asc
-    const sorted = resources.slice().sort((r1, r2) => {
-      if (r1.status === r2.status) {
-        return r1.id > r2.id ? +1 : -1
-      } else {
-        return (
-          Resources.statusOrder(r1.status) - Resources.statusOrder(r2.status)
-        )
-      }
-    })
+    const sorted = resources
+      .filter(r => !status || r.status === status)
+      .sort((r1, r2) => {
+        if (r1.status === r2.status) {
+          return r1.id > r2.id ? +1 : -1
+        } else {
+          return (
+            Resources.statusOrder(r1.status) - Resources.statusOrder(r2.status)
+          )
+        }
+      })
 
     return (
       <table className="table is-striped is-bordered is-fullwidth">
@@ -333,12 +369,22 @@ class Resources extends Component<Props, State> {
         <div className="columns">
           <div className="column is-2">
             <aside className="menu">
-              <p className="menu-label">Type</p>
+              <p className="menu-label">
+                <T id="resource-type" />
+              </p>
               {this.renderTypeMenu(typeItems)}
+              <p className="menu-label">
+                <T id="resource-status" />
+              </p>
+              {this.renderStatusMenu()}
             </aside>
           </div>
           <div className="column is-10">
-            {loading ? <Spinner /> : this.renderList(filteredResources)}
+            {loading ? (
+              <Spinner />
+            ) : (
+              this.renderList(filteredResources, this.props.status)
+            )}
           </div>
         </div>
         <Confirm
@@ -363,6 +409,7 @@ export default withRouter(
       topics,
       resources,
       type: match.params.type || '',
+      status: document.location.search.slice(1),
     }),
     {
       getTopics,

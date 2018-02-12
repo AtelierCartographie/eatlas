@@ -5378,6 +5378,10 @@ react-google-picker@0.0.7:
   dependencies:
     load-script "^1.0.0"
 
+react-hyperscript@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-hyperscript/-/react-hyperscript-3.1.0.tgz#8f0fa74003b20ccee98fbb496dfb0791139a287d"
+
 react-intl@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-2.4.0.tgz#66c14dc9df9a73b2fbbfbd6021726e80a613eb15"

@@ -30,6 +30,7 @@ const conversions = {
   Références: 'references',
   // focus only
   'article-associé': 'related-article',
+  'Image header': 'image-header',
 }
 
 const getType = name => {

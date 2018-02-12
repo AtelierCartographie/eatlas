@@ -10,6 +10,7 @@
     "react-dom": "^16.2.0",
     "react-google-login": "^3.0.2",
     "react-google-picker": "0.0.7",
+    "react-hyperscript": "^3.1.0",
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

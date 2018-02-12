@@ -1,5 +1,8 @@
 const { parseDocx } = require('./doc-parser')
 const cheerio = require('cheerio')
+const React = require('react')
+const { renderToStaticMarkup } = require('react-dom/server')
+const ArticlePreview = require('../../client/src/components/ArticlePreview')
 
 const generateTitle = doc => {
   const title = doc.metas.find(n => n.type === 'title')
@@ -40,8 +43,10 @@ const generateSummary = doc => {
         </div>
         <div class="resume-select">
             <ul class="nav nav-pills" role="tablist">
-                <li role="presentation" class="active"><a href="#french" aria-controls="french" role="tab" data-toggle="pill" hreflang="fr">Fr</a></li>
-                <li role="presentation"><a href="#english" aria-controls="english" role="tab" data-toggle="pill" hreflang="en">En</a></li>
+                <li role="presentation" class="active">
+                    <a href="#french" aria-controls="french" role="tab" data-toggle="pill" hreflang="fr">Fr</a></li>
+                <li role="presentation">
+                    <a href="#english" aria-controls="english" role="tab" data-toggle="pill" hreflang="en">En</a></li>
             </ul>
         </div>
         <hr>
@@ -96,18 +101,14 @@ const generateFigureContainer = (container, doc) => {
           <!--[if IE 9]><video style="display: none;"><![endif]-->
           <source srcset="assets/figure/${rid}-medium-1x.png,
                     assets/figure/${rid}-medium@2x.png 2x,
-                    assets/figure/${
-                      rid
-                    }-medium@3x.png 3x" media="(min-width: 560px)">
+                    assets/figure/${rid}-medium@3x.png 3x" media="(min-width: 560px)">
           <source srcset="assets/figure/${rid}-small.png,
                     assets/figure/${rid}-small@2x.png 2x,
                     assets/figure/${rid}-small@3x.png 3x">
           <!--[if IE 9]></video><![endif]-->
           <img srcset="assets/figure/${rid}-small.png,
                     assets/figure/${rid}-small@2x.png 2x,
-                    assets/figure/${
-                      rid
-                    }-small@3x.png 3x" alt="Budget des opérations de paix de l’ONU" class="img-responsive">
+                    assets/figure/${rid}-small@3x.png 3x" alt="Budget des opérations de paix de l’ONU" class="img-responsive">
       </picture>
 
       <figcaption>Source : <a href="http://www.un.org/en/peacekeeping/">Nations unies</a>, Département des opérations de maintien de la paix (DOMP).</figcaption>
@@ -120,7 +121,10 @@ const generateFigureContainer = (container, doc) => {
         </div>
       </div>
     </figure>`
-  return figure.replaceAll(/assets\/figure/, 'http://localhost:3000/media/images')
+  return figure.replaceAll(
+    /assets\/figure/,
+    'http://localhost:3000/media/images',
+  )
 }
 
 const generateContainers = doc => {
@@ -282,4 +286,10 @@ exports.generateHTML = async (doc, mockup, root) => {
       $(elem).attr('src', `${root}/${$(elem).attr('src')}`)
   })
   return $.html()
+}
+
+exports.generateHTMLFromReact = doc => {
+  return `<!DOCTYPE html>${renderToStaticMarkup(
+    React.createElement(ArticlePreview, { article: doc }),
+  )}`
 }

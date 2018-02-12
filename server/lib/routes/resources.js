@@ -9,7 +9,7 @@ const { resources } = require('../model')
 const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
 const { saveMedia } = require('../public-fs')
-const { generateHTML } = require('../html-generator')
+const { generateHTML, generateHTMLFromReact } = require('../html-generator')
 const { download } = require('../google')
 
 exports.findResource = (req, res, next) =>
@@ -97,6 +97,12 @@ exports.preview = async (req, res) => {
     mockup,
     'http://localhost:3000',
   )
+  res.send(html)
+}
+
+exports.previewSSR = async (req, res) => {
+  req.foundResource.resources = await resources.list()
+  const html = generateHTMLFromReact(req.foundResource)
   res.send(html)
 }
 

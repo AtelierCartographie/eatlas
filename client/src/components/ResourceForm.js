@@ -602,7 +602,7 @@ class ResourceForm extends Component<Props, State> {
         resource.title = getMetaText('title') || resource.title
         resource.subtitle = getMetaText('subtitle') || resource.subtitle
         resource.copyright = getMetaText('copyright') || resource.copyright
-        resource.topic = getMetaText('parts') || resource.topic
+        resource.topic = getMetaText('topic') || resource.topic
         // language = first summary's language found
         const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(
           (found, lang) => {

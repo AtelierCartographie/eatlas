@@ -110,7 +110,27 @@ export const replaceResource = resource => ({
 
 // topics
 
+export const getTopic = helper('GET_TOPIC', api.getTopic).action
 export const getTopics = helper('GET_TOPICS', api.getTopics).action
+
+export const saveTopic = ({ id, ...data }) => (dispatch: Function) => {
+  dispatch({ type: 'SAVE_TOPIC_REQUEST' })
+
+  const save = () => (id ? api.updateTopic(id, data) : api.addTopic(data))
+  return save()
+    .then(topic =>
+      dispatch({
+        type: 'GET_TOPIC_SUCCESS',
+        payload: topic,
+      }),
+    )
+    .catch(error =>
+      dispatch({
+        type: 'SAVE_TOPIC_FAILURE',
+        error,
+      }),
+    )
+}
 
 // session
 

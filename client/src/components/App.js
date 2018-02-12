@@ -16,6 +16,7 @@ import PrivateRoute from './PrivateRoute'
 import Resources from './Resources'
 import Import from './Import'
 import ResourceEdit from './ResourceEdit'
+import TopicForm from './TopicForm'
 import Topics from './Topics'
 import UserForm from './UserForm'
 import Users from './Users'
@@ -73,6 +74,7 @@ class App extends Component<Props, State> {
         <PrivateRoute exact path="/users" component={Users} />
         <PrivateRoute path="/users/:id" component={UserForm} />
         <PrivateRoute exact path="/topics" component={Topics} />
+        <PrivateRoute path="/topics/:id" component={TopicForm} />
       </Switch>
     )
   }

@@ -154,11 +154,38 @@ export const deleteUser = (id: string): Promise<null> =>
     fake: () => null,
   })
 
+export const getTopic = (id: string): Promise<Topic> =>
+  query({
+    url: `/topics/${id}`,
+  })
+
 export const getTopics = (): Promise<Topic[]> =>
   query({
     url: '/topics',
     fake: () => FAKE_TOPICS,
     forceFake: true,
+  })
+
+export const updateTopic = (id: string, body: Object): Promise<Topic> =>
+  query({
+    method: 'POST',
+    url: `/topics/${id}`,
+    body,
+    fake: () => Object.assign(FAKE_USER, body),
+  })
+
+export const addTopic = (body: TopicNew): Promise<Topic> =>
+  query({
+    method: 'POST',
+    url: '/topics',
+    body,
+  })
+
+export const deleteTopic = (id: string): Promise<null> =>
+  query({
+    method: 'DELETE',
+    url: `/topics/${id}`,
+    fake: () => null,
   })
 
 // Return a fake async response

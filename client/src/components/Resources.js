@@ -90,8 +90,9 @@ class Resources extends Component<Props, State> {
   }
 
   renderTypeMenuItem(item: MenuItem) {
-    const count = this.props.resources.list.filter(r => r.type === item.type)
-      .length
+    const count = item.type
+      ? this.props.resources.list.filter(r => r.type === item.type).length
+      : this.props.resources.list.length
 
     const label = `type-${item.type || 'all'}`
 

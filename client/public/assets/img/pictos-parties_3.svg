@@ -11,13 +11,15 @@
 <g id="_x31_">
 </g>
 <g id="_x32_">
+	<g>
+		<polygon fill="none" stroke="#1A181D" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10" points="18.526,16.645 
+			11.998,7.355 5.472,16.645 		"/>
+		<circle fill="#1A181D" cx="11.998" cy="7.356" r="2.745"/>
+		<circle fill="#1A181D" cx="18.525" cy="16.645" r="2.744"/>
+		<circle fill="#1A181D" cx="5.472" cy="16.645" r="2.744"/>
+	</g>
 </g>
 <g id="_x33_">
-	<g>
-		<rect x="3.165" y="14.75" fill="#181715" width="17.667" height="6.083"/>
-		<path fill="none" stroke="#181715" stroke-width="2.3" stroke-linecap="round" stroke-miterlimit="10" d="M4.141,10.662
-			C4.141,7.159,7.66,4.32,12,4.32c4.341,0,7.859,2.839,7.859,6.342"/>
-	</g>
 </g>
 <g id="_x34_">
 </g>

@@ -7,11 +7,6 @@
 	<rect fill="none" width="24" height="24"/>
 </g>
 <g id="_x30_">
-	<g>
-		<ellipse fill="#181715" cx="12" cy="10.14" rx="3.285" ry="2.694"/>
-		<path fill="#181715" d="M12,10.081h4.875c0,0-2.785,5.188-2.785,10.625H9.91c0-5.438-2.785-10.625-2.785-10.625H12"/>
-		<circle fill="#181715" cx="12" cy="5.229" r="1.935"/>
-	</g>
 </g>
 <g id="_x31_">
 </g>
@@ -22,6 +17,8 @@
 <g id="_x34_">
 </g>
 <g id="_x35_">
+	<path fill="none" stroke="#181715" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10" d="M3.165,14.256L5.688,4.5
+		l2.188,14.375l2.438-9.5l2.5,5.875c0,0,1.771-3.25,8.019-3.25"/>
 </g>
 <g id="txt">
 </g>

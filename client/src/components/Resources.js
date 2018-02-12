@@ -49,14 +49,14 @@ type MenuItem = {
 }
 
 const typeItems: Array<MenuItem> = [
-  { label: 'all', icon: 'list', type: '' },
-  { label: 'articles', icon: 'file-text', type: 'article' },
-  { label: 'focus', icon: 'bullseye', type: 'focus' },
-  { label: 'definitions', icon: 'book', type: 'definition' },
-  { label: 'maps', icon: 'map', type: 'map' },
-  { label: 'photos', icon: 'camera-retro', type: 'image' },
-  { label: 'videos', icon: 'film', type: 'video' },
-  { label: 'sounds', icon: 'microphone', type: 'sound' },
+  { icon: 'list', type: '' },
+  { icon: 'file-text', type: 'article' },
+  { icon: 'bullseye', type: 'focus' },
+  { icon: 'book', type: 'definition' },
+  { icon: 'map', type: 'map' },
+  { icon: 'camera-retro', type: 'image' },
+  { icon: 'film', type: 'video' },
+  { icon: 'microphone', type: 'sound' },
 ]
 
 export const renderPreview = (resource: Resource) => {
@@ -93,11 +93,13 @@ class Resources extends Component<Props, State> {
     const count = this.props.resources.list.filter(r => r.type === item.type)
       .length
 
+    const label = `type-${item.type || 'all'}`
+
     return (
       <li key={item.type}>
         <NavLink activeClassName="active" exact to={'/resources/' + item.type}>
           <Icon size="medium" icon={item.icon} />
-          <T id={item.label} /> {count !== 0 ? `(${count})` : ''}
+          <T id={label} /> {count !== 0 ? `(${count})` : ''}
         </NavLink>
       </li>
     )

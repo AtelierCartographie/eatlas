@@ -16,7 +16,7 @@ import IconButton from './IconButton'
 import Icon from './Icon'
 import Confirm from './Confirm'
 import { deleteResource, updateResource } from '../api'
-import { STATUS_STYLE } from '../constants'
+import { STATUS_STYLE, RESOURCE_STATUSES } from '../constants'
 
 import type { ContextRouter } from 'react-router'
 
@@ -115,7 +115,6 @@ class Resources extends Component<Props, State> {
   }
 
   renderStatusMenu() {
-    const statuses = ['submitted', 'validated', 'published', 'deleted']
     return (
       <ul className="menu-list status-menu">
         <li key="all">
@@ -127,7 +126,7 @@ class Resources extends Component<Props, State> {
             <T id="type-all" />
           </NavLink>
         </li>
-        {statuses.map(s => (
+        {RESOURCE_STATUSES.map(s => (
           <li key={s}>
             <NavLink
               activeClassName="active"

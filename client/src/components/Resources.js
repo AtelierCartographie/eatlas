@@ -155,14 +155,36 @@ class Resources extends Component<Props, State> {
     )
   }
 
+  renderStatusCell(status) {
+    return (
+      <td className="cell-status">
+        <NavLink
+          activeClassName="active"
+          isActive={() => status === this.props.status}
+          to={`/resources/${this.props.type}?${status}`}>
+          {this.renderStatusIcon(status)}
+        </NavLink>
+      </td>
+    )
+  }
+
+  renderTypeCell(type) {
+    const item = typeItems.find(x => x.type === type)
+    return (
+      <td className="cell-type">
+        <NavLink to={'/resources/' + type}>
+          <Icon size="medium" icon={item.icon} />
+        </NavLink>
+      </td>
+    )
+  }
+
   renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
-        <td className="cell-status">
-          {this.renderStatusIcon(resource.status)}
-        </td>
+        {this.renderStatusCell(resource.status)}
         <td>{resource.id}</td>
-        <td>{resource.type}</td>
+        {this.renderTypeCell(resource.type)}
         <td>{renderPreview(resource)}</td>
         <td>{this.renderTopic(resource)}</td>
         <td>{resource.author}</td>

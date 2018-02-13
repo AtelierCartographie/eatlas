@@ -7,10 +7,16 @@
   max-width: 100px;
 }
 
-/* status */
+.Resources td {
+  vertical-align: middle;
+}
+
 .Resources td.cell-status {
   text-align: center;
-  vertical-align: middle;
+}
+
+.Resources td.cell-type a {
+  color: #444;
 }
 
 .Resources .status-menu .button {

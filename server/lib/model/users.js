@@ -14,7 +14,7 @@ const {
 exports.findByEmail = email =>
   validate(email, _email).then(email => findOne({ query: { term: { email } } }))
 
-exports.list = () => find()
+exports.list = find
 
 exports.findById = findById
 

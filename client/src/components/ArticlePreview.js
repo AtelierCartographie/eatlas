@@ -64,21 +64,24 @@ const ArticleBreadcrumb = ({ article, topics }) => {
 }
 
 const ArticleSummary = ({ article }) => {
-  const summary = article.metas.find(m => m.type === 'summary-fr')
+  const summaries = {
+    fr: article.metas.find(m => m.type === 'summary-fr'),
+    en: article.metas.find(m => m.type === 'summary-en'),
+  }
   return h('section.container.resume', [
     h('div.tab-content', [
       h('div.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('p', summary.text),
+        h('p', summaries.fr.text),
       ]),
-      h('div.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
+      !summaries.en ? null : h('div.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
         h('h2.line', 'Summary'),
-        h('p', 'TODO'),
+        h('p', summaries.en.text),
       ]),
     ]),
-    h('div.resume-select', [
+    !summaries.en ? null : h('div.resume-select', [
       h('ul.nav.nav-pills', { role: 'tablist' }, [
-        h('li', { role: 'presentation' }, [
+        h('li.active', { role: 'presentation' }, [
           h(
             'a',
             {
@@ -104,6 +107,7 @@ const ArticleSummary = ({ article }) => {
         ]),
       ]),
     ]),
+    h('hr')
   ])
 }
 

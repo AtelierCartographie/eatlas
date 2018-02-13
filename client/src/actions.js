@@ -112,8 +112,9 @@ export const replaceResource = resource => ({
 
 export const getTopic = helper('GET_TOPIC', api.getTopic).action
 export const getTopics = helper('GET_TOPICS', api.getTopics).action
+export const deleteTopic = helper('DELETE_TOPIC', api.deleteTopic).action
 
-export const saveTopic = ({ id, ...data }) => (dispatch: Function) => {
+export const saveTopic = (data, id) => (dispatch: Function) => {
   dispatch({ type: 'SAVE_TOPIC_REQUEST' })
 
   const save = () => (id ? api.updateTopic(id, data) : api.addTopic(data))

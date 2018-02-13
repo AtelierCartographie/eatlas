@@ -42,5 +42,9 @@ app.post('/resources/:id', resources.findResource, resources.update)
 app.delete('/resources/:id', resources.findResource, resources.remove)
 
 app.get('/topics', topics.list)
+app.get('/topics/:id', topics.findTopic, topics.get)
+app.post('/topics/:id', topics.findTopic, topics.update)
+app.post('/topics', topics.add)
+app.delete('/topics/:id', topics.findTopic, topics.remove)
 
 module.exports = app

@@ -15,7 +15,7 @@ import type { ContextRouter } from 'react-router'
 type Props = {
   loading: boolean,
   saving: boolean,
-  topic: Object,
+  topic: Topic,
   topicId: string, // From router
   // actions
   getTopic: typeof getTopic,
@@ -25,10 +25,11 @@ type Props = {
 }
 
 type State = {
-  topic?: Object,
+  topic?: Topic,
 }
 
 const newTopic = {
+  id: 0,
   name: '',
 }
 
@@ -65,7 +66,7 @@ class TopicForm extends Component<Props, State> {
       return // already saving: cancel
     }
 
-    this.props.saveTopic(this.state.topic).then(() => {
+    this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {
       if (!this.props.topicId) {
         this.props.redirect('/topics')
       }
@@ -73,7 +74,7 @@ class TopicForm extends Component<Props, State> {
   }
 
   render() {
-    const { loading, saving, topicId } = this.props
+    const { loading, saving } = this.props
     const { topic } = this.state
 
     return (
@@ -88,9 +89,25 @@ class TopicForm extends Component<Props, State> {
           <form onSubmit={this.handleSubmit}>
             <div className="field">
               <label className="label">
+                <T id="resource-id" />
+              </label>
+              <div className="control">
+                <input
+                  className="input"
+                  name="id"
+                  type="number"
+                  placeholder="id"
+                  value={topic.id}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label">
                 <T id="name" />
               </label>
-              <div className="control has-icons-left">
+              <div className="control">
                 <input
                   className="input"
                   name="name"
@@ -130,6 +147,7 @@ export default withRouter(
       return {
         loading: topics.loading,
         saving: topics.saving,
+        topic: topics.list.find(t => t.id === id) || null,
         topicId: id === 'new' ? null : id,
         redirect,
       }

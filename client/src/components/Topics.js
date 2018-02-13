@@ -5,36 +5,59 @@ import { FormattedMessage as T } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getTopics, fetchResources } from './../actions'
+import { getTopics, deleteTopic, fetchResources } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
+import Confirm from './Confirm'
 
 type Props = {
   topics: {
     loading: boolean,
     list: Array<Topic>,
   },
+  // used to display the articles count column
   resources: {
     loading: boolean,
     list: Array<Resource>,
   },
   // actions
   getTopics: typeof getTopics,
+  deleteTopic: typeof deleteTopic,
   fetchResources: typeof fetchResources,
 }
 
-class Topics extends Component<Props> {
+type State = {
+  removeModel: ?Topic,
+  removing: boolean,
+}
+
+class Topics extends Component<Props, State> {
+  state = { removeModel: null, removing: false }
+
   componentDidMount() {
     this.props.getTopics()
     this.props.fetchResources()
   }
 
+  askRemove(model: ?Topic) {
+    this.setState({ removeModel: model })
+  }
+
+  deleteModel() {
+    const { removeModel } = this.state
+    if (!removeModel) return
+
+    this.setState({ removing: true })
+    this.props.deleteTopic(removeModel.id).then(() => {
+      this.setState({ removing: false, removeModel: null })
+      this.props.getTopics()
+    })
+  }
+
   render() {
     const { topics, resources } = this.props
 
-    const orderedList = topics.list
-      .slice()
-      .sort((t1, t2) => t1.order - t2.order)
+    const orderedList = topics.list.slice().sort((t1, t2) => t1.id - t2.id)
     const loading = topics.loading || resources.loading
 
     const articles = resources.list.filter(r => r.type === 'article')
@@ -64,6 +87,9 @@ class Topics extends Component<Props> {
             <thead>
               <tr>
                 <th>
+                  <T id="resource-id" />
+                </th>
+                <th>
                   <T id="icon" />
                 </th>
                 <th>
@@ -78,6 +104,7 @@ class Topics extends Component<Props> {
             <tbody>
               {orderedList.map(t => (
                 <tr key={t.name}>
+                  <td>{t.id}</td>
                   <td>
                     <img
                       alt="icon"
@@ -102,7 +129,9 @@ class Topics extends Component<Props> {
                         </Link>
                       </div>
                       <div className="control">
-                        <button className="button is-danger is-outlined">
+                        <button
+                          className="button is-danger is-outlined"
+                          onClick={() => this.askRemove(t)}>
                           <IconButton label="delete" icon="times" />
                         </button>
                       </div>
@@ -113,6 +142,12 @@ class Topics extends Component<Props> {
             </tbody>
           </table>
         )}
+        <Confirm
+          model={this.state.removeModel}
+          removing={this.state.removing}
+          onClose={() => this.askRemove(null)}
+          onConfirm={() => this.deleteModel()}
+        />
       </div>
     )
   }
@@ -122,6 +157,7 @@ export default connect(
   ({ topics, resources }: AppState) => ({ topics, resources }),
   {
     getTopics,
+    deleteTopic,
     fetchResources,
   },
 )(Topics)

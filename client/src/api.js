@@ -157,16 +157,16 @@ export const deleteUser = (id: string): Promise<null> =>
 export const getTopic = (id: string): Promise<Topic> =>
   query({
     url: `/topics/${id}`,
+    fake: () => null,
   })
 
 export const getTopics = (): Promise<Topic[]> =>
   query({
     url: '/topics',
     fake: () => FAKE_TOPICS,
-    forceFake: true,
   })
 
-export const updateTopic = (id: string, body: Object): Promise<Topic> =>
+export const updateTopic = (id: string, body: Topic): Promise<Topic> =>
   query({
     method: 'POST',
     url: `/topics/${id}`,
@@ -174,7 +174,7 @@ export const updateTopic = (id: string, body: Object): Promise<Topic> =>
     fake: () => Object.assign(FAKE_USER, body),
   })
 
-export const addTopic = (body: TopicNew): Promise<Topic> =>
+export const addTopic = (body: Topic): Promise<Topic> =>
   query({
     method: 'POST',
     url: '/topics',

@@ -18,6 +18,7 @@ const initialState: AppState = {
   },
   topics: {
     loading: false,
+    saving: false,
     list: [],
   },
   // current user (session)
@@ -53,7 +54,7 @@ export default (state: AppState = initialState, action: any): AppState => {
         users: {
           saving: false,
           loading: false,
-          list: state.users.list // TODO we may need to be smarter about this flag // TODO we may need to be smarter about this flag
+          list: state.users.list // TODO we may need to be smarter about this flag
             .filter(u => u.id !== action.payload.id)
             .concat(action.payload),
         },
@@ -100,6 +101,19 @@ export default (state: AppState = initialState, action: any): AppState => {
       return {
         ...state,
         topics: { ...state.topics, loading: false, list: action.payload },
+      }
+
+    case 'GET_TOPIC_SUCCESS':
+      return {
+        ...state,
+        topics: {
+          ...state.topics,
+          saving: false,
+          loading: false,
+          list: state.topics.list
+            .filter(t => t.id !== action.payload.id)
+            .concat(action.payload),
+        },
       }
 
     // session

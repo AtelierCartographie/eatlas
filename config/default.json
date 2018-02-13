@@ -9,7 +9,8 @@
     },
     "indices": {
       "user": "eatlas_user",
-      "resource": "eatlas_resource"
+      "resource": "eatlas_resource",
+      "topic": "eatlas_topic"
     },
     "indexSettings": {},
     "autoMigration": true,

@@ -36,7 +36,7 @@ class Users extends Component<Props, State> {
     this.setState({ removeModel: model })
   }
 
-  deleteUser() {
+  deleteModel() {
     const { removeModel } = this.state
     if (!removeModel) return
 
@@ -114,7 +114,7 @@ class Users extends Component<Props, State> {
           model={this.state.removeModel}
           removing={this.state.removing}
           onClose={() => this.askRemove(null)}
-          onConfirm={() => this.deleteUser()}
+          onConfirm={() => this.deleteModel()}
         />
       </div>
     )

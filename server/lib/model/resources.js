@@ -11,7 +11,7 @@ const {
   remove,
 } = require('../es-client')('resource')
 
-exports.list = () => find()
+exports.list = find
 
 exports.findById = findById
 
@@ -23,8 +23,7 @@ exports.create = async resource => {
     error.code = 'EDUPLICATE'
     throw error
   }
-  const result = await insert(body, body.id)
-  return result
+  return await insert(body, body.id)
 }
 
 exports.update = async (id, updates) => {

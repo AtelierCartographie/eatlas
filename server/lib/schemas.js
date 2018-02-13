@@ -6,14 +6,18 @@ const { promisify } = require('util')
 const validateP = promisify(Joi.validate)
 exports.validate = (value, schema) => validateP(value, schema)
 
+// users
+
 exports.email = Joi.string()
   .email()
   .required()
 
+const name = Joi.string()
+  .min(2)
+  .max(250)
+
 exports.userUpdate = {
-  name: Joi.string()
-    .min(2)
-    .max(250),
+  name,
   email: Joi.string().email(),
   role: Joi.string().valid(['admin', 'visitor']),
 }
@@ -22,17 +26,21 @@ const defaultUserName = ({ email }) => email.replace(/@.*$/, '')
 defaultUserName.description = 'left part of email'
 
 exports.fullUser = {
-  name: Joi.string()
-    .min(2)
-    .max(250)
-    .default(defaultUserName),
-  email: Joi.string()
-    .email()
-    .required(),
+  name: name.default(defaultUserName),
+  email: exports.email,
   role: Joi.string()
     .valid(['admin', 'visitor'])
     .default('visitor'),
 }
+
+// topics
+
+exports.fullTopic = {
+  id: Joi.number().min(1).max(999).required(),
+  name,
+}
+
+// resources
 
 exports.googleOauth = {
   token: Joi.object().keys({

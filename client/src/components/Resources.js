@@ -31,6 +31,7 @@ type Props = ContextIntl & {
   },
   type: ResourceType | '',
   locale: Locale,
+  status: string,
   // actions
   fetchResources: typeof fetchResources,
   getTopics: typeof getTopics,
@@ -43,7 +44,6 @@ type State = {
 }
 
 type MenuItem = {
-  label: string,
   icon: string,
   type: ResourceType | '',
 }

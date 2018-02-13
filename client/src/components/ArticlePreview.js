@@ -231,15 +231,16 @@ const Article = props =>
     h(ArticleLexicon, props),
   ])
 
-const Head = () =>
-  h('head', [
+const Head = ({ article }) => {
+  const title = article.metas.find(m => m.type === 'title')
+  return h('head', [
     h('meta', { charSet: 'utf-8' }),
     h('meta', { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' }),
     h('meta', {
       name: 'viewport',
       content: 'width=device-width, initial-scale=1',
     }),
-    h('title', 'TODO'),
+    h('title', `${title.text} - eAtlas`),
     h(StyleSheet, { href: '/assets/css/bootstrap.min.css' }),
     h(StyleSheet, { href: '/assets/css/jasny-bootstrap.min.css' }),
     h(StyleSheet, { href: '/assets/css/main-v3.css' }),
@@ -255,6 +256,7 @@ const Head = () =>
         'https://fonts.googleapis.com/css?family=Gentium+Basic:400,400i,700,700i',
     }),
   ])
+}
 
 // at the top
 const NavBar = () =>
@@ -420,7 +422,6 @@ const Body = props =>
 class ArticlePreview extends Component {
   render() {
     const { article, topics } = this.props
-    console.log({ article })
     return h('html', { lang: 'fr' }, [
       h(Head, { article }),
       h(Body, { article, topics }),

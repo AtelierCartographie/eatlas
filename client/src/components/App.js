@@ -111,7 +111,7 @@ class App extends Component<Props, State> {
     const { authenticated } = this.props
     return (
       <div className="App">
-        <ToastContainer autoClose="2000" position={toast.POSITION.TOP_CENTER} />
+        <ToastContainer autoClose={2000} position={toast.POSITION.TOP_CENTER} />
         <nav
           className="navbar is-fixed-top is-dark"
           aria-label="main navigation">

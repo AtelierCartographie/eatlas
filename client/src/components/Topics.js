@@ -103,7 +103,7 @@ class Topics extends Component<Props, State> {
             </thead>
             <tbody>
               {orderedList.map(t => (
-                <tr key={t.name}>
+                <tr key={t.id}>
                   <td>{t.id}</td>
                   <td>
                     <img

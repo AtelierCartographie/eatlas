@@ -261,7 +261,15 @@ const NavBar = () =>
     ]),
   ])
 
-const NavMenuTopics = () => h('ul.nav.navmenu-nav', 'TODO')
+const NavMenuTopics = ({ topics }) =>
+  h(
+    'ul.nav.navmenu-nav',
+    topics.map(t =>
+      h('li', [
+        h('a', [h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }), t.name]),
+      ]),
+    ),
+  )
 
 const NavMenuResources = () =>
   h('li.dropdown', [
@@ -297,7 +305,7 @@ const NavMenuAPropos = () =>
   ])
 
 // on the left
-const NavMenu = () =>
+const NavMenu = props =>
   h(
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },
@@ -308,7 +316,7 @@ const NavMenu = () =>
         ]),
       ]),
       h('ul.nav.navmenu-nav', [
-        h(NavMenuTopics),
+        h(NavMenuTopics, props),
         h('hr'),
         h(NavMenuResources),
         h(NavMenuAPropos),
@@ -341,7 +349,19 @@ const NavFooter = ({ topics }) =>
         h('div.row', [
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Sommaire'),
-            h('nav', [h('ul', topics.map(t => h('li', [h('a', t)])))]),
+            h('nav', [
+              h(
+                'ul',
+                topics.map(t =>
+                  h('li', [
+                    h('a', [
+                      h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }),
+                      t.name,
+                    ]),
+                  ]),
+                ),
+              ),
+            ]),
           ]),
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Resources'),

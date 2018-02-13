@@ -108,7 +108,7 @@ class Topics extends Component<Props, State> {
                   <td>
                     <img
                       alt="icon"
-                      src={`/topics/pictos-parties_${t.id}.svg`}
+                      src={`/topics/${t.id}.svg`}
                     />
                   </td>
                   <td>{t.name}</td>

@@ -102,7 +102,7 @@ exports.preview = async (req, res) => {
 
 exports.previewSSR = async (req, res) => {
   req.foundResource.resources = await resources.list()
-  const html = generateHTMLFromReact(req.foundResource, await topics.list())
+  const html = generateHTMLFromReact(req.foundResource, (await topics.list()).sort((a, b) => a.id > b.id))
   res.send(html)
 }
 

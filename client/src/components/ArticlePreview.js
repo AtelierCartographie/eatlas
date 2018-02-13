@@ -10,6 +10,7 @@ const moment = require('moment')
 moment.locale('fr')
 
 const HOST = 'http://localhost:3000'
+let lexiconId
 
 const resourcesTypes = [
   'Cartes et diagrammes',
@@ -50,7 +51,11 @@ const ArticleTitle = ({ article }) => {
     : h('p', [
         h('em', [
           'Publié le ',
-          h('time', { dateTime: article.publishedAt }, moment(article.publishedAt).format('D MMMM YYYY')),
+          h(
+            'time',
+            { dateTime: article.publishedAt },
+            moment(article.publishedAt).format('D MMMM YYYY'),
+          ),
         ]),
       ])
   return h('header.headerwrap', [
@@ -60,7 +65,9 @@ const ArticleTitle = ({ article }) => {
 
 const ArticleBreadcrumb = ({ article, topics }) => {
   const topic = topics.find(x => x.id === article.topic)
-  return h('section.breadcrumb', [h('div.container', [h('a', { href: '#' }, topic.name)])])
+  return h('section.breadcrumb', [
+    h('div.container', [h('a', { href: '#' }, topic.name)]),
+  ])
 }
 
 const ArticleSummary = ({ article }) => {
@@ -74,44 +81,65 @@ const ArticleSummary = ({ article }) => {
         h('h2.line', 'Résumé'),
         h('p', summaries.fr.text),
       ]),
-      !summaries.en ? null : h('div.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
-        h('h2.line', 'Summary'),
-        h('p', summaries.en.text),
-      ]),
+      !summaries.en
+        ? null
+        : h('div.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
+            h('h2.line', 'Summary'),
+            h('p', summaries.en.text),
+          ]),
     ]),
-    !summaries.en ? null : h('div.resume-select', [
-      h('ul.nav.nav-pills', { role: 'tablist' }, [
-        h('li.active', { role: 'presentation' }, [
-          h(
-            'a',
-            {
-              href: '#french',
-              role: 'tab',
-              'data-toggle': 'pill',
-              hrefLang: 'fr',
-            },
-            'Fr',
-          ),
+    !summaries.en
+      ? null
+      : h('div.resume-select', [
+          h('ul.nav.nav-pills', { role: 'tablist' }, [
+            h('li.active', { role: 'presentation' }, [
+              h(
+                'a',
+                {
+                  href: '#french',
+                  role: 'tab',
+                  'data-toggle': 'pill',
+                  hrefLang: 'fr',
+                },
+                'Fr',
+              ),
+            ]),
+            h('li', { role: 'presentation' }, [
+              h(
+                'a',
+                {
+                  href: '#english',
+                  role: 'tab',
+                  'data-toggle': 'pill',
+                  hrefLang: 'en',
+                },
+                'En',
+              ),
+            ]),
+          ]),
         ]),
-        h('li', { role: 'presentation' }, [
-          h(
-            'a',
-            {
-              href: '#english',
-              role: 'tab',
-              'data-toggle': 'pill',
-              hrefLang: 'en',
-            },
-            'En',
-          ),
-        ]),
-      ]),
-    ]),
-    h('hr')
+    h('hr'),
   ])
 }
 
-const ArticleP = ({ p }) => h('p', p.text)
+const ArticleP = ({ p }) => {
+  const parts = []
+  parts.push(
+    p.lexicon.reduce((tail, l) => {
+      const [head, _tail] = tail.split(l)
+      parts.push(
+        head,
+        h(
+          'a.keyword',
+          { href: `#keyword-${++lexiconId}`, 'data-toggle': 'collapse' },
+          l,
+        ),
+      )
+      return _tail
+    }, p.text),
+  )
+  return h('p', parts)
+}
 
 const ArticleDivContainer = ({ container }) => {
   return h(
@@ -225,7 +253,22 @@ const ArticleFooter = props =>
     h(ArticleSeeAlso, props),
   ])
 
-const ArticleLexicon = () => h('section.article-def')
+const ArticleLexicon = ({ article }) => {
+  return h(
+    'section.article-def',
+    article.nodes
+      .reduce(
+        (acc, node) =>
+          node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
+        [],
+      )
+      .map((l, k) =>
+        h('div.collapse.container', { id: `keyword-${k + 1}` }, [
+          h('dl', [h('dt', l), h('dd', 'TODO')]),
+        ]),
+      ),
+  )
+}
 
 const Article = props =>
   h('article.article', [
@@ -423,10 +466,12 @@ const Body = props =>
     }),
     h(Script, { src: '/assets/js/bootstrap.min.js' }),
     h(Script, { src: '/assets/js/jasny-bootstrap.min.js' }),
+    h(Script, { src: '/assets/js/eatlas.js' }),
   ])
 
 class ArticlePreview extends Component {
   render() {
+    lexiconId = 0
     const { article, topics } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { article }),

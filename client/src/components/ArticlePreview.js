@@ -6,6 +6,8 @@
 
 const { Component } = require('react')
 const h = require('react-hyperscript')
+const moment = require('moment')
+moment.locale('fr')
 
 const HOST = 'http://localhost:3000'
 
@@ -43,13 +45,16 @@ const StyleSheet = ({ href }) =>
 
 const ArticleTitle = ({ article }) => {
   const title = article.metas.find(m => m.type === 'title')
+  const publishedAt = !article.publishedAt
+    ? null
+    : h('p', [
+        h('em', [
+          'Publié le ',
+          h('time', { dateTime: article.publishedAt }, moment(article.publishedAt).format('D MMMM YYYY')),
+        ]),
+      ])
   return h('header.headerwrap', [
-    h('div.container.header-info', [
-      h('h1', title.text),
-      h('p', [
-        h('em', ['Publié le ', h('time', { dateTime: 'TODO' }, 'TODO')]),
-      ]),
-    ]),
+    h('div.container.header-info', [h('h1', title.text), h('br'), publishedAt]),
   ])
 }
 
@@ -415,6 +420,7 @@ const Body = props =>
 class ArticlePreview extends Component {
   render() {
     const { article, topics } = this.props
+    console.log({ article })
     return h('html', { lang: 'fr' }, [
       h(Head, { article }),
       h(Body, { article, topics }),

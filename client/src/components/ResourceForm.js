@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import cx from 'classnames'
 import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
 
 import './ResourceForm.css'
 
@@ -722,6 +723,7 @@ class ResourceForm extends Component<Props, State> {
           docs: this.docsFromResource(resource),
           removedDocs: [],
         })
+        toast.success(<T id="toast-resource-saved" />)
       })
       .catch(error => {
         this.setState({ error })

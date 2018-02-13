@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
+import { toast } from 'react-toastify'
 
 import { getTopic, saveTopic } from './../actions'
 import IconButton from './IconButton'
@@ -67,6 +68,7 @@ class TopicForm extends Component<Props, State> {
     }
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {
+      toast.success(<T id="toast-topic-saved" />)
       if (!this.props.topicId) {
         this.props.redirect('/topics')
       }
@@ -79,9 +81,7 @@ class TopicForm extends Component<Props, State> {
 
     return (
       <div className="TopicForm">
-        <h1 className="title">
-          Topic {topic ? topic.name : ''}
-        </h1>
+        <h1 className="title">Topic {topic ? topic.name : ''}</h1>
         {saving && <Spinner />}
         {loading || !topic ? (
           <Spinner />
@@ -155,4 +155,3 @@ export default withRouter(
     { getTopic, saveTopic },
   )(TopicForm),
 )
-

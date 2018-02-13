@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
+import { toast } from 'react-toastify'
 
 import { getUser, saveUser } from './../actions'
 import IconButton from './IconButton'
@@ -70,6 +71,7 @@ class UserForm extends Component<Props, State> {
     }
 
     this.props.saveUser(this.state.user).then(() => {
+      toast.success(<T id="toast-user-saved" />)
       if (!this.props.userId) {
         this.props.redirect('/users')
       }

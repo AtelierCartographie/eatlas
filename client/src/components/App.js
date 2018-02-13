@@ -8,6 +8,7 @@ import { FormattedMessage as T } from 'react-intl'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import classNames from 'classnames'
+import { toast, ToastContainer } from 'react-toastify'
 
 import Home from './Home'
 import IconButton from './IconButton'
@@ -79,10 +80,38 @@ class App extends Component<Props, State> {
     )
   }
 
+  renderUserBox() {
+    const { authenticated, name, role } = this.props
+    if (!authenticated) {
+      return (
+        <NavLinko
+          activeClassName="is-active"
+          className="navbar-item"
+          exact
+          to="/login">
+          <IconButton label="connection" icon="sign-in" />
+        </NavLinko>
+      )
+    }
+
+    // TODO proper user box with link to profile 'n co
+    return (
+      <Fragment>
+        <div className="navbar-item">
+          {name} ({role})
+        </div>
+        <a className="navbar-item" onClick={this.props.userLogout}>
+          <IconButton label="disconnection" icon="sign-out" />
+        </a>
+      </Fragment>
+    )
+  }
+
   render() {
     const { authenticated } = this.props
     return (
       <div className="App">
+        <ToastContainer autoClose="2000" position={toast.POSITION.TOP_CENTER} />
         <nav
           className="navbar is-fixed-top is-dark"
           aria-label="main navigation">
@@ -122,33 +151,6 @@ class App extends Component<Props, State> {
           <div className="container">{this.renderRoutes()}</div>
         </main>
       </div>
-    )
-  }
-
-  renderUserBox() {
-    const { authenticated, name, role } = this.props
-    if (!authenticated) {
-      return (
-        <NavLinko
-          activeClassName="is-active"
-          className="navbar-item"
-          exact
-          to="/login">
-          <IconButton label="connection" icon="sign-in" />
-        </NavLinko>
-      )
-    }
-
-    // TODO proper user box with link to profile 'n co
-    return (
-      <Fragment>
-        <div className="navbar-item">
-          {name} ({role})
-        </div>
-        <a className="navbar-item" onClick={this.props.userLogout}>
-          <IconButton label="disconnection" icon="sign-out" />
-        </a>
-      </Fragment>
     )
   }
 }

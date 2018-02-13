@@ -58,8 +58,10 @@ const ArticleTitle = ({ article }) => {
   ])
 }
 
-const ArticleBreadcrumb = () =>
-  h('section.breadcrumb', [h('div.container', [h('a', { href: '#' }, 'TODO')])])
+const ArticleBreadcrumb = ({ article, topics }) => {
+  const topic = topics.find(x => x.id === article.topic)
+  return h('section.breadcrumb', [h('div.container', [h('a', { href: '#' }, topic.name)])])
+}
 
 const ArticleSummary = ({ article }) => {
   const summary = article.metas.find(m => m.type === 'summary-fr')

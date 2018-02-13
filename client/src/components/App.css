@@ -1,3 +1,7 @@
 .App main.section {
   overflow: auto;
 }
+
+.App table .fit {
+  width: 1px;
+}

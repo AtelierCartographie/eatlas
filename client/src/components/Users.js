@@ -77,8 +77,8 @@ class Users extends Component<Props, State> {
                   <T id="name" />
                 </th>
                 <th>email</th>
-                <th>role</th>
-                <th style={{ width: '1px' }} />
+                <th className="fit">role</th>
+                <th className="fit" />
               </tr>
             </thead>
             <tbody>

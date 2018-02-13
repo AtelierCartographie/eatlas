@@ -297,13 +297,13 @@ class Resources extends Component<Props, State> {
       <table className="table is-striped is-bordered is-fullwidth">
         <thead>
           <tr>
-            <th>
+            <th className="fit">
               <T id="resource-status" />
             </th>
             <th>
               <T id="resource-id" />
             </th>
-            <th>
+            <th className="fit">
               <T id="resource-type" />
             </th>
             <th>
@@ -321,7 +321,7 @@ class Resources extends Component<Props, State> {
             <th>
               <T id="resource-created-at" />
             </th>
-            <th style={{ width: '1px' }} />
+            <th className="fit" />
           </tr>
         </thead>
         <tbody>{sorted.map(this.renderRow)}</tbody>

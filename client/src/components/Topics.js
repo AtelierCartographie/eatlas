@@ -86,19 +86,19 @@ class Topics extends Component<Props, State> {
           <table className="table is-striped is-bordered is-fullwidth">
             <thead>
               <tr>
-                <th>
+                <th className="fit">
                   <T id="resource-id" />
                 </th>
-                <th>
+                <th className="fit">
                   <T id="icon" />
                 </th>
                 <th>
                   <T id="name" />
                 </th>
-                <th>
+                <th className="fit">
                   <T id="type-article" />
                 </th>
-                <th style={{ width: '1px' }} />
+                <th className="fit" />
               </tr>
             </thead>
             <tbody>

@@ -321,95 +321,75 @@ class ResourceForm extends Component<Props, State> {
       return [typeField].concat(resource && resource.id ? [idField] : [])
     }
 
-    const prependFields = () =>
-      [typeField, idField].concat(
-        this.props.mode === 'edit'
-          ? [
-              this.getAttrField('status', {
-                mandatory: true,
-                readOnly,
-                options: this.buildSelectOptions(
-                  RESOURCE_STATUSES,
-                  'status-',
-                ).map(o =>
-                  Object.assign(o, { buttonStyle: STATUS_STYLE[o.value] }),
-                ),
-                optionsStyle: 'buttons',
-              }),
-            ]
-          : [],
-      )
-
-    const appendFields = ({ subtitle, copyright }) =>
-      [
-        this.getAttrField('title', {
-          leftIcon: 'header',
+    const prependFields = () => [
+      typeField,
+      idField,
+      this.props.mode === 'edit' &&
+        this.getAttrField('status', {
           mandatory: true,
+          readOnly,
+          options: this.buildSelectOptions(RESOURCE_STATUSES, 'status-').map(
+            o => Object.assign(o, { buttonStyle: STATUS_STYLE[o.value] }),
+          ),
+          optionsStyle: 'buttons',
+        }),
+    ]
+
+    const appendFields = ({ subtitle, copyright }) => [
+      this.getAttrField('title', {
+        leftIcon: 'header',
+        mandatory: true,
+        readOnly,
+        loading: this.state.parsing,
+      }),
+      subtitle &&
+        this.getAttrField('subtitle', {
+          leftIcon: 'header',
           readOnly,
           loading: this.state.parsing,
         }),
-      ]
-        .concat(
-          subtitle
-            ? [
-                this.getAttrField('subtitle', {
-                  leftIcon: 'header',
-                  readOnly,
-                  loading: this.state.parsing,
-                  mandatory: false,
-                }),
-              ]
-            : [],
-        )
-        .concat([
-          this.getAttrField('topic', {
-            leftIcon: 'paragraph',
-            mandatory: true,
-            readOnly,
-            loading:
-              this.state.parsing ||
-              this.props.topics.loading ||
-              this.props.shouldLoadTopics,
-            options: (this.props.mode === 'create'
-              ? [{ label: '', value: null }]
-              : []
-            ).concat(
-              this.props.topics.list.map(({ name, id }) => ({
-                label: name,
-                value: id,
-              })),
-            ),
-          }),
-          this.getAttrField('language', {
-            leftIcon: 'language',
-            mandatory: true,
-            readOnly,
-            loading: this.state.parsing,
-            options: this.buildSelectOptions(
-              LOCALES,
-              null,
-              this.props.mode === 'create',
-            ),
-          }),
-          this.getAttrField('description', {
-            leftIcon: 'info',
-            mandatory: true,
-            readOnly,
-            loading: this.state.parsing,
-            rows: 5,
-          }),
-        ])
-        .concat(
-          copyright
-            ? [
-                this.getAttrField('copyright', {
-                  leftIcon: 'copyright',
-                  readOnly,
-                  mandatory: false,
-                }),
-              ]
-            : [],
-        )
+      this.getAttrField('topic', {
+        leftIcon: 'paragraph',
+        mandatory: true,
+        readOnly,
+        loading:
+          this.state.parsing ||
+          this.props.topics.loading ||
+          this.props.shouldLoadTopics,
+        options: (this.props.mode === 'create'
+          ? [{ label: '', value: null }]
+          : []
+        ).concat(
+          this.props.topics.list.map(({ name, id }) => ({
+            label: name,
+            value: id,
+          })),
+        ),
+      }),
+      this.getAttrField('language', {
+        leftIcon: 'language',
+        mandatory: true,
+        readOnly,
+        loading: this.state.parsing,
+        options: this.buildSelectOptions(
+          LOCALES,
+          null,
+          this.props.mode === 'create',
+        ),
+      }),
+      this.getAttrField('description', {
+        leftIcon: 'info',
+        mandatory: true,
+        readOnly,
+        loading: this.state.parsing,
+        rows: 5,
+      }),
+      copyright &&
+        this.getAttrField('copyright', {
+          leftIcon: 'copyright',
+          readOnly,
+        }),
+    ]
 
     const buildFields = (
       fields: Array<FieldParams>,
@@ -421,6 +401,7 @@ class ResourceForm extends Component<Props, State> {
       prependFields()
         .concat(fields)
         .concat(appendFields({ subtitle, copyright }))
+        .filter(x => x)
 
     switch (resource.type) {
       case 'article':
@@ -440,45 +421,18 @@ class ResourceForm extends Component<Props, State> {
         )
       case 'image':
         return buildFields(
-          [
-            this.getDocField(resource, 'image-small-1x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'small', density: '1x' },
+          // flatten
+          Array.prototype.concat(
+            ...['small', 'medium', 'large'].map(size => {
+              return [1, 2, 3].map(d => {
+                return this.getDocField(resource, `image-${size}-${d}x`, {
+                  labelId: 'selected-image',
+                  labelValues: { size, density: `${d}x` },
+                  mandatory: size === 'medium' && d === 1,
+                })
+              })
             }),
-            this.getDocField(resource, 'image-small-2x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'small', density: '2x' },
-            }),
-            this.getDocField(resource, 'image-small-3x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'small', density: '3x' },
-            }),
-            this.getDocField(resource, 'image-medium-1x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'medium', density: '1x' },
-              mandatory: true,
-            }),
-            this.getDocField(resource, 'image-medium-2x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'medium', density: '2x' },
-            }),
-            this.getDocField(resource, 'image-medium-3x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'medium', density: '3x' },
-            }),
-            this.getDocField(resource, 'image-large-1x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'large', density: '1x' },
-            }),
-            this.getDocField(resource, 'image-large-2x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'large', density: '2x' },
-            }),
-            this.getDocField(resource, 'image-large-3x', {
-              labelId: 'selected-image',
-              labelValues: { size: 'large', density: '3x' },
-            }),
-          ],
+          ),
           { copyright: true },
         )
 
@@ -492,7 +446,6 @@ class ResourceForm extends Component<Props, State> {
           typeField,
           this.getAttrField('error', {
             leftIcon: 'exclamation-triangle',
-            mandatory: false,
             readOnly: true,
             value: 'Type not implemented',
           }),
@@ -803,9 +756,9 @@ class ResourceForm extends Component<Props, State> {
 
 export default connect(
   ({ locale, topics }: AppState) => ({
-    locale,
+    locale, // used by DocPicker
     shouldLoadTopics: topics.list.length === 0,
-    topics,
+    topics, // used by <select>
   }),
   { getTopics, replaceResource },
 )(injectIntl(ResourceForm))

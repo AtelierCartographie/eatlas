@@ -78,6 +78,9 @@ const resourceStatus = Joi.string().valid([
   'deleted',
 ])
 
+// TODO probably extend to other providers: youtube…
+const resourceMediaUrl = Joi.string().regex(/^https:\/\/vimeo.com\/[0-9]+$/)
+
 const upload = Joi.object().keys({
   fileId: Joi.string().required(),
   mimeType: Joi.string().required(),
@@ -95,7 +98,7 @@ exports.resource = {
   language: language.required(),
   description: Joi.string().required(),
   copyright: Joi.string().optional(),
-  mediaUrl: Joi.string().optional(),
+  mediaUrl: resourceMediaUrl.optional(),
 }
 
 exports.uploadFromGoogleDrive = {
@@ -208,7 +211,7 @@ exports.fullResource = {
     otherwise: Joi.forbidden(),
   }),
 
-  mediaUrl: Joi.string().when('type', {
+  mediaUrl: resourceMediaUrl.when('type', {
     is: Joi.valid(['video']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),

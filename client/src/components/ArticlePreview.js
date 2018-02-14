@@ -208,7 +208,7 @@ const ArticleKeywords = ({ article }) => {
 
   return h('section.container.article-keyword', [
     h('h2', 'Mots-clés'),
-    keywords.list.map(kw => h('a', kw.text)),
+    h('p', keywords.list.map(kw => h('a', kw.text))),
   ])
 }
 
@@ -236,7 +236,7 @@ const ArticleSeeAlso = ({ article }) => {
     h('h2', "Continuer dans l'Atlas"),
     seeAlsos.list.map(s =>
       h('div.col-sm-6', [
-        h('a', [
+        h('a.thumbnail', { href: '#' }, [
           h(Img, { src: '/assets/img/thumbnails-article1.svg' }),
           h('h3', s.text),
         ]),
@@ -395,8 +395,19 @@ const NavMenuToggle = () =>
     ),
   ])
 
-// TODO left and right arrows
-const NavTopics = () => h('div.nav-article-wrapper')
+const NavTopics = () =>
+  h('div.nav-article-wrapper', [
+    h('nav.nav-article', [
+      h('a.nav-article-button.nav-article-previous', [
+        h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
+        h('span.nav-article-title', ['TODO']),
+      ]),
+      h('a.nav-article-button.nav-article-next', [
+        h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
+        h('span.nav-article-title', ['TODO']),
+      ]),
+    ]),
+  ])
 
 const NavFooter = ({ topics }) =>
   h('div.table-content-bg', [

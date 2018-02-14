@@ -35,7 +35,6 @@ app.post('/parse/article', parsers.article)
 
 app.get('/resources', resources.list)
 app.get('/resources/:id/preview', resources.findResource, resources.preview)
-app.get('/resources/:id/previewssr', resources.findResource, resources.previewSSR)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 app.post('/resources', validateBody(resources.add)) // types like video

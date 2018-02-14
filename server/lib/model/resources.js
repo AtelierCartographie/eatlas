@@ -9,7 +9,7 @@ const {
   insert,
   update,
   remove,
-} = require('../es-client')('resource')
+} = require('../es/client')('resource')
 
 exports.list = find
 

@@ -2,7 +2,7 @@
 
 const { createServer } = require('http')
 const { server: { host, port } } = require('config')
-const { ready } = require('./lib/es-client')
+const { ready } = require('./lib/es/client')
 const logger = require('./lib/logger').child({ domain: 'server' })
 
 const app = require('./app')

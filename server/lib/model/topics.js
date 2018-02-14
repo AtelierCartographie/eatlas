@@ -2,7 +2,7 @@
 
 const { fullTopic, validate } = require('../schemas')
 
-const { find, findById, insert, update, remove } = require('../es-client')(
+const { find, findById, insert, update, remove } = require('../es/client')(
   'topic',
 )
 

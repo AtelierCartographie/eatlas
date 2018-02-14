@@ -4,9 +4,9 @@ const { Client } = require('elasticsearch')
 const { es: { connection, indices } } = require('config')
 const AgentKeepAlive = require('agentkeepalive')
 const { promisify } = require('util')
-const initIndices = require('./init-es-index')
-const EsLogger = require('./es-logger')
-const logger = require('./logger')
+const initIndices = require('./init-index')
+const EsLogger = require('./logger')
+const logger = require('../logger')
 
 // https://github.com/elastic/elasticsearch-js/issues/117
 // needs to be true to have IMMEDIATE and CORRECT results in a search succeeding a delete for example

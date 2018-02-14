@@ -9,7 +9,7 @@ const {
   insert,
   update,
   remove,
-} = require('../es-client')('user')
+} = require('../es/client')('user')
 
 exports.findByEmail = email =>
   validate(email, _email).then(email => findOne({ query: { term: { email } } }))

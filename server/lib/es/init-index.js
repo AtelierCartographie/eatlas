@@ -1,6 +1,6 @@
 'use strict'
 
-const logger = require('./logger').child({
+const logger = require('../logger').child({
   domain: 'elasticsearch-index-migration',
 })
 const isEqual = require('lodash.isequal')
@@ -16,7 +16,7 @@ const {
 const indexMapping = Object.keys(indices).reduce(
   (mappings, type) =>
     Object.assign(mappings, {
-      [indices[type]]: { [type]: require(`./es-types/${type}.json`) },
+      [indices[type]]: { [type]: require(`./types/${type}.json`) },
     }),
   {},
 )

@@ -290,8 +290,16 @@ const Head = ({ article }) => {
       content: 'width=device-width, initial-scale=1',
     }),
     h('title', `${title.text} - eAtlas`),
-    h(StyleSheet, { href: '/assets/css/bootstrap.min.css' }),
-    h(StyleSheet, { href: '/assets/css/jasny-bootstrap.min.css' }),
+    h('link', {
+      rel: 'stylesheet',
+      href:
+        'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css',
+    }),
+    h('link', {
+      rel: 'stylesheet',
+      href:
+        'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css',
+    }),
     h(StyleSheet, { href: '/assets/css/main-v3.css' }),
     h(StyleSheet, { href: '/assets/css/nav.css' }),
     h('link', {
@@ -475,8 +483,14 @@ const Body = props =>
     h('script', {
       src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
     }),
-    h(Script, { src: '/assets/js/bootstrap.min.js' }),
-    h(Script, { src: '/assets/js/jasny-bootstrap.min.js' }),
+    h('script', {
+      src:
+        'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js',
+    }),
+    h('script', {
+      src:
+        'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js',
+    }),
     h(Script, { src: '/assets/js/eatlas.js' }),
   ])
 

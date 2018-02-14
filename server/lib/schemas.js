@@ -200,7 +200,7 @@ exports.fullResource = {
     }),
 
   file: Joi.string().when('type', {
-    is: Joi.valid(['map']),
+    is: Joi.valid(['map', 'sound']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),

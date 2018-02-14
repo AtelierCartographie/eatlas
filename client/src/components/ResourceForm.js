@@ -447,8 +447,12 @@ class ResourceForm extends Component<Props, State> {
           ],
           { copyright: true },
         )
+      case 'sound':
+        return buildFields(
+          [this.getDocField(resource, 'sound', { mandatory: true })],
+          { subtitle: true, copyright: true },
+        )
 
-      //case 'sound': // subtitle: false, copyright: true
       //case 'definition': // subtitle: false, copyright: true
       //case 'focus': // subtitle: true, copyright: false
 
@@ -726,8 +730,8 @@ class ResourceForm extends Component<Props, State> {
         }
         break
       case 'video':
+      case 'sound':
         return true
-      //case 'sound':
       //case 'definition':
       //case 'focus':
       default:

@@ -37,6 +37,6 @@ export const MIME_TYPES: { [ResourceType]: string[] } = {
   ],
   map: ['image/svg+xml'],
   image: ['image/jpeg', 'image/png', 'image/gif'],
-  sound: ['audio/mpeg'],
+  sound: ['audio/mpeg', 'audio/mp3'],
   video: ['video/x-msvideo', 'video/mpeg'],
 }

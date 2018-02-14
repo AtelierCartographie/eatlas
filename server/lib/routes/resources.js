@@ -181,6 +181,13 @@ const handleUploads = async (body, required) => {
       }
       break
     }
+    case 'sound': {
+      expectUploadKeys(uploads, k => k === 'sound')
+      if (required && newUploads.length !== 1) {
+        throw Boom.badRequest('Upload: expecting a single "sound" document')
+      }
+      break
+    }
     default:
       throw Boom.notImplemented()
   }
@@ -232,6 +239,18 @@ const handleUploads = async (body, required) => {
         images[size][density] = files[index] || null
       })
       return { images }
+    }
+    case 'sound': {
+      const upload = newUploads.find(u => u.key === 'sound')
+      if (!upload) {
+        return null
+      }
+      // Deletion
+      if (!upload.buffer) {
+        return { file: null }
+      }
+      const file = await saveMedia(body)(upload)
+      return { file }
     }
     default:
       throw Boom.notImplemented()

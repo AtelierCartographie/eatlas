@@ -92,6 +92,12 @@ export const renderPreview = (resource: Resource) => {
     )
   }
 
+  if (resource.type === 'sound' && resource.file) {
+    console.log(process.env)
+    const url = (process.env.REACT_APP_PUBLIC_PATH_sound || '/') + resource.file
+    return <audio src={url} controls />
+  }
+
   return null
 }
 

@@ -2,7 +2,7 @@
 
 import './Resources.css'
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'

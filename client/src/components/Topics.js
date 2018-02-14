@@ -106,17 +106,16 @@ class Topics extends Component<Props, State> {
                 <tr key={t.id}>
                   <td>{t.id}</td>
                   <td>
-                    <img
-                      alt="icon"
-                      src={`/topics/${t.id}.svg`}
-                    />
+                    <img alt="icon" src={`/topics/${t.id}.svg`} />
                   </td>
                   <td>{t.name}</td>
                   <td>
                     {resources.loading ? (
                       <Spinner small />
                     ) : (
-                      articles.filter(r => r.topic === t.id).length
+                      <Link to={`/resources/article/?topic=${t.id}`}>
+                        {articles.filter(r => r.topic === t.id).length}
+                      </Link>
                     )}
                   </td>
                   <td>

@@ -1,5 +1,5 @@
-.Resources .menu-list a.active {
-  font-weight: bold;
+.Resources h1 a {
+  color: #444;
 }
 
 .Resources .preview {
@@ -19,7 +19,31 @@
   color: #444;
 }
 
-.Resources .status-menu .button {
-  font-size: 0.5em;
-  margin: 0 1em;
+.Resources .menu-list {
+  font-size: .8em;
+}
+
+.Resources .menu-list a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Resources .menu-list a.active {
+  font-weight: bold;
+}
+
+.Resources .menu-list span {
+  margin-right: .5em;
+}
+
+.Resources .menu-list .button {
+  font-size: .5em;
+  margin-right: 1em;
+}
+
+.Resources .menu-list img {
+  height: 16px;
+  margin-right: .5em;
+  vertical-align: center;
 }

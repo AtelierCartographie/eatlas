@@ -435,11 +435,22 @@ class ResourceForm extends Component<Props, State> {
           ),
           { copyright: true },
         )
+      case 'video':
+        return buildFields(
+          [
+            this.getAttrField('mediaUrl', {
+              leftIcon: 'link',
+              mandatory: true,
+              readOnly,
+              loading: this.state.parsing,
+            }),
+          ],
+          { copyright: true },
+        )
 
       //case 'sound': // subtitle: false, copyright: true
       //case 'definition': // subtitle: false, copyright: true
       //case 'focus': // subtitle: true, copyright: false
-      //case 'video': // subtitle: false, copyright: true
 
       default:
         return [
@@ -714,10 +725,11 @@ class ResourceForm extends Component<Props, State> {
           return false
         }
         break
+      case 'video':
+        return true
       //case 'sound':
       //case 'definition':
       //case 'focus':
-      //case 'video':
       default:
         return null
     }

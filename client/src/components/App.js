@@ -15,7 +15,7 @@ import IconButton from './IconButton'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
 import Resources from './Resources'
-import Import from './Import'
+import ResourceCreate from './ResourceCreate'
 import ResourceEdit from './ResourceEdit'
 import TopicForm from './TopicForm'
 import Topics from './Topics'
@@ -68,7 +68,7 @@ class App extends Component<Props, State> {
     return (
       <Switch>
         <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/resources/new/:type?" component={Import} />
+        <PrivateRoute path="/resources/new/:type?" component={ResourceCreate} />
         <PrivateRoute path="/resources/:id/edit" component={ResourceEdit} />
         <PrivateRoute path="/resources/:type?" component={Resources} />
         <PrivateRoute exact path="/" component={Home} />

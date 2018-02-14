@@ -47,19 +47,6 @@ const FAKE_TOPICS: Topic[] = [
   },
 ]
 
-export const addResourceFromGoogleDrive = (
-  body: ResourceNew & {
-    uploads: Upload[],
-    accessToken: string,
-  },
-): Promise<Resource> =>
-  query({
-    url: '/resources',
-    method: 'POST',
-    body,
-    fake: () => FAKE_RESOURCE,
-  })
-
 export const parseArticleDoc = (body: {
   uploads: Upload[],
   accessToken: string,
@@ -68,6 +55,29 @@ export const parseArticleDoc = (body: {
     url: '/parse/article',
     method: 'POST',
     body,
+  })
+
+export const addResourceFromGoogleDrive = (
+  body: ResourceNew & {
+    uploads: Upload[],
+    accessToken: string,
+  },
+): Promise<Resource> =>
+  query({
+    url: '/resources/google-drive',
+    method: 'POST',
+    body,
+    fake: () => FAKE_RESOURCE,
+  })
+
+export const addResource = (
+  body: ResourceNew,
+): Promise<Resource> =>
+  query({
+    url: '/resources',
+    method: 'POST',
+    body,
+    fake: () => FAKE_RESOURCE,
   })
 
 export const updateResource = (id: string, body: Object): Promise<Resource> =>

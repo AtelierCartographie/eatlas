@@ -5,7 +5,7 @@ import { FormattedMessage as T } from 'react-intl'
 import withRouter from 'react-router/withRouter'
 import { connect } from 'react-redux'
 
-import { addResourceFromGoogleDrive } from '../api'
+import { addResourceFromGoogleDrive, addResource } from '../api'
 import ResourceForm from './ResourceForm'
 
 import type { ContextRouter } from 'react-router'
@@ -16,7 +16,7 @@ type Props = ContextRouter & {
   initialId: ?string,
 }
 
-class Import extends Component<Props> {
+class ResourceCreate extends Component<Props> {
   render() {
     return (
       <div className="ResourceCreate">
@@ -33,11 +33,14 @@ class Import extends Component<Props> {
   }
 
   save: SaveCallback = async (resource, uploads, accessToken) => {
-    const result = await addResourceFromGoogleDrive({
-      ...resource,
-      uploads,
-      accessToken,
-    })
+    // some types like video does not pick docs on GDrive
+    const result = !accessToken
+      ? await addResource(resource)
+      : await addResourceFromGoogleDrive({
+          ...resource,
+          uploads,
+          accessToken,
+        })
 
     // TODO Add resource to redux before redirection
     this.props.history.push(`/resources/${result.id}/edit`)
@@ -50,5 +53,5 @@ export default withRouter(
   connect(({ locale }: AppState, { match, location }: ContextRouter) => ({
     forcedType: match.params.type,
     initialId: location.search.substring(1),
-  }))(Import),
+  }))(ResourceCreate),
 )

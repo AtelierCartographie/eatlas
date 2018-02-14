@@ -28,6 +28,7 @@
   "resource-edit-loading": "Loading resource #{id}",
   "resource-id": "Identifier",
   "resource-language": "Language",
+  "resource-mediaUrl": "Media URL",
   "resource-not-found": "Resource not found",
   "resource-status": "Status",
   "resource-subtitle": "Subtitle",

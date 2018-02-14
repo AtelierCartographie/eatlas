@@ -51,6 +51,7 @@ declare type ResourceNew = {
   language: string,
   description: string,
   copyright?: string, // only definition, map, image, video, sound
+  mediaUrl?: string // only video
 }
 
 declare type Resource = ResourceNew & {

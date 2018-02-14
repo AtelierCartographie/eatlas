@@ -45,20 +45,39 @@ exports.update = async (req, res) => {
     .catch(res.boom.send)
 }
 
+const getBaseData = req => ({
+  author: req.session.user.email,
+  status: 'submitted',
+  createdAt: Date.now(),
+  id: req.body.id,
+  type: req.body.type,
+  title: req.body.title,
+  subtitle: req.body.subtitle,
+  topic: req.body.topic,
+  language: req.body.language,
+  description: req.body.description,
+  copyright: req.body.copyright,
+  mediaUrl: req.body.mediaUrl,
+})
+
+exports.add = (req, res) => {
+  const baseData = getBaseData(req)
+
+  resources
+    .create(baseData)
+    .then(resource => res.send(resource))
+    .catch(
+      err =>
+        err.code === 'EDUPLICATE'
+          ? res.boom.conflict(err.message)
+          : res.boom.send(err),
+    )
+}
+
+exports.add.schema = schemas.resource
+
 exports.addFromGoogle = (req, res) => {
-  const baseData = {
-    author: req.session.user.email,
-    status: 'submitted',
-    createdAt: Date.now(),
-    id: req.body.id,
-    type: req.body.type,
-    title: req.body.title,
-    subtitle: req.body.subtitle,
-    topic: req.body.topic,
-    language: req.body.language,
-    description: req.body.description,
-    copyright: req.body.copyright,
-  }
+  const baseData = getBaseData(req)
 
   handleUploads(req.body, true)
     .then(data => merge(baseData, data))
@@ -102,7 +121,10 @@ exports.preview = async (req, res) => {
 
 exports.previewSSR = async (req, res) => {
   req.foundResource.resources = await resources.list()
-  const html = generateHTMLFromReact(req.foundResource, (await topics.list()).sort((a, b) => a.id > b.id))
+  const html = generateHTMLFromReact(
+    req.foundResource,
+    (await topics.list()).sort((a, b) => a.id > b.id),
+  )
   res.send(html)
 }
 

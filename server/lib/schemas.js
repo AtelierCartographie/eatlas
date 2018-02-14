@@ -36,7 +36,10 @@ exports.fullUser = {
 // topics
 
 exports.fullTopic = {
-  id: Joi.number().min(1).max(999).required(),
+  id: Joi.number()
+    .min(1)
+    .max(999)
+    .required(),
   name,
 }
 
@@ -83,19 +86,24 @@ const upload = Joi.object().keys({
 
 const language = Joi.string()
 
-exports.uploadFromGoogleDrive = {
+exports.resource = {
   id: Joi.string().required(),
   type: resourceType.required(),
-  accessToken: Joi.string().required(),
-  uploads: Joi.array()
-    .items(upload)
-    .required(),
   title: Joi.string().required(),
   subtitle: Joi.string().optional(),
   topic: Joi.string().required(),
   language: language.required(),
   description: Joi.string().required(),
   copyright: Joi.string().optional(),
+  mediaUrl: Joi.string().optional(),
+}
+
+exports.uploadFromGoogleDrive = {
+  ...exports.resource,
+  accessToken: Joi.string().required(),
+  uploads: Joi.array()
+    .items(upload)
+    .required(),
 }
 
 const links = Joi.array().items(
@@ -154,6 +162,25 @@ const meta = Joi.object().keys({
 exports.fullResource = {
   id: Joi.string().required(),
   type: resourceType.required(),
+
+  // metadata
+  title: Joi.string().required(),
+  subtitle: Joi.string().when('type', {
+    is: Joi.valid(['article', 'focus', 'map']),
+    then: Joi.optional(),
+    otherwise: Joi.forbidden(),
+  }),
+  author: exports.email,
+  topic: Joi.string().required(),
+  language: language.required(),
+  description: Joi.string().required(),
+  copyright: Joi.string().when('type', {
+    is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
+    then: Joi.optional(),
+    otherwise: Joi.forbidden(),
+  }),
+  status: resourceStatus.required(),
+
   nodes: Joi.array()
     .items(node)
     .when('type', {
@@ -168,26 +195,26 @@ exports.fullResource = {
       then: Joi.required(),
       otherwise: Joi.forbidden(),
     }),
+
   file: Joi.string().when('type', {
     is: Joi.valid(['map']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
+
   images: images.when('type', {
     is: Joi.valid(['image']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
-  // Resource metadata
-  title: Joi.string().required(),
-  subtitle: Joi.string().when('type', {
-    is: Joi.valid(['article', 'focus', 'map']),
-    then: Joi.optional(),
+
+  mediaUrl: Joi.string().when('type', {
+    is: Joi.valid(['video']),
+    then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
-  author: Joi.string()
-    .email()
-    .required(),
+
+  // dates
   createdAt: Joi.date()
     .timestamp()
     .required(),
@@ -201,13 +228,4 @@ exports.fullResource = {
   publishedAt: Joi.date()
     .timestamp()
     .optional(),
-  topic: Joi.string().required(),
-  language: language.required(),
-  description: Joi.string().required(),
-  copyright: Joi.string().when('type', {
-    is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
-    then: Joi.optional(),
-    otherwise: Joi.forbidden(),
-  }),
-  status: resourceStatus.required(),
 }

@@ -26,9 +26,9 @@ app.get('/session', user.session)
 app.post('/login', validateBody(user.login))
 
 app.get('/users', users.list)
-app.get('/users/:id', users.findUser, users.get)
-app.post('/users/:id', users.findUser, users.update)
 app.post('/users', users.add)
+app.get('/users/:id', users.findUser, users.get)
+app.put('/users/:id', users.findUser, users.update)
 app.delete('/users/:id', users.findUser, users.remove)
 
 app.post('/parse/article', parsers.article)
@@ -37,15 +37,16 @@ app.get('/resources', resources.list)
 app.get('/resources/:id/preview', resources.findResource, resources.preview)
 app.get('/resources/:id/previewssr', resources.findResource, resources.previewSSR)
 app.get('/resources/:id', resources.findResource, resources.get)
-app.post('/resources', validateBody(resources.add))
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
-app.post('/resources/:id', resources.findResource, resources.update)
+app.post('/resources', validateBody(resources.add)) // types like video
+app.put('/resources/google-drive/:id', resources.findResource, resources.updateFromGoogle)
+app.put('/resources/:id', resources.findResource, resources.update) // types like video
 app.delete('/resources/:id', resources.findResource, resources.remove)
 
 app.get('/topics', topics.list)
 app.get('/topics/:id', topics.findTopic, topics.get)
-app.post('/topics/:id', topics.findTopic, topics.update)
 app.post('/topics', topics.add)
+app.put('/topics/:id', topics.findTopic, topics.update)
 app.delete('/topics/:id', topics.findTopic, topics.remove)
 
 module.exports = app

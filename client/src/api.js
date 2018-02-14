@@ -80,12 +80,20 @@ export const addResource = (
     fake: () => FAKE_RESOURCE,
   })
 
+export const updateResourceFromGoogleDrive = (id: string, body: Object): Promise<Resource> =>
+  query({
+    method: 'PUT',
+    url: `/resources/google-drive/${id}`,
+    body,
+    fake: () => Object.assign(FAKE_RESOURCE, body),
+  })
+
 export const updateResource = (id: string, body: Object): Promise<Resource> =>
   query({
-    method: 'POST',
+    method: 'PUT',
     url: `/resources/${id}`,
     body,
-    fake: () => Object.assign(FAKE_USER, body),
+    fake: () => Object.assign(FAKE_RESOURCE, body),
   })
 
 export const getResource = (id: string): Promise<Resource> =>
@@ -137,7 +145,7 @@ export const getUsers = (): Promise<User[]> =>
 
 export const updateUser = (id: string, body: Object): Promise<User> =>
   query({
-    method: 'POST',
+    method: 'PUT',
     url: `/users/${id}`,
     body,
     fake: () => Object.assign(FAKE_USER, body),
@@ -171,7 +179,7 @@ export const getTopics = (): Promise<Topic[]> =>
 
 export const updateTopic = (id: string, body: Topic): Promise<Topic> =>
   query({
-    method: 'POST',
+    method: 'PUT',
     url: `/topics/${id}`,
     body,
   })

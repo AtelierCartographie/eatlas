@@ -26,8 +26,21 @@ exports.findResource = (req, res, next) =>
 
 exports.get = (req, res) => res.send(req.foundResource)
 
-// TODO add Joi schema
 exports.update = async (req, res) => {
+  const baseData = Object.assign({}, req.body)
+
+  const body = Object.assign(
+    { id: req.foundResource.id, type: req.foundResource.type },
+    req.body,
+  )
+  resources
+    .update(req.foundResource.id, baseData)
+    .then(resource => res.send(resource))
+    .catch(res.boom.send)
+}
+
+// TODO add Joi schema
+exports.updateFromGoogle = async (req, res) => {
   const baseData = Object.assign({}, req.body)
   // Every field is a resource's field to be updated, except 'uploads' & 'accessToken'
   delete baseData.uploads
@@ -37,7 +50,6 @@ exports.update = async (req, res) => {
     { id: req.foundResource.id, type: req.foundResource.type, uploads: [] },
     req.body,
   )
-
   handleUploads(body, false)
     .then(data => merge(baseData, data))
     .then(updates => resources.update(req.foundResource.id, updates))

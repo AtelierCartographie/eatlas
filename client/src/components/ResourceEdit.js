@@ -10,7 +10,7 @@ import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import ArticleForm from './ArticleForm'
 import ResourceForm from './ResourceForm'
-import { updateResource } from '../api'
+import { updateResourceFromGoogleDrive, updateResource } from '../api'
 import ObjectDebug from './ObjectDebug'
 
 import type { SaveCallback } from './ResourceForm'
@@ -96,20 +96,31 @@ class ResourceEdit extends Component<Props, State> {
     }
     const id: string = this.props.resource.id
 
-    return updateResource(id, {
-      // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
-      status: resource.status,
-      // FIXME make id editable?
-      // id: resource.id,
-      title: resource.title,
-      subtitle: resource.subtitle,
-      topic: resource.topic,
-      language: resource.language,
-      description: resource.description,
-      copyright: resource.copyright,
-      uploads,
-      accessToken,
-    })
+    return !accessToken
+      ? updateResource(id, {
+          status: resource.status,
+          title: resource.title,
+          subtitle: resource.subtitle,
+          topic: resource.topic,
+          language: resource.language,
+          description: resource.description,
+          copyright: resource.copyright,
+          mediaUrl: resource.mediaUrl,
+        })
+      : updateResourceFromGoogleDrive(id, {
+          // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
+          status: resource.status,
+          // FIXME make id editable?
+          // id: resource.id,
+          title: resource.title,
+          subtitle: resource.subtitle,
+          topic: resource.topic,
+          language: resource.language,
+          description: resource.description,
+          copyright: resource.copyright,
+          uploads,
+          accessToken,
+        })
   }
 }
 

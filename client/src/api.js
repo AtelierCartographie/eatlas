@@ -23,32 +23,26 @@ const FAKE_RESOURCE: Resource = {
 const FAKE_TOPICS: Topic[] = [
   {
     id: '1',
-    order: 1,
     name: 'Présentation',
   },
   {
     id: '2',
-    order: 2,
     name: 'Contrastes et inégalités',
   },
   {
     id: '3',
-    order: 3,
     name: 'Mobilités',
   },
   {
     id: '4',
-    order: 4,
     name: 'Stratégies des acteurs transnationaux',
   },
   {
     id: '5',
-    order: 5,
     name: '(in)sécurités/paix',
   },
   {
     id: '6',
-    order: 6,
     name: 'Vulnérabilités et défis',
   },
 ]
@@ -157,7 +151,6 @@ export const deleteUser = (id: string): Promise<null> =>
 export const getTopic = (id: string): Promise<Topic> =>
   query({
     url: `/topics/${id}`,
-    fake: () => null,
   })
 
 export const getTopics = (): Promise<Topic[]> =>
@@ -171,7 +164,6 @@ export const updateTopic = (id: string, body: Topic): Promise<Topic> =>
     method: 'POST',
     url: `/topics/${id}`,
     body,
-    fake: () => Object.assign(FAKE_USER, body),
   })
 
 export const addTopic = (body: Topic): Promise<Topic> =>

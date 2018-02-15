@@ -138,36 +138,15 @@ const ArticleP = ({ p }) => {
       return _tail
     }, p.text),
   )
-  return h('p', parts)
+  return h('p.container', parts)
 }
 
-const ArticleDivContainer = ({ container }) => {
-  return h(
-    'div.container',
-    container.map(p => {
-      switch (p.type) {
-        case 'header':
-          return h('h2', p.text)
-
-        case 'p':
-          return h(ArticleP, { p })
-
-        default:
-          return h('div', 'TODO')
-      }
-    }),
-  )
-}
-
-const ArticleResourceContainer = ({ article, container }) => {
-  const r = (article.resources || []).find(r => r.id === container[0].id)
-  if (!r) return null
-
-  switch (r.type) {
+const ArticleResource = ({ article, resource }) => {
+  switch (resource.type) {
     case 'image':
-      const rid = r.id + '-image'
+      const rid = resource.id + '-image'
       return h('figure.container', [
-        h('h2.figure-title', r.title),
+        h('h2.figure-title', resource.title),
         h('picture', [
           h('source', {
             srcSet: srcset(rid, 'medium'),
@@ -176,48 +155,53 @@ const ArticleResourceContainer = ({ article, container }) => {
           h('source', { srcSet: srcset(rid, 'small') }),
           h('img.img-responsive', { srcSet: srcset(rid, 'small') }),
         ]),
-        h('figcaption', r.description),
+        h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),
         h('div.collapse', 'TODO'),
       ])
       break
 
     case 'video':
-      const id = r.mediaUrl.slice('https://vimeo.com/'.length)
-      return h('div.container', [
-        h('h2.figure-title', r.title),
+      const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
+      return h('figure.container', [
+        h('h2.figure-title', resource.title),
         h('iframe', {
-          title: r.title,
+          title: resource.title,
           src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
           frameBorder: 0,
-          height: 400,
+          height: 420,
           width: 740,
           allowFullScreen: true,
         }),
-        h('figcaption', r.description),
+        h('figcaption', resource.description),
+      ])
+      break
+
+    case 'sound':
+      const url = (process.env.REACT_APP_PUBLIC_PATH_sound || `${HOST}/media/sounds/`) + resource.file
+      return h('figure.container', [
+        h('h2.figure-title', resource.title),
+        h('audio', {
+          src: url,
+          controls: true,
+        }),
+        h('figcaption', resource.description),
       ])
       break
   }
 }
 
-const ArticleContainers = ({ article }) => {
-  const containers = []
-  let container = []
-  article.nodes.forEach(n => {
-    if (n.type === 'header' || n.type === 'resource') {
-      containers.push(container)
-      container = []
-      container.type = n.type
-    }
-    container.push(n)
-  })
-
-  return containers.filter(c => c.type).map(c => {
-    switch (c.type) {
+const ArticleNodes = ({ article }) => {
+  return article.nodes.map(n => {
+    switch (n.type) {
       case 'header':
-        return h(ArticleDivContainer, { container: c })
-      case 'resource':
-        return h(ArticleResourceContainer, { article, container: c })
+        return h('h2.container', n.text)
+      case 'p':
+        return h(ArticleP, { p: n })
+      case 'resource': {
+        const resource = (article.resources || []).find(r => r.id === n.id)
+        return !resource ? null : h(ArticleResource, { article, resource })
+      }
     }
   })
 }
@@ -295,7 +279,7 @@ const Article = props =>
     h(ArticleTitle, props),
     h(ArticleBreadcrumb, props),
     h(ArticleSummary, props),
-    h(ArticleContainers, props),
+    h(ArticleNodes, props),
     h(ArticleFooter, props),
     h(ArticleLexicon, props),
   ])

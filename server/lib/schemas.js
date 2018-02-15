@@ -94,7 +94,11 @@ exports.resource = {
   type: resourceType.required(),
   title: Joi.string().required(),
   subtitle: Joi.string().optional(),
-  topic: Joi.string().required(),
+  topic: Joi.string().when('type', {
+    is: Joi.valid(['definition']),
+    then: Joi.optional(),
+    otherwise: Joi.required(),
+  }),
   language: language.required(),
   description: Joi.string().required(),
   copyright: Joi.string().optional(),

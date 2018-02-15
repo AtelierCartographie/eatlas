@@ -31,14 +31,10 @@ exports.parseLexicon = async buffer => {
     const text = getText($, el)
     const [dt, resourceId] = text.split(' [')
 
-    if (!resourceId) {
-      throw new Error('No definition ID: ' + text)
-    }
-
     return {
       dt,
       dd: getText($, el.next),
-      resourceId: resourceId.slice(0, -1),
+      resourceId: resourceId ? resourceId.slice(0, -1) : null,
     }
   }
 

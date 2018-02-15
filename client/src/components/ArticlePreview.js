@@ -290,7 +290,7 @@ const ArticleFooter = props =>
     h(ArticleSeeAlso, props),
   ])
 
-const ArticleLexicon = ({ article }) => {
+const ArticleLexicon = ({ article, definitions }) => {
   return h(
     'section.article-def',
     article.nodes
@@ -301,10 +301,19 @@ const ArticleLexicon = ({ article }) => {
       )
       .map((l, k) =>
         h('div.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
-          h('dl', [h('dt', l), h('dd', 'TODO (definition)')]),
+          h('dl', [h('dt', l), h('dd', getDefinition(definitions, l))]),
         ]),
       ),
   )
+}
+
+const getDefinition = (definitions, dt) => {
+  const search = dt.toLowerCase()
+  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
+  if (!found || !found.dd) {
+    return 'Definition not found'
+  }
+  return found.dd
 }
 
 const Article = props =>
@@ -541,13 +550,13 @@ const Body = props =>
     h(Script, { src: '/assets/js/eatlas.js' }),
   ])
 
-class ArticlePreview extends Component /*::<{article: any, topics: any[]}>*/ {
+class ArticlePreview extends Component /*::<{article: any, topics: any[], definitions: any[]}>*/ {
   render() {
     lexiconId = 0
-    const { article, topics } = this.props
+    const { article, topics, definitions } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { article }),
-      h(Body, { article, topics }),
+      h(Body, { article, topics, definitions }),
     ])
   }
 }

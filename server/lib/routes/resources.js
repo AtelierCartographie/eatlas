@@ -115,13 +115,28 @@ exports.remove = (req, res) =>
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 
-exports.preview = async (req, res) => {
-  req.foundResource.resources = await resources.list()
-  const html = generateHTML(
-    req.foundResource,
-    (await topics.list()).sort((a, b) => a.id > b.id),
+exports.preview = async (req, res, next) => {
+  try {
+    req.foundResource.resources = await resources.list()
+    const html = generateHTML(
+      req.foundResource,
+      (await topics.list()).sort((a, b) => a.id > b.id),
+      await getDefinitions(),
+    )
+    res.send(html)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const getDefinitions = async () => {
+  const lexicons = await resources.list({
+    query: { term: { type: 'definition' } },
+  })
+  return lexicons.reduce(
+    (definitions, lexicon) => definitions.concat(lexicon.definitions),
+    [],
   )
-  res.send(html)
 }
 
 const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/

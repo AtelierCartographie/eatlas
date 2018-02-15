@@ -391,28 +391,47 @@ class Resources extends Component<Props, State> {
   }
 
   renderHeader() {
-    return (
-      <div className="level">
-        <div className="level-left">
-          <div className="level-item">
-            <h1 className="title">
-              <NavLink to="/resources">
-                <T id="resources" />
-              </NavLink>
-            </h1>
-          </div>
-        </div>
-        <div className="level-right">
-          <div className="level-item">
-            <Link
-              className="button is-primary"
-              to={`/resources/new/${this.props.type}`}>
-              <IconButton label="add" icon="plus" />
-            </Link>
-          </div>
+    const addButton = (
+      <div className="level-right">
+        <div className="level-item">
+          <Link
+            className="button is-primary"
+            to={`/resources/new/${this.props.type}`}>
+            <IconButton label="add" icon="plus" />
+          </Link>
         </div>
       </div>
     )
+    const title = (
+      <div className="level-left">
+        <div className="level-item">
+          <h1 className="title">
+            <NavLink to="/resources">
+              <T id="resources" />
+            </NavLink>
+          </h1>
+        </div>
+      </div>
+    )
+    return (
+      <div className="level">
+        {title}
+        {this.canAdd() && addButton}
+      </div>
+    )
+  }
+
+  canAdd() {
+    // No 'add' button if we're in the "definition" type, and there is already a lexicon
+    if (this.props.type === 'definition') {
+      if (!this.props.resources.loaded || this.props.resources.loading) {
+        return false
+      }
+      if (this.props.resources.list.some(r => r.type === 'definition')) {
+        return false
+      }
+    }
+    return true
   }
 
   renderTopicCell(resource: Resource) {

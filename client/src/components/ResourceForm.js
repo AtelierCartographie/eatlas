@@ -496,11 +496,10 @@ class ResourceForm extends Component<Props, State> {
         )
       case 'definition':
         return buildFields(
-          [this.getDocField(resource, 'sound', { mandatory: true })],
-          { subtitle: true, copyright: true },
+          [this.getDocField(resource, 'definition', { mandatory: true })],
+          { subtitle: false, copyright: true },
         )
 
-      //case 'definition': // subtitle: false, copyright: true
       //case 'focus': // subtitle: true, copyright: false
 
       default:

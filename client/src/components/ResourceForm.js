@@ -179,7 +179,8 @@ class ResourceForm extends Component<Props, State> {
 
   stateFromProps(props: Props): { types: ResourceType[], resource: ?Resource } {
     const types = props.resources
-      ? props.resources.list.some(resource => resource.type === 'definition')
+      ? props.resources.list.some(resource => resource.type === 'definition') &&
+        props.mode === 'create'
         ? RESOURCE_TYPES.filter(type => type !== 'definition')
         : RESOURCE_TYPES
       : this.state.types

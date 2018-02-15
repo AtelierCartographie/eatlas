@@ -120,6 +120,7 @@ class ResourceEdit extends Component<Props, State> {
           copyright: resource.copyright,
           uploads,
           accessToken,
+          // TODO should we send parsed result? Currently, doc is parsed twice by server
         })
   }
 }

@@ -669,11 +669,20 @@ class ResourceForm extends Component<Props, State> {
     const postParse = (state, parsed) => {
       const newState: { parsed: any, resource?: Resource } = { parsed }
       if (state.resource) {
-        const resource: Resource = {
-          ...state.resource,
-          definitions: parsed.definitions,
+        const resource: Resource = state.resource
+        newState.resource = {
+          ...resource,
+          title:
+            resource.title ||
+            this.props.intl.formatMessage({ id: 'lexicon-title' }),
+          language: resource.language || this.props.locale,
+          description:
+            resource.description ||
+            this.props.intl.formatMessage({
+              id: 'lexicon-description',
+              values: { nb: parsed.definitions.length },
+            }),
         }
-        newState.resource = resource
       }
       return newState
     }

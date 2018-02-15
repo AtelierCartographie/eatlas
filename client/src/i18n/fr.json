@@ -15,6 +15,8 @@
   "hide-preview": "masquer la prévisualisation",
   "icon": "icone",
   "import": "import",
+  "lexicon-description": "Lexique complet ({nb} définitions)",
+  "lexicon-title": "Lexique",
   "myself": "moi-même",
   "name": "nom",
   "nb-definitions": "Nombre de définitions",

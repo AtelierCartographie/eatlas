@@ -29,10 +29,6 @@ exports.get = (req, res) => res.send(req.foundResource)
 exports.update = async (req, res) => {
   const baseData = Object.assign({}, req.body)
 
-  const body = Object.assign(
-    { id: req.foundResource.id, type: req.foundResource.type },
-    req.body,
-  )
   resources
     .update(req.foundResource.id, baseData)
     .then(resource => res.send(resource))

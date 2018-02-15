@@ -32,13 +32,18 @@ app.put('/users/:id', users.findUser, users.update)
 app.delete('/users/:id', users.findUser, users.remove)
 
 app.post('/parse/article', parsers.article)
+app.post('/parse/lexicon', parsers.lexicon)
 
 app.get('/resources', resources.list)
 app.get('/resources/:id/preview', resources.findResource, resources.preview)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 app.post('/resources', validateBody(resources.add)) // types like video
-app.put('/resources/google-drive/:id', resources.findResource, resources.updateFromGoogle)
+app.put(
+  '/resources/google-drive/:id',
+  resources.findResource,
+  resources.updateFromGoogle,
+)
 app.put('/resources/:id', resources.findResource, resources.update) // types like video
 app.delete('/resources/:id', resources.findResource, resources.remove)
 

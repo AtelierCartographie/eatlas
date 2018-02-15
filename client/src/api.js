@@ -57,6 +57,16 @@ export const parseArticleDoc = (body: {
     body,
   })
 
+export const parseLexiconDoc = (body: {
+  uploads: Upload[],
+  accessToken: string,
+}): Promise<any> =>
+  query({
+    url: '/parse/lexicon',
+    method: 'POST',
+    body,
+  })
+
 export const addResourceFromGoogleDrive = (
   body: ResourceNew & {
     uploads: Upload[],
@@ -70,9 +80,7 @@ export const addResourceFromGoogleDrive = (
     fake: () => FAKE_RESOURCE,
   })
 
-export const addResource = (
-  body: ResourceNew,
-): Promise<Resource> =>
+export const addResource = (body: ResourceNew): Promise<Resource> =>
   query({
     url: '/resources',
     method: 'POST',
@@ -80,7 +88,10 @@ export const addResource = (
     fake: () => FAKE_RESOURCE,
   })
 
-export const updateResourceFromGoogleDrive = (id: string, body: Object): Promise<Resource> =>
+export const updateResourceFromGoogleDrive = (
+  id: string,
+  body: Object,
+): Promise<Resource> =>
   query({
     method: 'PUT',
     url: `/resources/google-drive/${id}`,
@@ -212,23 +223,21 @@ const fakeResponse = (fake, delay) =>
   )
 
 // Get from server or return fake, depends on environment configuration
-const query = <T>(
-  {
-    method = 'GET',
-    url,
-    body,
-    delay = 0,
-    fake = () => null,
-    forceFake,
-  }: {
-    method?: string,
-    url: string,
-    body?: Object,
-    delay?: number,
-    fake?: Function,
-    forceFake?: boolean,
-  } = {},
-): Promise<T> => {
+const query = <T>({
+  method = 'GET',
+  url,
+  body,
+  delay = 0,
+  fake = () => null,
+  forceFake,
+}: {
+  method?: string,
+  url: string,
+  body?: Object,
+  delay?: number,
+  fake?: Function,
+  forceFake?: boolean,
+} = {}): Promise<T> => {
   if (process.env.REACT_APP_MOCK_API === 'yes' || forceFake) {
     return fakeResponse(fake, delay)
   }

@@ -174,7 +174,11 @@ exports.fullResource = {
     otherwise: Joi.forbidden(),
   }),
   author: exports.email,
-  topic: Joi.string().required(),
+  topic: Joi.string().when('type', {
+    is: Joi.valid(['definition']),
+    then: Joi.optional(),
+    otherwise: Joi.required(),
+  }),
   language: language.required(),
   description: Joi.string().required(),
   copyright: Joi.string().when('type', {

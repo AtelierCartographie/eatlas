@@ -508,7 +508,7 @@ class Resources extends Component<Props, State> {
 export default withRouter(
   connect(
     ({ resources, topics, locale }: AppState, { match }: ContextRouter) => {
-      const { searchParams } = new URL(document.location)
+      const { searchParams } = new URL(window.document.location)
       return {
         locale,
         topics,

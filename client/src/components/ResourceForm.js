@@ -178,6 +178,12 @@ class ResourceForm extends Component<Props, State> {
   }
 
   componentWillUpdate(nextProps: Props, nextState: State) {
+    // Note: we may here show the warning ONLY if there is already a lexicon
+    // but in real life there will ALWAYS be one, in the very rare case (only the first time)
+    // there is no lexicon, then it's a very special situation and user will know he can ignore
+    // the message
+    // We could have checked resources IF they're already loaded, but that would have brought
+    // inconsistent behaviors so let's forget it
     if (
       nextState.resource &&
       nextState.resource.type === 'definition' &&

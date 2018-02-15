@@ -679,10 +679,10 @@ class ResourceForm extends Component<Props, State> {
           language: resource.language || this.props.locale,
           description:
             resource.description ||
-            this.props.intl.formatMessage({
-              id: 'lexicon-description',
-              values: { nb: parsed.definitions.length },
-            }),
+            this.props.intl.formatMessage(
+              { id: 'lexicon-description' },
+              { nb: parsed.definitions.length },
+            ),
         }
       }
       return newState

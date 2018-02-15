@@ -405,6 +405,7 @@ class ResourceForm extends Component<Props, State> {
 
     switch (resource.type) {
       case 'article':
+        // $FlowFixMe: seriously flow, you yell at this one and not the next ones? I can't see the logic here, shut up
         return buildFields(
           [
             this.getDocField(resource, 'article', {
@@ -621,6 +622,10 @@ class ResourceForm extends Component<Props, State> {
     e: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     const value = e.target.value // beware recycled synthetic events
+    if (attr === 'type' && value === 'definition') {
+      // When switching to 'definition', show a warning about overwriting
+      toast.warn(<T id="toast-type-definition-singleton" />)
+    }
     this.setState(state => ({
       error: null,
       resource: { ...state.resource, [attr]: value },

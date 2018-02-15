@@ -54,6 +54,20 @@
         }
       }
     },
+    "definitions": {
+      "type": "nested",
+      "properties": {
+        "dt": {
+          "type": "text"
+        },
+        "dd": {
+          "type": "text"
+        },
+        "resourceId": {
+          "type": "keyword"
+        }
+      }
+    },
     "id": {
       "type": "keyword"
     },

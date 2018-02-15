@@ -21,6 +21,7 @@
   "name": "nom",
   "nb-definitions": "Nombre de définitions",
   "preview": "prévisualisation",
+  "preview-lexicon": "{nb} définitions",
   "publish": "publier",
   "resource-author": "Auteur",
   "resource-copyright": "Copyright",

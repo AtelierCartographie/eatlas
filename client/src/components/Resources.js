@@ -99,6 +99,14 @@ export const renderPreview = (resource: Resource) => {
     return <audio src={url} controls />
   }
 
+  if (resource.type === 'definition' && resource.definitions) {
+    return (
+      <span>
+        <T id="preview-lexicon" values={{ nb: resource.definitions.length }} />
+      </span>
+    )
+  }
+
   return null
 }
 

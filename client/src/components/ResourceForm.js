@@ -17,7 +17,7 @@ import {
   LOCALES,
   STATUS_STYLE,
 } from '../constants'
-import { getTopics, replaceResource } from '../actions'
+import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
 import { parseArticleDoc } from '../api'
 import ObjectDebug from './ObjectDebug'
@@ -34,6 +34,7 @@ type Props = ContextIntl & {
   locale: Locale,
   topics: { list: Topic[], loading: boolean },
   shouldLoadTopics: boolean,
+  resources: { list: Resource[], fetched: boolean },
   // Own props
   mode: 'create' | 'edit',
   resource: ?Resource,
@@ -41,6 +42,7 @@ type Props = ContextIntl & {
   // Actions
   getTopics: Function,
   replaceResource: Function,
+  fetchResources: Function,
 }
 
 type State = {
@@ -53,6 +55,7 @@ type State = {
   removedDocs: string[],
   parsing: boolean,
   parsed: ?any,
+  types: ResourceType[],
 }
 
 type FieldParams = {
@@ -143,6 +146,7 @@ class ResourceForm extends Component<Props, State> {
     removedDocs: [],
     parsing: false,
     parsed: null,
+    types: [],
   }
 
   gapi: GoogleApi
@@ -165,34 +169,30 @@ class ResourceForm extends Component<Props, State> {
   }
 
   componentDidMount() {
+    if (!this.props.resources.fetched) {
+      this.props.fetchResources()
+    }
     if (this.props.shouldLoadTopics) {
       this.props.getTopics()
     }
   }
 
   componentWillReceiveProps(props: Props) {
-    this.setState({
-      resource: props.resource,
-      docs: this.docsFromResource(props.resource),
-    })
-  }
-
-  componentWillUpdate(nextProps: Props, nextState: State) {
-    // Note: we may here show the warning ONLY if there is already a lexicon
-    // but in real life there will ALWAYS be one, in the very rare case (only the first time)
-    // there is no lexicon, then it's a very special situation and user will know he can ignore
-    // the message
-    // We could have checked resources IF they're already loaded, but that would have brought
-    // inconsistent behaviors so let's forget it
-    if (
-      nextState.resource &&
-      nextState.resource.type === 'definition' &&
-      (!this.state.resource ||
-        this.state.resource.type !== nextState.resource.type)
-    ) {
-      // When switching to 'definition', show a warning about overwriting
-      toast.warn(<T id="toast-type-definition-singleton" />)
+    const types = props.resources
+      ? props.resources.list.some(resource => resource.type === 'definition')
+        ? RESOURCE_TYPES.filter(type => type !== 'definition')
+        : RESOURCE_TYPES
+      : this.state.types
+    let resource = props.resource
+    if (resource && !types.includes(resource.type)) {
+      // Resource type has been removed! Blank type
+      resource = Object.assign({}, resource, { type: '' })
     }
+    this.setState({
+      resource,
+      docs: this.docsFromResource(props.resource),
+      types,
+    })
   }
 
   renderError(message: any) {
@@ -333,7 +333,7 @@ class ResourceForm extends Component<Props, State> {
         (this.props.resource && this.props.resource.type),
       onChange: this.onChangeAttr('type', true),
       mandatory: true,
-      options: this.buildSelectOptions(RESOURCE_TYPES, 'type-', true),
+      options: this.buildSelectOptions(this.state.types, 'type-', true),
     })
 
     const idField = this.getAttrField('id', {
@@ -474,6 +474,11 @@ class ResourceForm extends Component<Props, State> {
           { copyright: true },
         )
       case 'sound':
+        return buildFields(
+          [this.getDocField(resource, 'sound', { mandatory: true })],
+          { subtitle: true, copyright: true },
+        )
+      case 'definition':
         return buildFields(
           [this.getDocField(resource, 'sound', { mandatory: true })],
           { subtitle: true, copyright: true },
@@ -797,10 +802,11 @@ class ResourceForm extends Component<Props, State> {
 }
 
 export default connect(
-  ({ locale, topics }: AppState) => ({
+  ({ resources, locale, topics }: AppState) => ({
     locale, // used by DocPicker
     shouldLoadTopics: topics.list.length === 0,
     topics, // used by <select>
+    resources,
   }),
-  { getTopics, replaceResource },
+  { getTopics, replaceResource, fetchResources },
 )(injectIntl(ResourceForm))

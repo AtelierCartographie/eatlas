@@ -4,7 +4,7 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component } = require('react')
+const { Component, Fragment } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -66,7 +66,9 @@ const ArticleTitle = ({ article }) => {
 const ArticleBreadcrumb = ({ article, topics }) => {
   const topic = topics.find(x => x.id === article.topic)
   return h('section.breadcrumb', [
-    h('div.container', [h('a', { href: '#' }, topic.name)]),
+    h('div.container', [
+      h('a', { href: '#' }, topic ? topic.name : article.topic),
+    ]),
   ])
 }
 
@@ -153,7 +155,7 @@ const ArticleP = ({ p }) => {
   )
   parts = parts.map(p => {
     if (typeof p !== 'string') return p
-    return parseFootNotes(p)
+    return h(Fragment, { key: p }, parseFootNotes(p))
   })
 
   return h('p.container', parts)
@@ -175,9 +177,8 @@ const ArticleResource = ({ article, resource }) => {
         ]),
         h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),
-        h('div.collapse', 'TODO'),
+        h('div.collapse', 'TODO (image comment)'),
       ])
-      break
 
     case 'video':
       const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
@@ -193,7 +194,6 @@ const ArticleResource = ({ article, resource }) => {
         }),
         h('figcaption', resource.description),
       ])
-      break
 
     case 'sound':
       const url =
@@ -207,7 +207,9 @@ const ArticleResource = ({ article, resource }) => {
         }),
         h('figcaption', resource.description),
       ])
-      break
+
+    default:
+      return null
   }
 }
 
@@ -215,13 +217,17 @@ const ArticleNodes = ({ article }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
-        return h('h2.container', n.text)
+        return h('h2.container', { key: n.id }, n.text)
       case 'p':
-        return h(ArticleP, { p: n })
+        return h(ArticleP, { p: n, key: n.id })
       case 'resource': {
         const resource = (article.resources || []).find(r => r.id === n.id)
-        return !resource ? null : h(ArticleResource, { article, resource })
+        return !resource
+          ? null
+          : h(ArticleResource, { article, resource, key: n.id })
       }
+      default:
+        return null
     }
   })
 }
@@ -232,14 +238,14 @@ const ArticleKeywords = ({ article }) => {
 
   return h('section.container.article-keyword', [
     h('h2', 'Mots-clés'),
-    h('p', keywords.list.map(kw => h('a', kw.text))),
+    h('p', keywords.list.map((kw, i) => h('a', { key: i }, kw.text))),
   ])
 }
 
 const ArticleQuote = () =>
   h('section.container.article-quote', [
     h('h2', 'Citation'),
-    h('blockquote', [h('p', 'TODO')]),
+    h('blockquote', [h('p', 'TODO (quote)')]),
   ])
 
 const ArticleNotes = ({ article }) => {
@@ -250,7 +256,7 @@ const ArticleNotes = ({ article }) => {
     h('h2', 'Notes'),
     h('ol', [
       notes.list.map((n, k) =>
-        h('li', { id: `footnote-${k + 1}` }, [
+        h('li', { id: `footnote-${k + 1}`, key: k }, [
           h('a', { href: `#note-${k + 1}` }, '^'),
           n.text,
         ]),
@@ -265,8 +271,8 @@ const ArticleSeeAlso = ({ article }) => {
 
   return h('section.container.article-see-also', [
     h('h2', "Continuer dans l'Atlas"),
-    seeAlsos.list.map(s =>
-      h('div.col-sm-6', [
+    seeAlsos.list.map((s, i) =>
+      h('div.col-sm-6', { key: i }, [
         h('a.thumbnail', { href: '#' }, [
           h(Img, { src: '/assets/img/thumbnails-article1.svg' }),
           h('h3', s.text),
@@ -294,8 +300,8 @@ const ArticleLexicon = ({ article }) => {
         [],
       )
       .map((l, k) =>
-        h('div.collapse.container', { id: `keyword-${k + 1}` }, [
-          h('dl', [h('dt', l), h('dd', 'TODO')]),
+        h('div.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
+          h('dl', [h('dt', l), h('dd', 'TODO (definition)')]),
         ]),
       ),
   )
@@ -359,8 +365,8 @@ const NavBar = () =>
 const NavMenuTopics = ({ topics }) =>
   h(
     'ul.nav.navmenu-nav',
-    topics.map(t =>
-      h('li', [
+    topics.map((t, i) =>
+      h('li', { key: i }, [
         h('a', [h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }), t.name]),
       ]),
     ),
@@ -380,7 +386,7 @@ const NavMenuResources = () =>
     ),
     h(
       'ul.dropdown-menu.navmenu-nav',
-      resourcesTypes.map(a => h('li', [h('a', a)])),
+      resourcesTypes.map((a, i) => h('li', { key: i }, [h('a', a)])),
     ),
   ])
 
@@ -396,7 +402,10 @@ const NavMenuAPropos = () =>
       },
       ['À propos', h('span.caret')],
     ),
-    h('ul.dropdown-menu.navmenu-nav', aPropos.map(a => h('li', [h('a', a)]))),
+    h(
+      'ul.dropdown-menu.navmenu-nav',
+      aPropos.map((a, i) => h('li', { key: i }, [h('a', a)])),
+    ),
   ])
 
 // on the left
@@ -439,11 +448,11 @@ const NavTopics = () =>
     h('nav.nav-article', [
       h('a.nav-article-button.nav-article-previous', [
         h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-        h('span.nav-article-title', ['TODO']),
+        h('span.nav-article-title', ['TODO (previous article title)']),
       ]),
       h('a.nav-article-button.nav-article-next', [
         h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-        h('span.nav-article-title', ['TODO']),
+        h('span.nav-article-title', ['TODO (next article title)']),
       ]),
     ]),
   ])
@@ -459,7 +468,7 @@ const NavFooter = ({ topics }) =>
               h(
                 'ul',
                 topics.map(t =>
-                  h('li', [
+                  h('li', { key: t.id }, [
                     h('a', [
                       h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }),
                       t.name,
@@ -471,11 +480,18 @@ const NavFooter = ({ topics }) =>
           ]),
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Resources'),
-            h('nav', [h('ul', resourcesTypes.map(r => h('li', [h('a', r)])))]),
+            h('nav', [
+              h(
+                'ul',
+                resourcesTypes.map((r, i) => h('li', { key: i }, [h('a', r)])),
+              ),
+            ]),
           ]),
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'À propos'),
-            h('nav', [h('ul', aPropos.map(a => h('li', [h('a', a)])))]),
+            h('nav', [
+              h('ul', aPropos.map((a, i) => h('li', { key: i }, [h('a', a)]))),
+            ]),
           ]),
         ]),
         h('section.row.footer-logo', [
@@ -525,7 +541,7 @@ const Body = props =>
     h(Script, { src: '/assets/js/eatlas.js' }),
   ])
 
-class ArticlePreview extends Component {
+class ArticlePreview extends Component /*::<{article: any, topics: any[]}>*/ {
   render() {
     lexiconId = 0
     const { article, topics } = this.props

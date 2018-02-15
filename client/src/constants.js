@@ -40,3 +40,5 @@ export const MIME_TYPES: { [ResourceType]: string[] } = {
   sound: ['audio/mpeg', 'audio/mp3'],
   video: ['video/x-msvideo', 'video/mpeg'],
 }
+
+export const LEXICON_ID: string = 'LEXIC'

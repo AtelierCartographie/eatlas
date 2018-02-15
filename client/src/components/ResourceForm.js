@@ -16,6 +16,7 @@ import {
   RESOURCE_STATUSES,
   LOCALES,
   STATUS_STYLE,
+  LEXICON_ID,
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
@@ -183,9 +184,9 @@ class ResourceForm extends Component<Props, State> {
         ? RESOURCE_TYPES.filter(type => type !== 'definition')
         : RESOURCE_TYPES
       : this.state.types
-    let resource = props.resource
+    let resource: ?Resource = props.resource
     if (resource && !types.includes(resource.type)) {
-      // Resource type has been removed! Blank type
+      // $FlowFixMe Resource type has been removed! Blank type
       resource = Object.assign({}, resource, { type: '' })
     }
     this.setState({
@@ -317,7 +318,15 @@ class ResourceForm extends Component<Props, State> {
   }
 
   getAttrValue(attr: string): string {
-    /* avoid null values to keep this input controlled */
+    // Special case: lexicon id is hardcoded
+    if (
+      attr === 'id' &&
+      this.state.resource &&
+      this.state.resource.type === 'definition'
+    ) {
+      return LEXICON_ID
+    }
+    // avoid null values to keep this input controlled
     return this.state.resource && this.state.resource[attr]
       ? this.state.resource[attr]
       : ''
@@ -339,7 +348,12 @@ class ResourceForm extends Component<Props, State> {
     const idField = this.getAttrField('id', {
       leftIcon: 'key',
       mandatory: true,
-      readOnly: readOnly || this.props.mode === 'edit',
+      value: this.getAttrValue('id'),
+      // lexicon: id is hardcoded
+      readOnly:
+        readOnly ||
+        this.props.mode === 'edit' ||
+        (resource ? resource.type === 'definition' : false),
     })
 
     if (!resource || !resource.type) {

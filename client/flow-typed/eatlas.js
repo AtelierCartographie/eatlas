@@ -51,12 +51,13 @@ declare type ResourceNew = {
   language: string,
   description: string,
   copyright?: string, // only definition, map, image, video, sound
-  mediaUrl?: string // only video
+  mediaUrl?: string, // only video
 }
 
 declare type Resource = ResourceNew & {
   file?: string,
   nodes?: any[],
+  definitions?: any[],
   images?: {
     small: { '1x'?: ?string, '2x'?: ?string, '3x'?: ?string },
     medium: { '1x': ?string, '2x'?: ?string, '3x'?: ?string },

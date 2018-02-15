@@ -178,20 +178,34 @@ class ResourceForm extends Component<Props, State> {
   }
 
   stateFromProps(props: Props): { types: ResourceType[], resource: ?Resource } {
-    const types = props.resources
-      ? props.resources.list.some(resource => resource.type === 'definition') &&
-        props.mode === 'create'
-        ? RESOURCE_TYPES.filter(type => type !== 'definition')
-        : RESOURCE_TYPES
-      : this.state.types
-    let resource: ?Resource = props.resource
-    if (resource && !types.includes(resource.type)) {
-      // $FlowFixMe Resource type has been removed! Blank type
-      resource = Object.assign({}, resource, { type: '' })
+    // Type 'definition' can be selected only in two situations:
+    // - I'm editing the lexicon
+    // - I'm creating a resource and there is no other lexicon
+    let types = this.state ? this.state.types : []
+    if (props.resources) {
+      const isLexiconEdited =
+        props.resource && props.resource.type === 'definition'
+      const isFoundLexicon = props.resources.list.some(
+        resource => resource.type === 'definition',
+      )
+      if (isLexiconEdited || (props.mode === 'create' && !isFoundLexicon)) {
+        types = RESOURCE_TYPES
+      } else {
+        types = RESOURCE_TYPES.filter(type => type !== 'definition')
+      }
     }
+    let resource: ?Resource = props.resource
     // Special case: lexicon id is hardcoded
     if (resource && resource.type === 'definition') {
-      resource = Object.assign({}, resource, { id: LEXICON_ID })
+      resource = Object.assign({}, resource, {
+        id: LEXICON_ID,
+      })
+    }
+    if (resource && !types.includes(resource.type)) {
+      // $FlowFixMe Resource type has been removed! Blank type
+      resource = Object.assign({}, resource, {
+        type: '',
+      })
     }
     return { types, resource }
   }

@@ -376,7 +376,7 @@ class ResourceForm extends Component<Props, State> {
         }),
     ]
 
-    const appendFields = ({ subtitle, copyright }) => [
+    const appendFields = ({ subtitle, copyright, optionalTopic }) => [
       this.getAttrField('title', {
         leftIcon: 'header',
         mandatory: true,
@@ -391,7 +391,7 @@ class ResourceForm extends Component<Props, State> {
         }),
       this.getAttrField('topic', {
         leftIcon: 'paragraph',
-        mandatory: true,
+        mandatory: !optionalTopic,
         readOnly,
         loading:
           this.state.parsing ||
@@ -437,11 +437,12 @@ class ResourceForm extends Component<Props, State> {
       {
         subtitle = false,
         copyright = false,
-      }: { subtitle?: boolean, copyright?: boolean },
+        optionalTopic = false,
+      }: { subtitle?: boolean, copyright?: boolean, optionalTopic?: boolean },
     ) =>
       prependFields()
         .concat(fields)
-        .concat(appendFields({ subtitle, copyright }))
+        .concat(appendFields({ subtitle, copyright, optionalTopic }))
         .filter(x => x)
 
     switch (resource.type) {
@@ -497,7 +498,7 @@ class ResourceForm extends Component<Props, State> {
       case 'definition':
         return buildFields(
           [this.getDocField(resource, 'definition', { mandatory: true })],
-          { subtitle: false, copyright: true },
+          { subtitle: false, copyright: true, optionalTopic: true },
         )
 
       //case 'focus': // subtitle: true, copyright: false

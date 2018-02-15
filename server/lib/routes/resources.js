@@ -1,13 +1,12 @@
 'use strict'
 
-const { readFileSync } = require('fs')
-const { resolve } = require('path')
 const Boom = require('boom')
 const merge = require('lodash.merge')
 
 const { resources, topics } = require('../model')
 const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
+const { parseLexicon } = require('../lexicon-parser')
 const { saveMedia } = require('../public-fs')
 const { generateHTML } = require('../html-generator')
 const { download } = require('../google')
@@ -170,6 +169,13 @@ const handleUploads = async (body, required) => {
       }
       break
     }
+    case 'definition': {
+      expectUploadKeys(uploads, k => k === 'lexicon')
+      if (required && newUploads.length !== 1) {
+        throw Boom.badRequest('Upload: expecting a single "lexicon" document')
+      }
+      break
+    }
     default:
       throw Boom.notImplemented()
   }
@@ -233,6 +239,17 @@ const handleUploads = async (body, required) => {
       }
       const file = await saveMedia(body)(upload)
       return { file }
+    }
+    case 'definition': {
+      const upload = newUploads.find(u => u.key === 'lexicon')
+      if (!upload) {
+        return null
+      }
+      // Deletion
+      if (!upload.buffer) {
+        return { file: null }
+      }
+      return parseLexicon(upload.buffer)
     }
     default:
       throw Boom.notImplemented()

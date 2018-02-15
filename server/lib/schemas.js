@@ -144,6 +144,12 @@ const node = Joi.object().keys({
   lexicon: Joi.array().items(Joi.string()),
 })
 
+const definition = Joi.object().keys({
+  dt: Joi.string().required(),
+  dd: Joi.string().required(),
+  resourceId: Joi.string().optional(),
+})
+
 const densities = Joi.object().keys({
   '1x': Joi.string().required(),
   '2x': Joi.string(),
@@ -203,6 +209,14 @@ exports.fullResource = {
     .items(meta)
     .when('type', {
       is: Joi.valid(['article', 'focus']),
+      then: Joi.required(),
+      otherwise: Joi.forbidden(),
+    }),
+
+  definitions: Joi.array()
+    .items(definition)
+    .when('type', {
+      is: Joi.valid(['definition']),
       then: Joi.required(),
       otherwise: Joi.forbidden(),
     }),

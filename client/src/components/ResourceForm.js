@@ -725,9 +725,13 @@ class ResourceForm extends Component<Props, State> {
     e: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     const value = e.target.value // beware recycled synthetic events
+    const additional =
+      attr === 'type' && value === 'definition'
+        ? { id: LEXICON_ID } // Special case: hardcoded id for lexicon
+        : {}
     this.setState(state => ({
       error: null,
-      resource: { ...state.resource, [attr]: value },
+      resource: { ...state.resource, [attr]: value, ...additional },
       docs: clearDocs ? {} : state.docs,
       removedDocs: clearDocs ? [] : state.removedDocs,
     }))

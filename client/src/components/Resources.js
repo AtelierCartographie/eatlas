@@ -81,6 +81,7 @@ export const renderPreview = (resource: Resource) => {
   }
 
   if (resource.type === 'video') {
+    // $FlowFixMe: not undefined
     const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
     return (
       <iframe

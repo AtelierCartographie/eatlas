@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import Icon from './Icon'
 import IconButton from './IconButton'
 import { renderPreview } from './Resources'
+import { LEXICON_ID } from '../constants'
 
 // TODO proper typing
 type ANode = any
@@ -64,6 +65,79 @@ const ResourceField = connect(({ resources }, { node }) => ({
   resource: resources.list.find(r => r.id === node.id),
 }))(_ResourceField)
 
+type PProps = {
+  node: Object,
+  definitions: { dt: string, dd: string }[],
+  onIsMissing: boolean => any,
+}
+
+class _ParagraphField extends Component<PProps> {
+  render() {
+    const { node } = this.props
+    return (
+      <div className="field">
+        <label className="label">Paragraph</label>
+        <div className="columns">
+          <div className="column">
+            <div className="control">
+              <textarea className="textarea" defaultValue={node.text} />
+            </div>
+          </div>
+          <div className="column">
+            {!node.links.length ? null : (
+              <div>
+                <label className="label">Links</label>
+                <ul>
+                  {node.links.map(l => (
+                    <li key={l.label}>
+                      <a href={l.url}>{l.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {!node.lexicon.length ? null : (
+              <div>
+                <label className="label">Lexicon</label>
+                <ul>{node.lexicon.map(this.renderDefinition)}</ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  renderDefinition = dt => {
+    const dd = this.getDefinition(dt)
+    return (
+      <li key={dt}>
+        {dd ? (
+          <abbr title={dd}>{dt}</abbr>
+        ) : (
+          <span className="has-text-danger">
+            <Icon icon="warning" />
+            {' ' + dt}
+          </span>
+        )}
+      </li>
+    )
+  }
+
+  getDefinition(dt) {
+    const search = dt.toLowerCase()
+    const found = this.props.definitions.find(
+      def => def.dt.toLowerCase() === search,
+    )
+    return found && found.dd
+  }
+}
+
+const ParagraphField = connect(({ resources }, { node }) => {
+  const lexicon = resources.list.find(r => r.id === LEXICON_ID)
+  return { definitions: (lexicon && lexicon.definitions) || [] }
+})(_ParagraphField)
+
 type Props = {
   article: any,
 }
@@ -88,38 +162,7 @@ class ArticleForm extends Component<Props, State> {
   }
 
   renderParagraph(node: ANode, k: string) {
-    return (
-      <div className="field" key={k}>
-        <label className="label">Paragraph</label>
-        <div className="columns">
-          <div className="column">
-            <div className="control">
-              <textarea className="textarea" defaultValue={node.text} />
-            </div>
-          </div>
-          <div className="column">
-            {!node.links.length ? null : (
-              <div>
-                <label className="label">Links</label>
-                <ul>
-                  {node.links.map(l => (
-                    <li key={l.label}>
-                      <a href={l.url}>{l.label}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {!node.lexicon.length ? null : (
-              <div>
-                <label className="label">Lexicon</label>
-                <ul>{node.lexicon.map(l => <li key={l}>{l}</li>)}</ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    )
+    return <ParagraphField node={node} key={k} />
   }
 
   renderResource(node: ANode, k: string) {

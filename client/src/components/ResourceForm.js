@@ -379,7 +379,7 @@ class ResourceForm extends Component<Props, State> {
       this.props.mode === 'edit' &&
         this.getAttrField('status', {
           mandatory: true,
-          readOnly,
+          readOnly: resource.type === 'definition',
           options: this.buildSelectOptions(RESOURCE_STATUSES, 'status-').map(
             o => Object.assign(o, { buttonStyle: STATUS_STYLE[o.value] }),
           ),
@@ -408,7 +408,7 @@ class ResourceForm extends Component<Props, State> {
           this.state.parsing ||
           this.props.topics.loading ||
           this.props.shouldLoadTopics,
-        options: (this.props.mode === 'create'
+        options: (this.props.mode === 'create' || optionalTopic
           ? [{ label: '', value: null }]
           : []
         ).concat(

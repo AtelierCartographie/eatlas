@@ -417,7 +417,7 @@ class Resources extends Component<Props, State> {
 
   renderTopicCell(resource: Resource) {
     if (!resource.topic) {
-      return null
+      return <td />
     }
 
     if (this.props.topics.loading) {

@@ -188,6 +188,10 @@ class ResourceForm extends Component<Props, State> {
       // $FlowFixMe Resource type has been removed! Blank type
       resource = Object.assign({}, resource, { type: '' })
     }
+    // Special case: lexicon id is hardcoded
+    if (resource && resource.type === 'definition') {
+      resource = Object.assign({}, resource, { id: LEXICON_ID })
+    }
     return { types, resource }
   }
 
@@ -320,14 +324,6 @@ class ResourceForm extends Component<Props, State> {
   }
 
   getAttrValue(attr: string): string {
-    // Special case: lexicon id is hardcoded
-    if (
-      attr === 'id' &&
-      this.state.resource &&
-      this.state.resource.type === 'definition'
-    ) {
-      return LEXICON_ID
-    }
     // avoid null values to keep this input controlled
     return this.state.resource && this.state.resource[attr]
       ? this.state.resource[attr]
@@ -822,7 +818,11 @@ class ResourceForm extends Component<Props, State> {
       case 'video':
       case 'sound':
         return true
-      //case 'definition':
+      case 'definition':
+        if (!docs.lexicon) {
+          return false
+        }
+        break
       //case 'focus':
       default:
         return null

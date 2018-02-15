@@ -68,7 +68,7 @@ const ResourceField = connect(({ resources }, { node }) => ({
 type PProps = {
   node: Object,
   definitions: { dt: string, dd: string }[],
-  onIsMissing: boolean => any,
+  onIsMissing: string => any,
 }
 
 class _ParagraphField extends Component<PProps> {
@@ -124,6 +124,18 @@ class _ParagraphField extends Component<PProps> {
     )
   }
 
+  componentDidMount() {
+    const { node } = this.props
+    if (node && node.lexicon) {
+      node.lexicon.forEach(dt => {
+        const dd = this.getDefinition(dt)
+        if (!dd) {
+          this.props.onIsMissing(dt)
+        }
+      })
+    }
+  }
+
   getDefinition(dt) {
     const search = dt.toLowerCase()
     const found = this.props.definitions.find(
@@ -144,11 +156,12 @@ type Props = {
 
 type State = {
   missingResources: ANode[],
+  missingDefinitions: string[],
   previewMode: boolean,
 }
 
 class ArticleForm extends Component<Props, State> {
-  state = { missingResources: [], previewMode: false }
+  state = { missingResources: [], missingDefinitions: [], previewMode: false }
 
   renderHeader(node: ANode, k: string) {
     return (
@@ -162,7 +175,13 @@ class ArticleForm extends Component<Props, State> {
   }
 
   renderParagraph(node: ANode, k: string) {
-    return <ParagraphField node={node} key={k} />
+    return (
+      <ParagraphField
+        onIsMissing={this.onIsMissingDefinition}
+        node={node}
+        key={k}
+      />
+    )
   }
 
   renderResource(node: ANode, k: string) {
@@ -207,6 +226,47 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
+  onIsMissingDefinition = (dt: string) => {
+    this.setState(state => {
+      if (!state.missingDefinitions.includes(dt)) {
+        return { missingDefinitions: state.missingDefinitions.concat([dt]) }
+      }
+    })
+  }
+
+  renderMissingDefinitions() {
+    const dts = this.state.missingDefinitions.slice().sort()
+    const hasMissingResources = this.state.missingResources.length > 0
+
+    if (dts.length === 0) {
+      return null
+    }
+
+    return (
+      <Fragment>
+        {hasMissingResources && <hr />}
+        <h2 className="subtitle">Missing definitions</h2>
+        <p>
+          You have to{' '}
+          <Link to={'/resources/' + LEXICON_ID + '/edit'}>
+            upload a new lexicon
+          </Link>{' '}
+          providing those definitions:
+        </p>
+        <ul>
+          {dts.map(dt => (
+            <li key={dt}>
+              <label className="has-text-danger">
+                <Icon icon="warning" />
+              </label>
+              <em>{dt}</em>
+            </li>
+          ))}
+        </ul>
+      </Fragment>
+    )
+  }
+
   renderFootnotes(node: ANode, k: string) {
     return (
       <div className="field" key={k}>
@@ -242,6 +302,7 @@ class ArticleForm extends Component<Props, State> {
     return (
       <div className="ArticleForm">
         {this.renderMissingResources()}
+        {this.renderMissingDefinitions()}
 
         <hr />
         <h2 className="subtitle">Metas</h2>

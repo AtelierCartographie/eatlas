@@ -20,7 +20,7 @@ import {
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
-import { parseArticleDoc } from '../api'
+import { parseArticleDoc, parseLexiconDoc } from '../api'
 import ObjectDebug from './ObjectDebug'
 
 export type SaveCallback = (
@@ -497,7 +497,13 @@ class ResourceForm extends Component<Props, State> {
         )
       case 'definition':
         return buildFields(
-          [this.getDocField(resource, 'definition', { mandatory: true })],
+          [
+            this.getDocField(resource, 'lexicon', {
+              mandatory: true,
+              onPick: this.onPickLexicon,
+            }),
+            ...this.getLexiconFields(),
+          ],
           { subtitle: false, copyright: true, optionalTopic: true },
         )
 
@@ -592,55 +598,33 @@ class ResourceForm extends Component<Props, State> {
     return {}
   }
 
-  onPickArticle = async (doc: GoogleDoc, accessToken: string) => {
-    this.onPick('article')(doc, accessToken)
+  async parsePickedDoc(
+    key: string,
+    parse: (body: {
+      uploads: Upload[],
+      accessToken: string,
+    }) => Promise<any>,
+    getState: (
+      state: State,
+      parsed: any,
+    ) => { parsed?: any, resource?: Resource },
+    doc: GoogleDoc,
+    accessToken: string,
+  ) {
+    this.onPick(key)(doc, accessToken)
     this.setState({ parsing: true, parsed: null, error: null })
     try {
-      const parsed = await parseArticleDoc({
+      const parsed = await parse({
         uploads: [
           {
             fileId: doc.id,
-            key: 'article',
+            key,
             mimeType: doc.mimeType,
           },
         ],
         accessToken,
       })
-      const getMetaText = type => {
-        const meta = parsed.metas.find(m => m.type === type)
-        console.log('meta', type, meta)
-        return meta ? meta.text : null
-      }
-      this.setState(state => {
-        // $FlowFixMe: temporarily partial resource now, but it'll be filled later
-        const resource: Resource = { ...(state.resource || {}) }
-        resource.id = getMetaText('id') || resource.id
-        resource.title = getMetaText('title') || resource.title
-        resource.subtitle = getMetaText('subtitle') || resource.subtitle
-        resource.copyright = getMetaText('copyright') || resource.copyright
-        resource.topic = getMetaText('topic') || resource.topic
-        // language = first summary's language found
-        const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(
-          (found, lang) => {
-            if (found) {
-              return found
-            }
-            const summary = getMetaText('summary-' + lang)
-            if (summary) {
-              return { summary, lang }
-            }
-            return null
-          },
-          null,
-        )
-        resource.language = foundSummary ? foundSummary.lang : ''
-        resource.description = foundSummary ? foundSummary.summary : ''
-        return {
-          parsing: false,
-          parsed,
-          resource,
-        }
-      })
+      this.setState(state => ({ ...getState(state, parsed), parsing: false }))
     } catch (error) {
       this.setState(state => ({
         parsing: false,
@@ -649,6 +633,65 @@ class ResourceForm extends Component<Props, State> {
         docs: { ...state.docs, article: null },
       }))
     }
+  }
+
+  onPickArticle = async (doc: GoogleDoc, accessToken: string) => {
+    const postParse = (state, parsed) => {
+      const getMetaText = type => {
+        const meta = parsed.metas.find(m => m.type === type)
+        return meta ? meta.text : null
+      }
+      // $FlowFixMe: temporarily partial resource now, but it'll be filled later
+      const resource: Resource = { ...(state.resource || {}) }
+      resource.id = getMetaText('id') || resource.id
+      resource.title = getMetaText('title') || resource.title
+      resource.subtitle = getMetaText('subtitle') || resource.subtitle
+      resource.copyright = getMetaText('copyright') || resource.copyright
+      resource.topic = getMetaText('topic') || resource.topic
+      // language = first summary's language found
+      const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(
+        (found, lang) => {
+          if (found) {
+            return found
+          }
+          const summary = getMetaText('summary-' + lang)
+          if (summary) {
+            return { summary, lang }
+          }
+          return null
+        },
+        null,
+      )
+      resource.language = foundSummary ? foundSummary.lang : ''
+      resource.description = foundSummary ? foundSummary.summary : ''
+      return { parsed, resource }
+    }
+    this.parsePickedDoc('article', parseArticleDoc, postParse, doc, accessToken)
+  }
+
+  onPickLexicon = async (doc: GoogleDoc, accessToken: string) => {
+    const postParse = (state, parsed) => {
+      return { parsed }
+    }
+    this.parsePickedDoc('lexicon', parseLexiconDoc, postParse, doc, accessToken)
+  }
+
+  getLexiconFields(): FieldParams[] {
+    const { parsed } = this.state
+    if (!parsed) {
+      return []
+    }
+
+    return [
+      {
+        labelId: 'nb-definitions',
+        input: (
+          <span className="input" disabled>
+            {parsed.definitions.length}
+          </span>
+        ),
+      },
+    ]
   }
 
   guessResourceId(doc: GoogleDoc) {

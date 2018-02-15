@@ -159,25 +159,45 @@ const ArticleDivContainer = ({ container }) => {
   )
 }
 
-const ArticleFigureContainer = ({ article, container }) => {
+const ArticleResourceContainer = ({ article, container }) => {
   const r = (article.resources || []).find(r => r.id === container[0].id)
   if (!r) return null
 
-  const rid = r.id + '-image'
-  return h('figure.container', [
-    h('h2', r.title),
-    h('picture', [
-      h('source', {
-        srcSet: srcset(rid, 'medium'),
-        media: '(min-width: 560px)',
-      }),
-      h('source', { srcSet: srcset(rid, 'small') }),
-      h('img.img-responsive', { srcSet: srcset(rid, 'small') }),
-    ]),
-    h('figcaption', 'TODO'),
-    h('a.btn.btn-figComment', 'Commentaire'),
-    h('div.collapse', 'TODO'),
-  ])
+  switch (r.type) {
+    case 'image':
+      const rid = r.id + '-image'
+      return h('figure.container', [
+        h('h2.figure-title', r.title),
+        h('picture', [
+          h('source', {
+            srcSet: srcset(rid, 'medium'),
+            media: '(min-width: 560px)',
+          }),
+          h('source', { srcSet: srcset(rid, 'small') }),
+          h('img.img-responsive', { srcSet: srcset(rid, 'small') }),
+        ]),
+        h('figcaption', r.description),
+        h('a.btn.btn-figComment', 'Commentaire'),
+        h('div.collapse', 'TODO'),
+      ])
+      break
+
+    case 'video':
+      const id = r.mediaUrl.slice('https://vimeo.com/'.length)
+      return h('div.container', [
+        h('h2.figure-title', r.title),
+        h('iframe', {
+          title: r.title,
+          src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
+          frameBorder: 0,
+          height: 400,
+          width: 740,
+          allowFullScreen: true,
+        }),
+        h('figcaption', r.description),
+      ])
+      break
+  }
 }
 
 const ArticleContainers = ({ article }) => {
@@ -197,7 +217,7 @@ const ArticleContainers = ({ article }) => {
       case 'header':
         return h(ArticleDivContainer, { container: c })
       case 'resource':
-        return h(ArticleFigureContainer, { article, container: c })
+        return h(ArticleResourceContainer, { article, container: c })
     }
   })
 }

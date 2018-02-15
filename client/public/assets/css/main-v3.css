@@ -39,6 +39,11 @@ dl {
     font-family: 'Gentium Basic', serif;
 }
 
+/* video */
+iframe {
+  display: block;
+}
+
 .article .header-info h1 {
     font-weight: 400;
     font-size: 4.1em;

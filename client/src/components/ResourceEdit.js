@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
@@ -111,6 +111,39 @@ class ResourceEdit extends Component<Props, State> {
     definitions: Array<{ dt: string, dd: string, resourceId?: string }>,
   ) {
     const { openDetails, openDefinition } = this.state
+
+    const linkToResource = id => (
+      <Fragment>
+        {' ('}
+        <Link to={`/resources/${id}/edit`}>{id}</Link>
+        {')'}
+      </Fragment>
+    )
+
+    const renderDefinition = dd => (
+      <div className="control">
+        <textarea className="textarea" readOnly>
+          {dd}
+        </textarea>
+      </div>
+    )
+
+    const renderList = () =>
+      definitions.map(({ dt, dd, resourceId }) => (
+        <div key={dt} className="field">
+          <label
+            className="label"
+            onClick={() => this.setState({ openDefinition: dt })}>
+            <IconButton
+              icon={openDefinition === dt ? 'caret-down' : 'caret-right'}
+            />
+            <em>{dt}</em>
+            {resourceId ? linkToResource(resourceId) : null}
+          </label>
+          {openDefinition === dt && renderDefinition(dd)}
+        </div>
+      ))
+
     return (
       <section className="box">
         <h2 className="subtitle" onClick={this.toggleOpenDetails}>
@@ -119,27 +152,7 @@ class ResourceEdit extends Component<Props, State> {
             <T id="lexicon-description" values={{ nb: definitions.length }} />
           </label>
         </h2>
-        {openDetails &&
-          definitions.map(({ dt, dd, resourceId }) => (
-            <div key={dt} className="field">
-              <label
-                className="label"
-                onClick={() => this.setState({ openDefinition: dt })}>
-                <IconButton
-                  icon={openDefinition === dt ? 'caret-down' : 'caret-right'}
-                />
-                <em>{dt}</em>
-                {resourceId ? ' (' + resourceId + ')' : null}
-              </label>
-              {openDefinition === dt && (
-                <div className="control">
-                  <textarea className="textarea" readOnly>
-                    {dd}
-                  </textarea>
-                </div>
-              )}
-            </div>
-          ))}
+        {openDetails && renderList()}
       </section>
     )
   }

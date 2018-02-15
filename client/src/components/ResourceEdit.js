@@ -12,6 +12,7 @@ import ArticleForm from './ArticleForm'
 import ResourceForm from './ResourceForm'
 import { updateResourceFromGoogleDrive, updateResource } from '../api'
 import ObjectDebug from './ObjectDebug'
+import IconButton from './IconButton'
 
 import type { SaveCallback } from './ResourceForm'
 
@@ -24,10 +25,13 @@ type Props = ContextIntl & {
   fetchResources: Function,
 }
 
-type State = {}
+type State = {
+  openDetails: boolean,
+  openDefinition: ?string,
+}
 
 class ResourceEdit extends Component<Props, State> {
-  state = {}
+  state = { openDetails: false, openDefinition: null }
 
   componentDidMount() {
     if (this.props.shouldLoad) {
@@ -87,8 +91,61 @@ class ResourceEdit extends Component<Props, State> {
       return <ArticleForm article={resource} />
     }
 
-    return <ResourceForm mode="edit" resource={resource} onSubmit={this.save} />
+    let renderAfter = null
+
+    if (resource.type === 'definition' && resource.definitions) {
+      renderAfter = this.renderDefinitions.bind(this, resource.definitions)
+    }
+
+    return (
+      <ResourceForm
+        mode="edit"
+        resource={resource}
+        onSubmit={this.save}
+        renderAfter={renderAfter}
+      />
+    )
   }
+
+  renderDefinitions(
+    definitions: Array<{ dt: string, dd: string, resourceId?: string }>,
+  ) {
+    const { openDetails, openDefinition } = this.state
+    return (
+      <section className="box">
+        <h2 className="subtitle" onClick={this.toggleOpenDetails}>
+          <IconButton icon={openDetails ? 'caret-down' : 'caret-right'} />
+          <label>
+            <T id="lexicon-description" values={{ nb: definitions.length }} />
+          </label>
+        </h2>
+        {openDetails &&
+          definitions.map(({ dt, dd, resourceId }) => (
+            <div key={dt} className="field">
+              <label
+                className="label"
+                onClick={() => this.setState({ openDefinition: dt })}>
+                <IconButton
+                  icon={openDefinition === dt ? 'caret-down' : 'caret-right'}
+                />
+                <em>{dt}</em>
+                {resourceId ? ' (' + resourceId + ')' : null}
+              </label>
+              {openDefinition === dt && (
+                <div className="control">
+                  <textarea className="textarea" readOnly>
+                    {dd}
+                  </textarea>
+                </div>
+              )}
+            </div>
+          ))}
+      </section>
+    )
+  }
+
+  toggleOpenDetails = () =>
+    this.setState(state => ({ openDetails: !state.openDetails }))
 
   save: SaveCallback = async (resource, uploads, accessToken) => {
     if (!this.props.resource || !this.props.resource.id) {
@@ -98,6 +155,7 @@ class ResourceEdit extends Component<Props, State> {
 
     return !accessToken
       ? updateResource(id, {
+          // $FlowFixMe
           status: resource.status,
           title: resource.title,
           subtitle: resource.subtitle,

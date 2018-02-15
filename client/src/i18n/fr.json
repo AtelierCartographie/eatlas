@@ -69,5 +69,6 @@
   "type-video": "Vidéo",
   "upload": "envoi",
   "users": "utilisateurs",
-  "validate": "valider"
+  "validate": "valider",
+  "view-lexicon-content": "Contenu détaillé du lexique ({nb} définitions)"
 }

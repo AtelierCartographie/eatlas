@@ -69,5 +69,6 @@
   "type-video": "Video",
   "upload": "upload",
   "users": "users",
-  "validate": "validate"
+  "validate": "validate",
+  "view-lexicon-content": "Detailed content of lexicon ({nb} definitions)"
 }

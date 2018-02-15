@@ -134,8 +134,8 @@ const renderField = ({
 class ResourceForm extends Component<Props, State> {
   state: State = {
     // Convert resource files to docs (to make DocPicker aware in edit mode)
-    docs: this.docsFromResource(this.props.resource),
-    resource: this.props.resource,
+    docs: {},
+    resource: null,
     accessToken: null,
     saving: false,
     saved: false,
@@ -167,6 +167,25 @@ class ResourceForm extends Component<Props, State> {
   componentDidMount() {
     if (this.props.shouldLoadTopics) {
       this.props.getTopics()
+    }
+  }
+
+  componentWillReceiveProps(props: Props) {
+    this.setState({
+      resource: props.resource,
+      docs: this.docsFromResource(props.resource),
+    })
+  }
+
+  componentWillUpdate(nextProps: Props, nextState: State) {
+    if (
+      nextState.resource &&
+      nextState.resource.type === 'definition' &&
+      (!this.state.resource ||
+        this.state.resource.type !== nextState.resource.type)
+    ) {
+      // When switching to 'definition', show a warning about overwriting
+      toast.warn(<T id="toast-type-definition-singleton" />)
     }
   }
 
@@ -622,10 +641,6 @@ class ResourceForm extends Component<Props, State> {
     e: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     const value = e.target.value // beware recycled synthetic events
-    if (attr === 'type' && value === 'definition') {
-      // When switching to 'definition', show a warning about overwriting
-      toast.warn(<T id="toast-type-definition-singleton" />)
-    }
     this.setState(state => ({
       error: null,
       resource: { ...state.resource, [attr]: value },

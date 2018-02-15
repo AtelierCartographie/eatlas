@@ -122,8 +122,21 @@ const ArticleSummary = ({ article }) => {
   ])
 }
 
+// first parse lexicon, then footnotes
 const ArticleP = ({ p }) => {
-  const parts = []
+  const parseFootNotes = str => {
+    const m = str.match(/(.*)\[(\d+)\](.*)/)
+    if (!m) return str
+    return [
+      m[1],
+      h('sup', [
+        h('a', { id: `note-${m[2]}`, href: `#footnote-${m[2]}` }, `[${m[2]}]`),
+      ]),
+      m[3],
+    ]
+  }
+
+  let parts = []
   parts.push(
     p.lexicon.reduce((tail, l) => {
       const [head, _tail] = tail.split(l)
@@ -138,6 +151,11 @@ const ArticleP = ({ p }) => {
       return _tail
     }, p.text),
   )
+  parts = parts.map(p => {
+    if (typeof p !== 'string') return p
+    return parseFootNotes(p)
+  })
+
   return h('p.container', parts)
 }
 
@@ -178,7 +196,9 @@ const ArticleResource = ({ article, resource }) => {
       break
 
     case 'sound':
-      const url = (process.env.REACT_APP_PUBLIC_PATH_sound || `${HOST}/media/sounds/`) + resource.file
+      const url =
+        (process.env.REACT_APP_PUBLIC_PATH_sound || `${HOST}/media/sounds/`) +
+        resource.file
       return h('figure.container', [
         h('h2.figure-title', resource.title),
         h('audio', {
@@ -226,9 +246,16 @@ const ArticleNotes = ({ article }) => {
   const notes = article.nodes.find(n => n.type === 'footnotes')
   if (!notes) return null
 
-  return h('section.container.article-ref', [
+  return h('section.container.article-footnotes', [
     h('h2', 'Notes'),
-    h('ul', [notes.list.map(n => h('li', n.text))]),
+    h('ol', [
+      notes.list.map((n, k) =>
+        h('li', { id: `footnote-${k + 1}` }, [
+          h('a', { href: `#note-${k + 1}` }, '^'),
+          n.text,
+        ]),
+      ),
+    ]),
   ])
 }
 

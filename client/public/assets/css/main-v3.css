@@ -466,7 +466,7 @@ article.focus {
     font-size: 1.45em;
 }
 
-/* FOOTER ARTICLE : keywords + quote + reference + see alos--------- */
+/* FOOTER ARTICLE : keywords + quote + footnotes + see alos--------- */
 .footer-article {
     background-color: #d1d6e0;
 }
@@ -499,15 +499,13 @@ article.focus {
     background-color: #ffd754;
 }
 
-.article-read ul,
-.article-ref ul {
+.article-footnotes ol {
     line-height: inherit;
     margin-bottom: 1em;
 }
 
-.article-read ul,
-.article-ref li {
-    list-style-type: square;
+.article-footnotes li:target {
+    background: white;
 }
 
 .thumbnail {
@@ -624,7 +622,8 @@ article.focus {
         line-height: 24px;
     }
     .footer-article p,
-    .footer-article ul {
+    .footer-article ul,
+    .footer-article ol {
         font-size: 1.58em;
         line-height: 24px;
     }

@@ -139,7 +139,6 @@ class ResourceForm extends Component<Props, State> {
   state: State = {
     // Convert resource files to docs (to make DocPicker aware in edit mode)
     docs: {},
-    resource: null,
     accessToken: null,
     saving: false,
     saved: false,
@@ -147,7 +146,7 @@ class ResourceForm extends Component<Props, State> {
     removedDocs: [],
     parsing: false,
     parsed: null,
-    types: [],
+    ...this.stateFromProps(this.props),
   }
 
   gapi: GoogleApi
@@ -178,7 +177,7 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(props: Props) {
+  stateFromProps(props: Props): { types: ResourceType[], resource: ?Resource } {
     const types = props.resources
       ? props.resources.list.some(resource => resource.type === 'definition')
         ? RESOURCE_TYPES.filter(type => type !== 'definition')
@@ -189,10 +188,13 @@ class ResourceForm extends Component<Props, State> {
       // $FlowFixMe Resource type has been removed! Blank type
       resource = Object.assign({}, resource, { type: '' })
     }
+    return { types, resource }
+  }
+
+  componentWillReceiveProps(props: Props) {
     this.setState({
-      resource,
       docs: this.docsFromResource(props.resource),
-      types,
+      ...this.stateFromProps(props),
     })
   }
 

@@ -48,7 +48,7 @@ class _ResourceField extends Component<RProps> {
 
     return (
       <div className="field">
-        <label className="label">Resource</label>
+        <label className="label">Resource {resource.type}</label>
         <div className="control">{preview}</div>
         <div className="control">
           <Link to={`/resources/${resource.id}/edit`}>

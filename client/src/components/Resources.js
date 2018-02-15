@@ -84,10 +84,9 @@ export const renderPreview = (resource: Resource) => {
     const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
     return (
       <iframe
+        className="preview"
         title={resource.title}
         src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`}
-        width="100"
-        height="50"
         frameBorder="0"
         allowFullScreen
       />

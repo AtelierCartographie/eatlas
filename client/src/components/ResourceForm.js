@@ -139,7 +139,7 @@ const renderField = ({
 class ResourceForm extends Component<Props, State> {
   state: State = {
     // Convert resource files to docs (to make DocPicker aware in edit mode)
-    docs: {},
+    docs: this.docsFromResource(this.props.resource),
     accessToken: null,
     saving: false,
     saved: false,

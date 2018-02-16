@@ -239,6 +239,10 @@ class Resources extends Component<Props, State> {
 
   renderTypeCell(type) {
     const item = typeItems.find(x => x.type === type)
+    if (!item) {
+      // Can happen if data has been modified manually
+      return <td />
+    }
     return (
       <td className="cell-type">
         <NavLink to={this.getMenuTo({ type })}>

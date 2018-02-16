@@ -8,6 +8,7 @@ const chalk = require('chalk')
 
 const { validate, fullUser } = require('../lib/schemas')
 const { users } = require('../lib/model')
+const { ready } = require('../lib/es/client')
 
 const help = () => `
 Usage: ${chalk.dim('node bin/add-user')} <email> [name] [role]
@@ -26,6 +27,7 @@ if (['-h', '--help'].includes(process.argv[2])) {
 const [, , email, name, role] = process.argv
 
 validate({ role, email, name }, fullUser)
+  .then(ready)
   .then(user => users.create(user))
   .then(created => {
     console.log(chalk.green('User successfully added'))

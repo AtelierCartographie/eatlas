@@ -10,7 +10,7 @@ import cx from 'classnames'
 import timeago from 'timeago.js'
 
 import { connect } from 'react-redux'
-import { fetchResources, getTopics } from './../actions'
+import { fetchResources, getTopics, getUsers } from './../actions'
 import Spinner from './Spinner'
 import IconButton from './IconButton'
 import Icon from './Icon'
@@ -34,6 +34,10 @@ type Props = ContextIntl &
       loading: boolean,
       list: Array<Topic>,
     },
+    users: {
+      loading: boolean,
+      list: Array<User>,
+    },
     locale: Locale,
     // url
     type: ResourceType | '',
@@ -44,6 +48,7 @@ type Props = ContextIntl &
     // actions
     fetchResources: typeof fetchResources,
     getTopics: typeof getTopics,
+    getUsers: typeof getUsers,
   }
 
 type State = {
@@ -123,6 +128,9 @@ class Resources extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchResources()
     this.props.getTopics()
+    if (this.props.users.list.length === 0) {
+      this.props.getUsers()
+    }
   }
 
   getMenuTo(params) {
@@ -418,7 +426,7 @@ class Resources extends Component<Props, State> {
     )
   }
 
-  renderTd(resource, field) {
+  renderTd(resource: Resource, field: string) {
     switch (field) {
       case 'status':
         return this.renderStatusCell(resource.status)
@@ -427,10 +435,36 @@ class Resources extends Component<Props, State> {
       case 'topic':
         return this.renderTopicCell(resource)
       case 'preview':
-        return renderPreview(resource)
+        return <td>{renderPreview(resource)}</td>
       case 'createdAt':
       case 'updatedAt':
         return <td>{timeago().format(resource[field], this.props.locale)}</td>
+      //case 'createdBy':
+      case 'updatedBy':
+      case 'author':
+        const email: string = resource[field]
+        if (this.props.users.loading) {
+          return (
+            <td>
+              <Spinner />
+              {email}
+            </td>
+          )
+        }
+        const user: ?User = this.props.users.list.find(u => u.email === email)
+        if (!user) {
+          return (
+            <td>
+              <Icon icon="warning" title="Unknown user" />
+              {email}
+            </td>
+          )
+        }
+        return (
+          <td>
+            <span title={user.email}>{user.name}</span>
+          </td>
+        )
       default:
         return <td>{resource[field]}</td>
     }
@@ -608,7 +642,10 @@ class Resources extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ resources, topics, locale }: AppState, { match }: ContextRouter) => {
+    (
+      { resources, topics, locale, users }: AppState,
+      { match }: ContextRouter,
+    ) => {
       const { searchParams } = new URL(window.document.location)
       return {
         locale,
@@ -619,11 +656,13 @@ export default withRouter(
         topic: searchParams.get('topic'),
         sortBy: searchParams.get('sort') || 'status',
         sortDir: searchParams.get('dir') || 'asc',
+        users,
       }
     },
     {
       getTopics,
       fetchResources,
+      getUsers,
     },
   )(injectIntl(Resources)),
 )

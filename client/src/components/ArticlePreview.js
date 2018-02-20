@@ -9,7 +9,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const HOST = 'http://localhost:3000'
+const HOST = process.env.REACT_APP_PUBLIC_URL || ''
 let lexiconId
 
 const resourcesTypes = [
@@ -33,14 +33,11 @@ const srcset = (id, size) => `
   ${HOST}/media/images/${id}-${size}@3x.png 3x
 `
 
-// TODO correctly inject host
 const Img = ({ className, alt, src }) =>
   h('img', { className, alt, src: `${HOST}${src}` })
 
-// TODO correctly inject host
 const Script = ({ src }) => h('script', { src: `${HOST}${src}` })
 
-// TODO correctly inject host
 const StyleSheet = ({ href }) =>
   h('link', { rel: 'stylesheet', href: `${HOST}${href}` })
 

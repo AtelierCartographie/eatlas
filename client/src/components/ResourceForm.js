@@ -351,7 +351,7 @@ class ResourceForm extends Component<Props, State> {
     const { resource, saving: readOnly } = this.state
 
     const typeField = this.getAttrField('type', {
-      readOnly: readOnly,
+      readOnly: readOnly || this.props.mode === 'edit',
       value:
         this.getAttrValue('type') ||
         (this.props.resource && this.props.resource.type),

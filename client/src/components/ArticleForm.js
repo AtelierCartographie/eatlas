@@ -68,8 +68,8 @@ const ResourceField = connect(({ resources }, { node }) => ({
 
 type PProps = {
   node: Object,
-  definitions: { dt: string, dd: string }[],
-  onIsMissing: string => any,
+  definitions: ?({ dt: string, dd: string }[]),
+  onIsMissing: (dt: string, missingLexicon: boolean) => any,
 }
 
 class _ParagraphField extends Component<PProps> {
@@ -129,9 +129,12 @@ class _ParagraphField extends Component<PProps> {
     const { node } = this.props
     if (node && node.lexicon) {
       node.lexicon.forEach(dt => {
+        if (!this.props.definitions) {
+          return this.props.onIsMissing(dt, true)
+        }
         const dd = this.getDefinition(dt)
         if (!dd) {
-          this.props.onIsMissing(dt)
+          this.props.onIsMissing(dt, false)
         }
       })
     }
@@ -139,6 +142,9 @@ class _ParagraphField extends Component<PProps> {
 
   getDefinition(dt) {
     const search = dt.toLowerCase()
+    if (!this.props.definitions) {
+      return null
+    }
     const found = this.props.definitions.find(
       def => def.dt.toLowerCase() === search,
     )
@@ -148,7 +154,7 @@ class _ParagraphField extends Component<PProps> {
 
 const ParagraphField = connect(({ resources }, { node }) => {
   const lexicon = resources.list.find(r => r.id === LEXICON_ID)
-  return { definitions: (lexicon && lexicon.definitions) || [] }
+  return { definitions: lexicon ? lexicon.definitions : null }
 })(_ParagraphField)
 
 type Props = {
@@ -158,11 +164,17 @@ type Props = {
 type State = {
   missingResources: ANode[],
   missingDefinitions: string[],
+  missingLexicon: boolean,
   previewMode: boolean,
 }
 
 class ArticleForm extends Component<Props, State> {
-  state = { missingResources: [], missingDefinitions: [], previewMode: false }
+  state = {
+    missingResources: [],
+    missingDefinitions: [],
+    previewMode: false,
+    missingLexicon: false,
+  }
 
   renderHeader(node: ANode, k: string) {
     return (
@@ -227,11 +239,17 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  onIsMissingDefinition = (dt: string) => {
+  onIsMissingDefinition = (dt: string, missingLexicon: boolean) => {
+    console.log({ dt })
     this.setState(state => {
-      if (!state.missingDefinitions.includes(dt)) {
-        return { missingDefinitions: state.missingDefinitions.concat([dt]) }
+      const newState = {
+        missingLexicon,
+        missingDefinitions: state.missingDefinitions,
       }
+      if (!state.missingDefinitions.includes(dt)) {
+        newState.missingDefinitions = state.missingDefinitions.concat([dt])
+      }
+      return newState
     })
   }
 
@@ -249,7 +267,12 @@ class ArticleForm extends Component<Props, State> {
         <h2 className="subtitle">Missing definitions</h2>
         <p>
           You have to{' '}
-          <Link to={'/resources/' + LEXICON_ID + '/edit'}>
+          <Link
+            to={
+              this.state.missingLexicon
+                ? '/resources/new/definition'
+                : '/resources/' + LEXICON_ID + '/edit'
+            }>
             upload a new lexicon
           </Link>{' '}
           providing those definitions:

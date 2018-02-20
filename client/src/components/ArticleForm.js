@@ -345,12 +345,15 @@ class ArticleForm extends Component<Props, State> {
         </div>
       )
     }
+    const field = meta.type.match(/^summary/) ? (
+      <textarea className="textarea">{meta.text}</textarea>
+    ) : (
+      <input className="input" defaultValue={meta.text} />
+    )
     return (
       <div className="field" key={k}>
         <label className="label">{meta.type}</label>
-        <div className="control">
-          <input className="input" defaultValue={meta.text} />
-        </div>
+        <div className="control">{field}</div>
       </div>
     )
   }

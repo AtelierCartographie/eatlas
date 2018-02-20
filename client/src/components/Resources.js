@@ -4,10 +4,9 @@ import './Resources.css'
 
 import React, { Component, Fragment } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { FormattedMessage as T, injectIntl } from 'react-intl'
+import { FormattedMessage as T, FormattedDate, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import timeago from 'timeago.js'
 
 import { connect } from 'react-redux'
 import { fetchResources, getTopics, getUsers } from './../actions'
@@ -436,7 +435,18 @@ class Resources extends Component<Props, State> {
         return renderPreview(resource)
       case 'createdAt':
       case 'updatedAt':
-        return timeago().format(resource[field], this.props.locale)
+        const value: ?string = resource[field]
+        if (!value) {
+          return <Icon icon="warning" title="Unknown date" />
+        }
+        return (
+          <FormattedDate
+            value={new Date(value)}
+            year="numeric"
+            month="2-digit"
+            day="2-digit"
+          />
+        )
       //case 'createdBy':
       case 'updatedBy':
       case 'author':

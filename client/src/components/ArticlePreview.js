@@ -10,6 +10,7 @@ const moment = require('moment')
 moment.locale('fr')
 
 const HOST = process.env.REACT_APP_PUBLIC_URL || ''
+
 let lexiconId
 
 const resourcesTypes = [

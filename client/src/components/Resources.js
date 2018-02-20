@@ -16,7 +16,7 @@ import IconButton from './IconButton'
 import Icon from './Icon'
 import Confirm from './Confirm'
 import { deleteResource, updateResource } from '../api'
-import { STATUS_STYLE, RESOURCE_STATUSES } from '../constants'
+import { STATUS_STYLE, RESOURCE_STATUSES, LEXICON_ID } from '../constants'
 
 import type { ContextRouter } from 'react-router'
 
@@ -281,7 +281,7 @@ class Resources extends Component<Props, State> {
                     this.state.removeResource === resource,
                 })}
                 onClick={() =>
-                  resource.status === 'deleted'
+                  resource.status === 'deleted' || resource.id === LEXICON_ID
                     ? this.askHardRemove(resource)
                     : this.softRemove(resource)
                 }

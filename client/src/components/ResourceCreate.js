@@ -43,7 +43,7 @@ class ResourceCreate extends Component<Props> {
         })
 
     // TODO Add resource to redux before redirection
-    this.props.history.push(`/resources/${result.id}/edit`)
+    this.props.history.push(`/resources`)
 
     return result
   }

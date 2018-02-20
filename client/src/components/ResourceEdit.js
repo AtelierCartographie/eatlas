@@ -14,16 +14,18 @@ import { updateResourceFromGoogleDrive, updateResource } from '../api'
 import ObjectDebug from './ObjectDebug'
 import IconButton from './IconButton'
 
+import type { ContextRouter } from 'react-router'
 import type { SaveCallback } from './ResourceForm'
 
-type Props = ContextIntl & {
-  resource: ?Resource,
-  id: string,
-  loading: boolean,
-  shouldLoad: boolean,
-  // Actions
-  fetchResources: Function,
-}
+type Props = ContextIntl &
+  ContextRouter & {
+    resource: ?Resource,
+    id: string,
+    loading: boolean,
+    shouldLoad: boolean,
+    // Actions
+    fetchResources: Function,
+  }
 
 type State = {
   openDetails: boolean,
@@ -170,8 +172,8 @@ class ResourceEdit extends Component<Props, State> {
     }
     const id: string = this.props.resource.id
 
-    return !accessToken
-      ? updateResource(id, {
+    const result = !accessToken
+      ? await updateResource(id, {
           // $FlowFixMe
           status: resource.status,
           title: resource.title,
@@ -182,7 +184,7 @@ class ResourceEdit extends Component<Props, State> {
           copyright: resource.copyright,
           mediaUrl: resource.mediaUrl,
         })
-      : updateResourceFromGoogleDrive(id, {
+      : await updateResourceFromGoogleDrive(id, {
           // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
           status: resource.status,
           // FIXME make id editable?
@@ -197,6 +199,10 @@ class ResourceEdit extends Component<Props, State> {
           accessToken,
           // TODO should we send parsed result? Currently, doc is parsed twice by server
         })
+
+    this.props.history.push(`/resources`)
+
+    return result
   }
 }
 

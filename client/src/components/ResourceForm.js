@@ -916,6 +916,33 @@ class ResourceForm extends Component<Props, State> {
       }
     }
 
+    if (resource.type === 'definition') {
+      docs['lexicon'] = {
+        type: 'doc',
+        id: '',
+        mimeType: '',
+        name: 'lexicon.docx',
+      }
+    }
+
+    if (resource.type === 'article') {
+      docs['article'] = {
+        type: 'doc',
+        id: '',
+        mimeType: '',
+        name: resource.title + '.docx',
+      }
+    }
+
+    if (resource.type === 'sound') {
+      docs['sound'] = {
+        type: 'sound',
+        id: '',
+        mimeType: '',
+        name: resource.title + '.mp3',
+      }
+    }
+
     return docs
   }
 }

@@ -392,6 +392,12 @@ class ResourceForm extends Component<Props, State> {
     ]
 
     const appendFields = ({ subtitle, copyright, optionalTopic }) => [
+      this.getAttrField('author', {
+        leftIcon: 'user',
+        mandatory: isArticle,
+        readOnly: readOnly || isArticle,
+        loading: this.state.parsing,
+      }),
       this.getAttrField('title', {
         leftIcon: 'header',
         mandatory: true,
@@ -445,6 +451,11 @@ class ResourceForm extends Component<Props, State> {
           leftIcon: 'copyright',
           readOnly: readOnly || isArticle,
         }),
+      this.getAttrField('updatedBy', {
+        leftIcon: 'user',
+        mandatory: false,
+        readOnly: true,
+      }),
     ]
 
     const buildFields = (
@@ -514,6 +525,7 @@ class ResourceForm extends Component<Props, State> {
           [this.getDocField(resource, 'sound', { mandatory: true })],
           { subtitle: true, copyright: true },
         )
+      // Note: article is read-only, you have to re-upload
       case 'definition':
         return buildFields(
           [
@@ -668,6 +680,7 @@ class ResourceForm extends Component<Props, State> {
       resource.subtitle = getMetaText('subtitle') || resource.subtitle
       resource.copyright = getMetaText('copyright') || resource.copyright
       resource.topic = getMetaText('topic') || resource.topic
+      resource.author = getMetaText('author') || resource.author
       // language = first summary's language found
       const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(
         (found, lang) => {

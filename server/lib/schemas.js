@@ -92,6 +92,11 @@ const language = Joi.string()
 exports.resource = {
   id: Joi.string().required(),
   type: resourceType.required(),
+  author: Joi.string().when('type', {
+    is: Joi.valid(['article', 'focus']),
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
   title: Joi.string().required(),
   subtitle: Joi.string().optional(),
   topic: Joi.string().when('type', {
@@ -177,13 +182,17 @@ exports.fullResource = {
   type: resourceType.required(),
 
   // metadata
+  author: Joi.string().when('type', {
+    is: Joi.valid(['article', 'focus']),
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
   title: Joi.string().required(),
   subtitle: Joi.string().when('type', {
     is: Joi.valid(['article', 'focus', 'map']),
     then: Joi.optional(),
     otherwise: Joi.forbidden(),
   }),
-  author: exports.email,
   topic: Joi.string().when('type', {
     is: Joi.valid(['definition']),
     then: Joi.optional(),
@@ -239,7 +248,8 @@ exports.fullResource = {
     otherwise: Joi.forbidden(),
   }),
 
-  // dates
+  // track changes
+  updatedBy: exports.email,
   createdAt: Joi.date()
     .timestamp()
     .required(),

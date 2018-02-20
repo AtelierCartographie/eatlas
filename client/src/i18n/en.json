@@ -39,6 +39,7 @@
   "resource-title": "Title",
   "resource-topic": "Topic",
   "resource-type": "Type",
+  "resource-updatedBy": "Depositor",
   "resources": "resources",
   "restore": "restore",
   "save-changes": "Save changes",

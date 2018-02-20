@@ -39,6 +39,7 @@
   "resource-title": "Titre",
   "resource-topic": "Rubrique",
   "resource-type": "Type",
+  "resource-updatedBy": "Déposant",
   "resources": "ressources",
   "restore": "restaurer",
   "save-changes": "Sauver",

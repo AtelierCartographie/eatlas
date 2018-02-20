@@ -133,6 +133,9 @@
     "author": {
       "type": "text"
     },
+    "updatedBy": {
+      "type": "keyword"
+    },
     "createdAt": {
       "type": "date"
     },

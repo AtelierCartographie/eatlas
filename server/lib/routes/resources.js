@@ -53,7 +53,8 @@ exports.updateFromGoogle = async (req, res) => {
 }
 
 const getBaseData = req => ({
-  author: req.session.user.email,
+  updatedBy: req.session.user.email,
+  author: req.body.author,
   status:
     req.body.type === 'definition'
       ? 'published' // Lexicon is always published

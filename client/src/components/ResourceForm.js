@@ -594,8 +594,9 @@ class ResourceForm extends Component<Props, State> {
         accessToken,
         resource: state.resource,
       }
-      // Inject doc
+      // Inject doc ("undelete" if previously unpicked)
       newState.docs = { ...state.docs, [docKey]: doc }
+      newState.removedDocs = state.removedDocs.filter(k => k !== docKey)
       // Guess resource id
       if (state.resource && !state.resource.id) {
         const newResource = { ...state.resource }
@@ -732,7 +733,9 @@ class ResourceForm extends Component<Props, State> {
     e.preventDefault()
     this.setState(state => ({
       docs: { ...state.docs, [docKey]: null },
-      removedDocs: state.removedDocs.concat([docKey]),
+      removedDocs: state.removedDocs.includes(docKey)
+        ? state.removedDocs
+        : state.removedDocs.concat([docKey]),
     }))
   }
 

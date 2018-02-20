@@ -42,7 +42,7 @@
   "resource-updatedBy": "Déposant",
   "resources": "ressources",
   "restore": "restaurer",
-  "save-changes": "Sauver",
+  "save-changes": "Valider",
   "select-file": "Sélectionner ou importer un fichier",
   "selected-file": "Fichier sélectionné",
   "selected-image": "Image « {size}@{density} »",

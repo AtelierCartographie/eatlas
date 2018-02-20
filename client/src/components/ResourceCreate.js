@@ -42,8 +42,7 @@ class ResourceCreate extends Component<Props> {
           accessToken,
         })
 
-    // TODO Add resource to redux before redirection
-    this.props.history.push(`/resources`)
+    this.props.history.push('/resources?sort=createdAt&dir=desc')
 
     return result
   }

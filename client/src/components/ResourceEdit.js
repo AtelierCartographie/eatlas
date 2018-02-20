@@ -200,7 +200,7 @@ class ResourceEdit extends Component<Props, State> {
           // TODO should we send parsed result? Currently, doc is parsed twice by server
         })
 
-    this.props.history.push(`/resources`)
+    this.props.history.push('/resources?sort=createdAt&dir=desc')
 
     return result
   }

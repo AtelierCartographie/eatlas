@@ -1,52 +1,58 @@
 {
-  "server": {
-    "port": 4000,
-    "host": "127.0.0.1"
-  },
-  "es": {
-    "connection": {
-      "host": "localhost:9200"
-    },
-    "indices": {
-      "user": "eatlas_user",
-      "resource": "eatlas_resource",
-      "topic": "eatlas_topic"
-    },
-    "indexSettings": {},
-    "autoMigration": true,
-    "acceptObsoleteMapping": false
-  },
-  "session": {
-    "secret": "E-Atlas S3cr3T"
-  },
-  "redis": {
-    "host": "localhost",
-    "port": 6379
-  },
-  "cors": {
-    "origins": [ "http://localhost:3000" ],
-    "allowNoOrigin": false
-  },
-  "google": {
-    "clientId": "see https://console.cloud.google.com/apis/credentials",
-    "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
-    "downloadUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
-    "exportTrigger": {
-      "article": ["application/vnd.google-apps.document"]
-    },
-    "exportFormat": {
-      "article": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    }
-  },
-  "logger": {
-    "name": "eatlas",
-    "level": "info",
-    "src": false
-  },
-  "publicPath": {
-    "~": "path relative to server's root (if not absolute)",
-    "image": "../client/public/media/images",
-    "map": "../client/public/media/maps",
-    "sound": "../client/public/media/sounds"
-  }
+	"server": {
+		"port": 4000,
+		"host": "127.0.0.1",
+		"secure": false
+	},
+	"publicUrl": "http://localhost:3000",
+	"clientPath": "../client",
+	"es": {
+		"connection": {
+			"host": "localhost:9200"
+		},
+		"indices": {
+			"user": "eatlas_user",
+			"resource": "eatlas_resource",
+			"topic": "eatlas_topic"
+		},
+		"indexSettings": {},
+		"autoMigration": true,
+		"acceptObsoleteMapping": false
+	},
+	"session": {
+		"secret": "E-Atlas S3cr3T"
+	},
+	"redis": {
+		"host": "localhost",
+		"port": 6379
+	},
+	"cors": {
+		"origins": ["$publicUrl"],
+		"allowNoOrigin": false
+	},
+	"google": {
+		"clientId": "see https://console.cloud.google.com/apis/credentials",
+		"exportUrl":
+			"https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
+		"downloadUrl":
+			"https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
+		"exportTrigger": {
+			"article": ["application/vnd.google-apps.document"]
+		},
+		"exportFormat": {
+			"article":
+				"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+		}
+	},
+	"logger": {
+		"name": "eatlas",
+		"level": "info",
+		"src": false
+	},
+	"publicPath": {
+		"~": "path relative to server's root (if not absolute)",
+		"image": "$clientPath/public/media/images",
+		"map": "$clientPath/public/media/maps",
+		"sound": "$clientPath/public/media/sounds"
+	}
 }

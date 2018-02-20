@@ -6,7 +6,10 @@ const { writeFile, ensureDir } = require('fs-extra')
 const path = require('path')
 
 exports.saveMedia = ({ id, type }) => async ({ mimeType, key, buffer }) => {
-  const fileDir = config.publicPath[type]
+  const fileDir = config.publicPath[type].replace(
+    /\$clientPath/,
+    config.clientPath,
+  )
   if (!fileDir) {
     throw new Error('Unknown storage directory for this type "' + type + '"')
   }

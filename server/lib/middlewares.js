@@ -12,7 +12,13 @@ exports.cors = cors({
     if (!origin && config.cors.allowNoOrigin) {
       return cb(null, true)
     }
-    if (config.cors.origins.includes(origin)) {
+    const origins = config.cors.origins.map(origin => {
+      if (origin === '$publicUrl') {
+        return config.publicUrl
+      }
+      return origin
+    })
+    if (origins.includes(origin)) {
       return cb(null, true)
     }
     cb(new Error('Not allowed by CORS'))

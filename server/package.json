@@ -7,13 +7,10 @@
     "test": "mocha --reporter xunit",
     "dev": "run-p dev:*",
     "dev:services": "docker-compose -f docker-compose.dev.yml up",
-    "dev:server":
-      "cross-env NODE_CONFIG_DIR='../config' NODE_ENV=development 'DEBUG=eatlas:*,$DEBUG' nodemon server.js -w '../client/src/components/ArticlePreview.js' | bunyan -o short",
+    "dev:server": "cross-env NODE_CONFIG_DIR='../config' NODE_ENV=development 'DEBUG=eatlas:*,$DEBUG' nodemon server.js -w '../client/src/components/ArticlePreview.js' | bunyan -o short",
     "dev:test": "mocha --watch --growl --reporter list",
-    "start":
-      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
-    "add-user":
-      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js"
+    "start": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
+    "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",
   "license": "MIT",

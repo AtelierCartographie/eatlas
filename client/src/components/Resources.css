@@ -7,6 +7,14 @@
   max-width: 100px;
 }
 
+/* textual preview: ellipsis */
+.Resources span.preview {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .Resources td {
   vertical-align: middle;
 }
@@ -20,7 +28,7 @@
 }
 
 .Resources .menu-list {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .Resources .menu-list a {
@@ -34,16 +42,16 @@
 }
 
 .Resources .menu-list span {
-  margin-right: .5em;
+  margin-right: 0.5em;
 }
 
 .Resources .menu-list .button {
-  font-size: .5em;
+  font-size: 0.5em;
   margin-right: 1em;
 }
 
 .Resources .menu-list img {
   height: 16px;
-  margin-right: .5em;
+  margin-right: 0.5em;
   vertical-align: center;
 }

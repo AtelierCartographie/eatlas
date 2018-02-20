@@ -75,7 +75,7 @@ const typeItems: Array<MenuItem> = [
 
 export const renderPreview = (resource: Resource) => {
   if (resource.type === 'article') {
-    return <span>{resource.title}</span>
+    return <span className="preview">{resource.title}</span>
   }
 
   if (resource.type === 'image' && resource.images) {
@@ -108,12 +108,12 @@ export const renderPreview = (resource: Resource) => {
 
   if (resource.type === 'sound' && resource.file) {
     const url = (process.env.REACT_APP_PUBLIC_PATH_sound || '/') + resource.file
-    return <audio src={url} controls />
+    return <audio className="preview" src={url} controls />
   }
 
   if (resource.type === 'definition' && resource.definitions) {
     return (
-      <span>
+      <span className="preview">
         <T id="preview-lexicon" values={{ nb: resource.definitions.length }} />
       </span>
     )

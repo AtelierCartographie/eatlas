@@ -88,7 +88,7 @@ class ResourceEdit extends Component<Props, State> {
       )
     }
 
-    let renderBefore = null
+    // TODO for article? let renderBefore = null
     let renderAfter = null
 
     if (resource.type === 'definition' && resource.definitions) {

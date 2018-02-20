@@ -64,6 +64,7 @@ declare type Resource = ResourceNew & {
     large: { '1x'?: ?string, '2x'?: ?string, '3x'?: ?string },
   },
   author: string,
+  updatedBy: string, // email
   createdAt: string, // Date (ISO 8601)
   updatedAt?: string, // Date (ISO 8601)
   publishedAt?: string, // Date (ISO 8601)

@@ -2,7 +2,7 @@
 
 import './Resources.css'
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
@@ -19,6 +19,10 @@ import { deleteResource, updateResource } from '../api'
 import { STATUS_STYLE, RESOURCE_STATUSES, LEXICON_ID } from '../constants'
 
 import type { ContextRouter } from 'react-router'
+
+const fields = (
+  process.env.REACT_APP_RESOURCES_COLUMNS || 'status,type,preview,id,title'
+).split(',')
 
 type Props = ContextIntl &
   ContextRouter & {
@@ -258,14 +262,9 @@ class Resources extends Component<Props, State> {
   renderRow = (resource: Resource) => {
     return (
       <tr key={resource.id}>
-        <td>{resource.id}</td>
-        {this.renderStatusCell(resource.status)}
-        {this.renderTypeCell(resource.type)}
-        {this.renderTopicCell(resource)}
-        <td>{renderPreview(resource)}</td>
-        <td>{resource.author}</td>
-        <td>{resource.title}</td>
-        <td>{timeago().format(resource.createdAt, this.props.locale)}</td>
+        {fields.map(field => (
+          <Fragment key={field}>{this.renderTd(resource, field)}</Fragment>
+        ))}
         <td>
           <div className="field is-grouped">
             <div className="control">
@@ -389,43 +388,52 @@ class Resources extends Component<Props, State> {
       <table className="table is-striped is-bordered is-fullwidth">
         <thead>
           <tr>
-            <th onClick={this.toggleSort('id')}>
-              <T id="resource-id" />
-              {this.renderSortIndicator('id')}
-            </th>
-            <th onClick={this.toggleSort('status')}>
-              <T id="resource-status" />
-              {this.renderSortIndicator('status')}
-            </th>
-            <th onClick={this.toggleSort('type')}>
-              <T id="resource-type" />
-              {this.renderSortIndicator('type')}
-            </th>
-            <th onClick={this.toggleSort('topic')}>
-              <T id="resource-topic" />
-              {this.renderSortIndicator('topic')}
-            </th>
-            <th>
-              <T id="preview" />
-            </th>
-            <th onClick={this.toggleSort('author')}>
-              <T id="resource-author" />
-              {this.renderSortIndicator('author')}
-            </th>
-            <th onClick={this.toggleSort('title')}>
-              <T id="resource-title" />
-              {this.renderSortIndicator('title')}
-            </th>
-            <th onClick={this.toggleSort('createdAt')}>
-              <T id="resource-created-at" />
-              {this.renderSortIndicator('createdAt')}
-            </th>
+            {fields.map(field => (
+              <Fragment key={field}>{this.renderTh(field)}</Fragment>
+            ))}
             <th className="fit" />
           </tr>
         </thead>
         <tbody>{sorted.map(this.renderRow)}</tbody>
       </table>
     )
+  }
+
+  renderTh(field) {
+    // Unsortable fields
+    if (field === 'preview') {
+      return (
+        <th>
+          <T id="preview" />
+        </th>
+      )
+    }
+
+    // Sortable fields
+    return (
+      <th onClick={this.toggleSort(field)}>
+        <T id={'resource-' + field} />
+        {this.renderSortIndicator(field)}
+      </th>
+    )
+  }
+
+  renderTd(resource, field) {
+    switch (field) {
+      case 'status':
+        return this.renderStatusCell(resource.status)
+      case 'type':
+        return this.renderTypeCell(resource.type)
+      case 'topic':
+        return this.renderTopicCell(resource)
+      case 'preview':
+        return renderPreview(resource)
+      case 'createdAt':
+      case 'updatedAt':
+        return <td>{timeago().format(resource[field], this.props.locale)}</td>
+      default:
+        return <td>{resource[field]}</td>
+    }
   }
 
   toggleSort = field => () => {

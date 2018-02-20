@@ -1,9 +1,12 @@
+// @flow
+
 import React, { Fragment } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { IntlProvider } from 'react-intl'
 import * as messages from '../i18n'
 import { connect } from 'react-redux'
 
+import ScrollTop from './ScrollTop'
 import App from './App'
 
 type Props = {
@@ -20,7 +23,9 @@ const Root = ({ locale }: Props) => {
       messages={messages[lang]}
       textComponent={Fragment}>
       <BrowserRouter>
-        <App />
+        <ScrollTop>
+          <App />
+        </ScrollTop>
       </BrowserRouter>
     </IntlProvider>
   )

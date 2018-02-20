@@ -45,6 +45,7 @@
   "select-file": "Select or import file",
   "selected-file": "Selected file",
   "selected-image": "Image « {size}@{density} »",
+  "share-preview": "preview link:",
   "show-preview": "show preview",
   "status-deleted": "deleted",
   "status-null": "UNDEFINED STATUS!",

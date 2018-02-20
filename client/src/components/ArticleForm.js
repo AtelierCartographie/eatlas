@@ -5,6 +5,7 @@ import './ArticleForm.css'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { FormattedMessage as T } from 'react-intl'
 
 import Icon from './Icon'
 import IconButton from './IconButton'
@@ -332,14 +333,18 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
+  getPreviewUrl() {
+    // TODO configurable
+    return `http://localhost:4000/resources/${this.props.article.id}/preview`
+  }
+
   renderPreview() {
-    // TODO
     return (
       <iframe
         title="Preview"
         width="100%"
         height="700px"
-        src={`http://localhost:4000/resources/${this.props.article.id}/preview`}
+        src={this.getPreviewUrl()}
       />
     )
   }
@@ -366,6 +371,12 @@ class ArticleForm extends Component<Props, State> {
               <IconButton label="publish" icon="play" />
             </button>
           </div>
+        </div>
+
+        <div>
+          <Icon icon="share" />
+          <T id="share-preview" />{' '}
+          <a href={this.getPreviewUrl()}>{this.getPreviewUrl()}</a>
         </div>
 
         <hr />

@@ -27,6 +27,10 @@
   color: #444;
 }
 
+.Resources td.cell-title {
+  min-width: 250px;
+}
+
 .Resources .menu-list {
   font-size: 0.8em;
 }

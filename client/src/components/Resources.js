@@ -241,14 +241,12 @@ class Resources extends Component<Props, State> {
 
   renderStatusCell(status) {
     return (
-      <td className="cell-status">
-        <NavLink
-          activeClassName="active"
-          isActive={() => status === this.props.status}
-          to={this.getMenuTo({ status })}>
-          {this.renderStatusIcon(status)}
-        </NavLink>
-      </td>
+      <NavLink
+        activeClassName="active"
+        isActive={() => status === this.props.status}
+        to={this.getMenuTo({ status })}>
+        {this.renderStatusIcon(status)}
+      </NavLink>
     )
   }
 
@@ -259,11 +257,9 @@ class Resources extends Component<Props, State> {
       return <td />
     }
     return (
-      <td className="cell-type">
-        <NavLink to={this.getMenuTo({ type })}>
-          <Icon size="medium" icon={item.icon} />
-        </NavLink>
-      </td>
+      <NavLink to={this.getMenuTo({ type })}>
+        <Icon size="medium" icon={item.icon} />
+      </NavLink>
     )
   }
 
@@ -271,7 +267,9 @@ class Resources extends Component<Props, State> {
     return (
       <tr key={resource.id}>
         {fields.map(field => (
-          <Fragment key={field}>{this.renderTd(resource, field)}</Fragment>
+          <td className={'cell-' + field} key={field}>
+            {this.renderTd(resource, field)}
+          </td>
         ))}
         <td>
           <div className="field is-grouped">
@@ -435,38 +433,34 @@ class Resources extends Component<Props, State> {
       case 'topic':
         return this.renderTopicCell(resource)
       case 'preview':
-        return <td>{renderPreview(resource)}</td>
+        return renderPreview(resource)
       case 'createdAt':
       case 'updatedAt':
-        return <td>{timeago().format(resource[field], this.props.locale)}</td>
+        return timeago().format(resource[field], this.props.locale)
       //case 'createdBy':
       case 'updatedBy':
       case 'author':
         const email: string = resource[field]
         if (this.props.users.loading) {
           return (
-            <td>
+            <Fragment>
               <Spinner />
               {email}
-            </td>
+            </Fragment>
           )
         }
         const user: ?User = this.props.users.list.find(u => u.email === email)
         if (!user) {
           return (
-            <td>
+            <Fragment>
               <Icon icon="warning" title="Unknown user" />
               {email}
-            </td>
+            </Fragment>
           )
         }
-        return (
-          <td>
-            <span title={user.email}>{user.name}</span>
-          </td>
-        )
+        return <span title={user.email}>{user.name}</span>
       default:
-        return <td>{resource[field]}</td>
+        return resource[field]
     }
   }
 
@@ -561,9 +555,9 @@ class Resources extends Component<Props, State> {
 
     if (this.props.topics.loading) {
       return (
-        <td>
+        <Fragment>
           <Spinner small /> {resource.topic}
-        </td>
+        </Fragment>
       )
     }
 

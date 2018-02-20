@@ -19,12 +19,16 @@ type AMeta = any
 type RProps = {
   node: Object,
   resource: Object,
-  onIsMissing: boolean => any,
+  onIsMissing: (exists: boolean, published: boolean) => any,
 }
 
 class _ResourceField extends Component<RProps> {
   componentDidMount() {
-    this.props.onIsMissing(!this.props.resource)
+    if (!this.props.resource) {
+      return this.props.onIsMissing(false, false)
+    }
+    const published = this.props.resource.status === 'published'
+    return this.props.onIsMissing(true, published)
   }
 
   render() {
@@ -34,7 +38,8 @@ class _ResourceField extends Component<RProps> {
       return (
         <div className="field">
           <label className="label has-text-danger">
-            Resource not found <Icon icon="warning" />
+            <Icon icon="warning" />
+            Resource not found
           </label>
           <div className="control">
             {node.id} {node.text}
@@ -47,6 +52,23 @@ class _ResourceField extends Component<RProps> {
     }
 
     let preview = renderPreview(resource)
+
+    if (resource.status !== 'published') {
+      return (
+        <div className="field">
+          <label className="label has-text-danger">
+            <Icon icon="warning" />
+            Unpublished resource {resource.type}
+          </label>
+          <div className="control">{preview}</div>
+          <div className="control">
+            <Link to={`/resources/${resource.id}/edit`}>
+              Publish resource {resource.id}
+            </Link>
+          </div>
+        </div>
+      )
+    }
 
     return (
       <div className="field">
@@ -162,7 +184,7 @@ type Props = {
 }
 
 type State = {
-  missingResources: ANode[],
+  missingResources: [ANode, boolean][],
   missingDefinitions: string[],
   missingLexicon: boolean,
   previewMode: boolean,
@@ -199,15 +221,22 @@ class ArticleForm extends Component<Props, State> {
 
   renderResource(node: ANode, k: string) {
     return (
-      <ResourceField onIsMissing={this.onIsMissing(node)} node={node} key={k} />
+      <ResourceField
+        onIsMissing={this.onIsMissingResource(node)}
+        node={node}
+        key={k}
+      />
     )
   }
 
-  onIsMissing = (node: ANode) => (missing: boolean) => {
+  onIsMissingResource = (node: ANode) => (
+    exists: boolean,
+    published: boolean,
+  ) => {
     this.setState(state => ({
       missingResources: state.missingResources
-        .filter(r => r.id !== node.id)
-        .concat(missing ? [node] : []),
+        .filter(r => r[0].id !== node.id)
+        .concat(exists && published ? [] : [[node, exists]]),
     }))
   }
 
@@ -222,15 +251,20 @@ class ArticleForm extends Component<Props, State> {
       <Fragment>
         <h2 className="subtitle">Missing resources</h2>
         <ul>
-          {nodes.map(node => (
+          {nodes.map(([node, exists]) => (
             <li key={node.id}>
               <label className="has-text-danger">
                 <Icon icon="warning" />
                 <strong className="has-text-danger">{node.id}</strong>
               </label>
-              <Link to={'/resources/new/?' + node.id}>
+              <Link
+                to={
+                  exists
+                    ? `/resources/${node.id}/edit`
+                    : `/resources/new/?${node.id}`
+                }>
                 {' '}
-                Import “{node.text}”
+                {exists ? `Publish “${node.text}”` : `Create “${node.text}”`}
               </Link>
             </li>
           ))}

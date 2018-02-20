@@ -86,15 +86,15 @@ class ResourceEdit extends Component<Props, State> {
       )
     }
 
-    // TODO only use ResourceForm?
-    if (resource.type === 'article' && resource.nodes) {
-      return <ArticleForm article={resource} />
-    }
-
+    let renderBefore = null
     let renderAfter = null
 
     if (resource.type === 'definition' && resource.definitions) {
       renderAfter = this.renderDefinitions.bind(this, resource.definitions)
+    } else if (resource.type === 'article' && resource.nodes) {
+      renderAfter = this.renderNodes.bind(this, resource)
+    } else if (resource.type === 'focus' && resource.nodes) {
+      renderAfter = this.renderNodes.bind(this, resource)
     }
 
     return (
@@ -105,6 +105,10 @@ class ResourceEdit extends Component<Props, State> {
         renderAfter={renderAfter}
       />
     )
+  }
+
+  renderNodes(article: any) {
+    return <ArticleForm article={article} />
   }
 
   renderDefinitions(

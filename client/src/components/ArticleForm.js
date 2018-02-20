@@ -337,6 +337,15 @@ class ArticleForm extends Component<Props, State> {
   }
 
   renderMeta(meta: AMeta, k: string) {
+    // Do not display metas handled in ResourceForm
+    if (
+      ['title', 'type', 'author', 'topic', 'id', 'summary-fr'].includes(
+        meta.type,
+      )
+    ) {
+      return null
+    }
+
     if (meta.list) {
       return (
         <div className="field" key={k}>
@@ -345,11 +354,13 @@ class ArticleForm extends Component<Props, State> {
         </div>
       )
     }
+
     const field = meta.type.match(/^summary/) ? (
       <textarea className="textarea">{meta.text}</textarea>
     ) : (
       <input className="input" defaultValue={meta.text} />
     )
+
     return (
       <div className="field" key={k}>
         <label className="label">{meta.type}</label>

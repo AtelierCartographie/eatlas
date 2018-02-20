@@ -375,6 +375,8 @@ class ResourceForm extends Component<Props, State> {
       return [typeField].concat(resource && resource.id ? [idField] : [])
     }
 
+    const isArticle = resource.type === 'article' || resource.type === 'focus'
+
     const prependFields = () => [
       typeField,
       idField,
@@ -393,19 +395,19 @@ class ResourceForm extends Component<Props, State> {
       this.getAttrField('title', {
         leftIcon: 'header',
         mandatory: true,
-        readOnly,
+        readOnly: readOnly || isArticle,
         loading: this.state.parsing,
       }),
       subtitle &&
         this.getAttrField('subtitle', {
           leftIcon: 'header',
-          readOnly,
+          readOnly: readOnly || isArticle,
           loading: this.state.parsing,
         }),
       this.getAttrField('topic', {
         leftIcon: 'paragraph',
         mandatory: !optionalTopic,
-        readOnly,
+        readOnly: readOnly || isArticle,
         loading:
           this.state.parsing ||
           this.props.topics.loading ||
@@ -423,7 +425,7 @@ class ResourceForm extends Component<Props, State> {
       this.getAttrField('language', {
         leftIcon: 'language',
         mandatory: true,
-        readOnly,
+        readOnly: readOnly || isArticle,
         loading: this.state.parsing,
         options: this.buildSelectOptions(
           LOCALES,
@@ -434,14 +436,14 @@ class ResourceForm extends Component<Props, State> {
       this.getAttrField('description', {
         leftIcon: 'info',
         mandatory: true,
-        readOnly,
+        readOnly: readOnly || isArticle,
         loading: this.state.parsing,
         rows: 5,
       }),
       copyright &&
         this.getAttrField('copyright', {
           leftIcon: 'copyright',
-          readOnly,
+          readOnly: readOnly || isArticle,
         }),
     ]
 
@@ -459,6 +461,7 @@ class ResourceForm extends Component<Props, State> {
         .filter(x => x)
 
     switch (resource.type) {
+      // Note: article is read-only, you have to re-upload
       case 'article':
         // $FlowFixMe: seriously flow, you yell at this one and not the next ones? I can't see the logic here, shut up
         return buildFields(
@@ -470,6 +473,9 @@ class ResourceForm extends Component<Props, State> {
           ],
           { subtitle: true },
         )
+
+      //case 'focus': // subtitle: true, copyright: false
+
       case 'map':
         return buildFields(
           [this.getDocField(resource, 'map', { mandatory: true })],

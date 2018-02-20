@@ -20,24 +20,27 @@ import { STATUS_STYLE, RESOURCE_STATUSES, LEXICON_ID } from '../constants'
 
 import type { ContextRouter } from 'react-router'
 
-type Props = ContextIntl & {
-  resources: {
-    loading: boolean,
-    list: Array<Resource>,
-  },
-  topics: {
-    loading: boolean,
-    list: Array<Topic>,
-  },
-  locale: Locale,
-  // url
-  type: ResourceType | '',
-  status: string,
-  topic: string,
-  // actions
-  fetchResources: typeof fetchResources,
-  getTopics: typeof getTopics,
-}
+type Props = ContextIntl &
+  ContextRouter & {
+    resources: {
+      loading: boolean,
+      list: Array<Resource>,
+    },
+    topics: {
+      loading: boolean,
+      list: Array<Topic>,
+    },
+    locale: Locale,
+    // url
+    type: ResourceType | '',
+    status: string,
+    topic: string,
+    sortBy: string,
+    sortDir: 'asc' | 'desc',
+    // actions
+    fetchResources: typeof fetchResources,
+    getTopics: typeof getTopics,
+  }
 
 type State = {
   removeResource: ?Resource,
@@ -352,54 +355,116 @@ class Resources extends Component<Props, State> {
   static statusOrder = (status: ?ResourceStatus): number =>
     status ? Resources.STATUS_ORDER.indexOf(status) : -1
 
-  renderList(resources: Array<Resource>, status, topic) {
+  compare(r1: Resource, r2: Resource, field: string, asc: boolean): number {
+    let result = 0
+    switch (field) {
+      case 'status':
+        result =
+          Resources.statusOrder(r1.status) - Resources.statusOrder(r2.status)
+        break
+      default:
+        const v1 = r1[field]
+        const v2 = r2[field]
+        result = v1 > v2 ? +1 : v1 < v2 ? -1 : 0
+        break
+    }
+    // always sort by id for equalities
+    if (result === 0) {
+      result = r1.id > r2.id ? +1 : -1
+    }
+    return asc ? result : -result
+  }
+
+  renderList(
+    resources: Array<Resource>,
+    { status, topic, sortBy, sortDir }: Props,
+  ) {
     // Status then id asc
     const sorted = resources
       .filter(r => !status || r.status === status)
       .filter(r => !topic || r.topic === topic)
-      .sort((r1, r2) => {
-        if (r1.status === r2.status) {
-          return r1.id > r2.id ? +1 : -1
-        } else {
-          return (
-            Resources.statusOrder(r1.status) - Resources.statusOrder(r2.status)
-          )
-        }
-      })
+      .sort((r1, r2) => this.compare(r1, r2, sortBy, sortDir === 'asc'))
 
     return (
       <table className="table is-striped is-bordered is-fullwidth">
         <thead>
           <tr>
-            <th>
+            <th onClick={this.toggleSort('id')}>
               <T id="resource-id" />
+              {this.renderSortIndicator('id')}
             </th>
-            <th className="fit">
+            <th onClick={this.toggleSort('status')}>
               <T id="resource-status" />
+              {this.renderSortIndicator('status')}
             </th>
-            <th className="fit">
+            <th onClick={this.toggleSort('type')}>
               <T id="resource-type" />
+              {this.renderSortIndicator('type')}
             </th>
-            <th className="fit">
+            <th onClick={this.toggleSort('topic')}>
               <T id="resource-topic" />
+              {this.renderSortIndicator('topic')}
             </th>
             <th>
               <T id="preview" />
             </th>
-            <th>
+            <th onClick={this.toggleSort('author')}>
               <T id="resource-author" />
+              {this.renderSortIndicator('author')}
             </th>
-            <th>
+            <th onClick={this.toggleSort('title')}>
               <T id="resource-title" />
+              {this.renderSortIndicator('title')}
             </th>
-            <th>
+            <th onClick={this.toggleSort('createdAt')}>
               <T id="resource-created-at" />
+              {this.renderSortIndicator('createdAt')}
             </th>
             <th className="fit" />
           </tr>
         </thead>
         <tbody>{sorted.map(this.renderRow)}</tbody>
       </table>
+    )
+  }
+
+  toggleSort = field => () => {
+    const newDir =
+      this.props.sortBy === field
+        ? this.props.sortDir === 'asc' ? 'desc' : 'asc'
+        : this.props.sortDir // Same field: toggle direction // Different field: keep direction
+
+    // Modify query string manually (I didn't want to inject another dependency as we do it only here)
+    // TODO add a library for this if it becomes used elsewhere
+    let qs = this.props.history.location.search
+
+    // sortBy: ?sort=
+    if (qs.match(/[&?]sort=/)) {
+      qs = qs.replace(/(&|\?)sort=.*?(&|\?|$)/, `$1sort=${field}$2`)
+    } else {
+      qs += `${qs === '' ? '?' : '&'}sort=${field}`
+    }
+
+    // sortDir: ?dir=
+    if (qs.match(/[&?]dir=/)) {
+      qs = qs.replace(/(&|\?)dir=.*?(&|\?|$)/, `$1dir=${newDir}$2`)
+    } else {
+      // At this point, qs ALWAYS has a '?'
+      qs += `&dir=${newDir}`
+    }
+
+    this.props.history.push({ search: qs })
+  }
+
+  renderSortIndicator(field) {
+    if (this.props.sortBy !== field) {
+      return null
+    }
+
+    return this.props.sortDir === 'asc' ? (
+      <Icon icon="arrow-down" />
+    ) : (
+      <Icon icon="arrow-up" />
     )
   }
 
@@ -514,11 +579,7 @@ class Resources extends Component<Props, State> {
             {loading ? (
               <Spinner />
             ) : (
-              this.renderList(
-                filteredResources,
-                this.props.status,
-                this.props.topic,
-              )
+              this.renderList(filteredResources, this.props)
             )}
           </div>
         </div>
@@ -548,6 +609,8 @@ export default withRouter(
         type: match.params.type || '',
         status: searchParams.get('status'),
         topic: searchParams.get('topic'),
+        sortBy: searchParams.get('sort') || 'status',
+        sortDir: searchParams.get('dir') || 'asc',
       }
     },
     {

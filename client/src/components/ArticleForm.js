@@ -334,8 +334,13 @@ class ArticleForm extends Component<Props, State> {
   }
 
   getPreviewUrl() {
-    // TODO configurable
-    return `http://localhost:4000/resources/${this.props.article.id}/preview`
+    const host = process.env.REACT_APP_API_SERVER
+    if (!host) {
+      throw new Error(
+        'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
+      )
+    }
+    return `${host}/resources/${this.props.article.id}/preview`
   }
 
   renderPreview() {

@@ -17,12 +17,12 @@ type Result = {
 type State = {
   error: ?Error,
   result: ?(Result & {
-    doc: GoogleDoc,
+    docs: GoogleDoc[],
   }),
 }
 
 type OnPickFunction = (
-  doc: GoogleDoc,
+  docs: GoogleDoc[],
   viewToken: string,
   gapi: GoogleApi,
 ) => Promise<Result>
@@ -37,6 +37,7 @@ type Props = {
   icon?: string,
   showPickerAfterUpload?: boolean,
   locale?: Locale,
+  multiple?: boolean,
 }
 
 type PickerData = {
@@ -93,14 +94,12 @@ class DocPicker extends Component<Props, State> {
       return
     }
 
-    const doc = docs[0]
-
     if (!this.props.onPick) {
-      this.setState({ result: { doc } })
+      this.setState({ result: { docs } })
     } else {
       this.props
-        .onPick(doc, this.viewToken, window.gapi)
-        .then(result => this.setState({ result: { doc, ...result } }))
+        .onPick(docs, this.viewToken, window.gapi)
+        .then(result => this.setState({ result: { docs, ...result } }))
         .catch(error => this.setState({ error }))
     }
   }
@@ -117,6 +116,7 @@ class DocPicker extends Component<Props, State> {
         scope={['https://www.googleapis.com/auth/drive']}
         onAuthenticate={this.setViewToken}
         onChange={this.callback}
+        multiselect={this.props.multiple}
         createPicker={(google, oauthToken) => {
           const docsView = new google.picker.View(google.picker.ViewId.DOCS)
           if (this.props.mimeTypes) {
@@ -127,9 +127,13 @@ class DocPicker extends Component<Props, State> {
 
           const picker = new window.google.picker.PickerBuilder()
             .setLocale(this.props.locale || 'en')
-            .enableFeature(google.picker.Feature.MULTISELECT_DISABLED)
             .addView(docsView)
             .addView(uploadView)
+            .enableFeature(
+              this.props.multiple
+                ? google.picker.Feature.MULTISELECT_ENABLED
+                : google.picker.Feature.MULTISELECT_DISABLED,
+            )
             .setOAuthToken(oauthToken)
             .setDeveloperKey(process.env.REACT_APP_GOOGLE_DEV_KEY)
             .setCallback(this.callback)

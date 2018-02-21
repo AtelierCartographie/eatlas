@@ -624,7 +624,11 @@ class ResourceForm extends Component<Props, State> {
     return opts
   }
 
-  onPick = (docKey: string) => async (doc: GoogleDoc, accessToken: string) => {
+  onPick = (docKey: string) => async (
+    docs: GoogleDoc[],
+    accessToken: string,
+  ) => {
+    const doc = docs[0]
     this.setState(state => {
       const newState = {
         ...state,
@@ -662,7 +666,7 @@ class ResourceForm extends Component<Props, State> {
     doc: GoogleDoc,
     accessToken: string,
   ) {
-    this.onPick(key)(doc, accessToken)
+    this.onPick(key)([doc], accessToken)
     this.setState({ parsing: true, parsed: null, error: null })
     try {
       const parsed = await parse({
@@ -686,7 +690,8 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  onPickArticle = async (doc: GoogleDoc, accessToken: string) => {
+  onPickArticle = async (docs: GoogleDoc[], accessToken: string) => {
+    const doc = docs[0]
     const postParse = (state, parsed) => {
       const getMetaText = type => {
         const meta = parsed.metas.find(m => m.type === type)

@@ -12,10 +12,7 @@ import IconButton from './IconButton'
 import { renderPreview } from './Resources'
 import { LEXICON_ID } from '../constants'
 import { getDefinition } from '../utils'
-
-// TODO proper typing
-type ANode = any
-type AMeta = any
+import { fetchResources } from '../actions'
 
 type RProps = {
   node: Object,
@@ -170,13 +167,20 @@ const ParagraphField = connect(({ resources }, { node }) => {
 })(_ParagraphField)
 
 type Props = {
-  article: any,
+  article: Resource,
+  resources: {
+    list: Resource[],
+    loading: boolean,
+    fetched: boolean,
+  },
+  fetchResources: Function,
 }
 
 type State = {
-  missingResources: [ANode, boolean][],
+  missingResources: [ArticleNode, boolean][],
   missingDefinitions: string[],
   missingLexicon: boolean,
+  missingRelated: { [string]: [ArticleNode, boolean] },
   previewMode: boolean,
 }
 
@@ -184,11 +188,57 @@ class ArticleForm extends Component<Props, State> {
   state = {
     missingResources: [],
     missingDefinitions: [],
+    missingRelated: this.computeMissingRelated(
+      this.props.article,
+      this.props.resources.list,
+    ),
     previewMode: false,
     missingLexicon: false,
   }
 
-  renderHeader(node: ANode, k: string) {
+  componentDidMount() {
+    if (!this.props.resources.fetched) {
+      this.props.fetchResources()
+    }
+  }
+
+  componentWillReceiveProps(props: Props) {
+    this.setState({
+      missingRelated: this.computeMissingRelated(
+        props.article,
+        props.resources.list,
+      ),
+    })
+  }
+
+  // TODO put back every link-handling (resources & definitions) in this method?
+  computeMissingRelated(article: Resource, resources: Resource[]) {
+    const result = {}
+    const meta =
+      article.metas && article.metas.find(meta => meta.type === 'related')
+    if (meta && meta.list) {
+      meta.list.forEach(({ text }) => {
+        if (text) {
+          const match = text.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
+          if (match) {
+            const id = match[1]
+            const resource: ?Resource = resources.find(r => r.id === id)
+            if (!resource || resource.status !== 'published') {
+              const node: ArticleNode = {
+                id,
+                text: match[2],
+                type: 'resource',
+              }
+              result[text] = [node, !!resource]
+            }
+          }
+        }
+      })
+    }
+    return result
+  }
+
+  renderHeader(node: ArticleNode, k: number) {
     return (
       <div className="field" key={k}>
         <label className="label">Header</label>
@@ -199,7 +249,7 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  renderParagraph(node: ANode, k: string) {
+  renderParagraph(node: ArticleNode, k: number) {
     return (
       <ParagraphField
         onIsMissing={this.onIsMissingDefinition}
@@ -209,7 +259,7 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  renderResource(node: ANode, k: string) {
+  renderResource(node: ArticleNode, k: number) {
     return (
       <ResourceField
         onIsMissing={this.onIsMissingResource(node)}
@@ -219,7 +269,7 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  onIsMissingResource = (node: ANode) => (
+  onIsMissingResource = (node: ArticleNode) => (
     exists: boolean,
     published: boolean,
   ) => {
@@ -230,16 +280,14 @@ class ArticleForm extends Component<Props, State> {
     }))
   }
 
-  renderMissingResources() {
-    const nodes = this.state.missingResources
-
+  renderMissingResources(title: string, nodes: [ArticleNode, boolean][]) {
     if (nodes.length === 0) {
       return null
     }
 
     return (
       <Fragment>
-        <h2 className="subtitle">Missing resources</h2>
+        <h2 className="subtitle">{title}</h2>
         <ul>
           {nodes.map(([node, exists]) => (
             <li key={node.id}>
@@ -259,6 +307,7 @@ class ArticleForm extends Component<Props, State> {
             </li>
           ))}
         </ul>
+        <hr />
       </Fragment>
     )
   }
@@ -278,7 +327,6 @@ class ArticleForm extends Component<Props, State> {
 
   renderMissingDefinitions() {
     const dts = this.state.missingDefinitions.slice().sort()
-    const hasMissingResources = this.state.missingResources.length > 0
 
     if (dts.length === 0) {
       return null
@@ -286,7 +334,6 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        {hasMissingResources && <hr />}
         <h2 className="subtitle">Missing definitions</h2>
         <p>
           You have to{' '}
@@ -310,22 +357,25 @@ class ArticleForm extends Component<Props, State> {
             </li>
           ))}
         </ul>
+        <hr />
       </Fragment>
     )
   }
 
-  renderFootnotes(node: ANode, k: string) {
+  renderFootnotes(node: ArticleNode, k: number) {
     return (
       <div className="field" key={k}>
         <label className="label">Footnotes</label>
         <div className="control">
-          <ul>{node.list.map((f, k) => <li key={k}>{f.text}</li>)}</ul>
+          <ul>
+            {node.list && node.list.map((f, k) => <li key={k}>{f.text}</li>)}
+          </ul>
         </div>
       </div>
     )
   }
 
-  renderMeta(meta: AMeta, k: string) {
+  renderMeta = (meta: ArticleMeta, k: number) => {
     // Do not display metas handled in ResourceForm
     if (
       ['title', 'type', 'author', 'topic', 'id', 'summary-fr'].includes(
@@ -335,19 +385,38 @@ class ArticleForm extends Component<Props, State> {
       return null
     }
 
+    const renderMetaRelated = text =>
+      this.state.missingRelated[text] ? (
+        <span className="has-text-danger">
+          <Icon icon="warning" /> {text}
+        </span>
+      ) : (
+        text
+      )
+
     if (meta.list) {
       return (
         <div className="field" key={k}>
           <label className="label">{meta.type}</label>
-          <ul>{meta.list.map((kw, k) => <li key={k}>{kw.text}</li>)}</ul>
+          <div className="box">
+            <ul className="fa-ul">
+              {meta.list.map((kw, k) => (
+                <li key={k}>
+                  {meta.type === 'related'
+                    ? renderMetaRelated(kw.text)
+                    : kw.text}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )
     }
 
     const field = meta.type.match(/^summary/) ? (
-      <textarea className="textarea">{meta.text}</textarea>
+      <pre className="textarea">{meta.text}</pre>
     ) : (
-      <input className="input" defaultValue={meta.text} />
+      <span className="input">{meta.text}</span>
     )
 
     return (
@@ -362,33 +431,41 @@ class ArticleForm extends Component<Props, State> {
     const { article } = this.props
     return (
       <div className="ArticleForm">
-        {this.renderMissingResources()}
+        {this.renderMissingResources(
+          'Missing resources',
+          this.state.missingResources,
+        )}
+        {this.renderMissingResources(
+          'Missing related',
+          // $FlowFixMe: TODO polyfill
+          Object.values(this.state.missingRelated),
+        )}
         {this.renderMissingDefinitions()}
 
-        <hr />
         <h2 className="subtitle">Metas</h2>
-        {article.metas.map(this.renderMeta)}
+        {article.metas && article.metas.map(this.renderMeta)}
 
         <hr />
         <h2 className="subtitle">Content</h2>
-        {article.nodes.map((node, k) => {
-          switch (node.type) {
-            case 'header':
-              return this.renderHeader(node, k)
+        {article.nodes &&
+          article.nodes.map((node, k) => {
+            switch (node.type) {
+              case 'header':
+                return this.renderHeader(node, k)
 
-            case 'p':
-              return this.renderParagraph(node, k)
+              case 'p':
+                return this.renderParagraph(node, k)
 
-            case 'resource':
-              return this.renderResource(node, k)
+              case 'resource':
+                return this.renderResource(node, k)
 
-            case 'footnotes':
-              return this.renderFootnotes(node, k)
+              case 'footnotes':
+                return this.renderFootnotes(node, k)
 
-            default:
-              return null
-          }
-        })}
+              default:
+                return null
+            }
+          })}
       </div>
     )
   }
@@ -421,9 +498,10 @@ class ArticleForm extends Component<Props, State> {
           <div className="control">
             <button
               className="button is-outlined"
-              onClick={() =>
+              onClick={e => {
+                e.preventDefault()
                 this.setState({ previewMode: !this.state.previewMode })
-              }>
+              }}>
               {this.state.previewMode ? (
                 <IconButton label="hide-preview" icon="eye-slash" />
               ) : (
@@ -452,4 +530,6 @@ class ArticleForm extends Component<Props, State> {
   }
 }
 
-export default ArticleForm
+export default connect(({ resources }: AppState) => ({ resources }), {
+  fetchResources,
+})(ArticleForm)

@@ -56,9 +56,24 @@ declare type ResourceNew = {
 
 declare type Definition = { dt: string, dd: string, resourceId?: ?string }
 
+declare type ArticleNode = {
+  id: string,
+  text: string,
+  type: string, // TODO enum
+  list?: Array<{ text: string }>,
+}
+
+declare type ArticleMeta = {
+  type: string, // TODO enum
+  list: Array<{
+    text: string,
+  }>,
+}
+
 declare type Resource = ResourceNew & {
   file?: string,
-  nodes?: any[],
+  nodes?: ArticleNode[],
+  metas?: ArticleMeta[],
   definitions?: Definition[],
   images?: {
     small: { '1x'?: ?string, '2x'?: ?string, '3x'?: ?string },

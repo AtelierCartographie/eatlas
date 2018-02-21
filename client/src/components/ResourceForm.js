@@ -41,6 +41,8 @@ type Props = ContextIntl & {
   resource: ?Resource,
   onSubmit: SaveCallback,
   renderAfter?: ?Function,
+  publishable: boolean,
+  whyUnpublishable: string[],
   // Actions
   getTopics: Function,
   replaceResource: Function,
@@ -75,7 +77,13 @@ type FieldParams = {
   mandatory?: boolean,
 }
 
-type SelectOptions = { label: string, value: any, buttonStyle?: string }[]
+type SelectOptions = {
+  label: string,
+  value: any,
+  buttonStyle?: string,
+  disabled?: boolean,
+  disabledReason?: string,
+}[]
 
 const renderField = ({
   labelId,
@@ -274,23 +282,27 @@ class ResourceForm extends Component<Props, State> {
       if (optionsStyle === 'buttons') {
         input = (
           <div className="buttons has-addons">
-            {options.map(({ label, value, buttonStyle }) => (
-              <button
-                key={value}
-                className={cx(
-                  'button',
-                  buttonStyle ? 'is-' + buttonStyle : null,
-                  {
-                    'is-outlined has-text-weight-light': props.value !== value,
-                    'has-text-weight-bold': props.value === value,
-                  },
-                )}
-                value={value}
-                onClick={props.onChange}
-                disabled={props.readOnly}>
-                {label}
-              </button>
-            ))}
+            {options.map(
+              ({ label, value, buttonStyle, disabled, disabledReason }) => (
+                <button
+                  key={value}
+                  className={cx(
+                    'button',
+                    buttonStyle ? 'is-' + buttonStyle : null,
+                    {
+                      'is-outlined has-text-weight-light':
+                        props.value !== value,
+                      'has-text-weight-bold': props.value === value,
+                    },
+                  )}
+                  value={value}
+                  onClick={props.onChange}
+                  disabled={disabled || props.readOnly}
+                  title={disabled && disabledReason}>
+                  {label}
+                </button>
+              ),
+            )}
           </div>
         )
       } else if (readOnly) {
@@ -385,7 +397,14 @@ class ResourceForm extends Component<Props, State> {
           mandatory: true,
           readOnly: resource.type === 'definition',
           options: this.buildSelectOptions(RESOURCE_STATUSES, 'status-').map(
-            o => Object.assign(o, { buttonStyle: STATUS_STYLE[o.value] }),
+            o =>
+              Object.assign(o, {
+                buttonStyle: STATUS_STYLE[o.value],
+                disabled: o.value === 'published' && !this.props.publishable,
+                disabledReason: this.props.whyUnpublishable
+                  .map(text => this.props.intl.formatMessage({ id: text }))
+                  .join(', '),
+              }),
           ),
           optionsStyle: 'buttons',
         }),

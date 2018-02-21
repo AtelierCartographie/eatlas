@@ -173,6 +173,7 @@ type Props = {
     loading: boolean,
     fetched: boolean,
   },
+  onUnpublishable?: string => void,
   fetchResources: Function,
 }
 
@@ -278,6 +279,10 @@ class ArticleForm extends Component<Props, State> {
         .filter(r => r[0].id !== node.id)
         .concat(exists && published ? [] : [[node, exists]]),
     }))
+    // Missing resource prevent publication
+    if (this.props.onUnpublishable) {
+      this.props.onUnpublishable('article-error-missing-resource')
+    }
   }
 
   renderMissingResources(title: string, nodes: [ArticleNode, boolean][]) {
@@ -323,6 +328,11 @@ class ArticleForm extends Component<Props, State> {
       }
       return newState
     })
+    // Missing definition prevent publication
+    // Missing resource prevent publication
+    if (this.props.onUnpublishable) {
+      this.props.onUnpublishable('article-error-missing-definition')
+    }
   }
 
   renderMissingDefinitions() {
@@ -507,11 +517,6 @@ class ArticleForm extends Component<Props, State> {
               ) : (
                 <IconButton label="show-preview" icon="eye" />
               )}
-            </button>
-          </div>
-          <div className="control">
-            <button className="button is-primary" disabled={true}>
-              <IconButton label="publish" icon="play" />
             </button>
           </div>
         </div>

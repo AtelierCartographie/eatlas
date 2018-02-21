@@ -30,10 +30,17 @@ type Props = ContextIntl &
 type State = {
   openDetails: boolean,
   openDefinition: ?string,
+  publishable: boolean,
+  whyUnpublishable: string[],
 }
 
 class ResourceEdit extends Component<Props, State> {
-  state = { openDetails: false, openDefinition: null }
+  state = {
+    openDetails: false,
+    openDefinition: null,
+    publishable: true,
+    whyUnpublishable: [],
+  }
 
   componentDidMount() {
     if (this.props.shouldLoad) {
@@ -105,16 +112,30 @@ class ResourceEdit extends Component<Props, State> {
         resource={resource}
         onSubmit={this.save}
         renderAfter={renderAfter}
+        publishable={this.state.publishable}
+        whyUnpublishable={this.state.whyUnpublishable}
       />
     )
   }
 
   renderNodes(article: any) {
-    return <ArticleForm article={article} />
+    return (
+      <ArticleForm
+        article={article}
+        onUnpublishable={reason =>
+          this.setState(state => ({
+            publishable: false,
+            whyUnpublishable: state.whyUnpublishable
+              .filter(text => text !== reason)
+              .concat([reason]),
+          }))
+        }
+      />
+    )
   }
 
   renderDefinitions(
-    definitions: Array<{ dt: string, dd: string, resourceId?: string }>,
+    definitions: Array<{ dt: string, dd: string, resourceId?: ?string }>,
   ) {
     const { openDetails, openDefinition } = this.state
 

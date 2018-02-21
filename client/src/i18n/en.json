@@ -1,6 +1,8 @@
 {
   "add": "add",
   "article-errors": "{nb} error(s)",
+  "article-error-missing-definition": "missing definitions",
+  "article-error-missing-resource": "missing resources",
   "cancel": "cancel",
   "checking-credentials": "Checking your credentials…",
   "confirm-delete":

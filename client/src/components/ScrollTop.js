@@ -11,7 +11,8 @@ type Props = {
 
 class ScrollToTop extends Component<Props> {
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    // Scroll ONLY if pathname changed (we consider query string should not trigger a "full refresh")
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       window.scrollTo(0, 0)
     }
   }

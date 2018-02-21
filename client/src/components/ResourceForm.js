@@ -560,20 +560,11 @@ class ResourceForm extends Component<Props, State> {
   }
 
   getResponsiveImageField(resource): FieldParams {
-    /*
-          // flatten
-          Array.prototype.concat(
-            ...['small', 'medium', 'large'].map(size => {
-              return [1, 2, 3].map(d => {
-                return this.getDocField(resource, `image-${size}-${d}x`, {
-                  labelId: 'selected-image',
-                  labelValues: { size, density: `${d}x` },
-                  mandatory: size === 'medium' && d === 1,
-                })
-              })
-            }),
-          ),
-    */
+    const docs = this.state.docs
+    const keys = Object.keys(docs)
+      .filter(key => docs[key] && key.match(/^image-/))
+      .sort()
+
     return {
       labelId: 'resource-image',
       input: (
@@ -586,16 +577,34 @@ class ResourceForm extends Component<Props, State> {
             multiple={true}
             mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
           />
-          <ul className="list">
-            {Object.keys(this.state.docs)
-              .filter(key => key.match(/^image-/))
-              .map(key => <li key={key}>{key}</li>)}
-          </ul>
+          {keys.length > 0 && (
+            <Fragment>
+              <p className="help">Click image to remove</p>
+              <div className="columns">
+                {keys.map(key => (
+                  <figure
+                    style={{ padding: '0.5em' }}
+                    onClick={this.unselectFile(key)}>
+                    <img
+                      src={this.getGoogleDriveThumbUrl(docs[key])}
+                      alt={docs[key] && docs[key].name}
+                    />
+                    <figcaption>
+                      {key.substring(6).replace('-', '@')}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </Fragment>
+          )}
         </Fragment>
       ),
       mandatory: true,
     }
   }
+
+  getGoogleDriveThumbUrl = doc =>
+    `https://drive.google.com/thumbnail?id=${doc.id}&sz=w100-h100`
 
   onPickResponsiveImage = resource => async (
     docs: GoogleDoc[],
@@ -942,8 +951,10 @@ class ResourceForm extends Component<Props, State> {
         }
         break
       case 'image':
-        // Mandatory sizes
-        if (!docs['image-small-1x']) {
+        if (
+          Object.keys(docs).filter(k => docs[k] && k.match(/^image-/))
+            .length === 0
+        ) {
           return false
         }
         break

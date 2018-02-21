@@ -131,6 +131,11 @@ export const renderPreview = (resource: Resource) => {
 class Resources extends Component<Props, State> {
   state = { removeResource: null, removing: false, restoring: null }
 
+  displayedResources: Resource[] = this.applyFilters(
+    this.props.resources.list,
+    this.props,
+  )
+
   componentDidMount() {
     if (!this.props.resources.fetched) {
       this.props.fetchResources()
@@ -151,30 +156,33 @@ class Resources extends Component<Props, State> {
     return path + qs
   }
 
-  renderTypeMenuItem(item: MenuItem) {
-    const count = item.type
-      ? this.props.resources.list.filter(r => r.type === item.type).length
-      : this.props.resources.list.length
-
-    const label = `type-${item.type || 'all'}`
-
-    return (
-      <li key={item.type}>
-        <NavLink
-          activeClassName="active"
-          isActive={() => item.type === this.props.type}
-          to={this.getMenuTo({ type: item.type })}>
-          <Icon size="small" icon={item.icon} />
-          <T id={label} /> {count !== 0 ? `(${count})` : ''}
-        </NavLink>
-      </li>
-    )
+  renderMenuCountSuffix(field: string, value: ?any) {
+    const filter = {
+      type: field === 'type' ? value : this.props.type,
+      status: field === 'status' ? value : this.props.status,
+      topic: field === 'topic' ? value : this.props.topic,
+    }
+    // $FlowFixMe: I know I'm not passing props but just partial filter (no sort intel either)
+    const list = this.applyFilters(this.props.resources.list, filter, false)
+    const count = list.length
+    return ` (${count})`
   }
 
   renderTypeMenu(items: Array<MenuItem>) {
     return (
       <ul className="menu-list type-menu">
-        {items.map(i => this.renderTypeMenuItem(i))}
+        {items.map(item => (
+          <li key={item.type}>
+            <NavLink
+              activeClassName="active"
+              isActive={() => item.type === this.props.type}
+              to={this.getMenuTo({ type: item.type })}>
+              <Icon size="small" icon={item.icon} />
+              <T id={`type-${item.type || 'all'}`} />
+              {this.renderMenuCountSuffix('type', item.type)}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     )
   }
@@ -189,6 +197,7 @@ class Resources extends Component<Props, State> {
             to={this.getMenuTo({ status: false })}>
             <span className="button is-small is-rounded" />
             <T id="type-all" />
+            {this.renderMenuCountSuffix('status', null)}
           </NavLink>
         </li>
         {RESOURCE_STATUSES.map(s => (
@@ -199,6 +208,7 @@ class Resources extends Component<Props, State> {
               to={this.getMenuTo({ status: s })}>
               {this.renderStatusIcon(s)}
               <T id={`status-${s}`} />
+              {this.renderMenuCountSuffix('status', s)}
             </NavLink>
           </li>
         ))}
@@ -216,6 +226,7 @@ class Resources extends Component<Props, State> {
             to={this.getMenuTo({ topic: false })}>
             <span className="button is-small is-rounded" />
             <T id="type-all" />
+            {this.renderMenuCountSuffix('topic', null)}
           </NavLink>
         </li>
         {this.props.topics.list.map(t => (
@@ -226,6 +237,7 @@ class Resources extends Component<Props, State> {
               to={this.getMenuTo({ topic: t.id })}>
               <img alt="icon" src={`/topics/${t.id}.svg`} />
               {t.name}
+              {this.renderMenuCountSuffix('topic', t.id)}
             </NavLink>
           </li>
         ))}
@@ -388,16 +400,29 @@ class Resources extends Component<Props, State> {
     return asc ? result : -result
   }
 
-  renderList(
-    resources: Array<Resource>,
-    { status, topic, sortBy, sortDir }: Props,
+  componentWillReceiveProps(props: Props) {
+    this.displayedResources = this.applyFilters(props.resources.list, props)
+  }
+
+  applyFilters(
+    list: Resource[],
+    { type, status, topic, sortBy, sortDir }: Props,
+    sort = true,
   ) {
-    // Status then id asc
-    const sorted = resources
+    const filtered = list
       .filter(r => !status || r.status === status)
       .filter(r => !topic || r.topic === topic)
-      .sort((r1, r2) => this.compare(r1, r2, sortBy, sortDir === 'asc'))
+      .filter(r => !type || r.type === type)
 
+    return sort
+      ? filtered.sort((r1, r2) =>
+          this.compare(r1, r2, sortBy, sortDir === 'asc'),
+        )
+      : filtered
+  }
+
+  renderList() {
+    // Status then id asc
     return (
       <table className="table is-striped is-bordered is-fullwidth">
         <thead>
@@ -408,7 +433,7 @@ class Resources extends Component<Props, State> {
             <th className="fit" />
           </tr>
         </thead>
-        <tbody>{sorted.map(this.renderRow)}</tbody>
+        <tbody>{this.displayedResources.map(this.renderRow)}</tbody>
       </table>
     )
   }
@@ -603,10 +628,7 @@ class Resources extends Component<Props, State> {
   }
 
   render() {
-    const { loading, list } = this.props.resources
-    const filteredResources = this.props.type
-      ? list.filter(r => r.type === this.props.type)
-      : list
+    const { loading } = this.props.resources
 
     return (
       <div className="Resources">
@@ -631,11 +653,7 @@ class Resources extends Component<Props, State> {
             </aside>
           </div>
           <div className="column is-10">
-            {loading ? (
-              <Spinner />
-            ) : (
-              this.renderList(filteredResources, this.props)
-            )}
+            {loading ? <Spinner /> : this.renderList()}
           </div>
         </div>
         <Confirm

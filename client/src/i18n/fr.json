@@ -1,5 +1,6 @@
 {
   "add": "ajouter",
+  "article-errors": "{nb} erreur(s)",
   "cancel": "annuler",
   "checking-credentials": "Vérification de l'identification…",
   "confirm-delete":

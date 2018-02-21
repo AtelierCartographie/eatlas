@@ -7,15 +7,17 @@ import { Link, NavLink } from 'react-router-dom'
 import { FormattedMessage as T, FormattedDate, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-
 import { connect } from 'react-redux'
+
 import { fetchResources, getTopics, getUsers } from './../actions'
+import { deleteResource, updateResource } from '../api'
+import { STATUS_STYLE, RESOURCE_STATUSES, LEXICON_ID } from '../constants'
+
 import Spinner from './Spinner'
 import IconButton from './IconButton'
 import Icon from './Icon'
 import Confirm from './Confirm'
-import { deleteResource, updateResource } from '../api'
-import { STATUS_STYLE, RESOURCE_STATUSES, LEXICON_ID } from '../constants'
+import ResourcesPreviewArticle from './ResourcesArticlePreview'
 
 import type { ContextRouter } from 'react-router'
 
@@ -28,6 +30,7 @@ type Props = ContextIntl &
     resources: {
       loading: boolean,
       list: Array<Resource>,
+      fetched: boolean,
     },
     topics: {
       loading: boolean,
@@ -73,8 +76,12 @@ const typeItems: Array<MenuItem> = [
 ]
 
 export const renderPreview = (resource: Resource) => {
-  if (resource.type === 'article') {
-    return <span className="preview">{resource.title}</span>
+  if (resource.type === 'article' || resource.type === 'focus') {
+    return (
+      <span className="preview">
+        <ResourcesPreviewArticle article={resource} />
+      </span>
+    )
   }
 
   if (resource.type === 'image' && resource.images) {
@@ -125,7 +132,9 @@ class Resources extends Component<Props, State> {
   state = { removeResource: null, removing: false, restoring: null }
 
   componentDidMount() {
-    this.props.fetchResources()
+    if (!this.props.resources.fetched) {
+      this.props.fetchResources()
+    }
     this.props.getTopics()
     if (this.props.users.list.length === 0) {
       this.props.getUsers()

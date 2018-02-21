@@ -54,10 +54,12 @@ declare type ResourceNew = {
   mediaUrl?: string, // only video
 }
 
+declare type Definition = { dt: string, dd: string, resourceId?: ?string }
+
 declare type Resource = ResourceNew & {
   file?: string,
   nodes?: any[],
-  definitions?: any[],
+  definitions?: Definition[],
   images?: {
     small: { '1x'?: ?string, '2x'?: ?string, '3x'?: ?string },
     medium: { '1x': ?string, '2x'?: ?string, '3x'?: ?string },

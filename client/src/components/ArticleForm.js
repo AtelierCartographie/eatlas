@@ -11,6 +11,7 @@ import Icon from './Icon'
 import IconButton from './IconButton'
 import { renderPreview } from './Resources'
 import { LEXICON_ID } from '../constants'
+import { getDefinition } from '../utils'
 
 // TODO proper typing
 type ANode = any
@@ -90,7 +91,7 @@ const ResourceField = connect(({ resources }, { node }) => ({
 
 type PProps = {
   node: Object,
-  definitions: ?({ dt: string, dd: string }[]),
+  definitions: ?Array<Definition>,
   onIsMissing: (dt: string, missingLexicon: boolean) => any,
 }
 
@@ -132,7 +133,7 @@ class _ParagraphField extends Component<PProps> {
   }
 
   renderDefinition = dt => {
-    const dd = this.getDefinition(dt)
+    const dd = getDefinition(dt, this.props.definitions)
     return (
       <li key={dt}>
         {dd ? (
@@ -154,23 +155,12 @@ class _ParagraphField extends Component<PProps> {
         if (!this.props.definitions) {
           return this.props.onIsMissing(dt, true)
         }
-        const dd = this.getDefinition(dt)
+        const dd = getDefinition(dt, this.props.definitions)
         if (!dd) {
           this.props.onIsMissing(dt, false)
         }
       })
     }
-  }
-
-  getDefinition(dt) {
-    const search = dt.toLowerCase()
-    if (!this.props.definitions) {
-      return null
-    }
-    const found = this.props.definitions.find(
-      def => def.dt.toLowerCase() === search,
-    )
-    return found && found.dd
   }
 }
 

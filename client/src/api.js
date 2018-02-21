@@ -18,6 +18,7 @@ const FAKE_RESOURCE: Resource = {
   status: 'submitted',
   title: 'some video',
   topic: 'ze topic',
+  updatedBy: 'no-one',
 }
 
 const FAKE_TOPICS: Topic[] = [

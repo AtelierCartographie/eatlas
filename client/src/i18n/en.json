@@ -1,5 +1,6 @@
 {
   "add": "add",
+  "article-errors": "{nb} error(s)",
   "cancel": "cancel",
   "checking-credentials": "Checking your credentials…",
   "confirm-delete":

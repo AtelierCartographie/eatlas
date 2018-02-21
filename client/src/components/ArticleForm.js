@@ -264,7 +264,6 @@ class ArticleForm extends Component<Props, State> {
   }
 
   onIsMissingDefinition = (dt: string, missingLexicon: boolean) => {
-    console.log({ dt })
     this.setState(state => {
       const newState = {
         missingLexicon,

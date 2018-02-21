@@ -30,19 +30,6 @@ exports.update = async (req, res) => {
     { updatedBy: req.session.user.email },
     req.body,
   )
-
-  resources
-    .update(req.foundResource.id, baseData)
-    .then(resource => res.send(resource))
-    .catch(res.boom.send)
-}
-
-// TODO add Joi schema
-exports.updateFromGoogle = async (req, res) => {
-  const baseData = Object.assign(
-    { updatedBy: req.session.user.email },
-    req.body,
-  )
   // Every field is a resource's field to be updated, except 'uploads' & 'accessToken'
   delete baseData.uploads
   delete baseData.accessToken
@@ -51,6 +38,7 @@ exports.updateFromGoogle = async (req, res) => {
     { id: req.foundResource.id, type: req.foundResource.type, uploads: [] },
     req.body,
   )
+  // TODO handle upload deletion
   handleUploads(body, false)
     .then(data => merge(baseData, data))
     .then(updates => resources.update(req.foundResource.id, updates))
@@ -234,6 +222,7 @@ const handleUploads = async (body, required) => {
       }
       // Deletion
       if (!upload.buffer) {
+        // TODO actually delete file
         return { file: null }
       }
       const file = await saveMedia(body)(upload)
@@ -250,6 +239,7 @@ const handleUploads = async (body, required) => {
           images[size] = {}
         }
         images[size][density] = files[index] || null
+        // TODO actually delete files
       })
       return { images }
     }
@@ -260,6 +250,7 @@ const handleUploads = async (body, required) => {
       }
       // Deletion
       if (!upload.buffer) {
+        // TODO actually delete file
         return { file: null }
       }
       const file = await saveMedia(body)(upload)
@@ -270,9 +261,11 @@ const handleUploads = async (body, required) => {
       if (!upload) {
         return null
       }
-      // Deletion
+      // Deletion? Nope, delete the whole resource then
       if (!upload.buffer) {
-        return { file: null }
+        throw new Error(
+          'Cannot unselect file for lexicon, you must remove the whole resource',
+        )
       }
       return parseLexicon(upload.buffer)
     }

@@ -298,7 +298,7 @@ class ResourceForm extends Component<Props, State> {
                   value={value}
                   onClick={props.onChange}
                   disabled={disabled || props.readOnly}
-                  title={disabled && disabledReason}>
+                  title={disabled ? disabledReason : ''}>
                   {label}
                 </button>
               ),
@@ -584,7 +584,7 @@ class ResourceForm extends Component<Props, State> {
               </p>
               <div className="columns thumbnails">
                 {keys.map(key => (
-                  <figure onClick={this.unselectFile(key)}>
+                  <figure key={key} onClick={this.unselectFile(key)}>
                     <img
                       src={this.getThumbUrl(docs[key])}
                       alt={docs[key] && docs[key].name}

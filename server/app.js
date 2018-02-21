@@ -38,13 +38,8 @@ app.get('/resources', resources.list)
 app.get('/resources/:id/preview', resources.findResource, resources.preview)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
-app.post('/resources', validateBody(resources.add)) // types like video
-app.put(
-  '/resources/google-drive/:id',
-  resources.findResource,
-  resources.updateFromGoogle,
-)
-app.put('/resources/:id', resources.findResource, resources.update) // types like video
+app.post('/resources', validateBody(resources.add))
+app.put('/resources/:id', resources.findResource, resources.update) // TODO body schema
 app.delete('/resources/:id', resources.findResource, resources.remove)
 
 app.get('/topics', topics.list)

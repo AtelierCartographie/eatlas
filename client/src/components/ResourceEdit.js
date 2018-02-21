@@ -10,7 +10,7 @@ import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import ArticleForm from './ArticleForm'
 import ResourceForm from './ResourceForm'
-import { updateResourceFromGoogleDrive, updateResource } from '../api'
+import { updateResource } from '../api'
 import ObjectDebug from './ObjectDebug'
 import IconButton from './IconButton'
 
@@ -193,33 +193,20 @@ class ResourceEdit extends Component<Props, State> {
     }
     const id: string = this.props.resource.id
 
-    const result = !accessToken
-      ? await updateResource(id, {
-          // $FlowFixMe
-          status: resource.status,
-          title: resource.title,
-          subtitle: resource.subtitle,
-          topic: resource.topic,
-          language: resource.language,
-          description: resource.description,
-          copyright: resource.copyright,
-          mediaUrl: resource.mediaUrl,
-        })
-      : await updateResourceFromGoogleDrive(id, {
-          // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
-          status: resource.status,
-          // FIXME make id editable?
-          // id: resource.id,
-          title: resource.title,
-          subtitle: resource.subtitle,
-          topic: resource.topic,
-          language: resource.language,
-          description: resource.description,
-          copyright: resource.copyright,
-          uploads,
-          accessToken,
-          // TODO should we send parsed result? Currently, doc is parsed twice by server
-        })
+    // TODO should we send parsed result? Currently article is parsed twice by server
+    const result = await updateResource(id, {
+      // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
+      status: resource.status,
+      title: resource.title,
+      subtitle: resource.subtitle,
+      topic: resource.topic,
+      language: resource.language,
+      description: resource.description,
+      copyright: resource.copyright,
+      mediaUrl: resource.mediaUrl,
+      uploads,
+      accessToken,
+    })
 
     this.props.history.push('/resources?sort=createdAt&dir=desc')
 

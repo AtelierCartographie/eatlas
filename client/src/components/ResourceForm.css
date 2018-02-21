@@ -1,6 +1,23 @@
-.has-icons-left .textarea {
+.ResourceForm .has-icons-left .textarea {
   padding-left: 2.25em;
 }
-.has-icons-right .textarea {
+.ResourceForm .has-icons-right .textarea {
   padding-right: 2.25em;
+}
+
+.ResourceForm .thumbnails {
+  margin: 0;
+}
+.ResourceForm .thumbnails figure {
+  margin-top: 0.5em;
+  padding-right: 0.5em;
+}
+.ResourceForm .thumbnails figure img {
+  max-width: 100px;
+  max-height: 100px;
+}
+.ResourceForm .thumbnails figure figcaption {
+  font-size: 0.7em;
+  color: #999;
+  text-align: center;
 }

@@ -36,6 +36,7 @@
   "resource-edit-loading": "Chargement de la ressource #{id}…",
   "resource-id": "Identifiant",
   "resource-image": "Image",
+  "resource-image-help": "Cliquez sur une image pour la supprimer",
   "resource-language": "Langue",
   "resource-mediaUrl": "Media URL",
   "resource-not-found": "Ressource introuvable",

@@ -36,6 +36,7 @@
   "resource-edit-loading": "Loading resource #{id}",
   "resource-id": "Identifier",
   "resource-image": "Picture",
+  "resource-image-help": "Click on a picture to remove it",
   "resource-language": "Language",
   "resource-mediaUrl": "Media URL",
   "resource-not-found": "Resource not found",

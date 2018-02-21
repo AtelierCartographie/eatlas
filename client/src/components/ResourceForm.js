@@ -579,14 +579,14 @@ class ResourceForm extends Component<Props, State> {
           />
           {keys.length > 0 && (
             <Fragment>
-              <p className="help">Click image to remove</p>
-              <div className="columns">
+              <p className="help">
+                <T id="resource-image-help" />
+              </p>
+              <div className="columns thumbnails">
                 {keys.map(key => (
-                  <figure
-                    style={{ padding: '0.5em' }}
-                    onClick={this.unselectFile(key)}>
+                  <figure onClick={this.unselectFile(key)}>
                     <img
-                      src={this.getGoogleDriveThumbUrl(docs[key])}
+                      src={this.getThumbUrl(docs[key])}
                       alt={docs[key] && docs[key].name}
                     />
                     <figcaption>
@@ -603,8 +603,14 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  getGoogleDriveThumbUrl = doc =>
-    `https://drive.google.com/thumbnail?id=${doc.id}&sz=w100-h100`
+  getThumbUrl = doc =>
+    doc
+      ? doc.id
+        ? // Freshly picked document (we're editing or creating)
+          `https://drive.google.com/thumbnail?id=${doc.id}&sz=w100-h100`
+        : // Saved document (we're editing)
+          (process.env.REACT_APP_PUBLIC_PATH_image || '/') + doc.name
+      : null
 
   onPickResponsiveImage = resource => async (
     docs: GoogleDoc[],

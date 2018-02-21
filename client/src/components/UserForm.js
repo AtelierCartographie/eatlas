@@ -72,9 +72,7 @@ class UserForm extends Component<Props, State> {
 
     this.props.saveUser(this.state.user).then(() => {
       toast.success(<T id="toast-user-saved" />)
-      if (!this.props.userId) {
-        this.props.redirect('/users')
-      }
+      this.props.redirect('/users')
     })
   }
 

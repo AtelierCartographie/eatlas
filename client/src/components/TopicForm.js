@@ -69,9 +69,7 @@ class TopicForm extends Component<Props, State> {
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {
       toast.success(<T id="toast-topic-saved" />)
-      if (!this.props.topicId) {
-        this.props.redirect('/topics')
-      }
+      this.props.redirect('/topics')
     })
   }
 

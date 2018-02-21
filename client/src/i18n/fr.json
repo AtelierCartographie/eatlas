@@ -14,6 +14,7 @@
   "error": "Erreur",
   "error-invalid-resource-type":
     "Type de ressource inconnu pour le fichier \"{name}\" ({mimeType}). Merci de sélectionner un autre fichier.",
+  "error-parsing-image-name": "Erreur dans le nom de l’image : « {name} »",
   "home": "accueil",
   "hide-preview": "masquer la prévisualisation",
   "icon": "icone",
@@ -34,6 +35,7 @@
   "resource-edit": "{type} : {id}",
   "resource-edit-loading": "Chargement de la ressource #{id}…",
   "resource-id": "Identifiant",
+  "resource-image": "Image",
   "resource-language": "Langue",
   "resource-mediaUrl": "Media URL",
   "resource-not-found": "Ressource introuvable",
@@ -47,6 +49,7 @@
   "restore": "restaurer",
   "save-changes": "Valider",
   "select-file": "Sélectionner ou importer un fichier",
+  "select-images": "Sélectionner ou importer les images",
   "selected-file": "Fichier sélectionné",
   "selected-image": "Image « {size}@{density} »",
   "share-preview": "Lien de la prévisualisation :",

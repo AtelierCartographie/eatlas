@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import cx from 'classnames'
 import { connect } from 'react-redux'
@@ -512,21 +512,9 @@ class ResourceForm extends Component<Props, State> {
           { subtitle: true, copyright: true },
         )
       case 'image':
-        return buildFields(
-          // flatten
-          Array.prototype.concat(
-            ...['small', 'medium', 'large'].map(size => {
-              return [1, 2, 3].map(d => {
-                return this.getDocField(resource, `image-${size}-${d}x`, {
-                  labelId: 'selected-image',
-                  labelValues: { size, density: `${d}x` },
-                  mandatory: size === 'medium' && d === 1,
-                })
-              })
-            }),
-          ),
-          { copyright: true },
-        )
+        return buildFields([this.getResponsiveImageField(resource)], {
+          copyright: true,
+        })
       case 'video':
         return buildFields(
           [
@@ -570,6 +558,59 @@ class ResourceForm extends Component<Props, State> {
         ]
     }
   }
+
+  getResponsiveImageField(resource): FieldParams {
+    /*
+          // flatten
+          Array.prototype.concat(
+            ...['small', 'medium', 'large'].map(size => {
+              return [1, 2, 3].map(d => {
+                return this.getDocField(resource, `image-${size}-${d}x`, {
+                  labelId: 'selected-image',
+                  labelValues: { size, density: `${d}x` },
+                  mandatory: size === 'medium' && d === 1,
+                })
+              })
+            }),
+          ),
+    */
+    return {
+      labelId: 'resource-image',
+      input: (
+        <DocPicker
+          locale={this.props.locale}
+          label="select-images"
+          onPick={this.onPickResponsiveImage(resource)}
+          showPickerAfterUpload={true}
+          multiple={true}
+          mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
+        />
+      ),
+      mandatory: true,
+    }
+  }
+
+  onPickResponsiveImage = resource => async (
+    docs: GoogleDoc[],
+    accessToken: string,
+  ) => {
+    // name: <id>-<size>[@<density>] => key = image-<size>-<density>
+    docs.forEach(doc => {
+      const match = doc.name.match(
+        /-(small|medium|large)(?:@([123]x))?\.[.a-z]+$/,
+      )
+      // TODO toast
+      if (!match) {
+        toast.error(<T id="error-parsing-image-name" values={doc} />)
+      } else {
+        const [, size, density = '1x'] = match
+        this.onPick(`image-${size}-${density}`)([doc], accessToken)
+      }
+    })
+    return {}
+  }
+
+  clearResponsiveImageDocs = resource => () => {}
 
   getDocField(
     resource: ResourceNew,
@@ -895,7 +936,7 @@ class ResourceForm extends Component<Props, State> {
         break
       case 'image':
         // Mandatory sizes
-        if (!docs['image-medium-1x']) {
+        if (!docs['image-small-1x']) {
           return false
         }
         break

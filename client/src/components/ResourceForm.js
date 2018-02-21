@@ -577,14 +577,21 @@ class ResourceForm extends Component<Props, State> {
     return {
       labelId: 'resource-image',
       input: (
-        <DocPicker
-          locale={this.props.locale}
-          label="select-images"
-          onPick={this.onPickResponsiveImage(resource)}
-          showPickerAfterUpload={true}
-          multiple={true}
-          mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
-        />
+        <Fragment>
+          <DocPicker
+            locale={this.props.locale}
+            label="select-images"
+            onPick={this.onPickResponsiveImage(resource)}
+            showPickerAfterUpload={true}
+            multiple={true}
+            mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
+          />
+          <ul className="list">
+            {Object.keys(this.state.docs)
+              .filter(key => key.match(/^image-/))
+              .map(key => <li key={key}>{key}</li>)}
+          </ul>
+        </Fragment>
       ),
       mandatory: true,
     }

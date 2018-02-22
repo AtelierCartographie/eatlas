@@ -395,6 +395,13 @@ class ArticleForm extends Component<Props, State> {
       return null
     }
 
+    if (meta.type === 'image-header') {
+      return this.renderResource(
+        { type: 'resource', id: meta.text, text: meta.type },
+        0,
+      )
+    }
+
     const renderMetaRelated = text =>
       this.state.missingRelated[text] ? (
         <span className="has-text-danger">

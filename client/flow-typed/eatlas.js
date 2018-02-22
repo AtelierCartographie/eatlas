@@ -68,6 +68,7 @@ declare type ArticleMeta = {
   list: Array<{
     text: string,
   }>,
+  text: string,
 }
 
 declare type Resource = ResourceNew & {

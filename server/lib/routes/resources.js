@@ -117,11 +117,17 @@ exports.preview = async (req, res, next) => {
       req.foundResource,
       (await topics.list()).sort((a, b) => a.id > b.id),
       await getDefinitions(),
+      await getResources(req.foundResource),
     )
     res.send(html)
   } catch (err) {
     next(err)
   }
+}
+
+const getResources = async article => {
+  console.log(article)
+  return []
 }
 
 const getDefinitions = async () => {

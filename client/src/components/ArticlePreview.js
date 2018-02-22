@@ -28,11 +28,23 @@ const aPropos = [
   'Plan du site',
 ]
 
-const srcset = (id, size) => `
-  ${HOST}/media/images/${id}-${size}-1x.png,
-  ${HOST}/media/images/${id}-${size}@2x.png 2x,
-  ${HOST}/media/images/${id}-${size}@3x.png 3x
-`
+const getImageUrl = (image, size = 'medium', density = '1x') => {
+  const file =
+    image && image.images & !image.images[size] && !image.images[size][density]
+  return file
+    ? `${HOST}${process.env.REACT_APP_PUBLIC_PATH_image || '/'}${file}`
+    : null
+}
+const srcset = (image, size) => {
+  const image1 = getImageUrl(image, size, '1x')
+  const image2 = getImageUrl(image, size, '2x')
+  const image3 = getImageUrl(image, size, '3x')
+  return [
+    image1 ? image1 + ',' : '',
+    image2 ? image2 + ' 2x,' : '',
+    image3 ? image3 + ' 3x,' : '',
+  ].join('\n')
+}
 
 const Img = ({ className, alt, src }) =>
   h('img', { className, alt, src: `${HOST}${src}` })
@@ -42,7 +54,7 @@ const Script = ({ src }) => h('script', { src: `${HOST}${src}` })
 const StyleSheet = ({ href }) =>
   h('link', { rel: 'stylesheet', href: `${HOST}${href}` })
 
-const ArticleTitle = ({ article }) => {
+const ArticleTitle = ({ article, resources }) => {
   const title = article.metas.find(m => m.type === 'title')
   const publishedAt = !article.publishedAt
     ? null
@@ -56,21 +68,16 @@ const ArticleTitle = ({ article }) => {
           ),
         ]),
       ])
-  return h(
-    'header.headerwrap',
-    {
-      style: {
-        background: `url(${HOST}/assets/img/header-un-blue-helmet.jpg) no-repeat center center`,
-      },
-    },
-    [
-      h('div.container.header-info', [
-        h('h1', title.text),
-        h('br'),
-        publishedAt,
-      ]),
-    ],
-  )
+  const headerImage = getImageHeader(resources, article)
+  const headerImageUrl = headerImage && getImageUrl(headerImage, 'large', '1x')
+  const style = headerImageUrl
+    ? {
+        background: `url(${headerImageUrl}) no-repeat center center`,
+      }
+    : {}
+  return h('header.headerwrap', { style }, [
+    h('div.container.header-info', [h('h1', title.text), h('br'), publishedAt]),
+  ])
 }
 
 const ArticleBreadcrumb = ({ article, topics }) => {
@@ -174,16 +181,15 @@ const ArticleP = ({ p }) => {
 const ArticleResource = ({ article, resource }) => {
   switch (resource.type) {
     case 'image':
-      const rid = resource.id + '-image'
       return h('figure.container', [
         h('h2.figure-title', resource.title),
         h('picture', [
           h('source', {
-            srcSet: srcset(rid, 'medium'),
+            srcSet: srcset(resource, 'medium'),
             media: '(min-width: 560px)',
           }),
-          h('source', { srcSet: srcset(rid, 'small') }),
-          h('img.img-responsive', { srcSet: srcset(rid, 'small') }),
+          h('source', { srcSet: srcset(resource, 'small') }),
+          h('img.img-responsive', { srcSet: srcset(resource, 'small') }),
         ]),
         h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),
@@ -223,7 +229,7 @@ const ArticleResource = ({ article, resource }) => {
   }
 }
 
-const ArticleNodes = ({ article }) => {
+const ArticleNodes = ({ article, resources }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
@@ -231,7 +237,7 @@ const ArticleNodes = ({ article }) => {
       case 'p':
         return h(ArticleP, { p: n, key: n.id })
       case 'resource': {
-        const resource = (article.resources || []).find(r => r.id === n.id)
+        const resource = getResource(resources, n.id)
         return !resource
           ? null
           : h(ArticleResource, { article, resource, key: n.id })
@@ -275,21 +281,41 @@ const ArticleNotes = ({ article }) => {
   ])
 }
 
-const ArticleSeeAlso = ({ article }) => {
+const ArticleSeeAlso = ({ article, resources }) => {
   const seeAlsos = article.metas.find(m => m.type === 'related')
   if (!seeAlsos) return null
 
+  const found = seeAlsos.list
+    .map(s => getArticleSeeAlsoResource(resources, s.text))
+    .filter(({ article }) => !!article)
+  if (!found.length) return null
+
   return h('section.container.article-see-also', [
     h('h2', "Continuer dans l'Atlas"),
-    seeAlsos.list.map((s, i) =>
-      h('div.col-sm-6', { key: i }, [
-        h('a.thumbnail', { href: '#' }, [
-          h(Img, { src: '/assets/img/thumbnails-article1.svg' }),
-          h('h3', s.text),
+    found.map(
+      ({ article, image }, i) =>
+        article &&
+        h('div.col-sm-6', { key: i }, [
+          h('a.thumbnail', { href: '#' }, [
+            image && h(Img, { src: getImageUrl(image, 'small', '1x') }),
+            h('h3', article.title),
+          ]),
         ]),
-      ]),
     ),
   ])
+}
+const getArticleSeeAlsoResource = (resources, text) => {
+  const [articleId] = text.split(/\s*-\s*/)
+  const article = getResource(resources, articleId)
+  let image = null
+  if (article) {
+    image = getImageHeader(resources, article)
+  }
+  return { article, image }
+}
+const getImageHeader = (resources, article) => {
+  const imageId = article.metas.find(m => m.type === 'image-header')
+  return getResource(resources, imageId)
 }
 
 const ArticleFooter = props =>
@@ -317,6 +343,7 @@ const ArticleLexicon = ({ article, definitions }) => {
   )
 }
 
+const getResource = (resources, id) => resources.find(r => r.id === id)
 const getDefinition = (definitions, dt) => {
   const search = dt.toLowerCase()
   const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
@@ -560,13 +587,13 @@ const Body = props =>
     h(Script, { src: '/assets/js/eatlas.js' }),
   ])
 
-class ArticlePreview extends Component /*::<{article: any, topics: any[], definitions: any[]}>*/ {
+class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
     lexiconId = 0
-    const { article, topics, definitions } = this.props
+    const { article, topics, definitions, resources } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { article }),
-      h(Body, { article, topics, definitions }),
+      h(Head, { article, resources }),
+      h(Body, { article, topics, definitions, resources }),
     ])
   }
 }

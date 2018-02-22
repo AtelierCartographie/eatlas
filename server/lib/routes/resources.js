@@ -176,8 +176,11 @@ const handleUploads = async (body, required) => {
     case 'image': {
       expectUploadKeys(uploads, k => k.match(RE_IMAGE_UPLOAD_KEY))
       // Mandatory sizes
-      if (required && !newUploads.some(u => u.key === 'image-medium-1x')) {
-        throw Boom.badRequest('Upload: required document "image-medium-1x"')
+      if (
+        required &&
+        !newUploads.filter(u => u.key.match(/^image-/)).length > 0
+      ) {
+        throw Boom.badRequest('Upload: required at least one document')
       }
       break
     }

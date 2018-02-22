@@ -114,8 +114,20 @@ export const renderPreview = (resource: Resource) => {
   }
 
   if (resource.type === 'image' && resource.images) {
-    // medium@1x is mandatory, we can count on it
-    const file = resource.images.medium['1x']
+    // use first found image
+    const file =
+      (resource.images['small'] &&
+        (resource.images['small']['1x'] ||
+          resource.images['small']['2x'] ||
+          resource.images['small']['3x'])) ||
+      (resource.images['medium'] &&
+        (resource.images['medium']['1x'] ||
+          resource.images['medium']['2x'] ||
+          resource.images['medium']['3x'])) ||
+      (resource.images['large'] &&
+        (resource.images['large']['1x'] ||
+          resource.images['large']['2x'] ||
+          resource.images['large']['3x']))
     if (file) {
       const url = (process.env.REACT_APP_PUBLIC_PATH_image || '/') + file
       return <img className="preview" src={url} alt={file} />

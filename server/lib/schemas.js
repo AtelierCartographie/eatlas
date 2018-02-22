@@ -163,7 +163,7 @@ const densities = Joi.object().keys({
 
 const images = Joi.object().keys({
   small: densities,
-  medium: densities.required(),
+  medium: densities,
   large: densities,
 })
 

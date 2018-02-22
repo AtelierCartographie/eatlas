@@ -17,6 +17,7 @@ import {
   LOCALES,
   STATUS_STYLE,
   LEXICON_ID,
+  TYPE_FROM_LETTER,
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
@@ -204,20 +205,28 @@ class ResourceForm extends Component<Props, State> {
         types = RESOURCE_TYPES.filter(type => type !== 'definition')
       }
     }
-    let resource: ?Resource = props.resource
+    let resource: ?Resource = Object.assign({}, props.resource)
     // Special case: lexicon id is hardcoded
     if (resource && resource.type === 'definition') {
-      resource = Object.assign({}, resource, {
-        id: LEXICON_ID,
-      })
+      resource.id = LEXICON_ID
     }
     if (resource && !types.includes(resource.type)) {
-      // $FlowFixMe Resource type has been removed! Blank type
-      resource = Object.assign({}, resource, {
-        type: '',
-      })
+      const type: ?ResourceType = this.guessResourceType(resource)
+      // $FlowFixMe We allow empty type temporarily
+      resource.type = type || ''
     }
     return { types, resource }
+  }
+
+  guessResourceType(resource: Resource): ?ResourceType {
+    if (!resource.id) {
+      return null
+    }
+    const match = resource.id.match(/^\d+([CPVASF])/i)
+    if (!match) {
+      return null
+    }
+    return TYPE_FROM_LETTER[match[1]]
   }
 
   componentWillReceiveProps(props: Props) {

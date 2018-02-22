@@ -16,6 +16,15 @@ export const RESOURCE_TYPES: ResourceType[] = [
   'video',
 ]
 
+export const TYPE_FROM_LETTER: { [string]: ResourceType } = {
+  C: 'map',
+  P: 'image',
+  V: 'video',
+  A: 'article',
+  S: 'sound',
+  F: 'focus',
+}
+
 export const RESOURCE_STATUSES: ResourceStatus[] = [
   'submitted',
   'validated',

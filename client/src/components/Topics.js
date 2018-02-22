@@ -1,5 +1,7 @@
 // @flow
 
+import './Topics.css'
+
 import React, { Component } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 import { Link } from 'react-router-dom'
@@ -7,8 +9,12 @@ import { connect } from 'react-redux'
 
 import { getTopics, deleteTopic, fetchResources } from './../actions'
 import IconButton from './IconButton'
+import Icon from './Icon'
 import Spinner from './Spinner'
 import Confirm from './Confirm'
+import { RESOURCE_TYPES, TYPE_ICON } from '../constants'
+
+const SHOWN_TYPES = RESOURCE_TYPES.filter(type => type !== 'definition')
 
 type Props = {
   topics: {
@@ -54,13 +60,31 @@ class Topics extends Component<Props, State> {
     })
   }
 
+  renderCount(topicId, type) {
+    if (this.props.resources.loading) {
+      return <Spinner small />
+    }
+
+    const nb = this.props.resources.list.filter(
+      r => r.type === type && r.topic === topicId,
+    ).length
+
+    if (nb === 0) {
+      return <span className="topic-count">0</span>
+    }
+
+    return (
+      <Link className="topic-count" to={`/resources/${type}/?topic=${topicId}`}>
+        {nb}
+      </Link>
+    )
+  }
+
   render() {
     const { topics, resources } = this.props
 
     const orderedList = topics.list.slice().sort((t1, t2) => t1.id - t2.id)
     const loading = topics.loading || resources.loading
-
-    const articles = resources.list.filter(r => r.type === 'article')
 
     return (
       <div className="Topics">
@@ -89,15 +113,15 @@ class Topics extends Component<Props, State> {
                 <th className="fit">
                   <T id="resource-id" />
                 </th>
-                <th className="fit">
-                  <T id="icon" />
-                </th>
                 <th>
                   <T id="name" />
                 </th>
-                <th className="fit">
-                  <T id="type-article" />
-                </th>
+                {SHOWN_TYPES.map(type => (
+                  <th className="fit" key={type}>
+                    <Icon icon={TYPE_ICON[type]} />
+                    <T id={'type-' + type} />
+                  </th>
+                ))}
                 <th className="fit" />
               </tr>
             </thead>
@@ -105,19 +129,10 @@ class Topics extends Component<Props, State> {
               {orderedList.map(t => (
                 <tr key={t.id}>
                   <td>{t.id}</td>
-                  <td>
-                    <img alt="icon" src={`/topics/${t.id}.svg`} />
-                  </td>
                   <td>{t.name}</td>
-                  <td>
-                    {resources.loading ? (
-                      <Spinner small />
-                    ) : (
-                      <Link to={`/resources/article/?topic=${t.id}`}>
-                        {articles.filter(r => r.topic === t.id).length}
-                      </Link>
-                    )}
-                  </td>
+                  {SHOWN_TYPES.map(type => (
+                    <td key={type}>{this.renderCount(t.id, type)}</td>
+                  ))}
                   <td>
                     <div className="field is-grouped">
                       <div className="control">

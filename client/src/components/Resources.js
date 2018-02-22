@@ -17,6 +17,8 @@ import {
   LEXICON_ID,
   DEFAULT_PAGINATION_COUNT,
   PAGINATION_COUNTS,
+  RESOURCE_TYPES,
+  TYPE_ICON,
 } from '../constants'
 import { paginationItems, updateLocation } from '../utils'
 
@@ -95,13 +97,7 @@ type MenuItem = {
 
 const typeItems: Array<MenuItem> = [
   { icon: 'list', type: '' },
-  { icon: 'file-text', type: 'article' },
-  { icon: 'bullseye', type: 'focus' },
-  { icon: 'book', type: 'definition' },
-  { icon: 'map', type: 'map' },
-  { icon: 'camera-retro', type: 'image' },
-  { icon: 'film', type: 'video' },
-  { icon: 'microphone', type: 'sound' },
+  ...RESOURCE_TYPES.map(type => ({ icon: TYPE_ICON[type], type })),
 ]
 
 export const renderPreview = (resource: Resource) => {

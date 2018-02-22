@@ -1,0 +1,16 @@
+.Topics th {
+  white-space: nowrap;
+}
+
+.Topics td .topic-count {
+  display: block;
+  height: 2em;
+  text-align: center;
+}
+
+.Topics td a.topic-count {
+  font-weight: bold;
+}
+.Topics td span.topic-count {
+  color: #ccc;
+}

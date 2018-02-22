@@ -8,13 +8,23 @@ export const ROLES: UserRole[] = ['visitor', 'admin']
 
 export const RESOURCE_TYPES: ResourceType[] = [
   'article',
-  'definition',
   'focus',
+  'image',
   'map',
   'sound',
-  'image',
   'video',
+  'definition',
 ]
+
+export const TYPE_ICON: { [ResourceType]: string } = {
+  article: 'file-text',
+  focus: 'bullseye',
+  definition: 'book',
+  map: 'map',
+  image: 'camera-retro',
+  video: 'film',
+  sound: 'microphone',
+}
 
 export const TYPE_FROM_LETTER: { [string]: ResourceType } = {
   C: 'map',

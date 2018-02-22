@@ -117,7 +117,7 @@ exports.preview = async (req, res, next) => {
       req.foundResource,
       (await topics.list()).sort((a, b) => a.id > b.id),
       await getDefinitions(),
-      await getResources(req.foundResource),
+      await getResources(req.foundResource, !!req.query.published),
     )
     res.send(html)
   } catch (err) {
@@ -134,7 +134,7 @@ const getMetaText = (article, type) => {
   const found = getMeta(article, type)
   return found ? found.text : null
 }
-const getResources = async article => {
+const getResources = async (article, excludeUnpublished = false) => {
   const ids = []
     .concat(
       getMetaList(article, 'related').map(
@@ -149,7 +149,10 @@ const getResources = async article => {
     )
     .filter(id => !!id)
 
-  const filter = { terms: { id: ids } }
+  let filter = { terms: { id: ids } }
+  if (excludeUnpublished) {
+    filter = { bool: { must: [filter, { term: { status: 'published' } }] } }
+  }
 
   return resources.list({ query: { constant_score: { filter } } })
 }

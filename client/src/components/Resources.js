@@ -25,28 +25,32 @@ const fields = (
   process.env.REACT_APP_RESOURCES_COLUMNS || 'status,type,preview,id,title'
 ).split(',')
 
+type ReduxProps = {
+  resources: {
+    loading: boolean,
+    list: Array<Resource>,
+    fetched: boolean,
+  },
+  topics: {
+    loading: boolean,
+    list: Array<Topic>,
+  },
+  users: {
+    loading: boolean,
+    list: Array<User>,
+  },
+  locale: Locale,
+  // url
+  type: ResourceType | '',
+  status: string,
+  topic: string,
+  sortBy: string,
+  sortDir: 'asc' | 'desc',
+}
+
 type Props = ContextIntl &
-  ContextRouter & {
-    resources: {
-      loading: boolean,
-      list: Array<Resource>,
-      fetched: boolean,
-    },
-    topics: {
-      loading: boolean,
-      list: Array<Topic>,
-    },
-    users: {
-      loading: boolean,
-      list: Array<User>,
-    },
-    locale: Locale,
-    // url
-    type: ResourceType | '',
-    status: string,
-    topic: string,
-    sortBy: string,
-    sortDir: 'asc' | 'desc',
+  ContextRouter &
+  ReduxProps & {
     // actions
     fetchResources: typeof fetchResources,
     getTopics: typeof getTopics,
@@ -676,17 +680,19 @@ export default withRouter(
     (
       { resources, topics, locale, users }: AppState,
       { match }: ContextRouter,
-    ) => {
+    ): ReduxProps => {
       const { searchParams } = new URL(window.document.location)
+      // $FlowFixMe: allow empty type in create mode
+      const _type: ResourceType = match.params.type || ''
       return {
         locale,
         topics,
         resources,
-        type: match.params.type || '',
+        type: _type,
         status: searchParams.get('status'),
         topic: searchParams.get('topic'),
         sortBy: searchParams.get('sort') || 'status',
-        sortDir: searchParams.get('dir') || 'asc',
+        sortDir: searchParams.get('dir') === 'desc' ? 'desc' : 'asc',
         users,
       }
     },

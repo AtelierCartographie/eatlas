@@ -22,7 +22,7 @@ declare type ResourceStatus =
   | 'deleted'
 
 declare type AppState = {
-  locale: string,
+  locale: Locale,
   users: { loading: boolean, saving: boolean, list: User[] },
   resources: { loading: boolean, fetched: boolean, list: Resource[] },
   topics: { loading: boolean, list: Topic[] },

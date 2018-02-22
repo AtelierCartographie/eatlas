@@ -125,8 +125,33 @@ exports.preview = async (req, res, next) => {
   }
 }
 
+const getMeta = (article, type) => article.metas.find(m => m.type === type)
+const getMetaList = (article, type) => {
+  const found = getMeta(article, type)
+  return (found && found.list) || []
+}
+const getMetaText = (article, type) => {
+  const found = getMeta(article, type)
+  return found ? found.text : null
+}
 const getResources = async article => {
-  return resources.list()
+  const ids = []
+    .concat(
+      getMetaList(article, 'related').map(
+        ({ text }) => text.split(/\s*-\s*/)[0],
+      ),
+    )
+    .concat([getMetaText(article, 'image-header')])
+    .concat(
+      article.nodes
+        .filter(node => node.type === 'resource')
+        .map(node => node.id),
+    )
+    .filter(id => !!id)
+
+  const filter = { terms: { id: ids } }
+
+  return resources.list({ query: { constant_score: { filter } } })
 }
 
 const getDefinitions = async () => {

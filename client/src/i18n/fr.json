@@ -24,6 +24,8 @@
   "myself": "moi-même",
   "name": "nom",
   "nb-definitions": "Nombre de définitions",
+  "pagination-next": "Suivant",
+  "pagination-previous": "Précédent",
   "preview": "prévisualisation",
   "preview-lexicon": "{nb} définitions",
   "publish": "publier",

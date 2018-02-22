@@ -51,3 +51,6 @@ export const MIME_TYPES: { [ResourceType]: string[] } = {
 }
 
 export const LEXICON_ID: string = 'LEXIC'
+
+export const DEFAULT_PAGINATION_COUNT =
+  Number(process.env.REACT_APP_PAGINATION_COUNT) || 10

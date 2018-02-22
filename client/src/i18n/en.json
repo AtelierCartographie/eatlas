@@ -24,6 +24,7 @@
   "myself": "myself",
   "name": "name",
   "nb-definitions": "nb definitions",
+  "pagination-count": "{count} per page",
   "pagination-next": "Next",
   "pagination-previous": "Previous",
   "preview": "preview",

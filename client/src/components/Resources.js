@@ -16,6 +16,7 @@ import {
   RESOURCE_STATUSES,
   LEXICON_ID,
   DEFAULT_PAGINATION_COUNT,
+  PAGINATION_COUNTS,
 } from '../constants'
 import { paginationItems, updateLocation } from '../utils'
 
@@ -641,15 +642,45 @@ class Resources extends Component<Props, State> {
     }
 
     return (
-      <nav className="pagination" aria-label="pagination">
-        {pageLink(
-          current - 1,
-          <T id="pagination-previous" />,
-          'pagination-previous',
-        )}
-        {pageLink(current + 1, <T id="pagination-next" />, 'pagination-next')}
-        <ul className="pagination-list">{pages.map(pageItem)}</ul>
-      </nav>
+      <div className="columns">
+        <div className="column">
+          <nav className="pagination" aria-label="pagination">
+            {pageLink(
+              current - 1,
+              <T id="pagination-previous" />,
+              'pagination-previous',
+            )}
+            {pageLink(
+              current + 1,
+              <T id="pagination-next" />,
+              'pagination-next',
+            )}
+            <ul className="pagination-list">{pages.map(pageItem)}</ul>
+          </nav>
+        </div>
+        <div className="column is-narrow">
+          <div className="select is-info">
+            <select onChange={this.onChangePaginationCount}>
+              {PAGINATION_COUNTS.map(count => (
+                <option
+                  key={count}
+                  value={count}
+                  selected={count === this.props.pagination.count}>
+                  <T id="pagination-count" values={{ count }} />
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  onChangePaginationCount = e => {
+    this.props.history.push(
+      updateLocation(this.props.history.location, {
+        search: { count: e.target.value, page: null },
+      }),
     )
   }
 

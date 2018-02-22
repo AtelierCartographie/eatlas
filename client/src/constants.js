@@ -54,3 +54,5 @@ export const LEXICON_ID: string = 'LEXIC'
 
 export const DEFAULT_PAGINATION_COUNT =
   Number(process.env.REACT_APP_PAGINATION_COUNT) || 10
+
+export const PAGINATION_COUNTS = [5, 10, 15, 20, 50, 100]

@@ -126,8 +126,7 @@ exports.preview = async (req, res, next) => {
 }
 
 const getResources = async article => {
-  console.log(article)
-  return []
+  return resources.list()
 }
 
 const getDefinitions = async () => {

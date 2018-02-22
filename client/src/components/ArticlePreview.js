@@ -28,9 +28,8 @@ const aPropos = [
   'Plan du site',
 ]
 
-const getImageUrl = (image, size = 'medium', density = '1x') => {
-  const file =
-    image && image.images & !image.images[size] && !image.images[size][density]
+const getImageUrl = ({ images }, size = 'medium', density = '1x') => {
+  const file = images && images[size] && images[size][density]
   return file
     ? `${HOST}${process.env.REACT_APP_PUBLIC_PATH_image || '/'}${file}`
     : null
@@ -314,8 +313,8 @@ const getArticleSeeAlsoResource = (resources, text) => {
   return { article, image }
 }
 const getImageHeader = (resources, article) => {
-  const imageId = article.metas.find(m => m.type === 'image-header')
-  return getResource(resources, imageId)
+  const meta = article.metas.find(m => m.type === 'image-header')
+  return getResource(resources, meta.text)
 }
 
 const ArticleFooter = props =>

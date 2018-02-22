@@ -56,9 +56,21 @@ const ArticleTitle = ({ article }) => {
           ),
         ]),
       ])
-  return h('header.headerwrap', [
-    h('div.container.header-info', [h('h1', title.text), h('br'), publishedAt]),
-  ])
+  return h(
+    'header.headerwrap',
+    {
+      style: {
+        background: `url(${HOST}/assets/img/header-un-blue-helmet.jpg) no-repeat center center`,
+      },
+    },
+    [
+      h('div.container.header-info', [
+        h('h1', title.text),
+        h('br'),
+        publishedAt,
+      ]),
+    ],
+  )
 }
 
 const ArticleBreadcrumb = ({ article, topics }) => {

@@ -247,7 +247,6 @@ hr {
 
 /* HEADER ARTICLE ---------------------------------------- */
 .headerwrap {
-    background: url(../img/header-un-blue-helmet.jpg) no-repeat center center;
     min-height: 100vh;
     width: 100%;
     -webkit-background-size: 100%;

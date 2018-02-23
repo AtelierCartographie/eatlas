@@ -10,7 +10,6 @@ import { withRouter } from 'react-router'
 import classNames from 'classnames'
 import { toast, ToastContainer } from 'react-toastify'
 
-import Home from './Home'
 import IconButton from './IconButton'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'

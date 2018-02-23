@@ -257,11 +257,30 @@ const ArticleKeywords = ({ article }) => {
   ])
 }
 
-const ArticleQuote = () =>
-  h('section.container.article-quote', [
+const ArticleQuote = ({ article }) => {
+  // TODO conf?
+  const publication = 'Atlas de la mondialisation'
+  const year = 2016
+  const url = `${HOST}`
+
+  return h('section.container.article-quote', [
     h('h2', 'Citation'),
-    h('blockquote', [h('p', 'TODO (quote)')]),
+    h('blockquote', [
+      h('p', [
+        h(
+          'span',
+          `"${
+            article.title
+          }", ${publication}, ${year}, [en ligne], consulté le `,
+        ),
+        h('span.consultedAt', moment().format('D MMMM YYYY')),
+        h('span', ', URL:'),
+        h('br'),
+        h('span.articleUrl', url),
+      ]),
+    ]),
   ])
+}
 
 const ArticleNotes = ({ article }) => {
   const notes = article.nodes.find(n => n.type === 'footnotes')

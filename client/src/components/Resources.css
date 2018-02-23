@@ -46,6 +46,7 @@
 }
 
 .Resources .menu-list a.active {
+  background: #EEE;
   font-weight: bold;
 }
 

@@ -2,7 +2,7 @@
 
 import './App.css'
 
-import { NavLink as NavLinko, Route, Switch } from 'react-router-dom'
+import { NavLink as NavLinko, Route, Switch, Redirect } from 'react-router-dom'
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 import { connect } from 'react-redux'
@@ -67,11 +67,11 @@ class App extends Component<Props, State> {
   renderRoutes() {
     return (
       <Switch>
+        <Redirect exact from="/" to="/resources" />
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/resources/new/:type?" component={ResourceCreate} />
         <PrivateRoute path="/resources/:id/edit" component={ResourceEdit} />
         <PrivateRoute path="/resources/:type?" component={Resources} />
-        <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/users" component={Users} />
         <PrivateRoute path="/users/:id" component={UserForm} />
         <PrivateRoute exact path="/topics" component={Topics} />
@@ -107,46 +107,48 @@ class App extends Component<Props, State> {
     )
   }
 
-  render() {
-    const { authenticated } = this.props
+  renderNav() {
     return (
-      <div className="App">
-        <ToastContainer autoClose={2000} position={toast.POSITION.TOP_CENTER} />
-        <nav
-          className="navbar is-fixed-top is-dark"
-          aria-label="main navigation">
-          <div className="navbar-brand">
-            <button
-              className={classNames('button', 'navbar-burger', {
-                'is-active': this.state.menuActive,
-              })}
-              onClick={this.toggleActive}>
-              <span />
-              <span />
-              <span />
-            </button>
-          </div>
-
-          <div
-            className={classNames('navbar-menu', {
+      <nav className="navbar is-fixed-top is-dark" aria-label="main navigation">
+        <div className="navbar-brand">
+          <button
+            className={classNames('button', 'navbar-burger', {
               'is-active': this.state.menuActive,
             })}
             onClick={this.toggleActive}>
-            {!authenticated ? (
-              <div className="navbar-start">
-                <NavLink to="/" label="home" exact />
-              </div>
-            ) : (
-              <div className="navbar-start">
-                <NavLink to="/" label="home" exact />
-                <NavLink to="/topics" label="topics" />
-                <NavLink to="/resources" label="resources" />
-                <NavLink to="/users" label="users" />
-              </div>
-            )}
-            <div className="navbar-end">{this.renderUserBox()}</div>
-          </div>
-        </nav>
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+
+        <div
+          className={classNames('navbar-menu', {
+            'is-active': this.state.menuActive,
+          })}
+          onClick={this.toggleActive}>
+          {!this.props.authenticated ? (
+            <div className="navbar-start">
+              <NavLink to="/" label="home" exact />
+            </div>
+          ) : (
+            <div className="navbar-start">
+              <NavLink to="/resources" label="resources" />
+              <NavLink to="/topics" label="topics" />
+              <NavLink to="/users" label="users" />
+            </div>
+          )}
+          <div className="navbar-end">{this.renderUserBox()}</div>
+        </div>
+      </nav>
+    )
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <ToastContainer autoClose={2000} position={toast.POSITION.TOP_CENTER} />
+        {this.renderNav()}
         <main className="section">
           <div className="container">{this.renderRoutes()}</div>
         </main>

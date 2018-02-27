@@ -89,6 +89,22 @@ Pour modifier cette configuration **ne pas modifier** ``config/default.json`` ni
 
 Pour prendre en compte une modification de la configuration, le serveur doit être redémarré (tué puis relancé avec ``yarn start``).
 
+### Docker
+
+Lors d'une utilisation avec Docker et Docker-compose il faut placer des variables d'environnement dans le fichier `docker-config.env`:
+
+```sh
+cp docker-config.env.sample docker-config.env 
+```
+
+La configuration des variables d'environnement se base sur le fichier `
+config/custom-environment-variables.json` qui utilise les variables d'environnement pour modifier la configuration par défaut de `config/default.json`.
+
+Voir donc ce fichier pour la liste des variables utilisées.
+On peut aussi mettre les variables d'environnement de la configuration du client.
+
+La confirguration du client est construite (`yarn build`) à chaque lancement du conteneur `api`.
+
 ### Création du premier compte admin
 
 Une fois l'application configurée, les services démarrés, il faut au moins un utilisateur pour pouvoir commencer à administrer l'application. L'ajout du tout premier utilisateur se fait en ligne de commande :
@@ -127,23 +143,78 @@ yarn dev:server
 
 ## Prod
 
-**ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f docker-compose.prod.yml up`` sera suffisante.
+La production tourne dans des conteneurs Docker orchestrés par le fichier `docker-compose.prod.yml`.
+Des images sont construites directements via le Docker Hub lors d'un évènement `push` sur le dépôt Git:
+Client: https://hub.docker.com/r/sciencespo/eatlas-client/
+API: https://hub.docker.com/r/sciencespo/eatlas-api/
 
-```sh
-yarn install --prod
+### Code
+
+
+Télécharger le code source de ce dépôt Git:
+
+```bash
+git clone https://github.com/AtelierCartographie/eatlas.git eatlas
+cd eatlas
 ```
 
-### Client
+### Configuration
 
-* Configurer le client (cf. section *configuration*)
-* Préparer les fichiers scripts & assets : ``yarn build``
-* Placer les fichiers dans le document root de nginx
+Copiez l'exemple de configuration et éditez le selon vos besoins:
 
-### Serveur
+```sh
+cp docker-config.env.sample docker-config.env
+```
 
-* Configurer le serveur (cf. section *configuration*)
-* Lancer les services : ``docker-compose -f docker-compose.prod.yml up``
-* Lancer le serveur ``yarn start``
+Pour vérifier la configuration:
+
+```sh
+docker-compose -f docker-compose.prod.yml config
+```
+
+### Preparer les images Docker
+
+Deux options: soit télécharger la dernière version depuis le Docker Hub, ou construire ses propres images.
+
++ **Recommandé: Télécharger** nos images déjà construites depuis le Docker Hub:
+
+  ```sh
+  docker-compose -f docker-compose.prod.yml pull
+  ```
+
++ **Alternative: Construire** vos propres images à partir du code source (utile pour du développent ou si vous éditez le code):
+
+  ```sh
+  docker-compose -f docker-compose.prod.yml build
+  ```
+
+
+### Démarrer eAtlas
+
+On peut alors démarrer l'application avec la commande:
+
+```sh
+docker-compose -f docker-compose.prod.yml up
+```
+
+La même chose mais en lancant les conteneurs en tâche de fond:
+
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+
+### Arrêt et journaux
+
+Pour arrêter les conteneurs, utilisez `docker-composen -f docker-compose.prod.yml stop` (ou `docker-compose  -f docker-compose.prod.yml down -v` pour détruire les conteneurs et les données).
+
+Pour voir les logs utilisez la commande `docker-compose -f docker-compose.prod.yml logs`.
+
+Lorsque vous modifiez la configuration, relancez les conteneurs:
+```bash
+docker-compose -f docker-compose.prod.yml stop
+docker-compose -f docker-compose.prod.yml up -d
+```
 
 ## Maintenance
 

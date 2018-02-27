@@ -122,12 +122,12 @@ yarn dev:server
 ### Elastic Search
 
 * Le container est nommé "eatlas_es_dev"
-* Pour le démarrer manuellement : ``docker-compose -f server/docker-compose.dev.yml up``
+* Pour le démarrer manuellement : ``docker-compose -f docker-compose.dev.yml up``
 * Pour consulter les logs : ``docker logs eatlas_es_dev``
 
 ## Prod
 
-**ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f server/docker-compose.prod.yml up`` sera suffisante.
+**ATTENTION** : instructions temporaires, la livraison finale sera basée sur Docker et la seule commande ``docker-compose -f docker-compose.prod.yml up`` sera suffisante.
 
 ```sh
 yarn install --prod
@@ -142,7 +142,7 @@ yarn install --prod
 ### Serveur
 
 * Configurer le serveur (cf. section *configuration*)
-* Lancer les services : ``docker-compose -f server/docker-compose.prod.yml up``
+* Lancer les services : ``docker-compose -f docker-compose.prod.yml up``
 * Lancer le serveur ``yarn start``
 
 ## Maintenance

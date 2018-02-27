@@ -1,0 +1,25 @@
+{
+	"server": {
+		"port": "SERVER_PORT",
+		"host": "SERVER_HOST"
+	},
+	"publicUrl": "REACT_APP_PUBLIC_URL",
+	"es": {
+		"connection": {
+			"host": "ES_HOST:ES_PORT"
+		}
+	},
+	"session": {
+		"secret": "SESSION_SECRET"
+	},
+	"redis": {
+		"host": "REDIS_HOST",
+		"port": "REDIS_PORT"
+	},
+        "logger": {
+                "level": "API_LOG_LEVEL"
+        },
+	"google": {
+		"clientId": "REACT_APP_GOOGLE_CLIENT_ID"
+		}
+}

@@ -1,10 +1,38 @@
 version: "2.1"
 
 services:
-
+  nginx:
+    build: client
+    links:
+      - api:api
+    ports:
+      - 80:80
+    volumes_from:
+      - api
+    networks:
+      - api
+  api:
+    build: .
+    environment:
+      - SERVER_PORT=4000
+      - SERVER_HOST=0.0.0.0
+      - ES_HOST=es
+      - ES_PORT=9200
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SESSION_SECRET="E-Atlas S3cr3T"
+      - REACT_APP_PUBLIC_URL=http://localhost
+      - REACT_APP_API_SERVER=http://localhost/api
+      - REACT_APP_MOCK_API=no
+    networks:
+      - api
+      - es
+      - redis
+    links:
+      - redis:redis
+      - es:es
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#_image_types
   es:
-    container_name: eatlas_es
     image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
     environment:
       - discovery.type=single-node
@@ -21,7 +49,6 @@ services:
       - es
 
   redis:
-    container_name: eatlas_redis
     image: "redis:4"
     volumes:
       - redisdata:/data
@@ -29,6 +56,7 @@ services:
       - redis
 
 networks:
+  api:
   es:
   redis:
 

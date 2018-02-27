@@ -14,9 +14,6 @@
   "session": {
     "secret": "E-Atlas S3cr3T VErY MuCH SAYCURE"
   },
-  "cors": {
-    "origins": [ "http://eatlas.com" ]
-  },
   "google": {
     "clientId": "see https://console.cloud.google.com/apis/credentials"
   }

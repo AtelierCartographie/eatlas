@@ -15,6 +15,8 @@ services:
   api:
     build: .
     image: sciencespo/eatlas-api:latest
+    env_file:
+      - docker-config.env
     environment:
       - SERVER_PORT=4000
       - SERVER_HOST=0.0.0.0
@@ -22,9 +24,6 @@ services:
       - ES_PORT=9200
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - SESSION_SECRET="E-Atlas S3cr3T"
-      - REACT_APP_PUBLIC_URL=http://localhost
-      - REACT_APP_API_SERVER=http://localhost/api
       - REACT_APP_MOCK_API=no
     networks:
       - api

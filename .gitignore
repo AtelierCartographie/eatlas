@@ -56,3 +56,6 @@ typings/
 
 config/local.json
 sample-data
+
+#Docker
+docker-config.env

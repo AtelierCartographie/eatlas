@@ -6,10 +6,12 @@ const RedisStore = require('connect-redis')(session)
 const cors = require('cors')
 const { validate } = require('./schemas')
 const logger = require('./logger').child({ domain: 'app' })
+const debugCors = require('debug')('eatlas:cors')
 
 exports.cors = cors({
   origin: (origin, cb) => {
     if (!origin && config.cors.allowNoOrigin) {
+      debugCors('No origin & allowNoOrigin: OK')
       return cb(null, true)
     }
     const origins = config.cors.origins.map(origin => {
@@ -18,10 +20,9 @@ exports.cors = cors({
       }
       return origin
     })
-    if (origins.includes(origin)) {
-      return cb(null, true)
-    }
-    cb(new Error('Not allowed by CORS'))
+    const ok = origins.includes(origin)
+    debugCors({ origin, origins, ok })
+    return ok ? cb(null, true) : cb(new Error('Not allowed by CORS'))
   },
   credentials: true, // required for fetch({ credentials: 'include' })
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204

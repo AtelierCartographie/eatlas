@@ -16,10 +16,16 @@
 		"host": "REDIS_HOST",
 		"port": "REDIS_PORT"
 	},
+        "cors": {
+                "allowNoOrigin": {
+                     "__name": "DISABLE_CORS",
+                     "__format": "json"
+                }
+        },
         "logger": {
                 "level": "API_LOG_LEVEL"
         },
 	"google": {
 		"clientId": "REACT_APP_GOOGLE_CLIENT_ID"
-		}
+        }
 }

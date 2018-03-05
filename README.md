@@ -279,6 +279,7 @@ L'application nécessite une connexion via Google OAuth et l'accès à Google Dr
 
 * Créer une application sur https://console.developers.google.com
 * Menu burger → APIs & Services → Credentials → créer un nouveau projet :
+  * Create credentials > API Key > Copier la clé d'API
   * Configurer "REACT_APP_GOOGLE_CLIENT_ID" à la valeur du "client id"
 * Menu burger → APIs & Services → Library → activer les APIs suivantes :
   * Google Picker API

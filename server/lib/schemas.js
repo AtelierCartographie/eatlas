@@ -41,6 +41,7 @@ exports.fullTopic = {
     .max(999)
     .required(),
   name,
+  mediaUrl: Joi.string(),
 }
 
 // resources

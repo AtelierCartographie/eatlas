@@ -5,6 +5,9 @@
     },
     "name": {
       "type": "text"
+    },
+    "mediaUrl": {
+      "type": "text"
     }
   }
 }

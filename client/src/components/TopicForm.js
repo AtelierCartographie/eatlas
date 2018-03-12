@@ -32,6 +32,7 @@ type State = {
 const newTopic = {
   id: 0,
   name: '',
+  mediaUrl: '',
 }
 
 class TopicForm extends Component<Props, State> {
@@ -101,6 +102,7 @@ class TopicForm extends Component<Props, State> {
                 />
               </div>
             </div>
+
             <div className="field">
               <label className="label">
                 <T id="name" />
@@ -114,6 +116,22 @@ class TopicForm extends Component<Props, State> {
                   value={topic.name}
                   onChange={this.handleChange}
                   required
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="label">
+                <T id="resource-mediaUrl" />
+              </label>
+              <div className="control">
+                <input
+                  className="input"
+                  name="mediaUrl"
+                  type="text"
+                  placeholder="video"
+                  value={topic.mediaUrl}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>

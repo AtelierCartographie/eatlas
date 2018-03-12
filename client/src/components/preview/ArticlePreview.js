@@ -11,6 +11,7 @@ moment.locale('fr')
 
 const { Script, Img } = require('./Tags')
 const Head = require('./Head')
+const { Menu, MenuToggle } = require('./Menu')
 const Footer = require('./Footer')
 const { resourcesTypes, aPropos } = require('./layout')
 
@@ -372,87 +373,6 @@ const NavBar = () =>
     ]),
   ])
 
-const NavMenuTopics = ({ topics }) =>
-  h(
-    'ul.nav.navmenu-nav',
-    topics.map((t, i) =>
-      h('li', { key: i }, [
-        h('a', [h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }), t.name]),
-      ]),
-    ),
-  )
-
-const NavMenuResources = () =>
-  h('li.dropdown', [
-    h(
-      'a.dropdown-toggle menu',
-      {
-        'data-toggle': 'dropdown',
-        role: 'button',
-        'aria-haspopup': true,
-        'aria-expanded': false,
-      },
-      ['Ressources', h('span.caret')],
-    ),
-    h(
-      'ul.dropdown-menu.navmenu-nav',
-      resourcesTypes.map((a, i) => h('li', { key: i }, [h('a', a)])),
-    ),
-  ])
-
-const NavMenuAPropos = () =>
-  h('li.dropdown', [
-    h(
-      'a.dropdown-toggle menu',
-      {
-        'data-toggle': 'dropdown',
-        role: 'button',
-        'aria-haspopup': true,
-        'aria-expanded': false,
-      },
-      ['À propos', h('span.caret')],
-    ),
-    h(
-      'ul.dropdown-menu.navmenu-nav',
-      aPropos.map((a, i) => h('li', { key: i }, [h('a', a)])),
-    ),
-  ])
-
-// on the left
-const NavMenu = props =>
-  h(
-    'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
-    { role: 'navigation' },
-    [
-      h('form.navmenu-form', [
-        h('div.form-group', [
-          h('input.form-control', { placeholder: 'Rechercher' }),
-        ]),
-      ]),
-      h('ul.nav.navmenu-nav', [
-        h(NavMenuTopics, props),
-        h('hr'),
-        h(NavMenuResources),
-        h(NavMenuAPropos),
-        h('hr'),
-      ]),
-    ],
-  )
-
-const NavMenuToggle = () =>
-  h('div.navbar.navbar-default.navbar-fixed-top', [
-    h(
-      'button.navbar-toggle',
-      {
-        type: 'button',
-        'data-toggle': 'offcanvas',
-        'data-target': '#navmenu',
-        'data-canvas': 'body',
-      },
-      [h(Img, { alt: 'menu', src: '/assets/img/picto-menu-B.svg' })],
-    ),
-  ])
-
 const NavTopics = () =>
   h('div.nav-article-wrapper', [
     h('nav.nav-article', [
@@ -467,12 +387,11 @@ const NavTopics = () =>
     ]),
   ])
 
-
 const Body = props =>
   h('body', [
     h(NavBar),
-    h(NavMenu, props),
-    h(NavMenuToggle),
+    h(Menu, props),
+    h(MenuToggle),
     h(Article, props),
     h(NavTopics, props),
     h(Footer, props),

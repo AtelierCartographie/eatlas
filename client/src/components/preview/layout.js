@@ -14,5 +14,3 @@ exports.aPropos = [
   'Mentions légales',
   'Plan du site',
 ]
-
-

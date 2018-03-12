@@ -6,20 +6,17 @@
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2017,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   },
   "rules": {
     "prefer-arrow-callback": "error",
     "handle-callback-err": "error",
     "indent": "off",
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
+    "linebreak-style": ["error", "unix"],
     "quotes": "off",
-    "semi": [
-      "error",
-      "never"
-    ]
+    "semi": ["error", "never"]
   }
 }

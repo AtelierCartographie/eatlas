@@ -117,6 +117,7 @@ exports.preview = async (req, res, next) => {
       (await topics.list()).sort((a, b) => a.id > b.id),
       await getDefinitions(),
       await getResources(req.foundResource, !!req.query.published),
+      { preview: true }
     )
     res.send(html)
   } catch (err) {

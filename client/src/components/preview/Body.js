@@ -15,13 +15,13 @@ const NavBar = () =>
     ]),
   ])
 
-module.exports = ({ topics, children }) =>
+module.exports = ({ topics, options, children }) =>
   h('body', [
     h(NavBar),
-    h(Menu, { topics }),
+    h(Menu, { topics, options }),
     h(MenuToggle),
     children,
-    h(Footer, { topics }),
+    h(Footer, { topics, options }),
     h('script', {
       src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
     }),

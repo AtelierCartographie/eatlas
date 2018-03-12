@@ -4,12 +4,15 @@ const h = require('react-hyperscript')
 const { Img } = require('./Tags')
 const { resourcesTypes, aPropos } = require('./layout')
 
-const Topics = ({ topics }) =>
+const Topics = ({ topics, options }) =>
   h(
     'ul.nav.navmenu-nav',
     topics.map((t, i) =>
       h('li', { key: i }, [
-        h('a', [h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }), t.name]),
+        h('a', { href: options.preview ? `/topics/${t.id}/preview` : 'TODO' }, [
+          h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }),
+          t.name,
+        ]),
       ]),
     ),
   )
@@ -50,7 +53,7 @@ const APropos = () =>
     ),
   ])
 
-exports.Menu = ({ topics }) =>
+exports.Menu = ({ topics, options }) =>
   h(
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },
@@ -61,7 +64,7 @@ exports.Menu = ({ topics }) =>
         ]),
       ]),
       h('ul.nav.navmenu-nav', [
-        h(Topics, { topics }),
+        h(Topics, { topics, options }),
         h('hr'),
         h(Resources),
         h(APropos),

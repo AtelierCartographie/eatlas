@@ -42,10 +42,10 @@ const Topic = ({ topic, topics, articles }) => {
 
 class TopicPreview extends Component {
   render() {
-    const { topic, topics, articles } = this.props
+    const { topic, topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: topic.name }),
-      h(Body, { topics }, [h(Topic, { topic, topics, articles })]),
+      h(Body, { topics, options }, [h(Topic, { topic, topics, articles })]),
     ])
   }
 }

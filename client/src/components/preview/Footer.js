@@ -3,26 +3,31 @@ const h = require('react-hyperscript')
 const { Img } = require('./Tags')
 const { resourcesTypes, aPropos } = require('./layout')
 
-module.exports = ({ topics }) =>
+const Topics = ({ topics, options }) => {
+  return h('nav', [
+    h(
+      'ul',
+      topics.map(t =>
+        h('li', { key: t.id }, [
+          h(
+            'a',
+            { href: options.preview ? `/topics/${t.id}/preview` : 'TODO' },
+            [h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }), t.name],
+          ),
+        ]),
+      ),
+    ),
+  ])
+}
+
+module.exports = ({ topics, options }) =>
   h('div.table-content-bg', [
     h('footer.footer-page', [
       h('div.container', [
         h('div.row', [
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Sommaire'),
-            h('nav', [
-              h(
-                'ul',
-                topics.map(t =>
-                  h('li', { key: t.id }, [
-                    h('a', [
-                      h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }),
-                      t.name,
-                    ]),
-                  ]),
-                ),
-              ),
-            ]),
+            h(Topics, { topics, options }),
           ]),
           h('section.col-xs-6.col-sm-4', [
             h('h3', 'Resources'),

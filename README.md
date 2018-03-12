@@ -1,6 +1,6 @@
 # eatlas
 
-**Note :** toutes les commandes indiquées dans ce document sont prévues pour être exécutées depuis la racine du projet, sauf mention contraire (sous la forme ``cd server && …``).
+**Note :** toutes les commandes indiquées dans ce document sont prévues pour être exécutées depuis la racine du projet, sauf mention contraire (sous la forme `cd server && …`).
 
 ## Dépendances
 
@@ -15,21 +15,21 @@
 
 Le côté client est configuré à l'aide de variables d'environnement :
 
-* ``REACT_APP_MOCK_API`` : si ``yes`` alors le serveur d'API ne sera pas utilisé et les requêtes seront simulés à la place
-* ``REACT_APP_API_SERVER`` : racine de l'URL du serveur d'API (exemple : ``https://api.eatlas.com``)
-* ``REACT_APP_GOOGLE_CLIENT_ID`` : *client id* de l'application Google créée (cf. section "Google" de cette documentation)
-* ``REACT_APP_GOOGLE_PROJECT_NUM`` : Numéro de l'application Google créée (cf. section "Google" de cette documentation)
-* ``REACT_APP_GOOGLE_DEV_KEY`` : Clé d'API Google (cf. section "Google" de cette documentation)
+* `REACT_APP_MOCK_API` : si `yes` alors le serveur d'API ne sera pas utilisé et les requêtes seront simulés à la place
+* `REACT_APP_API_SERVER` : racine de l'URL du serveur d'API (exemple : `https://api.eatlas.com`)
+* `REACT_APP_GOOGLE_CLIENT_ID` : _client id_ de l'application Google créée (cf. section "Google" de cette documentation)
+* `REACT_APP_GOOGLE_PROJECT_NUM` : Numéro de l'application Google créée (cf. section "Google" de cette documentation)
+* `REACT_APP_GOOGLE_DEV_KEY` : Clé d'API Google (cf. section "Google" de cette documentation)
 
 **Attention** si un fichier `client/.env` est présent, il définit des valeurs par défaut pour ces variables d'environnement (actuellement utilisées pour le développement).
 Ce fichier est lu par [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-development-environment-variables-in-env)
 (lui même se basant sur [dotenv](https://github.com/motdotla/dotenv)).
 
-Pour prendre en compte une modification de la configuration, le client doit être régénéré avec ``yarn build`` et re-déployé.
+Pour prendre en compte une modification de la configuration, le client doit être régénéré avec `yarn build` et re-déployé.
 
 ### Serveur (fichier)
 
-Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``config``, au format JSON. Voici les options commentées :
+Le côté serveur est configuré à l'aide de fichiers, dans le dossier `config`, au format JSON. Voici les options commentées :
 
 ```js
 {
@@ -83,22 +83,21 @@ Le côté serveur est configuré à l'aide de fichiers, dans le dossier ``config
 }
 ```
 
-**Note :** l'emplacement du dossier de configuration peut être modifié à l'aide de la variable d'environnement ``NODE_CONFIG_DIR`` (absolu ou relatif au dossier ``server``, par défaut ``../config``).
+**Note :** l'emplacement du dossier de configuration peut être modifié à l'aide de la variable d'environnement `NODE_CONFIG_DIR` (absolu ou relatif au dossier `server`, par défaut `../config`).
 
-Pour modifier cette configuration **ne pas modifier** ``config/default.json`` ni ``config/production.json`` mais plutôt créer un fichier ``config/local.json`` et y placer seulement les options surchargées.
+Pour modifier cette configuration **ne pas modifier** `config/default.json` ni `config/production.json` mais plutôt créer un fichier `config/local.json` et y placer seulement les options surchargées.
 
-Pour prendre en compte une modification de la configuration, le serveur doit être redémarré (tué puis relancé avec ``yarn start``).
+Pour prendre en compte une modification de la configuration, le serveur doit être redémarré (tué puis relancé avec `yarn start`).
 
 ### Docker
 
 Lors d'une utilisation avec Docker et Docker-compose il faut placer des variables d'environnement dans le fichier `docker-config.env`:
 
 ```sh
-cp docker-config.env.sample docker-config.env 
+cp docker-config.env.sample docker-config.env
 ```
 
-La configuration des variables d'environnement se base sur le fichier `
-config/custom-environment-variables.json` qui utilise les variables d'environnement pour modifier la configuration par défaut de `config/default.json`.
+La configuration des variables d'environnement se base sur le fichier `config/custom-environment-variables.json` qui utilise les variables d'environnement pour modifier la configuration par défaut de `config/default.json`.
 
 Voir donc ce fichier pour la liste des variables utilisées.
 On peut aussi mettre les variables d'environnement de la configuration du client.
@@ -138,8 +137,8 @@ yarn dev:server
 ### Elastic Search
 
 * Le container est nommé "eatlas_es_dev"
-* Pour le démarrer manuellement : ``docker-compose -f docker-compose.dev.yml up``
-* Pour consulter les logs : ``docker logs eatlas_es_dev``
+* Pour le démarrer manuellement : `docker-compose -f docker-compose.dev.yml up`
+* Pour consulter les logs : `docker logs eatlas_es_dev`
 
 ## Prod
 
@@ -149,7 +148,6 @@ Client: https://hub.docker.com/r/sciencespo/eatlas-client/
 API: https://hub.docker.com/r/sciencespo/eatlas-api/
 
 ### Code
-
 
 Télécharger le code source de ce dépôt Git:
 
@@ -176,18 +174,17 @@ docker-compose -f docker-compose.prod.yml config
 
 Deux options: soit télécharger la dernière version depuis le Docker Hub, ou construire ses propres images.
 
-+ **Recommandé: Télécharger** nos images déjà construites depuis le Docker Hub:
+* **Recommandé: Télécharger** nos images déjà construites depuis le Docker Hub:
 
   ```sh
   docker-compose -f docker-compose.prod.yml pull
   ```
 
-+ **Alternative: Construire** vos propres images à partir du code source (utile pour du développent ou si vous éditez le code):
+* **Alternative: Construire** vos propres images à partir du code source (utile pour du développent ou si vous éditez le code):
 
   ```sh
   docker-compose -f docker-compose.prod.yml build
   ```
-
 
 ### Démarrer eAtlas
 
@@ -203,14 +200,23 @@ La même chose mais en lancant les conteneurs en tâche de fond:
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
+### Troubleshooting
+
+| Problème                                                    | Solution(s)                                                                                                                               |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Erreur de connexion “Not a valid origin for the client […]” | Aller configurer la clé d'API Google                                                                                                      |
+| Impossible de se connecter après l'installation             | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_api_1 yarn add-user <email> <name> admin`                               |
+| Les pages semblent charger indéfiniment                     | - Regarder dans les logs de l'API : `docker logs eatlas_api_1`                                                                            |
+|                                                             | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `DISABLE_CORS=1` dans `docker-config.env` |
 
 ### Arrêt et journaux
 
-Pour arrêter les conteneurs, utilisez `docker-composen -f docker-compose.prod.yml stop` (ou `docker-compose  -f docker-compose.prod.yml down -v` pour détruire les conteneurs et les données).
+Pour arrêter les conteneurs, utilisez `docker-composen -f docker-compose.prod.yml stop` (ou `docker-compose -f docker-compose.prod.yml down -v` pour détruire les conteneurs et les données).
 
 Pour voir les logs utilisez la commande `docker-compose -f docker-compose.prod.yml logs`.
 
 Lorsque vous modifiez la configuration, relancez les conteneurs:
+
 ```bash
 docker-compose -f docker-compose.prod.yml stop
 docker-compose -f docker-compose.prod.yml up -d
@@ -237,41 +243,44 @@ curl -XDELETE 'localhost:9200/eatlas_resource_1512597721716'
 
 ### Sauvegarde des données Docker
 
-* Les données sont dans un volume Docker (voir le nom du volume dans le fichier ``docker-compose.{dev,prod}.yml``)
-* Sauvegarde du volume : utiliser ``docker volume inspect <nom du volume>`` pour récupérer le "mountpoint", c'est le dossier à sauvegarder
-  * Exemple en une commande avec `tar` et `jq` : ``sudo tar zcvf backup.tgz $(docker volume inspect eatlas_esdata_dev | jq -r '.[0].Mountpoint')``
+* Les données sont dans un volume Docker (voir le nom du volume dans le fichier `docker-compose.{dev,prod}.yml`)
+* Sauvegarde du volume : utiliser `docker volume inspect <nom du volume>` pour récupérer le "mountpoint", c'est le dossier à sauvegarder
+  * Exemple en une commande avec `tar` et `jq` : `sudo tar zcvf backup.tgz $(docker volume inspect eatlas_esdata_dev | jq -r '.[0].Mountpoint')`
 
 ### Suppression
 
-* Arrêt avec suppression des images : ``docker-compose -f <fichier.yml> down --rmi all``
-* Arrêt avec suppression des images **et des données** : ``docker-compose -f <fichier.yml> down --rmi all --volumes``
-
+* Arrêt avec suppression des images : `docker-compose -f <fichier.yml> down --rmi all`
+* Arrêt avec suppression des images **et des données** : `docker-compose -f <fichier.yml> down --rmi all --volumes`
 
 ### First install on localhost
 
-- Ouvrir une console
-- Se placer à l'endroit où on veut enregistrer le projet
+* Ouvrir une console
+* Se placer à l'endroit où on veut enregistrer le projet
 
 `> cd /go/to/the/right/folder`
-- Cloner le projet depuis le repo Github
+
+* Cloner le projet depuis le repo Github
 
 `> git clone https://github.com/AtelierCartographie/eatlas.git`
-- Aller à la racine du projet
+
+* Aller à la racine du projet
 
 `> cd eatlas/`
-- Si nécessaire, installer [Homebrew](https://brew.sh/index_fr.html)
-- Si nécessaire, installer yarn
+
+* Si nécessaire, installer [Homebrew](https://brew.sh/index_fr.html)
+* Si nécessaire, installer yarn
 
 `> brew install yarn`
-- Installer les dépendances du projet
+
+* Installer les dépendances du projet
 
 `> yarn install`
-- Lancer le projet
+
+* Lancer le projet
 
 `> yarn dev`
 
 Un nouvel onglet présentant le projet doit alors s'ouvrir dans votre navigateur.
-
 
 ### Google
 

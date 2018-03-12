@@ -10,7 +10,7 @@
 /build
 
 # sass output
-/public/index.css
+/public/*.css
 
 # misc
 .DS_Store

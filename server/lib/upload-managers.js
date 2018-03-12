@@ -4,7 +4,7 @@ const Boom = require('boom')
 
 const { parseDocx } = require('./doc-parser')
 const { parseLexicon } = require('./lexicon-parser')
-const { saveMedia } = require('./public-fs')
+const { saveUpload } = require('./public-fs')
 
 const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
 
@@ -45,7 +45,7 @@ exports.map = {
       // TODO actually delete file
       return { file: null }
     }
-    const file = await saveMedia(body)(upload)
+    const file = await saveUpload(body)(upload)
     return { file }
   },
   validate({ required, newUploads, uploads }) {
@@ -59,7 +59,7 @@ exports.map = {
 exports.image = {
   async save({ newUploads, body, uploads }) {
     // Save new uploads
-    const files = await Promise.all(newUploads.map(saveMedia(body)))
+    const files = await Promise.all(newUploads.map(saveUpload(body)))
     const images = {}
     // Handle *all* uploads (deletions included)
     uploads.forEach(({ key }, index) => {
@@ -95,7 +95,7 @@ exports.sound = {
       // TODO actually delete file
       return { file: null }
     }
-    const file = await saveMedia(body)(upload)
+    const file = await saveUpload(body)(upload)
     return { file }
   },
   validate({ required, newUploads, uploads }) {

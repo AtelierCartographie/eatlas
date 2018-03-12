@@ -6,7 +6,7 @@ const path = require('path')
 const { publishArticle, unpublishArticle } = require('./publish-article')
 const dynamicConfVar = require('./dynamic-config-variable')
 
-exports.saveMedia = ({ id, type }) => async ({ mimeType, key, buffer }) => {
+exports.saveUpload = ({ id, type }) => async ({ mimeType, key, buffer }) => {
   const fileDir = dynamicConfVar('publicPath.' + type)
   if (!fileDir) {
     throw new Error('Unknown storage directory for this type "' + type + '"')

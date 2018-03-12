@@ -43,6 +43,7 @@ app.put('/resources/:id', resources.findResource, resources.update) // TODO body
 app.delete('/resources/:id', resources.findResource, resources.remove)
 
 app.get('/topics', topics.list)
+app.get('/topics/:id/preview', topics.findTopic, topics.preview)
 app.get('/topics/:id', topics.findTopic, topics.get)
 app.post('/topics', topics.add)
 app.put('/topics/:id', topics.findTopic, topics.update)

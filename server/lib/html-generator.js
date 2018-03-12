@@ -8,15 +8,26 @@ dotenv.config({ path: `${config.clientPath}/.env` })
 dotenv.config({ path: `${config.clientPath}/.env.local` })
 
 // Now all env variables are available just like if it was built for client side
-const ArticlePreview = require('../../client/src/components/ArticlePreview')
+const ArticlePreview = require('../../client/src/components/preview/ArticlePreview')
+const TopicPreview = require('../../client/src/components/preview/TopicPreview')
 
-exports.generateHTML = (article, topics, definitions, resources) => {
-  return `<!DOCTYPE html>${renderToStaticMarkup(
+const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
+
+exports.generateArticleHTML = (article, topics, definitions, resources) => {
+  return wrap(
     React.createElement(ArticlePreview, {
       article,
       topics,
       definitions,
       resources,
     }),
-  )}`
+  )
+}
+
+exports.generateTopicHTML = topic => {
+  return wrap(
+    React.createElement(TopicPreview, {
+      topic,
+    }),
+  )
 }

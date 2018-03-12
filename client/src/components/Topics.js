@@ -81,6 +81,16 @@ class Topics extends Component<Props, State> {
     )
   }
 
+  getPreviewUrl(topic) {
+    const host = process.env.REACT_APP_API_SERVER
+    if (!host) {
+      throw new Error(
+        'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
+      )
+    }
+    return `${host}/topics/${topic.id}/preview`
+  }
+
   render() {
     const { topics, resources } = this.props
 
@@ -153,6 +163,13 @@ class Topics extends Component<Props, State> {
                           onClick={() => this.askRemove(t)}>
                           <IconButton label="delete" icon="times" />
                         </button>
+                      </div>
+                      <div className="control">
+                        <a
+                          className="button"
+                          href={this.getPreviewUrl(t)}>
+                          <IconButton label="preview" icon="eye" />
+                        </a>
                       </div>
                     </div>
                   </td>

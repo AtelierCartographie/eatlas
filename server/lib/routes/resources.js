@@ -8,7 +8,7 @@ const schemas = require('../schemas')
 const { parseDocx } = require('../doc-parser')
 const { parseLexicon } = require('../lexicon-parser')
 const { saveMedia } = require('../public-fs')
-const { generateHTML } = require('../html-generator')
+const { generateArticleHTML } = require('../html-generator')
 const { download } = require('../google')
 
 exports.findResource = (req, res, next) =>
@@ -113,7 +113,7 @@ exports.remove = (req, res) =>
 exports.preview = async (req, res, next) => {
   try {
     req.foundResource.resources = await resources.list()
-    const html = generateHTML(
+    const html = generateArticleHTML(
       req.foundResource,
       (await topics.list()).sort((a, b) => a.id > b.id),
       await getDefinitions(),

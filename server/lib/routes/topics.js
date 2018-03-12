@@ -1,6 +1,7 @@
 'use strict'
 
 const { topics } = require('../model')
+const { generateTopicHTML } = require('../html-generator')
 
 exports.list = (req, res) =>
   topics
@@ -39,3 +40,18 @@ exports.remove = (req, res) =>
     .remove(req.params.id)
     .then(() => res.status(204).end())
     .catch(res.boom.send)
+
+exports.preview = async (req, res, next) => {
+  try {
+    // req.foundResource.resources = await resources.list()
+    const html = generateTopicHTML(
+      req.foundTopic,
+      // (await topics.list()).sort((a, b) => a.id > b.id),
+      // await getDefinitions(),
+      // await getResources(req.foundResource, !!req.query.published),
+    )
+    res.send(html)
+  } catch (err) {
+    next(err)
+  }
+}

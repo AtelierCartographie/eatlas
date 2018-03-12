@@ -389,12 +389,10 @@ class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[],
     const { article, topics, definitions, resources } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
-      h(
-        Body,
-        { topics },
+      h(Body, { topics }, [
         h(Article, { article, topics, definitions, resources }),
         h(NavTopics),
-      ),
+      ]),
     ])
   }
 }

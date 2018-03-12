@@ -24,10 +24,12 @@ exports.generateArticleHTML = (article, topics, definitions, resources) => {
   )
 }
 
-exports.generateTopicHTML = topic => {
+exports.generateTopicHTML = (topic, topics, articles) => {
   return wrap(
     React.createElement(TopicPreview, {
       topic,
+      topics,
+      articles
     }),
   )
 }

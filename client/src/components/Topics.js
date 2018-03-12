@@ -12,6 +12,7 @@ import IconButton from './IconButton'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Confirm from './Confirm'
+import VimeoIframe from './VimeoIframe'
 import { RESOURCE_TYPES, TYPE_ICON } from '../constants'
 
 const SHOWN_TYPES = RESOURCE_TYPES.filter(type => type !== 'definition')
@@ -116,6 +117,9 @@ class Topics extends Component<Props, State> {
                 <th>
                   <T id="name" />
                 </th>
+                <th>
+                  <T id="preview" />
+                </th>
                 {SHOWN_TYPES.map(type => (
                   <th className="fit" key={type}>
                     <Icon icon={TYPE_ICON[type]} />
@@ -130,6 +134,7 @@ class Topics extends Component<Props, State> {
                 <tr key={t.id}>
                   <td>{t.id}</td>
                   <td>{t.name}</td>
+                  <td>{t.mediaUrl ? <VimeoIframe url={t.mediaUrl} name={t.name} /> : null }</td>
                   {SHOWN_TYPES.map(type => (
                     <td key={type}>{this.renderCount(t.id, type)}</td>
                   ))}

@@ -11,6 +11,12 @@
 .Topics td a.topic-count {
   font-weight: bold;
 }
+
 .Topics td span.topic-count {
   color: #ccc;
+}
+
+.Topics .preview {
+  max-height: 50px;
+  max-width: 100px;
 }

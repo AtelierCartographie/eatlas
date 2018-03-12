@@ -858,6 +858,7 @@ class ResourceForm extends Component<Props, State> {
   onChangeAttr = (attr: string, clearDocs: boolean = false) => (
     e: SyntheticInputEvent<HTMLInputElement>,
   ) => {
+    e.preventDefault()
     const value = e.target.value // beware recycled synthetic events
     const additional =
       attr === 'type' && value === 'definition'

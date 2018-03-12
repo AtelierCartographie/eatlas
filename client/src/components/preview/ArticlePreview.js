@@ -11,8 +11,7 @@ moment.locale('fr')
 
 const { Script, Img } = require('./Tags')
 const Head = require('./Head')
-const { Menu, MenuToggle } = require('./Menu')
-const Footer = require('./Footer')
+const Body = require('./Body')
 const { resourcesTypes, aPropos } = require('./layout')
 
 const HOST = process.env.REACT_APP_PUBLIC_URL || ''
@@ -25,6 +24,32 @@ const getImageUrl = ({ images }, size = 'medium', density = '1x') => {
     ? `${HOST}${process.env.REACT_APP_PUBLIC_PATH_image || '/'}${file}`
     : null
 }
+
+const getArticleSeeAlsoResource = (resources, text) => {
+  const [articleId] = text.split(/\s*-\s*/)
+  const article = getResource(resources, articleId)
+  let image = null
+  if (article) {
+    image = getImageHeader(resources, article)
+  }
+  return { article, image }
+}
+
+const getImageHeader = (resources, article) => {
+  const meta = article.metas.find(m => m.type === 'image-header')
+  return getResource(resources, meta.text)
+}
+
+const getResource = (resources, id) => resources.find(r => r.id === id)
+
+const getDefinition = (definitions, dt) => {
+  const search = dt.toLowerCase()
+  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
+  if (!found || !found.dd) {
+    return 'Definition not found'
+  }
+  return found.dd
+}
 const srcset = (image, size) => {
   const image1 = getImageUrl(image, size, '1x')
   const image2 = getImageUrl(image, size, '2x')
@@ -35,6 +60,8 @@ const srcset = (image, size) => {
     image3 ? image3 + ' 3x,' : '',
   ].join('\n')
 }
+
+// subcomponents
 
 const ArticleTitle = ({ article, resources }) => {
   const publishedAt = !article.publishedAt
@@ -57,7 +84,11 @@ const ArticleTitle = ({ article, resources }) => {
       }
     : {}
   return h('header.headerwrap', { style }, [
-    h('div.container.header-info', [h('h1', article.title), h('br'), publishedAt]),
+    h('div.container.header-info', [
+      h('h1', article.title),
+      h('br'),
+      publishedAt,
+    ]),
   ])
 }
 
@@ -304,19 +335,6 @@ const ArticleSeeAlso = ({ article, resources }) => {
     ),
   ])
 }
-const getArticleSeeAlsoResource = (resources, text) => {
-  const [articleId] = text.split(/\s*-\s*/)
-  const article = getResource(resources, articleId)
-  let image = null
-  if (article) {
-    image = getImageHeader(resources, article)
-  }
-  return { article, image }
-}
-const getImageHeader = (resources, article) => {
-  const meta = article.metas.find(m => m.type === 'image-header')
-  return getResource(resources, meta.text)
-}
 
 const ArticleFooter = props =>
   h('footer.footer-article', [
@@ -343,16 +361,6 @@ const ArticleLexicon = ({ article, definitions }) => {
   )
 }
 
-const getResource = (resources, id) => resources.find(r => r.id === id)
-const getDefinition = (definitions, dt) => {
-  const search = dt.toLowerCase()
-  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
-  if (!found || !found.dd) {
-    return 'Definition not found'
-  }
-  return found.dd
-}
-
 const Article = props =>
   h('article.article', [
     h(ArticleTitle, props),
@@ -361,16 +369,6 @@ const Article = props =>
     h(ArticleNodes, props),
     h(ArticleFooter, props),
     h(ArticleLexicon, props),
-  ])
-
-// at the top
-const NavBar = () =>
-  h('nav.navbar.navbar-default.navbar-static-top.navbar-logo', [
-    h('div.container', [
-      h('a.navbar-brand', { href: '#' }, [
-        h(Img, { alt: 'eatlas logo', src: '/assets/img/logo-atlas-B.svg' }),
-      ]),
-    ]),
   ])
 
 const NavTopics = () =>
@@ -387,35 +385,18 @@ const NavTopics = () =>
     ]),
   ])
 
-const Body = props =>
-  h('body', [
-    h(NavBar),
-    h(Menu, props),
-    h(MenuToggle),
-    h(Article, props),
-    h(NavTopics, props),
-    h(Footer, props),
-    h('script', {
-      src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
-    }),
-    h('script', {
-      src:
-        'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js',
-    }),
-    h('script', {
-      src:
-        'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js',
-    }),
-    h(Script, { src: '/assets/js/eatlas.js' }),
-  ])
-
 class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
     lexiconId = 0
     const { article, topics, definitions, resources } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
-      h(Body, { article, topics, definitions, resources }),
+      h(
+        Body,
+        { topics },
+        h(Article, { article, topics, definitions, resources }),
+        h(NavTopics),
+      ),
     ])
   }
 }

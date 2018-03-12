@@ -50,7 +50,7 @@ const APropos = () =>
     ),
   ])
 
-exports.Menu = props =>
+exports.Menu = ({ topics }) =>
   h(
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },
@@ -61,7 +61,7 @@ exports.Menu = props =>
         ]),
       ]),
       h('ul.nav.navmenu-nav', [
-        h(Topics, props),
+        h(Topics, { topics }),
         h('hr'),
         h(Resources),
         h(APropos),

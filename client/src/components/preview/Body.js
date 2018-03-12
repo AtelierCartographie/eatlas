@@ -16,7 +16,8 @@ const NavBar = () =>
   ])
 
 module.exports = ({ topics, options, children }) =>
-  h('body', [
+  // display preview ribbon in corner
+  h('body', { className: options.preview ? 'preview' : ''}, [
     h(NavBar),
     h(Menu, { topics, options }),
     h(MenuToggle),

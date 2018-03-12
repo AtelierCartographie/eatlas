@@ -13,6 +13,22 @@ figure {
     margin-bottom: 3.2em;
 }
 
+body.preview::before {
+    background: #f00;
+    color: #fff;
+    content: 'preview';
+    display: block;
+    font-size: 30px;
+    font-weigth: bold;
+    position: fixed;
+    right: -50px;
+    text-align: center;
+    top: 25px;
+    transform: rotate(45deg);
+    width: 200px;
+    z-index: 1;
+}
+
 /* TYPO /!\ font-base = 10px ---------------------------------------- */
 
 body {
@@ -41,7 +57,7 @@ dl {
 
 /* video */
 iframe {
-  display: block;
+    display: block;
 }
 
 .article .header-info h1 {
@@ -637,3 +653,4 @@ article.focus {
     .header-info-focus p {
         font-size: 1.8em;
     }
+}

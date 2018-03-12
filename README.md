@@ -18,7 +18,6 @@ Le côté client est configuré à l'aide de variables d'environnement :
 * `REACT_APP_MOCK_API` : si `yes` alors le serveur d'API ne sera pas utilisé et les requêtes seront simulés à la place
 * `REACT_APP_API_SERVER` : racine de l'URL du serveur d'API (exemple : `https://api.eatlas.com`)
 * `REACT_APP_GOOGLE_CLIENT_ID` : _client id_ de l'application Google créée (cf. section "Google" de cette documentation)
-* `REACT_APP_GOOGLE_PROJECT_NUM` : Numéro de l'application Google créée (cf. section "Google" de cette documentation)
 * `REACT_APP_GOOGLE_DEV_KEY` : Clé d'API Google (cf. section "Google" de cette documentation)
 
 **Attention** si un fichier `client/.env` est présent, il définit des valeurs par défaut pour ces variables d'environnement (actuellement utilisées pour le développement).
@@ -293,7 +292,10 @@ L'application nécessite une connexion via Google OAuth et l'accès à Google Dr
   * Configurer "REACT_APP_GOOGLE_CLIENT_ID" à la valeur du "client id"
 * Menu burger → APIs & Services → Library → activer les APIs suivantes :
   * Google Picker API
-* Menu burger → IAM & administration → Paramètres → relever le n° du projet
+  * Google Drive API
+* Menu buger → APIs & Services → Credentials → créer une nouvelle clé d'API :
+  * Configurer "REACT_APP_GOOGLE_DEV_KEY" à la valeur de la clé
+  * Réstreindre la clé aux API "Google Picker" et "Google Drive"
 
 ### Participants
 

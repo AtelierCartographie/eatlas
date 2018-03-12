@@ -659,12 +659,11 @@ class Resources extends Component<Props, State> {
         </div>
         <div className="column is-narrow">
           <div className="select is-info">
-            <select onChange={this.onChangePaginationCount}>
+            <select
+              onChange={this.onChangePaginationCount}
+              value={this.props.pagination.count}>
               {PAGINATION_COUNTS.map(count => (
-                <option
-                  key={count}
-                  value={count}
-                  selected={count === this.props.pagination.count}>
+                <option key={count} value={count}>
                   <T id="pagination-count" values={{ count }} />
                 </option>
               ))}

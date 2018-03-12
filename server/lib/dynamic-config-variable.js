@@ -18,5 +18,5 @@ const compile = string => {
   return f
 }
 
-module.exports = (key, locals = {}) =>
-  compile(config.get(key))(Object.assign(config.util.toObject(), locals))
+module.exports = (key, locals = config.util.toObject()) =>
+  compile(config.get(key))(locals)

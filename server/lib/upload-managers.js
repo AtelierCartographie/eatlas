@@ -26,11 +26,17 @@ exports.article = {
       throw Boom.badRequest('Upload: expecting a single "article" document')
     }
   },
+  files() {
+    return [] // No file in uploadPath for articles
+  },
 }
 
 exports.focus = {
   validate() {
     throw Boom.notImplemented()
+  },
+  files() {
+    return [] // No file in uploadPath for articles
   },
 }
 
@@ -53,6 +59,9 @@ exports.map = {
     if (required && newUploads.length !== 1) {
       throw Boom.badRequest('Upload: expecting a single "map" document')
     }
+  },
+  files({ file }) {
+    return file ? [file] : []
   },
 }
 
@@ -82,6 +91,11 @@ exports.image = {
       throw Boom.badRequest('Upload: required at least one document')
     }
   },
+  files({ images }) {
+    return Object.values(images)
+      .reduce((files, densities) => files.concat(Object.values(densities)), [])
+      .filter(f => !!f)
+  },
 }
 
 exports.sound = {
@@ -103,6 +117,9 @@ exports.sound = {
     if (required && newUploads.length !== 1) {
       throw Boom.badRequest('Upload: expecting a single "sound" document')
     }
+  },
+  files({ file }) {
+    return file ? [file] : []
   },
 }
 
@@ -126,11 +143,17 @@ exports.definition = {
       throw Boom.badRequest('Upload: expecting a single "lexicon" document')
     }
   },
+  files() {
+    return [] // No file in uploadPath for lexicon
+  },
 }
 
 exports.video = {
   validate() {
     throw Boom.badRequest('Upload: no upload expected for video')
+  },
+  files() {
+    return [] // No file in uploadPath for video (vimeo URLs)
   },
 }
 

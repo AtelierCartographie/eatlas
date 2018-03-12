@@ -92,11 +92,15 @@ const ArticleTitle = ({ article, resources }) => {
   ])
 }
 
-const ArticleBreadcrumb = ({ article, topics }) => {
+const ArticleBreadcrumb = ({ article, topics, options }) => {
   const topic = topics.find(x => x.id === article.topic)
   return h('section.breadcrumb', [
     h('div.container', [
-      h('a', { href: '#' }, topic ? topic.name : article.topic),
+      h(
+        'a',
+        { href: options.preview ? `/topics/${topic.id}/preview` : 'TODO' },
+        topic ? topic.name : article.topic,
+      ),
     ]),
   ])
 }
@@ -310,7 +314,7 @@ const ArticleFootnotes = ({ footnotes }) => {
   ])
 }
 
-const ArticleSeeAlso = ({ article, resources }) => {
+const ArticleSeeAlso = ({ article, resources, options }) => {
   const seeAlsos = article.metas.find(m => m.type === 'related')
   if (!seeAlsos) return null
 
@@ -325,21 +329,29 @@ const ArticleSeeAlso = ({ article, resources }) => {
       ({ article, image }, i) =>
         article &&
         h('div.col-sm-6', { key: i }, [
-          h('a.thumbnail', { href: '#' }, [
-            image && h(Img, { src: getImageUrl(image, 'small', '1x') }),
-            h('h3', article.title),
-          ]),
+          h(
+            'a.thumbnail',
+            {
+              href: options.preview
+                ? `/resources/${article.id}/preview`
+                : 'TODO',
+            },
+            [
+              image && h(Img, { src: getImageUrl(image, 'small', '1x') }),
+              h('h3', article.title),
+            ],
+          ),
         ]),
     ),
   ])
 }
 
-const ArticleFooter = ({ article, resources }) =>
+const ArticleFooter = ({ article, resources, options }) =>
   h('footer.footer-article', [
     h(ArticleKeywords, { keywords: article.keywords }),
     h(ArticleQuote, { article }),
     h(ArticleFootnotes, { footnotes: article.footnotes }),
-    h(ArticleSeeAlso, { article, resources }),
+    h(ArticleSeeAlso, { article, resources, options }),
   ])
 
 const ArticleLexicon = ({ article, definitions }) => {
@@ -386,11 +398,11 @@ const NavTopics = () =>
 class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
     lexiconId = 0
-    const { article, topics, definitions, resources } = this.props
+    const { article, topics, definitions, resources, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
-      h(Body, { topics }, [
-        h(Article, { article, topics, definitions, resources }),
+      h(Body, { topics, options }, [
+        h(Article, { article, topics, definitions, resources, options }),
         h(NavTopics),
       ]),
     ])

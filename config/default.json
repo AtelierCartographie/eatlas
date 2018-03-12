@@ -5,6 +5,7 @@
 		"secure": false
 	},
 	"publicUrl": "http://localhost:3000",
+	"//clientPath": "Relative to server's root or absolute",
 	"clientPath": "../client",
 	"es": {
 		"connection": {
@@ -49,8 +50,8 @@
 		"level": "info",
 		"src": false
 	},
+	"uploadPath": "./data/uploads",
 	"publicPath": {
-		"~": "path relative to server's root (if not absolute)",
 		"image": "$clientPath/public/media/images",
 		"map": "$clientPath/public/media/maps",
 		"sound": "$clientPath/public/media/sounds"

@@ -208,6 +208,7 @@ docker-compose -f docker-compose.prod.yml up -d
 | Impossible de se connecter après l'installation             | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_api_1 yarn add-user <email> <name> admin`                               |
 | Les pages semblent charger indéfiniment                     | - Regarder dans les logs de l'API : `docker logs eatlas_api_1`                                                                            |
 |                                                             | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `DISABLE_CORS=1` dans `docker-config.env` |
+| Vérifier la configuration du serveur node                   | `docker exec eatlas_api_1 node -p "require('config')"`                                                                                    |
 
 ### Arrêt et journaux
 

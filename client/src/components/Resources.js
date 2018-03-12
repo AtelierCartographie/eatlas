@@ -27,6 +27,7 @@ import IconButton from './IconButton'
 import Icon from './Icon'
 import Confirm from './Confirm'
 import ResourcesPreviewArticle from './ResourcesArticlePreview'
+import VimeoIframe from './VimeoIframe'
 
 import type { ContextRouter } from 'react-router'
 
@@ -136,17 +137,7 @@ export const renderPreview = (resource: Resource) => {
   }
 
   if (resource.type === 'video') {
-    // $FlowFixMe: not undefined
-    const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
-    return (
-      <iframe
-        className="preview"
-        title={resource.title}
-        src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`}
-        frameBorder="0"
-        allowFullScreen
-      />
-    )
+    return <VimeoIframe url={resource.mediaUrl} title={resource.title} />
   }
 
   if (resource.type === 'sound' && resource.file) {

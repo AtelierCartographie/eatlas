@@ -132,6 +132,7 @@ class TopicForm extends Component<Props, State> {
                   placeholder="video"
                   value={topic.mediaUrl}
                   onChange={this.handleChange}
+                  required
                 />
               </div>
             </div>

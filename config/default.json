@@ -50,8 +50,12 @@
 		"level": "info",
 		"src": false
 	},
+	"//uploadPath": "Unpublished files are in this folder, named <id>*.<ext>",
 	"uploadPath": "./data/uploads",
+	"//publicPath": "Published files are in those folders",
 	"publicPath": {
+		"article": "$clientPath/public/article",
+		"focus": "$clientPath/public/focus",
 		"image": "$clientPath/public/media/images",
 		"map": "$clientPath/public/media/maps",
 		"sound": "$clientPath/public/media/sounds"

@@ -1,15 +1,13 @@
 'use strict'
 
-const Boom = require('boom')
 const merge = require('lodash.merge')
 
 const { resources, topics } = require('../model')
 const schemas = require('../schemas')
-const { parseDocx } = require('../doc-parser')
-const { parseLexicon } = require('../lexicon-parser')
-const { saveMedia } = require('../public-fs')
 const { generateArticleHTML } = require('../html-generator')
 const { download } = require('../google')
+const { updateFilesLocations } = require('../public-fs')
+const uploadManagers = require('../upload-managers')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -34,14 +32,12 @@ exports.update = async (req, res) => {
   delete baseData.uploads
   delete baseData.accessToken
 
-  const body = Object.assign(
-    { id: req.foundResource.id, type: req.foundResource.type, uploads: [] },
-    req.body,
-  )
+  const body = Object.assign({}, req.foundResource, { uploads: [] }, req.body)
   // TODO handle upload deletion
   handleUploads(body, false)
     .then(data => merge(baseData, data))
     .then(updates => resources.update(req.foundResource.id, updates))
+    .then(updateFilesLocations)
     .then(resource => res.send(resource))
     .catch(res.boom.send)
 }
@@ -70,6 +66,7 @@ exports.add = (req, res) => {
 
   resources
     .create(baseData)
+    .then(updateFilesLocations)
     .then(resource => res.send(resource))
     .catch(
       err =>
@@ -87,6 +84,7 @@ exports.addFromGoogle = (req, res) => {
   handleUploads(req.body, true)
     .then(data => merge(baseData, data))
     .then(resources.create)
+    .then(updateFilesLocations)
     .then(resource => res.send(resource))
     .catch(
       err =>
@@ -183,67 +181,17 @@ const flattenMetas = article => {
   }
 }
 
-const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
-
-const expectUploadKeys = (uploads, test) => {
-  uploads.forEach(u => {
-    if (!test(u.key)) {
-      throw new Error('invalid upload key "' + u.key + '"')
-    }
-  })
-}
-
 // Returns additional metadata to be merged into resource before creation
 const handleUploads = async (body, required) => {
   const { uploads, type, accessToken } = body
   const newUploads = uploads.filter(u => !!u.fileId)
 
+  const { validate, save } = uploadManagers[type]
+
   // Validate input
   // TODO check mime-type too
   // TODO structure validation may go in a Joi schema with when 'n co, but it may make it too complex (it's enough already)
-  switch (type) {
-    case 'article': {
-      expectUploadKeys(uploads, k => k === 'article')
-      if (required && newUploads.length !== 1) {
-        throw Boom.badRequest('Upload: expecting a single "article" document')
-      }
-      break
-    }
-    case 'map': {
-      expectUploadKeys(uploads, k => k === 'map')
-      if (required && newUploads.length !== 1) {
-        throw Boom.badRequest('Upload: expecting a single "map" document')
-      }
-      break
-    }
-    case 'image': {
-      expectUploadKeys(uploads, k => k.match(RE_IMAGE_UPLOAD_KEY))
-      // Mandatory sizes
-      if (
-        required &&
-        !newUploads.filter(u => u.key.match(/^image-/)).length > 0
-      ) {
-        throw Boom.badRequest('Upload: required at least one document')
-      }
-      break
-    }
-    case 'sound': {
-      expectUploadKeys(uploads, k => k === 'sound')
-      if (required && newUploads.length !== 1) {
-        throw Boom.badRequest('Upload: expecting a single "sound" document')
-      }
-      break
-    }
-    case 'definition': {
-      expectUploadKeys(uploads, k => k === 'lexicon')
-      if (required && newUploads.length !== 1) {
-        throw Boom.badRequest('Upload: expecting a single "lexicon" document')
-      }
-      break
-    }
-    default:
-      throw Boom.notImplemented()
-  }
+  validate({ newUploads, required, type, uploads })
 
   // Fetch contents
   const buffers = await Promise.all(
@@ -255,73 +203,6 @@ const handleUploads = async (body, required) => {
     upload.buffer = buffers[index]
   })
 
-  switch (type) {
-    case 'article': {
-      const upload = newUploads.find(u => u.key === 'article')
-      if (!upload) {
-        return null
-      }
-      // Deletion
-      if (!upload.buffer) {
-        return { file: null }
-      }
-      return parseDocx(upload.buffer)
-    }
-    case 'map': {
-      const upload = newUploads.find(u => u.key === 'map')
-      if (!upload) {
-        return null
-      }
-      // Deletion
-      if (!upload.buffer) {
-        // TODO actually delete file
-        return { file: null }
-      }
-      const file = await saveMedia(body)(upload)
-      return { file }
-    }
-    case 'image': {
-      // Save new uploads
-      const files = await Promise.all(newUploads.map(saveMedia(body)))
-      const images = {}
-      // Handle *all* uploads (deletions included)
-      uploads.forEach(({ key }, index) => {
-        const [, size, density] = key.match(RE_IMAGE_UPLOAD_KEY)
-        if (!images[size]) {
-          images[size] = {}
-        }
-        images[size][density] = files[index] || null
-        // TODO actually delete files
-      })
-      return { images }
-    }
-    case 'sound': {
-      const upload = newUploads.find(u => u.key === 'sound')
-      if (!upload) {
-        return null
-      }
-      // Deletion
-      if (!upload.buffer) {
-        // TODO actually delete file
-        return { file: null }
-      }
-      const file = await saveMedia(body)(upload)
-      return { file }
-    }
-    case 'definition': {
-      const upload = newUploads.find(u => u.key === 'lexicon')
-      if (!upload) {
-        return null
-      }
-      // Deletion? Nope, delete the whole resource then
-      if (!upload.buffer) {
-        throw new Error(
-          'Cannot unselect file for lexicon, you must remove the whole resource',
-        )
-      }
-      return parseLexicon(upload.buffer)
-    }
-    default:
-      throw Boom.notImplemented()
-  }
+  // Now handle the actual content to be injected in resource, by parsing buffer
+  return save({ type, newUploads, body, uploads })
 }

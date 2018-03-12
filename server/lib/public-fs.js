@@ -19,12 +19,25 @@ exports.saveMedia = ({ id, type }) => async ({ mimeType, key, buffer }) => {
     throw new Error('Unknown mime type "' + mimeType + '"')
   }
 
-  const absFileDir = path.resolve(__dirname, '..', fileDir)
   const fileName = id + '-' + key + '.' + extension
+  await saveAs(fileName, fileDir, buffer)
+
+  return fileName
+}
+
+const saveAs = async (fileName, fileDir, buffer) => {
+  const absFileDir = path.resolve(__dirname, '..', fileDir)
   const absFilePath = path.join(absFileDir, fileName)
 
   await ensureDir(absFileDir)
   await writeFile(absFilePath, buffer)
-
-  return fileName
 }
+
+exports.updateFilesLocations = async resource =>
+  resource.status === 'published' ? publish(resource) : unpublish(resource)
+
+// Publish files = copy to publicPath
+const publish = async resource => resource
+
+// Unpublish files = remove from publicPath
+const unpublish = async resource => resource

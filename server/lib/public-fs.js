@@ -1,15 +1,13 @@
 'use strict'
 
-const config = require('config')
 const mime = require('mime')
 const { writeFile, ensureDir } = require('fs-extra')
 const path = require('path')
+const { publishArticle, unpublishArticle } = require('./publish-article')
+const dynamicConfVar = require('./dynamic-config-variable')
 
 exports.saveMedia = ({ id, type }) => async ({ mimeType, key, buffer }) => {
-  const fileDir = config.publicPath[type].replace(
-    /\$clientPath/,
-    config.clientPath,
-  )
+  const fileDir = dynamicConfVar('publicPath.' + type)
   if (!fileDir) {
     throw new Error('Unknown storage directory for this type "' + type + '"')
   }
@@ -37,7 +35,15 @@ exports.updateFilesLocations = async resource =>
   resource.status === 'published' ? publish(resource) : unpublish(resource)
 
 // Publish files = copy to publicPath
-const publish = async resource => resource
+const publish = async resource => {
+  if (resource.type === 'article' || resource.type === 'focus') {
+    return publishArticle(resource)
+  }
+}
 
 // Unpublish files = remove from publicPath
-const unpublish = async resource => resource
+const unpublish = async resource => {
+  if (resource.type === 'article' || resource.type === 'focus') {
+    return unpublishArticle(resource)
+  }
+}

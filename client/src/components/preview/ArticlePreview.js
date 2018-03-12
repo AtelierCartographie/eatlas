@@ -9,6 +9,8 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
+const Head = require('./Head')
+
 const HOST = process.env.REACT_APP_PUBLIC_URL || ''
 
 let lexiconId
@@ -50,11 +52,7 @@ const Img = ({ className, alt, src }) =>
 
 const Script = ({ src }) => h('script', { src: `${HOST}${src}` })
 
-const StyleSheet = ({ href }) =>
-  h('link', { rel: 'stylesheet', href: `${HOST}${href}` })
-
 const ArticleTitle = ({ article, resources }) => {
-  const title = article.metas.find(m => m.type === 'title')
   const publishedAt = !article.publishedAt
     ? null
     : h('p', [
@@ -75,7 +73,7 @@ const ArticleTitle = ({ article, resources }) => {
       }
     : {}
   return h('header.headerwrap', { style }, [
-    h('div.container.header-info', [h('h1', title.text), h('br'), publishedAt]),
+    h('div.container.header-info', [h('h1', article.title), h('br'), publishedAt]),
   ])
 }
 
@@ -381,41 +379,6 @@ const Article = props =>
     h(ArticleLexicon, props),
   ])
 
-const Head = ({ article }) => {
-  const title = article.metas.find(m => m.type === 'title')
-  return h('head', [
-    h('meta', { charSet: 'utf-8' }),
-    h('meta', { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' }),
-    h('meta', {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1',
-    }),
-    h('title', `${title.text} - eAtlas`),
-    h('link', {
-      rel: 'stylesheet',
-      href:
-        'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css',
-    }),
-    h('link', {
-      rel: 'stylesheet',
-      href:
-        'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css',
-    }),
-    h(StyleSheet, { href: '/assets/css/main-v3.css' }),
-    h(StyleSheet, { href: '/assets/css/nav.css' }),
-    h('link', {
-      rel: 'stylesheet',
-      href:
-        'https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i',
-    }),
-    h('link', {
-      rel: 'stylesheet',
-      href:
-        'https://fonts.googleapis.com/css?family=Gentium+Basic:400,400i,700,700i',
-    }),
-  ])
-}
-
 // at the top
 const NavBar = () =>
   h('nav.navbar.navbar-default.navbar-static-top.navbar-logo', [
@@ -610,7 +573,7 @@ class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[],
     lexiconId = 0
     const { article, topics, definitions, resources } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { article, resources }),
+      h(Head, { title: article.title }),
       h(Body, { article, topics, definitions, resources }),
     ])
   }

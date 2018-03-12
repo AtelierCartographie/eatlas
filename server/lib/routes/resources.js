@@ -112,9 +112,8 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
-    req.foundResource.resources = await resources.list()
     const html = generateArticleHTML(
-      req.foundResource,
+      flattenMetas(req.foundResource),
       (await topics.list()).sort((a, b) => a.id > b.id),
       await getDefinitions(),
       await getResources(req.foundResource, !!req.query.published),
@@ -125,6 +124,8 @@ exports.preview = async (req, res, next) => {
   }
 }
 
+// metas helpers
+
 const getMeta = (article, type) => article.metas.find(m => m.type === type)
 const getMetaList = (article, type) => {
   const found = getMeta(article, type)
@@ -134,6 +135,7 @@ const getMetaText = (article, type) => {
   const found = getMeta(article, type)
   return found ? found.text : null
 }
+
 const getResources = async (article, excludeUnpublished = false) => {
   const ids = []
     .concat(
@@ -165,6 +167,13 @@ const getDefinitions = async () => {
     (definitions, lexicon) => definitions.concat(lexicon.definitions),
     [],
   )
+}
+
+const flattenMetas = article => {
+  return {
+    ...article,
+    title: getMetaText(article, 'title'),
+  }
 }
 
 const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/

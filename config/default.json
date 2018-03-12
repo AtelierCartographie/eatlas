@@ -59,5 +59,9 @@
 		"image": "$clientPath/public/media/images",
 		"map": "$clientPath/public/media/maps",
 		"sound": "$clientPath/public/media/sounds"
+	},
+	"htmlFileName": {
+		"article": "$id.html",
+		"focus": "$id.html"
 	}
 }

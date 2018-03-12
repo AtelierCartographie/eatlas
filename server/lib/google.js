@@ -9,9 +9,11 @@ const debug = require('debug')('eatlas:google')
 const client = new OAuth2(conf.clientId)
 
 exports.verify = promisify((idToken, cb) =>
-  client.verifyIdToken(idToken, null, cb).catch(err => {
-    debug('Verify ID Token failed', err)
-    throw err
+  client.verifyIdToken(idToken, null, (err, result) => {
+    if (err) {
+      debug('Verify ID Token failed', err)
+    }
+    cb(err, result)
   }),
 )
 

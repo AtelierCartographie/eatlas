@@ -1,9 +1,6 @@
 // @flow
 const h = require('react-hyperscript')
-const HOST = process.env.REACT_APP_PUBLIC_URL || ''
-
-const StyleSheet = ({ href }) =>
-  h('link', { rel: 'stylesheet', href: `${HOST}${href}` })
+const { StyleSheet } = require('./Tags')
 
 module.exports = ({ title }) => {
   return h('head', [

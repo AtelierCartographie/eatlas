@@ -9,26 +9,14 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
+const { Script, Img } = require('./Tags')
 const Head = require('./Head')
+const Footer = require('./Footer')
+const { resourcesTypes, aPropos } = require('./layout')
 
 const HOST = process.env.REACT_APP_PUBLIC_URL || ''
 
 let lexiconId
-
-const resourcesTypes = [
-  'Cartes et diagrammes',
-  'Photos et vidéos',
-  'Focus',
-  'Lexique',
-  'Références',
-]
-
-const aPropos = [
-  'Qui somme nous ?',
-  'Nous contacter',
-  'Mentions légales',
-  'Plan du site',
-]
 
 const getImageUrl = ({ images }, size = 'medium', density = '1x') => {
   const file = images && images[size] && images[size][density]
@@ -46,11 +34,6 @@ const srcset = (image, size) => {
     image3 ? image3 + ' 3x,' : '',
   ].join('\n')
 }
-
-const Img = ({ className, alt, src }) =>
-  h('img', { className, alt, src: `${HOST}${src}` })
-
-const Script = ({ src }) => h('script', { src: `${HOST}${src}` })
 
 const ArticleTitle = ({ article, resources }) => {
   const publishedAt = !article.publishedAt
@@ -484,67 +467,6 @@ const NavTopics = () =>
     ]),
   ])
 
-const NavFooter = ({ topics }) =>
-  h('div.table-content-bg', [
-    h('footer.footer-page', [
-      h('div.container', [
-        h('div.row', [
-          h('section.col-xs-6.col-sm-4', [
-            h('h3', 'Sommaire'),
-            h('nav', [
-              h(
-                'ul',
-                topics.map(t =>
-                  h('li', { key: t.id }, [
-                    h('a', [
-                      h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }),
-                      t.name,
-                    ]),
-                  ]),
-                ),
-              ),
-            ]),
-          ]),
-          h('section.col-xs-6.col-sm-4', [
-            h('h3', 'Resources'),
-            h('nav', [
-              h(
-                'ul',
-                resourcesTypes.map((r, i) => h('li', { key: i }, [h('a', r)])),
-              ),
-            ]),
-          ]),
-          h('section.col-xs-6.col-sm-4', [
-            h('h3', 'À propos'),
-            h('nav', [
-              h('ul', aPropos.map((a, i) => h('li', { key: i }, [h('a', a)]))),
-            ]),
-          ]),
-        ]),
-        h('section.row.footer-logo', [
-          h('div.col-xs-6.col-sm-4', [
-            h('a', [
-              h(Img, {
-                className: 'img-responsive',
-                alt: 'Sciences Po - Atelier de cartographie',
-                src: '/assets/img/logo-Atelier-NB.svg',
-              }),
-            ]),
-          ]),
-          h('div.col-xs-6.col-sm-4'),
-          h('div.col-xs-6.col-sm-4', [
-            h('a', [
-              h(Img, {
-                className: 'img-responsive',
-                alt: 'Sciences Po - Bibliothèque',
-                src: '/assets/img/logo-Bibli-NB.svg',
-              }),
-            ]),
-          ]),
-        ]),
-      ]),
-    ]),
-  ])
 
 const Body = props =>
   h('body', [
@@ -553,7 +475,7 @@ const Body = props =>
     h(NavMenuToggle),
     h(Article, props),
     h(NavTopics, props),
-    h(NavFooter, props),
+    h(Footer, props),
     h('script', {
       src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
     }),

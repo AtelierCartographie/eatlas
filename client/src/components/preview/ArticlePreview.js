@@ -260,13 +260,12 @@ const ArticleNodes = ({ article, resources }) => {
   })
 }
 
-const ArticleKeywords = ({ article }) => {
-  const keywords = article.metas.find(m => m.type === 'keywords')
+const ArticleKeywords = ({ keywords }) => {
   if (!keywords) return null
 
   return h('section.container.article-keyword', [
     h('h2', 'Mots-clés'),
-    h('p', keywords.list.map((kw, i) => h('a', { key: i }, kw.text))),
+    h('p', keywords.map((kw, i) => h('a', { key: i }, kw.text))),
   ])
 }
 
@@ -295,14 +294,13 @@ const ArticleQuote = ({ article }) => {
   ])
 }
 
-const ArticleNotes = ({ article }) => {
-  const notes = article.nodes.find(n => n.type === 'footnotes')
-  if (!notes) return null
+const ArticleFootnotes = ({ footnotes }) => {
+  if (!footnotes) return null
 
   return h('section.container.article-footnotes', [
     h('h2', 'Notes'),
     h('ol', [
-      notes.list.map((n, k) =>
+      footnotes.map((n, k) =>
         h('li', { id: `footnote-${k + 1}`, key: k }, [
           h('a', { href: `#note-${k + 1}` }, '^'),
           n.text,
@@ -336,12 +334,12 @@ const ArticleSeeAlso = ({ article, resources }) => {
   ])
 }
 
-const ArticleFooter = props =>
+const ArticleFooter = ({ article, resources }) =>
   h('footer.footer-article', [
-    h(ArticleKeywords, props),
-    h(ArticleQuote, props),
-    h(ArticleNotes, props),
-    h(ArticleSeeAlso, props),
+    h(ArticleKeywords, { keywords: article.keywords }),
+    h(ArticleQuote, { article }),
+    h(ArticleFootnotes, { footnotes: article.footnotes }),
+    h(ArticleSeeAlso, { article, resources }),
   ])
 
 const ArticleLexicon = ({ article, definitions }) => {

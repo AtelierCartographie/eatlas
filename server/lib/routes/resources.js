@@ -125,7 +125,11 @@ exports.preview = async (req, res, next) => {
 }
 
 // metas helpers
-
+const getNode = (article, type) => article.nodes.find(m => m.type === type)
+const getNodeList = (article, type) => {
+  const found = getNode(article, type)
+  return (found && found.list) || []
+}
 const getMeta = (article, type) => article.metas.find(m => m.type === type)
 const getMetaList = (article, type) => {
   const found = getMeta(article, type)
@@ -173,6 +177,8 @@ const flattenMetas = article => {
   return {
     ...article,
     title: getMetaText(article, 'title'),
+    keywords: getMetaList(article, 'keywords'),
+    footnotes: getNodeList(article, 'footnotes')
   }
 }
 

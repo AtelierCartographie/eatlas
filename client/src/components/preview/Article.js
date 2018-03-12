@@ -65,7 +65,7 @@ const srcset = (image, size) => {
 
 const ArticleTitle = ({ article, resources }) => {
   const publishedAt = !article.publishedAt
-    ? null
+    ? h('p', 'Non publié')
     : h('p', [
         h('em', [
           'Publié le ',

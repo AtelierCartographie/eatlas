@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && node-sass src/components/preview/index.scss -o public",
+    "build": "react-scripts build && node-sass src/components/preview/*.scss -o public",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",

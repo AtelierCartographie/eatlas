@@ -1,0 +1,74 @@
+// topic page
+
+$topic-space: 8px;
+
+.TopicHeader {
+  background: #5e6776;
+  color: rgba(255,255,255,.9);
+  padding-bottom: 3 * $topic-space;
+
+  .TopicId {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 120px;
+    font-weight: bold;
+    line-height: 120px;
+    margin-top: 90px;
+  }
+
+  .TopicName {
+    font-family: 'Gentium Basic', serif;
+    font-size: 70px;
+    font-style: italic;
+    line-height: 70px;
+  }
+
+  // video
+  iframe {
+    height: 400px;
+    width: 100%;
+  }
+}
+
+.Topic {
+  .ArticleList {
+    list-style: none;
+    margin-bottom: 3 * $topic-space;
+    margin-top: 0;
+
+    li {
+      display: flex;
+      margin-top: 3 * $topic-space;
+    }
+
+    img {
+      background: #ccc;
+      display: block;
+      flex-shrink: 0;
+      height: 192px;
+      margin-right: 2 * $topic-space;
+      width: 288px;
+    }
+
+    a {
+      color: #333;
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 21px;
+      font-weight: bold;
+      line-height: 24px;
+      text-decoration: none;
+    }
+
+    .publishedAt {
+      font-family: 'Gentium Basic', serif;
+      font-size: 15.8px;
+      font-style: italic;
+      line-height: 24px;
+    }
+
+    .summary {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 15.8px;
+      line-height: 24px;
+    }
+  }
+}

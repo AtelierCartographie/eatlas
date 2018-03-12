@@ -24,30 +24,51 @@ const TopicVideo = ({ url }) => {
 }
 
 const TopicHeader = ({ topic }) => {
-  return h('section.container', [
-    h('h1', `${topic.id} ${topic.name}`),
-    h('div', [h(TopicVideo, { url: topic.mediaUrl })]),
+  return h('header.TopicHeader', [
+    h('.container', [
+      h('h1', [h('.TopicId', topic.id), h('.TopicName', topic.name)]),
+      h('div', [h(TopicVideo, { url: topic.mediaUrl })]),
+    ]),
   ])
 }
 
 const ArticleList = ({ articles, options }) => {
   if (!articles || !articles.length) return null
   return h(
-    'ul',
-    articles.map(a =>
-      h('li', [
-        h(
-          'a',
-          { href: options.preview ? `/resources/${a.id}/preview` : 'TODO' },
-          a.title,
-        ),
-      ]),
-    ),
+    'ul.container.ArticleList',
+    articles.map(a => {
+      // TODO hydrate summary before
+      const summaryMeta = a.metas.find(m => m.type === 'summary-fr')
+      const summary = summaryMeta ? summaryMeta.text : ''
+
+      return h('li', [
+        h('img'),
+        h('div', [
+          h(
+            'a',
+            { href: options.preview ? `/resources/${a.id}/preview` : 'TODO' },
+            a.title,
+          ),
+          h('.publishedAt', !a.publishedAt ? 'Pas encore publié' : [
+            'Publié le',
+            h(
+              'time',
+              { dateTime: a.publishedAt },
+              moment(a.publishedAt).format('D MMMM YYYY'),
+            ),
+          ]),
+          h(
+            '.summary',
+            summary
+          ),
+        ]),
+      ])
+    }),
   )
 }
 
 const Topic = ({ topic, topics, articles, options }) => {
-  return h('article.topic', [
+  return h('article.Topic', [
     h(TopicHeader, { topic }),
     h(ArticleList, { articles, options }),
   ])

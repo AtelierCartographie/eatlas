@@ -8,6 +8,7 @@
     "dev": "run-p dev:*",
     "dev:client": "cd client && yarn start",
     "dev:server": "cd server && yarn dev",
+    "dev:sass": "cd client && yarn sass",
     "test": "run-p test:*",
     "test:client": "cd client && yarn test",
     "test:server": "cd server && yarn test",

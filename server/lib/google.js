@@ -4,11 +4,15 @@ const { auth: { OAuth2 } } = require('googleapis')
 const { google: conf } = require('config')
 const { promisify } = require('util')
 const request = require('request-promise-native')
+const debug = require('debug')('eatlas:google')
 
 const client = new OAuth2(conf.clientId)
 
 exports.verify = promisify((idToken, cb) =>
-  client.verifyIdToken(idToken, null, cb),
+  client.verifyIdToken(idToken, null, cb).catch(err => {
+    debug('Verify ID Token failed', err)
+    throw err
+  }),
 )
 
 const getFileUrl = (fileId, type, mimeType) => {
@@ -25,5 +29,8 @@ const getFileUrl = (fileId, type, mimeType) => {
 exports.download = async (fileId, type, mimeType, accessToken) => {
   const url = getFileUrl(fileId, type, mimeType)
   const options = { encoding: null, auth: { bearer: accessToken } }
-  return request(url, options)
+  return request(url, options).catch(err => {
+    debug('Download failed', err)
+    throw err
+  })
 }

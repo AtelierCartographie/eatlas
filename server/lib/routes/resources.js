@@ -110,7 +110,7 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
-    const html = generateArticleHTML(req.foundResource, { preview: true })
+    const html = await generateArticleHTML(req.foundResource, { preview: true })
     res.send(html)
   } catch (err) {
     next(err)

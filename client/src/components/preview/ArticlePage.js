@@ -105,25 +105,21 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
   ])
 }
 
-const ArticleSummary = ({ article }) => {
-  const summaries = {
-    fr: article.metas.find(m => m.type === 'summary-fr'),
-    en: article.metas.find(m => m.type === 'summary-en'),
-  }
-  return h('section.container.resume', [
+const ArticleSummaries = ({ article }) =>
+  h('section.container.resume', [
     h('div.tab-content', [
       h('div.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('p', summaries.fr.text),
+        h('p', article.summaries.fr),
       ]),
-      !summaries.en
+      !article.summaries.en
         ? null
         : h('div.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('p', summaries.en.text),
+            h('p', article.summaries.en),
           ]),
     ]),
-    !summaries.en
+    !article.summaries.en
       ? null
       : h('div.resume-select', [
           h('ul.nav.nav-pills', { role: 'tablist' }, [
@@ -155,7 +151,6 @@ const ArticleSummary = ({ article }) => {
         ]),
     h('hr'),
   ])
-}
 
 // first parse lexicon, then footnotes
 const ArticleP = ({ p }) => {
@@ -354,8 +349,8 @@ const ArticleFooter = ({ article, resources, options }) =>
     h(ArticleSeeAlso, { article, resources, options }),
   ])
 
-const ArticleLexicon = ({ article, definitions }) => {
-  return h(
+const ArticleLexicon = ({ article, definitions }) =>
+  h(
     'section.article-def',
     article.nodes
       .reduce(
@@ -369,13 +364,12 @@ const ArticleLexicon = ({ article, definitions }) => {
         ]),
       ),
   )
-}
 
 const Article = props =>
   h('article.article', [
     h(ArticleTitle, props),
     h(ArticleBreadcrumb, props),
-    h(ArticleSummary, props),
+    h(ArticleSummaries, props),
     h(ArticleNodes, props),
     h(ArticleFooter, props),
     h(ArticleLexicon, props),

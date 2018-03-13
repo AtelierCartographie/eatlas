@@ -17,6 +17,20 @@ exports.generateArticleHTML = async (resource, options) => {
 exports.articleFileName = resource =>
   dynamicConfVar('htmlFileName.' + resource.type, resource)
 
+// smoosh nested info to provide direct access in React components
+const flattenMetas = exports.flattenMetas = article => {
+  return {
+    ...article,
+    title: getMetaText(article, 'title'),
+    summaries: {
+      en: getMetaText(article, 'summary-en'),
+      fr: getMetaText(article, 'summary-fr'),
+    },
+    keywords: getMetaList(article, 'keywords'),
+    footnotes: getNodeList(article, 'footnotes'),
+  }
+}
+
 const getNode = (article, type) => article.nodes.find(m => m.type === type)
 const getNodeList = (article, type) => {
   const found = getNode(article, type)
@@ -65,11 +79,3 @@ const getDefinitions = async () => {
   )
 }
 
-const flattenMetas = article => {
-  return {
-    ...article,
-    title: getMetaText(article, 'title'),
-    keywords: getMetaList(article, 'keywords'),
-    footnotes: getNodeList(article, 'footnotes'),
-  }
-}

@@ -36,12 +36,8 @@ const ArticleList = ({ articles, options }) => {
   if (!articles || !articles.length) return null
   return h(
     'ul.container.ArticleList',
-    articles.map(a => {
-      // TODO hydrate summary before
-      const summaryMeta = a.metas.find(m => m.type === 'summary-fr')
-      const summary = summaryMeta ? summaryMeta.text : ''
-
-      return h('li', [
+    articles.map(a =>
+      h('li', [
         h('img'),
         h('div', [
           h(
@@ -49,21 +45,23 @@ const ArticleList = ({ articles, options }) => {
             { href: options.preview ? `/resources/${a.id}/preview` : 'TODO' },
             a.title,
           ),
-          h('.publishedAt', !a.publishedAt ? 'Pas encore publié' : [
-            'Publié le',
-            h(
-              'time',
-              { dateTime: a.publishedAt },
-              moment(a.publishedAt).format('D MMMM YYYY'),
-            ),
-          ]),
           h(
-            '.summary',
-            summary
+            '.publishedAt',
+            !a.publishedAt
+              ? 'Pas encore publié'
+              : [
+                  'Publié le',
+                  h(
+                    'time',
+                    { dateTime: a.publishedAt },
+                    moment(a.publishedAt).format('D MMMM YYYY'),
+                  ),
+                ],
           ),
+          h('.summary', a.summaries.fr),
         ]),
-      ])
-    }),
+      ]),
+    ),
   )
 }
 

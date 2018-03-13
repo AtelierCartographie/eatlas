@@ -2,6 +2,7 @@
 
 const { topics, resources } = require('../model')
 const { generateTopicHTML } = require('../html-generator')
+const { flattenMetas } = require('../article-utils')
 
 exports.list = (req, res) =>
   topics
@@ -59,5 +60,5 @@ const getArticles = async (topic, excludeUnpublished = false) => {
   // TODO handle query ES side
   return (await resources.list()).filter(
     r => r.type === 'article' && r.topic == topic.id,
-  )
+  ).map(flattenMetas)
 }

@@ -40,31 +40,38 @@ const ArticleList = ({ articles, resources, options }) => {
     'ul.container.ArticleList',
     articles.map(a => {
       const imageHeader = getResource(resources, a.imageHeader)
-      // TODO small
-      const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
       return h('li', [
-        h('img', { alt: (imageHeader || {}).title, src: imageHeaderUrl }),
-        h('div', [
-          h(
-            'a',
-            { href: options.preview ? `/resources/${a.id}/preview` : 'TODO' },
-            a.title,
-          ),
-          h(
-            '.publishedAt',
-            !a.publishedAt
-              ? 'Pas encore publié'
-              : [
-                  'Publié le',
-                  h(
-                    'time',
-                    { dateTime: a.publishedAt },
-                    moment(a.publishedAt).format('D MMMM YYYY'),
-                  ),
-                ],
-          ),
-          h('.summary', a.summaries.fr),
-        ]),
+        h(
+          'a',
+          { href: options.preview ? `/resources/${a.id}/preview` : 'TODO' },
+          [
+            h('img', {
+              alt: '',
+              style: {
+                backgroundImage:
+                  imageHeader &&
+                  `url(${getImageUrl(imageHeader, 'large', '1x')})`,
+              },
+            }),
+            h('.ArticleListInfo', [
+              h('.ArticleListTitle', a.title),
+              h(
+                '.publishedAt',
+                !a.publishedAt
+                  ? 'Pas encore publié'
+                  : [
+                      'Publié le',
+                      h(
+                        'time',
+                        { dateTime: a.publishedAt },
+                        moment(a.publishedAt).format('D MMMM YYYY'),
+                      ),
+                    ],
+              ),
+              a.summaries.fr,
+            ]),
+          ],
+        ),
       ])
     }),
   )
@@ -77,7 +84,7 @@ const Topic = ({ topic, topics, articles, resources, options }) => {
   ])
 }
 
-class TopicPreview extends Component {
+class TopicPage extends Component {
   render() {
     const { topic, topics, articles, resources, options } = this.props
     return h('html', { lang: 'fr' }, [
@@ -89,4 +96,4 @@ class TopicPreview extends Component {
   }
 }
 
-module.exports = TopicPreview
+module.exports = TopicPage

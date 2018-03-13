@@ -192,6 +192,7 @@
       color: #333;
       display: flex;
       text-decoration: none;
+      transition: all .2s ease;
     }
 
     img {
@@ -200,6 +201,7 @@
       background-repeat: no-repeat;
       background-size: 100%;
       background-size: cover;
+      border: 0;
       margin-right: 16px;
       height: 72px;
       width: 200px;

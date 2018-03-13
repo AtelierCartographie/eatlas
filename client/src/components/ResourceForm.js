@@ -1070,8 +1070,12 @@ class ResourceForm extends Component<Props, State> {
         }
         break
       case 'video':
-      case 'sound':
         return true
+      case 'sound':
+        if (!docs.sound) {
+          return false
+        }
+        break
       case 'definition':
         if (!docs.lexicon) {
           return false

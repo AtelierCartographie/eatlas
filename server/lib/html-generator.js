@@ -31,7 +31,16 @@ exports.generateArticleHTML = (
   )
 }
 
-exports.generateTopicHTML = (topic, topics, articles, resources, options = { preview: false }) => {
+// TODO @delapouite ;)
+exports.generateFocusHTML = exports.generateArticleHTML
+
+exports.generateTopicHTML = (
+  topic,
+  topics,
+  articles,
+  resources,
+  options = { preview: false },
+) => {
   return wrap(
     React.createElement(TopicPage, {
       topic,

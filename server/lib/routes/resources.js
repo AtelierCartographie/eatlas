@@ -5,7 +5,7 @@ const get = require('lodash.get')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
-const { generateArticleHTML } = require('../article-utils')
+const { generateArticleHTML, generateFocusHTML } = require('../article-utils')
 const { download } = require('../google')
 const { updateFilesLocations } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
@@ -137,8 +137,12 @@ exports.preview = async (req, res, next) => {
         })
         return res.send(html)
       }
-      case 'focus':
-        return res.boom.notImplemented()
+      case 'focus': {
+        const html = await generateFocusHTML(req.foundResource, {
+          preview: true,
+        })
+        return res.send(html)
+      }
       // Binary previews: audio, map and image
       // Note: map and image have multiple files, that can be selected with req.params.f
       case 'map':

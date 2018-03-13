@@ -58,6 +58,16 @@ export const parseArticleDoc = (body: {
     body,
   })
 
+export const parseFocusDoc = (body: {
+  uploads: Upload[],
+  accessToken: string,
+}): Promise<any> =>
+  query({
+    url: '/parse/focus',
+    method: 'POST',
+    body,
+  })
+
 export const parseLexiconDoc = (body: {
   uploads: Upload[],
   accessToken: string,

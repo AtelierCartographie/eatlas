@@ -32,11 +32,25 @@ exports.article = {
 }
 
 exports.focus = {
-  validate() {
-    throw Boom.notImplemented()
+  async save({ newUploads }) {
+    const upload = newUploads.find(u => u.key === 'focus')
+    if (!upload) {
+      return null
+    }
+    // Deletion
+    if (!upload.buffer) {
+      return { file: null }
+    }
+    return parseDocx(upload.buffer)
+  },
+  validate({ required, newUploads, uploads }) {
+    expectUploadKeys(uploads, k => k === 'focus')
+    if (required && newUploads.length !== 1) {
+      throw Boom.badRequest('Upload: expecting a single "focus" document')
+    }
   },
   files() {
-    return [] // No file in uploadPath for articles
+    return [] // No file in uploadPath for focus
   },
 }
 

@@ -21,7 +21,7 @@ import {
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
-import { parseArticleDoc, parseLexiconDoc } from '../api'
+import { parseArticleDoc, parseFocusDoc, parseLexiconDoc } from '../api'
 import ObjectDebug from './ObjectDebug'
 
 const API_SERVER = process.env.REACT_APP_API_SERVER || ''
@@ -529,7 +529,16 @@ class ResourceForm extends Component<Props, State> {
           { subtitle: true },
         )
 
-      //case 'focus': // subtitle: true, copyright: false
+      case 'focus': // subtitle: true, copyright: false
+        return buildFields(
+          [
+            this.getDocField(resource, 'focus', {
+              mandatory: true,
+              onPick: this.onPickFocus,
+            }),
+          ],
+          { subtitle: true, copyright: false },
+        )
 
       case 'map':
         return buildFields(
@@ -857,7 +866,10 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  onPickArticle = async (docs: GoogleDoc[], accessToken: string) => {
+  onPickArticleOrFocus = (key: string) => async (
+    docs: GoogleDoc[],
+    accessToken: string,
+  ) => {
     const doc = docs[0]
     const postParse = (state, parsed) => {
       const getMetaText = type => {
@@ -890,8 +902,12 @@ class ResourceForm extends Component<Props, State> {
       resource.description = foundSummary ? foundSummary.summary : ''
       return { parsed, resource }
     }
-    this.parsePickedDoc('article', parseArticleDoc, postParse, doc, accessToken)
+    const parseDoc = key === 'article' ? parseArticleDoc : parseFocusDoc
+    this.parsePickedDoc(key, parseDoc, postParse, doc, accessToken)
   }
+
+  onPickArticle = this.onPickArticleOrFocus('article')
+  onPickFocus = this.onPickArticleOrFocus('focus')
 
   onPickLexicon = async (doc: GoogleDoc, accessToken: string) => {
     const postParse = (state, parsed) => {
@@ -1056,6 +1072,11 @@ class ResourceForm extends Component<Props, State> {
           return false
         }
         break
+      case 'focus':
+        if (!docs.focus) {
+          return false
+        }
+        break
       case 'map':
         if (!docs.map) {
           return false
@@ -1081,7 +1102,6 @@ class ResourceForm extends Component<Props, State> {
           return false
         }
         break
-      //case 'focus':
       default:
         return null
     }
@@ -1125,6 +1145,15 @@ class ResourceForm extends Component<Props, State> {
 
     if (resource.type === 'article') {
       docs['article'] = {
+        type: 'doc',
+        id: '',
+        mimeType: '',
+        name: resource.title + '.docx',
+      }
+    }
+
+    if (resource.type === 'focus') {
+      docs['focus'] = {
         type: 'doc',
         id: '',
         mimeType: '',

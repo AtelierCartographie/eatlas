@@ -30,6 +30,7 @@ app.put('/users/:id', users.findUser, users.update)
 app.delete('/users/:id', users.findUser, users.remove)
 
 app.post('/parse/article', parsers.article)
+app.post('/parse/focus', parsers.focus)
 app.post('/parse/lexicon', parsers.lexicon)
 
 app.get('/resources', resources.list)

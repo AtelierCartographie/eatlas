@@ -1,8 +1,6 @@
 'use strict'
 
-// TODO focus HTML too
-
-const { generateArticleHTML } = require('./html-generator')
+const { generateArticleHTML, generateFocusHTML } = require('./html-generator')
 const { resources: Resources, topics: Topics } = require('./model')
 const dynamicConfVar = require('./dynamic-config-variable')
 
@@ -25,6 +23,26 @@ exports.generateArticleHTML = async (resource, options) => {
   return generateArticleHTML(article, topics, definitions, resources, options)
 }
 
+exports.generateFocusHTML = async (resource, options) => {
+  const article = flattenMetas(resource)
+  const topics = (await Topics.list()).sort((a, b) => a.id > b.id)
+  const definitions = await getDefinitions()
+  let resources = await getResources(resource, !options || !options.preview)
+
+  // need to retrieve imageHeader for "related" in footer and "related articles" for focus since they transitives deps
+  resources = await Promise.all(
+    resources.map(async r => {
+      if (r.type === 'article') {
+        r.imageHeader = await populateImageHeader(r)
+      }
+      return r
+    }),
+  )
+
+  return generateFocusHTML(article, topics, definitions, resources, options)
+}
+
+// Article or Focus file name
 exports.articleFileName = resource =>
   dynamicConfVar('htmlFileName.' + resource.type, resource)
 

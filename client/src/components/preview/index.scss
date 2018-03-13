@@ -424,7 +424,7 @@ article.focus {
         font-size: 1.6em;
     }
     .btn-figComment {
-        font-size: 1.6em;    
+        font-size: 1.6em;
     }
     .figComment {
         font-size: 1.6em;
@@ -453,6 +453,8 @@ article.focus {
 }
 
 @import 'nav';
+@import 'TopMenu';
 @import 'Footer';
+
 @import 'ArticlePage';
 @import 'TopicPage';

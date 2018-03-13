@@ -82,7 +82,7 @@ class TopicPreview extends Component {
     const { topic, topics, articles, resources, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: topic.name }),
-      h(Body, { topics, options }, [
+      h(Body, { topics, options, topMenu: true }, [
         h(Topic, { topic, topics, articles, resources, options }),
       ]),
     ])

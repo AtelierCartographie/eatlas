@@ -1,0 +1,25 @@
+.TopMenu {
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  z-index: 1;
+
+  ul {
+    display: flex;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: 'Fira Sans', sans-serif;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+
+  button.active {
+    border-bottom: 2px solid white;
+    font-weight: bold;
+  }
+}

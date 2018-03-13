@@ -2,6 +2,7 @@
 
 const h = require('react-hyperscript')
 
+const { TopMenu } = require('./TopMenu')
 const { SideMenu, MenuToggle } = require('./SideMenu')
 const Footer = require('./Footer')
 const { Img, Script } = require('./Tags')
@@ -15,12 +16,13 @@ const NavBar = () =>
     ]),
   ])
 
-module.exports = ({ topics, options, children }) =>
+module.exports = ({ topics, topMenu, options, children }) =>
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : ''}, [
     h(NavBar),
     h(SideMenu, { topics, options }),
     h(MenuToggle),
+    topMenu && h(TopMenu, { topics, options }),
     children,
     h(Footer, { topics, options }),
     h('script', {

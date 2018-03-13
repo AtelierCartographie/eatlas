@@ -50,6 +50,8 @@
 		"level": "info",
 		"src": false
 	},
+	"//publishFileCommand": "'symlink' or 'copy'",
+	"publishFileCommand": "copy",
 	"//uploadPath": "Unpublished files are in this folder, named <id>*.<ext>",
 	"uploadPath": "./data/uploads",
 	"//publicPath": "Published files are in those folders",

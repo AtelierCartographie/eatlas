@@ -14,6 +14,7 @@ const {
   articleFullPath,
 } = require('../lib/publish-article')
 const { exists, copy, unlink } = require('fs-extra')
+const { copyPublic } = require('../lib/public-fs')
 
 const main = async () => {
   const resources = await Resources.list()
@@ -76,7 +77,7 @@ const checkPublishedFile = async (resource, file) => {
     } else {
       // Missing public file
       console.warn('%s: missing public (%s => %s)', resource.id, up, pub)
-      await copy(up, pub)
+      await copyPublic(up, pub)
     }
   } else {
     // oops! no file in 'uploads' dir

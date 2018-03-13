@@ -1,8 +1,16 @@
 'use strict'
 
 const mime = require('mime')
-const { writeFile, ensureDir, copy, unlink, exists } = require('fs-extra')
+const {
+  writeFile,
+  ensureDir,
+  copy,
+  symlink,
+  unlink,
+  exists,
+} = require('fs-extra')
 const path = require('path')
+const config = require('config')
 const { publishArticle, unpublishArticle } = require('./publish-article')
 const getConf = require('./dynamic-config-variable')
 const resourcePath = require('./resource-path')
@@ -36,6 +44,18 @@ const saveAs = async (fileName, fileDir, buffer) => {
 exports.updateFilesLocations = async resource =>
   resource.status === 'published' ? publish(resource) : unpublish(resource)
 
+exports.copyPublic = async (up, pub) => {
+  // TODO check if paths are actually in 'uploadPath' and one of 'publicPaths'?
+  if (config.publishFileCommand === 'symlink') {
+    if (await exists(pub)) {
+      await unlink(pub)
+    }
+    await symlink(up, pub)
+  } else {
+    await copy(up, pub)
+  }
+}
+
 // Publish files = copy to publicPath
 const publish = async resource => {
   if (resource.type === 'article' || resource.type === 'focus') {
@@ -48,7 +68,7 @@ const publish = async resource => {
     getFiles(resource).map(async file => {
       const { up, pub } = resourcePath(resource, file)
       await ensureDir(path.dirname(pub))
-      await copy(up, pub)
+      await exports.copyPublic(up, pub)
     }),
   )
 

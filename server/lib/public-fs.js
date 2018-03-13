@@ -14,6 +14,7 @@ const config = require('config')
 const { publishArticle, unpublishArticle } = require('./publish-article')
 const getConf = require('./dynamic-config-variable')
 const resourcePath = require('./resource-path')
+const debug = require('debug')('eatlas:fs')
 
 // Circular dependency
 let uploadManagers = {}
@@ -37,12 +38,15 @@ const saveAs = async (fileName, fileDir, buffer) => {
   const absFileDir = path.resolve(__dirname, '..', fileDir)
   const absFilePath = path.join(absFileDir, fileName)
 
+  debug('Write', absFilePath)
+
   await ensureDir(absFileDir)
   await writeFile(absFilePath, buffer)
 }
 
 exports.deleteAllFiles = async resource => {
   if (config.keepUploadsOnDelete) {
+    debug('Remove', 'nope: keepUploadsOnDelete is true')
     return resource
   }
   // Delete public files
@@ -52,6 +56,7 @@ exports.deleteAllFiles = async resource => {
   await Promise.all(
     files.map(async file => {
       const { up } = resourcePath(resource, file, { pub: false })
+      debug('Remove', up)
       await unlink(up)
     }),
   )
@@ -67,8 +72,10 @@ exports.copyPublic = async (up, pub) => {
     if (await exists(pub)) {
       await unlink(pub)
     }
+    debug('Symlink', { from: up, to: pub })
     await symlink(up, pub)
   } else {
+    debug('Copy', { from: up, to: pub })
     await copy(up, pub)
   }
 }
@@ -104,6 +111,7 @@ const unpublish = async resource => {
     getFiles(resource).map(async file => {
       const { pub } = resourcePath(resource, file, { up: false })
       if (await exists(pub)) {
+        debug('Remove', pub)
         await unlink(pub)
       }
     }),

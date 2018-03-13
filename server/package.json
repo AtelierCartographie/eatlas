@@ -6,19 +6,13 @@
   "scripts": {
     "test": "mocha --reporter xunit",
     "dev": "run-p dev:*",
-    "dev:services":
-      "docker start eatlas_es_dev eatlas_redis_dev || docker-compose -f ../docker-compose.dev.yml up",
-    "dev:server":
-      "cross-env NODE_CONFIG_DIR='../config' NODE_ENV=development 'DEBUG=eatlas:*,$DEBUG' nodemon server.js -w '.' -w '../client/src/components/preview/*.js' | bunyan -o short",
+    "dev:services": "docker start eatlas_es_dev eatlas_redis_dev || docker-compose -f ../docker-compose.dev.yml up",
+    "dev:server": "cross-env NODE_CONFIG_DIR='../config' NODE_ENV=development 'DEBUG=eatlas:*,$DEBUG' nodemon server.js -w '.' -w '../client/src/components/preview/*.js' | bunyan -o short",
     "dev:test": "mocha --watch --growl --reporter list",
-    "start":
-      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
-    "add-user":
-      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js",
-    "check-files":
-      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/check-files.js",
-    "es-index":
-      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js"
+    "start": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
+    "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js",
+    "check-files": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/check-files.js",
+    "es-index": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",
   "license": "MIT",
@@ -52,6 +46,7 @@
     "fs-extra": "^5.0.0",
     "googleapis": "^24.0.0",
     "joi": "^13.0.2",
+    "lodash": "^4.17.5",
     "lodash.isequal": "^4.5.0",
     "lodash.merge": "^4.6.0",
     "mammoth": "https://github.com/byteclubfr/mammoth.js#color",

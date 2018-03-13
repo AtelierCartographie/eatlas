@@ -53,7 +53,7 @@ const APropos = () =>
     ),
   ])
 
-exports.Menu = ({ topics, options }) =>
+exports.SideMenu = ({ topics, options }) =>
   h(
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },

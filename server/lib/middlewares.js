@@ -55,15 +55,6 @@ exports.validateBody = handler => {
       .catch(err => res.boom.badRequest(err))
 }
 
-exports.logBoom500 = (req, res, next) => {
-  const original = res.boom.badImplementation.bind(res.boom)
-  res.boom.badImplementation = (...args) => {
-    logger.error('Error 500', ...args)
-    original(...args)
-  }
-  next()
-}
-
 exports.resBoomSend = (req, res, next) => {
   if (res.boom) {
     res.boom.send = (err, additionalData = {}) => {
@@ -83,6 +74,11 @@ exports.resBoomSend = (req, res, next) => {
         message: err.message,
       })
       res.status(boomed.output.statusCode).send(payload)
+
+      // Log server errors
+      if (payload.statusCode === 500) {
+        logger.error(err)
+      }
     }
   }
   next()

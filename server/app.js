@@ -8,7 +8,6 @@ const {
   cors,
   session,
   validateBody,
-  logBoom500,
   resBoomSend,
 } = require('./lib/middlewares')
 const { user, users, resources, topics, parsers } = require('./lib/routes')
@@ -19,7 +18,6 @@ app.use(cors)
 app.use(session)
 app.use(boom())
 app.use(resBoomSend)
-app.use(logBoom500)
 app.use(bodyParser.json())
 
 app.get('/session', user.session)

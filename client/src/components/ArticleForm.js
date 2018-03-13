@@ -397,6 +397,13 @@ class ArticleForm extends Component<Props, State> {
       )
     }
 
+    if (meta.type === 'related-article') {
+      return this.renderResource(
+        { type: 'resource', id: meta.text, text: 'related article' },
+        0,
+      )
+    }
+
     const renderMetaRelated = text =>
       this.state.missingRelated[text] ? (
         <span className="has-text-danger">

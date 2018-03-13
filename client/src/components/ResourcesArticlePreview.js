@@ -94,6 +94,8 @@ class ResourcesPreviewArticle extends Component<Props> {
               checkResource(id)
             }
           })
+        } else if (meta.type === 'related-article') {
+          checkResource(meta.text)
         }
       })
     }

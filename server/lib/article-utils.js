@@ -51,6 +51,7 @@ const flattenMetas = (exports.flattenMetas = article => {
   return {
     ...article,
     imageHeader: getMetaText(article, 'image-header'),
+    relatedArticle: getMetaText(article, 'related-article'),
     title: getMetaText(article, 'title'),
     summaries: {
       en: getMetaText(article, 'summary-en'),
@@ -84,6 +85,7 @@ const getMetaText = (article, type) => {
 const getResources = async (article, excludeUnpublished = false) => {
   const ids = [
     getMetaText(article, 'image-header'),
+    getMetaText(article, 'related-article'), // Focus
     ...getMetaList(article, 'related').map(
       ({ text }) => text.split(/\s*-\s*/)[0],
     ),

@@ -242,7 +242,12 @@ const ArticleKeywords = ({ keywords }) => {
 
   return h('section.container.ArticleKeywords', [
     h('h2', 'Mots-clés'),
-    h('p', keywords.map((kw, i) => h('a', { key: i, href: 'TODO' }, kw.text))),
+    h(
+      'ul',
+      keywords.map((kw, i) =>
+        h('li', { key: i, }, [h('a', { href: 'TODO' }, kw.text)]),
+      ),
+    ),
   ])
 }
 

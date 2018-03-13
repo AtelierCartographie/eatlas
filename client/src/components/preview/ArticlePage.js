@@ -342,7 +342,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
 }
 
 const ArticleFooter = ({ article, topics, resources, options }) =>
-  h('footer.footer-article', [
+  h('footer.ArticleFooter', [
     h(ArticleKeywords, { keywords: article.keywords }),
     h(ArticleQuote, { article }),
     h(ArticleFootnotes, { footnotes: article.footnotes }),

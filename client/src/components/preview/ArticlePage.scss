@@ -84,6 +84,31 @@
     }
   }
 
+  .ArticleFooter {
+    background-color: #d1d6e0;
+    padding: 24px 0;
+
+    section {
+      margin-bottom: 48px;
+    }
+
+    section:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 21px;
+      margin-top: 0;
+    }
+
+    p,
+    ol {
+      font-size: 1.39em;
+      line-height: 21px;
+    }
+
+  }
+
   .ArticleSeeAlso {
     ul {
       list-style: none;

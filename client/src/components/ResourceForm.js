@@ -426,25 +426,33 @@ class ResourceForm extends Component<Props, State> {
       this.getAttrField('author', {
         leftIcon: 'user',
         mandatory: isArticle,
-        readOnly: readOnly || isArticle,
+        readOnly:
+          readOnly ||
+          (isArticle && this.state.paresed && this.state.parsed.author),
         loading: this.state.parsing,
       }),
       this.getAttrField('title', {
         leftIcon: 'header',
         mandatory: true,
-        readOnly: readOnly || isArticle,
+        readOnly:
+          readOnly ||
+          (isArticle && this.state.paresed && this.state.parsed.title),
         loading: this.state.parsing,
       }),
       subtitle &&
         this.getAttrField('subtitle', {
           leftIcon: 'header',
-          readOnly: readOnly || isArticle,
+          readOnly:
+            readOnly ||
+            (isArticle && this.state.paresed && this.state.parsed.subtitle),
           loading: this.state.parsing,
         }),
       this.getAttrField('topic', {
         leftIcon: 'paragraph',
         mandatory: !optionalTopic,
-        readOnly: readOnly || isArticle,
+        readOnly:
+          readOnly ||
+          (isArticle && this.state.paresed && this.state.parsed.topic),
         loading:
           this.state.parsing ||
           this.props.topics.loading ||
@@ -462,7 +470,9 @@ class ResourceForm extends Component<Props, State> {
       this.getAttrField('language', {
         leftIcon: 'language',
         mandatory: true,
-        readOnly: readOnly || isArticle,
+        readOnly:
+          readOnly ||
+          (isArticle && this.state.paresed && this.state.parsed.language),
         loading: this.state.parsing,
         options: this.buildSelectOptions(
           LOCALES,
@@ -473,14 +483,18 @@ class ResourceForm extends Component<Props, State> {
       this.getAttrField('description', {
         leftIcon: 'info',
         mandatory: true,
-        readOnly: readOnly || isArticle,
+        readOnly:
+          readOnly ||
+          (isArticle && this.state.paresed && this.state.parsed.description),
         loading: this.state.parsing,
         rows: 5,
       }),
       copyright &&
         this.getAttrField('copyright', {
           leftIcon: 'copyright',
-          readOnly: readOnly || isArticle,
+          readOnly:
+            readOnly ||
+            (isArticle && this.state.paresed && this.state.parsed.copyright),
         }),
       this.getAttrField('updatedBy', {
         leftIcon: 'user',

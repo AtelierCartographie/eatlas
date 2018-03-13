@@ -41,6 +41,19 @@ const saveAs = async (fileName, fileDir, buffer) => {
   await writeFile(absFilePath, buffer)
 }
 
+exports.deleteAllFiles = async resource => {
+  // Delete public files
+  await unpublish(resource)
+  // Then delete uploaded files
+  const files = uploadManagers[resource.type].files(resource)
+  await Promise.all(
+    files.map(async file => {
+      const { up } = resourcePath(resource, file, { pub: false })
+      await unlink(up)
+    }),
+  )
+}
+
 exports.updateFilesLocations = async resource =>
   resource.status === 'published' ? publish(resource) : unpublish(resource)
 

@@ -7,7 +7,7 @@ const { resources } = require('../model')
 const schemas = require('../schemas')
 const { generateArticleHTML, generateFocusHTML } = require('../article-utils')
 const { download } = require('../google')
-const { updateFilesLocations } = require('../public-fs')
+const { updateFilesLocations, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
 const resourcePath = require('../resource-path')
 
@@ -124,6 +124,7 @@ exports.list = (req, res) =>
 exports.remove = (req, res) =>
   resources
     .remove(req.params.id)
+    .then(() => deleteAllFiles(req.foundResource))
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 

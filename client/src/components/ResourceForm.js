@@ -1093,7 +1093,7 @@ class ResourceForm extends Component<Props, State> {
   docsFromResource(resource: ?Resource): GoogleDocs {
     const docs: { [x: string]: any } = {}
 
-    if (!resource) {
+    if (!resource || !resource.id) {
       return docs
     }
 

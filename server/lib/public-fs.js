@@ -5,6 +5,7 @@ const { writeFile, ensureDir, copy, unlink, exists } = require('fs-extra')
 const path = require('path')
 const { publishArticle, unpublishArticle } = require('./publish-article')
 const getConf = require('./dynamic-config-variable')
+const resourcePath = require('./resource-path')
 
 // Circular dependency
 let uploadManagers = {}
@@ -43,18 +44,11 @@ const publish = async resource => {
 
   const { files: getFiles } = uploadManagers[resource.type]
 
-  const srcDir = path.resolve(__dirname, '..', getConf('uploadPath', {}))
-  const dstDir = path.resolve(
-    __dirname,
-    '..',
-    getConf('publicPath.' + resource.type),
-  )
-
   await Promise.all(
     getFiles(resource).map(async file => {
-      const src = path.join(srcDir, file)
-      const dst = path.join(dstDir, file)
-      await copy(src, dst)
+      const { up, pub } = resourcePath(resource, file)
+      await ensureDir(path.dirname(pub))
+      await copy(up, pub)
     }),
   )
 
@@ -69,17 +63,11 @@ const unpublish = async resource => {
 
   const { files: getFiles } = uploadManagers[resource.type]
 
-  const pubDir = path.resolve(
-    __dirname,
-    '..',
-    getConf('publicPath.' + resource.type),
-  )
-
   await Promise.all(
     getFiles(resource).map(async file => {
-      const filePath = path.join(pubDir, file)
-      if (await exists(filePath)) {
-        await unlink(filePath)
+      const { pub } = resourcePath(resource, file, { up: false })
+      if (await exists(pub)) {
+        await unlink(pub)
       }
     }),
   )

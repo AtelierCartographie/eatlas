@@ -2,8 +2,8 @@
 
 const path = require('path')
 const { writeFile, ensureDir, unlink, exists } = require('fs-extra')
-const { generateArticleHTML, articleFileName } = require('./article-utils')
-const getConf = require('./dynamic-config-variable')
+const { generateArticleHTML } = require('./article-utils')
+const resourcePath = require('./resource-path')
 
 // TODO slugify title?
 // TODO handle all associated files (maybe all html?)
@@ -22,9 +22,5 @@ exports.unpublishArticle = async resource => {
   }
 }
 
-exports.articleFullPath = resource => {
-  const fileName = articleFileName(resource)
-  const dir = getConf('publicPath.' + resource.type)
-  const absDir = path.resolve(__dirname, '..', dir)
-  return path.join(absDir, fileName)
-}
+exports.articleFullPath = resource =>
+  resourcePath(resource, null, { up: false }).pub

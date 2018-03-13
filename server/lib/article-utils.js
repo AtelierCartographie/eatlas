@@ -10,7 +10,7 @@ exports.generateArticleHTML = async (resource, options) => {
   const article = flattenMetas(resource)
   const topics = (await Topics.list()).sort((a, b) => a.id > b.id)
   const definitions = await getDefinitions()
-  const resources = await getResources(resource, !options.preview)
+  const resources = await getResources(resource, !options || !options.preview)
   return generateArticleHTML(article, topics, definitions, resources, options)
 }
 
@@ -18,7 +18,7 @@ exports.articleFileName = resource =>
   dynamicConfVar('htmlFileName.' + resource.type, resource)
 
 // smoosh nested info to provide direct access in React components
-const flattenMetas = exports.flattenMetas = article => {
+const flattenMetas = (exports.flattenMetas = article => {
   return {
     ...article,
     imageHeader: getMetaText(article, 'image-header'),
@@ -30,7 +30,7 @@ const flattenMetas = exports.flattenMetas = article => {
     keywords: getMetaList(article, 'keywords'),
     footnotes: getNodeList(article, 'footnotes'),
   }
-}
+})
 
 const getNode = (article, type) => article.nodes.find(m => m.type === type)
 const getNodeList = (article, type) => {
@@ -79,4 +79,3 @@ const getDefinitions = async () => {
     [],
   )
 }
-

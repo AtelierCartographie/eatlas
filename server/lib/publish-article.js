@@ -11,7 +11,7 @@ const resourcePath = require('./resource-path')
 exports.publishArticle = async resource => {
   const filePath = exports.articleFullPath(resource)
   await ensureDir(path.dirname(filePath))
-  const html = await generateArticleHTML(resource)
+  const html = await generateArticleHTML(resource, { preview: false })
   await writeFile(filePath, html)
   return resource
 }

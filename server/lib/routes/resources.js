@@ -128,8 +128,14 @@ exports.preview = async (req, res, next) => {
       case 'image': {
         const images = req.foundResource.images
         let file = null
-        if (req.params.f) {
-          file = get(images, req.params.f)
+        if (req.params.k) {
+          // req.params.k can be directly a path into 'images' property, like "small.2x"
+          // or a "doc key", like "image-small-2x"
+          // we convert the second into the first:
+          const keyPath = req.params.k.match(/^image-/)
+            ? req.params.k.replace(/^image-(.+?)-(.+?)$/, '$1.$2')
+            : req.params.k
+          file = get(images, keyPath)
         }
         if (!file) {
           // use first found image (smaller to larger)

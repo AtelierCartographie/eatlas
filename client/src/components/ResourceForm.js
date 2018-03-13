@@ -24,6 +24,8 @@ import Spinner from './Spinner'
 import { parseArticleDoc, parseLexiconDoc } from '../api'
 import ObjectDebug from './ObjectDebug'
 
+const API_SERVER = process.env.REACT_APP_API_SERVER || ''
+
 export type SaveCallback = (
   resource: ResourceNew | Resource,
   uploads: Upload[],
@@ -595,7 +597,7 @@ class ResourceForm extends Component<Props, State> {
                 {keys.map(key => (
                   <figure key={key} onClick={this.unselectFile(key)}>
                     <img
-                      src={this.getThumbUrl(docs[key])}
+                      src={this.getThumbUrl(resource, docs, key)}
                       alt={docs[key] && docs[key].name}
                     />
                     <figcaption>
@@ -612,13 +614,13 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  getThumbUrl = doc =>
-    doc
-      ? doc.id
+  getThumbUrl = (resource, docs, key) =>
+    docs && docs[key]
+      ? docs[key].id
         ? // Freshly picked document (we're editing or creating)
-          `https://drive.google.com/thumbnail?id=${doc.id}&sz=w100-h100`
+          `https://drive.google.com/thumbnail?id=${docs[key].id}&sz=w100-h100`
         : // Saved document (we're editing)
-          (process.env.REACT_APP_PUBLIC_PATH_image || '/') + doc.name
+          `${API_SERVER}/resources/${resource.id}/preview/${key}`
       : null
 
   onPickResponsiveImage = resource => async (

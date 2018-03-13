@@ -84,4 +84,42 @@
     }
   }
 
+  .ArticleSeeAlso {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: #333;
+      display: flex;
+      text-decoration: none;
+    }
+
+    img {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-size: cover;
+      margin-right: 16px;
+      height: 72px;
+      width: 200px;
+    }
+
+    .ArticleSeeAlsoTopic {
+      font-family: 'Gentium Basic', serif;
+      font-size: 15.8px;
+      line-height: 24px;
+    }
+
+    .ArticleSeeAlsoTitle {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 21px;
+    }
+
+  }
+
 }

@@ -245,7 +245,7 @@ const ArticleKeywords = ({ keywords }) => {
     h(
       'ul',
       keywords.map((kw, i) =>
-        h('li', { key: i, }, [h('a', { href: 'TODO' }, kw.text)]),
+        h('li', { key: i }, [h('a', { href: 'TODO' }, kw.text)]),
       ),
     ),
   ])
@@ -281,18 +281,19 @@ const ArticleFootnotes = ({ footnotes }) => {
 
   return h('section.container.article-footnotes', [
     h('h2', 'Notes'),
-    h('ol', [
+    h(
+      'ol',
       footnotes.map((n, k) =>
         h('li', { id: `footnote-${k + 1}`, key: k }, [
           h('a', { href: `#note-${k + 1}` }, '^'),
           n.text,
         ]),
       ),
-    ]),
+    ),
   ])
 }
 
-const ArticleSeeAlso = ({ article, resources, options }) => {
+const ArticleSeeAlso = ({ article, topics, resources, options }) => {
   const relateds = article.related
     .map(r => {
       const [articleId] = r.text.split(/\s*-\s*/)
@@ -302,32 +303,50 @@ const ArticleSeeAlso = ({ article, resources, options }) => {
 
   if (!relateds.length) return null
 
-  return h('section.container.article-see-also', [
+  return h('section.container.ArticleSeeAlso', [
     h('h2', "Continuer dans l'Atlas"),
-    relateds.map(r =>
-      h('.col-sm-6', { key: r.id }, [
-        h(
-          'a.thumbnail',
-          {
-            href: options.preview ? `/resources/${r.id}/preview` : 'TODO',
-          },
-          [
-            r.imageHeader &&
-              h('img', { src: getImageUrl(r.imageHeader, 'large', '1x') }),
-            h('h3', r.title),
-          ],
-        ),
-      ]),
+    h(
+      'ul',
+      relateds.map(r =>
+        h('li', { key: r.id }, [
+          h(
+            'a',
+            {
+              href: options.preview ? `/resources/${r.id}/preview` : 'TODO',
+            },
+            [
+              h('img', {
+                alt: '',
+                // TODO small
+                style: {
+                  backgroundImage: `url(${getImageUrl(
+                    r.imageHeader,
+                    'large',
+                    '1x',
+                  )})`,
+                },
+              }),
+              h('div', [
+                h(
+                  '.ArticleSeeAlsoTopic',
+                  (topics.find(x => x.id === r.topic) || {}).name,
+                ),
+                h('.ArticleSeeAlsoTitle', r.title),
+              ]),
+            ],
+          ),
+        ]),
+      ),
     ),
   ])
 }
 
-const ArticleFooter = ({ article, resources, options }) =>
+const ArticleFooter = ({ article, topics, resources, options }) =>
   h('footer.footer-article', [
     h(ArticleKeywords, { keywords: article.keywords }),
     h(ArticleQuote, { article }),
     h(ArticleFootnotes, { footnotes: article.footnotes }),
-    h(ArticleSeeAlso, { article, resources, options }),
+    h(ArticleSeeAlso, { article, topics, resources, options }),
   ])
 
 const ArticleLexicon = ({ article, definitions }) =>

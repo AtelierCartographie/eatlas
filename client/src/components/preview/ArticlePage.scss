@@ -44,6 +44,78 @@
 
   }
 
+  .ArticleSummaries {
+    color: $color-breadcrumb;
+    margin-bottom: 48px;
+    margin-top: 48px;
+    // for langs
+    position: relative;
+
+    h2 {
+      background: #fff;
+      display: inline-block;
+      font-size: 2.2em;
+      margin-top: 0;
+      padding: 0 8px;
+      position: relative;
+      text-align: center;
+      top: -16px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 26px;
+      text-align: left;
+    }
+
+    .tab-content {
+      border-top: $color-breadcrumb 1px solid;
+      border-bottom: $color-breadcrumb 1px solid;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    .tab-pane {
+      position: relative;
+    }
+
+    .langs {
+      background: white;
+      font-size: 1.45em;
+      line-height: 22px;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      text-align: center;
+      top: -12px;
+      z-index: 1;
+
+      li {
+        display: inline-block;
+        margin-right: 5px;
+        height: 24px;
+        width: 24px;
+      }
+
+      a {
+        border: 1px solid $color-breadcrumb;
+        color: $color-breadcrumb;
+        display: block;
+        height: 24px;
+        text-decoration: none;
+        width: 24px;
+      }
+
+      li.active a,
+      li.active a:hover,
+      li.active a:focus {
+        color: white;
+        background-color: $color-breadcrumb;
+      }
+    }
+
+  }
+
   .ArticleBreadcrumb {
     background-color: $color-breadcrumb;
     font-size: 14.5px;

@@ -84,50 +84,47 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
 }
 
 const ArticleSummaries = ({ article }) =>
-  h('section.container.resume', [
+  h('section.container.resume.ArticleSummaries', [
+    !article.summaries.fr
+      ? null
+      : h('ul.langs', { role: 'tablist' }, [
+          h('li.active', { role: 'presentation' }, [
+            h(
+              'a',
+              {
+                href: '#french',
+                role: 'tab',
+                'data-toggle': 'pill',
+                hrefLang: 'fr',
+              },
+              'Fr',
+            ),
+          ]),
+          h('li', { role: 'presentation' }, [
+            h(
+              'a',
+              {
+                href: '#english',
+                role: 'tab',
+                'data-toggle': 'pill',
+                hrefLang: 'en',
+              },
+              'En',
+            ),
+          ]),
+        ]),
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
         h('p', article.summaries.fr),
       ]),
-      !article.summaries.en
+      !article.summaries.fr
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('p', article.summaries.en),
+            h('p', article.summaries.fr),
           ]),
     ]),
-    !article.summaries.en
-      ? null
-      : h('.resume-select', [
-          h('ul.nav.nav-pills', { role: 'tablist' }, [
-            h('li.active', { role: 'presentation' }, [
-              h(
-                'a',
-                {
-                  href: '#french',
-                  role: 'tab',
-                  'data-toggle': 'pill',
-                  hrefLang: 'fr',
-                },
-                'Fr',
-              ),
-            ]),
-            h('li', { role: 'presentation' }, [
-              h(
-                'a',
-                {
-                  href: '#english',
-                  role: 'tab',
-                  'data-toggle': 'pill',
-                  hrefLang: 'en',
-                },
-                'En',
-              ),
-            ]),
-          ]),
-        ]),
-    h('hr'),
   ])
 
 // first parse lexicon, then footnotes
@@ -319,11 +316,9 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
                 alt: '',
                 // TODO small
                 style: {
-                  backgroundImage: r.imageHeader && `url(${getImageUrl(
-                    r.imageHeader,
-                    'large',
-                    '1x',
-                  )})`,
+                  backgroundImage:
+                    r.imageHeader &&
+                    `url(${getImageUrl(r.imageHeader, 'large', '1x')})`,
                 },
               }),
               h('div', [

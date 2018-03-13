@@ -235,76 +235,6 @@ hr {
     margin-bottom: 0px;
 }
 
-/* RESUME ---------------------------------------- */
-.resume {
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
-.resume p,
-.resume-select ul{
-    font-size: 1.45em;
-    line-height: 22px;
-    color: #505a6a;
-}
-
-.resume h2 {
-    font-size: 2.2em;
-    text-align: center;
-    color: #505a6a;
-}
-
-.line {
-    display: table;
-    white-space: nowrap;
-}
-
-.line:before,
-.line:after {
-    border-top: 1px solid;
-    content: '';
-    display: table-cell;
-    position: relative;
-    top: 0.7em;
-    width: 50%;
-}
-
-.line:before {
-    right: 1.5%;
-}
-
-.line:after {
-    left: 1.5%;
-}
-
-.resume hr {
-    border-top: 1px solid;
-    margin-top: 1em;
-}
-
-.resume-select {
-    text-align: center;
-}
-
-.resume-select ul {
-    display: inline-block;
-}
-
-.resume-select li {
-    display: inline;
-}
-
-.resume-select .nav>li>a {
-    color: #494948;
-    padding: 5px 15px;
-}
-
-.resume-select li.active>a,
-.resume-select li.active>a:hover,
-.resume-select li.active>a:focus {
-    color: white;
-    background-color: #5e6776;
-}
 /* FIGURE ---------------------------------------- */
 h2.figure-title {
     color: black;
@@ -339,7 +269,6 @@ figcaption {
     padding: 5px 20px 5px 20px;
 }
 
-/* FOCUS ---------------------------------------- */
 /* ------ focusBox ------------------------------ */
 .focusBox {
     border-left: 4px solid #ffe180;
@@ -473,10 +402,6 @@ article.focus {
         padding-left: 20px;
         padding-right: 20px;
     }
-    .resume {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
     .article .header-info h1 {
         font-size: 7em;
     }
@@ -503,13 +428,6 @@ article.focus {
     }
     .figComment {
         font-size: 1.6em;
-    }
-    .resume p {
-        font-size: 1.7em;
-        line-height: 26px;
-    }
-    .resume h2 {
-        font-size: 2.4em;
     }
     .footer-article h2 {
         font-size: 2.1em;

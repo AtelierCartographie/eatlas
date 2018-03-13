@@ -10,7 +10,18 @@ exports.generateArticleHTML = async (resource, options) => {
   const article = flattenMetas(resource)
   const topics = (await Topics.list()).sort((a, b) => a.id > b.id)
   const definitions = await getDefinitions()
-  const resources = await getResources(resource, !options || !options.preview)
+  let resources = await getResources(resource, !options || !options.preview)
+
+  // need to retrieve imageHeader for "related articles" in footer since they transitives deps
+  resources = await Promise.all(
+    resources.map(async r => {
+      if (r.type === 'article') {
+        r.imageHeader = await populateImageHeader(r)
+      }
+      return r
+    }),
+  )
+
   return generateArticleHTML(article, topics, definitions, resources, options)
 }
 
@@ -29,12 +40,17 @@ const flattenMetas = (exports.flattenMetas = article => {
     },
     keywords: getMetaList(article, 'keywords'),
     footnotes: getNodeList(article, 'footnotes'),
+    related: getMetaList(article, 'related'),
   }
 })
 
-const getNode = (article, type) => article.nodes.find(m => m.type === type)
+const populateImageHeader = (exports.populateImageHeader = async article => {
+  const imageHeaderId = getMetaText(article, 'image-header')
+  return Resources.findById(imageHeaderId)
+})
+
 const getNodeList = (article, type) => {
-  const found = getNode(article, type)
+  const found = article.nodes.find(m => m.type === type)
   return (found && found.list) || []
 }
 const getMeta = (article, type) => article.metas.find(m => m.type === type)
@@ -48,19 +64,15 @@ const getMetaText = (article, type) => {
 }
 
 const getResources = async (article, excludeUnpublished = false) => {
-  const ids = []
-    .concat(
-      getMetaList(article, 'related').map(
-        ({ text }) => text.split(/\s*-\s*/)[0],
-      ),
-    )
-    .concat([getMetaText(article, 'image-header')])
-    .concat(
-      article.nodes
-        .filter(node => node.type === 'resource')
-        .map(node => node.id),
-    )
-    .filter(id => !!id)
+  const ids = [
+    getMetaText(article, 'image-header'),
+    ...getMetaList(article, 'related').map(
+      ({ text }) => text.split(/\s*-\s*/)[0],
+    ),
+    ...article.nodes
+      .filter(node => node.type === 'resource')
+      .map(node => node.id),
+  ].filter(id => !!id)
 
   let filter = { terms: { id: ids } }
   if (excludeUnpublished) {

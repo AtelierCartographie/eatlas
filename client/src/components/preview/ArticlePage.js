@@ -12,26 +12,15 @@ moment.locale('fr')
 const { Script, Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
-const { resourcesTypes, aPropos, getImageUrl, getResource } = require('./layout')
-
-const HOST = process.env.REACT_APP_PUBLIC_URL || ''
+const {
+  HOST,
+  resourcesTypes,
+  aPropos,
+  getImageUrl,
+  getResource,
+} = require('./layout')
 
 let lexiconId
-
-const getArticleSeeAlsoResource = (resources, text) => {
-  const [articleId] = text.split(/\s*-\s*/)
-  const article = getResource(resources, articleId)
-  let image = null
-  if (article) {
-    image = getImageHeader(resources, article)
-  }
-  return { article, image }
-}
-
-const getImageHeader = (resources, article) => {
-  const meta = article.metas.find(m => m.type === 'image-header')
-  return getResource(resources, meta.text)
-}
 
 const getDefinition = (definitions, dt) => {
   const search = dt.toLowerCase()
@@ -299,33 +288,31 @@ const ArticleFootnotes = ({ footnotes }) => {
 }
 
 const ArticleSeeAlso = ({ article, resources, options }) => {
-  const seeAlsos = article.metas.find(m => m.type === 'related')
-  if (!seeAlsos) return null
+  const relateds = article.related
+    .map(r => {
+      const [articleId] = r.text.split(/\s*-\s*/)
+      return getResource(resources, articleId)
+    })
+    .filter(a => !!a)
 
-  const found = seeAlsos.list
-    .map(s => getArticleSeeAlsoResource(resources, s.text))
-    .filter(({ article }) => !!article)
-  if (!found.length) return null
+  if (!relateds.length) return null
 
   return h('section.container.article-see-also', [
     h('h2', "Continuer dans l'Atlas"),
-    found.map(
-      ({ article, image }, i) =>
-        article &&
-        h('.col-sm-6', { key: i }, [
-          h(
-            'a.thumbnail',
-            {
-              href: options.preview
-                ? `/resources/${article.id}/preview`
-                : 'TODO',
-            },
-            [
-              image && h(Img, { src: getImageUrl(image, 'small', '1x') }),
-              h('h3', article.title),
-            ],
-          ),
-        ]),
+    relateds.map(r =>
+      h('.col-sm-6', { key: r.id }, [
+        h(
+          'a.thumbnail',
+          {
+            href: options.preview ? `/resources/${r.id}/preview` : 'TODO',
+          },
+          [
+            r.imageHeader &&
+              h('img', { src: getImageUrl(r.imageHeader, 'large', '1x') }),
+            h('h3', r.title),
+          ],
+        ),
+      ]),
     ),
   ])
 }

@@ -12,10 +12,12 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 
+const { getImageUrl, getResource } = require('./layout')
+
 const TopicVideo = ({ url }) => {
   if (!url) return null
   const id = url.slice('https://vimeo.com/'.length)
-  return h('iframe', {
+  return h('iframe.TopicVideo', {
     title: 'TODO',
     src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
     frameBorder: 0,
@@ -32,13 +34,16 @@ const TopicHeader = ({ topic }) => {
   ])
 }
 
-const ArticleList = ({ articles, options }) => {
+const ArticleList = ({ articles, resources, options }) => {
   if (!articles || !articles.length) return null
   return h(
     'ul.container.ArticleList',
-    articles.map(a =>
-      h('li', [
-        h('img'),
+    articles.map(a => {
+      const imageHeader = getResource(resources, a.imageHeader)
+      // TODO small
+      const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
+      return h('li', [
+        h('img', { alt: imageHeader.title, src: imageHeaderUrl }),
         h('div', [
           h(
             'a',
@@ -60,25 +65,25 @@ const ArticleList = ({ articles, options }) => {
           ),
           h('.summary', a.summaries.fr),
         ]),
-      ]),
-    ),
+      ])
+    }),
   )
 }
 
-const Topic = ({ topic, topics, articles, options }) => {
+const Topic = ({ topic, topics, articles, resources, options }) => {
   return h('article.TopicPage', [
     h(TopicHeader, { topic }),
-    h(ArticleList, { articles, options }),
+    h(ArticleList, { articles, resources, options }),
   ])
 }
 
 class TopicPreview extends Component {
   render() {
-    const { topic, topics, articles, options } = this.props
+    const { topic, topics, articles, resources, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: topic.name }),
       h(Body, { topics, options }, [
-        h(Topic, { topic, topics, articles, options }),
+        h(Topic, { topic, topics, articles, resources, options }),
       ]),
     ])
   }

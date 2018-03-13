@@ -44,11 +44,14 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
+    // TODO for now resources are needed to display focus and imageHeader for each articles
+    const resources = await getResources(req.foundTopic)
     const html = generateTopicHTML(
       req.foundTopic,
       (await topics.list()).sort((a, b) => a.id > b.id),
-      await getArticles(req.foundTopic, !!req.query.published),
-      { preview: true }
+      resources.filter(r => r.type === 'article').map(flattenMetas),
+      resources,
+      { preview: true },
     )
     res.send(html)
   } catch (err) {
@@ -56,9 +59,7 @@ exports.preview = async (req, res, next) => {
   }
 }
 
-const getArticles = async (topic, excludeUnpublished = false) => {
+const getResources = async (topic, excludeUnpublished = false) => {
   // TODO handle query ES side
-  return (await resources.list()).filter(
-    r => r.type === 'article' && r.topic == topic.id,
-  ).map(flattenMetas)
+  return (await resources.list()).filter(r => r.topic == topic.id)
 }

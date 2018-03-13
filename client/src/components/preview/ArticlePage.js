@@ -12,18 +12,11 @@ moment.locale('fr')
 const { Script, Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
-const { resourcesTypes, aPropos } = require('./layout')
+const { resourcesTypes, aPropos, getImageUrl, getResource } = require('./layout')
 
 const HOST = process.env.REACT_APP_PUBLIC_URL || ''
 
 let lexiconId
-
-const getImageUrl = ({ images }, size = 'medium', density = '1x') => {
-  const file = images && images[size] && images[size][density]
-  return file
-    ? `${HOST}${process.env.REACT_APP_PUBLIC_PATH_image || '/'}${file}`
-    : null
-}
 
 const getArticleSeeAlsoResource = (resources, text) => {
   const [articleId] = text.split(/\s*-\s*/)
@@ -40,8 +33,6 @@ const getImageHeader = (resources, article) => {
   return getResource(resources, meta.text)
 }
 
-const getResource = (resources, id) => resources.find(r => r.id === id)
-
 const getDefinition = (definitions, dt) => {
   const search = dt.toLowerCase()
   const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
@@ -50,6 +41,7 @@ const getDefinition = (definitions, dt) => {
   }
   return found.dd
 }
+
 const srcset = (image, size) => {
   const image1 = getImageUrl(image, size, '1x')
   const image2 = getImageUrl(image, size, '2x')
@@ -76,7 +68,6 @@ const ArticleHeader = ({ article, resources }) => {
       ])
   const imageHeader = getResource(resources, article.imageHeader)
   const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
-  console.log({ imageHeader })
   const style = imageHeaderUrl
     ? {
         backgroundImage: `url(${imageHeaderUrl})`,

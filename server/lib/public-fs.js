@@ -42,6 +42,9 @@ const saveAs = async (fileName, fileDir, buffer) => {
 }
 
 exports.deleteAllFiles = async resource => {
+  if (config.keepUploadsOnDelete) {
+    return resource
+  }
   // Delete public files
   await unpublish(resource)
   // Then delete uploaded files
@@ -52,6 +55,7 @@ exports.deleteAllFiles = async resource => {
       await unlink(up)
     }),
   )
+  return resource
 }
 
 exports.updateFilesLocations = async resource =>

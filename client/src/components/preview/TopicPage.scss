@@ -4,7 +4,7 @@ $topic-space: 8px;
 
 .TopicPage {
   .TopicHeader {
-    background: #5e6776;
+    background: $color-breadcrumb;
     color: rgba(255,255,255,.9);
     padding-bottom: 3 * $topic-space;
 

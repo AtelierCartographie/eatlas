@@ -60,19 +60,6 @@ iframe {
     display: block;
 }
 
-.article .header-info h1 {
-    font-weight: 400;
-    font-size: 4.1em;
-    line-height: 1.0em;
-    color: white;
-    text-shadow: 0em 0em 10px #444444;
-    display: inline;
-    -webkit-box-decoration-break: clone;
-    -ms-box-decoration-break: clone;
-    -o-box-decoration-break: clone;
-    box-decoration-break: clone;
-}
-
 h1.table-content-title {
     font-size: 4.1em;
     line-height: 1.57em;
@@ -110,19 +97,6 @@ ul {
     line-height: inherit;
     /* 1.524 */
     margin-bottom: 1em;
-}
-
-.article .header-info p {
-    font-size: 1.8em;
-    color: white;
-    text-shadow: 0em 0em 10px #444;
-    display: inline-block;
-/*    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.35);
-    box-shadow: 10px 0 0 rgba(0, 0, 0, 0.35), -10px 0 0 rgba(0, 0, 0, 0.35);*/
-    -webkit-box-decoration-break: clone;
-    -ms-box-decoration-break: clone;
-    -o-box-decoration-break: clone;
-    box-decoration-break: clone;
 }
 
 blockquote {
@@ -259,43 +233,6 @@ ul.navmenu-nav a {
 hr {
     border: 1px solid #bebebe;
     margin-bottom: 0px;
-}
-
-/* HEADER ARTICLE ---------------------------------------- */
-.headerwrap {
-    min-height: 100vh;
-    width: 100%;
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
-.header-info {
-    position: relative;
-    top: 75vh;
-    text-align: center;
-}
-
-.breadcrumb a {
-    color: white;
-    font-size: 1.45em;
-}
-
-.breadcrumb {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    background-color: #5e6776;
-    text-align: left;
-    position: relative;
-    margin-bottom: 0px;
-    border-radius: 0;
 }
 
 /* RESUME ---------------------------------------- */
@@ -655,5 +592,8 @@ article.focus {
     }
 }
 
+$color-breadcrumb: #5e6776;
+
 @import 'nav';
+@import 'ArticlePage';
 @import 'TopicPage';

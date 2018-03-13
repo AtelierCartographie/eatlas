@@ -10,7 +10,7 @@ exports.generateArticleHTML = async (resource, options) => {
   const article = flattenMetas(resource)
   const topics = (await Topics.list()).sort((a, b) => a.id > b.id)
   const definitions = await getDefinitions()
-  const resources = await getResources(resource, true)
+  const resources = await getResources(resource, !options.preview)
   return generateArticleHTML(article, topics, definitions, resources, options)
 }
 
@@ -21,6 +21,7 @@ exports.articleFileName = resource =>
 const flattenMetas = exports.flattenMetas = article => {
   return {
     ...article,
+    imageHeader: getMetaText(article, 'image-header'),
     title: getMetaText(article, 'title'),
     summaries: {
       en: getMetaText(article, 'summary-en'),

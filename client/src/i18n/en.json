@@ -14,7 +14,7 @@
   "error": "Error",
   "error-invalid-resource-type":
     "Unknown resource type for file “{name}” ({mimeType}). Please select another file.",
-  "error-parsing-image-name": "Invalid image name: “{name}”",
+  "error-parsing-image-name": "Invalid image name: “{name}”.\nFormat attendu: id-taille@densité.format",
   "hide-preview": "hide preview",
   "home": "home",
   "icon": "icon",

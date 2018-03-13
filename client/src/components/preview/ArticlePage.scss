@@ -1,0 +1,54 @@
+.ArticlePage {
+
+  .ArticleHeader {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-size: cover;
+    color: white;
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    text-align: center;
+
+    .ArticleHeaderInfo {
+      margin: auto;
+    }
+
+    .ArticleTitle {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 70px;
+      font-weight: normal;
+      line-height: 70px;
+      text-shadow: 0em 0em 10px #444;
+      -webkit-box-decoration-break: clone;
+      -ms-box-decoration-break: clone;
+      -o-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    .ArticlePublishedAt {
+      font-family: 'Gentium Basic', serif;
+      font-size: 18px;
+      font-style: italic;
+      line-height: 18px;
+      text-shadow: 0em 0em 10px #444;
+      -webkit-box-decoration-break: clone;
+      -ms-box-decoration-break: clone;
+      -o-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+  }
+
+  .ArticleBreadcrumb {
+      background-color: $color-breadcrumb;
+      font-size: 14.5px;
+      height: 24px;
+
+      a {
+        color: white;
+      }
+  }
+
+}

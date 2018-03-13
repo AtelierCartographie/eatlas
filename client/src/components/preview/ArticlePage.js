@@ -63,30 +63,28 @@ const srcset = (image, size) => {
 
 // subcomponents
 
-const ArticleTitle = ({ article, resources }) => {
+const ArticleHeader = ({ article, resources }) => {
   const publishedAt = !article.publishedAt
-    ? h('p', 'Non publié')
-    : h('p', [
-        h('em', [
-          'Publié le ',
-          h(
-            'time',
-            { dateTime: article.publishedAt },
-            moment(article.publishedAt).format('D MMMM YYYY'),
-          ),
-        ]),
+    ? h('.ArticlePublishedAt', 'Non publié')
+    : h('.ArticlePublishedAt', [
+        'Publié le ',
+        h(
+          'time',
+          { dateTime: article.publishedAt },
+          moment(article.publishedAt).format('D MMMM YYYY'),
+        ),
       ])
-  const headerImage = getImageHeader(resources, article)
-  const headerImageUrl = headerImage && getImageUrl(headerImage, 'large', '1x')
-  const style = headerImageUrl
+  const imageHeader = getResource(resources, article.imageHeader)
+  const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
+  console.log({ imageHeader })
+  const style = imageHeaderUrl
     ? {
-        background: `url(${headerImageUrl}) no-repeat center center`,
+        backgroundImage: `url(${imageHeaderUrl})`,
       }
     : {}
-  return h('header.headerwrap', { style }, [
-    h('div.container.header-info', [
-      h('h1', article.title),
-      h('br'),
+  return h('header.ArticleHeader', { style }, [
+    h('.container.ArticleHeaderInfo', [
+      h('h1.ArticleTitle', article.title),
       publishedAt,
     ]),
   ])
@@ -94,8 +92,8 @@ const ArticleTitle = ({ article, resources }) => {
 
 const ArticleBreadcrumb = ({ article, topics, options }) => {
   const topic = topics.find(x => x.id === article.topic)
-  return h('section.breadcrumb', [
-    h('div.container', [
+  return h('section.ArticleBreadcrumb', [
+    h('.container', [
       h(
         'a',
         { href: options.preview ? `/topics/${topic.id}/preview` : 'TODO' },
@@ -107,21 +105,21 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
 
 const ArticleSummaries = ({ article }) =>
   h('section.container.resume', [
-    h('div.tab-content', [
-      h('div.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
+    h('.tab-content', [
+      h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
         h('p', article.summaries.fr),
       ]),
       !article.summaries.en
         ? null
-        : h('div.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
+        : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
             h('p', article.summaries.en),
           ]),
     ]),
     !article.summaries.en
       ? null
-      : h('div.resume-select', [
+      : h('.resume-select', [
           h('ul.nav.nav-pills', { role: 'tablist' }, [
             h('li.active', { role: 'presentation' }, [
               h(
@@ -204,7 +202,7 @@ const ArticleResource = ({ article, resource }) => {
         ]),
         h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),
-        h('div.collapse', 'TODO (image comment)'),
+        h('.collapse', 'TODO (image comment)'),
       ])
 
     case 'video':
@@ -323,7 +321,7 @@ const ArticleSeeAlso = ({ article, resources, options }) => {
     found.map(
       ({ article, image }, i) =>
         article &&
-        h('div.col-sm-6', { key: i }, [
+        h('.col-sm-6', { key: i }, [
           h(
             'a.thumbnail',
             {
@@ -359,15 +357,15 @@ const ArticleLexicon = ({ article, definitions }) =>
         [],
       )
       .map((l, k) =>
-        h('div.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
+        h('.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
           h('dl', [h('dt', l), h('dd', getDefinition(definitions, l))]),
         ]),
       ),
   )
 
 const Article = props =>
-  h('article.article', [
-    h(ArticleTitle, props),
+  h('article.article.ArticlePage', [
+    h(ArticleHeader, props),
     h(ArticleBreadcrumb, props),
     h(ArticleSummaries, props),
     h(ArticleNodes, props),
@@ -376,7 +374,7 @@ const Article = props =>
   ])
 
 const NavTopics = () =>
-  h('div.nav-article-wrapper', [
+  h('.nav-article-wrapper', [
     h('nav.nav-article', [
       h('a.nav-article-button.nav-article-previous', [
         h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),

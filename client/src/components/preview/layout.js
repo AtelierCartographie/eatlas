@@ -20,7 +20,7 @@ exports.resourcesTypes = [
 ]
 
 exports.aPropos = [
-  'Qui somme nous ?',
+  'Qui sommes-nous ?',
   'Nous contacter',
   'Mentions légales',
   'Plan du site',

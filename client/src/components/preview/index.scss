@@ -457,35 +457,6 @@ article.focus {
     font-weight: 700;
 }
 
-/* FOOTER PAGE ---------------------------------------- */
-.footer-page {
-    border-top: 1px solid;
-}
-.footer-page h3 {
-    font-size: 1.6em;
-    font-weight: 700;
-    margin-top: 48px;
-}
-.footer-page ul {
-    font-family: 'Fira Sans', sans-serif;
-    font-weight: 400;
-    font-size: 1.6em;
-    line-height: 1em;
-    margin-top: 1em;
-    list-style: none;
-    padding-left: 0;
-    margin-top: 0;
-}
-.footer-page li {
-    margin-top: 8px;
-}
-.footer-page a {
-    color: black;
-}
-.footer-logo img {
-    margin: 40px 0;
-}
-
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
   /* force showing the toggle */
@@ -564,5 +535,6 @@ article.focus {
 }
 
 @import 'nav';
+@import 'Footer';
 @import 'ArticlePage';
 @import 'TopicPage';

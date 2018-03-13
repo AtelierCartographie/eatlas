@@ -1,7 +1,7 @@
 'use strict'
 
 const mime = require('mime')
-const { writeFile, ensureDir, copy, unlink } = require('fs-extra')
+const { writeFile, ensureDir, copy, unlink, exists } = require('fs-extra')
 const path = require('path')
 const { publishArticle, unpublishArticle } = require('./publish-article')
 const getConf = require('./dynamic-config-variable')
@@ -77,7 +77,10 @@ const unpublish = async resource => {
 
   await Promise.all(
     getFiles(resource).map(async file => {
-      await unlink(path.join(pubDir, file))
+      const filePath = path.join(pubDir, file)
+      if (await exists(filePath)) {
+        await unlink(filePath)
+      }
     }),
   )
 

@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const { writeFile, ensureDir, unlink } = require('fs-extra')
+const { writeFile, ensureDir, unlink, exists } = require('fs-extra')
 const { generateArticleHTML, articleFileName } = require('./article-utils')
 const getConf = require('./dynamic-config-variable')
 
@@ -17,7 +17,9 @@ exports.publishArticle = async resource => {
 
 exports.unpublishArticle = async resource => {
   const filePath = exports.articleFullPath(resource)
-  await unlink(filePath)
+  if (await exists(filePath)) {
+    await unlink(filePath)
+  }
 }
 
 exports.articleFullPath = resource => {

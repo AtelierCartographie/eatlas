@@ -13,6 +13,7 @@ exports.publishArticle = async resource => {
   await ensureDir(path.dirname(filePath))
   const html = await generateArticleHTML(resource)
   await writeFile(filePath, html)
+  return resource
 }
 
 exports.unpublishArticle = async resource => {
@@ -20,6 +21,7 @@ exports.unpublishArticle = async resource => {
   if (await exists(filePath)) {
     await unlink(filePath)
   }
+  return resource
 }
 
 exports.articleFullPath = resource =>

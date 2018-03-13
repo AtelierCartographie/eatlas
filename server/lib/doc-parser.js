@@ -44,9 +44,8 @@ const parseLinks = ($, el) =>
     .filter((i, el) => el.name === 'a' && el.attribs.href)
     // beware of cheerio and flatMap
     .map((i, el) => [{ label: getText($, el), url: el.attribs.href }])
-    // weird edge case
-    .filter(l => l.label)
     .get()
+    .filter(({ label }) => label && label !== '↑')
 
 // "definitions" found in paragraphs
 const parseLexicon = ($, el) =>
@@ -96,14 +95,8 @@ const parseMetaNext = ($, { next }, meta) => {
   return meta
 }
 
+// <li id="footnote-0"><p><a>…</a></p></li>
 const parseFootnotes = ($, el) => {
-  const links = parseLinks(
-    $,
-    $(el)
-      .children()
-      .first(),
-  ).filter(([label]) => label !== '↑')
-
   return {
     type: 'footnotes',
     list: $(el)
@@ -111,7 +104,12 @@ const parseFootnotes = ($, el) => {
       .map((i, el) => ({
         // trim up arrow ↑
         text: getText($, el).slice(0, -2),
-        links,
+        links: parseLinks(
+          $,
+          $(el)
+            .children()
+            .first(),
+        ),
       }))
       .get(),
   }

@@ -319,7 +319,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
                 alt: '',
                 // TODO small
                 style: {
-                  backgroundImage: `url(${getImageUrl(
+                  backgroundImage: r.imageHeader && `url(${getImageUrl(
                     r.imageHeader,
                     'large',
                     '1x',

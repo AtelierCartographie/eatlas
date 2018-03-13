@@ -419,6 +419,7 @@ class ResourceForm extends Component<Props, State> {
           ),
           optionsStyle: 'buttons',
         }),
+      resource.status === 'published' && this.getUrlsField(resource),
     ]
 
     const appendFields = ({ subtitle, copyright, optionalTopic }) => [
@@ -567,6 +568,85 @@ class ResourceForm extends Component<Props, State> {
             value: 'Type not implemented',
           }),
         ]
+    }
+  }
+
+  getUrlsField(resource): FieldParams {
+    if (resource.status !== 'published') {
+      return null
+    }
+
+    const inputGenerator = {
+      image() {
+        const files = Object.keys(resource.images)
+          .reduce(
+            (files, size) =>
+              files.concat(
+                Object.keys(resource.images[size]).reduce(
+                  (files, density) =>
+                    files.concat([resource.images[size][density]]),
+                  [],
+                ),
+              ),
+            [],
+          )
+          .map(file => ({
+            file,
+            url: `${process.env.REACT_APP_PUBLIC_PATH_image || '/'}${file}`,
+          }))
+        return (
+          <ul>
+            {files.map(({ file, url }) => (
+              <li key={file}>
+                <a href={url}>{url}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      },
+      map() {
+        return this.image()
+      },
+      sound() {
+        const root = process.env.REACT_APP_PUBLIC_PATH_sound || '/'
+        const url = `${root}${resource.file}`
+        return <a href={url}>{url}</a>
+      },
+      article() {
+        const root = process.env.REACT_APP_PUBLIC_PATH_article || '/'
+        const url = `${root}${resource.id}.html` // TODO get from server?
+        return <a href={url}>{url}</a>
+      },
+      focus() {
+        const root = process.env.REACT_APP_PUBLIC_PATH_focus || '/'
+        const url = `${root}${resource.id}.html` // TODO get from server?
+        return <a href={url}>{url}</a>
+      },
+      video() {
+        const url = resource.mediaUrl
+        return <a href={url}>{url}</a>
+      },
+    }[resource.type]
+
+    if (!inputGenerator) {
+      return null
+    }
+
+    const input = inputGenerator()
+    if (!input) {
+      return null
+    }
+
+    return {
+      labelId: 'resource-uris',
+      input: (
+        <Fragment>
+          {input}
+          <p className="help">
+            <T id="resource-uris-help" />
+          </p>
+        </Fragment>
+      ),
     }
   }
 

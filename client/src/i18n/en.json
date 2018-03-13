@@ -49,6 +49,8 @@
   "resource-topic": "Topic",
   "resource-type": "Type",
   "resource-updatedBy": "Depositor",
+  "resource-uris": "Public URL(s)",
+  "resource-uris-help": "(can be invalid until resource is saved)",
   "resources": "resources",
   "restore": "restore",
   "save-changes": "Validate",

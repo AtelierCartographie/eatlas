@@ -49,6 +49,8 @@
   "resource-topic": "Rubrique",
   "resource-type": "Type",
   "resource-updatedBy": "Déposant",
+  "resource-uris": "URL(s) publique(s)",
+  "resource-uris-help": "(peuvent être invalides avant sauvegarde)",
   "resources": "ressources",
   "restore": "restaurer",
   "save-changes": "Valider",

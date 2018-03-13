@@ -2,34 +2,34 @@
 
 $topic-space: 8px;
 
-.TopicHeader {
-  background: #5e6776;
-  color: rgba(255,255,255,.9);
-  padding-bottom: 3 * $topic-space;
+.TopicPage {
+  .TopicHeader {
+    background: #5e6776;
+    color: rgba(255,255,255,.9);
+    padding-bottom: 3 * $topic-space;
 
-  .TopicId {
-    font-family: 'Fira Sans', sans-serif;
-    font-size: 120px;
-    font-weight: bold;
-    line-height: 120px;
-    margin-top: 90px;
+    .TopicId {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 120px;
+      font-weight: bold;
+      line-height: 120px;
+      margin-top: 90px;
+    }
+
+    .TopicName {
+      font-family: 'Gentium Basic', serif;
+      font-size: 70px;
+      font-style: italic;
+      line-height: 70px;
+    }
+
+    // video
+    iframe {
+      height: 400px;
+      width: 100%;
+    }
   }
 
-  .TopicName {
-    font-family: 'Gentium Basic', serif;
-    font-size: 70px;
-    font-style: italic;
-    line-height: 70px;
-  }
-
-  // video
-  iframe {
-    height: 400px;
-    width: 100%;
-  }
-}
-
-.Topic {
   .ArticleList {
     list-style: none;
     margin-bottom: 3 * $topic-space;

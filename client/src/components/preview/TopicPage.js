@@ -68,7 +68,7 @@ const ArticleList = ({ articles, options }) => {
 }
 
 const Topic = ({ topic, topics, articles, options }) => {
-  return h('article.Topic', [
+  return h('article.TopicPage', [
     h(TopicHeader, { topic }),
     h(ArticleList, { articles, options }),
   ])

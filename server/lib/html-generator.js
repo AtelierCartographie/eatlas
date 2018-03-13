@@ -13,7 +13,7 @@ const TopicPage = require('../../client/src/components/preview/TopicPage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
-exports.generateArticleHTML = (article, topics, definitions, resources, options) => {
+exports.generateArticleHTML = (article, topics, definitions, resources, options = { preview: false }) => {
   return wrap(
     React.createElement(ArticlePage, {
       article,
@@ -25,12 +25,13 @@ exports.generateArticleHTML = (article, topics, definitions, resources, options)
   )
 }
 
-exports.generateTopicHTML = (topic, topics, articles, options) => {
+exports.generateTopicHTML = (topic, topics, articles, resources, options = { preview: false }) => {
   return wrap(
     React.createElement(TopicPage, {
       topic,
       topics,
       articles,
+      resources,
       options,
     }),
   )

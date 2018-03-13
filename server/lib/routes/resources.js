@@ -39,7 +39,24 @@ exports.update = async (req, res) => {
   handleUploads(body, false)
     .then(data => merge(baseData, data))
     .then(updates => resources.update(req.foundResource.id, updates))
-    .then(updateFilesLocations)
+    .then(async resource => {
+      const oldStatus = req.foundResource.status
+      const newStatus = resource.status
+      const changedPublished =
+        oldStatus !== newStatus &&
+        (oldStatus === 'published' || newStatus === 'published')
+      if (changedPublished) {
+        try {
+          await updateFilesLocations(resource)
+        } catch (err) {
+          await resources.update(req.foundResource.id, { status: oldStatus })
+          err.message =
+            'Failed to update files on (un)publishing: ' + err.message
+          throw err
+        }
+      }
+      return resource
+    })
     .then(resource => res.send(resource))
     .catch(res.boom.send)
 }

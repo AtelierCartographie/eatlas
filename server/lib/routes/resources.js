@@ -1,6 +1,7 @@
 'use strict'
 
 const merge = require('lodash.merge')
+const get = require('lodash.get')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
@@ -8,6 +9,7 @@ const { generateArticleHTML } = require('../article-utils')
 const { download } = require('../google')
 const { updateFilesLocations } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
+const resourcePath = require('../resource-path')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -110,8 +112,55 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
-    const html = await generateArticleHTML(req.foundResource, { preview: true })
-    res.send(html)
+    switch (req.foundResource.type) {
+      // HTML previews: article & focus
+      case 'article': {
+        const html = await generateArticleHTML(req.foundResource, {
+          preview: true,
+        })
+        return res.send(html)
+      }
+      case 'focus':
+        return res.boom.notImplemented()
+      // Binary previews: audio, map and image
+      // Note: map and image have multiple files, that can be selected with req.params.f
+      case 'map':
+      case 'image': {
+        const images = req.foundResource.images
+        let file = null
+        if (req.params.f) {
+          file = get(images, req.params.f)
+        }
+        if (!file) {
+          // use first found image (smaller to larger)
+          file =
+            (images['small'] &&
+              (images['small']['1x'] ||
+                images['small']['2x'] ||
+                images['small']['3x'])) ||
+            (images['medium'] &&
+              (images['medium']['1x'] ||
+                images['medium']['2x'] ||
+                images['medium']['3x'])) ||
+            (images['large'] &&
+              (images['large']['1x'] ||
+                images['large']['2x'] ||
+                images['large']['3x']))
+        }
+        const { up } = resourcePath(req.foundResource, file, { pub: false })
+        return res.sendFile(up)
+      }
+      case 'sound': {
+        const { up } = resourcePath(req.foundResource, null, { pub: false })
+        return res.sendFile(up)
+      }
+      // No direct preview: definition and video
+      case 'video':
+      case 'definition':
+        return res.boom.badRequest('No direct preview for this type')
+      default:
+        return res.boom.notImplemented()
+    }
   } catch (err) {
     next(err)
   }

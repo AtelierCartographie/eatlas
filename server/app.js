@@ -35,7 +35,7 @@ app.post('/parse/article', parsers.article)
 app.post('/parse/lexicon', parsers.lexicon)
 
 app.get('/resources', resources.list)
-app.get('/resources/:id/preview', resources.findResource, resources.preview)
+app.get('/resources/:id/preview/:f?', resources.findResource, resources.preview)
 app.get('/resources/:id', resources.findResource, resources.get)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 app.post('/resources', validateBody(resources.add))

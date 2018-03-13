@@ -1,7 +1,7 @@
 'use strict'
 
 const config = require('config')
-const { template } = require('lodash')
+const template = require('lodash.template')
 
 const TPL_SETTINGS = {
   interpolate: /\$([a-zA-Z0-9_]+)/g,

@@ -182,6 +182,22 @@ const ArticleResource = ({ article, resource }) => {
         h('.collapse', 'TODO (image comment)'),
       ])
 
+    case 'map':
+      return h('figure.container', [
+        h('h2.figure-title', resource.title),
+        h('picture', [
+          h('source', {
+            srcSet: srcset(resource, 'medium'),
+            media: '(min-width: 560px)',
+          }),
+          h('source', { srcSet: srcset(resource, 'small') }),
+          h('img.img-responsive', { srcSet: srcset(resource, 'small') }),
+        ]),
+        h('figcaption', resource.description),
+        h('a.btn.btn-figComment', 'Commentaire'),
+        h('.collapse', 'TODO (image comment)'),
+      ])
+
     case 'video':
       const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
       return h('figure.container', [

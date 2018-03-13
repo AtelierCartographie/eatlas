@@ -232,13 +232,13 @@ exports.fullResource = {
     }),
 
   file: Joi.string().when('type', {
-    is: Joi.valid(['map', 'sound']),
+    is: Joi.valid(['sound']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
 
   images: images.when('type', {
-    is: Joi.valid(['image']),
+    is: Joi.valid(['image', 'map']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),

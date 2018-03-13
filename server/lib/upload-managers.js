@@ -7,6 +7,7 @@ const { parseLexicon } = require('./lexicon-parser')
 const { saveUpload } = require('./public-fs')
 
 const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
+const RE_MAP_UPLOAD_KEY = /^map-(small|medium|large)-(1x|2x|3x)$/
 
 exports.article = {
   async save({ newUploads }) {
@@ -55,27 +56,32 @@ exports.focus = {
 }
 
 exports.map = {
-  async save({ newUploads, body }) {
-    const upload = newUploads.find(u => u.key === 'map')
-    if (!upload) {
-      return null
-    }
-    // Deletion
-    if (!upload.buffer) {
-      // TODO actually delete file
-      return { file: null }
-    }
-    const file = await saveUpload(body)(upload)
-    return { file }
+  async save({ newUploads, body, uploads }) {
+    // Save new uploads
+    const files = await Promise.all(newUploads.map(saveUpload(body)))
+    const images = {}
+    // Handle *all* uploads (deletions included)
+    uploads.forEach(({ key }, index) => {
+      const [, size, density] = key.match(RE_MAP_UPLOAD_KEY)
+      if (!images[size]) {
+        images[size] = {}
+      }
+      images[size][density] = files[index] || null
+      // TODO actually delete files
+    })
+    return { images }
   },
   validate({ required, newUploads, uploads }) {
-    expectUploadKeys(uploads, k => k === 'map')
-    if (required && newUploads.length !== 1) {
-      throw Boom.badRequest('Upload: expecting a single "map" document')
+    expectUploadKeys(uploads, k => k.match(RE_MAP_UPLOAD_KEY))
+    // Mandatory sizes
+    if (required && !newUploads.filter(u => u.key.match(/^map-/)).length > 0) {
+      throw Boom.badRequest('Upload: required at least one document')
     }
   },
-  files({ file }) {
-    return file ? [file] : []
+  files({ images }) {
+    return Object.values(images)
+      .reduce((files, densities) => files.concat(Object.values(densities)), [])
+      .filter(f => !!f)
   },
 }
 

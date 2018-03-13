@@ -541,10 +541,10 @@ class ResourceForm extends Component<Props, State> {
         )
 
       case 'map':
-        return buildFields(
-          [this.getDocField(resource, 'map', { mandatory: true })],
-          { subtitle: true, copyright: true },
-        )
+        return buildFields([this.getResponsiveImageField(resource)], {
+          subtitle: true,
+          copyright: true,
+        })
       case 'image':
         return buildFields([this.getResponsiveImageField(resource)], {
           copyright: true,
@@ -673,9 +673,10 @@ class ResourceForm extends Component<Props, State> {
   }
 
   getResponsiveImageField(resource): FieldParams {
+    const re = resource.type === 'map' ? /^map-/ : /^image-/
     const docs = this.state.docs
     const keys = Object.keys(docs)
-      .filter(key => docs[key] && key.match(/^image-/))
+      .filter(key => docs[key] && key.match(re))
       .sort()
 
     return {
@@ -730,16 +731,17 @@ class ResourceForm extends Component<Props, State> {
     accessToken: string,
   ) => {
     // name: <id>-<size>[@<density>] => key = image-<size>-<density>
+    const key = resource.type // 'image' or 'map'
+    const re = /-(small|medium|large)(?:@([123]x))?\.[.a-z]+$/
+
     docs.forEach(doc => {
-      const match = doc.name.match(
-        /-(small|medium|large)(?:@([123]x))?\.[.a-z]+$/,
-      )
+      const match = doc.name.match(re)
       // TODO toast
       if (!match) {
         toast.error(<T id="error-parsing-image-name" values={doc} />)
       } else {
         const [, size, density = '1x'] = match
-        this.onPick(`image-${size}-${density}`)([doc], accessToken)
+        this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
       }
     })
     return {}
@@ -1078,7 +1080,10 @@ class ResourceForm extends Component<Props, State> {
         }
         break
       case 'map':
-        if (!docs.map) {
+        if (
+          Object.keys(docs).filter(k => docs[k] && k.match(/^map-/)).length ===
+          0
+        ) {
           return false
         }
         break
@@ -1117,14 +1122,14 @@ class ResourceForm extends Component<Props, State> {
       return docs
     }
 
-    if (resource.type === 'image') {
+    if (resource.type === 'image' || resource.type === 'map') {
       const images = resource.images
       for (let size in images) {
         for (let density in images[size]) {
           if (!images[size][density]) {
             continue // skip null documents (was deleted)
           }
-          docs[`image-${size}-${density}`] = {
+          docs[`${resource.type}-${size}-${density}`] = {
             type: 'photo',
             id: '', // No GoogleDoc id → will not be included in onSubmit's uploads
             mimeType: '',

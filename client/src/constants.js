@@ -58,7 +58,7 @@ export const MIME_TYPES: { [ResourceType]: string[] } = {
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'application/vnd.google-apps.document',
   ],
-  map: ['image/svg+xml'],
+  map: ['image/jpeg', 'image/png', 'image/gif'],
   image: ['image/jpeg', 'image/png', 'image/gif'],
   sound: ['audio/mpeg', 'audio/mp3'],
   video: ['video/x-msvideo', 'video/mpeg'],

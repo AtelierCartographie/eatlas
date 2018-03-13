@@ -153,8 +153,11 @@ exports.preview = async (req, res, next) => {
           // req.params.k can be directly a path into 'images' property, like "small.2x"
           // or a "doc key", like "image-small-2x"
           // we convert the second into the first:
-          const keyPath = req.params.k.match(/^image-/)
-            ? req.params.k.replace(/^image-(.+?)-(.+?)$/, '$1.$2')
+          const keyMatch = req.params.k.match(
+            /^(map|image)-(small|medium|large)-([123]x)/,
+          )
+          const keyPath = keyMatch
+            ? keyMatch[2] + '.' + keyMatch[3]
             : req.params.k
           file = get(images, keyPath)
         }

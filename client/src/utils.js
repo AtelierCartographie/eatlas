@@ -96,3 +96,10 @@ export const updateLocation = (
   }
   return updated
 }
+
+export const parseRelated = string => {
+  const match = string.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
+  const id = match && match[1]
+  const text = match && match[2]
+  return { id, text }
+}

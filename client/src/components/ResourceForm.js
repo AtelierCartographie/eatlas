@@ -505,7 +505,6 @@ class ResourceForm extends Component<Props, State> {
     switch (resource.type) {
       // Note: article is read-only, you have to re-upload
       case 'article':
-        // $FlowFixMe: seriously flow, you yell at this one and not the next ones? I can't see the logic here, shut up
         return buildFields(
           [
             this.getDocField(resource, 'article', {

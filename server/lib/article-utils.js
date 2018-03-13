@@ -12,7 +12,7 @@ exports.generateArticleHTML = async (resource, options) => {
   const definitions = await getDefinitions()
   let resources = await getResources(resource, !options || !options.preview)
 
-  // need to retrieve imageHeader for "related articles" in footer since they transitives deps
+  // need to retrieve imageHeader for "related" articles in footer since they transitives deps
   resources = await Promise.all(
     resources.map(async r => {
       if (r.type === 'article') {

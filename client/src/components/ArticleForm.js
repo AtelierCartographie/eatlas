@@ -11,7 +11,7 @@ import Icon from './Icon'
 import IconButton from './IconButton'
 import { renderPreview } from './Resources'
 import { LEXICON_ID } from '../constants'
-import { getDefinition } from '../utils'
+import { getDefinition, parseRelated } from '../utils'
 import { fetchResources } from '../actions'
 
 type RProps = {
@@ -218,19 +218,14 @@ class ArticleForm extends Component<Props, State> {
     const meta =
       article.metas && article.metas.find(meta => meta.type === 'related')
     if (meta && meta.list) {
-      meta.list.forEach(({ text }) => {
-        if (text) {
-          const match = text.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
-          if (match) {
-            const id = match[1]
+      meta.list.forEach(({ text: string }) => {
+        if (string) {
+          const { id, text } = parseRelated(string)
+          if (id) {
             const resource: ?Resource = resources.find(r => r.id === id)
             if (!resource || resource.status !== 'published') {
-              const node: ArticleNode = {
-                id,
-                text: match[2],
-                type: 'resource',
-              }
-              result[text] = [node, !!resource]
+              const node: ArticleNode = { id, text, type: 'resource' }
+              result[string] = [node, !!resource]
             }
           }
         }

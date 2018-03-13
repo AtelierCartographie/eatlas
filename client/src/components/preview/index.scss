@@ -433,24 +433,6 @@ article.focus {
     line-height: 21px;
 }
 
-.article-keyword a {
-    line-height: 1.8em;
-}
-.article-keyword a {
-    color: rgba(0,0,0,.8);
-    text-decoration: none;
-    transition-duration: 0.2s;
-    transition-property: all;
-    background-color: #ffe9a1;
-    padding: 3px 8px;
-}
-
-.article-keyword a:focus,
-.article-keyword a:hover {
-    color: rgba(0,0,0,.8);
-    background-color: #ffd754;
-}
-
 .article-footnotes ol {
     line-height: inherit;
     margin-bottom: 1em;
@@ -516,10 +498,12 @@ article.focus {
 .footer-logo img {
     margin: 40px 0;
 }
+
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
+  /* force showing the toggle */
   .navbar-toggle {
-    display: block; /* force showing the toggle */
+    display: block;
   }
 }
 
@@ -591,8 +575,6 @@ article.focus {
         font-size: 1.8em;
     }
 }
-
-$color-breadcrumb: #5e6776;
 
 @import 'nav';
 @import 'ArticlePage';

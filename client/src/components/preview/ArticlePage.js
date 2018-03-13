@@ -143,7 +143,7 @@ const ArticleSummaries = ({ article }) =>
 
 // first parse lexicon, then footnotes
 const ArticleP = ({ p }) => {
-  const parseFootNotes = str => {
+  const parseFootnotes = str => {
     const m = str.match(/(.*)\[(\d+)\](.*)/)
     if (!m) return str
     return [
@@ -172,7 +172,7 @@ const ArticleP = ({ p }) => {
   )
   parts = parts.map(p => {
     if (typeof p !== 'string') return p
-    return h(Fragment, { key: p }, parseFootNotes(p))
+    return h(Fragment, { key: p }, parseFootnotes(p))
   })
 
   return h('p.container', parts)
@@ -249,11 +249,11 @@ const ArticleNodes = ({ article, resources }) => {
 }
 
 const ArticleKeywords = ({ keywords }) => {
-  if (!keywords) return null
+  if (!keywords || !keywords.length) return null
 
-  return h('section.container.article-keyword', [
+  return h('section.container.ArticleKeywords', [
     h('h2', 'Mots-clés'),
-    h('p', keywords.map((kw, i) => h('a', { key: i }, kw.text))),
+    h('p', keywords.map((kw, i) => h('a', { key: i, href: 'TODO' }, kw.text))),
   ])
 }
 
@@ -283,7 +283,7 @@ const ArticleQuote = ({ article }) => {
 }
 
 const ArticleFootnotes = ({ footnotes }) => {
-  if (!footnotes) return null
+  if (!footnotes || !footnotes.length) return null
 
   return h('section.container.article-footnotes', [
     h('h2', 'Notes'),

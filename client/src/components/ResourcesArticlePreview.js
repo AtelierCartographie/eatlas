@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 import { fetchResources } from './../actions'
 import { LEXICON_ID } from '../constants'
-import { getDefinition } from '../utils'
+import { getDefinition, parseRelated } from '../utils'
 
 import Icon from './Icon'
 
@@ -55,30 +55,57 @@ class ResourcesPreviewArticle extends Component<Props> {
         | 'resource-not-found'
         | 'resource-not-published',
     }> = []
-    if (this.props.article.nodes) {
-      const nodes: any[] = this.props.article.nodes // Need intermediate value for flow
-      const lexicon = this.props.resources.find(r => r.id === LEXICON_ID)
-      nodes.forEach(node => {
-        if (node.lexicon) {
-          node.lexicon.forEach(dt => {
-            let dd
-            if (lexicon) {
-              dd = getDefinition(dt, lexicon.definitions)
-            }
-            if (!dd) {
-              errors.push({ what: dt, type: 'definition-not-found' })
+
+    const checkResource = id => {
+      const resource: ?Resource = this.props.resources.find(r => r.id === id)
+      if (!resource) {
+        errors.push({
+          what: id,
+          type: 'resource-not-found',
+        })
+      } else if (resource.status !== 'published') {
+        errors.push({
+          what: id,
+          type: 'resource-not-published',
+        })
+      }
+    }
+
+    const lexicon = this.props.resources.find(r => r.id === LEXICON_ID)
+    const checkDefinition = dt => {
+      let dd
+      if (lexicon) {
+        dd = getDefinition(dt, lexicon.definitions)
+      }
+      if (!dd) {
+        errors.push({ what: dt, type: 'definition-not-found' })
+      }
+    }
+
+    if (this.props.article.metas) {
+      const metas: ArticleMeta[] = this.props.article.metas // Intermediate value for Flow
+      metas.forEach(meta => {
+        if (meta.type === 'image-header') {
+          checkResource(meta.text)
+        } else if (meta.type === 'related') {
+          meta.list.forEach(({ text }) => {
+            const { id } = parseRelated(text)
+            if (id) {
+              checkResource(id)
             }
           })
         }
+      })
+    }
+
+    if (this.props.article.nodes) {
+      const nodes: any[] = this.props.article.nodes // Need intermediate value for flow
+      nodes.forEach(node => {
+        if (node.lexicon) {
+          node.lexicon.forEach(checkDefinition)
+        }
         if (node.type === 'resource') {
-          const resource: ?Resource = this.props.resources.find(
-            r => r.id === node.id,
-          )
-          if (!resource) {
-            errors.push({ what: node.id, type: 'resource-not-found' })
-          } else if (resource.status !== 'published') {
-            errors.push({ what: node.id, type: 'resource-not-published' })
-          }
+          checkResource(node.id)
         }
       })
     }

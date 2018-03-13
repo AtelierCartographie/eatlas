@@ -6,7 +6,7 @@ const { parseDocx } = require('./doc-parser')
 const { parseLexicon } = require('./lexicon-parser')
 const { saveUpload } = require('./public-fs')
 
-const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
+const RE_IMAGE_UPLOAD_KEY = /^image-(large)-(1x|2x|3x)$/ // only one size
 const RE_MAP_UPLOAD_KEY = /^map-(small|medium|large)-(1x|2x|3x)$/
 
 exports.article = {

@@ -541,14 +541,26 @@ class ResourceForm extends Component<Props, State> {
         )
 
       case 'map':
-        return buildFields([this.getResponsiveImageField(resource)], {
-          subtitle: true,
-          copyright: true,
-        })
+        return buildFields(
+          [
+            this.getResponsiveImageField(resource, [
+              'small',
+              'medium',
+              'large',
+            ]),
+          ],
+          {
+            subtitle: true,
+            copyright: true,
+          },
+        )
       case 'image':
-        return buildFields([this.getResponsiveImageField(resource)], {
-          copyright: true,
-        })
+        return buildFields(
+          [this.getResponsiveImageField(resource, ['large'])],
+          {
+            copyright: true,
+          },
+        )
       case 'video':
         return buildFields(
           [
@@ -672,7 +684,7 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  getResponsiveImageField(resource): FieldParams {
+  getResponsiveImageField(resource, supportedSizes): FieldParams {
     const re = resource.type === 'map' ? /^map-/ : /^image-/
     const docs = this.state.docs
     const keys = Object.keys(docs)
@@ -686,7 +698,7 @@ class ResourceForm extends Component<Props, State> {
           <DocPicker
             locale={this.props.locale}
             label="select-images"
-            onPick={this.onPickResponsiveImage(resource)}
+            onPick={this.onPickResponsiveImage(resource, supportedSizes)}
             showPickerAfterUpload={true}
             multiple={true}
             mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
@@ -726,23 +738,24 @@ class ResourceForm extends Component<Props, State> {
           `${API_SERVER}/resources/${resource.id}/preview/${key}`
       : null
 
-  onPickResponsiveImage = resource => async (
+  onPickResponsiveImage = (resource, supportedSizes) => async (
     docs: GoogleDoc[],
     accessToken: string,
   ) => {
     // name: <id>-<size>[@<density>] => key = image-<size>-<density>
     const key = resource.type // 'image' or 'map'
-    const re = /-(small|medium|large)(?:@([123]x))?\.[.a-z]+$/
+    const re =
+      supportedSizes.length === 1 // only 1 size = size is optional in name
+        ? new RegExp(`(?:-(${supportedSizes[0]}))?(?:@([123]x))?\\.[.a-z]+$`)
+        : new RegExp(`-(${supportedSizes.join('|')})(?:@([123]x))?\\.[.a-z]+$`)
 
     docs.forEach(doc => {
       const match = doc.name.match(re)
-      // TODO toast
       if (!match) {
-        toast.error(<T id="error-parsing-image-name" values={doc} />)
-      } else {
-        const [, size, density = '1x'] = match
-        this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
+        return toast.error(<T id="error-parsing-image-name" values={doc} />)
       }
+      const [, size = supportedSizes[0], density = '1x'] = match
+      this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
     })
     return {}
   }

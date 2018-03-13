@@ -170,12 +170,9 @@ const ArticleResource = ({ article, resource }) => {
       return h('figure.container', [
         h('h2.figure-title', resource.title),
         h('picture', [
-          h('source', {
-            srcSet: srcset(resource, 'medium'),
-            media: '(min-width: 560px)',
-          }),
-          h('source', { srcSet: srcset(resource, 'small') }),
-          h('img.img-responsive', { srcSet: srcset(resource, 'small') }),
+          // Only one size (set to 'large')
+          h('source', { srcSet: srcset(resource, 'large') }),
+          h('img.img-responsive', { srcSet: srcset(resource, 'large') }),
         ]),
         h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),

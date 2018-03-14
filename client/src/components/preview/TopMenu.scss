@@ -1,3 +1,5 @@
+@import 'var';
+
 .TopMenu {
   left: 0;
   position: absolute;
@@ -13,7 +15,7 @@
     background: transparent;
     border: none;
     color: white;
-    font-family: 'Fira Sans', sans-serif;
+    font-family: $sans;
     flex-basis: 0;
     flex-grow: 1;
   }

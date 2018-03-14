@@ -1,4 +1,4 @@
-@import 'colors';
+@import 'var';
 
 .FocusPage {
   background: linear-gradient(#fff7d9, #ffe180);
@@ -6,11 +6,11 @@
   .FocusBackToArticle {
     background: $color-breadcrumb;
     height: 32px;
-    margin-bottom: 5px;
+    margin-bottom: $gap;
 
     a {
       color: white;
-      font-family: 'Fira Sans', sans-serif;
+      font-family: $sans;
       font-size: 18px;
     }
   }
@@ -19,7 +19,7 @@
     margin-bottom: 48px;
 
     .FocusTitle {
-      font-family: 'Fira Sans', sans-serif;
+      font-family: $sans;
       font-size: 70px;
       font-weight: normal;
       line-height: 70px;
@@ -27,7 +27,7 @@
     }
 
     .PublishedAt {
-      font-family: 'Gentium Basic', serif;
+      font-family: $serif;
       font-size: 18px;
       font-style: italic;
       line-height: 18px;

@@ -13,6 +13,7 @@ figure {
     margin-bottom: 3.2em;
 }
 
+// ribbon
 body.preview::before {
     background: #f00;
     color: #fff;
@@ -148,7 +149,6 @@ ul.navmenu-nav a {
     background-color: rgba(0, 0, 0, 0.4);
     border: none;
     border-radius: 0;
-/*    box-shadow: 0px 2px 10px rgba(0,0,0,.3),0px 0px 1px rgba(0,0,0,.1),inset 0px 1px 0px rgba(255,255,255,.25),inset 0px -1px 0px rgba(0,0,0,.15);*/
     float: left;
     width: 30px;
     height: 30px;
@@ -261,74 +261,9 @@ figcaption {
     padding: 5px 20px 5px 20px;
 }
 
-/* ------ focusBox ------------------------------ */
-.focusBox {
-    border-left: 4px solid #ffe180;
-    background-color: #fff7d9;
-    padding: 5px 20px 5px 20px;
-}
-
-.focusBox:hover {
-    background-color: #ffe180;
-    transition-duration: 0.2s;
-}
-
-.focusBox a {
-    text-decoration: none;
-}
-
-h2.focusBox-title {
-    color: black;
-    font-size: 1.41em;
-    font-weight: 400;
-    margin-top: 0;
-}
-
-figcaption h3.focusBox-picto {
-    color: #eb8e00;
-    font-weight: 100;
-    font-size: 1.25em;
-    text-transform: uppercase;
-    margin-top: 0.5em;
-}
-
-h3.focusBox-picto {
-    color: #eb8e00;
-    font-weight: 100;
-    font-size: 2.1em;
-    text-transform: uppercase;
-    margin-top: 0.5em;
-}
-/* ------ focus parent--------------------------------- */
-.navbar-logo-focus {
-    position: relative;
-    width: 100%;
-}
-.focusParent {
-    background-color: #d1d6e0;
-    min-height: 48px;
-    width: 100%;
-}
-.focusParent a {
-    text-decoration: none;
-}
-.focusParent h1:before {
-    font-family: 'Glyphicons Halflings';
-    content: "\e257";
-    float: left;
-    color: #3b507b;
-}
-.focusParent h1 {
-    color: #3b507b;
-    font-size: 1.8em;
-    line-height: 1.3335em;
-    margin: 0px;
-    padding-top: 13px;
-}
-
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
-  /* force showing the toggle */
+  // force showing the toggle
   .navbar-toggle {
     display: block;
   }
@@ -364,16 +299,6 @@ h3.focusBox-picto {
     }
     .figComment {
         font-size: 1.6em;
-    }
-    .footer-article h2 {
-        font-size: 2.1em;
-        line-height: 24px;
-    }
-    .footer-article p,
-    .footer-article ul,
-    .footer-article ol {
-        font-size: 1.58em;
-        line-height: 24px;
     }
     blockquote {
         line-height: 25px;

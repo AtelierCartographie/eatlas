@@ -1,15 +1,13 @@
-@import 'colors';
-
-$topic-space: 8px;
+@import 'var';
 
 .TopicPage {
   .TopicHeader {
     background: $color-breadcrumb;
     color: rgba(255,255,255,.9);
-    padding-bottom: 3 * $topic-space;
+    padding-bottom: $gap3;
 
     .TopicId {
-      font-family: 'Fira Sans', sans-serif;
+      font-family: $sans;
       font-size: 120px;
       font-weight: bold;
       line-height: 120px;
@@ -17,7 +15,7 @@ $topic-space: 8px;
     }
 
     .TopicName {
-      font-family: 'Gentium Basic', serif;
+      font-family: $serif;
       font-size: 70px;
       font-style: italic;
       line-height: 70px;
@@ -32,11 +30,11 @@ $topic-space: 8px;
   .ArticleList {
     $height: 192px;
     list-style: none;
-    margin-bottom: 3 * $topic-space;
+    margin-bottom: $gap3;
     margin-top: 0;
 
     li {
-      margin-top: 3 * $topic-space;
+      margin-top: $gap3;
     }
 
     a {
@@ -44,10 +42,6 @@ $topic-space: 8px;
       display: flex;
       text-decoration: none;
       transition: all .2s ease;
-    }
-
-    a:hover {
-      // background: #d1d6e0;
     }
 
     img {
@@ -59,12 +53,12 @@ $topic-space: 8px;
       display: block;
       flex-shrink: 0;
       height: $height;
-      margin-right: 2 * $topic-space;
+      margin-right: $gap2;
       width: 288px;
     }
 
     .ArticleListInfo {
-      font-family: 'Fira Sans', sans-serif;
+      font-family: $sans;
       font-size: 15.8px;
       line-height: 24px;
     }
@@ -77,7 +71,7 @@ $topic-space: 8px;
     }
 
     .publishedAt {
-      font-family: 'Gentium Basic', serif;
+      font-family: $serif;
       font-size: 15.8px;
       font-style: italic;
       line-height: 24px;
@@ -86,8 +80,8 @@ $topic-space: 8px;
     .ArticleListFocus {
       color: #000;
       font-size: 20px;
-      margin-top: 8px;
-      margin-bottom: 24px;
+      margin-top: $gap;
+      margin-bottom: $gap3;
       
       > div {
         background-color: #fff7d9;
@@ -103,12 +97,12 @@ $topic-space: 8px;
       a {
         color: initial;
         display: flex;
-        font-family: 'Fira Sans', sans-serif;
+        font-family: $sans;
         text-decoration: none;
       }
 
       .FocusIcon {
-        margin-right: 1em;
+        margin-right: $gap;
       }
     }
 

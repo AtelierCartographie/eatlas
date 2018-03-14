@@ -1,11 +1,11 @@
-@import 'colors';
+@import 'var';
 
 .FocusIcon {
   // TODO path
   background-image: url('http://localhost:3000/assets/img/pictos-focus.svg');
   background-repeat: no-repeat;
   color: #ffc300;
-  font-family: 'Fira Sans', sans-serif;
+  font-family: $sans;
   font-size: 21px;
   padding-left: 40px;
   text-transform: uppercase;
@@ -13,7 +13,7 @@
 
 .DocFooter {
   background-color: #d1d6e0;
-  padding: 24px 0;
+  padding: $gap3 0;
 
   section {
     margin-bottom: 48px;
@@ -44,7 +44,7 @@
 
   li {
     display: inline-block;
-    margin-right: 8px;
+    margin-right: $gap;
   }
 
   a {
@@ -73,7 +73,6 @@
     padding-left: 16px;
     border-left: 4px solid #fff;
   }
-
 }
 
 .Footnotes {
@@ -86,7 +85,7 @@
 
   li {
     font-size: 15.8px;
-    margin-bottom: 8px;
+    margin-bottom: $gap;
   }
 
   li:target {
@@ -103,7 +102,7 @@
   }
 
   .back {
-    margin: 0 8px;
+    margin: 0 $gap;
   }
 
   .external {

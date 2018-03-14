@@ -1,8 +1,8 @@
 .Footer {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: $sans;
   font-size: 8px;
   padding-bottom: 48px;
-  padding-top: 24px;
+  padding-top: $gap3;
 
   // TODO bootstrap
   section:first-child {
@@ -32,11 +32,11 @@
   }
 
   li {
-    margin-top: 8px;
+    margin-top: $gap;
   }
 
   a {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: $sans;
     color: #666;
   }
 }

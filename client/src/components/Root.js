@@ -22,7 +22,7 @@ const Root = ({ locale }: Props) => {
       locale={locale}
       messages={messages[lang]}
       textComponent={Fragment}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.REACT_APP_ADMIN_BASENAME || '/'}>
         <ScrollTop>
           <App />
         </ScrollTop>

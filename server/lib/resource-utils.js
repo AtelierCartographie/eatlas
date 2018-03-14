@@ -84,7 +84,7 @@ const flattenMetas = article => ({
 
 const populateImageHeader = async article => {
   const imageHeaderId = getMetaText(article, 'image-header')
-  return Resources.findById(imageHeaderId)
+  return imageHeaderId ? Resources.findById(imageHeaderId) : null
 }
 
 const populateFocus = async (article, resources) => {

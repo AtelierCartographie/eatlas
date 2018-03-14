@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
@@ -137,14 +137,6 @@ class ResourceEdit extends Component<Props, State> {
   renderDefinitions(definitions: Array<{ dt: string, dd: string }>) {
     const { openDetails, openDefinition } = this.state
 
-    const linkToResource = id => (
-      <Fragment>
-        {' ('}
-        <Link to={`/resources/${id}/edit`}>{id}</Link>
-        {')'}
-      </Fragment>
-    )
-
     const renderDefinition = dd => (
       <div className="control">
         <textarea className="textarea" readOnly>
@@ -153,8 +145,15 @@ class ResourceEdit extends Component<Props, State> {
       </div>
     )
 
+    const renderAliases = aliases => {
+      if (!aliases || aliases.length === 0) {
+        return null
+      }
+      return <small>({aliases.join(', ')})</small>
+    }
+
     const renderList = () =>
-      definitions.map(({ dt, dd }) => (
+      definitions.map(({ dt, dd, aliases }) => (
         <div key={dt} className="field">
           <label
             className="label"
@@ -163,6 +162,7 @@ class ResourceEdit extends Component<Props, State> {
               icon={openDefinition === dt ? 'caret-down' : 'caret-right'}
             />
             <em>{dt}</em>
+            {renderAliases(aliases)}
           </label>
           {openDefinition === dt && renderDefinition(dd)}
         </div>

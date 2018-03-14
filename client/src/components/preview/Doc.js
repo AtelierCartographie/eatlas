@@ -2,6 +2,7 @@
 
 // components shared by ArticlePage and FocusPage
 
+const { getDefinition } = require('../../universal-utils')
 const { Fragment } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
@@ -129,16 +130,6 @@ exports.Footnotes = ({ footnotes }) => {
   ])
 }
 
-
-const getDefinition = (definitions, dt) => {
-  const search = dt.toLowerCase()
-  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
-  if (!found || !found.dd) {
-    return 'Definition not found'
-  }
-  return found.dd
-}
-
 exports.Lexicon = ({ nodes, definitions }) =>
   h(
     'section.Lexicon',
@@ -150,7 +141,7 @@ exports.Lexicon = ({ nodes, definitions }) =>
       )
       .map((l, k) =>
         h('.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
-          h('dl', [h('dt', l), h('dd', getDefinition(definitions, l))]),
+          h('dl', [h('dt', l), h('dd', getDefinition(l, definitions))]),
         ]),
       ),
   )

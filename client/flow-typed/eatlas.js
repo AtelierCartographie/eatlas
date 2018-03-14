@@ -55,7 +55,11 @@ declare type ResourceNew = {
   mediaUrl?: string, // only video
 }
 
-declare type Definition = { dt: string, dd: string }
+declare type Definition = {
+  dt: string,
+  dd: string,
+  aliases: string[],
+}
 
 declare type ArticleNode = {
   id: string,

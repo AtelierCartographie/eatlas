@@ -44,7 +44,8 @@ type Props = ContextIntl & {
   mode: 'create' | 'edit',
   resource: ?Resource,
   onSubmit: SaveCallback,
-  renderAfter?: ?Function,
+  renderAfterForm?: ?Function,
+  renderEndForm?: ?Function,
   publishable: boolean,
   whyUnpublishable: string[],
   // Actions
@@ -174,8 +175,9 @@ class ResourceForm extends Component<Props, State> {
         {this.state.error ? this.renderError(this.state.error.message) : null}
         <form onSubmit={this.onSubmit}>
           {fields.map(renderField)}
-          {this.props.renderAfter ? this.props.renderAfter() : null}
+          {this.props.renderEndForm ? this.props.renderEndForm() : null}
           {this.renderSave()}
+          {this.props.renderAfterForm ? this.props.renderAfterForm() : null}
         </form>
         <ObjectDebug title="Parsed article" object={this.state.parsed} />
       </div>

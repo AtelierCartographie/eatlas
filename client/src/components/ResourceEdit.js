@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
@@ -97,15 +97,14 @@ class ResourceEdit extends Component<Props, State> {
       )
     }
 
-    // TODO for article? let renderBefore = null
-    let renderAfter = null
+    let renderAfterForm = null
 
     if (resource.type === 'definition' && resource.definitions) {
-      renderAfter = this.renderDefinitions.bind(this, resource.definitions)
+      renderAfterForm = this.renderDefinitions.bind(this, resource.definitions)
     } else if (resource.type === 'article' && resource.nodes) {
-      renderAfter = this.renderNodes.bind(this, resource)
+      renderAfterForm = this.renderNodes.bind(this, resource)
     } else if (resource.type === 'focus' && resource.nodes) {
-      renderAfter = this.renderNodes.bind(this, resource)
+      renderAfterForm = this.renderNodes.bind(this, resource)
     }
 
     return (
@@ -113,7 +112,7 @@ class ResourceEdit extends Component<Props, State> {
         mode="edit"
         resource={resource}
         onSubmit={this.save}
-        renderAfter={renderAfter}
+        renderAfterForm={renderAfterForm}
         publishable={this.state.publishable}
         whyUnpublishable={this.state.whyUnpublishable}
       />
@@ -122,17 +121,20 @@ class ResourceEdit extends Component<Props, State> {
 
   renderNodes(article: any) {
     return (
-      <ArticleForm
-        article={article}
-        onUnpublishable={reason =>
-          this.setState(state => ({
-            publishable: false,
-            whyUnpublishable: state.whyUnpublishable
-              .filter(text => text !== reason)
-              .concat([reason]),
-          }))
-        }
-      />
+      <Fragment>
+        <hr />
+        <ArticleForm
+          article={article}
+          onUnpublishable={reason =>
+            this.setState(state => ({
+              publishable: false,
+              whyUnpublishable: state.whyUnpublishable
+                .filter(text => text !== reason)
+                .concat([reason]),
+            }))
+          }
+        />
+      </Fragment>
     )
   }
 
@@ -177,15 +179,18 @@ class ResourceEdit extends Component<Props, State> {
       ))
 
     return (
-      <section className="box definitions-box">
-        <h2 className="subtitle" onClick={this.toggleOpenDetails}>
-          <IconButton icon={openDetails ? 'caret-down' : 'caret-right'} />
-          <label>
-            <T id="lexicon-description" values={{ nb: definitions.length }} />
-          </label>
-        </h2>
-        {openDetails && renderList()}
-      </section>
+      <Fragment>
+        <hr />
+        <section className="definitions-box">
+          <h2 className="subtitle" onClick={this.toggleOpenDetails}>
+            <IconButton icon={openDetails ? 'caret-down' : 'caret-right'} />
+            <label>
+              <T id="lexicon-description" values={{ nb: definitions.length }} />
+            </label>
+          </h2>
+          {openDetails && renderList()}
+        </section>
+      </Fragment>
     )
   }
 

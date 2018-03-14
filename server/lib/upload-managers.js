@@ -170,7 +170,10 @@ exports.definition = {
 
 exports.video = {
   validate() {
-    throw Boom.badRequest('Upload: no upload expected for video')
+    // No upload expected for video: noop
+  },
+  async save() {
+    // No upload expected for video: noop
   },
   files() {
     return [] // No file in uploadPath for video (vimeo URLs)

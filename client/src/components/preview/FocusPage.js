@@ -29,10 +29,15 @@ const FocusBackToArticle = ({ focus, options }) =>
         'a',
         {
           href: options.preview
-            ? `/resources/${focus.relatedArticle.id}/preview`
+            ? `/resources/${focus.relatedArticleId}/preview`
             : '',
         },
-        [`< ${focus.relatedArticle.title}`],
+        [
+          '< ',
+          focus.relatedArticle
+            ? focus.relatedArticle.title
+            : h('strike', focus.relatedArticleId),
+        ],
       ),
     ]),
   ])

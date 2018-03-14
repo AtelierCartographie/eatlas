@@ -38,6 +38,7 @@ exports.generateArticleHTML = async (resource, options) => {
 exports.generateFocusHTML = async (resource, options) => {
   let focus = flattenMetas(resource)
   // to create the "go back to article" link
+  focus.relatedArticleId = focus.relatedArticle
   focus.relatedArticle = await Resources.findById(focus.relatedArticle)
   const topics = await getTopics()
   const definitions = await getDefinitions()

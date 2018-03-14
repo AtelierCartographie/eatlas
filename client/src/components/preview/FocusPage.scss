@@ -1,0 +1,36 @@
+@import 'colors';
+
+.FocusPage {
+
+  .FocusHeader {
+
+    .FocusIcon {
+      // TODO path
+      background-image: url('http://localhost:3000/assets/img/pictos-focus.svg');
+      background-repeat: no-repeat;
+      color: #ffc300;
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 21px;
+      margin-top: 50px;
+      padding-left: 40px;
+      text-transform: uppercase;
+    }
+
+    .FocusTitle {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 70px;
+      font-weight: normal;
+      line-height: 70px;
+      margin-top: 24px;
+    }
+
+    .PublishedAt {
+      font-family: 'Gentium Basic', serif;
+      font-size: 18px;
+      font-style: italic;
+      line-height: 18px;
+    }
+
+  }
+
+}

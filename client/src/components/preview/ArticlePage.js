@@ -9,6 +9,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
+const { PublishedAt } = require('./Doc')
 const { Script, Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
@@ -45,16 +46,6 @@ const srcset = (image, size) => {
 // subcomponents
 
 const ArticleHeader = ({ article, resources }) => {
-  const publishedAt = !article.publishedAt
-    ? h('.ArticlePublishedAt', 'Non publié')
-    : h('.ArticlePublishedAt', [
-        'Publié le ',
-        h(
-          'time',
-          { dateTime: article.publishedAt },
-          moment(article.publishedAt).format('D MMMM YYYY'),
-        ),
-      ])
   const imageHeader = getResource(resources, article.imageHeader)
   const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
   const style = imageHeaderUrl
@@ -65,7 +56,7 @@ const ArticleHeader = ({ article, resources }) => {
   return h('header.ArticleHeader', { style }, [
     h('.container.ArticleHeaderInfo', [
       h('h1.ArticleTitle', article.title),
-      publishedAt,
+      h(PublishedAt, { doc: article }),
     ]),
   ])
 }
@@ -414,7 +405,7 @@ const NavTopics = () =>
     ]),
   ])
 
-class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
+class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
     lexiconId = 0
     const { article, topics, definitions, resources, options } = this.props
@@ -428,4 +419,4 @@ class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[],
   }
 }
 
-module.exports = ArticlePreview
+module.exports = ArticlePage

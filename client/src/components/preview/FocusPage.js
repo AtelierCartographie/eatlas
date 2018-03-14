@@ -9,7 +9,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt, Paragraph } = require('./Doc')
+const { PublishedAt, Paragraph, Lexicon } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -38,7 +38,11 @@ const FocusNodes = ({ focus, resources, lexiconId }) => {
 }
 
 const Focus = props =>
-  h('article.focus.FocusPage', [h(FocusHeader, props), h(FocusNodes, props)])
+  h('article.focus.FocusPage', [
+    h(FocusHeader, props),
+    h(FocusNodes, props),
+    h(Lexicon, { nodes: props.focus.nodes, definitions: props.definitions }),
+  ])
 
 class FocusPage extends Component /*::<{focus: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {

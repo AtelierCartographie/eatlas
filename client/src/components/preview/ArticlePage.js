@@ -9,7 +9,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt, Paragraph } = require('./Doc')
+const { PublishedAt, Paragraph, Lexicon } = require('./Doc')
 const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
@@ -18,15 +18,6 @@ const {
   getImageUrl,
   getResource,
 } = require('./layout')
-
-const getDefinition = (definitions, dt) => {
-  const search = dt.toLowerCase()
-  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
-  if (!found || !found.dd) {
-    return 'Definition not found'
-  }
-  return found.dd
-}
 
 const srcset = (image, size) => {
   const image1 = getImageUrl(image, size, '1x')
@@ -324,21 +315,6 @@ const ArticleFooter = ({ article, topics, resources, options }) =>
     h(ArticleSeeAlso, { article, topics, resources, options }),
   ])
 
-const ArticleLexicon = ({ article, definitions }) =>
-  h(
-    'section.article-def',
-    article.nodes
-      .reduce(
-        (acc, node) =>
-          node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
-        [],
-      )
-      .map((l, k) =>
-        h('.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
-          h('dl', [h('dt', l), h('dd', getDefinition(definitions, l))]),
-        ]),
-      ),
-  )
 
 const Article = props =>
   h('article.article.ArticlePage', [
@@ -347,7 +323,7 @@ const Article = props =>
     h(ArticleSummaries, props),
     h(ArticleNodes, props),
     h(ArticleFooter, props),
-    h(ArticleLexicon, props),
+    h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
   ])
 
 const NavTopics = () =>

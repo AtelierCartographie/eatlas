@@ -1,0 +1,28 @@
+@import 'colors';
+
+.Lexicon {
+    position: fixed;
+    background-color: #d1d6e0;
+    box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
+    border-top: 1px solid #ccc;
+    bottom: -1px;
+    max-height: 60%;
+    padding: 0px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+
+    dl {
+      color: #3d485a;
+      font-size: 1.58em;
+      line-height: 24px;
+      margin-top: .5em;
+    }
+
+    dt {
+      font-weight: 700;
+    }
+}
+

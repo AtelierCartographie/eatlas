@@ -56,3 +56,27 @@ exports.Paragraph = ({ p, lexiconId }) => {
   return h('p.container', parts)
 }
 
+const getDefinition = (definitions, dt) => {
+  const search = dt.toLowerCase()
+  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
+  if (!found || !found.dd) {
+    return 'Definition not found'
+  }
+  return found.dd
+}
+
+exports.Lexicon = ({ nodes, definitions }) =>
+  h(
+    'section.Lexicon',
+    nodes
+      .reduce(
+        (acc, node) =>
+          node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
+        [],
+      )
+      .map((l, k) =>
+        h('.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
+          h('dl', [h('dt', l), h('dd', getDefinition(definitions, l))]),
+        ]),
+      ),
+  )

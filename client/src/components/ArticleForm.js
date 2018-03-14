@@ -387,6 +387,7 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
+        <hr />
         <h2 className="subtitle is-4">
           <T id="article-missing-definitions" values={{ nb: dts.length }} />
         </h2>
@@ -412,7 +413,6 @@ class ArticleForm extends Component<Props, State> {
             </li>
           ))}
         </ul>
-        <hr />
       </Fragment>
     )
   }
@@ -520,15 +520,17 @@ class ArticleForm extends Component<Props, State> {
           />{' '}
           <T id="article-more-details" />
         </h2>
-        {this.state.expanded && this.renderMoreDetails()}
+        {this.renderMoreDetails(this.state.expanded)}
         <hr />
       </div>
     )
   }
 
-  renderMoreDetails() {
+  renderMoreDetails(expanded = false) {
+    // Note: we always render the whole thing, hidden if required
+    // because relation errors are diagnosed on render
     const { article } = this.props
-    return (
+    const out = (
       <Fragment>
         <h3 className="subtitle is-4">
           <T id="article-content-metas" />
@@ -560,6 +562,8 @@ class ArticleForm extends Component<Props, State> {
           })}
       </Fragment>
     )
+
+    return expanded ? out : <div style={{ display: 'none' }}>{out}</div>
   }
 
   getPreviewUrl() {

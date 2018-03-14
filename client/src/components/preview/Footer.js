@@ -20,27 +20,28 @@ const Topics = ({ topics, options }) => {
   ])
 }
 
+// TODO flexbox to change order
 module.exports = ({ topics, options }) =>
-  h('footer.container.footer-page.Footer', [
-    h('div.row', [
-      h('section.col-xs-6.col-sm-3', [
+  h('footer.container.Footer', [
+    h('.row', [
+      h('.col-xs-6.col-sm-3', [
         h('a', [
           h(Img, {
             className: 'img-responsive',
-            alt: 'Sciences Po - Atelier de cartographie',
-            src: '/assets/img/logo-Atelier-NB.svg',
+            alt: 'Sciences Po',
+            src: '/assets/img/sciences-po.svg',
           }),
         ]),
       ]),
-      h('section.col-xs-6.col-sm-3', [
+      h('.col-xs-6.col-sm-3', [
         h('h2', 'Sommaire'),
         h(Topics, { topics, options }),
       ]),
-      h('section.col-xs-6.col-sm-3', [
+      h('.col-xs-6.col-sm-3', [
         h('h2', 'Resources'),
         h('ul', resourcesTypes.map((r, i) => h('li', { key: i }, [h('a', r)]))),
       ]),
-      h('section.col-xs-6.col-sm-3', [
+      h('.col-xs-6.col-sm-3', [
         h('h2', 'À propos'),
         h('ul', aPropos.map((a, i) => h('li', { key: i }, [h('a', a)]))),
       ]),

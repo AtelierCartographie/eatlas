@@ -8,7 +8,7 @@
     background-repeat: no-repeat;
     background-size: 100%;
     background-size: cover;
-    color: white;
+    color: $color-white;
     display: flex;
     min-height: 100vh;
     position: relative;
@@ -24,9 +24,6 @@
       font-weight: normal;
       line-height: 70px;
       text-shadow: 0em 0em 10px #444;
-      -webkit-box-decoration-break: clone;
-      -ms-box-decoration-break: clone;
-      -o-box-decoration-break: clone;
       box-decoration-break: clone;
     }
 
@@ -36,23 +33,19 @@
       font-style: italic;
       line-height: 18px;
       text-shadow: 0em 0em 10px #444;
-      -webkit-box-decoration-break: clone;
-      -ms-box-decoration-break: clone;
-      -o-box-decoration-break: clone;
       box-decoration-break: clone;
     }
-
   }
 
   .ArticleSummaries {
     color: $color-breadcrumb;
-    margin-bottom: 48px;
-    margin-top: 48px;
+    margin-bottom: $gap6;
+    margin-top: $gap6;
     // for langs
     position: relative;
 
     h2 {
-      background: #fff;
+      background: $color-white;
       display: inline-block;
       font-size: 2.2em;
       margin-top: 0;
@@ -109,11 +102,10 @@
       li.active a,
       li.active a:hover,
       li.active a:focus {
-        color: white;
+        color: $color-white;
         background-color: $color-breadcrumb;
       }
     }
-
   }
 
   .ArticleBreadcrumb {
@@ -122,12 +114,12 @@
     height: $gap3;
 
     a {
-      color: white;
+      color: $color-white;
     }
   }
 
   .ArticleFocus {
-    color: #000;
+    color: $color-text;
     font-size: 20px;
     margin-top: 0;
     
@@ -192,7 +184,5 @@
       font-weight: bold;
       line-height: 21px;
     }
-
   }
-
 }

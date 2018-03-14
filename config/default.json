@@ -45,10 +45,16 @@
 		"downloadUrl":
 			"https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
 		"exportTrigger": {
-			"article": ["application/vnd.google-apps.document"]
+			"article": ["application/vnd.google-apps.document"],
+			"focus": ["application/vnd.google-apps.document"],
+			"definition": ["application/vnd.google-apps.document"]
 		},
 		"exportFormat": {
 			"article":
+				"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+			"focus":
+				"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+			"definition":
 				"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 		}
 	},

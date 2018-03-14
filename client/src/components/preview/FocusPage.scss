@@ -1,14 +1,22 @@
 @import 'colors';
 
 .FocusPage {
-  background: linear-gradient(#fff7d9,#ffe180);
+  background: linear-gradient(#fff7d9, #ffe180);
+
+  .FocusBackToArticle {
+    background: $color-breadcrumb;
+    height: 32px;
+    margin-bottom: 5px;
+
+    a {
+      color: white;
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 18px;
+    }
+  }
 
   .FocusHeader {
     margin-bottom: 48px;
-
-    .FocusIcon {
-      margin-top: 50px;
-    }
 
     .FocusTitle {
       font-family: 'Fira Sans', sans-serif;

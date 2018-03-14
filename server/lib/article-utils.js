@@ -6,7 +6,7 @@ const dynamicConfVar = require('./dynamic-config-variable')
 
 exports.generateArticleHTML = async (resource, options) => {
   const article = flattenMetas(resource)
-  const topics = (await Topics.list()).sort((a, b) => a.id > b.id)
+  const topics = await getTopics()
   const definitions = await getDefinitions()
   let resources = await getResources(resource, !options || !options.preview)
 
@@ -24,22 +24,14 @@ exports.generateArticleHTML = async (resource, options) => {
 }
 
 exports.generateFocusHTML = async (resource, options) => {
-  const article = flattenMetas(resource)
-  const topics = (await Topics.list()).sort((a, b) => a.id > b.id)
+  let focus = flattenMetas(resource)
+  // to create the "go back to article" link
+  focus.relatedArticle = await Resources.findById(focus.relatedArticle)
+  const topics = await getTopics()
   const definitions = await getDefinitions()
-  let resources = await getResources(resource, !options || !options.preview)
+  const resources = await getResources(resource, !options || !options.preview)
 
-  // need to retrieve imageHeader for "related" in footer and "related articles" for focus since they're transitives deps
-  resources = await Promise.all(
-    resources.map(async r => {
-      if (r.type === 'article') {
-        r.imageHeader = await populateImageHeader(r)
-      }
-      return r
-    }),
-  )
-
-  return generateFocusHTML(article, topics, definitions, resources, options)
+  return generateFocusHTML(focus, topics, definitions, resources, options)
 }
 
 // Article or Focus file name
@@ -111,3 +103,5 @@ const getDefinitions = async () => {
     [],
   )
 }
+
+const getTopics = async () => (await Topics.list()).sort((a, b) => a.id > b.id)

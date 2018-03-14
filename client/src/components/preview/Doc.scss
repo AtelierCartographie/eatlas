@@ -56,12 +56,12 @@
     text-decoration: none;
     transition-duration: 0.2s;
     transition-property: all;
-  }
 
-  a:focus,
-  a:hover {
-    color: rgba(0,0,0,.8);
-    background-color: #ffd754;
+    &:focus,
+    &:hover {
+      color: rgba(0,0,0,.8);
+      background-color: #ffd754;
+    }
   }
 }
 

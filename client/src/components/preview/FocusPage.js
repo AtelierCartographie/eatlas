@@ -22,6 +22,21 @@ const Body = require('./Body')
 
 // subcomponents
 
+const FocusBackToArticle = ({ focus, options }) =>
+  h('.FocusBackToArticle', [
+    h('.container', [
+      h(
+        'a',
+        {
+          href: options.preview
+            ? `/resources/${focus.relatedArticle.id}/preview`
+            : '',
+        },
+        [`< ${focus.relatedArticle.title}`],
+      ),
+    ]),
+  ])
+
 const FocusHeader = ({ focus }) =>
   h('header.FocusHeader', [
     h('.container.FocusHeaderInfo', [
@@ -53,6 +68,7 @@ const FocusFooter = ({ focus, topics, resources, options }) =>
 
 const Focus = props =>
   h('article.focus.FocusPage', [
+    h(FocusBackToArticle, props),
     h(FocusHeader, props),
     h(FocusNodes, props),
     h(FocusFooter, props),
@@ -65,6 +81,7 @@ class FocusPage extends Component /*::<{focus: Resource, topics: Topic[], defini
     const lexiconId = {
       id: 0,
     }
+    console.log({ focus })
     return h('html', { lang: 'fr' }, [
       h(Head, { title: focus.title }),
       h(Body, { topics, options }, [

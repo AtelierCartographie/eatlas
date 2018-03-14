@@ -9,9 +9,11 @@ import { connect } from 'react-redux'
 import ScrollTop from './ScrollTop'
 import App from './App'
 
-const basename = process.env.REACT_APP_ADMIN_URL
-  ? process.env.REACT_APP_ADMIN_URL.replace(/^.+:\/\/.+?(\/|$)/, '/')
-  : '/'
+const basename =
+  process.env.REACT_APP_ADMIN_BASENAME ||
+  (process.env.REACT_APP_ADMIN_URL
+    ? process.env.REACT_APP_ADMIN_URL.replace(/^.+:\/\/.+?(\/|$)/, '/')
+    : '/')
 
 type Props = {
   locale: Locale,

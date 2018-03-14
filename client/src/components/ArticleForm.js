@@ -510,7 +510,7 @@ class ArticleForm extends Component<Props, State> {
         )}
         {this.renderMissingDefinitions()}
         <h2
-          className="subtitle is-3"
+          className="subtitle is-3 content-details-expander"
           onClick={() => this.setState({ expanded: !this.state.expanded })}>
           <IconButton
             icon={this.state.expanded ? 'caret-down' : 'caret-right'}
@@ -518,7 +518,6 @@ class ArticleForm extends Component<Props, State> {
           <T id="article-more-details" />
         </h2>
         {this.renderMoreDetails(this.state.expanded)}
-        <hr />
       </div>
     )
   }

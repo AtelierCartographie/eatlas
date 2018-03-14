@@ -72,6 +72,7 @@ exports.resBoomSend = (req, res, next) => {
         : res.boom.create(err.status || 500, err.message || String(err))
       const payload = Object.assign(boomed.output.payload, additionalData, {
         message: err.message,
+        details: err.details,
       })
       res.status(boomed.output.statusCode).send(payload)
 

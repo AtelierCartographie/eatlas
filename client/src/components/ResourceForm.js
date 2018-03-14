@@ -428,7 +428,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: isArticle,
         readOnly:
           readOnly ||
-          (isArticle && this.state.paresed && this.state.parsed.author),
+          (isArticle && this.state.parsed && this.state.parsed.author),
         loading: this.state.parsing,
       }),
       this.getAttrField('title', {
@@ -436,7 +436,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: true,
         readOnly:
           readOnly ||
-          (isArticle && this.state.paresed && this.state.parsed.title),
+          (isArticle && this.state.parsed && this.state.parsed.title),
         loading: this.state.parsing,
       }),
       subtitle &&
@@ -444,7 +444,7 @@ class ResourceForm extends Component<Props, State> {
           leftIcon: 'header',
           readOnly:
             readOnly ||
-            (isArticle && this.state.paresed && this.state.parsed.subtitle),
+            (isArticle && this.state.parsed && this.state.parsed.subtitle),
           loading: this.state.parsing,
         }),
       this.getAttrField('topic', {
@@ -452,7 +452,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: !optionalTopic,
         readOnly:
           readOnly ||
-          (isArticle && this.state.paresed && this.state.parsed.topic),
+          (isArticle && this.state.parsed && this.state.parsed.topic),
         loading:
           this.state.parsing ||
           this.props.topics.loading ||
@@ -472,7 +472,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: true,
         readOnly:
           readOnly ||
-          (isArticle && this.state.paresed && this.state.parsed.language),
+          (isArticle && this.state.parsed && this.state.parsed.language),
         loading: this.state.parsing,
         options: this.buildSelectOptions(
           LOCALES,
@@ -485,7 +485,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: true,
         readOnly:
           readOnly ||
-          (isArticle && this.state.paresed && this.state.parsed.description),
+          (isArticle && this.state.parsed && this.state.parsed.description),
         loading: this.state.parsing,
         rows: 5,
       }),
@@ -494,7 +494,7 @@ class ResourceForm extends Component<Props, State> {
           leftIcon: 'copyright',
           readOnly:
             readOnly ||
-            (isArticle && this.state.paresed && this.state.parsed.copyright),
+            (isArticle && this.state.parsed && this.state.parsed.copyright),
         }),
       this.getAttrField('updatedBy', {
         leftIcon: 'user',

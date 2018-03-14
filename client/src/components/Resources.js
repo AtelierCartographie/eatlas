@@ -76,6 +76,7 @@ type ReduxProps = {
   pagination: PaginationProps,
   filters: FiltersProps,
   sort: SortProps,
+  search: string,
 }
 
 type Props = ContextIntl &
@@ -138,7 +139,11 @@ export const renderPreview = (resource: Resource) => {
 }
 
 class Resources extends Component<Props, State> {
-  state = { removeResource: null, removing: false, restoring: null }
+  state = {
+    removeResource: null,
+    removing: false,
+    restoring: null,
+  }
 
   componentDidMount() {
     if (!this.props.resources.fetched) {
@@ -165,7 +170,12 @@ class Resources extends Component<Props, State> {
       topic: field === 'topic' ? value : this.props.filters.topic,
     }
     // $FlowFixMe: I know I'm not passing props but just partial filter (no sort intel either)
-    const list = applyFilters(this.props.resources.list, filter)
+    const list = applyFilters(
+      this.props.resources.list,
+      filter,
+      null,
+      this.props.search,
+    )
     const count = list.length
     return ` (${count})`
   }
@@ -663,6 +673,14 @@ class Resources extends Component<Props, State> {
     )
   }
 
+  onChangeSearch = e => {
+    this.props.history.push(
+      updateLocation(this.props.history.location, {
+        search: { q: e.target.value },
+      }),
+    )
+  }
+
   render() {
     const { loading } = this.props.resources
 
@@ -672,6 +690,14 @@ class Resources extends Component<Props, State> {
         <div className="columns">
           <div className="column is-2">
             <aside className="menu">
+              <p className="menu-item">
+                <input
+                  type="text"
+                  placeholder={this.props.intl.formatMessage({ id: 'search' })}
+                  defaultValue={this.props.search}
+                  onChange={this.onChangeSearch}
+                />
+              </p>
               <p className="menu-label">
                 <T id="resource-type" />
               </p>
@@ -735,15 +761,62 @@ const compare = (
   return asc ? result : -result
 }
 
+const resourceMatchSearch = (resource: Resource, lcWords: string[]) => {
+  // Fields to search in
+  const text = [
+    resource.id,
+    resource.type,
+    resource.title,
+    resource.subtitle,
+    resource.language,
+    resource.description,
+    ...(resource.definitions
+      ? resource.definitions.reduce(
+          (strings, def) => strings.concat([def.dt, def.dd, ...def.aliases]),
+          [],
+        )
+      : []),
+    ...(resource.metas
+      ? resource.metas.reduce(
+          (strings, meta) =>
+            strings.concat([
+              meta.text,
+              ...(meta.list ? meta.list.map(({ text }) => text) : []),
+            ]),
+          [],
+        )
+      : []),
+    ...(resource.nodes
+      ? resource.nodes.reduce(
+          (strings, node) =>
+            strings.concat([
+              node.text,
+              ...(node.list ? node.list.map(({ text }) => text) : []),
+            ]),
+          [],
+        )
+      : []),
+    resource.author,
+  ]
+    .filter(string => !!string)
+    .join(' ')
+    .toLowerCase()
+  return lcWords.some(word => text.indexOf(word) !== -1)
+}
+
 const applyFilters = (
   list: Resource[],
   { type, status, topic }: FiltersProps,
   sort: ?SortProps,
+  search: ?string,
 ) => {
   const filtered = list
     .filter(r => !status || r.status === status)
     .filter(r => !topic || r.topic === topic)
     .filter(r => !type || r.type === type)
+    .filter(
+      r => !search || resourceMatchSearch(r, search.toLowerCase().split(/\s+/)),
+    )
 
   return sort
     ? // $FlowFixMe i've just tested sort is not null!!
@@ -774,7 +847,13 @@ export default withRouter(
         by: searchParams.get('sort') || 'status',
         dir: searchParams.get('dir') === 'desc' ? 'desc' : 'asc',
       }
-      const filteredResources = applyFilters(resources.list, filters, sort)
+      const search: string = searchParams.get('q') || ''
+      const filteredResources = applyFilters(
+        resources.list,
+        filters,
+        sort,
+        search,
+      )
       const displayedResources = filteredResources.slice(
         (page - 1) * nbPerPage,
         page * nbPerPage,
@@ -793,6 +872,7 @@ export default withRouter(
         },
         sort,
         filters,
+        search,
         displayedResources,
       }
     },

@@ -60,11 +60,13 @@ module.exports = type => {
 
   const findOne = body => find(body).then(([result]) => result || null)
 
-  const findById = id =>
-    client
-      .get({ index: indices[type], type, id })
-      .then(hit => (hit.found ? formatHit(hit) : null))
-      .catch(err => (err.status === 404 ? null : Promise.reject(err)))
+  const findById = async id =>
+    id
+      ? client
+          .get({ index: indices[type], type, id })
+          .then(hit => (hit.found ? formatHit(hit) : null))
+          .catch(err => (err.status === 404 ? null : Promise.reject(err)))
+      : null
 
   const insert = (body, id = null) =>
     client

@@ -180,6 +180,18 @@
     }
   }
 
+  .ArticleQuote {
+
+    blockquote {
+      font-size: 10px;
+      line-height: 21px;
+      margin: 0px;
+      padding-left: 16px;
+      border-left: 4px solid #fff;
+    }
+
+  }
+
   .ArticleFootnotes {
     ol {
       // styled with a span

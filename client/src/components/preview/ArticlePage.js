@@ -267,7 +267,7 @@ const ArticleQuote = ({ article }) => {
   const year = 2016
   const url = `${HOST}`
 
-  return h('section.container.article-quote', [
+  return h('section.container.ArticleQuote', [
     h('h2', 'Citation'),
     h('blockquote', [
       h('p', [

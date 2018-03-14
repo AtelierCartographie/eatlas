@@ -5,7 +5,7 @@ const get = require('lodash.get')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
-const { generateArticleHTML, generateFocusHTML } = require('../article-utils')
+const { generateArticleHTML, generateFocusHTML } = require('../resource-utils')
 const { download } = require('../google')
 const { updateFilesLocations, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')

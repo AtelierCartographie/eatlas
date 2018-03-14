@@ -4,7 +4,7 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component, Fragment } = require('react')
+const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -12,7 +12,7 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 
-const { getImageUrl, getResource } = require('./layout')
+const { getImageUrl } = require('./layout')
 
 const TopicVideo = ({ url }) => {
   if (!url) return null
@@ -34,12 +34,11 @@ const TopicHeader = ({ topic }) => {
   ])
 }
 
-const ArticleList = ({ articles, resources, options }) => {
+const ArticleList = ({ articles, options }) => {
   if (!articles || !articles.length) return null
   return h(
     'ul.container.ArticleList',
     articles.map(a => {
-      const imageHeader = getResource(resources, a.imageHeader)
       return h('li', [
         h(
           'a',
@@ -49,8 +48,8 @@ const ArticleList = ({ articles, resources, options }) => {
               alt: '',
               style: {
                 backgroundImage:
-                  imageHeader &&
-                  `url(${getImageUrl(imageHeader, 'large', '1x')})`,
+                  a.imageHeader &&
+                  `url(${getImageUrl(a.imageHeader, 'large', '1x')})`,
               },
             }),
             h('.ArticleListInfo', [
@@ -72,25 +71,39 @@ const ArticleList = ({ articles, resources, options }) => {
             ]),
           ],
         ),
+        a.focus &&
+          h('.ArticleListFocus', [
+            h('div', [
+              h(
+                'a',
+                {
+                  href: options.preview
+                    ? `/resources/${a.focus.id}/preview`
+                    : '',
+                },
+                [h('.FocusIcon', 'Focus'), a.focus.title],
+              ),
+            ]),
+          ]),
       ])
     }),
   )
 }
 
-const Topic = ({ topic, topics, articles, resources, options }) => {
+const Topic = ({ topic, articles, options }) => {
   return h('article.TopicPage', [
     h(TopicHeader, { topic }),
-    h(ArticleList, { articles, resources, options }),
+    h(ArticleList, { articles, options }),
   ])
 }
 
 class TopicPage extends Component {
   render() {
-    const { topic, topics, articles, resources, options } = this.props
+    const { topic, topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: topic.name }),
       h(Body, { topics, options, topMenu: true }, [
-        h(Topic, { topic, topics, articles, resources, options }),
+        h(Topic, { topic, topics, articles, options }),
       ]),
     ])
   }

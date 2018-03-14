@@ -1,8 +1,14 @@
 'use strict'
 
-const { generateArticleHTML, generateFocusHTML } = require('./html-generator')
+const {
+  generateArticleHTML,
+  generateFocusHTML,
+  generateTopicHTML,
+} = require('./html-generator')
 const { resources: Resources, topics: Topics } = require('./model')
 const dynamicConfVar = require('./dynamic-config-variable')
+
+// reexports "enhanced" HTML generators
 
 exports.generateArticleHTML = async (resource, options) => {
   const article = flattenMetas(resource)
@@ -34,31 +40,53 @@ exports.generateFocusHTML = async (resource, options) => {
   return generateFocusHTML(focus, topics, definitions, resources, options)
 }
 
+exports.generateTopicHTML = async (topic, options) => {
+  const resources = await getTopicResources(topic)
+  const topics = await getTopics()
+  const articles = await Promise.all(
+    resources
+      .filter(r => r.type === 'article')
+      .map(flattenMetas)
+      .map(async a => {
+        a.imageHeader = await populateImageHeader(a)
+        a.focus = await populateFocus(a, resources)
+        return a
+      }),
+  )
+
+  return generateTopicHTML(topic, topics, articles, resources, options)
+}
+
 // Article or Focus file name
 exports.articleFileName = resource =>
   dynamicConfVar('htmlFileName.' + resource.type, resource)
 
 // smoosh nested info to provide direct access in React components
-const flattenMetas = (exports.flattenMetas = article => {
-  return {
-    ...article,
-    imageHeader: getMetaText(article, 'image-header'),
-    relatedArticle: getMetaText(article, 'related-article'),
-    title: getMetaText(article, 'title'),
-    summaries: {
-      en: getMetaText(article, 'summary-en'),
-      fr: getMetaText(article, 'summary-fr'),
-    },
-    keywords: getMetaList(article, 'keywords'),
-    footnotes: getNodeList(article, 'footnotes'),
-    related: getMetaList(article, 'related'),
-  }
+const flattenMetas = article => ({
+  ...article,
+  imageHeader: getMetaText(article, 'image-header'),
+  relatedArticle: getMetaText(article, 'related-article'),
+  title: getMetaText(article, 'title'),
+  summaries: {
+    en: getMetaText(article, 'summary-en'),
+    fr: getMetaText(article, 'summary-fr'),
+  },
+  keywords: getMetaList(article, 'keywords'),
+  footnotes: getNodeList(article, 'footnotes'),
+  related: getMetaList(article, 'related'),
 })
 
-const populateImageHeader = (exports.populateImageHeader = async article => {
+const populateImageHeader = async article => {
   const imageHeaderId = getMetaText(article, 'image-header')
   return Resources.findById(imageHeaderId)
-})
+}
+
+const populateFocus = async (article, resources) => {
+  return resources
+    .filter(r => r.type === 'focus')
+    .map(flattenMetas)
+    .find(f => f.relatedArticle === article.id)
+}
 
 const getNodeList = (article, type) => {
   const found = article.nodes.find(m => m.type === type)
@@ -72,6 +100,11 @@ const getMetaList = (article, type) => {
 const getMetaText = (article, type) => {
   const found = getMeta(article, type)
   return found ? found.text : null
+}
+
+const getTopicResources = async (topic, excludeUnpublished = false) => {
+  // TODO handle query ES side
+  return (await Resources.list()).filter(r => r.topic == topic.id)
 }
 
 const getResources = async (article, excludeUnpublished = false) => {

@@ -1,8 +1,7 @@
 'use strict'
 
-const { topics, resources } = require('../model')
-const { generateTopicHTML } = require('../html-generator')
-const { flattenMetas } = require('../article-utils')
+const { topics } = require('../model')
+const { generateTopicHTML } = require('../resource-utils')
 
 exports.list = (req, res) =>
   topics
@@ -44,22 +43,9 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
-    // TODO for now resources are needed to display focus and imageHeader for each articles
-    const resources = await getResources(req.foundTopic)
-    const html = generateTopicHTML(
-      req.foundTopic,
-      (await topics.list()).sort((a, b) => a.id > b.id),
-      resources.filter(r => r.type === 'article').map(flattenMetas),
-      resources,
-      { preview: true },
-    )
+    const html = await generateTopicHTML(req.foundTopic, { preview: true })
     res.send(html)
   } catch (err) {
     next(err)
   }
-}
-
-const getResources = async (topic, excludeUnpublished = false) => {
-  // TODO handle query ES side
-  return (await resources.list()).filter(r => r.topic == topic.id)
 }

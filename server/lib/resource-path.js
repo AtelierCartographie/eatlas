@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const { articleFileName } = require('./article-utils')
+const { articleFileName } = require('./resource-utils')
 const getConf = require('./dynamic-config-variable')
 
 const guessFileName = resource => {

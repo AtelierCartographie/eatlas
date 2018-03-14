@@ -72,11 +72,6 @@ h1.table-content-title img {
     margin-right: 10px;
 }
 
-.article-card h1 {
-    padding-left: 20px;
-    margin: 0px;
-}
-
 h1,
 h2 {
     font-size: 2.17em;
@@ -280,9 +275,6 @@ figcaption {
     .article .header-info h1 {
         font-size: 7em;
     }
-    .article-card h1 {
-        padding-left: 60px;
-    }
     h1,
     h2 {
         font-size: 2.4em;
@@ -313,7 +305,6 @@ figcaption {
     }
 }
 
-@import 'nav';
 @import 'TopMenu';
 @import 'Footer';
 @import 'Doc';

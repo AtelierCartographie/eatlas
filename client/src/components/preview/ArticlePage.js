@@ -268,19 +268,16 @@ const Article = props =>
     h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
   ])
 
-const NavTopics = () =>
-  h('.nav-article-wrapper', [
-    h('nav.nav-article', [
-      h('a.nav-article-button.nav-article-previous', [
-        h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-        h('span.nav-article-title', ['TODO (previous article title)']),
-      ]),
-      h('a.nav-article-button.nav-article-next', [
-        h('span.nav-article-chap', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-        h('span.nav-article-title', ['TODO (next article title)']),
-      ]),
-    ]),
-  ])
+const ArticlePrevNext = () => [
+  h('a.nav-article-button.nav-article-previous', [
+    h('span.nav-article-topic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
+    h('span.nav-article-title', ['TODO (previous article title)']),
+  ]),
+  h('a.nav-article-button.nav-article-next', [
+    h('span.nav-article-topic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
+    h('span.nav-article-title', ['TODO (next article title)']),
+  ]),
+]
 
 class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
@@ -300,7 +297,7 @@ class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], de
           lexiconId,
           options,
         }),
-        h(NavTopics),
+        h(ArticlePrevNext),
       ]),
     ])
   }

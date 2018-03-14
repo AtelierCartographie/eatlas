@@ -92,9 +92,20 @@ export const updateLocation = (
   return updated
 }
 
-export const parseRelated = string => {
-  const match = string.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
-  const id = match && match[1]
-  const text = match && match[2]
-  return { id, text }
+export const canUnpublish = (
+  resource: Resource,
+  resources: Resource[],
+): boolean => {
+  if (resource.status !== 'published') {
+    return true
+  }
+  // Check if resource is used in a published article or focus
+  const publishedArticles = resources.filter(
+    r =>
+      (r.type === 'article' || r.type === 'focus') && r.status === 'published',
+  )
+  return !publishedArticles.some(
+    // Check if resource is one of the mandatory linked resources of article
+    article => getResourceIds(article, true).indexOf(resource.id) !== -1,
+  )
 }

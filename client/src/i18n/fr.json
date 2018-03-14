@@ -4,6 +4,8 @@
   "article-error-missing-definition": "définitions manquantes",
   "article-error-missing-resource": "ressources manquantes",
   "cancel": "annuler",
+  "cannot-delete-linked-resource":
+    "Cette ressource ne peut être supprimée : elle est utilisée par un article ou un focus publié",
   "checking-credentials": "Vérification de l'identification…",
   "confirm-delete":
     "Confirmez-vous la suppression de « {name} » ? Cette opération est irréversible.",

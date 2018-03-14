@@ -4,6 +4,8 @@
   "article-error-missing-definition": "missing definitions",
   "article-error-missing-resource": "missing resources",
   "cancel": "cancel",
+  "cannot-delete-linked-resource":
+    "This resource cannot be deleted: it's used by a published article or focus",
   "checking-credentials": "Checking your credentials…",
   "confirm-delete":
     "Do you confirm removal of “{name}”? This cannot be undone.",

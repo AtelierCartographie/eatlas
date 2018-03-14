@@ -20,7 +20,12 @@ import {
   RESOURCE_TYPES,
   TYPE_ICON,
 } from '../constants'
-import { paginationItems, updateLocation } from '../utils'
+import {
+  paginationItems,
+  updateLocation,
+  canDelete,
+  canUnpublish,
+} from '../utils'
 
 import Spinner from './Spinner'
 import IconButton from './IconButton'
@@ -306,6 +311,7 @@ class Resources extends Component<Props, State> {
   }
 
   renderRow = (resource: Resource) => {
+    const deletable = canUnpublish(resource, this.props.resources.list)
     return (
       <tr key={resource.id}>
         {FIELDS.map(field => (
@@ -335,7 +341,14 @@ class Resources extends Component<Props, State> {
                     ? this.askHardRemove(resource)
                     : this.softRemove(resource)
                 }
-                title={this.props.intl.formatMessage({ id: 'delete' })}>
+                title={
+                  deletable
+                    ? this.props.intl.formatMessage({ id: 'delete' })
+                    : this.props.intl.formatMessage({
+                        id: 'cannot-delete-linked-resource',
+                      })
+                }
+                disabled={!deletable}>
                 <IconButton
                   icon={resource.status === 'deleted' ? 'times' : 'trash'}
                 />

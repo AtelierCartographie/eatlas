@@ -183,6 +183,7 @@ type State = {
   missingLexicon: boolean,
   missingRelated: { [string]: [ArticleNode, boolean] },
   previewMode: boolean,
+  expanded: boolean,
 }
 
 class ArticleForm extends Component<Props, State> {
@@ -195,6 +196,7 @@ class ArticleForm extends Component<Props, State> {
     ),
     previewMode: false,
     missingLexicon: false,
+    expanded: false,
   }
 
   componentDidMount() {
@@ -289,7 +291,7 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <h2 className="subtitle">{title}</h2>
+        <h2 className="subtitle is-4">{title}</h2>
         <ul>
           {nodes.map(([node, exists]) => (
             <li key={node.id}>
@@ -342,7 +344,7 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <h2 className="subtitle">Missing definitions</h2>
+        <h2 className="subtitle is-4">Missing definitions</h2>
         <p>
           You have to{' '}
           <Link
@@ -449,8 +451,7 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  renderForm() {
-    const { article } = this.props
+  renderDetails() {
     return (
       <div className="ArticleForm">
         {this.renderMissingResources(
@@ -463,12 +464,28 @@ class ArticleForm extends Component<Props, State> {
           Object.values(this.state.missingRelated),
         )}
         {this.renderMissingDefinitions()}
+        <h2
+          className="subtitle is-3"
+          onClick={() => this.setState({ expanded: !this.state.expanded })}>
+          <IconButton
+            icon={this.state.expanded ? 'caret-down' : 'caret-right'}
+          />{' '}
+          <T id="article-more-details" />
+        </h2>
+        {this.state.expanded && this.renderMoreDetails()}
+      </div>
+    )
+  }
 
-        <h2 className="subtitle">Metas</h2>
+  renderMoreDetails() {
+    const { article } = this.props
+    return (
+      <Fragment>
+        <h3 className="subtitle is-4">Metas</h3>
         {article.metas && article.metas.map(this.renderMeta)}
 
         <hr />
-        <h2 className="subtitle">Content</h2>
+        <h3 className="subtitle is-4">Content</h3>
         {article.nodes &&
           article.nodes.map((node, k) => {
             switch (node.type) {
@@ -488,7 +505,7 @@ class ArticleForm extends Component<Props, State> {
                 return null
             }
           })}
-      </div>
+      </Fragment>
     )
   }
 
@@ -531,17 +548,15 @@ class ArticleForm extends Component<Props, State> {
               )}
             </button>
           </div>
+
+          <div>
+            <Icon icon="share" />
+            <T id="share-preview" />{' '}
+            <a href={this.getPreviewUrl()}>{this.getPreviewUrl()}</a>
+          </div>
         </div>
 
-        <div>
-          <Icon icon="share" />
-          <T id="share-preview" />{' '}
-          <a href={this.getPreviewUrl()}>{this.getPreviewUrl()}</a>
-        </div>
-
-        <hr />
-
-        {this.state.previewMode ? this.renderPreview() : this.renderForm()}
+        {this.state.previewMode ? this.renderPreview() : this.renderDetails()}
       </Fragment>
     )
   }

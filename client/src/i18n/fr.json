@@ -3,6 +3,7 @@
   "article-errors": "{nb} erreur(s)",
   "article-error-missing-definition": "définitions manquantes",
   "article-error-missing-resource": "ressources manquantes",
+  "article-more-details": "Détails du contenu",
   "cancel": "annuler",
   "cannot-delete-linked-resource":
     "Cette ressource ne peut être supprimée : elle est utilisée par un article ou un focus publié",

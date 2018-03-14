@@ -20,12 +20,7 @@ import {
   RESOURCE_TYPES,
   TYPE_ICON,
 } from '../constants'
-import {
-  paginationItems,
-  updateLocation,
-  canDelete,
-  canUnpublish,
-} from '../utils'
+import { paginationItems, updateLocation, canUnpublish } from '../utils'
 
 import Spinner from './Spinner'
 import IconButton from './IconButton'

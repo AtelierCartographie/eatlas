@@ -23,6 +23,7 @@ import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
 import { parseArticleDoc, parseFocusDoc, parseLexiconDoc } from '../api'
 import ObjectDebug from './ObjectDebug'
+import { canUnpublish } from '../utils'
 
 const API_SERVER = process.env.REACT_APP_API_SERVER || ''
 
@@ -400,6 +401,30 @@ class ResourceForm extends Component<Props, State> {
 
     const isArticle = resource.type === 'article' || resource.type === 'focus'
 
+    const disabledStatusOption = ({ value }) => {
+      if (value === 'published') {
+        if (!this.props.publishable) {
+          return {
+            disabled: true,
+            disabledReason: this.props.whyUnpublishable
+              .map(text => this.props.intl.formatMessage({ id: text }))
+              .join(', '),
+          }
+        }
+      }
+      if (value !== 'published' && resource.status === 'published') {
+        if (!canUnpublish(resource, this.props.resources.list)) {
+          return {
+            disabled: true,
+            disabledReason: this.props.intl.formatMessage({
+              id: 'cannot-delete-linked-resource',
+            }),
+          }
+        }
+      }
+      return { disabled: false }
+    }
+
     const prependFields = () => [
       typeField,
       idField,
@@ -411,10 +436,7 @@ class ResourceForm extends Component<Props, State> {
             o =>
               Object.assign(o, {
                 buttonStyle: STATUS_STYLE[o.value],
-                disabled: o.value === 'published' && !this.props.publishable,
-                disabledReason: this.props.whyUnpublishable
-                  .map(text => this.props.intl.formatMessage({ id: text }))
-                  .join(', '),
+                ...disabledStatusOption(o),
               }),
           ),
           optionsStyle: 'buttons',

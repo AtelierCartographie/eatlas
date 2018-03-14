@@ -16,6 +16,8 @@ RUN cd /eatlas/server && yarn install --frozen-lockfile --no-cache --production 
 COPY config/ /eatlas/config/
 COPY server/ /eatlas/server/
 
+RUN mkdir -p /eatlas/data/uploads && chown -R node:node /eatlas/data/uploads
+
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 

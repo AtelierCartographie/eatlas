@@ -12,6 +12,8 @@ services:
       - api
     networks:
       - api
+    volumes:
+      - uploadsdata:/eatlas/data/uploads:ro
   api:
     build: .
     image: sciencespo/eatlas-api:latest
@@ -25,6 +27,8 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REACT_APP_MOCK_API=no
+      - UPLOAD_PATH=/eatlas/data/uploads
+      - CLIENT_PATH=/eatlas/data/uploads
     networks:
       - api
       - es
@@ -32,6 +36,8 @@ services:
     links:
       - redis:redis
       - es:es
+    volumes:
+      - uploadsdata:/eatlas/data/uploads
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#_image_types
   es:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.0.0
@@ -68,3 +74,6 @@ volumes:
   redisdata:
     driver: local
     name: eatlas_redisdata
+  uploadsdata:
+    driver: local
+    name: eatlas_uploadsdata

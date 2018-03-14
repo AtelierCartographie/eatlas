@@ -27,5 +27,8 @@
         },
 	"google": {
 		"clientId": "REACT_APP_GOOGLE_CLIENT_ID"
-        }
+        },
+        "publishFileCommand": "PUBLISH_FILE_COMMAND",
+	"clientPath": "CLIENT_PATH",
+        "uploadPath": "UPLOAD_PATH"
 }

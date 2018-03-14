@@ -14,6 +14,14 @@ const Body = require('./Body')
 
 // subcomponents
 
+const ResourceSound = ({ resource }) => {
+  console.log({ resource })
+  if (!resource.mediaUrl) return null
+  return h('.container.ResourceSound', [
+    h('audio', { src: resource.mediaUrl, controls: true })
+  ])
+}
+
 const ResourceVideo = ({ resource }) => {
   if (!resource.mediaUrl) return null
   const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
@@ -34,6 +42,9 @@ const ResourceDescription = ({ resource }) => {
 const Resource = ({ resource }) => {
   let children
   switch (resource.type) {
+    case 'sound':
+      children = h(ResourceSound, { resource })
+      break
     case 'video':
       children = h(ResourceVideo, { resource })
       break

@@ -30,7 +30,7 @@
       box-decoration-break: clone;
     }
 
-    .ArticlePublishedAt {
+    .PublishedAt {
       font-family: 'Gentium Basic', serif;
       font-size: 18px;
       font-style: italic;
@@ -126,59 +126,28 @@
     }
   }
 
-  .ArticleKeywords {
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+  .ArticleFocus {
+    color: #000;
+    font-size: 20px;
+    margin-top: 0;
+    
+    > div {
+      background-color: #fff7d9;
+      border-left: 4px solid $color-keyword;
+      padding: 10px 20px;
+      transition: all .2s ease;
 
-    li {
-      display: inline-block;
-      margin-right: 8px;
+      &:hover {
+        background-color: $color-keyword;
+      }
     }
 
     a {
-      background-color: #ffe9a1;
-      color: rgba(0,0,0,.8);
-      font-size: 15.8px;
-      line-height: 24px;
-      padding: 3px 8px;
+      color: initial;
+      display: block;
+      font-family: 'Fira Sans', sans-serif;
       text-decoration: none;
-      transition-duration: 0.2s;
-      transition-property: all;
     }
-
-    a:focus,
-    a:hover {
-      color: rgba(0,0,0,.8);
-      background-color: #ffd754;
-    }
-  }
-
-  .ArticleFooter {
-    background-color: #d1d6e0;
-    padding: 24px 0;
-
-    section {
-      margin-bottom: 48px;
-    }
-
-    section:last-child {
-      margin-bottom: 0;
-    }
-
-    h2 {
-      font-size: 21px;
-      margin-top: 0;
-    }
-
-    p,
-    ol {
-      font-size: 1.39em;
-      line-height: 21px;
-    }
-
   }
 
   .ArticleSeeAlso {

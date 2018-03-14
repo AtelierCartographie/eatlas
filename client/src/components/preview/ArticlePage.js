@@ -4,32 +4,23 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component, Fragment } = require('react')
+const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { Script, Img } = require('./Tags')
+const {
+  PublishedAt,
+  Paragraph,
+  Keywords,
+  Quote,
+  Footnotes,
+  Lexicon,
+} = require('./Doc')
+const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
-const {
-  HOST,
-  resourcesTypes,
-  aPropos,
-  getImageUrl,
-  getResource,
-} = require('./layout')
-
-let lexiconId
-
-const getDefinition = (definitions, dt) => {
-  const search = dt.toLowerCase()
-  const found = definitions.find(({ dt }) => dt.toLowerCase() === search)
-  if (!found || !found.dd) {
-    return 'Definition not found'
-  }
-  return found.dd
-}
+const { HOST, getImageUrl, getResource } = require('./layout')
 
 const srcset = (image, size) => {
   const image1 = getImageUrl(image, size, '1x')
@@ -45,16 +36,6 @@ const srcset = (image, size) => {
 // subcomponents
 
 const ArticleHeader = ({ article, resources }) => {
-  const publishedAt = !article.publishedAt
-    ? h('.ArticlePublishedAt', 'Non publié')
-    : h('.ArticlePublishedAt', [
-        'Publié le ',
-        h(
-          'time',
-          { dateTime: article.publishedAt },
-          moment(article.publishedAt).format('D MMMM YYYY'),
-        ),
-      ])
   const imageHeader = getResource(resources, article.imageHeader)
   const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
   const style = imageHeaderUrl
@@ -65,7 +46,7 @@ const ArticleHeader = ({ article, resources }) => {
   return h('header.ArticleHeader', { style }, [
     h('.container.ArticleHeaderInfo', [
       h('h1.ArticleTitle', article.title),
-      publishedAt,
+      h(PublishedAt, { doc: article }),
     ]),
   ])
 }
@@ -127,44 +108,7 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
-// first parse lexicon, then footnotes
-const ArticleP = ({ p }) => {
-  const parseFootnotes = str => {
-    const m = str.match(/(.*)\[(\d+)\](.*)/)
-    if (!m) return str
-    return [
-      m[1],
-      h('sup', [
-        h('a', { id: `note-${m[2]}`, href: `#footnote-${m[2]}` }, `[${m[2]}]`),
-      ]),
-      m[3],
-    ]
-  }
-
-  let parts = []
-  parts.push(
-    p.lexicon.reduce((tail, l) => {
-      const [head, _tail] = tail.split(l)
-      parts.push(
-        head,
-        h(
-          'a.keyword',
-          { href: `#keyword-${++lexiconId}`, 'data-toggle': 'collapse' },
-          l,
-        ),
-      )
-      return _tail
-    }, p.text),
-  )
-  parts = parts.map(p => {
-    if (typeof p !== 'string') return p
-    return h(Fragment, { key: p }, parseFootnotes(p))
-  })
-
-  return h('p.container', parts)
-}
-
-const ArticleResource = ({ article, resource }) => {
+const ArticleResource = ({ article, resource, options }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
@@ -223,84 +167,41 @@ const ArticleResource = ({ article, resource }) => {
         h('figcaption', resource.description),
       ])
 
+    case 'focus':
+      return h('.container.ArticleFocus', [
+        h('div', [
+          h(
+            'a',
+            {
+              href: options.preview ? `/resources/${resource.id}/preview` : '',
+            },
+            [h('.FocusIcon', 'Focus'), resource.title],
+          ),
+        ]),
+      ])
+
     default:
       return null
   }
 }
 
-const ArticleNodes = ({ article, resources }) => {
+const ArticleNodes = ({ article, resources, lexiconId, options }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
         return h('h2.container', { key: n.id }, n.text)
       case 'p':
-        return h(ArticleP, { p: n, key: n.id })
+        return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {
         const resource = getResource(resources, n.id)
         return !resource
           ? null
-          : h(ArticleResource, { article, resource, key: n.id })
+          : h(ArticleResource, { article, resource, key: n.id, options })
       }
       default:
         return null
     }
   })
-}
-
-const ArticleKeywords = ({ keywords }) => {
-  if (!keywords || !keywords.length) return null
-
-  return h('section.container.ArticleKeywords', [
-    h('h2', 'Mots-clés'),
-    h(
-      'ul',
-      keywords.map((kw, i) =>
-        h('li', { key: i }, [h('a', { href: 'TODO' }, kw.text)]),
-      ),
-    ),
-  ])
-}
-
-const ArticleQuote = ({ article }) => {
-  // TODO conf?
-  const publication = 'Atlas de la mondialisation'
-  const year = 2016
-  const url = `${HOST}`
-
-  return h('section.container.article-quote', [
-    h('h2', 'Citation'),
-    h('blockquote', [
-      h('p', [
-        h(
-          'span',
-          `"${
-            article.title
-          }", ${publication}, ${year}, [en ligne], consulté le `,
-        ),
-        h('span.consultedAt', moment().format('D MMMM YYYY')),
-        h('span', ', URL:'),
-        h('br'),
-        h('span.articleUrl', url),
-      ]),
-    ]),
-  ])
-}
-
-const ArticleFootnotes = ({ footnotes }) => {
-  if (!footnotes || !footnotes.length) return null
-
-  return h('section.container.article-footnotes', [
-    h('h2', 'Notes'),
-    h(
-      'ol',
-      footnotes.map((n, k) =>
-        h('li', { id: `footnote-${k + 1}`, key: k }, [
-          h('a', { href: `#note-${k + 1}` }, '^'),
-          n.text,
-        ]),
-      ),
-    ),
-  ])
 }
 
 const ArticleSeeAlso = ({ article, topics, resources, options }) => {
@@ -350,28 +251,12 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
 }
 
 const ArticleFooter = ({ article, topics, resources, options }) =>
-  h('footer.ArticleFooter', [
-    h(ArticleKeywords, { keywords: article.keywords }),
-    h(ArticleQuote, { article }),
-    h(ArticleFootnotes, { footnotes: article.footnotes }),
+  h('footer.DocFooter', [
+    h(Keywords, { keywords: article.keywords }),
+    h(Quote, { doc: article }),
+    h(Footnotes, { footnotes: article.footnotes }),
     h(ArticleSeeAlso, { article, topics, resources, options }),
   ])
-
-const ArticleLexicon = ({ article, definitions }) =>
-  h(
-    'section.article-def',
-    article.nodes
-      .reduce(
-        (acc, node) =>
-          node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
-        [],
-      )
-      .map((l, k) =>
-        h('.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
-          h('dl', [h('dt', l), h('dd', getDefinition(definitions, l))]),
-        ]),
-      ),
-  )
 
 const Article = props =>
   h('article.article.ArticlePage', [
@@ -380,7 +265,7 @@ const Article = props =>
     h(ArticleSummaries, props),
     h(ArticleNodes, props),
     h(ArticleFooter, props),
-    h(ArticleLexicon, props),
+    h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
   ])
 
 const NavTopics = () =>
@@ -397,18 +282,28 @@ const NavTopics = () =>
     ]),
   ])
 
-class ArticlePreview extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
+class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
-    lexiconId = 0
     const { article, topics, definitions, resources, options } = this.props
+    // passed by reference between paragraphs
+    const lexiconId = {
+      id: 0,
+    }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
       h(Body, { topics, options }, [
-        h(Article, { article, topics, definitions, resources, options }),
+        h(Article, {
+          article,
+          topics,
+          definitions,
+          resources,
+          lexiconId,
+          options,
+        }),
         h(NavTopics),
       ]),
     ])
   }
 }
 
-module.exports = ArticlePreview
+module.exports = ArticlePage

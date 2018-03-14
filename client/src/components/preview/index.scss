@@ -99,14 +99,6 @@ ul {
     margin-bottom: 1em;
 }
 
-blockquote {
-    font-size: 10px;
-    line-height: 21px;
-    margin: 0px;
-    padding-left: 16px;
-    border-left: 4px solid #fff;
-}
-
 .navbar-default .navbar-nav>li>a {
     color: #494948;
     margin-left: -15px;
@@ -333,58 +325,6 @@ h3.focusBox-picto {
     margin: 0px;
     padding-top: 13px;
 }
-/* ------ focus --------------------------------- */
-article.focus {
-    background: linear-gradient(#fff7d9,#ffe180);
-}
-.header-info-focus h1 {
-    font-size: 3.8em;
-    font-weight: 400;
-    line-height: 41px;
-    margin: inherit;
-}
-.header-info-focus p {
-    font-size: 1.45em;
-}
-
-/* FOOTER ARTICLE : keywords + quote + footnotes + see alos--------- */
-
-.article-footnotes ol {
-    line-height: inherit;
-    margin-bottom: 1em;
-}
-
-.article-footnotes li:target {
-    background: white;
-}
-
-.thumbnail {
-    background-color: #c3c3c3;
-}
-
-.article-def {
-    position: fixed;
-    background-color: #d1d6e0;
-    box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
-    border-top: 1px solid #ccc;
-    bottom: -1px;
-    max-height: 60%;
-    padding: 0px;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.article-def dl {
-    color: #3d485a;
-    font-size: 1.58em;
-    line-height: 24px;
-    margin-top: .5em;
-}
-.article-def dt {
-    font-weight: 700;
-}
 
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
@@ -415,10 +355,6 @@ article.focus {
     p,
     ul {
         font-size: 2.1em;
-    }
-    .article-def dl {
-        font-size: 1.838em;
-        line-height: 28px;
     }
     figcaption {
         font-size: 1.6em;
@@ -455,6 +391,8 @@ article.focus {
 @import 'nav';
 @import 'TopMenu';
 @import 'Footer';
+@import 'Doc';
 
 @import 'ArticlePage';
+@import 'FocusPage';
 @import 'TopicPage';

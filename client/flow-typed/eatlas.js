@@ -40,7 +40,7 @@ declare type User = UserNew & { id: string }
 declare type Topic = {
   id: number, // this id can't be totally arbitrary, docx rely on special numbers
   name: string,
-  mediaUrl: string // for the video
+  mediaUrl: string, // for the video
 }
 
 declare type ResourceNew = {
@@ -55,7 +55,7 @@ declare type ResourceNew = {
   mediaUrl?: string, // only video
 }
 
-declare type Definition = { dt: string, dd: string, resourceId?: ?string }
+declare type Definition = { dt: string, dd: string }
 
 declare type ArticleNode = {
   id: string,

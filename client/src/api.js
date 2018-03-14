@@ -248,13 +248,13 @@ const query = <T>({
     const xhr = new XMLHttpRequest()
     xhr.withCredentials = true
     xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && String(xhr.status)[0] === '2') {
+      if (xhr.readyState === 4) {
         if (xhr.status === 204) {
           return resolve({})
         }
         try {
           const data = JSON.parse(xhr.responseText)
-          if (data.error) {
+          if (data.error || String(xhr.status)[0] !== '2') {
             let err = new Error(data.message || data.error)
             // $FlowFixMe: enhancing Error object
             err.code = data.error

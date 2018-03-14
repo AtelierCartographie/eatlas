@@ -128,9 +128,6 @@
         },
         "dd": {
           "type": "text"
-        },
-        "resourceId": {
-          "type": "keyword"
         }
       }
     },

@@ -134,9 +134,7 @@ class ResourceEdit extends Component<Props, State> {
     )
   }
 
-  renderDefinitions(
-    definitions: Array<{ dt: string, dd: string, resourceId?: ?string }>,
-  ) {
+  renderDefinitions(definitions: Array<{ dt: string, dd: string }>) {
     const { openDetails, openDefinition } = this.state
 
     const linkToResource = id => (
@@ -156,7 +154,7 @@ class ResourceEdit extends Component<Props, State> {
     )
 
     const renderList = () =>
-      definitions.map(({ dt, dd, resourceId }) => (
+      definitions.map(({ dt, dd }) => (
         <div key={dt} className="field">
           <label
             className="label"
@@ -165,7 +163,6 @@ class ResourceEdit extends Component<Props, State> {
               icon={openDefinition === dt ? 'caret-down' : 'caret-right'}
             />
             <em>{dt}</em>
-            {resourceId ? linkToResource(resourceId) : null}
           </label>
           {openDefinition === dt && renderDefinition(dd)}
         </div>

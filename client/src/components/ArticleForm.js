@@ -275,7 +275,9 @@ class ArticleForm extends Component<Props, State> {
         .concat(exists && published ? [] : [[node, exists]]),
     }))
     // Missing resource prevent publication
-    if (this.props.onUnpublishable) {
+    const isFocus = node.id.match(/^\d+F.+$/)
+    const isMandatory = !isFocus // Focus are not mandatory, to avoid circular dependency
+    if (this.props.onUnpublishable && isMandatory) {
       this.props.onUnpublishable('article-error-missing-resource')
     }
   }

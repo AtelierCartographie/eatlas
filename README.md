@@ -111,6 +111,12 @@ Une fois l'application configurée, les services démarrés, il faut au moins un
 yarn add-user "user@gmail.com" "Nom Complet" admin
 ```
 
+ou avec Docker:
+
+```sh
+docker-compose -f docker-compose.prod.yml exec api yarn add-user "prenom.nom@mail.fr" "Prénom NOM" admin
+```
+
 On peut dès lors se connecter avec ce compte et effectuer tout le reste depuis l'interface Web.
 
 ## Dév
@@ -197,6 +203,14 @@ La même chose mais en lancant les conteneurs en tâche de fond:
 
 ```bash
 docker-compose -f docker-compose.prod.yml up -d
+```
+
+### Utilisateurs
+
+Pour ajouter un utilisateur:
+
+```sh
+docker-compose -f docker-compose.prod.yml exec api yarn add-user "prenom.nom@mail.fr" "Prénom NOM" admin
 ```
 
 ### Troubleshooting

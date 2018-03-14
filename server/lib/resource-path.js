@@ -34,13 +34,13 @@ module.exports = (
     typeof typeOrResource === 'object' ? typeOrResource.type : typeOrResource
   const fileName = file || guessFileName(typeOrResource)
   const result = { up: null, pub: null }
-  const root = path.resolve(__dirname, '..')
+  const root = path.join(__dirname, '..')
   if (up) {
-    const upDir = path.join(root, getConf('uploadPath', {}))
+    const upDir = path.resolve(root, getConf('uploadPath', {}))
     result.up = path.join(upDir, fileName)
   }
   if (pub) {
-    const pubDir = path.join(root, getConf('publicPath.' + type))
+    const pubDir = path.resolve(root, getConf('publicPath.' + type))
     result.pub = path.join(pubDir, fileName)
   }
   return result

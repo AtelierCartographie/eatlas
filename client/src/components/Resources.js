@@ -163,6 +163,16 @@ class Resources extends Component<Props, State> {
     return updateLocation(this.props.history.location, { pathname, search })
   }
 
+  getPreviewUrl(resource) {
+    const host = process.env.REACT_APP_API_SERVER
+    if (!host) {
+      throw new Error(
+        'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
+      )
+    }
+    return `${host}/resources/${resource.id}/preview`
+  }
+
   renderMenuCountSuffix(field: string, value: ?any) {
     const filter = {
       type: field === 'type' ? value : this.props.filters.type,
@@ -341,6 +351,13 @@ class Resources extends Component<Props, State> {
                   title={this.props.intl.formatMessage({ id: 'restore' })}>
                   <IconButton icon="history" />
                 </button>
+              </div>
+            )}
+            {resource.status === 'deleted' ? null : (
+              <div className="control">
+                <a className="button" href={this.getPreviewUrl(resource)}>
+                  <IconButton icon="eye" />
+                </a>
               </div>
             )}
           </div>

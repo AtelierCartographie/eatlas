@@ -8,6 +8,11 @@ const {
 } = require('./html-generator')
 const { resources: Resources, topics: Topics } = require('./model')
 const dynamicConfVar = require('./dynamic-config-variable')
+const {
+  getResourceIds,
+  getMetaText,
+  getMetaList,
+} = require('../../client/src/universal-utils')
 
 // reexports "enhanced" HTML generators
 
@@ -98,32 +103,14 @@ const getNodeList = (article, type) => {
   const found = article.nodes.find(m => m.type === type)
   return (found && found.list) || []
 }
-const getMeta = (article, type) => article.metas.find(m => m.type === type)
-const getMetaList = (article, type) => {
-  const found = getMeta(article, type)
-  return (found && found.list) || []
-}
-const getMetaText = (article, type) => {
-  const found = getMeta(article, type)
-  return found ? found.text : null
-}
 
-const getTopicResources = async (topic, excludeUnpublished = false) => {
+const getTopicResources = async (topic /*, excludeUnpublished = false*/) => {
   // TODO handle query ES side
   return (await Resources.list()).filter(r => r.topic == topic.id)
 }
 
 const getResources = async (article, excludeUnpublished = false) => {
-  const ids = [
-    getMetaText(article, 'image-header'),
-    getMetaText(article, 'related-article'), // Focus
-    ...getMetaList(article, 'related').map(
-      ({ text }) => text.split(/\s*-\s*/)[0],
-    ),
-    ...article.nodes
-      .filter(node => node.type === 'resource')
-      .map(node => node.id),
-  ].filter(id => !!id)
+  const ids = getResourceIds(article)
 
   let filter = { terms: { id: ids } }
   if (excludeUnpublished) {

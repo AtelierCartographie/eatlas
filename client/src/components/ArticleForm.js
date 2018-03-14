@@ -212,7 +212,7 @@ class ArticleForm extends Component<Props, State> {
     })
   }
 
-  // TODO put back every link-handling (resources & definitions) in this method?
+  // TODO use getResourceIds from 'universal-utils'
   computeMissingRelated(article: Resource, resources: Resource[]) {
     const result = {}
     const meta =
@@ -314,6 +314,7 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
+  // TODO use getResourceIds from 'universal-utils'
   onIsMissingDefinition = (dt: string, missingLexicon: boolean) => {
     this.setState(state => {
       const newState = {

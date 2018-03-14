@@ -1,6 +1,8 @@
 //@flow
 
-export { getDefinition } from './universal-utils'
+import { getResourceIds } from './universal-utils'
+
+export { getDefinition, parseRelated } from './universal-utils'
 
 export const range = (start: number, end: number): Array<number> => {
   const result = []

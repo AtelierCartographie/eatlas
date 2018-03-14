@@ -1,4 +1,5 @@
 //@flow
+
 // Utils used server-side or client-side, marked as "universal"
 // They're all aliased in "utils" for client-side
 // "preview" components must require "universal-utils" and not "utils"
@@ -24,3 +25,43 @@ exports.getDefinition = (
   })
   return found && found.dd
 }
+
+const getMeta = (article, type) => article.metas.find(m => m.type === type)
+const getMetaList = (exports.getMetaList = (article, type) => {
+  const found = getMeta(article, type)
+  return (found && found.list) || []
+})
+const getMetaText = (exports.getMetaText = (article, type) => {
+  const found = getMeta(article, type)
+  return found ? found.text : null
+})
+
+const parseRelated = (exports.parseRelated = string => {
+  const match = string.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
+  const id = match && match[1]
+  const text = match && match[2]
+  return { id, text }
+})
+
+exports.getResourceIds = (article /*: Resource*/, onlyMandatory = false) =>
+  [
+    // Image header: mandatory
+    getMetaText(article, 'image-header'),
+    // Related article of a focus: mandatory
+    getMetaText(article, 'related-article'),
+    // Related resources: mandatory, except focus
+    ...article.nodes
+      .filter(node => node.type === 'resource')
+      .map(node => node.id)
+      .filter(
+        id =>
+          // mandatory only if not a focus
+          !onlyMandatory || !id.match(/^\d+F.+$/),
+      ),
+    // Related articles ("see also"): optional
+    ...(onlyMandatory
+      ? []
+      : getMetaList(article, 'related').map(
+          ({ text }) => parseRelated(text).id,
+        )),
+  ].filter(id => !!id)

@@ -65,3 +65,20 @@ exports.getResourceIds = (article /*: Resource*/, onlyMandatory = false) =>
           ({ text }) => parseRelated(text).id,
         )),
   ].filter(id => !!id)
+
+// semantic agnostic
+exports.META_CONVERSION = {
+  // nodes
+  h1: 'header',
+  // metas
+  auteur: 'author',
+  partie: 'topic',
+  identifiant: 'id',
+  'Mots-clés': 'keywords',
+  'Résumé-FR': 'summary-fr',
+  "Continuer dans l'Atlas": 'related',
+  Références: 'references',
+  // focus only
+  'article-associé': 'related-article',
+  'Image header': 'image-header',
+}

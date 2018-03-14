@@ -10,7 +10,7 @@ import { FormattedMessage as T } from 'react-intl'
 import Icon from './Icon'
 import IconButton from './IconButton'
 import { renderPreview } from './Resources'
-import { LEXICON_ID } from '../constants'
+import { LEXICON_ID, META_CONVERSION } from '../constants'
 import { getDefinition, parseRelated } from '../utils'
 import { fetchResources } from '../actions'
 
@@ -37,13 +37,13 @@ class _ResourceField extends Component<RProps> {
         <div className="field">
           <label className="label has-text-danger">
             <Icon icon="warning" />
-            Resource not found
+            <T id="article-resource-not-found" values={node} />
           </label>
           <div className="control">
             {node.id} {node.text}
           </div>
           <Link to={'/resources/new/?' + node.id}>
-            Create resource {node.id}
+            <T id="article-related-create" values={{ title: node.id }} />
           </Link>
         </div>
       )
@@ -56,12 +56,12 @@ class _ResourceField extends Component<RProps> {
         <div className="field">
           <label className="label has-text-danger">
             <Icon icon="warning" />
-            Unpublished resource {resource.type}
+            <T id="article-resource-unpublished" values={node} />
           </label>
           <div className="control">{preview}</div>
           <div className="control">
             <Link to={`/resources/${resource.id}/edit`}>
-              Publish resource {resource.id}
+              <T id="article-related-publish" values={{ title: resource.id }} />
             </Link>
           </div>
         </div>
@@ -70,11 +70,13 @@ class _ResourceField extends Component<RProps> {
 
     return (
       <div className="field">
-        <label className="label">Resource {resource.type}</label>
+        <label className="label">
+          <T id="article-resource" values={node} />
+        </label>
         <div className="control">{preview}</div>
         <div className="control">
           <Link to={`/resources/${resource.id}/edit`}>
-            Edit resource {resource.id}
+            <T id="article-related-edit" values={resource} />
           </Link>
         </div>
       </div>
@@ -97,7 +99,9 @@ class _ParagraphField extends Component<PProps> {
     const { node } = this.props
     return (
       <div className="field">
-        <label className="label">Paragraph</label>
+        <label className="label">
+          <T id="article-content-paragraph" />
+        </label>
         <div className="columns">
           <div className="column">
             <div className="control">
@@ -107,7 +111,9 @@ class _ParagraphField extends Component<PProps> {
           <div className="column">
             {!node.links.length ? null : (
               <div>
-                <label className="label">Links</label>
+                <label className="label">
+                  <T id="article-content-links" />
+                </label>
                 <ul>
                   {node.links.map(l => (
                     <li key={l.label}>
@@ -119,7 +125,9 @@ class _ParagraphField extends Component<PProps> {
             )}
             {!node.lexicon.length ? null : (
               <div>
-                <label className="label">Lexicon</label>
+                <label className="label">
+                  <T id="article-content-lexicon" />
+                </label>
                 <ul>{node.lexicon.map(this.renderDefinition)}</ul>
               </div>
             )}
@@ -165,6 +173,15 @@ const ParagraphField = connect(({ resources }, { node }) => {
   const lexicon = resources.list.find(r => r.id === LEXICON_ID)
   return { definitions: lexicon ? lexicon.definitions : null }
 })(_ParagraphField)
+
+const reverseMetaKey = ({ type }) => {
+  for (let key in META_CONVERSION) {
+    if (META_CONVERSION[key] === type) {
+      return key
+    }
+  }
+  return type
+}
 
 type Props = {
   article: Resource,
@@ -239,7 +256,9 @@ class ArticleForm extends Component<Props, State> {
   renderHeader(node: ArticleNode, k: number) {
     return (
       <div className="field" key={k}>
-        <label className="label">Header</label>
+        <label className="label">
+          <T id="article-content-header" />
+        </label>
         <div className="control">
           <input className="input" defaultValue={node.text} />
         </div>
@@ -291,7 +310,10 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <h2 className="subtitle is-4">{title}</h2>
+        <hr />
+        <h2 className="subtitle is-4">
+          <T id={title} />
+        </h2>
         <ul>
           {nodes.map(([node, exists]) => (
             <li key={node.id}>
@@ -306,12 +328,18 @@ class ArticleForm extends Component<Props, State> {
                     : `/resources/new/?${node.id}`
                 }>
                 {' '}
-                {exists ? `Publish “${node.text}”` : `Create “${node.text}”`}
+                <T
+                  id={
+                    exists
+                      ? 'article-related-publish'
+                      : 'article-related-create'
+                  }
+                  values={{ title: node.text }}
+                />
               </Link>
             </li>
           ))}
         </ul>
-        <hr />
       </Fragment>
     )
   }
@@ -344,18 +372,20 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <h2 className="subtitle is-4">Missing definitions</h2>
+        <h2 className="subtitle is-4">
+          <T id="article-missing-definitions" values={{ nb: dts.length }} />
+        </h2>
         <p>
-          You have to{' '}
+          <T id="article-upload-lexicon-1" />{' '}
           <Link
             to={
               this.state.missingLexicon
                 ? '/resources/new/definition'
                 : '/resources/' + LEXICON_ID + '/edit'
             }>
-            upload a new lexicon
+            <T id="article-upload-lexicon-2" />
           </Link>{' '}
-          providing those definitions:
+          <T id="article-upload-lexicon-3" />
         </p>
         <ul>
           {dts.map(dt => (
@@ -375,7 +405,9 @@ class ArticleForm extends Component<Props, State> {
   renderFootnotes(node: ArticleNode, k: number) {
     return (
       <div className="field" key={k}>
-        <label className="label">Footnotes</label>
+        <label className="label">
+          <T id="article-content-footnotes" />
+        </label>
         <div className="control">
           <ul>
             {node.list && node.list.map((f, k) => <li key={k}>{f.text}</li>)}
@@ -397,14 +429,14 @@ class ArticleForm extends Component<Props, State> {
 
     if (meta.type === 'image-header') {
       return this.renderResource(
-        { type: 'resource', id: meta.text, text: meta.type },
+        { type: 'resource', id: meta.text, text: reverseMetaKey(meta) },
         0,
       )
     }
 
     if (meta.type === 'related-article') {
       return this.renderResource(
-        { type: 'resource', id: meta.text, text: 'related article' },
+        { type: 'resource', id: meta.text, text: reverseMetaKey(meta) },
         0,
       )
     }
@@ -421,7 +453,7 @@ class ArticleForm extends Component<Props, State> {
     if (meta.list) {
       return (
         <div className="field" key={k}>
-          <label className="label">{meta.type}</label>
+          <label className="label">{reverseMetaKey(meta)}</label>
           <div className="box">
             <ul className="fa-ul">
               {meta.list.map((kw, k) => (
@@ -445,7 +477,7 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <div className="field" key={k}>
-        <label className="label">{meta.type}</label>
+        <label className="label">{reverseMetaKey(meta)}</label>
         <div className="control">{field}</div>
       </div>
     )
@@ -455,15 +487,16 @@ class ArticleForm extends Component<Props, State> {
     return (
       <div className="ArticleForm">
         {this.renderMissingResources(
-          'Missing resources',
+          'article-missing-resources',
           this.state.missingResources,
         )}
         {this.renderMissingResources(
-          'Missing related',
+          'article-missing-related',
           // $FlowFixMe: TODO polyfill
           Object.values(this.state.missingRelated),
         )}
         {this.renderMissingDefinitions()}
+        <hr />
         <h2
           className="subtitle is-3"
           onClick={() => this.setState({ expanded: !this.state.expanded })}>
@@ -473,6 +506,7 @@ class ArticleForm extends Component<Props, State> {
           <T id="article-more-details" />
         </h2>
         {this.state.expanded && this.renderMoreDetails()}
+        <hr />
       </div>
     )
   }
@@ -481,11 +515,15 @@ class ArticleForm extends Component<Props, State> {
     const { article } = this.props
     return (
       <Fragment>
-        <h3 className="subtitle is-4">Metas</h3>
+        <h3 className="subtitle is-4">
+          <T id="article-content-metas" />
+        </h3>
         {article.metas && article.metas.map(this.renderMeta)}
 
         <hr />
-        <h3 className="subtitle is-4">Content</h3>
+        <h3 className="subtitle is-4">
+          <T id="article-content-content" />
+        </h3>
         {article.nodes &&
           article.nodes.map((node, k) => {
             switch (node.type) {

@@ -2,6 +2,7 @@
 
 const mammoth = require('mammoth')
 const cheerio = require('cheerio')
+const { META_CONVERSION } = require('../../client/src/universal-utils')
 
 // helpers
 
@@ -16,25 +17,8 @@ const getList = ($, el) =>
     .map((i, el) => getText($, el))
     .get()
 
-// semantic agnostic
-const conversions = {
-  // nodes
-  h1: 'header',
-  // metas
-  auteur: 'author',
-  partie: 'topic',
-  identifiant: 'id',
-  'Mots-clés': 'keywords',
-  'Résumé-FR': 'summary-fr',
-  "Continuer dans l'Atlas": 'related',
-  Références: 'references',
-  // focus only
-  'article-associé': 'related-article',
-  'Image header': 'image-header',
-}
-
 const getType = name => {
-  return conversions[name] ? conversions[name] : name
+  return META_CONVERSION[name] ? META_CONVERSION[name] : name
 }
 
 // hyperlinks found in paragraphs and footnotes

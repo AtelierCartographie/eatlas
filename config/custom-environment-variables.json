@@ -18,7 +18,7 @@
 	},
         "cors": {
                 "allowNoOrigin": {
-                     "__name": "DISABLE_CORS",
+                     "__name": "CORS_ALLOW_NO_ORIGIN",
                      "__format": "json"
                 }
         },

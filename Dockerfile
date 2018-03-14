@@ -10,7 +10,7 @@ COPY client/ /eatlas/client/
 RUN apk add --no-cache su-exec git
 
 RUN cd /eatlas/server && yarn install --frozen-lockfile --no-cache --production \
-    && cd /eatlas/client && yarn install --frozen-lockfile --no-cache --production \
+    && cd /eatlas/client && yarn install --frozen-lockfile --no-cache --production=false \
     && rm -fr /usr/local/share/.cache/*
 
 COPY config/ /eatlas/config/
@@ -23,7 +23,7 @@ WORKDIR /eatlas/server/
 
 EXPOSE 4000
 
-VOLUME /eatlas/client/build
+VOLUME /eatlas/client/
 
 ENTRYPOINT ["/docker-entrypoint.sh"] 
 

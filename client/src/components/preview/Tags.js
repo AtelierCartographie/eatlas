@@ -1,7 +1,7 @@
 // @flow
 const h = require('react-hyperscript')
 
-const HOST = process.env.REACT_APP_PUBLIC_URL || ''
+const HOST = process.env.REACT_APP_ADMIN_URL || ''
 
 exports.Script = ({ src }) => h('script', { src: `${HOST}${src}` })
 

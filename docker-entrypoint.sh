@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PUBLIC_URL=$REACT_APP_PUBLIC_URL
+export PUBLIC_URL=$REACT_APP_ADMIN_URL
 
 cd /eatlas/client && yarn build
 

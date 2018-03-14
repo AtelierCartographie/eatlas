@@ -4,20 +4,16 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component, Fragment } = require('react')
+const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt, Paragraph, Lexicon } = require('./Doc')
+const { PublishedAt, Paragraph, Keywords, Quote, Footnotes, Lexicon } = require('./Doc')
 const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
-const {
-  HOST,
-  getImageUrl,
-  getResource,
-} = require('./layout')
+const { HOST, getImageUrl, getResource } = require('./layout')
 
 const srcset = (image, size) => {
   const image1 = getImageUrl(image, size, '1x')
@@ -188,79 +184,6 @@ const ArticleNodes = ({ article, resources, lexiconId }) => {
   })
 }
 
-const ArticleKeywords = ({ keywords }) => {
-  if (!keywords || !keywords.length) return null
-
-  return h('section.container.ArticleKeywords', [
-    h('h2', 'Mots-clés'),
-    h(
-      'ul',
-      keywords.map((kw, i) =>
-        h('li', { key: i }, [h('a', { href: 'TODO' }, kw.text)]),
-      ),
-    ),
-  ])
-}
-
-const ArticleQuote = ({ article }) => {
-  // TODO conf?
-  const publication = 'Atlas de la mondialisation'
-  const year = 2016
-  const url = `${HOST}`
-
-  return h('section.container.ArticleQuote', [
-    h('h2', 'Citation'),
-    h('blockquote', [
-      h('p', [
-        h(
-          'span',
-          `"${
-            article.title
-          }", ${publication}, ${year}, [en ligne], consulté le `,
-        ),
-        h('span.consultedAt', moment().format('D MMMM YYYY')),
-        h('span', ', URL:'),
-        h('br'),
-        h('span.articleUrl', url),
-      ]),
-    ]),
-  ])
-}
-
-const ArticleFootnotes = ({ footnotes }) => {
-  if (!footnotes || !footnotes.length) return null
-
-  const parseLinks = ({ text, links }) => {
-    let parts = []
-    parts.push(
-      links.reduce((tail, link) => {
-        const [head, _tail] = tail.split(link.label)
-        parts.push(head, h('a.external', { href: link.url }, link.label))
-        return _tail
-      }, text),
-    )
-    parts = parts.map(p => {
-      if (typeof p !== 'string') return p
-      return h(Fragment, { key: p }, p)
-    })
-    return parts
-  }
-
-  return h('section.container.ArticleFootnotes', [
-    h('h2', 'Notes'),
-    h(
-      'ol',
-      footnotes.map((n, k) => {
-        return h('li', { id: `footnote-${k + 1}`, key: k }, [
-          h('span.number', k + 1),
-          h('a.back', { href: `#note-${k + 1}` }, '^'),
-          parseLinks(n),
-        ])
-      }),
-    ),
-  ])
-}
-
 const ArticleSeeAlso = ({ article, topics, resources, options }) => {
   const relateds = article.related
     .map(r => {
@@ -308,13 +231,12 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
 }
 
 const ArticleFooter = ({ article, topics, resources, options }) =>
-  h('footer.ArticleFooter', [
-    h(ArticleKeywords, { keywords: article.keywords }),
-    h(ArticleQuote, { article }),
-    h(ArticleFootnotes, { footnotes: article.footnotes }),
+  h('footer.DocFooter', [
+    h(Keywords, { keywords: article.keywords }),
+    h(Quote, { doc: article }),
+    h(Footnotes, { footnotes: article.footnotes }),
     h(ArticleSeeAlso, { article, topics, resources, options }),
   ])
-
 
 const Article = props =>
   h('article.article.ArticlePage', [
@@ -345,12 +267,19 @@ class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], de
     const { article, topics, definitions, resources, options } = this.props
     // passed by reference between paragraphs
     const lexiconId = {
-      id: 0
+      id: 0,
     }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
       h(Body, { topics, options }, [
-        h(Article, { article, topics, definitions, resources, lexiconId, options }),
+        h(Article, {
+          article,
+          topics,
+          definitions,
+          resources,
+          lexiconId,
+          options,
+        }),
         h(NavTopics),
       ]),
     ])

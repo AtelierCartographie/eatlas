@@ -9,7 +9,14 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt, Paragraph, Lexicon } = require('./Doc')
+const {
+  PublishedAt,
+  Paragraph,
+  Keywords,
+  Quote,
+  Footnotes,
+  Lexicon,
+} = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -24,7 +31,7 @@ const FocusHeader = ({ focus }) =>
     ]),
   ])
 
-const FocusNodes = ({ focus, resources, lexiconId }) => {
+const FocusNodes = ({ focus, lexiconId }) => {
   return focus.nodes.map(n => {
     switch (n.type) {
       case 'header':
@@ -37,10 +44,18 @@ const FocusNodes = ({ focus, resources, lexiconId }) => {
   })
 }
 
+const FocusFooter = ({ focus, topics, resources, options }) =>
+  h('footer.DocFooter', [
+    h(Keywords, { keywords: focus.keywords }),
+    h(Quote, { doc: focus }),
+    h(Footnotes, { footnotes: focus.footnotes }),
+  ])
+
 const Focus = props =>
   h('article.focus.FocusPage', [
     h(FocusHeader, props),
     h(FocusNodes, props),
+    h(FocusFooter, props),
     h(Lexicon, { nodes: props.focus.nodes, definitions: props.definitions }),
   ])
 

@@ -924,7 +924,8 @@ class ResourceForm extends Component<Props, State> {
   onPickArticle = this.onPickArticleOrFocus('article')
   onPickFocus = this.onPickArticleOrFocus('focus')
 
-  onPickLexicon = async (doc: GoogleDoc, accessToken: string) => {
+  onPickLexicon = async (docs: GoogleDoc[], accessToken: string) => {
+    const doc = docs[0]
     const postParse = (state, parsed) => {
       const newState: { parsed: any, resource?: Resource } = { parsed }
       if (state.resource) {

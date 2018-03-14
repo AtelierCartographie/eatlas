@@ -4,6 +4,7 @@ const {
   generateArticleHTML,
   generateFocusHTML,
   generateTopicHTML,
+  generateResourceHTML,
 } = require('./html-generator')
 const { resources: Resources, topics: Topics } = require('./model')
 const dynamicConfVar = require('./dynamic-config-variable')
@@ -55,6 +56,11 @@ exports.generateTopicHTML = async (topic, options) => {
   )
 
   return generateTopicHTML(topic, topics, articles, resources, options)
+}
+
+exports.generateResourceHTML = async (resource, options) => {
+  const topics = await getTopics()
+  return generateResourceHTML(resource, topics, options)
 }
 
 // Article or Focus file name

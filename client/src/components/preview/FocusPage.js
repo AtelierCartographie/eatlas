@@ -67,7 +67,7 @@ const FocusFooter = ({ focus, topics, resources, options }) =>
   ])
 
 const Focus = props =>
-  h('article.focus.FocusPage', [
+  h('article.FocusPage', [
     h(FocusBackToArticle, props),
     h(FocusHeader, props),
     h(FocusNodes, props),
@@ -81,7 +81,6 @@ class FocusPage extends Component /*::<{focus: Resource, topics: Topic[], defini
     const lexiconId = {
       id: 0,
     }
-    console.log({ focus })
     return h('html', { lang: 'fr' }, [
       h(Head, { title: focus.title }),
       h(Body, { topics, options }, [

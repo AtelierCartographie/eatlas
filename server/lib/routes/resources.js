@@ -5,7 +5,11 @@ const get = require('lodash.get')
 
 const { resources } = require('../model')
 const schemas = require('../schemas')
-const { generateArticleHTML, generateFocusHTML } = require('../resource-utils')
+const {
+  generateArticleHTML,
+  generateFocusHTML,
+  generateResourceHTML,
+} = require('../resource-utils')
 const { download } = require('../google')
 const { updateFilesLocations, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
@@ -145,10 +149,10 @@ exports.preview = async (req, res, next) => {
         return res.send(html)
       }
       // Binary previews: audio, map and image
-      // Note: map and image have multiple files, that can be selected with req.params.f
+      // Note: map and image have multiple files, that can be selected with req.params.k
       case 'map':
       case 'image': {
-        const images = req.foundResource.images
+        const { images } = req.foundResource
         let file = null
         if (req.params.k) {
           // req.params.k can be directly a path into 'images' property, like "small.2x"
@@ -186,7 +190,12 @@ exports.preview = async (req, res, next) => {
         return res.sendFile(up)
       }
       // No direct preview: definition and video
-      case 'video':
+      case 'video': {
+        const html = await generateResourceHTML(req.foundResource, {
+          preview: true,
+        })
+        return res.send(html)
+      }
       case 'definition':
         return res.boom.badRequest('No direct preview for this type')
       default:

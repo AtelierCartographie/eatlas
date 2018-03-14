@@ -11,6 +11,7 @@ dotenv.config({ path: `${config.clientPath}/.env.local` })
 const ArticlePage = require('../../client/src/components/preview/ArticlePage')
 const FocusPage = require('../../client/src/components/preview/FocusPage')
 const TopicPage = require('../../client/src/components/preview/TopicPage')
+const ResourcePage = require('../../client/src/components/preview/ResourcePage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
@@ -61,6 +62,19 @@ exports.generateTopicHTML = (
       topics,
       articles,
       resources,
+      options,
+    }),
+  )
+
+exports.generateResourceHTML = (
+  resource,
+  topics,
+  options = { preview: false },
+) =>
+  wrap(
+    React.createElement(ResourcePage, {
+      resource,
+      topics,
       options,
     }),
   )

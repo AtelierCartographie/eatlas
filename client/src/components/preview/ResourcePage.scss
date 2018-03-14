@@ -1,0 +1,50 @@
+.ResourcePage {
+  .ResourceHeader {
+    padding-top: 48px;
+    padding-bottom: 24px;
+
+    .PageTitle {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ResourceType {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 20px;
+      font-weight: normal;
+      line-height: 20px;
+    }
+
+    .ResourceTitle {
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 30px;
+      font-weight: normal;
+      line-height: 30px;
+      margin-top: 20px;
+    }
+  }
+
+  .ResourceVideo {
+    iframe {
+      height: 400px;
+      width: 100%;
+    }
+  }
+
+  .ResourceDescription {
+    font-size: 15.8px;
+    line-height: 24px;
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 16px;
+      margin-top: 20px;
+    }
+
+  }
+}
+

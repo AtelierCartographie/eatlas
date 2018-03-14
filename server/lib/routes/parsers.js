@@ -4,7 +4,7 @@ const { download } = require('../google')
 const { parseDocx } = require('../doc-parser')
 const { parseLexicon } = require('../lexicon-parser')
 
-const uploadParser = (key, parse) => async (req, res) => {
+const uploadParser = (key, type, parse) => async (req, res) => {
   const { uploads, accessToken } = req.body
 
   const up = uploads && uploads[0]
@@ -13,7 +13,7 @@ const uploadParser = (key, parse) => async (req, res) => {
   }
 
   try {
-    const buffer = await download(up.fileId, key, up.mimeType, accessToken)
+    const buffer = await download(up.fileId, type, up.mimeType, accessToken)
     const result = await parse(buffer)
     res.send(result)
   } catch (err) {
@@ -21,6 +21,6 @@ const uploadParser = (key, parse) => async (req, res) => {
   }
 }
 
-exports.article = uploadParser('article', parseDocx)
-exports.focus = uploadParser('focus', parseDocx)
-exports.lexicon = uploadParser('lexicon', parseLexicon)
+exports.article = uploadParser('article', 'article', parseDocx)
+exports.focus = uploadParser('focus', 'focus', parseDocx)
+exports.lexicon = uploadParser('lexicon', 'definition', parseLexicon)

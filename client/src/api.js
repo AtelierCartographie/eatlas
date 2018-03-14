@@ -242,30 +242,39 @@ const query = <T>({
     return fakeResponse(fake, delay)
   }
 
-  const headers = body
-    ? { 'Content-Type': 'application/json; charset=UTF-8' }
-    : {}
-  const options = {
-    credentials: 'include',
-    method,
-    headers,
-    body: body && JSON.stringify(body),
-  }
   const fullUrl = (process.env.REACT_APP_API_SERVER || '') + url
 
-  // $FlowFixMe: I can't make him understand, fuck it
-  return fetch(fullUrl, options)
-    .then(res => (res.status === 204 ? {} : res.json()))
-    .then(data => {
-      if (data.error) {
-        let err = new Error(data.message || data.error)
-        // $FlowFixMe: enhancing Error object
-        err.code = data.error
-        // $FlowFixMe: enhancing Error object
-        err.status = data.statusCode
-        throw err
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.withCredentials = true
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4 && String(xhr.status)[0] === '2') {
+        if (xhr.status === 204) {
+          return resolve({})
+        }
+        try {
+          const data = JSON.parse(xhr.responseText)
+          if (data.error) {
+            let err = new Error(data.message || data.error)
+            // $FlowFixMe: enhancing Error object
+            err.code = data.error
+            // $FlowFixMe: enhancing Error object
+            err.status = data.statusCode
+            throw err
+          }
+          resolve(data)
+        } catch (err) {
+          reject(err)
+        }
       }
-      return data
-    })
+    }
+    xhr.open(method, fullUrl, true)
+    if (body) {
+      xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8')
+      xhr.send(JSON.stringify(body))
+    } else {
+      xhr.send()
+    }
+  })
   // TODO catch authentication errors and force login
 }

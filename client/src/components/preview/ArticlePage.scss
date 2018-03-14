@@ -126,36 +126,6 @@
     }
   }
 
-  .ArticleKeywords {
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      display: inline-block;
-      margin-right: 8px;
-    }
-
-    a {
-      background-color: #ffe9a1;
-      color: rgba(0,0,0,.8);
-      font-size: 15.8px;
-      line-height: 24px;
-      padding: 3px 8px;
-      text-decoration: none;
-      transition-duration: 0.2s;
-      transition-property: all;
-    }
-
-    a:focus,
-    a:hover {
-      color: rgba(0,0,0,.8);
-      background-color: #ffd754;
-    }
-  }
-
   .ArticleFooter {
     background-color: #d1d6e0;
     padding: 24px 0;
@@ -178,7 +148,71 @@
       font-size: 1.39em;
       line-height: 21px;
     }
+  }
 
+  .ArticleKeywords {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    a {
+      background-color: $color-keyword;
+      color: rgba(0,0,0,.8);
+      font-size: 15.8px;
+      line-height: 24px;
+      padding: 3px 8px;
+      text-decoration: none;
+      transition-duration: 0.2s;
+      transition-property: all;
+    }
+
+    a:focus,
+    a:hover {
+      color: rgba(0,0,0,.8);
+      background-color: #ffd754;
+    }
+  }
+
+  .ArticleFootnotes {
+    ol {
+      // styled with a span
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      font-size: 15.8px;
+      margin-bottom: 8px;
+    }
+
+    li:target {
+      background: white;
+    }
+
+    a, a:focus, a:hover {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .number {
+      font-weight: bold;
+    }
+
+    .back {
+      margin: 0 8px;
+    }
+
+    .external {
+      border-bottom: 2px solid $color-keyword;
+    }
   }
 
   .ArticleSeeAlso {

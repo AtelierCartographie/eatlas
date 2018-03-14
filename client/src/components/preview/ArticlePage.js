@@ -289,16 +289,33 @@ const ArticleQuote = ({ article }) => {
 const ArticleFootnotes = ({ footnotes }) => {
   if (!footnotes || !footnotes.length) return null
 
-  return h('section.container.article-footnotes', [
+  const parseLinks = ({ text, links }) => {
+    let parts = []
+    parts.push(
+      links.reduce((tail, link) => {
+        const [head, _tail] = tail.split(link.label)
+        parts.push(head, h('a.external', { href: link.url }, link.label))
+        return _tail
+      }, text),
+    )
+    parts = parts.map(p => {
+      if (typeof p !== 'string') return p
+      return h(Fragment, { key: p }, p)
+    })
+    return parts
+  }
+
+  return h('section.container.ArticleFootnotes', [
     h('h2', 'Notes'),
     h(
       'ol',
-      footnotes.map((n, k) =>
-        h('li', { id: `footnote-${k + 1}`, key: k }, [
-          h('a', { href: `#note-${k + 1}` }, '^'),
-          n.text,
-        ]),
-      ),
+      footnotes.map((n, k) => {
+        return h('li', { id: `footnote-${k + 1}`, key: k }, [
+          h('span.number', k + 1),
+          h('a.back', { href: `#note-${k + 1}` }, '^'),
+          parseLinks(n),
+        ])
+      }),
     ),
   ])
 }

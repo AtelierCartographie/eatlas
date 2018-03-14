@@ -173,12 +173,13 @@ class ResourceForm extends Component<Props, State> {
     return (
       <div className="ResourceForm">
         {this.state.error ? this.renderError(this.state.error.message) : null}
+        {this.props.renderBeforeForm ? this.props.renderBeforeForm() : null}
         <form onSubmit={this.onSubmit}>
           {fields.map(renderField)}
           {this.props.renderEndForm ? this.props.renderEndForm() : null}
           {this.renderSave()}
-          {this.props.renderAfterForm ? this.props.renderAfterForm() : null}
         </form>
+        {this.props.renderAfterForm ? this.props.renderAfterForm() : null}
         <ObjectDebug title="Parsed article" object={this.state.parsed} />
       </div>
     )

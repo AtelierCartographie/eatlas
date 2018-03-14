@@ -214,7 +214,6 @@ type State = {
   missingDefinitions: string[],
   missingLexicon: boolean,
   missingRelated: { [string]: [ArticleNode, boolean] },
-  previewMode: boolean,
   expanded: boolean,
 }
 
@@ -226,7 +225,6 @@ class ArticleForm extends Component<Props, State> {
       this.props.article,
       this.props.resources.list,
     ),
-    previewMode: false,
     missingLexicon: false,
     expanded: false,
   }
@@ -325,7 +323,6 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <hr />
         <h2 className="subtitle is-4">
           <T id={title} />
         </h2>
@@ -355,6 +352,7 @@ class ArticleForm extends Component<Props, State> {
             </li>
           ))}
         </ul>
+        <hr />
       </Fragment>
     )
   }
@@ -387,7 +385,6 @@ class ArticleForm extends Component<Props, State> {
 
     return (
       <Fragment>
-        <hr />
         <h2 className="subtitle is-4">
           <T id="article-missing-definitions" values={{ nb: dts.length }} />
         </h2>
@@ -413,6 +410,7 @@ class ArticleForm extends Component<Props, State> {
             </li>
           ))}
         </ul>
+        <hr />
       </Fragment>
     )
   }
@@ -498,7 +496,7 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  renderDetails() {
+  render() {
     return (
       <div className="ArticleForm">
         {this.renderMissingResources(
@@ -511,7 +509,6 @@ class ArticleForm extends Component<Props, State> {
           Object.values(this.state.missingRelated),
         )}
         {this.renderMissingDefinitions()}
-        <hr />
         <h2
           className="subtitle is-3"
           onClick={() => this.setState({ expanded: !this.state.expanded })}>
@@ -564,58 +561,6 @@ class ArticleForm extends Component<Props, State> {
     )
 
     return expanded ? out : <div style={{ display: 'none' }}>{out}</div>
-  }
-
-  getPreviewUrl() {
-    const host = process.env.REACT_APP_API_SERVER
-    if (!host) {
-      throw new Error(
-        'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
-      )
-    }
-    return `${host}/resources/${this.props.article.id}/preview`
-  }
-
-  renderPreview() {
-    return (
-      <iframe
-        title="Preview"
-        width="100%"
-        height="700px"
-        src={this.getPreviewUrl()}
-      />
-    )
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <div className="field is-grouped">
-          <div className="control">
-            <button
-              className="button is-outlined"
-              onClick={e => {
-                e.preventDefault()
-                this.setState({ previewMode: !this.state.previewMode })
-              }}>
-              {this.state.previewMode ? (
-                <IconButton label="hide-preview" icon="eye-slash" />
-              ) : (
-                <IconButton label="show-preview" icon="eye" />
-              )}
-            </button>
-          </div>
-
-          <div>
-            <Icon icon="share" />
-            <T id="share-preview" />{' '}
-            <a href={this.getPreviewUrl()}>{this.getPreviewUrl()}</a>
-          </div>
-        </div>
-
-        {this.state.previewMode ? this.renderPreview() : this.renderDetails()}
-      </Fragment>
-    )
   }
 }
 

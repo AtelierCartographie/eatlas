@@ -15,6 +15,7 @@ import ResourceForm from './ResourceForm'
 import { updateResource } from '../api'
 import ObjectDebug from './ObjectDebug'
 import IconButton from './IconButton'
+import Icon from './Icon'
 
 import type { ContextRouter } from 'react-router'
 import type { SaveCallback } from './ResourceForm'
@@ -32,6 +33,7 @@ type Props = ContextIntl &
 type State = {
   openDetails: boolean,
   openDefinition: ?string,
+  openPreview: boolean,
   publishable: boolean,
   whyUnpublishable: string[],
 }
@@ -40,6 +42,7 @@ class ResourceEdit extends Component<Props, State> {
   state = {
     openDetails: false,
     openDefinition: null,
+    openPreview: false,
     publishable: true,
     whyUnpublishable: [],
   }
@@ -98,12 +101,15 @@ class ResourceEdit extends Component<Props, State> {
     }
 
     let renderAfterForm = null
+    let renderBeforeForm = null
 
     if (resource.type === 'definition' && resource.definitions) {
       renderAfterForm = this.renderDefinitions.bind(this, resource.definitions)
     } else if (resource.type === 'article' && resource.nodes) {
+      renderBeforeForm = this.renderPreview.bind(this)
       renderAfterForm = this.renderNodes.bind(this, resource)
     } else if (resource.type === 'focus' && resource.nodes) {
+      renderBeforeForm = this.renderPreview.bind(this)
       renderAfterForm = this.renderNodes.bind(this, resource)
     }
 
@@ -112,6 +118,7 @@ class ResourceEdit extends Component<Props, State> {
         mode="edit"
         resource={resource}
         onSubmit={this.save}
+        renderBeforeForm={renderBeforeForm}
         renderAfterForm={renderAfterForm}
         publishable={this.state.publishable}
         whyUnpublishable={this.state.whyUnpublishable}
@@ -190,6 +197,53 @@ class ResourceEdit extends Component<Props, State> {
           </h2>
           {openDetails && renderList()}
         </section>
+      </Fragment>
+    )
+  }
+
+  getPreviewUrl() {
+    const host = process.env.REACT_APP_API_SERVER
+    if (!host) {
+      throw new Error(
+        'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
+      )
+    }
+    return `${host}/resources/${this.props.resource.id}/preview`
+  }
+
+  renderPreview() {
+    return (
+      <Fragment>
+        <div className="field is-grouped">
+          <div className="control">
+            <button
+              className="button is-outlined"
+              onClick={e => {
+                e.preventDefault()
+                this.setState({ openPreview: !this.state.openPreview })
+              }}>
+              {this.state.openPreview ? (
+                <IconButton label="hide-preview" icon="eye-slash" />
+              ) : (
+                <IconButton label="show-preview" icon="eye" />
+              )}
+            </button>
+          </div>
+
+          <div>
+            <Icon icon="share" />
+            <T id="share-preview" />{' '}
+            <a href={this.getPreviewUrl()}>{this.getPreviewUrl()}</a>
+          </div>
+        </div>
+        {this.state.openPreview && (
+          <iframe
+            title="Preview"
+            width="100%"
+            height="700px"
+            src={this.getPreviewUrl()}
+          />
+        )}
       </Fragment>
     )
   }

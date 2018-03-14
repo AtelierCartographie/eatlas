@@ -97,17 +97,32 @@ type PProps = {
 class _ParagraphField extends Component<PProps> {
   render() {
     const { node } = this.props
+    const control = (
+      <div className="control">
+        <p className="textarea">{node.text}</p>
+      </div>
+    )
+    const hasColumns = node.links.length > 0 || node.lexicon.length > 0
+
+    // No column: take whole width
+    if (!hasColumns) {
+      return (
+        <div className="field">
+          <label className="label">
+            <T id="article-content-paragraph" />
+          </label>
+          {control}
+        </div>
+      )
+    }
+
     return (
       <div className="field">
         <label className="label">
           <T id="article-content-paragraph" />
         </label>
         <div className="columns">
-          <div className="column">
-            <div className="control">
-              <textarea className="textarea" defaultValue={node.text} />
-            </div>
-          </div>
+          <div className="column">{control}</div>
           <div className="column">
             {!node.links.length ? null : (
               <div>
@@ -260,7 +275,7 @@ class ArticleForm extends Component<Props, State> {
           <T id="article-content-header" />
         </label>
         <div className="control">
-          <input className="input" defaultValue={node.text} />
+          <span className="input">{node.text}</span>
         </div>
       </div>
     )
@@ -470,7 +485,7 @@ class ArticleForm extends Component<Props, State> {
     }
 
     const field = meta.type.match(/^summary/) ? (
-      <pre className="textarea">{meta.text}</pre>
+      <p className="textarea">{meta.text}</p>
     ) : (
       <span className="input">{meta.text}</span>
     )

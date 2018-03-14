@@ -29,12 +29,11 @@ exports.parseLexicon = async buffer => {
     if (skip) return null
 
     const text = getText($, el)
-    const [dt, resourceId] = text.split(' [')
+    const [dt] = text.split(' [')
 
     return {
       dt,
       dd: getText($, el.next),
-      resourceId: resourceId ? resourceId.slice(0, -1) : null,
     }
   }
 

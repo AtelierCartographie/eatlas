@@ -153,7 +153,6 @@ const node = Joi.object().keys({
 const definition = Joi.object().keys({
   dt: Joi.string().required(),
   dd: Joi.string().required(),
-  resourceId: Joi.string().optional(),
 })
 
 const densities = Joi.object().keys({

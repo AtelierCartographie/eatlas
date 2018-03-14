@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router'
 
+import './ResourceEdit.css'
+
 import { fetchResources } from './../actions'
 import Spinner from './Spinner'
 import ArticleForm from './ArticleForm'
@@ -50,7 +52,7 @@ class ResourceEdit extends Component<Props, State> {
 
   render() {
     return (
-      <div className="ResourceForm">
+      <div className="ResourceEdit">
         <h1 className="title">
           <T {...this.getTitle()} />
         </h1>
@@ -149,7 +151,13 @@ class ResourceEdit extends Component<Props, State> {
       if (!aliases || aliases.length === 0) {
         return null
       }
-      return <small>({aliases.join(', ')})</small>
+      return (
+        <small>
+          {' ('}
+          {aliases.join(', ')}
+          {')'}
+        </small>
+      )
     }
 
     const renderList = () =>
@@ -169,7 +177,7 @@ class ResourceEdit extends Component<Props, State> {
       ))
 
     return (
-      <section className="box">
+      <section className="box definitions-box">
         <h2 className="subtitle" onClick={this.toggleOpenDetails}>
           <IconButton icon={openDetails ? 'caret-down' : 'caret-right'} />
           <label>

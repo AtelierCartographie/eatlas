@@ -9,19 +9,15 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt } = require('./Doc')
-const { Script, Img } = require('./Tags')
+const { PublishedAt, Paragraph } = require('./Doc')
+const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
 const {
   HOST,
-  resourcesTypes,
-  aPropos,
   getImageUrl,
   getResource,
 } = require('./layout')
-
-let lexiconId
 
 const getDefinition = (definitions, dt) => {
   const search = dt.toLowerCase()
@@ -118,43 +114,6 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
-// first parse lexicon, then footnotes
-const ArticleP = ({ p }) => {
-  const parseFootnotes = str => {
-    const m = str.match(/(.*)\[(\d+)\](.*)/)
-    if (!m) return str
-    return [
-      m[1],
-      h('sup', [
-        h('a', { id: `note-${m[2]}`, href: `#footnote-${m[2]}` }, `[${m[2]}]`),
-      ]),
-      m[3],
-    ]
-  }
-
-  let parts = []
-  parts.push(
-    p.lexicon.reduce((tail, l) => {
-      const [head, _tail] = tail.split(l)
-      parts.push(
-        head,
-        h(
-          'a.keyword',
-          { href: `#keyword-${++lexiconId}`, 'data-toggle': 'collapse' },
-          l,
-        ),
-      )
-      return _tail
-    }, p.text),
-  )
-  parts = parts.map(p => {
-    if (typeof p !== 'string') return p
-    return h(Fragment, { key: p }, parseFootnotes(p))
-  })
-
-  return h('p.container', parts)
-}
-
 const ArticleResource = ({ article, resource }) => {
   switch (resource.type) {
     case 'image':
@@ -219,13 +178,13 @@ const ArticleResource = ({ article, resource }) => {
   }
 }
 
-const ArticleNodes = ({ article, resources }) => {
+const ArticleNodes = ({ article, resources, lexiconId }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
         return h('h2.container', { key: n.id }, n.text)
       case 'p':
-        return h(ArticleP, { p: n, key: n.id })
+        return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {
         const resource = getResource(resources, n.id)
         return !resource
@@ -407,12 +366,15 @@ const NavTopics = () =>
 
 class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
-    lexiconId = 0
     const { article, topics, definitions, resources, options } = this.props
+    // passed by reference between paragraphs
+    const lexiconId = {
+      id: 0
+    }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
       h(Body, { topics, options }, [
-        h(Article, { article, topics, definitions, resources, options }),
+        h(Article, { article, topics, definitions, resources, lexiconId, options }),
         h(NavTopics),
       ]),
     ])

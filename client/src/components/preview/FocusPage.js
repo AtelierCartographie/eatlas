@@ -4,22 +4,14 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component, Fragment } = require('react')
+const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt } = require('./Doc')
-const { Script, Img } = require('./Tags')
+const { PublishedAt, Paragraph } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
-const {
-  HOST,
-  resourcesTypes,
-  aPropos,
-  getImageUrl,
-  getResource,
-} = require('./layout')
 
 // subcomponents
 
@@ -32,7 +24,18 @@ const FocusHeader = ({ focus }) =>
     ]),
   ])
 
-const FocusNodes = props => null
+const FocusNodes = ({ focus, resources, lexiconId }) => {
+  return focus.nodes.map(n => {
+    switch (n.type) {
+      case 'header':
+        return h('h2.container', { key: n.id }, n.text)
+      case 'p':
+        return h(Paragraph, { p: n, key: n.id, lexiconId })
+      default:
+        return null
+    }
+  })
+}
 
 const Focus = props =>
   h('article.focus.FocusPage', [h(FocusHeader, props), h(FocusNodes, props)])
@@ -40,11 +43,13 @@ const Focus = props =>
 class FocusPage extends Component /*::<{focus: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
     const { focus, topics, definitions, resources, options } = this.props
-    console.log({ focus })
+    const lexiconId = {
+      id: 0,
+    }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: focus.title }),
       h(Body, { topics, options }, [
-        h(Focus, { focus, topics, definitions, resources, options }),
+        h(Focus, { focus, topics, definitions, resources, lexiconId, options }),
       ]),
     ])
   }

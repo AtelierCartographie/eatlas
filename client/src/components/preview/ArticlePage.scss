@@ -126,6 +126,30 @@
     }
   }
 
+  .ArticleFocus {
+    color: #000;
+    font-size: 20px;
+    margin-top: 0;
+    
+    > div {
+      background-color: #fff7d9;
+      border-left: 4px solid $color-keyword;
+      padding: 10px 20px;
+      transition: all .2s ease;
+
+      &:hover {
+        background-color: $color-keyword;
+      }
+    }
+
+    a {
+      color: initial;
+      display: block;
+      font-family: 'Fira Sans', sans-serif;
+      text-decoration: none;
+    }
+  }
+
   .ArticleSeeAlso {
     ul {
       list-style: none;

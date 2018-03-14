@@ -9,7 +9,14 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { PublishedAt, Paragraph, Keywords, Quote, Footnotes, Lexicon } = require('./Doc')
+const {
+  PublishedAt,
+  Paragraph,
+  Keywords,
+  Quote,
+  Footnotes,
+  Lexicon,
+} = require('./Doc')
 const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
@@ -101,7 +108,7 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
-const ArticleResource = ({ article, resource }) => {
+const ArticleResource = ({ article, resource, options }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
@@ -160,12 +167,25 @@ const ArticleResource = ({ article, resource }) => {
         h('figcaption', resource.description),
       ])
 
+    case 'focus':
+      return h('.container.ArticleFocus', [
+        h('div', [
+          h(
+            'a',
+            {
+              href: options.preview ? `/resources/${resource.id}/preview` : '',
+            },
+            [h('.FocusIcon', 'Focus'), resource.title],
+          ),
+        ]),
+      ])
+
     default:
       return null
   }
 }
 
-const ArticleNodes = ({ article, resources, lexiconId }) => {
+const ArticleNodes = ({ article, resources, lexiconId, options }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
@@ -176,7 +196,7 @@ const ArticleNodes = ({ article, resources, lexiconId }) => {
         const resource = getResource(resources, n.id)
         return !resource
           ? null
-          : h(ArticleResource, { article, resource, key: n.id })
+          : h(ArticleResource, { article, resource, key: n.id, options })
       }
       default:
         return null

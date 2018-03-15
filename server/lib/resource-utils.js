@@ -59,7 +59,7 @@ const getTypeResources = async type =>
   Resources.list({ query: { term: { type } } })
 
 exports.getDefinitions = async () => {
-  const lexicons = await exports.getTypeResources('definition')
+  const lexicons = await getTypeResources('definition')
   return lexicons.reduce(
     (definitions, lexicon) => definitions.concat(lexicon.definitions),
     [],

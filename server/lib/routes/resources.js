@@ -14,7 +14,7 @@ const { download } = require('../google')
 const { updateFiles, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
 const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
-const { rebuildAllHTML } = require('./site-builder')
+const { rebuildAllHTML } = require('../site-builder')
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)

@@ -114,7 +114,7 @@ export const renderPreview = (resource: Resource) => {
   }
 
   if (resource.type === 'image' || resource.type === 'map') {
-    const url = `${API_SERVER}/resources/${resource.id}/preview`
+    const url = `${API_SERVER}/resources/${resource.id}/file`
     return <img className="preview" src={url} alt={resource.title} />
   }
 
@@ -123,7 +123,7 @@ export const renderPreview = (resource: Resource) => {
   }
 
   if (resource.type === 'sound' && resource.file) {
-    const url = `${API_SERVER}/resources/${resource.id}/preview`
+    const url = `${API_SERVER}/resources/${resource.id}/file`
     return <audio className="preview" src={url} controls />
   }
 

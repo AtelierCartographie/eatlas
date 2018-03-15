@@ -760,7 +760,7 @@ class ResourceForm extends Component<Props, State> {
         ? // Freshly picked document (we're editing or creating)
           `https://drive.google.com/thumbnail?id=${docs[key].id}&sz=w100-h100`
         : // Saved document (we're editing)
-          `${API_SERVER}/resources/${resource.id}/preview/${key}`
+          `${API_SERVER}/resources/${resource.id}/file/${key}`
       : null
 
   onPickResponsiveImage = (resource, supportedSizes) => async (

@@ -132,22 +132,9 @@ exports.remove = (req, res) =>
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 
-exports.preview = async (req, res, next) => {
+exports.file = async (req, res, next) => {
   try {
     switch (req.foundResource.type) {
-      // HTML previews: article & focus
-      case 'article': {
-        const html = await generateArticleHTML(req.foundResource, {
-          preview: true,
-        })
-        return res.send(html)
-      }
-      case 'focus': {
-        const html = await generateFocusHTML(req.foundResource, {
-          preview: true,
-        })
-        return res.send(html)
-      }
       // Binary previews: audio, map and image
       // Note: map and image have multiple files, that can be selected with req.params.k
       case 'map':
@@ -182,24 +169,46 @@ exports.preview = async (req, res, next) => {
                 images['large']['2x'] ||
                 images['large']['3x']))
         }
-        const { up } = resourcePath(req.foundResource, file, { pub: false })
+        const { up } = resourcePath(req.foundResource, file, {
+          pub: false,
+        })
         return res.sendFile(up)
       }
       case 'sound': {
-        const { up } = resourcePath(req.foundResource, null, { pub: false })
+        const { up } = resourcePath(req.foundResource, null, {
+          pub: false,
+        })
         return res.sendFile(up)
       }
-      // No direct preview: definition and video
-      case 'video': {
-        const html = await generateResourceHTML(req.foundResource, {
-          preview: true,
-        })
-        return res.send(html)
-      }
-      case 'definition':
-        return res.boom.badRequest('No direct preview for this type')
+      // No direct download for other types
       default:
-        return res.boom.notImplemented()
+        return res.boom.badRequest('No file download for this type')
+    }
+  } catch (err) {
+    next(err)
+  }
+}
+
+exports.preview = async (req, res, next) => {
+  const resource = req.foundResource
+  const options = { preview: true }
+  try {
+    switch (resource.type) {
+      // HTML previews: article & focus
+      case 'article':
+        return res.send(await generateArticleHTML(resource, options))
+      case 'focus': {
+        return res.send(await generateFocusHTML(resource, options))
+      }
+      // Binary previews: audio, map and image
+      // Note: map and image have multiple files, that can be selected with req.params.k
+      case 'map':
+      case 'image':
+      case 'sound':
+      case 'video':
+        return res.send(await generateResourceHTML(resource, options))
+      default:
+        return res.boom.badRequest('No preview for this type')
     }
   } catch (err) {
     next(err)

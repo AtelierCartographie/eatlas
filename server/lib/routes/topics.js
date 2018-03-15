@@ -1,7 +1,7 @@
 'use strict'
 
 const { topics } = require('../model')
-const { generateTopicHTML } = require('../resource-utils')
+const { generateTopicHTML } = require('../html-generator')
 
 exports.list = (req, res) =>
   topics

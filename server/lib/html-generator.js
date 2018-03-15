@@ -28,8 +28,8 @@ const ArticlePage = require('../../client/src/components/preview/ArticlePage')
 const FocusPage = require('../../client/src/components/preview/FocusPage')
 const TopicPage = require('../../client/src/components/preview/TopicPage')
 const ResourcePage = require('../../client/src/components/preview/ResourcePage')
+const HomePage = require('../../client/src/components/preview/HomePage')
 const MissingPage = require('../../client/src/components/preview/MissingPage')
-const IndexPage = require('../../client/src/components/preview/IndexPage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
@@ -118,14 +118,14 @@ exports.generateResourceHTML = async (resource, { preview = false } = {}) => {
   )
 }
 
-exports.generateHomeHTML = (
-  options = { preview: false },
-) =>
-  wrap(
-    React.createElement(IndexPage, {
-      options,
+exports.generateHomeHTML = async ({ preview = false } = {}) => {
+  return wrap(
+    React.createElement(HomePage, {
+      ...(await topMenuProps()),
+      options: { preview },
     }),
   )
+}
 
 const generateMissingHTML = async ({ preview = false } = {}) => {
   return wrap(
@@ -142,4 +142,3 @@ exports.generateAboutWhoHTML = generateMissingHTML
 exports.generateAboutContactHTML = generateMissingHTML
 exports.generateAboutLegalsHTML = generateMissingHTML
 exports.generateSiteMapHTML = generateMissingHTML
-

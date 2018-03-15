@@ -15,11 +15,11 @@ const Body = require('./Body')
 
 // subcomponents
 
-const Index = () => {
-  return h('article.IndexPage', [
-    h('header.container.IndexHeader', [
-      h('h1.IndexTitle', 'Un atlas pour comprendre'),
-      h('h1.IndexTitle.IndexTitleTyped', "l'espace mondial contemporain"),
+const Home = ({ topics }) => {
+  return h('article.HomePage', [
+    h('header.container.HomeHeader', [
+      h('h1.HomeTitle', 'Un atlas pour comprendre'),
+      h('h1.HomeTitle.HomeTitleTyped', "l'espace mondial contemporain"),
       h('div', [
         h('button', 'Commencer la lecture'),
         h('button.tour', 'Visite guidée'),
@@ -29,7 +29,7 @@ const Index = () => {
         h('button', [h(Img, { alt: '', src: `/assets/img/search.svg` })]),
       ]),
     ]),
-    h('section.IndexNav', [
+    h('section.HomeNav', [
       h('.container', [
         h('.row', [
           h('.col-sm-4', [
@@ -45,21 +45,25 @@ const Index = () => {
         ]),
       ]),
     ]),
-    h('section.IndexBook', [
+    h('section.HomeBook', [
       h('.container', [
         h('.row', [
-          h(
-            '.col-sm-4',
-            [ 'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
+          h('.col-sm-4', [
+            'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
             h('button', 'Acheter le livre'),
-            ]
-          ),
+          ]),
           h('.col-sm-8', ''),
         ]),
       ]),
     ]),
-    h('section.IndexToc', [h('.container', [h('h2', 'Sommaire')])]),
-    h('section.IndexProject', [
+    h('section.HomeTopics', [
+      h('.container', [
+        h('h2', 'Sommaire'),
+        h('.row', [h('.col-sm-4', [h('.TopicNumber', topics[0].id - 1), h('div', topics[0].name)])]),
+        h('.row', topics.slice(1).map(t => h('.col-sm-4', [h('.TopicNumber', t.id - 1), h('div', t.name)]))),
+      ]),
+    ]),
+    h('section.HomeProject', [
       h('.container', [
         h('h2', 'Le projet'),
         h('.row', [
@@ -74,7 +78,7 @@ const Index = () => {
         ]),
       ]),
     ]),
-    h('section.IndexTeam', [
+    h('section.HomeTeam', [
       h('.container', [
         h('h2', "L'équipe"),
         h('h3', 'Six auteurs'),
@@ -107,16 +111,17 @@ const Index = () => {
   ])
 }
 
-class IndexPage extends Component /*::<{topics: Topic[]}>*/ {
+class HomePage extends Component /*::<{topics: Topic[]}>*/ {
   render() {
     const { topics, options } = this.props
+    console.log({ topics })
     return h('html', { lang: 'fr' }, [
       h(Head, { title: 'eAtlas' }),
-      h(Body, { topics: [], options, topMenu: true, logoColor: 'white' }, [
-        h(Index, { topics: [], options }),
+      h(Body, { topics, options, topMenu: true, logoColor: 'white' }, [
+        h(Home, { topics, options }),
       ]),
     ])
   }
 }
 
-module.exports = IndexPage
+module.exports = HomePage

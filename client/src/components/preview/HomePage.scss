@@ -1,14 +1,14 @@
 @import 'var';
 $color-blue: #4778d1;
 
-.IndexPage {
+.HomePage {
   background: linear-gradient(#ffe180, #fff7d9);
 
-  .IndexHeader {
+  .HomeHeader {
     margin-bottom: 48px;
     padding-top: 48px;
 
-    .IndexTitle {
+    .HomeTitle {
       color: $color-white;
       font-family: $sans;
       font-size: 70px;
@@ -16,18 +16,18 @@ $color-blue: #4778d1;
       line-height: 70px;
       margin-top: 64px;
     }
-    .IndexTitleTyped {
+    .HomeTitleTyped {
       color: $color-blue;
       font-weight: normal;
       margin-top: 0;
     }
   }
 
-  .IndexNav, .IndexToc, .IndexTeam {
+  .HomeNav, .HomeTopics, .HomeTeam {
     background: $color-footer;
   }
 
-  .IndexBook, .IndexProject, .IndexResources {
+  .HomeBook, .HomeProject, .HomeResources {
     background: $color-white;
   }
 
@@ -72,7 +72,22 @@ $color-blue: #4778d1;
     padding: 8px;
   }
 
-  .IndexTeam {
+  .HomeTopics {
+    .row > div {
+      background: $color-breadcrumb;
+      border-radius: $gap;
+      color: $color-white;
+      height: 100px;
+      padding: $gap;
+      margin: $gap;
+    }
+
+    .TopicNumber {
+      font-size: 32px;
+    }
+  }
+
+  .HomeTeam {
     ul {
       display: flex;
       list-style: none;

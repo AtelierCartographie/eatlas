@@ -110,7 +110,11 @@ exports.TopMenu = ({ topic, topics, options }) => {
       h('ul', [
         h(TopMenuPanelMain, { options }),
         topics.map(topic =>
-          h(TopMenuPanelTopic, { topic, active: currentTopic.id === topic.id }),
+          h(TopMenuPanelTopic, {
+            key: topic.id,
+            topic,
+            active: currentTopic.id === topic.id,
+          }),
         ),
       ]),
     ]),

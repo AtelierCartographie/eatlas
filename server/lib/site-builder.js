@@ -84,12 +84,13 @@ exports.rebuildAllHTML = async () => {
   const topics = populatePageUrl('topic', null)(await Topics.list())
   topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
   const resources = populatePageUrl(null, topics)(await Resources.list())
+  const publishedResources = resources.filter(
+    ({ status }) => status === 'published',
+  )
   const unpublishedResources = resources.filter(
     ({ status }) => status !== 'published',
   )
-  const articles = resources.filter(
-    ({ status, type }) => status === 'published' && type === 'article',
-  )
+  const articles = publishedResources.filter(({ type }) => type === 'article')
 
   const resultss = await Promise.all([
     // Unpublished pages
@@ -120,7 +121,7 @@ exports.rebuildAllHTML = async () => {
     ),
     // Resource pages
     Promise.all(
-      resources.map(resource =>
+      publishedResources.map(resource =>
         writePage(resource.type, resource, topics, articles),
       ),
     ),

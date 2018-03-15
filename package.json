@@ -17,6 +17,7 @@
     "install:server": "cd server && yarn install",
     "add-user": "cd server && yarn add-user",
     "es-index": "cd server && yarn es-index",
+    "rebuild-site": "cd server && yarn rebuild-site",
     "build": "cd client && yarn build",
     "start": "cd server && yarn start"
   },

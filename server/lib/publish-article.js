@@ -2,7 +2,7 @@
 
 const path = require('path')
 const { writeFile, ensureDir, unlink, exists } = require('fs-extra')
-const { generateArticleHTML, generateFocusHTML } = require('./resource-utils')
+const { generateArticleHTML, generateFocusHTML } = require('./html-generator')
 const resourcePath = require('./resource-path')
 const debugFs = require('debug')('eatlas:fs')
 

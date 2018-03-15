@@ -9,7 +9,7 @@ const {
   generateArticleHTML,
   generateFocusHTML,
   generateResourceHTML,
-} = require('../resource-utils')
+} = require('../html-generator')
 const { download } = require('../google')
 const { updateFilesLocations, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')

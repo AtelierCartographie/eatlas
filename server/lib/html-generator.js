@@ -1,3 +1,19 @@
+'use strict'
+
+// Tools to grab data required by components
+const {
+  flattenMetas,
+  getTopics,
+  getDefinitions,
+  getArticleResources,
+  populateImageHeader,
+  getTopicResources,
+  populateFocus,
+  getResource,
+  getArticles,
+} = require('./resource-utils')
+
+// React dependencies for HTML generation
 const React = require('react')
 const { renderToStaticMarkup } = require('react-dom/server')
 
@@ -15,66 +31,87 @@ const ResourcePage = require('../../client/src/components/preview/ResourcePage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
-exports.generateArticleHTML = (
-  article,
-  topics,
-  definitions,
-  resources,
-  options = { preview: false },
-) =>
-  wrap(
+const topMenuProps = async ({ topics = null, articles = null } = {}) => ({
+  topics: topics || (await getTopics()),
+  articles: articles || (await getArticles()),
+})
+
+exports.generateArticleHTML = async (resource, { preview = false } = {}) => {
+  const article = flattenMetas(resource)
+  const definitions = await getDefinitions()
+  let resources = await getArticleResources(resource, { preview })
+
+  // need to retrieve imageHeader for "related" articles in footer since they're transitives deps
+  resources = await Promise.all(
+    resources.map(async r => {
+      if (r.type === 'article') {
+        r.imageHeader = await populateImageHeader(r)
+      }
+      return r
+    }),
+  )
+
+  return wrap(
     React.createElement(ArticlePage, {
+      ...(await topMenuProps()),
       article,
-      topics,
       definitions,
       resources,
-      options,
+      options: { preview },
     }),
   )
+}
 
-exports.generateFocusHTML = (
-  focus,
-  topics,
-  definitions,
-  resources,
-  options = { preview: false },
-) =>
-  wrap(
+exports.generateFocusHTML = async (resource, { preview = false } = {}) => {
+  let focus = flattenMetas(resource)
+  // to create the "go back to article" link
+  focus.relatedArticleId = focus.relatedArticle
+  focus.relatedArticle = await getResource(focus.relatedArticleId)
+  const definitions = await getDefinitions()
+  const resources = await getArticleResources(resource, { preview })
+
+  return wrap(
     React.createElement(FocusPage, {
+      ...(await topMenuProps()),
       focus,
-      topics,
       definitions,
       resources,
-      options,
+      options: { preview },
     }),
   )
+}
 
-exports.generateTopicHTML = (
-  topic,
-  topics,
-  articles,
-  resources,
-  options = { preview: false },
-) =>
-  wrap(
+exports.generateTopicHTML = async (topic, { preview = false } = {}) => {
+  const resources = await getTopicResources(topic)
+  // Enhanced articles for data list in topic page
+  const articles = await Promise.all(
+    resources
+      .filter(r => r.type === 'article')
+      .map(flattenMetas)
+      .map(async a => {
+        a.imageHeader = await populateImageHeader(a)
+        a.focus = await populateFocus(a, resources)
+        return a
+      }),
+  )
+
+  return wrap(
     React.createElement(TopicPage, {
+      ...(await topMenuProps({ articles })),
       topic,
-      topics,
       articles,
       resources,
-      options,
+      options: { preview },
     }),
   )
+}
 
-exports.generateResourceHTML = (
-  resource,
-  topics,
-  options = { preview: false },
-) =>
-  wrap(
+exports.generateResourceHTML = async (resource, { preview = false } = {}) => {
+  return wrap(
     React.createElement(ResourcePage, {
+      ...(await topMenuProps()),
       resource,
-      topics,
-      options,
+      options: { preview },
     }),
   )
+}

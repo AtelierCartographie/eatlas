@@ -140,6 +140,7 @@ ul.navmenu-nav a {
     top: 0;
     min-height: 48px;
     width: 100%;
+    z-index: 1031; // TODO
 }
 
 .navbar-default .navbar-toggle {
@@ -185,8 +186,8 @@ ul.navmenu-nav a {
     padding-top: 7px;
     left: 50%;
     display: block;
-    width: 280px;
     text-align: center;
+    width: 280px;
 }
 
 .navbar>.container .navbar-brand {

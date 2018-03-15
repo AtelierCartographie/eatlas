@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Spinner from './Spinner'
 import Icon from './Icon'
 

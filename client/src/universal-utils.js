@@ -95,11 +95,18 @@ exports.slugify = text =>
     .replace(/-+$/, '') // Trim - from end of text
 
 exports.getMediaUrl = file => {
-  const root =
-    (process.env.REACT_APP_FRONT_URL || '/') +
-    (process.env.REACT_APP_MEDIA_SUBPATH || '')
-  const slash = root[root.length - 1] === '/' || file[0] === '/' ? '' : '/'
-  return root + slash + file
+  const root = process.env.REACT_APP_FRONT_URL || '/'
+  const subpath = process.env.REACT_APP_MEDIA_SUBPATH || ''
+  if (subpath) {
+    const slash1 =
+      root[root.length - 1] === '/' || subpath[0] === '/' ? '' : '/'
+    const slash2 =
+      subpath[subpath.length - 1] === '/' || file[0] === '/' ? '' : '/'
+    return root + slash1 + subpath + slash2 + file
+  } else {
+    const slash = root[root.length - 1] === '/' || file[0] === '/' ? '' : '/'
+    return root + slash + file
+  }
 }
 
 // { resourcesSlug, searchTypes, label }[]

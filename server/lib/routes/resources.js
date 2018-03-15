@@ -14,6 +14,7 @@ const { download } = require('../google')
 const { updateFiles, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
 const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
+const { rebuildAllHTML } = require('./site-builder')
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)
@@ -51,6 +52,7 @@ exports.update = async (req, res) => {
       if (changedPublished) {
         try {
           await updateFiles(resource)
+          await rebuildAllHTML() // TODO handle error
         } catch (err) {
           await Resources.update(req.foundResource.id, { status: oldStatus })
           err.message =
@@ -88,6 +90,12 @@ exports.add = (req, res) => {
 
   Resources.create(baseData)
     .then(updateFiles)
+    .then(async resource => {
+      if (resource.status === 'published') {
+        await rebuildAllHTML() // TODO handle error
+      }
+      return resource
+    })
     .then(resource => res.send(resource))
     .catch(
       err =>
@@ -106,6 +114,12 @@ exports.addFromGoogle = (req, res) => {
     .then(data => merge(baseData, data))
     .then(Resources.create)
     .then(updateFiles)
+    .then(async resource => {
+      if (resource.status === 'published') {
+        await rebuildAllHTML() // TODO handle error
+      }
+      return resource
+    })
     .then(resource => res.send(resource))
     .catch(
       err =>
@@ -125,6 +139,11 @@ exports.list = (req, res) =>
 exports.remove = (req, res) =>
   Resources.remove(req.params.id)
     .then(() => deleteAllFiles(req.foundResource))
+    .then(async () => {
+      if (req.foundResource.status === 'published') {
+        await rebuildAllHTML() // TODO handle error
+      }
+    })
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 

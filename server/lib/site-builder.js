@@ -80,7 +80,7 @@ const removePage = async (key, resource, topics, params) => {
   }
 }
 
-exports.rebuildFullSite = async () => {
+exports.rebuildAllHTML = async () => {
   const topics = populatePageUrl('topic', null)(await Topics.list())
   topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
   const resources = populatePageUrl(null, topics)(await Resources.list())

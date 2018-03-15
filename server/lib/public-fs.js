@@ -12,7 +12,6 @@ const path = require('path')
 const config = require('config')
 const { resourceMediaPath } = require('./resource-path')
 const debug = require('debug')('eatlas:fs')
-const { rebuildFullSite } = require('./site-builder')
 
 // Circular dependency
 let uploadManagers = {}
@@ -65,7 +64,6 @@ exports.copyPublic = async (up, pub) => {
 
 // Publish files = copy to publicPath
 const publish = async resource => {
-  // 1. Publish media files
   const { files: getFiles } = uploadManagers[resource.type]
   await Promise.all(
     getFiles(resource).map(async file => {
@@ -75,16 +73,11 @@ const publish = async resource => {
     }),
   )
 
-  // 2. Update HTML files
-  debug('Update full site')
-  await rebuildFullSite()
-
   return resource
 }
 
 // Unpublish files = remove from publicPath
 const unpublish = async resource => {
-  // 1. Unpublish media files
   const { files: getFiles } = uploadManagers[resource.type]
   await Promise.all(
     getFiles(resource).map(async file => {
@@ -95,10 +88,6 @@ const unpublish = async resource => {
       }
     }),
   )
-
-  // 2. Update HTML files
-  debug('Update full site')
-  await rebuildFullSite()
 
   return resource
 }

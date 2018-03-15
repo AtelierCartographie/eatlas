@@ -23,6 +23,11 @@ const dotenv = require('dotenv')
 dotenv.config({ path: `${config.clientPath}/.env` })
 dotenv.config({ path: `${config.clientPath}/.env.local` })
 
+// Inject client-side env variables allowing generation of URLs
+for (let key in config.pageUrls) {
+  process.env['REACT_APP_PAGE_URL_' + key] = config.pageUrls[key]
+}
+
 // Now all env variables are available just like if it was built for client side
 const ArticlePage = require('../../client/src/components/preview/ArticlePage')
 const FocusPage = require('../../client/src/components/preview/FocusPage')

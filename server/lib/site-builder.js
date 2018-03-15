@@ -6,6 +6,7 @@ const path = require('path')
 const logger = require('./logger')
 const { topics: Topics, resources: Resources } = require('./model')
 const { pagePath } = require('./resource-path')
+const { footerResourcesConfig } = require('../../client/src/universal-utils')
 
 const writePage = async (key, resource, topics, resources, params) => {
   const file = pagePath(key, resource, topics, params)
@@ -63,30 +64,14 @@ exports.rebuildFullSite = async () => {
     writePage('legals', null, topics, publishedResources),
     writePage('sitemap', null, topics, publishedResources),
     // Resources pages
-    writePage('resources', null, topics, publishedResources, {
-      searchTypes: ['map'],
-      resourcesSlug: 'maps-diagrams',
-    }),
-    writePage('resources', null, topics, publishedResources, {
-      searchTypes: ['image', 'video'],
-      resourcesSlug: 'photo-video',
-    }),
-    writePage('resources', null, topics, publishedResources, {
-      searchTypes: ['sound', 'video'],
-      resourcesSlug: 'audio-video',
-    }),
-    writePage('resources', null, topics, publishedResources, {
-      searchTypes: ['focus'],
-      resourcesSlug: 'focus',
-    }),
-    writePage('resources', null, topics, publishedResources, {
-      searchTypes: ['definition'],
-      resourcesSlug: 'lexique',
-    }),
-    writePage('resources', null, topics, publishedResources, {
-      searchTypes: ['references'],
-      resourcesSlug: 'references',
-    }),
+    Promise.all(
+      footerResourcesConfig.map(({ slug, types }) =>
+        writePage('resources', null, topics, publishedResources, {
+          searchTypes: types,
+          resourcesSlug: slug,
+        }),
+      ),
+    ),
     // Topic pages
     Promise.all(
       topics.map(topic =>

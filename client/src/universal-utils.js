@@ -101,3 +101,16 @@ exports.getMediaUrl = file => {
   const slash = root[root.length - 1] === '/' || file[0] === '/' ? '' : '/'
   return root + slash + file
 }
+
+// { resourcesSlug, searchTypes, label }[]
+exports.footerResourcesConfig = [
+  { slug: 'maps-diagrams', types: ['map'], label: 'Cartes et diagrammes' },
+  {
+    slug: 'photos-videos',
+    types: ['image', 'video'],
+    label: 'Photos et vidéos',
+  },
+  { slug: 'focus', types: ['focus'], label: 'Focus' },
+  { slug: 'lexique', types: ['definition'], label: 'Lexique' },
+  { slug: 'references', types: ['references'], label: 'Références' }, // virtual type
+]

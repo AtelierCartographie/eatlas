@@ -11,7 +11,6 @@
     "dev:test": "mocha --watch --growl --reporter list",
     "start": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
     "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js",
-    "check-files": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/check-files.js",
     "es-index": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",

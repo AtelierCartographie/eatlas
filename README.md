@@ -37,6 +37,7 @@ Le côté serveur est configuré à l'aide de fichiers, dans le dossier `config`
     "port": 4000,
     "host": "127.0.0.1"
   },
+
   // Configuration Elastic Search
   "es": {
     // Options de connexion passées au client Elastic Search
@@ -60,24 +61,84 @@ Le côté serveur est configuré à l'aide de fichiers, dans le dossier `config`
     "autoMigration": true, // false pour désactiver la réindexation (dans ce cas les mises à jour de mappings devront être effectuées manuellement)
     "acceptObsoleteMapping": false // true pour laisser le serveur démarrer même si le mapping a été modifié (risque de dysfonctionnements !)
   },
+
   // Paramètres de session
   "session": {
     "secret": "E-Atlas S3cr3T"
   },
+
   // Connexion à Redis (stockage des sessions)
   "redis": {
     "host": "localhost",
     "port": 6379
   },
+
   // CORS : URLs des pages ayant le droit d'interroger le serveur d'API
   "cors": {
-    "origins": [ "https://eatlas.com" ]
+    "origins": [ "https://eatlas.com" ],
+    // Autoriser l'absence du header "origin" (requis si les hostnames sont identiques)
+    "allowNoOrigin": false
   },
+
   // Configuration des accès aux APIs Google
   "google": {
-    "clientId": "see https://console.cloud.google.com/apis/credentials", // Pour valider le token passé après authentification côté client
-    "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT", // Endpoint de l'API Google Drive
-    "exportFormat": "application/vnd.openxmlformats-officedocument.wordprocessingml.document" // Format d'export pour les articles
+    // ID client pour appeler l'API de validation du token passé par le client
+    "clientId": "see https://console.cloud.google.com/apis/credentials",
+    // Endpoints de l'API Google Drive
+    "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
+    "downloadUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
+    // Pour chaque type de ressource, en fonction du type de contenu uploadé, faut-il déclencher un export ou un download?
+    // Lister ici les content-types déclenchant un export (format Google)
+    "exportTrigger": {
+      "article": ["application/vnd.google-apps.document"],
+      "focus": ["application/vnd.google-apps.document"],
+      "definition": ["application/vnd.google-apps.document"]
+    },
+    // Si on déclenche un export, vers quel format exporter
+    "exportFormat": {
+      "article": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "focus": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "definition": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    }
+  },
+
+  // Configuration des logs (bunyan)
+  "logger": {
+    "name": "eatlas",
+    "level": "info",
+    "src": false
+  },
+
+  // Commande utilisée pour la copie des fichiers uploadés vers le dossier public: 'copy' ou 'symlink'
+  "publishFileCommand": "copy",
+
+  // Chemin dans lequel sont stockés les média uploadés (non publics)
+  "uploadPath": "./data/uploads",
+
+  // Faut-il conserver les média uploadés lorsqu'une ressource est supprimée ?
+  "keepUploadsOnDelete": false,
+
+  // Chemin racine du front-end
+  "publicPath": "$clientPath/public",
+  "mediaSubPath": "media", // Sous-dossier dans lequel sont placés les média
+  "mediaFileName": "$type-$id-$name.$ext", // Format des nom de fichier média
+  // URLs des différentes pages du front-end
+  "pageUrls": {
+    "index": "index.html",
+    "search": "recherche.html",
+    "resources": "ressources-$resourcesSlug.html",
+    "aboutUs": "a-propos/qui-sommes-nous.html",
+    "contact": "a-propos/contact.html",
+    "legals": "a-propos/mentions-legales.html",
+    "sitemap": "a-propos/plan-du-site.html",
+    "topic": "rubrique-$topicSlug.html",
+    "definition": "lexique.html",
+    "article": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "focus": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "image": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "map": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "sound": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "video": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
   }
 }
 ```

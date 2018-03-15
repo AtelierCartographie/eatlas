@@ -17,6 +17,8 @@
       "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js | bunyan -o short",
     "es-index":
       "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js | bunyan -o short",
+    "model-repl":
+      "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/model-repl.js",
     "rebuild-site":
       "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/rebuild-site.js | bunyan -o short"
   },
@@ -37,7 +39,7 @@
     "body-parser": "^1.18.2",
     "boom": "^7.1.1",
     "bunyan": "^1.8.12",
-    "chalk": "^2.3.0",
+    "chalk": "^2.3.2",
     "cheerio": "^1.0.0-rc.2",
     "config": "^1.28.1",
     "connect-redis": "^3.3.2",
@@ -59,10 +61,12 @@
     "lodash.template": "^4.4.0",
     "mammoth": "https://github.com/byteclubfr/mammoth.js#color",
     "mime": "^2.2.0",
+    "ora": "^2.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hyperscript": "^3.1.0",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "user-home": "^2.0.0"
   },
   "prettier": {
     "semi": false,

@@ -1,7 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { resourcesTypes, aPropos } = require('./layout')
+const { resourcesTypes, aPropos, getResourcePageUrl } = require('./layout')
 const { Img } = require('./Tags')
 
 const TopMenuPanelSearch = () => {
@@ -43,7 +43,7 @@ const TopMenuPanelMain = ({ options }) => {
         h('.col-sm-6 .col-first', [
           h('h2', 'Ressources'),
           h(
-            'ol',
+            'ul',
             resourcesTypes.map(rt =>
               h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
             ),
@@ -52,7 +52,7 @@ const TopMenuPanelMain = ({ options }) => {
         h('.col-sm-6', [
           h('h2', 'À propos'),
           h(
-            'ol',
+            'ul',
             aPropos.map(rt =>
               h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
             ),
@@ -63,8 +63,9 @@ const TopMenuPanelMain = ({ options }) => {
   ])
 }
 
-const TopMenuPanelTopic = ({ topic, active }) => {
+const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
   const id = `TopMenuPanel-${topic.id}`
+
   return h('li.TopicMenuPanel', [
     h(
       'button.dropdown-toggle',
@@ -81,27 +82,15 @@ const TopMenuPanelTopic = ({ topic, active }) => {
     h('.TopMenuPanel.dropdown-menu', { id }, [
       h('h2', `${topic.id - 1}. ${topic.name}`),
       h('ol', [
-        h('li', [h('a', { href: 'TODO' }, 'Organisations internationales')]),
-        h('li', [h('a', { href: 'TODO' }, 'Les États et le transnational')]),
-        h('li', [h('a', { href: 'TODO' }, "Miettes d'Empires/États manqués")]),
-        h('li', [h('a', { href: 'TODO' }, 'Pays émergents')]),
-        h('li', [h('a', { href: 'TODO' }, "L'Europe acteur global")]),
-        h('li', [h('a', { href: 'TODO' }, 'Intégrer la diversité ?')]),
-        h('li', [
-          h('a', { href: 'TODO' }, 'Entrepreneurs identitaires et religieux'),
-        ]),
-        h('li', [h('a', { href: 'TODO' }, 'Société civile')]),
-        h('li', [h('a', { href: 'TODO' }, 'ONG plurielle')]),
-        h('li', [h('a', { href: 'TODO' }, 'Géants du web et medias')]),
-        h('li', [h('a', { href: 'TODO' }, 'Firmes globales')]),
-        h('li', [h('a', { href: 'TODO' }, 'Finance en crises')]),
-        h('li', [h('a', { href: 'TODO' }, 'Criminalités transnationales')]),
+        articles
+          .filter(a => a.topic === topic.id)
+          .map(a => h('li', [h('a', { href: getResourcePageUrl(a, topics, options) }, a.title)])),
       ]),
     ]),
   ])
 }
 
-exports.TopMenu = ({ topic, topics, options }) => {
+exports.TopMenu = ({ topic, topics, articles, options }) => {
   // used to add the bottom white border indicator (active)
   const currentTopic = topic || {}
   return h('.container.TopMenu', [
@@ -113,7 +102,10 @@ exports.TopMenu = ({ topic, topics, options }) => {
           h(TopMenuPanelTopic, {
             key: topic.id,
             topic,
+            topics,
+            articles,
             active: currentTopic.id === topic.id,
+            options
           }),
         ),
       ]),

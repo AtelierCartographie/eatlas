@@ -125,10 +125,10 @@ const Home = ({ topics }) => {
 
 class HomePage extends Component /*::<{topics: Topic[]}>*/ {
   render() {
-    const { topics, options } = this.props
+    const { topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: 'eAtlas' }),
-      h(Body, { topics, options, topMenu: true, logoColor: 'white' }, [
+      h(Body, { topics, articles, options, topMenu: true, logoColor: 'white' }, [
         h(Home, { topics, options }),
       ]),
     ])

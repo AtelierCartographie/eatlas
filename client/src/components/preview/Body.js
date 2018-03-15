@@ -22,6 +22,7 @@ const NavBar = ({ logoColor, options }) =>
 module.exports = ({
   topic,
   topics,
+  articles,
   sideMenu,
   topMenu,
   logoColor,
@@ -33,7 +34,7 @@ module.exports = ({
     h(NavBar, { logoColor: logoColor || 'white', options }),
     sideMenu && h(SideMenuToggle),
     sideMenu && h(SideMenu, { topics, options }),
-    topMenu && h(TopMenu, { topic, topics, options }),
+    topMenu && h(TopMenu, { topic, topics, articles, options }),
     h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {

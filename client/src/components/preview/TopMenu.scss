@@ -46,6 +46,11 @@
     }
   }
 
+  // bootstrap hides the outline by default :S
+  .dropdown-toggle:focus {
+    outline: auto;
+  }
+
   .dropdown-menu {
     background: $color-footer;
     border: 0;

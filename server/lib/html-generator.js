@@ -28,6 +28,7 @@ const ArticlePage = require('../../client/src/components/preview/ArticlePage')
 const FocusPage = require('../../client/src/components/preview/FocusPage')
 const TopicPage = require('../../client/src/components/preview/TopicPage')
 const ResourcePage = require('../../client/src/components/preview/ResourcePage')
+const MissingPage = require('../../client/src/components/preview/MissingPage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
@@ -115,3 +116,19 @@ exports.generateResourceHTML = async (resource, { preview = false } = {}) => {
     }),
   )
 }
+
+const generateMissingHTML = async ({ preview = false } = {}) => {
+  return wrap(
+    React.createElement(MissingPage, {
+      ...(await topMenuProps()),
+      options: { preview },
+    }),
+  )
+}
+
+exports.generateHomeHTML = generateMissingHTML
+exports.generateSearchHTML = generateMissingHTML
+exports.generateAboutWhoHTML = generateMissingHTML
+exports.generateAboutContactHTML = generateMissingHTML
+exports.generateAboutLegalsHTML = generateMissingHTML
+exports.generateSiteMapHTML = generateMissingHTML

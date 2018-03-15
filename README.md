@@ -303,6 +303,28 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ## Maintenance
 
+### Manipuler les données
+
+On peut soit passer par l'API Elastic Search :
+
+* Les index sont définis dans la configuration
+* Ces index sont chacun un alias vers l'index réel suffixé par un timestamp
+
+On peut également attaquer les données via l'API Node à l'aide d'une application dédiée :
+
+```sh
+yarn model-repl
+```
+
+On entre dans un _REPL_ Node personnalisé simplifiant l'utilisation des méthodes d'accès au modèle, par exemple si on souhaite forcer le status "publié" d'un article (il suffira de lancer `yarn rebuild-site` pour forcer la regénération du HTML derrière) :
+
+```
+eatlas-model > Resources.findBy('4A07')
+eatlas-model > article = _
+eatlas-model > article.status = 'published'
+eatlas-model > Resources.update(article.id, article)
+```
+
 ### Régénérer le site complet
 
 ```sh

@@ -28,10 +28,10 @@ const {
 } = require('./layout')
 const { getMediaUrl } = require('../../universal-utils')
 
-const srcset = (image, size) => {
-  const image1 = getImageUrl(image, size, '1x')
-  const image2 = getImageUrl(image, size, '2x')
-  const image3 = getImageUrl(image, size, '3x')
+const srcset = (image, size, options) => {
+  const image1 = getImageUrl(image, size, '1x', options)
+  const image2 = getImageUrl(image, size, '2x', options)
+  const image3 = getImageUrl(image, size, '3x', options)
   return [
     image1 ? image1 + ',' : '',
     image2 ? image2 + ' 2x,' : '',
@@ -41,9 +41,12 @@ const srcset = (image, size) => {
 
 // subcomponents
 
-const ArticleHeader = ({ article, resources }) => {
+const ArticleHeader = ({ article, resources, options }) => {
+  console.log('ArticleHeader', article.id, article.title)
   const imageHeader = getResource(resources, article.imageHeader)
-  const imageHeaderUrl = imageHeader && getImageUrl(imageHeader, 'large', '1x')
+  const imageHeaderUrl =
+    imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
+  console.log({ imageHeader, imageHeaderUrl })
   const style = imageHeaderUrl
     ? {
         backgroundImage: `url(${imageHeaderUrl})`,
@@ -242,9 +245,9 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
                 style: {
                   backgroundImage:
                     r.imageHeader &&
-                    `url(${getImageUrl(r.imageHeader, 'small', '1x') ||
-                      getImageUrl(r.imageHeader, 'medium', '1x') ||
-                      getImageUrl(r.imageHeader, 'large', '1x')})`,
+                    `url(${getImageUrl(r.imageHeader, 'small', '1x', options) ||
+                      getImageUrl(r.imageHeader, 'medium', '1x', options) ||
+                      getImageUrl(r.imageHeader, 'large', '1x', options)})`,
                 },
               }),
               h('div', [

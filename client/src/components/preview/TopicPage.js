@@ -46,7 +46,7 @@ const ArticleList = ({ articles, topics, options }) => {
             style: {
               backgroundImage:
                 a.imageHeader &&
-                `url(${getImageUrl(a.imageHeader, 'large', '1x')})`,
+                `url(${getImageUrl(a.imageHeader, 'large', '1x', options)})`,
             },
           }),
           h('.ArticleListInfo', [
@@ -87,7 +87,11 @@ const ArticleList = ({ articles, topics, options }) => {
 const Topic = ({ topic, articles, topics, options }) => {
   return h('article.TopicPage', [
     h(TopicHeader, { topic }),
-    h(ArticleList, { articles: articles.filter(a => a.topic === topic.id), topics, options }),
+    h(ArticleList, {
+      articles: articles.filter(a => a.topic === topic.id),
+      topics,
+      options,
+    }),
   ])
 }
 

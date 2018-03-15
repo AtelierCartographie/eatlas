@@ -2,9 +2,18 @@
 
 const { getMediaUrl, footerResourcesConfig } = require('../../universal-utils')
 
-exports.getImageUrl = ({ images }, size = 'medium', density = '1x') => {
-  const file = images && images[size] && images[size][density]
-  return getMediaUrl(file)
+exports.getImageUrl = (
+  { id, images },
+  size = 'medium',
+  density = '1x',
+  { preview = false } = {},
+) => {
+  if (preview) {
+    return `/resources/${id}/file/${size}-${density}`
+  } else {
+    const file = images && images[size] && images[size][density]
+    return getMediaUrl(file)
+  }
 }
 
 exports.getResource = (resources, id) => resources.find(r => r.id === id)

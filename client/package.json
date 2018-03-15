@@ -20,6 +20,7 @@
     "react-toastify": "^3.3.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "slugify": "^1.2.9",
     "timeago.js": "^3.0.2"
   },
   "scripts": {

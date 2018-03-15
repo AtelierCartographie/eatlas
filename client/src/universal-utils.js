@@ -1,5 +1,7 @@
 //@flow
 
+const slugify = require('slugify')
+
 // Utils used server-side or client-side, marked as "universal"
 // They're all aliased in "utils" for client-side
 // "preview" components must require "universal-utils" and not "utils"
@@ -83,16 +85,7 @@ exports.META_CONVERSION = {
   'Image header': 'image-header',
 }
 
-// https://gist.github.com/mathewbyrne/1280286
-exports.slugify = text =>
-  text
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/[^\w-]+/g, '') // Remove all non-word chars
-    .replace(/--+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, '') // Trim - from end of text
+exports.slugify = text => slugify(text, { lower: true })
 
 exports.getMediaUrl = (file = '') => {
   const root = process.env.REACT_APP_FRONT_URL || '/'

@@ -29,7 +29,9 @@ const FocusBackToArticle = ({ focus, options, topics }) =>
       h(
         'a',
         {
-          href: getResourcePageUrl(focus.relatedArticle, topics, options),
+          href: focus.relatedArticle
+            ? getResourcePageUrl(focus.relatedArticle, topics, options)
+            : '#ARTICLE_NOT_FOUND',
         },
         [
           '< ',

@@ -1,8 +1,30 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { Img } = require('./Tags')
 const { resourcesTypes, aPropos } = require('./layout')
+const { Img } = require('./Tags')
+
+const TopMenuPanelSearch= () => {
+  const id = 'TopMenuPanel-search'
+  return [
+    h(
+      'button.dropdown-toggle',
+      {
+        type: 'button',
+        'data-toggle': 'dropdown',
+        'aria-controls': id,
+        'aria-expanded': false,
+        'aria-haspopup': true,
+      },
+      [
+        h(Img, { alt: '', src: `/assets/img/search.svg` }),
+      ]
+    ),
+    h('.TopMenuPanel.dropdown-menu', { id }, [
+      h('input', { placeholder: 'Rechercher' })
+    ]),
+  ]
+}
 
 const TopMenuPanelMain = () => {
   const id = 'TopMenuPanel-main'
@@ -97,12 +119,15 @@ const TopMenuPanelTopic = ({ topic, active }) => {
 exports.TopMenu = ({ topic, topics, options }) => {
   // used to add the bottom white border indicator (active)
   const currentTopic = topic
-  return h('nav.container.TopMenu', { role: 'navigation' }, [
-    h('ul', [
-      h(TopMenuPanelMain),
-      topics.map(topic =>
-        h(TopMenuPanelTopic, { topic, active: currentTopic.id === topic.id }),
-      ),
+  return h('.container.TopMenu', [
+    h('.TopMenuSearch', { role: 'search' }, [h(TopMenuPanelSearch)]),
+    h('nav', { role: 'navigation' }, [
+      h('ul', [
+        h(TopMenuPanelMain),
+        topics.map(topic =>
+          h(TopMenuPanelTopic, { topic, active: currentTopic.id === topic.id }),
+        ),
+      ]),
     ]),
   ])
 }

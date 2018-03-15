@@ -7,7 +7,7 @@
   top: 60px;
   z-index: 1;
 
-  > ul {
+  nav > ul {
     display: flex;
   }
 
@@ -73,6 +73,22 @@
       color: inherit;
       font-family: $sans;
       font-size: 16px;
+    }
+  }
+
+  .TopMenuSearch {
+    left: -20px;
+    position: absolute;
+    top: 4px;
+
+    img {
+      height: 24px;
+      width: 24px;
+    }
+
+    .dropdown-menu {
+      text-align: center;
+      width: 240px;
     }
   }
 }

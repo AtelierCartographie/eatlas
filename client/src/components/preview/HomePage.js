@@ -59,8 +59,20 @@ const Home = ({ topics }) => {
     h('section.HomeTopics', [
       h('.container', [
         h('h2', 'Sommaire'),
-        h('.row', [h('.col-sm-4', [h('.TopicNumber', topics[0].id - 1), h('div', topics[0].name)])]),
-        h('.row', topics.slice(1).map(t => h('.col-sm-4', [h('.TopicNumber', t.id - 1), h('div', t.name)]))),
+        h('.row', [
+          h('.col-sm-4', [
+            h('.TopicNumber', topics[0].id - 1),
+            h('div', topics[0].name),
+          ]),
+        ]),
+        h(
+          '.row',
+          topics
+            .slice(1)
+            .map(t =>
+              h('.col-sm-4', [h('.TopicNumber', t.id - 1), h('div', t.name)]),
+            ),
+        ),
       ]),
     ]),
     h('section.HomeProject', [

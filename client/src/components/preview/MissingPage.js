@@ -12,7 +12,7 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 
-const Content = ({ topic, articles, options }) => {
+const Content = ({ topics, articles, options }) => {
   return h('article.MissingPage', [
     h('h1', 'Page lost'),
     h('p', 'HTML generator not implemented yet?'),
@@ -21,11 +21,11 @@ const Content = ({ topic, articles, options }) => {
 
 class MissingPage extends Component {
   render() {
-    const { topic, topics, articles, options } = this.props
+    const { topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: topic.name }),
+      h(Head, { title: 'Missing page' }),
       h(Body, { topics, options, topMenu: true }, [
-        h(Content, { topic, topics, articles, options }),
+        h(Content, { topics, articles, options }),
       ]),
     ])
   }

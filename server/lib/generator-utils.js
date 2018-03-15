@@ -22,7 +22,7 @@ exports.flattenMetas = article => ({
   related: getMetaList(article, 'related'),
 })
 
-exports.populateImageHeader = async article => {
+exports.getImageHeader = async article => {
   const imageHeaderId = getMetaText(article, 'image-header')
   return imageHeaderId ? Resources.findById(imageHeaderId) : null
 }

@@ -6,7 +6,7 @@ const {
   getTopics,
   getDefinitions,
   getArticleResources,
-  populateImageHeader,
+  getImageHeader,
   getTopicResources,
   populateFocus,
   getResource,
@@ -43,7 +43,11 @@ const topMenuProps = async ({ topics = null, articles = null } = {}) => ({
   articles: articles || (await getArticles()),
 })
 
-exports.generateArticleHTML = async (resource, { preview = false } = {}) => {
+exports.generateArticleHTML = async (
+  resource,
+  { preview = false } = {},
+  props = {},
+) => {
   const article = flattenMetas(resource)
   const definitions = await getDefinitions()
   let resources = await getArticleResources(resource, { preview })
@@ -52,7 +56,7 @@ exports.generateArticleHTML = async (resource, { preview = false } = {}) => {
   resources = await Promise.all(
     resources.map(async r => {
       if (r.type === 'article') {
-        r.imageHeader = await populateImageHeader(r)
+        r.imageHeader = await getImageHeader(r)
       }
       return r
     }),
@@ -60,7 +64,7 @@ exports.generateArticleHTML = async (resource, { preview = false } = {}) => {
 
   return wrap(
     React.createElement(ArticlePage, {
-      ...(await topMenuProps()),
+      ...(await topMenuProps(props)),
       article,
       definitions,
       resources,
@@ -69,7 +73,11 @@ exports.generateArticleHTML = async (resource, { preview = false } = {}) => {
   )
 }
 
-exports.generateFocusHTML = async (resource, { preview = false } = {}) => {
+exports.generateFocusHTML = async (
+  resource,
+  { preview = false } = {},
+  props = {},
+) => {
   let focus = flattenMetas(resource)
   // to create the "go back to article" link
   focus.relatedArticleId = focus.relatedArticle
@@ -79,7 +87,7 @@ exports.generateFocusHTML = async (resource, { preview = false } = {}) => {
 
   return wrap(
     React.createElement(FocusPage, {
-      ...(await topMenuProps()),
+      ...(await topMenuProps(props)),
       focus,
       definitions,
       resources,
@@ -88,15 +96,18 @@ exports.generateFocusHTML = async (resource, { preview = false } = {}) => {
   )
 }
 
-exports.generateTopicHTML = async (topic, { preview = false } = {}) => {
+exports.generateTopicHTML = async (
+  topic,
+  { preview = false } = {},
+  props = {},
+) => {
   const resources = await getTopicResources(topic)
   // Enhanced articles for data list in topic page
-  const articles = await Promise.all(
-    resources
-      .filter(r => r.type === 'article')
+  props.articles = await Promise.all(
+    (props.articles || resources.filter(r => r.type === 'article'))
       .map(flattenMetas)
       .map(async a => {
-        a.imageHeader = await populateImageHeader(a)
+        a.imageHeader = await getImageHeader(a)
         a.focus = await populateFocus(a, resources)
         return a
       }),
@@ -104,38 +115,42 @@ exports.generateTopicHTML = async (topic, { preview = false } = {}) => {
 
   return wrap(
     React.createElement(TopicPage, {
-      ...(await topMenuProps({ articles })),
+      ...(await topMenuProps(props)),
       topic,
-      articles,
+      articles: props.articles,
       resources,
       options: { preview },
     }),
   )
 }
 
-exports.generateResourceHTML = async (resource, { preview = false } = {}) => {
+exports.generateResourceHTML = async (
+  resource,
+  { preview = false } = {},
+  props = {},
+) => {
   return wrap(
     React.createElement(ResourcePage, {
-      ...(await topMenuProps()),
+      ...(await topMenuProps(props)),
       resource,
       options: { preview },
     }),
   )
 }
 
-exports.generateHomeHTML = async ({ preview = false } = {}) => {
+exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(HomePage, {
-      ...(await topMenuProps()),
+      ...(await topMenuProps(props)),
       options: { preview },
     }),
   )
 }
 
-const generateMissingHTML = async ({ preview = false } = {}) => {
+const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(MissingPage, {
-      ...(await topMenuProps()),
+      ...(await topMenuProps(props)),
       options: { preview },
     }),
   )

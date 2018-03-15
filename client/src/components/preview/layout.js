@@ -28,7 +28,7 @@ const globalPageUrl = (key, slug) => preview => {
   if (!urlTemplate) {
     return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
   }
-  return slug ? urlTemplate.replace(/\$resourceSlug/g, slug) : urlTemplate
+  return slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
 }
 
 exports.resourcesTypes = footerResourcesConfig.map(({ slug, label }) => ({

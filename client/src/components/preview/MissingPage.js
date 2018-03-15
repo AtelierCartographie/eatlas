@@ -14,7 +14,7 @@ const Body = require('./Body')
 
 const Content = ({ topics, articles, options }) => {
   return h('article.MissingPage', [
-    h('h1', 'Page lost'),
+    h('h1', 'This page is a placeholder'),
     h('p', 'HTML generator not implemented yet?'),
   ])
 }

@@ -7,6 +7,12 @@ const cors = require('cors')
 const { validate } = require('./schemas')
 const logger = require('./logger').child({ domain: 'app' })
 const debugCors = require('debug')('eatlas:cors')
+const Url = require('url')
+
+const publicUrl = (() => {
+  const { protocol, host } = Url.parse(config.publicUrl)
+  return protocol + '//' + host
+})()
 
 exports.cors = cors({
   origin: (origin, cb) => {
@@ -16,7 +22,7 @@ exports.cors = cors({
     }
     const origins = config.cors.origins.map(origin => {
       if (origin === '$publicUrl') {
-        return config.publicUrl
+        return publicUrl
       }
       return origin
     })

@@ -38,6 +38,7 @@ app.get('/resources', resources.list)
 app.get('/resources/:id/preview', resources.findResource, resources.preview)
 app.get('/resources/:id/file/:k?', resources.findResource, resources.file)
 app.get('/resources/:id', resources.findResource, resources.get)
+app.get('/resources/:id/urls', resources.findResource, resources.urls)
 app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
 app.post('/resources', validateBody(resources.add))
 app.put('/resources/:id', resources.findResource, resources.update) // TODO body schema

@@ -5,42 +5,10 @@ const path = require('path')
 
 const logger = require('./logger')
 const { topics: Topics, resources: Resources } = require('./model')
-const getConf = require('./dynamic-config-variable')
-const { slugify } = require('../../client/src/universal-utils')
-
-const getTypeLabel = ({ type }) =>
-  ({
-    map: 'carte',
-    sound: 'audio',
-    image: 'photo',
-  }[type] || type)
-
-const getTopicSlug = (resource, topics) => {
-  const topic = topics.find(({ id }) => String(id) === String(resource.topic))
-  return topic ? slugify(topic.name) : ''
-}
-
-const getResourceSlug = resource =>
-  resource && resource.title && slugify(resource.title)
-
-const getHTMLFilePath = (key, resource, topics, params = {}) => {
-  const locals = {
-    typeLabel: resource ? getTypeLabel(resource) : key,
-    topicSlug: resource ? getTopicSlug(resource, topics) : '',
-    resourceSlug: resource ? getResourceSlug(resource) : '',
-    ...params,
-    ...(resource || {}),
-  }
-  return path.resolve(
-    __dirname,
-    '..',
-    getConf('publicPath'),
-    getConf('pageUrls.' + key, locals),
-  )
-}
+const { pagePath } = require('./resource-path')
 
 const writePage = async (key, resource, topics, resources, params) => {
-  const file = getHTMLFilePath(key, resource, topics, params)
+  const file = pagePath(key, resource, topics, params)
   // TODO generate real HTML
   const html = '<strong>TODO</strong>'
   await ensureDir(path.dirname(file))
@@ -55,7 +23,7 @@ const writePage = async (key, resource, topics, resources, params) => {
 }
 
 const removePage = async (key, resource, topics, params) => {
-  const file = getHTMLFilePath(key, resource, topics, params)
+  const file = pagePath(key, resource, topics, params)
   try {
     if (await exists(file)) {
       await unlink(file)

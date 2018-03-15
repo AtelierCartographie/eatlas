@@ -113,6 +113,12 @@ export const getResource = (id: string): Promise<Resource> =>
     fake: () => FAKE_RESOURCE,
   })
 
+export const getResourceUrls = (id: string): Promise<string[]> =>
+  query({
+    url: `/resources/${id}/urls`,
+    fake: () => [],
+  })
+
 export const getResources = (): Promise<Resource[]> =>
   query({
     url: `/resources`,

@@ -1,6 +1,6 @@
 // shared by Menu and Footer
 
-const HOST = (exports.HOST = process.env.REACT_APP_ADMIN_URL || '')
+const HOST = (exports.HOST = process.env.REACT_APP_FRONT_URL || '')
 
 exports.getImageUrl = ({ images }, size = 'medium', density = '1x') => {
   const file = images && images[size] && images[size][density]

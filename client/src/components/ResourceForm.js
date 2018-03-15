@@ -21,9 +21,15 @@ import {
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
-import { parseArticleDoc, parseFocusDoc, parseLexiconDoc } from '../api'
+import {
+  parseArticleDoc,
+  parseFocusDoc,
+  parseLexiconDoc,
+  getResourceUrls,
+} from '../api'
 import ObjectDebug from './ObjectDebug'
 import { canUnpublish } from '../utils'
+import AsyncData from './AsyncData'
 
 const API_SERVER = process.env.REACT_APP_API_SERVER || ''
 
@@ -635,72 +641,22 @@ class ResourceForm extends Component<Props, State> {
       return null
     }
 
-    const inputGenerator = {
-      image() {
-        const files = Object.keys(resource.images)
-          .reduce(
-            (files, size) =>
-              files.concat(
-                Object.keys(resource.images[size]).reduce(
-                  (files, density) =>
-                    files.concat([resource.images[size][density]]),
-                  [],
-                ),
-              ),
-            [],
-          )
-          .map(file => ({
-            file,
-            url: `${process.env.REACT_APP_PUBLIC_PATH_image || '/'}${file}`,
-          }))
-        return (
-          <ul>
-            {files.map(({ file, url }) => (
-              <li key={file}>
-                <a href={url}>{url}</a>
-              </li>
-            ))}
-          </ul>
-        )
-      },
-      map() {
-        return this.image()
-      },
-      sound() {
-        const root = process.env.REACT_APP_PUBLIC_PATH_sound || '/'
-        const url = `${root}${resource.file}`
-        return <a href={url}>{url}</a>
-      },
-      article() {
-        const root = process.env.REACT_APP_PUBLIC_PATH_article || '/'
-        const url = `${root}${resource.id}.html` // TODO get from server?
-        return <a href={url}>{url}</a>
-      },
-      focus() {
-        const root = process.env.REACT_APP_PUBLIC_PATH_focus || '/'
-        const url = `${root}${resource.id}.html` // TODO get from server?
-        return <a href={url}>{url}</a>
-      },
-      video() {
-        const url = resource.mediaUrl
-        return <a href={url}>{url}</a>
-      },
-    }[resource.type]
-
-    if (!inputGenerator) {
-      return null
-    }
-
-    const input = inputGenerator()
-    if (!input) {
-      return null
-    }
-
     return {
       labelId: 'resource-uris',
       input: (
         <Fragment>
-          {input}
+          <AsyncData
+            promise={getResourceUrls(resource.id)}
+            render={links => (
+              <ul>
+                {links.map(url => (
+                  <li key={url}>
+                    <a href={url}>{url}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          />
           <p className="help">
             <T id="resource-uris-help" />
           </p>

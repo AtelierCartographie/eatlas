@@ -139,6 +139,8 @@ yarn dev:client
 yarn dev:server
 ```
 
+Le site web front est généré au fur et à mesure de la création de rubriques et de la (dé)publication de ressources sur http://localhost:3000/generated
+
 ### Elastic Search
 
 * Le container est nommé "eatlas_es_dev"

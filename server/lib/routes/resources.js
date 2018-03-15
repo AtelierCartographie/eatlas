@@ -3,7 +3,7 @@
 const merge = require('lodash.merge')
 const get = require('lodash.get')
 
-const { resources } = require('../model')
+const { resources: Resources, topics: Topics } = require('../model')
 const schemas = require('../schemas')
 const {
   generateArticleHTML,
@@ -13,11 +13,10 @@ const {
 const { download } = require('../google')
 const { updateFiles, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
-const { resourceMediaPath } = require('../resource-path')
+const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 
 exports.findResource = (req, res, next) =>
-  resources
-    .findById(req.params.id)
+  Resources.findById(req.params.id)
     .then(resource => {
       if (!resource) {
         return res.boom.notFound('Unknown Resource Id')
@@ -42,7 +41,7 @@ exports.update = async (req, res) => {
   // TODO handle upload deletion
   handleUploads(body, false)
     .then(data => merge(baseData, data))
-    .then(updates => resources.update(req.foundResource.id, updates))
+    .then(updates => Resources.update(req.foundResource.id, updates))
     .then(async resource => {
       const oldStatus = req.foundResource.status
       const newStatus = resource.status
@@ -53,7 +52,7 @@ exports.update = async (req, res) => {
         try {
           await updateFiles(resource)
         } catch (err) {
-          await resources.update(req.foundResource.id, { status: oldStatus })
+          await Resources.update(req.foundResource.id, { status: oldStatus })
           err.message =
             'Failed to update files on (un)publishing: ' + err.message
           throw err
@@ -87,8 +86,7 @@ const getBaseData = req => ({
 exports.add = (req, res) => {
   const baseData = getBaseData(req)
 
-  resources
-    .create(baseData)
+  Resources.create(baseData)
     .then(updateFiles)
     .then(resource => res.send(resource))
     .catch(
@@ -106,7 +104,7 @@ exports.addFromGoogle = (req, res) => {
 
   handleUploads(req.body, true)
     .then(data => merge(baseData, data))
-    .then(resources.create)
+    .then(Resources.create)
     .then(updateFiles)
     .then(resource => res.send(resource))
     .catch(
@@ -120,14 +118,12 @@ exports.addFromGoogle = (req, res) => {
 exports.addFromGoogle.schema = schemas.uploadFromGoogleDrive
 
 exports.list = (req, res) =>
-  resources
-    .list()
+  Resources.list()
     .then(resources => res.send(resources))
     .catch(res.boom.send)
 
 exports.remove = (req, res) =>
-  resources
-    .remove(req.params.id)
+  Resources.remove(req.params.id)
     .then(() => deleteAllFiles(req.foundResource))
     .then(() => res.status(204).end())
     .catch(res.boom.send)
@@ -239,4 +235,44 @@ const handleUploads = async (body, required) => {
 
   // Now handle the actual content to be injected in resource, by parsing buffer
   return save({ type, newUploads, body, uploads })
+}
+
+exports.urls = async (req, res, next) => {
+  const resource = req.foundResource
+  try {
+    let urls = []
+    // HTML page
+    urls.push(
+      pathToUrl(await pagePath(resource.type, resource, await Topics.list())),
+    )
+    // Other URLs (media)
+    switch (resource.type) {
+      case 'image':
+      case 'map':
+        // images :: size => densities
+        for (let size in resource.images) {
+          // densites :: density => file
+          for (let density in resource.images[size]) {
+            const file = resource.images[size][density]
+            urls.push(
+              pathToUrl(resourceMediaPath(resource, file, { up: false }).pub),
+            )
+          }
+        }
+        break
+      case 'sound':
+        urls.push(
+          pathToUrl(
+            resourceMediaPath(resource, resource.file, { up: false }).pub,
+          ),
+        )
+        break
+      case 'video':
+        urls.push(resource.mediaUrl)
+        break
+    }
+    res.send(urls)
+  } catch (err) {
+    next(err)
+  }
 }

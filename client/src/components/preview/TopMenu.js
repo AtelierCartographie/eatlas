@@ -4,7 +4,7 @@ const h = require('react-hyperscript')
 const { resourcesTypes, aPropos } = require('./layout')
 const { Img } = require('./Tags')
 
-const TopMenuPanelSearch= () => {
+const TopMenuPanelSearch = () => {
   const id = 'TopMenuPanel-search'
   return [
     h(
@@ -16,12 +16,10 @@ const TopMenuPanelSearch= () => {
         'aria-expanded': false,
         'aria-haspopup': true,
       },
-      [
-        h(Img, { alt: '', src: `/assets/img/search.svg` }),
-      ]
+      [h(Img, { alt: 'rechercher', src: `/assets/img/search.svg` })],
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
-      h('input', { placeholder: 'Rechercher' })
+      h('input', { placeholder: 'Rechercher', title: 'rechercher' }),
     ]),
   ]
 }
@@ -75,42 +73,22 @@ const TopMenuPanelTopic = ({ topic, active }) => {
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
       h('h2', `${topic.id - 1}. ${topic.name}`),
-      h('.row', [
-        h('.col-sm-6 .col-first', [
-          h('ol', [
-            h('li', [
-              h('a', { href: 'TODO' }, '1. Organisations internationales'),
-            ]),
-            h('li', [
-              h('a', { href: 'TODO' }, '2. Les États et le transnational'),
-            ]),
-            h('li', [
-              h('a', { href: 'TODO' }, "3. Miettes d'Empires/États manqués"),
-            ]),
-            h('li', [h('a', { href: 'TODO' }, '4. Pays émergents')]),
-            h('li', [h('a', { href: 'TODO' }, "5. L'Europe acteur global")]),
-            h('li', [h('a', { href: 'TODO' }, '6. Intégrer la diversité ?')]),
-            h('li', [
-              h(
-                'a',
-                { href: 'TODO' },
-                '7. Entrepreneurs identitaires et religieux',
-              ),
-            ]),
-          ]),
+      h('ol', [
+        h('li', [h('a', { href: 'TODO' }, 'Organisations internationales')]),
+        h('li', [h('a', { href: 'TODO' }, 'Les États et le transnational')]),
+        h('li', [h('a', { href: 'TODO' }, "Miettes d'Empires/États manqués")]),
+        h('li', [h('a', { href: 'TODO' }, 'Pays émergents')]),
+        h('li', [h('a', { href: 'TODO' }, "L'Europe acteur global")]),
+        h('li', [h('a', { href: 'TODO' }, 'Intégrer la diversité ?')]),
+        h('li', [
+          h('a', { href: 'TODO' }, 'Entrepreneurs identitaires et religieux'),
         ]),
-        h('.col-sm-6', [
-          h('ol', [
-            h('li', [h('a', { href: 'TODO' }, '8. Société civile')]),
-            h('li', [h('a', { href: 'TODO' }, '9. ONG plurielle')]),
-            h('li', [h('a', { href: 'TODO' }, '10. Géants du web et medias')]),
-            h('li', [h('a', { href: 'TODO' }, '11. Firmes globales')]),
-            h('li', [h('a', { href: 'TODO' }, '12. Finance en crises')]),
-            h('li', [
-              h('a', { href: 'TODO' }, '13. Criminalités transnationales'),
-            ]),
-          ]),
-        ]),
+        h('li', [h('a', { href: 'TODO' }, 'Société civile')]),
+        h('li', [h('a', { href: 'TODO' }, 'ONG plurielle')]),
+        h('li', [h('a', { href: 'TODO' }, 'Géants du web et medias')]),
+        h('li', [h('a', { href: 'TODO' }, 'Firmes globales')]),
+        h('li', [h('a', { href: 'TODO' }, 'Finance en crises')]),
+        h('li', [h('a', { href: 'TODO' }, 'Criminalités transnationales')]),
       ]),
     ]),
   ])

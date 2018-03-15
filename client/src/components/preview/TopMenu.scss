@@ -72,6 +72,59 @@
     ol {
       list-style: none;
       padding: 0;
+      counter-reset: navlist;
+      padding-left: 0;
+      
+      -moz-columns: 2;
+      -webkit-columns: 2;
+      columns: 2;
+      
+      -moz-column-gap: 3.2em;
+      -webkit-column-gap: 3.2em;
+      column-gap: 3.2em;
+      
+      column-rule: 1px solid rgba(0,0,0,.4)
+    }
+
+    ol li {
+      list-style-type: none;
+      counter-increment: navlist;
+    }
+
+    ol > li {
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
+      -moz-page-break-after: always;
+      -webkit-column-break-after: always;
+      page-break-after: always;
+      break-after: always;
+      -moz-page-break-inside: avoid-column;
+      -webkit-column-break-inside: avoid-column;
+      page-break-inside: avoid;
+      break-inside: avoid-column;
+      word-wrap: break-word;
+      margin-bottom: .5em;
+    }
+
+    ol li::before {
+      display: inline-block;
+      font-family: $sans;
+      vertical-align: top;
+      min-width: 1em;
+      padding-right: 0.5em;
+      font-weight: bold;
+      text-align: right;
+      content: counter(navlist) ".";
+    }
+
+    ol ol {
+      margin-top: .5em;
+      padding-left: 1.5em;
+    }
+
+    ol ol li::before {
+      content: counters(navlist,".") ".";
     }
 
     a {

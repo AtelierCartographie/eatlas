@@ -215,13 +215,15 @@ docker-compose -f docker-compose.prod.yml exec api yarn add-user "prenom.nom@mai
 
 ### Troubleshooting
 
-| Problème                                                    | Solution(s)                                                                                                                               |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Erreur de connexion “Not a valid origin for the client […]” | Aller configurer la clé d'API Google                                                                                                      |
-| Impossible de se connecter après l'installation             | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_api_1 yarn add-user <email> <name> admin`                               |
-| Les pages semblent charger indéfiniment                     | - Regarder dans les logs de l'API : `docker logs eatlas_api_1`                                                                            |
-|                                                             | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `CORS_ALLOW_NO_ORIGIN=1` dans `docker-config.env` |
-| Vérifier la configuration du serveur node                   | `docker exec eatlas_api_1 node -p "require('config')"`                                                                                    |
+| Problème                                                        | Solution(s)                                                                                                                                                             |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Erreur de connexion “Not a valid origin for the client […]”     | Aller configurer la clé d'API Google                                                                                                                                    |
+| Impossible de se connecter après l'installation                 | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_api_1 yarn add-user <email> <name> admin`                                                             |
+| Les pages semblent charger indéfiniment                         | - Regarder dans les logs de l'API : `docker logs eatlas_api_1`                                                                                                          |
+|                                                                 | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `CORS_ALLOW_NO_ORIGIN=1` dans `docker-config.env`                       |
+| Vérifier la configuration du serveur node                       | `docker exec eatlas_api_1 node -p "require('config')"`                                                                                                                  |
+| Les données ont disparu, l'index Elastic Search est corrompu…   | Lancer `docker exec eatlas_api_1 yarn es-index` pour analyser les index et éventuellement remplacer l'alias courant pour rebasculer sur une ancienne version de l'index |
+| La génération du site échoue, les HTML ne sont pas bien à jour… | Lancer `docker exec eatlas_api_1 yarn rebuild-site` pour une régénération complète du site                                                                              |
 
 ### Arrêt et journaux
 
@@ -238,6 +240,12 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ## Maintenance
 
+### Régénérer le site complet
+
+```sh
+yarn rebuild-site
+```
+
 ### Supprimer un index Elastic Search
 
 * Trouver le nom réel de l'index s'il est aliasé :
@@ -253,6 +261,12 @@ curl -XGET 'localhost:9200/eatlas_resource/_alias'
 ```sh
 curl -XDELETE 'localhost:9200/eatlas_resource_1512597721716'
 # {"acknowledged":true}
+```
+
+* Voir les alias courants et restaurer une ancienne version de l'index
+
+```sh
+yarn es-index
 ```
 
 ### Sauvegarde des données Docker

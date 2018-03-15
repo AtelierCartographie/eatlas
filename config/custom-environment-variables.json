@@ -3,7 +3,7 @@
 		"port": "SERVER_PORT",
 		"host": "SERVER_HOST"
 	},
-	"publicUrl": "REACT_APP_ADMIN_URL",
+	"publicUrl": "REACT_APP_FRONT_URL",
 	"es": {
 		"connection": {
 			"host": "ES_HOST:ES_PORT"

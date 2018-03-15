@@ -94,7 +94,7 @@ exports.slugify = text =>
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
 
-exports.getMediaUrl = file => {
+exports.getMediaUrl = (file = '') => {
   const root = process.env.REACT_APP_FRONT_URL || '/'
   const subpath = process.env.REACT_APP_MEDIA_SUBPATH || ''
   if (subpath) {

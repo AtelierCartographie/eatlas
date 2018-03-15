@@ -53,7 +53,7 @@ exports.generateArticleHTML = async (
   props = await topMenuProps(props)
   const article = flattenMetas(resource)
   const definitions = await getDefinitions()
-  let resources = await getArticleResources(resource, { preview })
+  let resources = await getArticleResources(resource, !preview)
 
   // need to retrieve imageHeader for "related" articles in footer since they're transitives deps
   resources = await Promise.all(
@@ -87,7 +87,7 @@ exports.generateFocusHTML = async (
   focus.relatedArticleId = focus.relatedArticle
   focus.relatedArticle = await getResource(focus.relatedArticleId)
   const definitions = await getDefinitions()
-  const resources = await getArticleResources(resource, { preview })
+  const resources = await getArticleResources(resource, !preview)
 
   return wrap(
     React.createElement(FocusPage, {

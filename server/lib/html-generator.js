@@ -121,7 +121,7 @@ exports.generateTopicHTML = async (
   return wrap(
     React.createElement(TopicPage, {
       ...props,
-      topic: populatePageUrl(null, props.topics)(topic),
+      topic: populatePageUrl('topic', null)(topic),
       articles: props.articles,
       resources: populatePageUrl(null, props.topics)(resources),
       options: { preview },

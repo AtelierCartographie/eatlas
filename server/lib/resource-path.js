@@ -3,6 +3,7 @@
 const path = require('path')
 const getConf = require('./dynamic-config-variable')
 const { slugify } = require('../../client/src/universal-utils')
+const debug = require('debug')('eatlas:path')
 
 const root = path.join(__dirname, '..')
 const pubDir = path.resolve(root, getConf('publicPath'))
@@ -20,6 +21,7 @@ const getTopicSlug = (resource, topics) => {
     ? topics.find(({ id }) => String(id) === String(resource.topic))
     : resource
   if (!topic.name) {
+    debug({ resource, topics })
     throw new Error('Topic not found')
   }
   return topic ? slugify(topic.name) : ''

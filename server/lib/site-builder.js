@@ -7,11 +7,52 @@ const logger = require('./logger')
 const { topics: Topics, resources: Resources } = require('./model')
 const { pagePath } = require('./resource-path')
 const { footerResourcesConfig } = require('../../client/src/universal-utils')
+const { populatePageUrl } = require('./generator-utils')
+const {
+  generateAboutContactHTML,
+  generateAboutLegalsHTML,
+  generateAboutWhoHTML,
+  generateArticleHTML,
+  generateFocusHTML,
+  generateHomeHTML,
+  generateResourceHTML,
+  generateResourcesHTML,
+  generateSearchHTML,
+  generateSiteMapHTML,
+  generateTopicHTML,
+} = require('./html-generator')
 
-const writePage = async (key, resource, topics, resources, params) => {
+const writePage = async (key, resource, topics, articles, params) => {
   const file = pagePath(key, resource, topics, params)
-  // TODO generate real HTML
-  const html = '<strong>TODO</strong>'
+
+  const generator = await {
+    index: generateHomeHTML,
+    search: generateSearchHTML,
+    aboutUs: generateAboutWhoHTML,
+    contact: generateAboutContactHTML,
+    legals: generateAboutLegalsHTML,
+    sitemap: generateSiteMapHTML,
+    resources: generateResourcesHTML,
+    topic: generateTopicHTML,
+    article: generateArticleHTML,
+    focus: generateFocusHTML,
+    definition: generateResourceHTML,
+    sound: generateResourceHTML,
+    video: generateResourceHTML,
+    image: generateResourceHTML,
+    map: generateResourceHTML,
+  }[key]
+
+  if (!generator) {
+    throw new Error('No HTML generator for "' + key + '"')
+  }
+
+  const props = { articles, topics }
+  const options = { preview: false }
+  const html = resource
+    ? await generator(resource, options, props)
+    : await generator(options, props)
+
   await ensureDir(path.dirname(file))
   try {
     await writeFile(file, html)
@@ -40,13 +81,13 @@ const removePage = async (key, resource, topics, params) => {
 }
 
 exports.rebuildFullSite = async () => {
-  const topics = await Topics.list()
-  const resources = await Resources.list()
-  const publishedResources = resources.filter(
-    ({ status }) => status === 'published',
-  )
+  const topics = populatePageUrl('topic', null)(await Topics.list())
+  const resources = populatePageUrl(null, topics)(await Resources.list())
   const unpublishedResources = resources.filter(
     ({ status }) => status !== 'published',
+  )
+  const articles = resources.filter(
+    ({ status, type }) => status === 'published' && type === 'article',
   )
 
   const resultss = await Promise.all([
@@ -57,16 +98,16 @@ exports.rebuildFullSite = async () => {
       ),
     ),
     // Global pages
-    writePage('index', null, topics, publishedResources),
-    writePage('search', null, topics, publishedResources),
-    writePage('aboutUs', null, topics, publishedResources),
-    writePage('contact', null, topics, publishedResources),
-    writePage('legals', null, topics, publishedResources),
-    writePage('sitemap', null, topics, publishedResources),
+    writePage('index', null, topics, articles),
+    writePage('search', null, topics, articles),
+    writePage('aboutUs', null, topics, articles),
+    writePage('contact', null, topics, articles),
+    writePage('legals', null, topics, articles),
+    writePage('sitemap', null, topics, articles),
     // Resources pages
     Promise.all(
       footerResourcesConfig.map(({ slug, types }) =>
-        writePage('resources', null, topics, publishedResources, {
+        writePage('resources', null, topics, articles, {
           searchTypes: types,
           resourcesSlug: slug,
         }),
@@ -74,14 +115,12 @@ exports.rebuildFullSite = async () => {
     ),
     // Topic pages
     Promise.all(
-      topics.map(topic =>
-        writePage('topic', topic, topics, publishedResources),
-      ),
+      topics.map(topic => writePage('topic', topic, topics, articles)),
     ),
     // Resource pages
     Promise.all(
       resources.map(resource =>
-        writePage(resource.type, resource, topics, publishedResources),
+        writePage(resource.type, resource, topics, articles),
       ),
     ),
   ])

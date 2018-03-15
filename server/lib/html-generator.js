@@ -11,6 +11,7 @@ const {
   populateFocus,
   getResource,
   getArticles,
+  populatePageUrl,
 } = require('./generator-utils')
 
 // React dependencies for HTML generation
@@ -38,16 +39,18 @@ const MissingPage = require('../../client/src/components/preview/MissingPage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
-const topMenuProps = async ({ topics = null, articles = null } = {}) => ({
-  topics: topics || (await getTopics()),
-  articles: articles || (await getArticles()),
-})
+const topMenuProps = async ({ topics = null, articles = null } = {}) => {
+  topics = populatePageUrl('topic')(topics || (await getTopics()))
+  articles = populatePageUrl(null, topics)(articles || (await getArticles()))
+  return { topics, articles }
+}
 
 exports.generateArticleHTML = async (
   resource,
   { preview = false } = {},
   props = {},
 ) => {
+  props = await topMenuProps(props)
   const article = flattenMetas(resource)
   const definitions = await getDefinitions()
   let resources = await getArticleResources(resource, { preview })
@@ -64,10 +67,10 @@ exports.generateArticleHTML = async (
 
   return wrap(
     React.createElement(ArticlePage, {
-      ...(await topMenuProps(props)),
-      article,
-      definitions,
-      resources,
+      ...props,
+      article: populatePageUrl(null, props.topics)(article),
+      definitions: populatePageUrl('definition', props.topics)(definitions),
+      resources: populatePageUrl(null, props.topics)(resources),
       options: { preview },
     }),
   )
@@ -78,6 +81,7 @@ exports.generateFocusHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
+  props = await topMenuProps(props)
   let focus = flattenMetas(resource)
   // to create the "go back to article" link
   focus.relatedArticleId = focus.relatedArticle
@@ -87,10 +91,10 @@ exports.generateFocusHTML = async (
 
   return wrap(
     React.createElement(FocusPage, {
-      ...(await topMenuProps(props)),
-      focus,
-      definitions,
-      resources,
+      ...props,
+      focus: populatePageUrl(null, props.topics)(focus),
+      definitions: populatePageUrl('definition', props.topics)(definitions),
+      resources: populatePageUrl(null, props.topics)(resources),
       options: { preview },
     }),
   )
@@ -101,6 +105,7 @@ exports.generateTopicHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
+  props = await topMenuProps(props)
   const resources = await getTopicResources(topic)
   // Enhanced articles for data list in topic page
   props.articles = await Promise.all(
@@ -115,10 +120,10 @@ exports.generateTopicHTML = async (
 
   return wrap(
     React.createElement(TopicPage, {
-      ...(await topMenuProps(props)),
-      topic,
+      ...props,
+      topic: populatePageUrl(null, props.topics)(topic),
       articles: props.articles,
-      resources,
+      resources: populatePageUrl(null, props.topics)(resources),
       options: { preview },
     }),
   )
@@ -129,28 +134,31 @@ exports.generateResourceHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
+  props = await topMenuProps(props)
   return wrap(
     React.createElement(ResourcePage, {
-      ...(await topMenuProps(props)),
-      resource,
+      ...props,
+      resource: populatePageUrl(null, props.topics)(resource),
       options: { preview },
     }),
   )
 }
 
 exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
+  props = await topMenuProps(props)
   return wrap(
     React.createElement(HomePage, {
-      ...(await topMenuProps(props)),
+      ...props,
       options: { preview },
     }),
   )
 }
 
 const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
+  props = await topMenuProps(props)
   return wrap(
     React.createElement(MissingPage, {
-      ...(await topMenuProps(props)),
+      ...props,
       options: { preview },
     }),
   )

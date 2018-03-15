@@ -16,7 +16,12 @@ const getTypeLabel = ({ type }) =>
   }[type] || type)
 
 const getTopicSlug = (resource, topics) => {
-  const topic = topics.find(({ id }) => String(id) === String(resource.topic))
+  const topic = resource.topic
+    ? topics.find(({ id }) => String(id) === String(resource.topic))
+    : resource
+  if (!topic.name) {
+    throw new Error('Topic not found')
+  }
   return topic ? slugify(topic.name) : ''
 }
 
@@ -27,7 +32,10 @@ const getResourceSlug = resource =>
 exports.pagePath = (key, resource, topics, params = {}) => {
   const locals = {
     typeLabel: resource ? getTypeLabel(resource) : key,
-    topicSlug: resource ? getTopicSlug(resource, topics) : '',
+    topicSlug: resource
+      ? // No topic can be found for definitions
+        key === 'definition' ? '' : getTopicSlug(resource, topics)
+      : '',
     resourceSlug: resource ? getResourceSlug(resource) : '',
     ...params,
     ...(resource || {}),

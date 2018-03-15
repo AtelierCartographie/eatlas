@@ -6,6 +6,7 @@ const {
   getMetaText,
   getMetaList,
 } = require('../../client/src/universal-utils')
+const { pathToUrl, pagePath } = require('./resource-path')
 
 // smoosh nested info to provide direct access in React components
 exports.flattenMetas = article => ({
@@ -32,6 +33,14 @@ exports.populateFocus = async (article, resources) => {
     .filter(r => r.type === 'focus')
     .map(exports.flattenMetas)
     .find(f => f.relatedArticle === article.id)
+}
+
+exports.populatePageUrl = (key, topics) => resource => {
+  if (Array.isArray(resource)) {
+    return resource.map(exports.populatePageUrl(key, topics))
+  }
+  resource.pageUrl = pathToUrl(pagePath(key || resource.type, resource, topics))
+  return resource
 }
 
 const getNodeList = (article, type) => {

@@ -11,7 +11,7 @@ const {
   populateFocus,
   getResource,
   getArticles,
-} = require('./resource-utils')
+} = require('./generator-utils')
 
 // React dependencies for HTML generation
 const React = require('react')

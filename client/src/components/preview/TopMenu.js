@@ -118,7 +118,7 @@ const TopMenuPanelTopic = ({ topic, active }) => {
 
 exports.TopMenu = ({ topic, topics, options }) => {
   // used to add the bottom white border indicator (active)
-  const currentTopic = topic
+  const currentTopic = topic || {}
   return h('.container.TopMenu', [
     h('.TopMenuSearch', { role: 'search' }, [h(TopMenuPanelSearch)]),
     h('nav', { role: 'navigation' }, [

@@ -82,7 +82,7 @@ const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
     h('.TopMenuPanel.dropdown-menu', { id }, [
       h('h2', `${topic.id - 1}. ${topic.name}`),
       h('ol', [
-        articles
+        (articles || [])
           .filter(a => a.topic === topic.id)
           .map(a => h('li', [h('a', { href: getResourcePageUrl(a, topics, options) }, a.title)])),
       ]),

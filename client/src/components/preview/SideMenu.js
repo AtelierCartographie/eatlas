@@ -2,14 +2,14 @@
 
 const h = require('react-hyperscript')
 const { Img } = require('./Tags')
-const { resourcesTypes, aPropos } = require('./layout')
+const { resourcesTypes, aPropos, getTopicPageUrl } = require('./layout')
 
 const Topics = ({ topics, options }) =>
   h(
     'ul.nav.navmenu-nav',
     topics.map((t, i) =>
       h('li', { key: i }, [
-        h('a', { href: options.preview ? `/topics/${t.id}/preview` : 'TODO' }, [
+        h('a', { href: getTopicPageUrl(t, options) }, [
           h(Img, { alt: t.name, src: `/topics/${t.id}.svg` }),
           t.name,
         ]),
@@ -17,7 +17,7 @@ const Topics = ({ topics, options }) =>
     ),
   )
 
-const Resources = () =>
+const Resources = ({ options }) =>
   h('li.dropdown', [
     h(
       'a.dropdown-toggle menu',
@@ -31,11 +31,13 @@ const Resources = () =>
     ),
     h(
       'ul.dropdown-menu.navmenu-nav',
-      resourcesTypes.map((a, i) => h('li', { key: i }, [h('a', a)])),
+      resourcesTypes.map((a, i) =>
+        h('li', { key: i }, [h('a', { href: a.url(options.preview) }, a.text)]),
+      ),
     ),
   ])
 
-const APropos = () =>
+const APropos = ({ options }) =>
   h('li.dropdown', [
     h(
       'a.dropdown-toggle menu',
@@ -49,7 +51,9 @@ const APropos = () =>
     ),
     h(
       'ul.dropdown-menu.navmenu-nav',
-      aPropos.map((a, i) => h('li', { key: i }, [h('a', a)])),
+      aPropos.map((a, i) =>
+        h('li', { key: i }, [h('a', { href: a.url(options.preview) }, a.text)]),
+      ),
     ),
   ])
 
@@ -66,8 +70,8 @@ exports.SideMenu = ({ topics, options }) =>
       h('ul.nav.navmenu-nav', [
         h(Topics, { topics, options }),
         h('hr'),
-        h(Resources),
-        h(APropos),
+        h(Resources, { options }),
+        h(APropos, { options }),
         h('hr'),
       ]),
     ],

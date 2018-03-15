@@ -20,7 +20,13 @@ const {
 const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
-const { HOST, getImageUrl, getResource } = require('./layout')
+const {
+  getImageUrl,
+  getResource,
+  getResourcePageUrl,
+  getTopicPageUrl,
+} = require('./layout')
+const { getMediaUrl } = require('../../universal-utils')
 
 const srcset = (image, size) => {
   const image1 = getImageUrl(image, size, '1x')
@@ -57,7 +63,7 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
     h('.container', [
       h(
         'a',
-        { href: options.preview ? `/topics/${topic.id}/preview` : 'TODO' },
+        { href: getTopicPageUrl(topic, options) },
         topic ? topic.name : article.topic,
       ),
     ]),
@@ -108,7 +114,7 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
-const ArticleResource = ({ article, resource, options }) => {
+const ArticleResource = ({ article, resource, options, topics }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
@@ -155,9 +161,7 @@ const ArticleResource = ({ article, resource, options }) => {
       ])
 
     case 'sound':
-      const url =
-        (process.env.REACT_APP_PUBLIC_PATH_sound || `${HOST}/media/sounds/`) +
-        resource.file
+      const url = getMediaUrl(resource.file)
       return h('figure.container', [
         h('h2.figure-title', resource.title),
         h('audio', {
@@ -173,7 +177,7 @@ const ArticleResource = ({ article, resource, options }) => {
           h(
             'a',
             {
-              href: options.preview ? `/resources/${resource.id}/preview` : '',
+              href: getResourcePageUrl(resource, topics, options),
             },
             [h('.FocusIcon', 'Focus'), resource.title],
           ),
@@ -185,7 +189,7 @@ const ArticleResource = ({ article, resource, options }) => {
   }
 }
 
-const ArticleNodes = ({ article, resources, lexiconId, options }) => {
+const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
@@ -196,7 +200,13 @@ const ArticleNodes = ({ article, resources, lexiconId, options }) => {
         const resource = getResource(resources, n.id)
         return !resource
           ? null
-          : h(ArticleResource, { article, resource, key: n.id, options })
+          : h(ArticleResource, {
+              article,
+              resource,
+              key: n.id,
+              options,
+              topics,
+            })
       }
       default:
         return null
@@ -223,16 +233,18 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
           h(
             'a',
             {
-              href: options.preview ? `/resources/${r.id}/preview` : 'TODO',
+              href: getResourcePageUrl(r, topics, options),
             },
             [
               h('img', {
                 alt: '',
-                // TODO small
+                // TODO densities
                 style: {
                   backgroundImage:
                     r.imageHeader &&
-                    `url(${getImageUrl(r.imageHeader, 'large', '1x')})`,
+                    `url(${getImageUrl(r.imageHeader, 'small', '1x') ||
+                      getImageUrl(r.imageHeader, 'medium', '1x') ||
+                      getImageUrl(r.imageHeader, 'large', '1x')})`,
                 },
               }),
               h('div', [

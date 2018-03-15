@@ -12,7 +12,7 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 
-const { getImageUrl } = require('./layout')
+const { getImageUrl, getResourcePageUrl } = require('./layout')
 
 const TopicVideo = ({ url }) => {
   if (!url) return null
@@ -34,52 +34,46 @@ const TopicHeader = ({ topic }) => {
   ])
 }
 
-const ArticleList = ({ articles, options }) => {
+const ArticleList = ({ articles, topics, options }) => {
   if (!articles || !articles.length) return null
   return h(
     'ul.container.ArticleList',
     articles.map(a => {
       return h('li', [
-        h(
-          'a',
-          { href: options.preview ? `/resources/${a.id}/preview` : 'TODO' },
-          [
-            h('img', {
-              alt: '',
-              style: {
-                backgroundImage:
-                  a.imageHeader &&
-                  `url(${getImageUrl(a.imageHeader, 'large', '1x')})`,
-              },
-            }),
-            h('.ArticleListInfo', [
-              h('.ArticleListTitle', a.title),
-              h(
-                '.publishedAt',
-                !a.publishedAt
-                  ? 'Pas encore publié'
-                  : [
-                      'Publié le',
-                      h(
-                        'time',
-                        { dateTime: a.publishedAt },
-                        moment(a.publishedAt).format('D MMMM YYYY'),
-                      ),
-                    ],
-              ),
-              a.summaries.fr,
-            ]),
-          ],
-        ),
+        h('a', { href: getResourcePageUrl(a, topics, options) }, [
+          h('img', {
+            alt: '',
+            style: {
+              backgroundImage:
+                a.imageHeader &&
+                `url(${getImageUrl(a.imageHeader, 'large', '1x')})`,
+            },
+          }),
+          h('.ArticleListInfo', [
+            h('.ArticleListTitle', a.title),
+            h(
+              '.publishedAt',
+              !a.publishedAt
+                ? 'Pas encore publié'
+                : [
+                    'Publié le',
+                    h(
+                      'time',
+                      { dateTime: a.publishedAt },
+                      moment(a.publishedAt).format('D MMMM YYYY'),
+                    ),
+                  ],
+            ),
+            a.summaries.fr,
+          ]),
+        ]),
         a.focus &&
           h('.ArticleListFocus', [
             h('div', [
               h(
                 'a',
                 {
-                  href: options.preview
-                    ? `/resources/${a.focus.id}/preview`
-                    : '',
+                  href: getResourcePageUrl(a.focus, topics, options),
                 },
                 [h('.FocusIcon', 'Focus'), a.focus.title],
               ),
@@ -90,10 +84,10 @@ const ArticleList = ({ articles, options }) => {
   )
 }
 
-const Topic = ({ topic, articles, options }) => {
+const Topic = ({ topic, articles, topics, options }) => {
   return h('article.TopicPage', [
     h(TopicHeader, { topic }),
-    h(ArticleList, { articles, options }),
+    h(ArticleList, { articles, topics, options }),
   ])
 }
 

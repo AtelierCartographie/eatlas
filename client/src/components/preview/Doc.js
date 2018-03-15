@@ -67,7 +67,7 @@ exports.Keywords = ({ keywords }) => {
     h(
       'ul',
       keywords.map((kw, i) =>
-        h('li', { key: i }, [h('a', { href: 'TODO' }, kw.text)]),
+        h('li', { key: i }, [h('a', { href: '#TODO' }, kw.text)]),
       ),
     ),
   ])

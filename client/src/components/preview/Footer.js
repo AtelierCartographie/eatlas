@@ -1,7 +1,7 @@
 // @flow
 const h = require('react-hyperscript')
 const { Img } = require('./Tags')
-const { resourcesTypes, aPropos } = require('./layout')
+const { resourcesTypes, aPropos, getTopicPageUrl } = require('./layout')
 
 const Topics = ({ topics, options }) => {
   return h('nav', [
@@ -11,7 +11,9 @@ const Topics = ({ topics, options }) => {
         h('li', { key: t.id }, [
           h(
             'a',
-            { href: options.preview ? `/topics/${t.id}/preview` : 'TODO' },
+            {
+              href: getTopicPageUrl(t, options),
+            },
             `${t.id - 1}. ${t.name}`,
           ),
         ]),
@@ -22,7 +24,7 @@ const Topics = ({ topics, options }) => {
 
 // TODO flexbox to change order
 module.exports = ({ topics, options }) =>
-  h('footer.container.Footer', {role: 'contentinfo' }, [
+  h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.row', [
       h('.col-xs-6.col-sm-3', [
         h('a', [
@@ -39,11 +41,25 @@ module.exports = ({ topics, options }) =>
       ]),
       h('.col-xs-6.col-sm-3', [
         h('h2', 'Resources'),
-        h('ul', resourcesTypes.map((r, i) => h('li', { key: i }, [h('a', r)]))),
+        h(
+          'ul',
+          resourcesTypes.map((r, i) =>
+            h('li', { key: i }, [
+              h('a', { href: r.url(options.preview) }, r.text),
+            ]),
+          ),
+        ),
       ]),
       h('.col-xs-6.col-sm-3', [
         h('h2', 'À propos'),
-        h('ul', aPropos.map((a, i) => h('li', { key: i }, [h('a', a)]))),
+        h(
+          'ul',
+          aPropos.map((a, i) =>
+            h('li', { key: i }, [
+              h('a', { href: a.url(options.preview) }, a.text),
+            ]),
+          ),
+        ),
       ]),
     ]),
   ])

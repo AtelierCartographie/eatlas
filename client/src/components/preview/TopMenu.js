@@ -24,7 +24,7 @@ const TopMenuPanelSearch = () => {
   ]
 }
 
-const TopMenuPanelMain = () => {
+const TopMenuPanelMain = ({ options }) => {
   const id = 'TopMenuPanel-main'
   return h('li.TopicMenuPanel', [
     h(
@@ -44,12 +44,19 @@ const TopMenuPanelMain = () => {
           h('h2', 'Ressources'),
           h(
             'ol',
-            resourcesTypes.map(rt => h('li', [h('a', { href: 'TODO' }, rt)])),
+            resourcesTypes.map(rt =>
+              h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
+            ),
           ),
         ]),
         h('.col-sm-6', [
           h('h2', 'À propos'),
-          h('ol', aPropos.map(rt => h('li', [h('a', { href: 'TODO' }, rt)]))),
+          h(
+            'ol',
+            aPropos.map(rt =>
+              h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
+            ),
+          ),
         ]),
       ]),
     ]),
@@ -101,7 +108,7 @@ exports.TopMenu = ({ topic, topics, options }) => {
     h('.TopMenuSearch', { role: 'search' }, [h(TopMenuPanelSearch)]),
     h('nav', { role: 'navigation' }, [
       h('ul', [
-        h(TopMenuPanelMain),
+        h(TopMenuPanelMain, { options }),
         topics.map(topic =>
           h(TopMenuPanelTopic, { topic, active: currentTopic.id === topic.id }),
         ),

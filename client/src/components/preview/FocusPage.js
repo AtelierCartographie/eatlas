@@ -19,18 +19,17 @@ const {
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
+const { getResourcePageUrl } = require('./layout')
 
 // subcomponents
 
-const FocusBackToArticle = ({ focus, options }) =>
+const FocusBackToArticle = ({ focus, options, topics }) =>
   h('.FocusBackToArticle', [
     h('.container', [
       h(
         'a',
         {
-          href: options.preview
-            ? `/resources/${focus.relatedArticleId}/preview`
-            : '',
+          href: getResourcePageUrl(focus.relatedArticle, topics, options),
         },
         [
           '< ',

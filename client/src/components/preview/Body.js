@@ -11,7 +11,7 @@ const NavBar = ({ logoColor }) =>
   h('nav.navbar.navbar-default.navbar-static-top.navbar-logo', [
     h('div.container', [
       h('a.navbar-brand', { href: '#' }, [
-        h(Img, { alt: 'eatlas logo', src: `/assets/img/logo-eatlas-${logoColor}.svg` }),
+        h(Img, { alt: 'Page d\'accueil', src: `/assets/img/logo-eatlas-${logoColor}.svg` }),
       ]),
     ]),
   ])
@@ -23,7 +23,7 @@ module.exports = ({ topic, topics, sideMenu, topMenu, logoColor, options, childr
     sideMenu && h(SideMenuToggle),
     sideMenu && h(SideMenu, { topics, options }),
     topMenu && h(TopMenu, { topic, topics, options }),
-    children,
+    h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {
       src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',

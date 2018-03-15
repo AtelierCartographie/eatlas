@@ -138,6 +138,7 @@ ul.navmenu-nav a {
 .navbar-logo {
     position: absolute;
     top: 0;
+    min-height: 48px;
     width: 100%;
 }
 
@@ -179,9 +180,6 @@ ul.navmenu-nav a {
     background-color: white;
 }
 
-.navbar-logo {
-    min-height: 48px;
-}
 .navbar-brand {
     position: absolute;
     padding-top: 7px;

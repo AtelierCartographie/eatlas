@@ -22,7 +22,7 @@ const Topics = ({ topics, options }) => {
 
 // TODO flexbox to change order
 module.exports = ({ topics, options }) =>
-  h('footer.container.Footer', [
+  h('footer.container.Footer', {role: 'contentinfo' }, [
     h('.row', [
       h('.col-xs-6.col-sm-3', [
         h('a', [

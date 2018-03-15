@@ -90,5 +90,11 @@
       text-align: center;
       width: 240px;
     }
+
+    input {
+      border: 1px solid $color-breadcrumb;
+      border-radius: $gap;
+      padding: 4px;
+    }
   }
 }

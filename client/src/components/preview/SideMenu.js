@@ -83,6 +83,6 @@ exports.SideMenuToggle = () =>
         'data-target': '#navmenu',
         'data-canvas': 'body',
       },
-      [h(Img, { alt: 'menu', src: '/assets/img/picto-menu-B.svg' })],
+      [h(Img, { alt: '', src: '/assets/img/picto-menu-B.svg' })],
     ),
   ])

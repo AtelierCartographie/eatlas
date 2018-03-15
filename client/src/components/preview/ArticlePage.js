@@ -288,7 +288,7 @@ class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], de
     }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
-      h(Body, { topics, options }, [
+      h(Body, { topics, options, sideMenu: true }, [
         h(Article, {
           article,
           topics,

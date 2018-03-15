@@ -73,7 +73,7 @@ exports.SideMenu = ({ topics, options }) =>
     ],
   )
 
-exports.MenuToggle = () =>
+exports.SideMenuToggle = () =>
   h('div.navbar.navbar-default.navbar-fixed-top', [
     h(
       'button.navbar-toggle',

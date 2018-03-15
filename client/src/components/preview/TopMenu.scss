@@ -7,21 +7,72 @@
   top: 60px;
   z-index: 1;
 
-  ul {
+  > ul {
     display: flex;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    margin: 0;
+  }
+
+  .TopicMenuPanel {
+    display: block;
+    flex-basis: 0;
+    flex-grow: 1;
   }
 
   button {
     background: transparent;
     border: none;
-    color: white;
+    color: $color-white;
+    display: block;
     font-family: $sans;
-    flex-basis: 0;
-    flex-grow: 1;
+    width: 100%;
+
+    &.active {
+      // instead of border-bottom, to avoid gab with panels
+      background: linear-gradient(to bottom,
+        transparent 0%, transparent 90%,
+        $color-white 90%, $color-white 100%);
+      font-weight: bold;
+    }
+
+    &[aria-expanded="true"] {
+      background: $color-footer;
+      color: $color-text;
+    }
   }
 
-  button.active {
-    border-bottom: 2px solid white;
-    font-weight: bold;
+  .dropdown-menu {
+    background: $color-footer;
+    border: 0;
+    border-radius: 0;
+    font-family: $sans;
+    margin: 0;
+    padding: $gap2;
+    width: 100%;
+
+    .col-first {
+      border-right: 1px solid $color-text;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    ol {
+      list-style: none;
+      padding: 0;
+    }
+
+    a {
+      color: inherit;
+      font-family: $sans;
+      font-size: 16px;
+    }
   }
 }

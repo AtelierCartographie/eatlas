@@ -5,8 +5,9 @@
 
   .FocusBackToArticle {
     background: $color-breadcrumb;
-    height: 32px;
     margin-bottom: $gap;
+    margin-top: 50px;
+    padding: $gap 0;
 
     a {
       color: white;

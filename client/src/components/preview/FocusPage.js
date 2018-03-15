@@ -88,7 +88,7 @@ class FocusPage extends Component /*::<{focus: Resource, topics: Topic[], defini
     }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: focus.title }),
-      h(Body, { topics, options }, [
+      h(Body, { topics, options, logoColor: 'black', sideMenu: true }, [
         h(Focus, { focus, topics, definitions, resources, lexiconId, options }),
       ]),
     ])

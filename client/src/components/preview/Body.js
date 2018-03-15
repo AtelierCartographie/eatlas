@@ -7,19 +7,30 @@ const { SideMenu, SideMenuToggle } = require('./SideMenu')
 const Footer = require('./Footer')
 const { Img, Script } = require('./Tags')
 
-const NavBar = ({ logoColor }) =>
+const NavBar = ({ logoColor, options }) =>
   h('nav.navbar.navbar-default.navbar-static-top.navbar-logo', [
     h('div.container', [
-      h('a.navbar-brand', { href: '#' }, [
-        h(Img, { alt: 'Page d\'accueil', src: `/assets/img/logo-eatlas-${logoColor}.svg` }),
+      h('a.navbar-brand', { href: options.preview ? '/preview' : 'TODO' }, [
+        h(Img, {
+          alt: "Page d'accueil",
+          src: `/assets/img/logo-eatlas-${logoColor}.svg`,
+        }),
       ]),
     ]),
   ])
 
-module.exports = ({ topic, topics, sideMenu, topMenu, logoColor, options, children }) =>
+module.exports = ({
+  topic,
+  topics,
+  sideMenu,
+  topMenu,
+  logoColor,
+  options,
+  children,
+}) =>
   // display preview ribbon in corner
-  h('body', { className: options.preview ? 'preview' : ''}, [
-    h(NavBar, { logoColor: logoColor || 'white' }),
+  h('body', { className: options.preview ? 'preview' : '' }, [
+    h(NavBar, { logoColor: logoColor || 'white', options }),
     sideMenu && h(SideMenuToggle),
     sideMenu && h(SideMenu, { topics, options }),
     topMenu && h(TopMenu, { topic, topics, options }),

@@ -29,6 +29,7 @@ const FocusPage = require('../../client/src/components/preview/FocusPage')
 const TopicPage = require('../../client/src/components/preview/TopicPage')
 const ResourcePage = require('../../client/src/components/preview/ResourcePage')
 const MissingPage = require('../../client/src/components/preview/MissingPage')
+const IndexPage = require('../../client/src/components/preview/IndexPage')
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
@@ -117,6 +118,15 @@ exports.generateResourceHTML = async (resource, { preview = false } = {}) => {
   )
 }
 
+exports.generateHomeHTML = (
+  options = { preview: false },
+) =>
+  wrap(
+    React.createElement(IndexPage, {
+      options,
+    }),
+  )
+
 const generateMissingHTML = async ({ preview = false } = {}) => {
   return wrap(
     React.createElement(MissingPage, {
@@ -126,10 +136,10 @@ const generateMissingHTML = async ({ preview = false } = {}) => {
   )
 }
 
-exports.generateHomeHTML = generateMissingHTML
 exports.generateSearchHTML = generateMissingHTML
 exports.generateResourcesHTML = generateMissingHTML
 exports.generateAboutWhoHTML = generateMissingHTML
 exports.generateAboutContactHTML = generateMissingHTML
 exports.generateAboutLegalsHTML = generateMissingHTML
 exports.generateSiteMapHTML = generateMissingHTML
+

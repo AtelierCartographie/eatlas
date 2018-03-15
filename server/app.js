@@ -11,6 +11,7 @@ const {
   resBoomSend,
 } = require('./lib/middlewares')
 const { user, users, resources, topics, parsers } = require('./lib/routes')
+const { generateIndexHTML } = require('./lib/html-generator')
 
 const app = express()
 
@@ -48,5 +49,11 @@ app.get('/topics/:id', topics.findTopic, topics.get)
 app.post('/topics', topics.add)
 app.put('/topics/:id', topics.findTopic, topics.update)
 app.delete('/topics/:id', topics.findTopic, topics.remove)
+
+// TODO switch /preview suffix of above routes to a prefix like the route below
+app.get('/preview', async (req, res) => {
+  const html = await generateIndexHTML({ preview: true })
+  res.send(html)
+})
 
 module.exports = app

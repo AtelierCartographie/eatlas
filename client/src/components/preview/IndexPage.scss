@@ -1,0 +1,100 @@
+@import 'var';
+$color-blue: #4778d1;
+
+.IndexPage {
+  background: linear-gradient(#ffe180, #fff7d9);
+
+  .IndexHeader {
+    margin-bottom: 48px;
+    padding-top: 48px;
+
+    .IndexTitle {
+      color: $color-white;
+      font-family: $sans;
+      font-size: 70px;
+      font-weight: bold;
+      line-height: 70px;
+      margin-top: 64px;
+    }
+    .IndexTitleTyped {
+      color: $color-blue;
+      font-weight: normal;
+      margin-top: 0;
+    }
+  }
+
+  .IndexNav, .IndexToc, .IndexTeam {
+    background: $color-footer;
+  }
+
+  .IndexBook, .IndexProject, .IndexResources {
+    background: $color-white;
+  }
+
+  section {
+    padding: $gap4;
+  }
+
+  section, p, li {
+   font-family: $sans;
+   font-size: 14px;
+  }
+
+  h2, h3 {
+    color: $color-breadcrumb;
+    margin-top: 0;
+  }
+
+  button {
+    background-color: $color-blue;
+    border: 0;
+    border-radius: $gap;
+    color: $color-white;
+    font-size: 14px;
+    margin: $gap $gap 0 0;
+    padding: $gap;
+
+    &.tour {
+      background: $color-white;
+      color: $color-breadcrumb;
+    }
+
+    img {
+      height: 24px;
+    }
+  }
+
+  input {
+    border: 1px solid $color-footer;
+    border-radius: $gap;
+    font-size: 14px;
+    margin-right: $gap;
+    padding: 8px;
+  }
+
+  .IndexTeam {
+    ul {
+      display: flex;
+      list-style: none;
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    li {
+      text-align: center;
+      flex-basis: 0;
+
+      div {
+        white-space: nowrap;
+      }
+    }
+
+    .avatar {
+      background: $color-keyword;
+      border-radius: 50%;
+      height: 64px;
+      margin: 0 auto $gap;
+      width: 64px;
+    }
+  }
+}

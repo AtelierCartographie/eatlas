@@ -1,12 +1,14 @@
 {
-  "google": {
-    "clientId": "348912836815-tk0l6mspavgeia4ufcbs3h2637rik6mr.apps.googleusercontent.com"
-  },
-  "cors": {
-    "allowNoOrigin": true
-  },
-  "logger": {
-    "level": "debug",
-    "src": true
-  }
+	"google": {
+		"clientId":
+			"348912836815-tk0l6mspavgeia4ufcbs3h2637rik6mr.apps.googleusercontent.com"
+	},
+	"cors": {
+		"allowNoOrigin": true
+	},
+	"logger": {
+		"level": "debug",
+		"src": true
+	},
+	"publicPath": "$clientPath/public/generated"
 }

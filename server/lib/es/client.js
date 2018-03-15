@@ -24,7 +24,7 @@ const client = new Client(
   ),
 )
 
-const ready = (() => {
+const pinged = (() => {
   const sleep = promisify(setTimeout)
   let readyP = null
   const check = () => {
@@ -50,7 +50,7 @@ const ready = (() => {
 
 const formatHit = ({ _source, _id }) => Object.assign({}, _source, { id: _id })
 
-ready.then(() => initIndices(client, indices))
+const ready = pinged.then(() => initIndices(client, indices))
 
 module.exports = type => {
   const find = body =>

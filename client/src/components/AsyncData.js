@@ -43,7 +43,6 @@ class AsyncData extends Component<Props, State> {
   }
 
   render() {
-    console.log(this.state.status, this.state.status === 'success')
     switch (this.state.status) {
       case 'loading':
         return this.renderLoading()

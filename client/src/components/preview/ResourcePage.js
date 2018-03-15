@@ -15,10 +15,9 @@ const Body = require('./Body')
 // subcomponents
 
 const ResourceSound = ({ resource }) => {
-  console.log({ resource })
   if (!resource.mediaUrl) return null
   return h('.container.ResourceSound', [
-    h('audio', { src: resource.mediaUrl, controls: true })
+    h('audio', { src: resource.mediaUrl, controls: true }),
   ])
 }
 
@@ -36,7 +35,10 @@ const ResourceVideo = ({ resource }) => {
 }
 
 const ResourceDescription = ({ resource }) => {
-  return h('.container.ResourceDescription', [h('h2', 'Commentaire'), h('div', resource.description)])
+  return h('.container.ResourceDescription', [
+    h('h2', 'Commentaire'),
+    h('div', resource.description),
+  ])
 }
 
 const Resource = ({ resource }) => {

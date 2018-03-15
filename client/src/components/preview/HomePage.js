@@ -114,7 +114,6 @@ const Home = ({ topics }) => {
 class HomePage extends Component /*::<{topics: Topic[]}>*/ {
   render() {
     const { topics, options } = this.props
-    console.log({ topics })
     return h('html', { lang: 'fr' }, [
       h(Head, { title: 'eAtlas' }),
       h(Body, { topics, options, topMenu: true, logoColor: 'white' }, [

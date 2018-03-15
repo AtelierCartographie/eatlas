@@ -128,6 +128,7 @@ const generateMissingHTML = async ({ preview = false } = {}) => {
 
 exports.generateHomeHTML = generateMissingHTML
 exports.generateSearchHTML = generateMissingHTML
+exports.generateResourcesHTML = generateMissingHTML
 exports.generateAboutWhoHTML = generateMissingHTML
 exports.generateAboutContactHTML = generateMissingHTML
 exports.generateAboutLegalsHTML = generateMissingHTML

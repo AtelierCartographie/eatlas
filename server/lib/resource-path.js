@@ -1,47 +1,38 @@
 'use strict'
 
 const path = require('path')
-const { articleFileName } = require('./resource-utils')
 const getConf = require('./dynamic-config-variable')
 
-const guessFileName = resource => {
-  if (typeof resource !== 'object') {
-    throw new Error('Cannot guess file name without full resource object')
-  }
-  if (resource.type === 'article' || resource.type === 'focus') {
-    return articleFileName(resource)
-  }
-  if (resource.type === 'sound') {
-    return resource.file
-  }
-  if (resource.type === 'image' || resource.type === 'map') {
-    throw new Error('Cannot guess file name for image or map (multiple files)')
-  }
-  if (resource.type === 'definition' || resource.type === 'video') {
-    throw new Error('Cannot guess file name for lexicon or video (no file)')
-  }
-  throw new Error(
-    'Cannot guess file name for unknown type "' + resource.type + '"',
-  )
+// TODO
+exports.pagePath = async typeOrResource => {
+  const resource =
+    typeof typeOrResource === 'object' ? typeOrResource.type : null
 }
 
-module.exports = (
+// Public and private paths to uploaded media file
+exports.resourceMediaPath = (
   typeOrResource,
   file = null,
   { up = true, pub = true } = {},
 ) => {
-  const type =
-    typeof typeOrResource === 'object' ? typeOrResource.type : typeOrResource
-  const fileName = file || guessFileName(typeOrResource)
+  const resource = typeof typeOrResource === 'object' ? typeOrResource : null
+  const type = resource ? resource.type : typeOrResource
+  if (type !== 'image' && type !== 'sound' && type !== 'map') {
+    return {} // No media
+  }
+  const basename = file || resource.file
+  if (!basename) {
+    throw new Error('Could not get basename: file could not be guessed')
+  }
   const result = { up: null, pub: null }
   const root = path.join(__dirname, '..')
   if (up) {
     const upDir = path.resolve(root, getConf('uploadPath', {}))
-    result.up = path.join(upDir, fileName)
+    result.up = path.join(upDir, basename)
   }
   if (pub) {
-    const pubDir = path.resolve(root, getConf('publicPath.' + type))
-    result.pub = path.join(pubDir, fileName)
+    const pubDir = path.resolve(root, getConf('publicPath'))
+    result.pub = path.join(pubDir, getConf('mediaSubPath'), basename)
   }
   return result
 }

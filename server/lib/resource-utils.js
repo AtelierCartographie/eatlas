@@ -1,16 +1,11 @@
 'use strict'
 
 const { resources: Resources, topics: Topics } = require('./model')
-const dynamicConfVar = require('./dynamic-config-variable')
 const {
   getResourceIds,
   getMetaText,
   getMetaList,
 } = require('../../client/src/universal-utils')
-
-// Article or Focus file name
-exports.articleFileName = resource =>
-  dynamicConfVar('htmlFileName.' + resource.type, resource)
 
 // smoosh nested info to provide direct access in React components
 exports.flattenMetas = article => ({

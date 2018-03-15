@@ -11,9 +11,9 @@ const {
   generateResourceHTML,
 } = require('../html-generator')
 const { download } = require('../google')
-const { updateFilesLocations, deleteAllFiles } = require('../public-fs')
+const { updateFiles, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
-const resourcePath = require('../resource-path')
+const { resourceMediaPath } = require('../resource-path')
 
 exports.findResource = (req, res, next) =>
   resources
@@ -51,7 +51,7 @@ exports.update = async (req, res) => {
         (oldStatus === 'published' || newStatus === 'published')
       if (changedPublished) {
         try {
-          await updateFilesLocations(resource)
+          await updateFiles(resource)
         } catch (err) {
           await resources.update(req.foundResource.id, { status: oldStatus })
           err.message =
@@ -89,7 +89,7 @@ exports.add = (req, res) => {
 
   resources
     .create(baseData)
-    .then(updateFilesLocations)
+    .then(updateFiles)
     .then(resource => res.send(resource))
     .catch(
       err =>
@@ -107,7 +107,7 @@ exports.addFromGoogle = (req, res) => {
   handleUploads(req.body, true)
     .then(data => merge(baseData, data))
     .then(resources.create)
-    .then(updateFilesLocations)
+    .then(updateFiles)
     .then(resource => res.send(resource))
     .catch(
       err =>
@@ -169,13 +169,13 @@ exports.file = async (req, res, next) => {
                 images['large']['2x'] ||
                 images['large']['3x']))
         }
-        const { up } = resourcePath(req.foundResource, file, {
+        const { up } = resourceMediaPath(req.foundResource, file, {
           pub: false,
         })
         return res.sendFile(up)
       }
       case 'sound': {
-        const { up } = resourcePath(req.foundResource, null, {
+        const { up } = resourceMediaPath(req.foundResource, null, {
           pub: false,
         })
         return res.sendFile(up)

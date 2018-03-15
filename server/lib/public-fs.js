@@ -1,6 +1,5 @@
 'use strict'
 
-const mime = require('mime')
 const {
   writeFile,
   ensureDir,
@@ -11,30 +10,15 @@ const {
 } = require('fs-extra')
 const path = require('path')
 const config = require('config')
-const { publishArticle, unpublishArticle } = require('./publish-article')
-const getConf = require('./dynamic-config-variable')
-const resourcePath = require('./resource-path')
+const { resourceMediaPath } = require('./resource-path')
 const debug = require('debug')('eatlas:fs')
+const { rebuildFullSite } = require('./site-builder')
 
 // Circular dependency
 let uploadManagers = {}
 setImmediate(() => (uploadManagers = require('./upload-managers')))
 
-exports.saveUpload = ({ id }) => async ({ mimeType, key, buffer }) => {
-  const fileDir = getConf('uploadPath', {})
-
-  const extension = mime.getExtension(mimeType)
-  if (!extension) {
-    throw new Error('Unknown mime type "' + mimeType + '"')
-  }
-
-  const fileName = id + '-' + key + '.' + extension
-  await saveAs(fileName, fileDir, buffer)
-
-  return fileName
-}
-
-const saveAs = async (fileName, fileDir, buffer) => {
+exports.saveAs = async (fileName, fileDir, buffer) => {
   const absFileDir = path.resolve(__dirname, '..', fileDir)
   const absFilePath = path.join(absFileDir, fileName)
 
@@ -55,7 +39,7 @@ exports.deleteAllFiles = async resource => {
   const files = uploadManagers[resource.type].files(resource)
   await Promise.all(
     files.map(async file => {
-      const { up } = resourcePath(resource, file, { pub: false })
+      const { up } = resourceMediaPath(resource, file, { pub: false })
       debug('Remove', up)
       await unlink(up)
     }),
@@ -63,11 +47,10 @@ exports.deleteAllFiles = async resource => {
   return resource
 }
 
-exports.updateFilesLocations = async resource =>
+exports.updateFiles = async resource =>
   resource.status === 'published' ? publish(resource) : unpublish(resource)
 
 exports.copyPublic = async (up, pub) => {
-  // TODO check if paths are actually in 'uploadPath' and one of 'publicPaths'?
   if (config.publishFileCommand === 'symlink') {
     if (await exists(pub)) {
       await unlink(pub)
@@ -82,40 +65,40 @@ exports.copyPublic = async (up, pub) => {
 
 // Publish files = copy to publicPath
 const publish = async resource => {
-  if (resource.type === 'article' || resource.type === 'focus') {
-    return publishArticle(resource)
-  }
-
+  // 1. Publish media files
   const { files: getFiles } = uploadManagers[resource.type]
-
   await Promise.all(
     getFiles(resource).map(async file => {
-      const { up, pub } = resourcePath(resource, file)
+      const { up, pub } = resourceMediaPath(resource, file)
       await ensureDir(path.dirname(pub))
       await exports.copyPublic(up, pub)
     }),
   )
+
+  // 2. Update HTML files
+  debug('Update full site')
+  await rebuildFullSite()
 
   return resource
 }
 
 // Unpublish files = remove from publicPath
 const unpublish = async resource => {
-  if (resource.type === 'article' || resource.type === 'focus') {
-    return unpublishArticle(resource)
-  }
-
+  // 1. Unpublish media files
   const { files: getFiles } = uploadManagers[resource.type]
-
   await Promise.all(
     getFiles(resource).map(async file => {
-      const { pub } = resourcePath(resource, file, { up: false })
+      const { pub } = resourceMediaPath(resource, file, { up: false })
       if (await exists(pub)) {
         debug('Remove', pub)
         await unlink(pub)
       }
     }),
   )
+
+  // 2. Update HTML files
+  debug('Update full site')
+  await rebuildFullSite()
 
   return resource
 }

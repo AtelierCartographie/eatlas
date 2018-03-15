@@ -75,17 +75,25 @@
 		"if set to true, uploaded files will NOT be deleted when resource is removed",
 	"keepUploadsOnDelete": false,
 
-	"//publicPath": "Published files are in those folders",
-	"publicPath": {
-		"article": "$clientPath/public/article",
-		"focus": "$clientPath/public/focus",
-		"image": "$clientPath/public/media/images",
-		"map": "$clientPath/public/media/maps",
-		"sound": "$clientPath/public/media/sounds"
-	},
-
-	"htmlFileName": {
-		"article": "$id.html",
-		"focus": "$id.html"
+	"//publicPath": "Root path of public website",
+	"publicPath": "$clientPath/public",
+	"mediaSubPath": "media",
+	"mediaFileName": "$type-$id-$name.$ext",
+	"pageUrls": {
+		"index": "index.html",
+		"search": "recherche.html",
+		"resources": "ressources-$resourcesSlug.html",
+		"aboutUs": "a-propos/qui-sommes-nous.html",
+		"contact": "a-propos/contact.html",
+		"legals": "a-propos/mentions-legales.html",
+		"sitemap": "a-propos/plan-du-site.html",
+		"topic": "rubrique-$topicSlug.html",
+		"definition": "lexique.html",
+		"article": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+		"focus": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+		"image": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+		"map": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+		"sound": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+		"video": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
 	}
 }

@@ -87,7 +87,7 @@ const ArticleList = ({ articles, topics, options }) => {
 const Topic = ({ topic, articles, topics, options }) => {
   return h('article.TopicPage', [
     h(TopicHeader, { topic }),
-    h(ArticleList, { articles, topics, options }),
+    h(ArticleList, { articles: articles.filter(a => a.topic === topic.id), topics, options }),
   ])
 }
 
@@ -96,7 +96,7 @@ class TopicPage extends Component {
     const { topic, topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
       h(Head, { title: topic.name }),
-      h(Body, { topic, topics, options, topMenu: true }, [
+      h(Body, { topic, topics, articles, options, topMenu: true }, [
         h(Topic, { topic, topics, articles, options }),
       ]),
     ])

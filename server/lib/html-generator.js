@@ -108,8 +108,9 @@ exports.generateTopicHTML = async (
   props = await topMenuProps(props)
   const resources = await getTopicResources(topic)
   // Enhanced articles for data list in topic page
-  props.articles = await Promise.all(
-    (props.articles || resources.filter(r => r.type === 'article'))
+  const articles = await Promise.all(
+    props.articles
+      .filter(a => String(a.topic) === String(topic.id))
       .map(flattenMetas)
       .map(async a => {
         a.imageHeader = await getImageHeader(a)
@@ -122,7 +123,7 @@ exports.generateTopicHTML = async (
     React.createElement(TopicPage, {
       ...props,
       topic: populatePageUrl('topic', null)(topic),
-      articles: props.articles,
+      articles,
       resources: populatePageUrl(null, props.topics)(resources),
       options: { preview },
     }),

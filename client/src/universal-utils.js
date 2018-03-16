@@ -85,7 +85,12 @@ exports.META_CONVERSION = {
   'Image header': 'image-header',
 }
 
-exports.slugify = text => slugify(text, { lower: true })
+exports.LOCALES /*: { Locale: string }*/ = {
+  fr: 'Français',
+  en: 'English',
+}
+
+exports.slugify = text => slugify(text, { lower: true })
 
 exports.getMediaUrl = (file = '') => {
   const root = process.env.REACT_APP_FRONT_URL || '/'

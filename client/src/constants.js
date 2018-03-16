@@ -2,9 +2,11 @@
 
 // See https://github.com/facebook/flow/issues/961 for the sad state of DRY and enums with Flow
 
+import { LOCALES as localesHash } from './universal-utils'
+
 export { META_CONVERSION } from './universal-utils'
 
-export const LOCALES: Locale[] = ['fr', 'en']
+export const LOCALES = Object.keys(localesHash)
 
 export const ROLES: UserRole[] = ['visitor', 'admin']
 

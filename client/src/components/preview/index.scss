@@ -1,42 +1,42 @@
 /* GENERAL ---------------------------------------- */
 
 .container {
-    padding-left: 20px;
-    padding-right: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .container-fluid {
-    padding: 0;
+  padding: 0;
 }
 
 figure {
-    margin-bottom: 3.2em;
+  margin-bottom: 3.2em;
 }
 
 // ribbon
 body.preview::before {
-    background: #f00;
-    color: #fff;
-    content: 'preview';
-    display: block;
-    font-size: 30px;
-    font-weigth: bold;
-    position: fixed;
-    right: -50px;
-    text-align: center;
-    top: 25px;
-    transform: rotate(45deg);
-    width: 200px;
-    z-index: 1;
+  background: #f00;
+  color: #fff;
+  content: 'preview';
+  display: block;
+  font-size: 30px;
+  font-weigth: bold;
+  position: fixed;
+  right: -50px;
+  text-align: center;
+  top: 25px;
+  transform: rotate(45deg);
+  width: 200px;
+  z-index: 1;
 }
 
 /* TYPO /!\ font-base = 10px ---------------------------------------- */
 
 body {
-    font-family: 'Fira Sans', sans-serif;
-    font-size: 100%;
-    line-height: 1.524;
-    color: rgba(0, 0, 0, .8);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 100%;
+  line-height: 1.524;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 h1,
@@ -44,190 +44,192 @@ h2,
 h3,
 h4,
 h5 {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 /* video */
 iframe {
-    display: block;
+  display: block;
 }
 
 h1,
 h2 {
-    font-size: 2.17em;
-    line-height: 1.3335;
-    margin-top: 2em;
-    margin-bottom: 0.417em;
+  font-size: 2.17em;
+  line-height: 1.3335;
+  margin-top: 2em;
+  margin-bottom: 0.417em;
 }
 
 h3 {
-    font-size: 1.8em;
-    line-height: inherit;
-    margin-top: inherit;
-    margin-bottom: 0.417em;
+  font-size: 1.8em;
+  line-height: inherit;
+  margin-top: inherit;
+  margin-bottom: 0.417em;
 }
 
 p,
 ul {
-    font-size: 1.9em;
-    line-height: inherit;
-    /* 1.524 */
-    margin-bottom: 1em;
+  font-size: 1.9em;
+  line-height: inherit;
+  /* 1.524 */
+  margin-bottom: 1em;
 }
 
-.navbar-default .navbar-nav>li>a {
-    color: #494948;
-    margin-left: -15px;
-    margin-right: 15px;
+.navbar-default .navbar-nav > li > a {
+  color: #494948;
+  margin-left: -15px;
+  margin-right: 15px;
 }
 
-.dropdown-menu>li>a {
-    padding: 5px 5px;
+.dropdown-menu > li > a {
+  padding: 5px 5px;
 }
 
 ul.navmenu-nav,
 ul.navmenu-nav a {
-    font-weight: 400;
-    font-size: 1.6rem;
+  font-weight: 400;
+  font-size: 1.6rem;
 }
 
 /* WRAP ---------------------------------------- */
 /* NAVBAR ---------------------------------------- */
 .navbar {
-    margin-bottom: 0px;
-    border: 0px;
-    max-height: 48px;
+  margin-bottom: 0px;
+  border: 0px;
+  max-height: 48px;
 }
 
 .navbar-logo {
-    position: absolute;
-    top: 0;
-    min-height: 48px;
-    width: 100%;
-    z-index: 1031; // TODO
+  position: absolute;
+  top: 0;
+  min-height: 48px;
+  width: 100%;
+  z-index: 1031; // TODO
 }
 
 .navbar-default .navbar-toggle {
-    background-color: rgba(0, 0, 0, 0.4);
-    border: none;
-    border-radius: 0;
-    float: left;
-    width: 30px;
-    height: 30px;
-    margin-top: 9px;
-    margin-left: 9px;
-    padding: 3px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 0;
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-top: 9px;
+  margin-left: 9px;
+  padding: 3px;
 }
 
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    box-shadow: 0px 5px 5px rgba(0,0,0,.2),0px 10px 14px rgba(0,0,0,.1),inset 0px 1px 0px rgba(255,255,255,.25),inset 0px -1px 0px rgba(0,0,0,.10);
-    background-color: rgba(0, 0, 0, 0.66);
-    border-color: #919191;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2), 0px 10px 14px rgba(0, 0, 0, 0.1),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.25),
+    inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.66);
+  border-color: #919191;
 }
 
 .navbar-default .navbar-toggle-focus {
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    float: left;
-    width: 30px;
-    height: 30px;
-    margin-top: 9px;
-    margin-left: 9px;
-    padding: 3px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-top: 9px;
+  margin-left: 9px;
+  padding: 3px;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-    width: 25px;
-    height: 3px;
-    border-radius: 0;
-    background-color: white;
+  width: 25px;
+  height: 3px;
+  border-radius: 0;
+  background-color: white;
 }
 
 .navbar-brand {
-    position: absolute;
-    padding-top: 7px;
-    left: 50%;
-    display: block;
-    text-align: center;
-    width: 280px;
+  position: absolute;
+  padding-top: 7px;
+  left: 50%;
+  display: block;
+  text-align: center;
+  width: 280px;
 }
 
-.navbar>.container .navbar-brand {
-    margin-left: -140px;
+.navbar > .container .navbar-brand {
+  margin-left: -140px;
 }
 
 .navbar-default {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .navmenu {
-    padding-top: 15px;
+  padding-top: 15px;
 }
 
 .navmenu-default,
 .navbar-default .navbar-offcanvas {
-    background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
-.navmenu-default .navmenu-nav>.active>a {
-    background-color: #E8E8E8;
+.navmenu-default .navmenu-nav > .active > a {
+  background-color: #e8e8e8;
 }
 
 .navmenu-form {
-    border: none;
-    padding: 10px 15px;
-    margin: auto;
+  border: none;
+  padding: 10px 15px;
+  margin: auto;
 }
 
 hr {
-    border: 1px solid #bebebe;
-    margin-bottom: 0px;
+  border: 1px solid #bebebe;
+  margin-bottom: 0px;
 }
 
 // TODO move to ArticlePage as lexicon
 a.keyword {
-    color: rgba(0,0,0,.8);
-    text-decoration: none;
-    transition-duration: 0.2s;
-    transition-property: all;
-    background-color: #d1d6e0;
-    padding: 3px 8px;
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+  transition-duration: 0.2s;
+  transition-property: all;
+  background-color: #d1d6e0;
+  padding: 3px 8px;
 }
 
 a.keyword:focus,
 a.keyword:hover {
-    color: white;
-    background-color: #4778d1;
+  color: white;
+  background-color: #4778d1;
 }
 
 /* FIGURE ---------------------------------------- */
 h2.figure-title {
-    color: black;
-    font-weight: 300;
+  color: black;
+  font-weight: 300;
 }
 
 figcaption {
-    font-size: 1.45em;
+  font-size: 1.45em;
 }
 .btn-figComment {
-    background-color: #e3e3e3;
-    border-radius: 0;
-    color: black;
-    font-size: 1.45em;
-    padding: 5px 5px;
+  background-color: #e3e3e3;
+  border-radius: 0;
+  color: black;
+  font-size: 1.45em;
+  padding: 5px 5px;
 }
 .btn-figComment:hover,
 .btn-figComment:focus {
-    background-color: #c3c3c3;
-    color: black;
+  background-color: #c3c3c3;
+  color: black;
 }
 .figComment {
-    color: #494948;
-    font-size: 1.45em;
-    border: 3px solid #c3c3c3;
-    padding: 5px 20px 5px 20px;
+  color: #494948;
+  font-size: 1.45em;
+  border: 3px solid #c3c3c3;
+  padding: 5px 20px 5px 20px;
 }
 
 /* MEDIA QUERIES ---------------------------------------- */
@@ -239,40 +241,40 @@ figcaption {
 }
 
 @media (min-width: 755px) {
-    .container {
-        max-width: 740px;
-    }
-    .article .header-info h1 {
-        font-size: 7em;
-    }
-    h1,
-    h2 {
-        font-size: 2.4em;
-    }
-    p,
-    ul {
-        font-size: 2.1em;
-    }
-    figcaption {
-        font-size: 1.6em;
-    }
-    .btn-figComment {
-        font-size: 1.6em;
-    }
-    .figComment {
-        font-size: 1.6em;
-    }
-    blockquote {
-        line-height: 25px;
-    }
-    .header-info-focus h1 {
-        font-size: 7em;
-        line-height: 70px;
-        margin: inherit;
-    }
-    .header-info-focus p {
-        font-size: 1.8em;
-    }
+  .container {
+    max-width: 740px;
+  }
+  .article .header-info h1 {
+    font-size: 7em;
+  }
+  h1,
+  h2 {
+    font-size: 2.4em;
+  }
+  p,
+  ul {
+    font-size: 2.1em;
+  }
+  figcaption {
+    font-size: 1.6em;
+  }
+  .btn-figComment {
+    font-size: 1.6em;
+  }
+  .figComment {
+    font-size: 1.6em;
+  }
+  blockquote {
+    line-height: 25px;
+  }
+  .header-info-focus h1 {
+    font-size: 7em;
+    line-height: 70px;
+    margin: inherit;
+  }
+  .header-info-focus p {
+    font-size: 1.8em;
+  }
 }
 
 @import 'TopMenu';
@@ -284,3 +286,4 @@ figcaption {
 @import 'HomePage';
 @import 'ResourcePage';
 @import 'TopicPage';
+@import 'SearchPage';

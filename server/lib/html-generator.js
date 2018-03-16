@@ -13,7 +13,11 @@ const {
   getArticles,
   populatePageUrl,
 } = require('./generator-utils')
-const { footerResourcesConfig } = require('../../client/src/universal-utils')
+const {
+  footerResourcesConfig,
+  LOCALES,
+  getMetaList,
+} = require('../../client/src/universal-utils')
 
 // React dependencies for HTML generation
 const React = require('react')
@@ -200,10 +204,17 @@ exports.generateSearchHTML = async (
   props = {},
 ) => {
   props = await topMenuProps(props)
+  const keywords = props.articles.reduce(
+    (kws, article) =>
+      kws.concat(getMetaList(article, 'keywords').map(({ text }) => text)),
+    [],
+  )
   return wrap(
     React.createElement(SearchPage, {
       ...props,
       types,
+      keywords: [...new Set(keywords)].sort(),
+      locales: LOCALES,
       options: { preview },
     }),
   )

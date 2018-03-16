@@ -257,8 +257,7 @@ class Resources extends Component<Props, State> {
               activeClassName="active"
               isActive={() => t.id === this.props.filters.topic}
               to={this.getMenuTo({ topic: t.id })}>
-              <img alt="icon" src={`/topics/${t.id}.svg`} />
-              {t.name}
+              {t.id - 1}. {t.name}
               {this.renderMenuCountSuffix('topic', t.id)}
             </NavLink>
           </li>

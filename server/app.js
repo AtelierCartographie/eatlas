@@ -103,6 +103,6 @@ app.get(
 app.get('/preview/:page?', user.private(), previews.page)
 
 // Public search API
-app.post('/search', search.search)
+app.post('/search', bodyParser.urlencoded({ extended: true }), search.search)
 
 module.exports = app

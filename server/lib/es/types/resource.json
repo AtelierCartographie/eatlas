@@ -24,7 +24,6 @@
           }
         },
         "list": {
-          "type": "nested",
           "properties": {
             "text": {
               "type": "text"
@@ -55,6 +54,7 @@
       }
     },
     "metas": {
+      "type": "nested",
       "properties": {
         "list": {
           "properties": {

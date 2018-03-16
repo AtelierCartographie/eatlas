@@ -95,5 +95,20 @@
 		"map": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
 		"sound": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
 		"video": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
-	}
+	},
+
+	"// searchFields": "Full-text search fields, use dot for nested fields",
+	"searchFields": [
+		"title",
+		"subtitle",
+		"description",
+		"author",
+		"definitions.dt",
+		"metas.text",
+		"metas.list.text",
+		"nodes.links.text",
+		"nodes.list.text",
+		"nodes.list.list",
+		"nodes.text"
+	]
 }

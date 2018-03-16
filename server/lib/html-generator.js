@@ -13,6 +13,7 @@ const {
   getArticles,
   populatePageUrl,
 } = require('./generator-utils')
+const { footerResourcesConfig } = require('../../client/src/universal-utils')
 
 // React dependencies for HTML generation
 const React = require('react')
@@ -35,6 +36,7 @@ const FocusPage = require('../../client/src/components/preview/FocusPage')
 const TopicPage = require('../../client/src/components/preview/TopicPage')
 const ResourcePage = require('../../client/src/components/preview/ResourcePage')
 const HomePage = require('../../client/src/components/preview/HomePage')
+const SearchPage = require('../../client/src/components/preview/SearchPage')
 const MissingPage = require('../../client/src/components/preview/MissingPage')
 
 const GENERATORS = {
@@ -193,6 +195,31 @@ exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
   )
 }
 
+exports.generateSearchHTML = async (
+  { preview = false, types = null } = {},
+  props = {},
+) => {
+  props = await topMenuProps(props)
+  return wrap(
+    React.createElement(SearchPage, {
+      ...props,
+      types,
+      options: { preview },
+    }),
+  )
+}
+
+exports.generateResourcesHTML = async (
+  { preview = false, resourcesSlug } = {},
+  props = {},
+) => {
+  const conf = footerResourcesConfig.find(({ slug }) => slug === resourcesSlug)
+  if (!conf) {
+    throw new Error('Invalid resourcesSlug "' + resourcesSlug + '"')
+  }
+  return exports.generateSearchHTML({ preview, types: conf.searchTypes }, props)
+}
+
 const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   props = await topMenuProps(props)
   return wrap(
@@ -203,7 +230,6 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   )
 }
 
-exports.generateSearchHTML = generateMissingHTML
 exports.generateResourcesHTML = generateMissingHTML
 exports.generateAboutWhoHTML = generateMissingHTML
 exports.generateAboutContactHTML = generateMissingHTML

@@ -28,13 +28,7 @@ exports.page = async (req, res, next) => {
           `Requires ?slug=valid-slug (one of “${validSlugs.join('”, “')}”)`,
         )
       }
-      const found = footerResourcesConfig.find(
-        ({ slug }) => slug === req.query.slug,
-      )
-      options.params = {
-        searchTypes: found.types,
-        resourcesSlug: found.slug,
-      }
+      options.resourcesSlug = req.query.slug
     }
     res.send(await generateHTML(key, null, options))
   } catch (err) {

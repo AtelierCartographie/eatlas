@@ -15,7 +15,7 @@ const writePage = async (key, resource, topics, articles, params) => {
   const html = await generateHTML(
     key,
     resource,
-    { preview: false, params },
+    { preview: false, ...params },
     { topics, articles },
   )
   await ensureDir(path.dirname(file))
@@ -73,11 +73,8 @@ exports.rebuildAllHTML = async () => {
     writePage('sitemap', null, topics, articles),
     // Resources pages
     Promise.all(
-      footerResourcesConfig.map(({ slug, types }) =>
-        writePage('resources', null, topics, articles, {
-          searchTypes: types,
-          resourcesSlug: slug,
-        }),
+      footerResourcesConfig.map(({ slug }) =>
+        writePage('resources', null, topics, articles, { resourcesSlug: slug }),
       ),
     ),
     // Topic pages

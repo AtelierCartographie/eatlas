@@ -1,10 +1,13 @@
 'use strict'
 
 const config = require('config')
-const { resources: Resources } = require('../model')
+const { resources: Resources, topics: Topics } = require('../model')
 const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
+const {
+  getResourcePageUrl,
+} = require('../../../client/src/components/preview/layout')
 
 const sortField = 'publishedAt'
 const sortDir = 'desc'
@@ -19,7 +22,7 @@ const match = (field, text) => ({
 const nested = (path, query) => ({ nested: { path, score_mode: 'max', query } })
 const range = (field, query) => ({ range: { [field]: query } })
 
-const search = ({ excludeUnpublished = true } = {}) => async (req, res) => {
+const search = ({ preview = false } = {}) => async (req, res) => {
   debug('Input', req.body)
 
   try {
@@ -27,7 +30,7 @@ const search = ({ excludeUnpublished = true } = {}) => async (req, res) => {
     const must = []
 
     // Exclude unpublished resources
-    if (excludeUnpublished) {
+    if (!preview) {
       must.push(term('status', 'published'))
     }
 
@@ -105,11 +108,13 @@ const search = ({ excludeUnpublished = true } = {}) => async (req, res) => {
       debug('Result', inspect(result, false, 3, false))
     }
 
+    const topics = await Topics.list()
+
     res.send({
       start: from + 1,
       end: from + result.hits.hits.length,
       count: result.hits.total,
-      hits: result.hits.hits.map(formatResultHit),
+      hits: result.hits.hits.map(formatResultHit({ topics, preview })),
     })
   } catch (err) {
     logger.error('Search failed', { input: req.body, err })
@@ -117,13 +122,13 @@ const search = ({ excludeUnpublished = true } = {}) => async (req, res) => {
   }
 }
 
-const formatResultHit = ({ _source: resource }) => ({
+const formatResultHit = ({ topics, preview }) => ({ _source: resource }) => ({
   title: resource.title,
   subtitle: resource.subtitle,
   type: resource.type,
-  url: '#TODO',
+  url: getResourcePageUrl(resource, topics, { preview }),
   preview: null,
 })
 
-exports.search = search({ excludeUnpublished: true })
-exports.preview = search({ excludeUnpublished: false })
+exports.search = search()
+exports.preview = search({ preview: true })

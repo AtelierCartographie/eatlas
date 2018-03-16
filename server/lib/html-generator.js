@@ -37,12 +37,51 @@ const ResourcePage = require('../../client/src/components/preview/ResourcePage')
 const HomePage = require('../../client/src/components/preview/HomePage')
 const MissingPage = require('../../client/src/components/preview/MissingPage')
 
+const GENERATORS = {
+  index: 'generateHomeHTML',
+  search: 'generateSearchHTML',
+  aboutUs: 'generateAboutWhoHTML',
+  contact: 'generateAboutContactHTML',
+  legals: 'generateAboutLegalsHTML',
+  sitemap: 'generateSiteMapHTML',
+  resources: 'generateResourcesHTML',
+  topic: 'generateTopicHTML',
+  article: 'generateArticleHTML',
+  focus: 'generateFocusHTML',
+  definition: 'generateResourceHTML',
+  sound: 'generateResourceHTML',
+  video: 'generateResourceHTML',
+  image: 'generateResourceHTML',
+  map: 'generateResourceHTML',
+}
+
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
 const topMenuProps = async ({ topics = null, articles = null } = {}) => {
   topics = populatePageUrl('topic')(topics || (await getTopics()))
   articles = populatePageUrl(null, topics)(articles || (await getArticles()))
   return { topics, articles }
+}
+
+exports.generateHTML = async (key, resource, options, props = {}) => {
+  let generator = GENERATORS[key]
+  if (!generator) {
+    throw new Error(`No HTML generator for "${key}"`)
+  }
+  if (typeof generator === 'string') {
+    const name = generator
+    generator = exports[name]
+    if (!generator) {
+      throw new Error(`No function "${name}" for generator key "${key}"`)
+    }
+  }
+
+  props = await topMenuProps(props)
+  const html = resource
+    ? await generator(resource, options, props)
+    : await generator(options, props)
+
+  return html
 }
 
 exports.generateArticleHTML = async (

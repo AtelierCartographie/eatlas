@@ -8,51 +8,16 @@ const { topics: Topics, resources: Resources } = require('./model')
 const { pagePath } = require('./resource-path')
 const { footerResourcesConfig } = require('../../client/src/universal-utils')
 const { populatePageUrl } = require('./generator-utils')
-const {
-  generateAboutContactHTML,
-  generateAboutLegalsHTML,
-  generateAboutWhoHTML,
-  generateArticleHTML,
-  generateFocusHTML,
-  generateHomeHTML,
-  generateResourceHTML,
-  generateResourcesHTML,
-  generateSearchHTML,
-  generateSiteMapHTML,
-  generateTopicHTML,
-} = require('./html-generator')
+const { generateHTML } = require('./html-generator')
 
 const writePage = async (key, resource, topics, articles, params) => {
   const file = pagePath(key, resource, topics, params)
-
-  const generator = await {
-    index: generateHomeHTML,
-    search: generateSearchHTML,
-    aboutUs: generateAboutWhoHTML,
-    contact: generateAboutContactHTML,
-    legals: generateAboutLegalsHTML,
-    sitemap: generateSiteMapHTML,
-    resources: generateResourcesHTML,
-    topic: generateTopicHTML,
-    article: generateArticleHTML,
-    focus: generateFocusHTML,
-    definition: generateResourceHTML,
-    sound: generateResourceHTML,
-    video: generateResourceHTML,
-    image: generateResourceHTML,
-    map: generateResourceHTML,
-  }[key]
-
-  if (!generator) {
-    throw new Error('No HTML generator for "' + key + '"')
-  }
-
-  const props = { articles, topics }
-  const options = { preview: false }
-  const html = resource
-    ? await generator(resource, options, props)
-    : await generator(options, props)
-
+  const html = await generateHTML(
+    key,
+    resource,
+    { preview: false, params },
+    { topics, articles },
+  )
   await ensureDir(path.dirname(file))
   try {
     await writeFile(file, html)

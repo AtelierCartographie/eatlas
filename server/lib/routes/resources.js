@@ -5,16 +5,12 @@ const get = require('lodash.get')
 
 const { resources: Resources, topics: Topics } = require('../model')
 const schemas = require('../schemas')
-const {
-  generateArticleHTML,
-  generateFocusHTML,
-  generateResourceHTML,
-} = require('../html-generator')
 const { download } = require('../google')
 const { updateFiles, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
 const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 const { rebuildAllHTML } = require('../site-builder')
+const previews = require('./resources') // for alias resources.preview = previews.resource
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)
@@ -204,31 +200,7 @@ exports.file = async (req, res, next) => {
   }
 }
 
-exports.preview = async (req, res, next) => {
-  const resource = req.foundResource
-  const options = { preview: true }
-  try {
-    switch (resource.type) {
-      // HTML previews: article & focus
-      case 'article':
-        return res.send(await generateArticleHTML(resource, options))
-      case 'focus': {
-        return res.send(await generateFocusHTML(resource, options))
-      }
-      // Binary previews: audio, map and image
-      // Note: map and image have multiple files, that can be selected with req.params.k
-      case 'map':
-      case 'image':
-      case 'sound':
-      case 'video':
-        return res.send(await generateResourceHTML(resource, options))
-      default:
-        return res.boom.badRequest('No preview for this type')
-    }
-  } catch (err) {
-    next(err)
-  }
-}
+exports.preview = previews.resource
 
 // Returns additional metadata to be merged into resource before creation
 const handleUploads = async (body, required) => {

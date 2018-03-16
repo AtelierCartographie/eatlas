@@ -53,4 +53,27 @@ $color-blue: #4778d1;
     margin-right: $gap;
     padding: 8px;
   }
+
+  .search-filters-toggle {
+    &[data-filters-hidden='1'] {
+      .toggle-collapse {
+        display: none;
+      }
+      & + .search-filters-inputs {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+      }
+    }
+    &[data-filters-hidden='0'] {
+      .toggle-expand {
+        display: none;
+      }
+      & + .search-filters-inputs {
+        max-height: 500px;
+        overflow: hidden;
+        transition: max-height 0.2s ease-in;
+      }
+    }
+  }
 }

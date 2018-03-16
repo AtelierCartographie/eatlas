@@ -45,7 +45,11 @@ const resultsTemplate = ({ showType = true }) => `
 `
 
 const filtersToggle = (title, inputs) => [
-  h('.row.search-filters-subtitle', title),
+  h('.row.search-filters-toggle', { 'data-filters-hidden': '1' }, [
+    h('.col-sm-3.search-filters-subtitle', title),
+    h('.col-sm-1.toggle-expand', '⌄'),
+    h('.col-sm-1.toggle-collapse', '⌃'),
+  ]),
   h(
     '.container.search-filters-inputs',
     inputs.map((input, key) =>

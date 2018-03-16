@@ -35,12 +35,23 @@
       )
     }, 100)
 
+    // Run search on submit or change
     $form.on('submit', e => {
       e.preventDefault()
       search()
     })
     $('input, select, textarea', $form).on('change', e => {
       search()
+    })
+
+    // Expand/collapse filters
+    $('.search-filters-toggle[data-filters-hidden]').on('click', e => {
+      e.preventDefault()
+      const $this = $(e.currentTarget)
+      const current = $this.attr('data-filters-hidden')
+      console.log({ current })
+      const next = current === '1' ? '0' : '1'
+      $this.attr('data-filters-hidden', next)
     })
 
     // Initialize search if there is pre-filled input

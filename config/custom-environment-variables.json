@@ -4,6 +4,7 @@
 		"host": "SERVER_HOST"
 	},
 	"publicUrl": "REACT_APP_FRONT_URL",
+	"apiUrl": "REACT_APP_ADMIN_URL",
 	"es": {
 		"connection": {
 			"host": "ES_HOST:ES_PORT"

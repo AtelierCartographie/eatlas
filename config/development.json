@@ -11,5 +11,5 @@
 		"src": true
 	},
 	"publicUrl": "http://localhost:3000/generated",
-	"publicPath": "$clientPath/public/generated"
+	"apiUrl": "http://localhost:4000"
 }

@@ -26,13 +26,7 @@ const publicUrls = (() => {
 })()
 
 const apiUrls = (() => {
-  const protocol = config.server.secure ? 'https:' : 'http:'
-  const hostname = config.server.host
-  const port =
-    (config.server.port === 80 && !config.server.secure) ||
-    (config.server.port === 443 && config.server.secure)
-      ? null
-      : config.server.port
+  const { protocol, hostname, port } = Url.parse(config.apiUrl)
   return buildUrls(protocol, hostname, port)
 })()
 

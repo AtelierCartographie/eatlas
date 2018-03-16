@@ -17,5 +17,7 @@
 	},
 	"google": {
 		"clientId": "see https://console.cloud.google.com/apis/credentials"
-	}
+	},
+	"publicUrl": "http://localhost",
+	"apiUrl": "http://localhost/api"
 }

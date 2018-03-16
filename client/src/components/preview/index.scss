@@ -5,10 +5,6 @@
   padding-right: 20px;
 }
 
-.container-fluid {
-  padding: 0;
-}
-
 figure {
   margin-bottom: 3.2em;
 }
@@ -91,7 +87,6 @@ ul.navmenu-nav a {
   font-size: 1.6rem;
 }
 
-/* WRAP ---------------------------------------- */
 /* NAVBAR ---------------------------------------- */
 .navbar {
   margin-bottom: 0px;
@@ -183,11 +178,6 @@ ul.navmenu-nav a {
   margin: auto;
 }
 
-hr {
-  border: 1px solid #bebebe;
-  margin-bottom: 0px;
-}
-
 /* FIGURE ---------------------------------------- */
 h2.figure-title {
   color: black;
@@ -223,23 +213,6 @@ figcaption {
   }
   figcaption {
     font-size: 1.6em;
-  }
-  .btn-figComment {
-    font-size: 1.6em;
-  }
-  .figComment {
-    font-size: 1.6em;
-  }
-  blockquote {
-    line-height: 25px;
-  }
-  .header-info-focus h1 {
-    font-size: 7em;
-    line-height: 70px;
-    margin: inherit;
-  }
-  .header-info-focus p {
-    font-size: 1.8em;
   }
 }
 

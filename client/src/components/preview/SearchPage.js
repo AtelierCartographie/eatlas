@@ -15,6 +15,33 @@ const Body = require('./Body')
 
 // subcomponents
 
+const resultsTemplate = ({ showType = true }) => `
+<div class="row search-page">
+  <% if (results.start > 1 || results.end < results.count) { %>
+    <%= results.start %> - <%= results.end %> sur <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
+  <% } else { %>
+    <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
+  <% } %>
+</div>
+<% _.forEach(results, function (result) { %>
+  <a class="row search-result" href="<%= result.url %>">
+    ${showType && `<div class="search-result-type"><%= result.type %></div>`}
+    <% if (result.preview) { %>
+      <div class="search-result-preview col-sm-6">
+        <img src="<%= result.preview.url %>" alt="">
+      </div>
+      <div class="search-result-text col-sm-6">
+        <span><%= result.text %></span>
+      </div>
+    <% } else { %>
+      <div class="search-result-text col-sm-6">
+        <span><%= result.text %></span>
+      </div>
+    <% } %>
+  </a>
+<% }) %>
+`
+
 const filtersToggle = (title, inputs) => [
   h('.row.search-filters-subtitle', title),
   h(
@@ -27,68 +54,75 @@ const filtersToggle = (title, inputs) => [
 
 const Search = ({ topics, types, locales, keywords }) => {
   return h('article.SearchPage', [
-    h('section.container.SearchForm', [
-      h('form.search', [
-        h('.row.search-input', [
-          h('input', { placeholder: "Rechercher dans l'atlas" }),
-          h('button', [h(Img, { alt: '', src: `/assets/img/search.svg` })]),
-        ]),
-        h('.search-filters', [
-          h('.container', [
-            h('.row.search-filters-title', 'Affiner la recherche'),
-            ...filtersToggle(
-              'Chapitre',
-              topics.map(topic => [
-                h('input', {
-                  type: 'checkbox',
-                  name: 'topics[]',
-                  key: 'input',
-                  value: topic.id,
-                }),
-                h('span', { key: 'label' }, topic.name),
+    h(
+      'section.container.SearchForm',
+      types ? { 'data-search-types': JSON.stringify(types) } : {},
+      [
+        h('form.search', [
+          h('.row.search-input', [
+            h('input', { name: 'q', placeholder: "Rechercher dans l'atlas" }),
+            h('button', [h(Img, { alt: '', src: `/assets/img/search.svg` })]),
+          ]),
+          h('.search-filters', [
+            h('.container', [
+              h('.row.search-filters-title', 'Affiner la recherche'),
+              ...filtersToggle(
+                'Chapitre',
+                topics.map(topic => [
+                  h('input', {
+                    type: 'checkbox',
+                    name: 'topics[]',
+                    key: 'input',
+                    value: topic.id,
+                  }),
+                  h('span', { key: 'label' }, topic.name),
+                ]),
+              ),
+              ...filtersToggle(
+                'Mots-clés',
+                keywords.map(keyword => [
+                  h('input', {
+                    type: 'checkbox',
+                    name: 'keywords[]',
+                    key: 'input',
+                    value: keyword,
+                  }),
+                  h('span', { key: 'label' }, keyword),
+                ]),
+              ),
+              ...filtersToggle('Date de publication', [
+                [
+                  h('span', { key: 'label' }, 'Avant le…'),
+                  h('input', { type: 'date', name: 'date-max', key: 'input' }),
+                ],
+                [
+                  h('span', { key: 'label' }, 'Après le…'),
+                  h('input', { type: 'date', name: 'date-min', key: 'input' }),
+                ],
               ]),
-            ),
-            ...filtersToggle(
-              'Mots-clés',
-              keywords.map(keyword => [
-                h('input', {
-                  type: 'checkbox',
-                  name: 'keywords[]',
-                  key: 'input',
-                  value: keyword,
-                }),
-                h('span', { key: 'label' }, keyword),
-              ]),
-            ),
-            ...filtersToggle('Date de publication', [
-              [
-                h('span', { key: 'label' }, 'Avant le…'),
-                h('input', { type: 'date', name: 'date-max', key: 'input' }),
-              ],
-              [
-                h('span', { key: 'label' }, 'Après le…'),
-                h('input', { type: 'date', name: 'date-min', key: 'input' }),
-              ],
+              ...filtersToggle(
+                'Langue',
+                Object.keys(locales).map(locale => [
+                  h('input', {
+                    type: 'checkbox',
+                    name: 'locales[]',
+                    key: 'input',
+                    value: locale,
+                  }),
+                  h('span', { key: 'label' }, locales[locale]),
+                ]),
+              ),
             ]),
-            ...filtersToggle(
-              'Langue',
-              Object.keys(locales).map(locale => [
-                h('input', {
-                  type: 'checkbox',
-                  name: 'locales[]',
-                  key: 'input',
-                  value: locale,
-                }),
-                h('span', { key: 'label' }, locales[locale]),
-              ]),
-            ),
           ]),
         ]),
-      ]),
-    ]),
-    h('section.SearchResults', [
-      // TODO
-    ]),
+      ],
+    ),
+    h(
+      'script.results-template',
+      { type: 'text/html' },
+      resultsTemplate({ showType: !types }),
+    ),
+    h('section.SearchResults', [h('.container.search-results-container')]),
   ])
 }
 

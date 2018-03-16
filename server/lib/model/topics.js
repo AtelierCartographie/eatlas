@@ -2,9 +2,16 @@
 
 const { fullTopic, validate } = require('../schemas')
 
-const { find, findById, insert, update, remove } = require('../es/client')(
-  'topic',
-)
+const {
+  search,
+  find,
+  findById,
+  insert,
+  update,
+  remove,
+} = require('../es/client')('topic')
+
+exports.search = search
 
 exports.list = find
 
@@ -12,7 +19,7 @@ exports.findById = findById
 
 exports.create = async doc => {
   const topic = await validate(doc, fullTopic)
-  return await findById(topic.id)
+  return (await findById(topic.id))
     ? Promise.reject(new Error('Invalid Id (already exists)'))
     : insert(topic, topic.id)
 }

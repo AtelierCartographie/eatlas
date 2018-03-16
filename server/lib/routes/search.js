@@ -6,7 +6,7 @@ const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
 
-const sortVal = r => new Date(r.publishedAt)
+const sortField = 'publishedAt'
 const sortDir = 'desc'
 const nbPerPage = 1
 
@@ -90,24 +90,15 @@ exports.search = async (req, res) => {
     const size = Number(req.body.size) || nbPerPage
     const from = (page - 1) * size
 
+    const body = { query: { bool: { must } }, sort: [{ [sortField]: sortDir }] }
     if (debug.enabled) {
-      debug('Query', inspect({ query: { bool: { must } } }, false, 99, false))
+      debug('Query', inspect(body, false, 99, false))
     }
 
-    const resources = await Resources.list(
-      { query: { bool: { must } } },
-      { size, from },
-    )
-    resources.sort(
-      (r1, r2) =>
-        sortDir === 'desc'
-          ? sortVal(r2) - sortVal(r1)
-          : sortVal(r1) - sortVal(r2),
-    )
+    const result = await Resources.search({ body, size, from })
+    debug('Result', result)
 
-    debug('Results', resources.length)
-
-    res.send(resources)
+    res.send(result.hits.hits)
   } catch (err) {
     logger.error('Search failed', { input: req.body, err })
     res.boom.badImplementation(err)

@@ -3,6 +3,7 @@
 const { email: _email, fullUser, userUpdate, validate } = require('../schemas')
 
 const {
+  search,
   find,
   findOne,
   findById,
@@ -10,6 +11,8 @@ const {
   update,
   remove,
 } = require('../es/client')('user')
+
+exports.search = search
 
 exports.findByEmail = email =>
   validate(email, _email).then(email => findOne({ query: { term: { email } } }))

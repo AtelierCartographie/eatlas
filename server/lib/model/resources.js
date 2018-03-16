@@ -3,6 +3,7 @@
 const { fullResource, validate } = require('../schemas')
 
 const {
+  search,
   find,
   // findOne,
   findById,
@@ -10,6 +11,8 @@ const {
   update,
   remove,
 } = require('../es/client')('resource')
+
+exports.search = search
 
 exports.list = find
 

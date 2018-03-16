@@ -53,10 +53,11 @@ const formatHit = ({ _source, _id }) => Object.assign({}, _source, { id: _id })
 const ready = pinged.then(() => initIndices(client, indices))
 
 module.exports = type => {
+  const search = options =>
+    client.search({ index: indices[type], type, ...options })
+
   const find = (body, { size = 1000, from = 0 } = {}) =>
-    client
-      .search({ index: indices[type], type, body, size, from })
-      .then(res => res.hits.hits.map(formatHit))
+    search({ body, size, from }).then(res => res.hits.hits.map(formatHit))
 
   const findOne = body =>
     find(body, { size: 1 }).then(([result]) => result || null)
@@ -83,6 +84,7 @@ module.exports = type => {
     client.delete({ index: indices[type], type, id, refresh })
 
   return {
+    search,
     find,
     findOne,
     findById,

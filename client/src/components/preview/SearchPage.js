@@ -15,7 +15,9 @@ const Body = require('./Body')
 
 // helpers
 
-const ENDPOINT = (process.env.REACT_APP_API_SERVER || '') + '/search'
+const searchEndpoint = ({ preview = false } = {}) =>
+  (process.env.REACT_APP_API_SERVER || '') +
+  (preview ? '/preview/_search' : '/search')
 
 const hitTextTemplate = `
   <strong><%= hit.title %></strong>
@@ -71,14 +73,14 @@ const filtersToggle = (title, inputs) => [
 
 // sub-components
 
-const Search = ({ topics, types, locales, keywords }) => {
+const Search = ({ topics, types, locales, keywords, options }) => {
   return h('article.SearchPage', [
     h('section.container.SearchForm', [
       h(
         'form.search',
         {
           'data-search-types': types ? JSON.stringify(types) : undefined,
-          'data-api-url': ENDPOINT,
+          'data-api-url': searchEndpoint(options),
         },
         [
           h('.row.search-input', [

@@ -100,8 +100,9 @@ app.get(
   resources.findResource,
   previews.resource,
 )
+app.get('/preview/topics/:id', user.private(), topics.findTopic, topics.preview)
+app.post('/preview/_search', user.private(), search.preview)
 app.get('/preview/:page?', user.private(), previews.page)
-app.get('/preview/topics/:id', topics.findTopic, topics.preview)
 
 // Public search API
 app.post('/search', bodyParser.urlencoded({ extended: true }), search.search)

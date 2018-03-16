@@ -19,15 +19,20 @@ const match = (field, text) => ({
 const nested = (path, query) => ({ nested: { path, score_mode: 'max', query } })
 const range = (field, query) => ({ range: { [field]: query } })
 
-exports.search = async (req, res) => {
+const search = ({ excludeUnpublished = true } = {}) => async (req, res) => {
   debug('Input', req.body)
 
   try {
-    // Base search: status (AND next criteria)
-    const must = [
-      term('status', 'published'),
-      { bool: { must_not: term('id', 'LEXIC') } },
-    ]
+    // AND
+    const must = []
+
+    // Exclude unpublished resources
+    if (excludeUnpublished) {
+      must.push(term('status', 'published'))
+    }
+
+    // Exclude Lexicon because we can't handle definitions properly
+    must.push({ bool: { must_not: term('id', 'LEXIC') } })
 
     // Resource types?
     if (req.body.types) {
@@ -117,3 +122,6 @@ const formatResultHit = ({ _source: resource }) => ({
   url: '#TODO',
   preview: null,
 })
+
+exports.search = search({ excludeUnpublished: true })
+exports.preview = search({ excludeUnpublished: false })

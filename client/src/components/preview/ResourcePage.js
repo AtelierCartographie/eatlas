@@ -15,11 +15,10 @@ const Body = require('./Body')
 // subcomponents
 
 const ResourceImage = ({ resource }) => {
-  console.log({ images: resource.images })
   return h('.ResourceImage', [
-    h('img', { src:`http://localhost:4000/resources/${resource.id}/file` }),
-    h('.ResourceCopyright', `Source: ${resource.copyright}`)
-    ])
+    h('img', { src: `http://localhost:4000/resources/${resource.id}/file` }),
+    h('.ResourceCopyright', `Source: ${resource.copyright}`),
+  ])
 }
 
 const ResourceSound = ({ resource }) => {

@@ -46,7 +46,6 @@ const ArticleHeader = ({ article, resources, options }) => {
   const imageHeader = getResource(resources, article.imageHeader)
   const imageHeaderUrl =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
-  console.log({ imageHeader, imageHeaderUrl })
   const style = imageHeaderUrl
     ? {
         backgroundImage: `url(${imageHeaderUrl})`,
@@ -286,22 +285,23 @@ const Article = props =>
 
 // TODO what is prev article? what is next article?
 // for now using random relateds to test css styling and behavior
-const ArticlePrevNext = ({ topics, relateds }) => {
+const ArticlePrevNext = ({ topics, relateds, options }) => {
   if (!relateds || !relateds.length) return null
-  const r = relateds[0]
+  const prev = relateds[0]
+  const next = relateds[relateds.length - 1]
 
   return [
-    h('a.ArticlePrev', [
+    h('a.ArticlePrev', { href: getResourcePageUrl(prev, topics, options) }, [
       h('span.ArticlePrevNextTopic', [
-        (topics.find(t => t.id === r.topic) || {}).name,
+        (topics.find(t => t.id === prev.topic) || {}).name,
       ]),
-      h('span.ArticlePrevNextTitle', r.title),
+      h('span.ArticlePrevNextTitle', prev.title),
     ]),
-    h('a.ArticleNext', [
+    h('a.ArticleNext', { href: getResourcePageUrl(next, topics, options) }, [
       h('span.ArticlePrevNextTopic', [
-        (topics.find(t => t.id === r.topic) || {}).name,
+        (topics.find(t => t.id === next.topic) || {}).name,
       ]),
-      h('span.ArticlePrevNextTitle', r.title),
+      h('span.ArticlePrevNextTitle', next.title),
     ]),
   ]
 }
@@ -334,7 +334,7 @@ class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], de
           lexiconId,
           options,
         }),
-        h(ArticlePrevNext, { topics, relateds }),
+        h(ArticlePrevNext, { topics, relateds, options }),
       ]),
     ])
   }

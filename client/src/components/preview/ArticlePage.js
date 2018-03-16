@@ -125,10 +125,10 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         h('picture', [
           // Only one size (set to 'large')
           h('source', {
-            srcSet: srcset(resource, 'large', undefined, options),
+            srcSet: srcset(resource, 'large', options),
           }),
           h('img.img-responsive', {
-            srcSet: srcset(resource, 'large', undefined, options),
+            srcSet: srcset(resource, 'large', options),
           }),
         ]),
         h('figcaption', resource.description),
@@ -141,14 +141,14 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         h('h2.figure-title', resource.title),
         h('picture', [
           h('source', {
-            srcSet: srcset(resource, 'medium', undefined, options),
+            srcSet: srcset(resource, 'medium', options),
             media: '(min-width: 560px)',
           }),
           h('source', {
-            srcSet: srcset(resource, 'small', undefined, options),
+            srcSet: srcset(resource, 'small', options),
           }),
           h('img.img-responsive', {
-            srcSet: srcset(resource, 'small', undefined, options),
+            srcSet: srcset(resource, 'small', options),
           }),
         ]),
         h('figcaption', resource.description),

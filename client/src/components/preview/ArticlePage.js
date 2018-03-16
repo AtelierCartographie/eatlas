@@ -124,8 +124,12 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         h('h2.figure-title', resource.title),
         h('picture', [
           // Only one size (set to 'large')
-          h('source', { srcSet: srcset(resource, 'large') }),
-          h('img.img-responsive', { srcSet: srcset(resource, 'large') }),
+          h('source', {
+            srcSet: srcset(resource, 'large', undefined, options),
+          }),
+          h('img.img-responsive', {
+            srcSet: srcset(resource, 'large', undefined, options),
+          }),
         ]),
         h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),
@@ -137,11 +141,15 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         h('h2.figure-title', resource.title),
         h('picture', [
           h('source', {
-            srcSet: srcset(resource, 'medium'),
+            srcSet: srcset(resource, 'medium', undefined, options),
             media: '(min-width: 560px)',
           }),
-          h('source', { srcSet: srcset(resource, 'small') }),
-          h('img.img-responsive', { srcSet: srcset(resource, 'small') }),
+          h('source', {
+            srcSet: srcset(resource, 'small', undefined, options),
+          }),
+          h('img.img-responsive', {
+            srcSet: srcset(resource, 'small', undefined, options),
+          }),
         ]),
         h('figcaption', resource.description),
         h('a.btn.btn-figComment', 'Commentaire'),

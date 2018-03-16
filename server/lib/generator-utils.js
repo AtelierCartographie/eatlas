@@ -39,7 +39,11 @@ exports.populatePageUrl = (key, topics) => resource => {
   if (Array.isArray(resource)) {
     return resource.map(exports.populatePageUrl(key, topics))
   }
-  resource.pageUrl = pathToUrl(pagePath(key || resource.type, resource, topics))
+  if (!resource.pageUrl) {
+    resource.pageUrl = pathToUrl(
+      pagePath(key || resource.type, resource, topics),
+    )
+  }
   return resource
 }
 

@@ -1,5 +1,7 @@
 // fonts
 
+// body text is $sans by default
+// so only overload selector with $serif when appropriate
 $sans: 'Fira Sans', sans-serif;
 $serif: 'Gentium Basic', serif;
 

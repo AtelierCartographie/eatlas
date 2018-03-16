@@ -29,7 +29,6 @@
     border: none;
     color: $color-white;
     display: block;
-    font-family: $sans;
     width: 100%;
 
     &.active {
@@ -55,7 +54,6 @@
     background: $color-footer;
     border: 0;
     border-radius: 0;
-    font-family: $sans;
     margin: 0;
     padding: $gap2;
     width: 100%;
@@ -111,7 +109,6 @@
 
     ol li::before {
       display: inline-block;
-      font-family: $sans;
       vertical-align: top;
       min-width: 1em;
       padding-right: 0.5em;
@@ -131,7 +128,6 @@
 
     a {
       color: inherit;
-      font-family: $sans;
       font-size: 16px;
     }
   }

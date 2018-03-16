@@ -5,10 +5,13 @@
   background-image: url('http://localhost:3000/assets/img/pictos-focus.svg');
   background-repeat: no-repeat;
   color: #ffc300;
-  font-family: $sans;
   font-size: 21px;
   padding-left: 40px;
   text-transform: uppercase;
+}
+
+.DocParagraph {
+  font-family: $serif;
 }
 
 .DocFooter {
@@ -50,6 +53,7 @@
   a {
     background-color: $color-keyword;
     color: rgba(0,0,0,.8);
+    font-family: $serif;
     font-size: 15.8px;
     line-height: 24px;
     padding: 3px 8px;
@@ -67,11 +71,12 @@
 
 .Quote {
   blockquote {
+    border-left: 4px solid $color-white;
+    font-family: $serif;
     font-size: 10px;
     line-height: 21px;
     margin: 0px;
     padding-left: 16px;
-    border-left: 4px solid #fff;
   }
 }
 
@@ -84,6 +89,7 @@
   }
 
   li {
+    font-family: $serif;
     font-size: 15.8px;
     margin-bottom: $gap;
   }
@@ -111,17 +117,18 @@
 }
 
 .Lexicon {
-    position: fixed;
     background-color: #d1d6e0;
-    box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
     border-top: 1px solid #ccc;
     bottom: -1px;
-    max-height: 60%;
-    padding: 0px;
+    box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
+    font-family: $serif;
     left: 0;
-    right: 0;
     margin-left: auto;
     margin-right: auto;
+    max-height: 60%;
+    padding: 0px;
+    position: fixed;
+    right: 0;
     z-index: 1;
 
     dl {

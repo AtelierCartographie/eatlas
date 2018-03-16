@@ -19,7 +19,6 @@
     }
 
     .ArticleTitle {
-      font-family: $sans;
       font-size: 70px;
       font-weight: normal;
       line-height: 70px;
@@ -34,6 +33,17 @@
       line-height: 18px;
       text-shadow: 0em 0em 10px #444;
       box-decoration-break: clone;
+    }
+  }
+
+  .ArticleBreadcrumb {
+    background-color: $color-breadcrumb;
+    font-family: $serif;
+    font-size: 14.5px;
+    height: $gap3;
+
+    a {
+      color: $color-white;
     }
   }
 
@@ -56,6 +66,7 @@
     }
 
     p {
+      font-family: $serif;
       font-size: 17px;
       line-height: 26px;
       text-align: left;
@@ -108,16 +119,6 @@
     }
   }
 
-  .ArticleBreadcrumb {
-    background-color: $color-breadcrumb;
-    font-size: 14.5px;
-    height: $gap3;
-
-    a {
-      color: $color-white;
-    }
-  }
-
   .ArticleFocus {
     color: $color-text;
     font-size: 20px;
@@ -137,7 +138,6 @@
     a {
       color: initial;
       display: block;
-      font-family: $sans;
       text-decoration: none;
     }
   }
@@ -179,7 +179,6 @@
     }
 
     .ArticleSeeAlsoTitle {
-      font-family: $sans;
       font-size: 18px;
       font-weight: bold;
       line-height: 21px;
@@ -202,7 +201,6 @@
 
 .nav-article-topic,
 .nav-article-title {
-    font-family: $sans;
     color: black;
     text-decoration: none;
     width: 200px;

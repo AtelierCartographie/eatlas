@@ -10,7 +10,6 @@ $color-blue: #4778d1;
 
     .HomeTitle {
       color: $color-white;
-      font-family: $sans;
       font-size: 70px;
       font-weight: bold;
       line-height: 70px;
@@ -36,8 +35,7 @@ $color-blue: #4778d1;
   }
 
   section, p, li {
-   font-family: $sans;
-   font-size: 14px;
+    font-size: 14px;
   }
 
   h2, h3 {

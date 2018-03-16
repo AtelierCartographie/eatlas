@@ -44,32 +44,12 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Fira Sans', sans-serif;
     font-weight: 700;
-}
-
-p,
-a,
-ul,
-li,
-dl {
-    font-family: 'Gentium Basic', serif;
 }
 
 /* video */
 iframe {
     display: block;
-}
-
-h1.table-content-title {
-    font-size: 4.1em;
-    line-height: 1.57em;
-    margin-top: 48px;
-}
-
-h1.table-content-title img {
-    width: 50px;
-    margin-right: 10px;
 }
 
 h1,
@@ -105,24 +85,8 @@ ul {
     padding: 5px 5px;
 }
 
-a.keyword {
-    color: rgba(0,0,0,.8);
-    text-decoration: none;
-    transition-duration: 0.2s;
-    transition-property: all;
-    background-color: #d1d6e0;
-    padding: 3px 8px;
-}
-
-a.keyword:focus,
-a.keyword:hover {
-    color: white;
-    background-color: #4778d1;
-}
-
 ul.navmenu-nav,
 ul.navmenu-nav a {
-    font-family: 'Fira Sans', sans-serif;
     font-weight: 400;
     font-size: 1.6rem;
 }
@@ -222,16 +186,28 @@ hr {
     margin-bottom: 0px;
 }
 
+// TODO move to ArticlePage as lexicon
+a.keyword {
+    color: rgba(0,0,0,.8);
+    text-decoration: none;
+    transition-duration: 0.2s;
+    transition-property: all;
+    background-color: #d1d6e0;
+    padding: 3px 8px;
+}
+
+a.keyword:focus,
+a.keyword:hover {
+    color: white;
+    background-color: #4778d1;
+}
+
 /* FIGURE ---------------------------------------- */
 h2.figure-title {
     color: black;
     font-weight: 300;
 }
 
-figcaption,
-figcaption a {
-    font-family: 'Fira Sans', sans-serif;
-}
 figcaption {
     font-size: 1.45em;
 }
@@ -240,7 +216,6 @@ figcaption {
     border-radius: 0;
     color: black;
     font-size: 1.45em;
-    font-family: 'Fira sans', sans-serif;
     padding: 5px 5px;
 }
 .btn-figComment:hover,
@@ -250,7 +225,6 @@ figcaption {
 }
 .figComment {
     color: #494948;
-    font-family: 'Fira sans', sans-serif;
     font-size: 1.45em;
     border: 3px solid #c3c3c3;
     padding: 5px 20px 5px 20px;
@@ -267,10 +241,6 @@ figcaption {
 @media (min-width: 755px) {
     .container {
         max-width: 740px;
-    }
-    .container.table-content {
-        padding-left: 20px;
-        padding-right: 20px;
     }
     .article .header-info h1 {
         font-size: 7em;

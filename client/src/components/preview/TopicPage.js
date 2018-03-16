@@ -64,7 +64,7 @@ const ArticleList = ({ articles, topics, options }) => {
                     ),
                   ],
             ),
-            a.summaries.fr,
+            h('.ArticleListSummary', a.summaries.fr),
           ]),
         ]),
         a.focus &&

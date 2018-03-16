@@ -4,7 +4,6 @@
     padding-bottom: $gap3;
 
     .PageTitle {
-      font-family: $sans;
       font-size: 20px;
       font-weight: bold;
       line-height: 20px;
@@ -12,14 +11,12 @@
     }
 
     .ResourceType {
-      font-family: $sans;
       font-size: 20px;
       font-weight: normal;
       line-height: 20px;
     }
 
     .ResourceTitle {
-      font-family: $sans;
       font-size: 30px;
       font-weight: normal;
       line-height: 30px;
@@ -48,7 +45,6 @@
       line-height: 16px;
       margin-top: $gap3;
     }
-
   }
 }
 

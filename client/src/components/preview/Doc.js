@@ -56,7 +56,7 @@ exports.Paragraph = ({ p, lexiconId }) => {
     return h(Fragment, { key: p }, parseFootnotes(p))
   })
 
-  return h('p.container', parts)
+  return h('p.container.DocParagraph', parts)
 }
 
 exports.Keywords = ({ keywords }) => {

@@ -243,7 +243,15 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   })
 }
 
-const ArticleSeeAlso = ({ article, relateds, topics, resources, options }) => {
+const ArticleSeeAlso = ({ article, topics, resources, options }) => {
+  // used by SeeAlso and PrevNext
+  const relateds = article.related
+    .map(r => {
+      const [articleId] = r.text.split(/\s*-\s*/)
+      return getResource(resources, articleId)
+    })
+    .filter(a => !!a)
+
   if (!relateds || !relateds.length) return null
 
   return h('section.container.ArticleSeeAlso', [
@@ -284,12 +292,12 @@ const ArticleSeeAlso = ({ article, relateds, topics, resources, options }) => {
   ])
 }
 
-const ArticleFooter = ({ article, relateds, topics, resources, options }) =>
+const ArticleFooter = ({ article, topics, resources, options }) =>
   h('footer.DocFooter', [
     h(Keywords, { keywords: article.keywords }),
     h(Quote, { doc: article }),
     h(Footnotes, { footnotes: article.footnotes }),
-    h(ArticleSeeAlso, { article, relateds, topics, resources, options }),
+    h(ArticleSeeAlso, { article, topics, resources, options }),
   ])
 
 const Article = props =>
@@ -302,58 +310,61 @@ const Article = props =>
     h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
   ])
 
-// TODO what is prev article? what is next article?
-// for now using random relateds to test css styling and behavior
-const ArticlePrevNext = ({ topics, relateds, options }) => {
-  if (!relateds || !relateds.length) return null
-  const prev = relateds[0]
-  const next = relateds[relateds.length - 1]
+// use *all* the articles of the site
+const ArticlePrevNext = ({ article, articles, topics, options }) => {
+  if (!articles || !articles.length) return null
+  const currentIndex = articles.findIndex(a => a.id === article.id)
+  const prevIndex = currentIndex !== 0 ? currentIndex - 1 : null
+  const nextIndex =
+    currentIndex !== articles.length - 1 ? currentIndex + 1 : null
+  const prev = articles[prevIndex]
+  const next = articles[nextIndex]
 
   return [
-    h('a.ArticlePrev', { href: getResourcePageUrl(prev, topics, options) }, [
-      h('span.ArticlePrevNextTopic', [
-        (topics.find(t => t.id === prev.topic) || {}).name,
+    prev &&
+      h('a.ArticlePrev', { href: getResourcePageUrl(prev, topics, options) }, [
+        h('span.ArticlePrevNextTopic', [
+          (topics.find(t => t.id === prev.topic) || {}).name,
+        ]),
+        h('span.ArticlePrevNextTitle', prev.title),
       ]),
-      h('span.ArticlePrevNextTitle', prev.title),
-    ]),
-    h('a.ArticleNext', { href: getResourcePageUrl(next, topics, options) }, [
-      h('span.ArticlePrevNextTopic', [
-        (topics.find(t => t.id === next.topic) || {}).name,
+    next &&
+      h('a.ArticleNext', { href: getResourcePageUrl(next, topics, options) }, [
+        h('span.ArticlePrevNextTopic', [
+          (topics.find(t => t.id === next.topic) || {}).name,
+        ]),
+        h('span.ArticlePrevNextTitle', next.title),
       ]),
-      h('span.ArticlePrevNextTitle', next.title),
-    ]),
   ]
 }
 
 class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
-    const { article, topics, definitions, resources, options } = this.props
+    const {
+      article,
+      articles,
+      topics,
+      definitions,
+      resources,
+      options,
+    } = this.props
     // passed by reference between paragraphs
     const lexiconId = {
       id: 0,
     }
-
-    // used by SeeAlso and PrevNext
-    const relateds = article.related
-      .map(r => {
-        const [articleId] = r.text.split(/\s*-\s*/)
-        return getResource(resources, articleId)
-      })
-      .filter(a => !!a)
 
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
       h(Body, { topics, options, sideMenu: true }, [
         h(Article, {
           article,
-          relateds,
           topics,
           definitions,
           resources,
           lexiconId,
           options,
         }),
-        h(ArticlePrevNext, { topics, relateds, options }),
+        h(ArticlePrevNext, { article, articles, topics, options }),
       ]),
     ])
   }

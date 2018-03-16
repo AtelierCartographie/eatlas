@@ -57,6 +57,7 @@
       "type": "nested",
       "properties": {
         "list": {
+          "type": "nested",
           "properties": {
             "text": {
               "type": "text",

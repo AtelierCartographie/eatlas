@@ -4,11 +4,20 @@ const schemas = require('../schemas')
 const { verify } = require('../google')
 const { users } = require('../model')
 
-exports.session = (req, res) => {
+exports.private = (role = null) => async (req, res, next) => {
   if (!req.session.user) {
     return res.boom.forbidden('Not authenticated')
   }
+  if (role === 'admin' && req.session.user.role !== 'admin') {
+    return res.boom.forbidden(
+      `Invalid role "${req.session.user.role}" (required "${role}")`,
+    )
+  }
 
+  next()
+}
+
+exports.session = (req, res) => {
   // Always grab role dynamically, even if already in session (we want this to be always up to date)
   const { email } = req.session.user
   users

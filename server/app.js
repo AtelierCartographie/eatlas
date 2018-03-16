@@ -27,39 +27,78 @@ app.use(boom())
 app.use(resBoomSend)
 app.use(bodyParser.json())
 
-app.get('/session', user.session)
+app.get('/session', user.private(), user.session)
 app.post('/login', validateBody(user.login))
 
-app.get('/users', users.list)
-app.post('/users', users.add)
-app.get('/users/:id', users.findUser, users.get)
-app.put('/users/:id', users.findUser, users.update)
-app.delete('/users/:id', users.findUser, users.remove)
+app.get('/users', user.private(), users.list)
+app.post('/users', user.private('admin'), users.add)
+app.get('/users/:id', user.private(), users.findUser, users.get)
+app.put('/users/:id', user.private('admin'), users.findUser, users.update)
+app.delete('/users/:id', user.private('admin'), users.findUser, users.remove)
 
-app.post('/parse/article', parsers.article)
-app.post('/parse/focus', parsers.focus)
-app.post('/parse/lexicon', parsers.lexicon)
+app.post('/parse/article', user.private(), parsers.article)
+app.post('/parse/focus', user.private(), parsers.focus)
+app.post('/parse/lexicon', user.private(), parsers.lexicon)
 
-app.get('/resources', resources.list)
-app.get('/resources/:id/preview', resources.findResource, resources.preview)
-app.get('/resources/:id/file/:k?', resources.findResource, resources.file)
-app.get('/resources/:id', resources.findResource, resources.get)
-app.get('/resources/:id/urls', resources.findResource, resources.urls)
-app.post('/resources/google-drive', validateBody(resources.addFromGoogle))
-app.post('/resources', validateBody(resources.add))
-app.put('/resources/:id', resources.findResource, resources.update) // TODO body schema
-app.delete('/resources/:id', resources.findResource, resources.remove)
+app.get('/resources', user.private(), resources.list)
+app.get(
+  '/resources/:id/preview',
+  user.private(),
+  resources.findResource,
+  resources.preview,
+)
+app.get(
+  '/resources/:id/file/:k?',
+  user.private(),
+  resources.findResource,
+  resources.file,
+)
+app.get('/resources/:id', user.private(), resources.findResource, resources.get)
+app.get(
+  '/resources/:id/urls',
+  user.private(),
+  resources.findResource,
+  resources.urls,
+)
+app.post(
+  '/resources/google-drive',
+  user.private('admin'),
+  validateBody(resources.addFromGoogle),
+)
+app.post('/resources', user.private('admin'), validateBody(resources.add))
+app.put(
+  '/resources/:id',
+  user.private('admin'),
+  resources.findResource,
+  resources.update,
+) // TODO body schema
+app.delete(
+  '/resources/:id',
+  user.private('admin'),
+  resources.findResource,
+  resources.remove,
+)
 
-app.get('/topics', topics.list)
-app.get('/topics/:id/preview', topics.findTopic, topics.preview)
-app.get('/topics/:id', topics.findTopic, topics.get)
-app.post('/topics', topics.add)
-app.put('/topics/:id', topics.findTopic, topics.update)
-app.delete('/topics/:id', topics.findTopic, topics.remove)
+app.get('/topics', user.private(), topics.list)
+app.get('/topics/:id/preview', user.private(), topics.findTopic, topics.preview)
+app.get('/topics/:id', user.private(), topics.findTopic, topics.get)
+app.post('/topics', user.private('admin'), topics.add)
+app.put('/topics/:id', user.private('admin'), topics.findTopic, topics.update)
+app.delete(
+  '/topics/:id',
+  user.private('admin'),
+  topics.findTopic,
+  topics.remove,
+)
 
 // Preview routes
 // TODO stop using /resources/:id/preview and use /preview/resource/:id instead
-app.get('/preview/resource/:id', resources.findResource, previews.resource)
-app.get('/preview/:page?', previews.page)
+app.get(
+  '/preview/resource/:id',
+  user.private(),
+  resources.findResource,
+  previews.resource,
+)
+app.get('/preview/:page?', user.private(), previews.page)
 
 module.exports = app

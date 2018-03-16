@@ -19,9 +19,20 @@
       $('input[name=q]', $form).val(foundQ[1])
     }
 
+    // Output
+    const showSearchError = data => {
+      console.error(data)
+    }
+    const showSearchResults = results => {
+      console.info(results)
+    }
+
     // Throttle to avoid user double submit
     const search = _.throttle(() => {
-      console.log('SEARCH', $form.serialize())
+      $.post($form.attr('data-api-url') || '/search', $form.serialize()).then(
+        showSearchResults,
+        showSearchError,
+      )
     }, 100)
 
     $form.on('submit', e => {

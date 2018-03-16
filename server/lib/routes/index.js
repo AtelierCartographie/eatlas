@@ -7,4 +7,5 @@ module.exports = {
   topics: require('./topics'),
   parsers: require('./parsers'),
   previews: require('./previews'),
+  search: require('./search'),
 }

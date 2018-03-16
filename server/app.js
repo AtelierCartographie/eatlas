@@ -17,6 +17,7 @@ const {
   topics,
   parsers,
   previews,
+  search,
 } = require('./lib/routes')
 
 const app = express()
@@ -100,5 +101,8 @@ app.get(
   previews.resource,
 )
 app.get('/preview/:page?', user.private(), previews.page)
+
+// Public search API
+app.post('/search', search.search)
 
 module.exports = app

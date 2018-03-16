@@ -13,7 +13,9 @@ const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
 
-// subcomponents
+// helpers
+
+const ENDPOINT = (process.env.REACT_APP_API_SERVER || '') + '/search'
 
 const resultsTemplate = ({ showType = true }) => `
 <div class="row search-page">
@@ -52,13 +54,18 @@ const filtersToggle = (title, inputs) => [
   ),
 ]
 
+// sub-components
+
 const Search = ({ topics, types, locales, keywords }) => {
   return h('article.SearchPage', [
-    h(
-      'section.container.SearchForm',
-      types ? { 'data-search-types': JSON.stringify(types) } : {},
-      [
-        h('form.search', [
+    h('section.container.SearchForm', [
+      h(
+        'form.search',
+        {
+          'data-search-types': types ? JSON.stringify(types) : undefined,
+          'data-api-url': ENDPOINT,
+        },
+        [
           h('.row.search-input', [
             h('input', { name: 'q', placeholder: "Rechercher dans l'atlas" }),
             h('button', [h(Img, { alt: '', src: `/assets/img/search.svg` })]),
@@ -93,11 +100,19 @@ const Search = ({ topics, types, locales, keywords }) => {
               ...filtersToggle('Date de publication', [
                 [
                   h('span', { key: 'label' }, 'Avant le…'),
-                  h('input', { type: 'date', name: 'date-max', key: 'input' }),
+                  h('input', {
+                    type: 'date',
+                    name: 'date-max',
+                    key: 'input',
+                  }),
                 ],
                 [
                   h('span', { key: 'label' }, 'Après le…'),
-                  h('input', { type: 'date', name: 'date-min', key: 'input' }),
+                  h('input', {
+                    type: 'date',
+                    name: 'date-min',
+                    key: 'input',
+                  }),
                 ],
               ]),
               ...filtersToggle(
@@ -114,15 +129,18 @@ const Search = ({ topics, types, locales, keywords }) => {
               ),
             ]),
           ]),
-        ]),
-      ],
-    ),
+        ],
+      ),
+    ]),
     h(
       'script.results-template',
       { type: 'text/html' },
       resultsTemplate({ showType: !types }),
     ),
-    h('section.SearchResults', [h('.container.search-results-container')]),
+    h('section.SearchResults', [
+      h('.container.search-results-error', { style: { display: 'none' } }),
+      h('.container.search-results-success', { style: { display: 'none' } }),
+    ]),
   ])
 }
 

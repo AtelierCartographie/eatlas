@@ -208,7 +208,7 @@ class ResourceEdit extends Component<Props, State> {
         'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
       )
     }
-    return `${host}/resources/${this.props.resource.id}/preview`
+    return `${host}/preview/resources/${this.props.resource.id}`
   }
 
   renderPreview() {

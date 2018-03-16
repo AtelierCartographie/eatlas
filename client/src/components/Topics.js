@@ -88,7 +88,7 @@ class Topics extends Component<Props, State> {
         'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
       )
     }
-    return `${host}/topics/${topic.id}/preview`
+    return `${host}/preview/topics/${topic.id}`
   }
 
   render() {
@@ -154,21 +154,21 @@ class Topics extends Component<Props, State> {
                         <Link
                           className="button is-primary"
                           to={`/topics/${t.id}/edit`}>
-                          <IconButton label="edit" icon="pencil" />
+                          <IconButton icon="pencil" />
                         </Link>
                       </div>
                       <div className="control">
                         <button
                           className="button is-danger is-outlined"
                           onClick={() => this.askRemove(t)}>
-                          <IconButton label="delete" icon="times" />
+                          <IconButton icon="times" />
                         </button>
                       </div>
                       <div className="control">
                         <a
                           className="button"
                           href={this.getPreviewUrl(t)}>
-                          <IconButton label="preview" icon="eye" />
+                          <IconButton icon="eye" />
                         </a>
                       </div>
                     </div>

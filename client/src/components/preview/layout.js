@@ -20,12 +20,12 @@ exports.getResource = (resources, id) => resources.find(r => r.id === id)
 
 exports.getResourcePageUrl = (resource, topics, { preview = false } = {}) =>
   preview
-    ? `/resources/${resource.id}/preview`
+    ? `/preview/resources/${resource.id}`
     : resource.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
 exports.getTopicPageUrl = (topic, { preview = false } = {}) =>
   preview
-    ? `/topics/${topic.id}/preview`
+    ? `/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
 const globalPageUrl = (key, slug) => preview => {

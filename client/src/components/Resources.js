@@ -170,7 +170,7 @@ class Resources extends Component<Props, State> {
         'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
       )
     }
-    return `${host}/resources/${resource.id}/preview`
+    return `${host}/preview/resources/${resource.id}`
   }
 
   renderMenuCountSuffix(field: string, value: ?any) {

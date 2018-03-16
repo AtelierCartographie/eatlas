@@ -95,12 +95,13 @@ app.delete(
 // Preview routes
 // TODO stop using /resources/:id/preview and use /preview/resource/:id instead
 app.get(
-  '/preview/resource/:id',
+  '/preview/resources/:id',
   user.private(),
   resources.findResource,
   previews.resource,
 )
 app.get('/preview/:page?', user.private(), previews.page)
+app.get('/preview/topics/:id', topics.findTopic, topics.preview)
 
 // Public search API
 app.post('/search', bodyParser.urlencoded({ extended: true }), search.search)

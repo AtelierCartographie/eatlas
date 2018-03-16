@@ -90,5 +90,11 @@ $color-blue: #4778d1;
     &[data-status='error'] .search-results-error {
       display: initial;
     }
+    .search-result {
+      .search-result-preview img {
+        max-width: 300px;
+        max-height: 100px;
+      }
+    }
   }
 }

@@ -92,20 +92,31 @@ exports.LOCALES /*: { Locale: string }*/ = {
 
 exports.slugify = text => slugify(text, { lower: true })
 
-exports.getMediaUrl = (file = '') => {
-  const root = process.env.REACT_APP_FRONT_URL || '/'
-  const subpath = process.env.REACT_APP_MEDIA_SUBPATH || ''
-  if (subpath) {
-    const slash1 =
-      root[root.length - 1] === '/' || subpath[0] === '/' ? '' : '/'
-    const slash2 =
-      subpath[subpath.length - 1] === '/' || file[0] === '/' ? '' : '/'
-    return root + slash1 + subpath + slash2 + file
-  } else {
-    const slash = root[root.length - 1] === '/' || file[0] === '/' ? '' : '/'
-    return root + slash + file
+exports.getMediaUrl = (file = '', host = null) => {
+  if (!host) {
+    const root = process.env.REACT_APP_FRONT_URL || '/'
+    const subpath = process.env.REACT_APP_MEDIA_SUBPATH || ''
+    if (subpath) {
+      const slash1 =
+        root[root.length - 1] === '/' || subpath[0] === '/' ? '' : '/'
+      host = root + slash1 + subpath
+    }
   }
+  const slash2 = host[host.length - 1] === '/' || file[0] === '/' ? '' : '/'
+  return host + slash2 + file
 }
+
+exports.getMediaPreviewUrl = (
+  id,
+  size,
+  density,
+  host = process.env.REACT_APP_ADMIN_URL,
+) => `${host || ''}/resources/${id}/file/${size}-${density}`
+
+exports.getResourcePagePreviewUrl = (
+  resource,
+  host = process.env.REACT_APP_ADMIN_URL,
+) => `${host}/preview/resources/${resource.id}`
 
 // { resourcesSlug, searchTypes, label }[]
 exports.footerResourcesConfig = [

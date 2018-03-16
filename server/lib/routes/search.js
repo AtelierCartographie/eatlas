@@ -5,9 +5,7 @@ const { resources: Resources, topics: Topics } = require('../model')
 const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
-const {
-  getResourcePageUrl,
-} = require('../../../client/src/components/preview/layout')
+const { populatePageUrl, populateThumbnailUrl } = require('../generator-utils')
 
 const sortField = 'publishedAt'
 const sortDir = 'desc'
@@ -109,12 +107,22 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     }
 
     const topics = await Topics.list()
+    const resultResources = result.hits.hits.map(({ _source }) => _source)
+
+    // To compute thumbnails, I need resources: related articles, header images
+    const thumbnailResources = await getResourcesForThumbnails(
+      resultResources,
+      { preview },
+    )
 
     res.send({
       start: from + 1,
       end: from + result.hits.hits.length,
       count: result.hits.total,
-      hits: result.hits.hits.map(formatResultHit({ topics, preview })),
+      hits: resultResources
+        .map(populatePageUrl(null, topics, { preview }))
+        .map(populateThumbnailUrl(thumbnailResources, { preview }))
+        .map(formatResultHit),
     })
   } catch (err) {
     logger.error('Search failed', { input: req.body, err })
@@ -122,12 +130,44 @@ const search = ({ preview = false } = {}) => async (req, res) => {
   }
 }
 
-const formatResultHit = ({ topics, preview }) => ({ _source: resource }) => ({
+// To make it not too hard and not too inefficient:
+// - include all (published) articles if there is a focus in results
+// - include all (published) images if there is a focus or an article in results
+const getResourcesForThumbnails = async (resources, { preview }) => {
+  const hasArticle = resources.some(({ type }) => type === 'article')
+  const hasFocus = resources.some(({ type }) => type === 'focus')
+  const includeArticles = hasFocus
+  const includeImages = hasFocus || hasArticle
+  if (!includeArticles && !includeImages) {
+    return []
+  }
+  let types = []
+  if (includeArticles) {
+    types.push('article')
+  }
+  if (includeImages) {
+    types.push('image')
+  }
+  const query = { terms: { type: types } }
+  return Resources.list(
+    preview
+      ? { query }
+      : {
+          query: { bool: { must: [{ term: { status: 'published' } }, query] } },
+        },
+  )
+}
+
+const formatResultHit = resource => ({
   title: resource.title,
   subtitle: resource.subtitle,
   type: resource.type,
-  url: getResourcePageUrl(resource, topics, { preview }),
-  preview: null,
+  url: resource.pageUrl,
+  preview: resource.thumbnailUrl
+    ? {
+        url: resource.thumbnailUrl,
+      }
+    : null,
 })
 
 exports.search = search()

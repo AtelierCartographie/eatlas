@@ -11,6 +11,7 @@ const uploadManagers = require('../upload-managers')
 const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 const { rebuildAllHTML } = require('../site-builder')
 const previews = require('./previews') // for alias resources.preview = previews.resource
+const { smallestImage } = require('../generator-utils')
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)
@@ -176,19 +177,7 @@ exports.file = async (req, res, next) => {
         }
         if (!file) {
           // use first found image (smaller to larger)
-          file =
-            (images['small'] &&
-              (images['small']['1x'] ||
-                images['small']['2x'] ||
-                images['small']['3x'])) ||
-            (images['medium'] &&
-              (images['medium']['1x'] ||
-                images['medium']['2x'] ||
-                images['medium']['3x'])) ||
-            (images['large'] &&
-              (images['large']['1x'] ||
-                images['large']['2x'] ||
-                images['large']['3x']))
+          file = smallestImage(images)
         }
         const { up } = resourceMediaPath(req.foundResource, file, {
           pub: false,

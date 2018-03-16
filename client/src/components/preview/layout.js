@@ -1,6 +1,11 @@
 // shared by Menu and Footer
 
-const { getMediaUrl, footerResourcesConfig } = require('../../universal-utils')
+const {
+  getMediaUrl,
+  footerResourcesConfig,
+  getMediaPreviewUrl,
+  getResourcePagePreviewUrl,
+} = require('../../universal-utils')
 
 exports.getImageUrl = (
   { id, images },
@@ -9,18 +14,18 @@ exports.getImageUrl = (
   { preview = false } = {},
 ) => {
   if (preview) {
-    return `/resources/${id}/file/${size}-${density}`
+    return getMediaPreviewUrl(id, size, density)
   } else {
     const file = images && images[size] && images[size][density]
-    return getMediaUrl(file)
+    return getMediaUrl(file, { id, size, density, preview })
   }
 }
 
 exports.getResource = (resources, id) => resources.find(r => r.id === id)
 
-exports.getResourcePageUrl = (resource, topics, { preview = false } = {}) =>
+exports.getResourcePageUrl = (resource, { preview = false } = {}) =>
   preview
-    ? `/preview/resources/${resource.id}`
+    ? getResourcePagePreviewUrl(resource)
     : resource.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
 exports.getTopicPageUrl = (topic, { preview = false } = {}) =>

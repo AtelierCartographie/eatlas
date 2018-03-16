@@ -79,7 +79,8 @@ exports.getDefinitions = async () => {
   )
 }
 
-exports.getArticles = async () => getTypeResources('article')
+exports.getArticles = async () =>
+  (await getTypeResources('article')).sort((a, b) => a.id > b.id)
 
 exports.getTopics = async () =>
   (await Topics.list()).sort((a, b) => a.id > b.id)

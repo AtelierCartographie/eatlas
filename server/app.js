@@ -27,6 +27,7 @@ app.use(session)
 app.use(boom())
 app.use(resBoomSend)
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/session', user.private(), user.session)
 app.post('/login', validateBody(user.login))
@@ -105,6 +106,6 @@ app.post('/preview/_search', user.private(), search.preview)
 app.get('/preview/:page?', user.private(), previews.page)
 
 // Public search API
-app.post('/search', bodyParser.urlencoded({ extended: true }), search.search)
+app.post('/search', search.search)
 
 module.exports = app

@@ -32,10 +32,16 @@ const hitPreviewTemplate = `
 
 const resultsTemplate = ({ showType = true }) => `
 <div class="row search-page">
+  <% if (results.start > 1) { %>
+    <a href="#prev" class="btn search-results-prev" title="Résultats précédent">&lt;&lt;</a>
+  <% } %>
   <% if (results.start > 1 || results.end < results.count) { %>
     <%= results.start %> - <%= results.end %> sur <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
   <% } else { %>
     <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
+  <% } %>
+  <% if (results.end < results.count) { %>
+    <a href="#prev" class="btn search-results-next" title="Résultats suivant">&gt;&gt;</a>
   <% } %>
 </div>
 <% _.forEach(results.hits, function (hit) { %>

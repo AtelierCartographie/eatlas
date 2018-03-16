@@ -97,11 +97,13 @@ const search = ({ excludeUnpublished = true } = {}) => async (req, res) => {
 
     const body = { query: { bool: { must } }, sort: [{ [sortField]: sortDir }] }
     if (debug.enabled) {
-      debug('Query', inspect(body, false, 99, false))
+      debug('Query', inspect({ body, size, from }, false, 99, false))
     }
 
     const result = await Resources.search({ body, size, from })
-    debug('Result', result)
+    if (debug.enabled) {
+      debug('Result', inspect(result, false, 3, false))
+    }
 
     res.send({
       start: from + 1,

@@ -21,48 +21,66 @@
 
     // Output
     const showSearchError = data => {
-      $('.SearchResults .search-results-error').text(data.message)
-      $('.SearchResults').attr('data-status', 'error')
+      $('.SearchPage .SearchResults .search-results-error').text(data.message)
+      $('.SearchPage .SearchResults').attr('data-status', 'error')
     }
     const showSearchResults = results => {
       try {
-        $('.SearchResults .search-results-success').html(resultTpl({ results }))
-        $('.SearchResults').attr('data-status', 'success')
+        $('.SearchPage .SearchResults .search-results-success').html(
+          resultTpl({ results }),
+        )
+        $('.SearchPage .SearchResults').attr('data-status', 'success')
       } catch (err) {
         showSearchError(err)
       }
     }
 
     // Throttle to avoid user double submit
-    const search = _.throttle(() => {
-      $.post($form.attr('data-api-url') || '/search', $form.serialize()).then(
-        showSearchResults,
-        showSearchError,
-      )
+    let currPage = null
+    const search = _.throttle(page => {
+      currPage = page
+      $.post(
+        $form.attr('data-api-url') || '/search',
+        $form.serialize() + '&page=' + page,
+      ).then(showSearchResults, showSearchError)
     }, 100)
 
     // Run search on submit or change
-    $form.on('submit', e => {
+    const onSearch = e => {
       e.preventDefault()
-      search()
-    })
-    $('input, select, textarea', $form).on('change', e => {
-      search()
-    })
+      search(1)
+    }
+    $form.on('submit', onSearch)
+    $('.SearchPage input, .SearchPage select, .SearchPage textarea', $form).on(
+      'change',
+      onSearch,
+    )
 
     // Expand/collapse filters
-    $('.search-filters-toggle[data-filters-hidden]').on('click', e => {
-      e.preventDefault()
-      const $this = $(e.currentTarget)
-      const current = $this.attr('data-filters-hidden')
-      console.log({ current })
-      const next = current === '1' ? '0' : '1'
-      $this.attr('data-filters-hidden', next)
-    })
+    $('.SearchPage .search-filters-toggle[data-filters-hidden]').on(
+      'click',
+      e => {
+        e.preventDefault()
+        const $this = $(e.currentTarget)
+        const current = $this.attr('data-filters-hidden')
+        const next = current === '1' ? '0' : '1'
+        $this.attr('data-filters-hidden', next)
+      },
+    )
 
     // Initialize search if there is pre-filled input
     if ($('input[name=q]', $form).val()) {
-      search()
+      search(1)
     }
+
+    // Pagination
+    $('.SearchPage').on('click', '.search-results-prev', e => {
+      e.preventDefault()
+      search(Math.max(1, currPage - 1))
+    })
+    $('.SearchPage').on('click', '.search-results-next', e => {
+      e.preventDefault()
+      search(currPage + 1)
+    })
   }
 })()

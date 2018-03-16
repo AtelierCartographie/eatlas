@@ -1,7 +1,12 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { resourcesTypes, aPropos, getResourcePageUrl } = require('./layout')
+const {
+  resourcesTypes,
+  aPropos,
+  getResourcePageUrl,
+  getTopicPageUrl,
+} = require('./layout')
 const { Img } = require('./Tags')
 
 const TopMenuPanelSearch = () => {
@@ -80,11 +85,21 @@ const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
       topic.id - 1,
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
-      h('h2', `${topic.id - 1}. ${topic.name}`),
+      h('h2', [
+        h(
+          'a',
+          { href: getTopicPageUrl(topic, options) },
+          `${topic.id - 1}. ${topic.name}`,
+        ),
+      ]),
       h('ol', [
         (articles || [])
           .filter(a => a.topic === topic.id)
-          .map(a => h('li', [h('a', { href: getResourcePageUrl(a, topics, options) }, a.title)])),
+          .map(a =>
+            h('li', [
+              h('a', { href: getResourcePageUrl(a, topics, options) }, a.title),
+            ]),
+          ),
       ]),
     ]),
   ])
@@ -105,7 +120,7 @@ exports.TopMenu = ({ topic, topics, articles, options }) => {
             topics,
             articles,
             active: currentTopic.id === topic.id,
-            options
+            options,
           }),
         ),
       ]),

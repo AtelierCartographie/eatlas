@@ -3,8 +3,7 @@
 const Boom = require('boom')
 const mime = require('mime')
 
-const { parseDocx } = require('./doc-parser')
-const { parseLexicon } = require('./lexicon-parser')
+const { parseArticle, parseLexicon } = require('./doc-parsers')
 const getConf = require('./dynamic-config-variable')
 const { saveAs } = require('./public-fs')
 
@@ -21,7 +20,7 @@ exports.article = {
     if (!upload.buffer) {
       return { file: null }
     }
-    return parseDocx(upload.buffer)
+    return parseArticle(upload.buffer)
   },
   validate({ required, newUploads, uploads }) {
     expectUploadKeys(uploads, k => k === 'article')
@@ -44,7 +43,7 @@ exports.focus = {
     if (!upload.buffer) {
       return { file: null }
     }
-    return parseDocx(upload.buffer)
+    return parseArticle(upload.buffer)
   },
   validate({ required, newUploads, uploads }) {
     expectUploadKeys(uploads, k => k === 'focus')

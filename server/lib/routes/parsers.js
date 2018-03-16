@@ -1,8 +1,7 @@
 'use strict'
 
 const { download } = require('../google')
-const { parseDocx } = require('../doc-parser')
-const { parseLexicon } = require('../lexicon-parser')
+const { parseArticle, parseLexicon } = require('../doc-parsers')
 
 const uploadParser = (key, type, parse) => async (req, res) => {
   const { uploads, accessToken } = req.body
@@ -21,6 +20,6 @@ const uploadParser = (key, type, parse) => async (req, res) => {
   }
 }
 
-exports.article = uploadParser('article', 'article', parseDocx)
-exports.focus = uploadParser('focus', 'focus', parseDocx)
+exports.article = uploadParser('article', 'article', parseArticle)
+exports.focus = uploadParser('focus', 'focus', parseArticle)
 exports.lexicon = uploadParser('lexicon', 'definition', parseLexicon)

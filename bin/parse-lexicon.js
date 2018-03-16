@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs')
 const { resolve } = require('path')
 
-const { parseLexicon } = require('../server/lib/lexicon-parser')
+const { parseLexicon } = require('../server/lib/doc-parsers')
 
 const path =
   process.argv[2] ||

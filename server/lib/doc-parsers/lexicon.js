@@ -30,7 +30,7 @@ const parseAliases = text => {
   return null
 }
 
-exports.parseLexicon = async buffer => {
+module.exports = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })
   const $ = cheerio.load(`<div id="cheerio">${value}</div>`)
 

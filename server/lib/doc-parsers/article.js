@@ -1,8 +1,10 @@
 'use strict'
 
+// article and focus gdocs
+
 const mammoth = require('mammoth')
 const cheerio = require('cheerio')
-const { META_CONVERSION } = require('../../client/src/universal-utils')
+const { META_CONVERSION } = require('../../../client/src/universal-utils')
 
 // helpers
 
@@ -143,7 +145,7 @@ const extractMetas = nodes =>
     return meta
   })
 
-exports.parseDocx = async buffer => {
+module.exports = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })
   const $ = cheerio.load(`<div id="cheerio">${value}</div>`)
   const nodes = $('#cheerio')

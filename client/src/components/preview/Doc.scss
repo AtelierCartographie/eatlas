@@ -14,6 +14,21 @@
   font-family: $serif;
 }
 
+a.LexiconLink {
+  color: rgba(0,0,0,.8);
+  text-decoration: none;
+  transition-duration: 0.2s;
+  transition-property: all;
+  background-color: #d1d6e0;
+  padding: 3px 8px;
+
+  &:focus,
+  &:hover {
+    color: white;
+    background-color: #4778d1;
+  }
+}
+
 .DocFooter {
   background-color: $color-footer;
   padding: $gap3 0;

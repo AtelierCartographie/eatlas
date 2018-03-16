@@ -188,22 +188,6 @@ hr {
   margin-bottom: 0px;
 }
 
-// TODO move to ArticlePage as lexicon
-a.keyword {
-  color: rgba(0, 0, 0, 0.8);
-  text-decoration: none;
-  transition-duration: 0.2s;
-  transition-property: all;
-  background-color: #d1d6e0;
-  padding: 3px 8px;
-}
-
-a.keyword:focus,
-a.keyword:hover {
-  color: white;
-  background-color: #4778d1;
-}
-
 /* FIGURE ---------------------------------------- */
 h2.figure-title {
   color: black;

@@ -30,7 +30,7 @@ exports.Paragraph = ({ p, lexiconId }) => {
     return [
       m[1],
       h('sup', [
-        h('a', { id: `note-${m[2]}`, href: `#footnote-${m[2]}` }, `[${m[2]}]`),
+        h('a.FootnoteLink', { id: `note-${m[2]}`, href: `#footnote-${m[2]}` }, `[${m[2]}]`),
       ]),
       m[3],
     ]
@@ -43,8 +43,8 @@ exports.Paragraph = ({ p, lexiconId }) => {
       parts.push(
         head,
         h(
-          'a.keyword',
-          { href: `#keyword-${++lexiconId.id}`, 'data-toggle': 'collapse' },
+          'a.LexiconLink',
+          { href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
           l,
         ),
       )
@@ -140,7 +140,7 @@ exports.Lexicon = ({ nodes, definitions }) =>
         [],
       )
       .map((l, k) =>
-        h('.collapse.container', { key: k, id: `keyword-${k + 1}` }, [
+        h('.collapse.container', { key: k, id: `lexicon-${k + 1}` }, [
           h('dl', [h('dt', l), h('dd', getDefinition(l, definitions))]),
         ]),
       ),

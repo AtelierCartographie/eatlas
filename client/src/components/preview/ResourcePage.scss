@@ -1,3 +1,5 @@
+@import 'var';
+
 .ResourcePage {
   .ResourceHeader {
     padding-top: 48px;
@@ -24,7 +26,7 @@
     }
   }
 
-  .ResourceImage {
+  .ResourceImage, .ResourceMap {
     text-align: center;
   }
 
@@ -35,7 +37,8 @@
     }
   }
 
-  .ResourceDescription {
+  .ResourceCopyright, .ResourceDescription,
+  .ResourceTranscript {
     font-size: 15.8px;
     line-height: 24px;
 

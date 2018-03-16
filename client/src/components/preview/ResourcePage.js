@@ -14,10 +14,15 @@ const Body = require('./Body')
 
 // subcomponents
 
+const ResourceMap = ({ resource }) => {
+  return h('.ResourceMap', [
+    h('img', { src: `http://localhost:4000/resources/${resource.id}/file` }),
+  ])
+}
+
 const ResourceImage = ({ resource }) => {
   return h('.ResourceImage', [
     h('img', { src: `http://localhost:4000/resources/${resource.id}/file` }),
-    h('.ResourceCopyright', `Source: ${resource.copyright}`),
   ])
 }
 
@@ -48,17 +53,38 @@ const ResourceDescription = ({ resource }) => {
   ])
 }
 
+const ResourceCopyright = ({ resource }) =>
+  h('.container.ResourceCopyright', `Source: ${resource.copyright}`)
+
+const ResourceTranscript = ({ resource }) =>
+  h('.container.ResourceTranscript', [h('h2', 'Transcript'), h('div', 'TODO')])
+
 const Resource = ({ resource }) => {
   let children
   switch (resource.type) {
+    case 'map':
+      children = [
+        h(ResourceMap, { resource }),
+        h(ResourceCopyright, { resource }),
+      ]
+      break
     case 'image':
-      children = h(ResourceImage, { resource })
+      children = [
+        h(ResourceImage, { resource }),
+        h(ResourceCopyright, { resource }),
+      ]
       break
     case 'sound':
-      children = h(ResourceSound, { resource })
+      children = [
+        h(ResourceSound, { resource }),
+        h(ResourceCopyright, { resource }),
+      ]
       break
     case 'video':
-      children = h(ResourceVideo, { resource })
+      children = [
+        h(ResourceVideo, { resource }),
+        h(ResourceCopyright, { resource }),
+      ]
       break
 
     default:
@@ -72,6 +98,8 @@ const Resource = ({ resource }) => {
     ]),
     children,
     h(ResourceDescription, { resource }),
+    ['sound', 'video'].includes(resource.type) &&
+      h(ResourceTranscript, { resource }),
   ])
 }
 

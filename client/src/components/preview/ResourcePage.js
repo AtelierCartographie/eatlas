@@ -59,6 +59,9 @@ const ResourceCopyright = ({ resource }) =>
 const ResourceTranscript = ({ resource }) =>
   h('.container.ResourceTranscript', [h('h2', 'Transcript'), h('div', 'TODO')])
 
+const ResourceDownload = ({ resource }) =>
+  h('.container.ResourceDownload', [h('h2', 'Téléchargement'), h('div', 'Pour toute utilisation, merci de consulter les mentions légales.')])
+
 const Resource = ({ resource }) => {
   let children
   switch (resource.type) {
@@ -100,6 +103,7 @@ const Resource = ({ resource }) => {
     h(ResourceDescription, { resource }),
     ['sound', 'video'].includes(resource.type) &&
       h(ResourceTranscript, { resource }),
+    resource.type === 'map' && h(ResourceDownload, { resource })
   ])
 }
 

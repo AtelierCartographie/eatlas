@@ -20,6 +20,7 @@ exports.flattenMetas = article => ({
   },
   keywords: getMetaList(article, 'keywords'),
   footnotes: getNodeList(article, 'footnotes'),
+  references: getMetaList(article, 'references'),
   related: getMetaList(article, 'related'),
 })
 

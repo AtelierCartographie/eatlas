@@ -30,7 +30,11 @@ exports.Paragraph = ({ p, lexiconId }) => {
     return [
       m[1],
       h('sup', [
-        h('a.FootnoteLink', { id: `note-${m[2]}`, href: `#footnote-${m[2]}` }, `[${m[2]}]`),
+        h(
+          'a.FootnoteLink',
+          { id: `note-${m[2]}`, href: `#footnote-${m[2]}` },
+          `[${m[2]}]`,
+        ),
       ]),
       m[3],
     ]
@@ -96,8 +100,11 @@ exports.Quote = ({ doc }) => {
   ])
 }
 
-exports.Footnotes = ({ footnotes }) => {
-  if (!footnotes || !footnotes.length) return null
+exports.Footnotes = ({ references, footnotes }) => {
+  if ((!references || !references.length) && (!footnotes || !footnotes.length))
+    return null
+
+  console.log(references)
 
   const parseLinks = ({ text, links }) => {
     let parts = []
@@ -121,10 +128,17 @@ exports.Footnotes = ({ footnotes }) => {
       'ol',
       footnotes.map((n, k) => {
         return h('li', { id: `footnote-${k + 1}`, key: k }, [
-          h('span.number', k + 1),
           h('a.back', { href: `#note-${k + 1}` }, '^'),
           parseLinks(n),
         ])
+      }),
+    ),
+    h(
+      'ol',
+      references.map((r, k) => {
+        return h('li', { key: k },
+          r.text
+        )
       }),
     ),
   ])

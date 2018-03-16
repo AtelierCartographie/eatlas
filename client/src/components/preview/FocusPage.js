@@ -69,7 +69,7 @@ const FocusFooter = ({ focus, topics, resources, options }) =>
   h('footer.DocFooter', [
     h(Keywords, { keywords: focus.keywords }),
     h(Quote, { doc: focus }),
-    h(Footnotes, { footnotes: focus.footnotes }),
+    h(Footnotes, { references: focus.references, footnotes: focus.footnotes }),
   ])
 
 const Focus = props =>

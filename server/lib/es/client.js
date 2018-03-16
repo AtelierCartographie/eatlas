@@ -53,12 +53,13 @@ const formatHit = ({ _source, _id }) => Object.assign({}, _source, { id: _id })
 const ready = pinged.then(() => initIndices(client, indices))
 
 module.exports = type => {
-  const find = body =>
+  const find = (body, { size = 1000, from = 0 } = {}) =>
     client
-      .search({ index: indices[type], type, body, size: 1000 }) // FIXME pagination
+      .search({ index: indices[type], type, body, size, from })
       .then(res => res.hits.hits.map(formatHit))
 
-  const findOne = body => find(body).then(([result]) => result || null)
+  const findOne = body =>
+    find(body, { size: 1 }).then(([result]) => result || null)
 
   const findById = async id =>
     id

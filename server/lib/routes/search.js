@@ -84,7 +84,14 @@ exports.search = async (req, res) => {
       }
     }
 
-    const resources = await Resources.list({ query: { bool: { must } } })
+    const page = Number(req.body.page) || 1
+    const size = Number(req.body.size) || nbPerPage
+    const from = (page - 1) * size
+
+    const resources = await Resources.list(
+      { query: { bool: { must } } },
+      { size, from },
+    )
     resources.sort(
       (r1, r2) =>
         sortDir === 'desc'

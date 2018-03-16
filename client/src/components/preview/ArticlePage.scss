@@ -225,12 +225,13 @@
   }
 
   .ArticlePrevNextTopic {
+    font-family: $serif;
     font-size: 1.4em;
   }
 
   .ArticlePrevNextTitle {
     font-size: 1.6em;
-    font-weight: 700;
+    font-weight: bold;
     padding: 0;
     margin: 5px 0 15px 0;
   }

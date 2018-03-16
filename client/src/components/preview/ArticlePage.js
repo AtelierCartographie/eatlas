@@ -225,15 +225,8 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   })
 }
 
-const ArticleSeeAlso = ({ article, topics, resources, options }) => {
-  const relateds = article.related
-    .map(r => {
-      const [articleId] = r.text.split(/\s*-\s*/)
-      return getResource(resources, articleId)
-    })
-    .filter(a => !!a)
-
-  if (!relateds.length) return null
+const ArticleSeeAlso = ({ article, relateds, topics, resources, options }) => {
+  if (!relateds || !relateds.length) return null
 
   return h('section.container.ArticleSeeAlso', [
     h('h2', "Continuer dans l'Atlas"),
@@ -261,7 +254,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
               h('div', [
                 h(
                   '.ArticleSeeAlsoTopic',
-                  (topics.find(x => x.id === r.topic) || {}).name,
+                  (topics.find(t => t.id === r.topic) || {}).name,
                 ),
                 h('.ArticleSeeAlsoTitle', r.title),
               ]),
@@ -273,12 +266,12 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
   ])
 }
 
-const ArticleFooter = ({ article, topics, resources, options }) =>
+const ArticleFooter = ({ article, relateds, topics, resources, options }) =>
   h('footer.DocFooter', [
     h(Keywords, { keywords: article.keywords }),
     h(Quote, { doc: article }),
     h(Footnotes, { footnotes: article.footnotes }),
-    h(ArticleSeeAlso, { article, topics, resources, options }),
+    h(ArticleSeeAlso, { article, relateds, topics, resources, options }),
   ])
 
 const Article = props =>
@@ -291,16 +284,27 @@ const Article = props =>
     h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
   ])
 
-const ArticlePrevNext = () => [
-  h('a.ArticlePrev', [
-    h('span.ArticlePrevNextTopic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-    h('span.ArticlePrevNextTitle', ['TODO (previous article title)']),
-  ]),
-  h('a.ArticleNext', [
-    h('span.ArticlePrevNextTopic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-    h('span.ArticlePrevNextTitle', ['TODO (next article title)']),
-  ]),
-]
+// TODO what is prev article? what is next article?
+// for now using random relateds to test css styling and behavior
+const ArticlePrevNext = ({ topics, relateds }) => {
+  if (!relateds || !relateds.length) return null
+  const r = relateds[0]
+
+  return [
+    h('a.ArticlePrev', [
+      h('span.ArticlePrevNextTopic', [
+        (topics.find(t => t.id === r.topic) || {}).name,
+      ]),
+      h('span.ArticlePrevNextTitle', r.title),
+    ]),
+    h('a.ArticleNext', [
+      h('span.ArticlePrevNextTopic', [
+        (topics.find(t => t.id === r.topic) || {}).name,
+      ]),
+      h('span.ArticlePrevNextTitle', r.title),
+    ]),
+  ]
+}
 
 class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
   render() {
@@ -309,18 +313,28 @@ class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], de
     const lexiconId = {
       id: 0,
     }
+
+    // used by SeeAlso and PrevNext
+    const relateds = article.related
+      .map(r => {
+        const [articleId] = r.text.split(/\s*-\s*/)
+        return getResource(resources, articleId)
+      })
+      .filter(a => !!a)
+
     return h('html', { lang: 'fr' }, [
       h(Head, { title: article.title }),
       h(Body, { topics, options, sideMenu: true }, [
         h(Article, {
           article,
+          relateds,
           topics,
           definitions,
           resources,
           lexiconId,
           options,
         }),
-        h(ArticlePrevNext),
+        h(ArticlePrevNext, { topics, relateds }),
       ]),
     ])
   }

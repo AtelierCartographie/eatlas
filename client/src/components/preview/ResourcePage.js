@@ -14,6 +14,14 @@ const Body = require('./Body')
 
 // subcomponents
 
+const ResourceImage = ({ resource }) => {
+  console.log({ images: resource.images })
+  return h('.ResourceImage', [
+    h('img', { src:`http://localhost:4000/resources/${resource.id}/file` }),
+    h('.ResourceCopyright', `Source: ${resource.copyright}`)
+    ])
+}
+
 const ResourceSound = ({ resource }) => {
   if (!resource.mediaUrl) return null
   return h('.container.ResourceSound', [
@@ -44,6 +52,9 @@ const ResourceDescription = ({ resource }) => {
 const Resource = ({ resource }) => {
   let children
   switch (resource.type) {
+    case 'image':
+      children = h(ResourceImage, { resource })
+      break
     case 'sound':
       children = h(ResourceSound, { resource })
       break

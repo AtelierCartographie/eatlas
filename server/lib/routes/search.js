@@ -82,7 +82,7 @@ exports.search = async (req, res) => {
         let cmp = {}
         if (min) cmp.gte = min
         if (max) cmp.lte = max
-        must.push(range('createdAt', cmp))
+        must.push(range('publishedAt', cmp))
       }
     }
 

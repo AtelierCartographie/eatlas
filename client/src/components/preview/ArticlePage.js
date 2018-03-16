@@ -292,13 +292,13 @@ const Article = props =>
   ])
 
 const ArticlePrevNext = () => [
-  h('a.nav-article-button.nav-article-previous', [
-    h('span.nav-article-topic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-    h('span.nav-article-title', ['TODO (previous article title)']),
+  h('a.ArticlePrev', [
+    h('span.ArticlePrevNextTopic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
+    h('span.ArticlePrevNextTitle', ['TODO (previous article title)']),
   ]),
-  h('a.nav-article-button.nav-article-next', [
-    h('span.nav-article-topic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
-    h('span.nav-article-title', ['TODO (next article title)']),
+  h('a.ArticleNext', [
+    h('span.ArticlePrevNextTopic', [h(Img, { src: '/topics/1.svg' }), 'TODO']),
+    h('span.ArticlePrevNextTitle', ['TODO (next article title)']),
   ]),
 ]
 

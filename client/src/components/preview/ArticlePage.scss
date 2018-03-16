@@ -119,6 +119,25 @@
     }
   }
 
+  .ArticleResourceDownload {
+    color: $color-breadcrumb;
+    font-style: italic;
+    font-size: 14px;
+  }
+
+  .ArticleResourceComment {
+    display: flex;
+    font-size: 14px;
+
+    > a {
+      color: $color-breadcrumb;
+      margin-right: 1em;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
   .ArticleFocus {
     color: $color-text;
     font-size: 20px;

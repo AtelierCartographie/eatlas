@@ -130,9 +130,9 @@ const ArticleResource = ({ article, resource, options, topics }) => {
             srcSet: srcset(resource, 'large', options),
           }),
         ]),
-        h('figcaption', resource.description),
-        h('a.btn.btn-figComment', 'Commentaire'),
-        h('.collapse', 'TODO (image comment)'),
+        h('figcaption', resource.copyright),
+        h('.ArticleResourceDownload', 'Info & téléchargement'),
+        h(ArticleResourceComment, { resource }),
       ])
 
     case 'map':
@@ -150,9 +150,9 @@ const ArticleResource = ({ article, resource, options, topics }) => {
             srcSet: srcset(resource, 'small', options),
           }),
         ]),
-        h('figcaption', resource.description),
-        h('a.btn.btn-figComment', 'Commentaire'),
-        h('.collapse', 'TODO (image comment)'),
+        h('figcaption', resource.copyright),
+        h('.ArticleResourceDownload', 'Info & téléchargement'),
+        h(ArticleResourceComment, { resource }),
       ])
 
     case 'video':
@@ -197,6 +197,25 @@ const ArticleResource = ({ article, resource, options, topics }) => {
     default:
       return null
   }
+}
+
+const ArticleResourceComment = ({ resource }) => {
+  const id = `comment-${resource.id}`
+  return h('.ArticleResourceComment', [
+    h(
+      'a',
+      {
+        href: `#${id}`,
+        'data-toggle': 'collapse',
+        role: 'button',
+        'aria-controls': id,
+        'aria-expanded': false,
+        'aria-haspopup': true,
+      },
+      'Commentaire',
+    ),
+    h('.collapse', { id }, [h('div', resource.description)]),
+  ])
 }
 
 const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {

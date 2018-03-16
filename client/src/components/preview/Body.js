@@ -38,7 +38,11 @@ module.exports = ({
     h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {
-      src: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js',
+      src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+    }),
+    h('script', {
+      src:
+        'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js',
     }),
     h('script', {
       src:

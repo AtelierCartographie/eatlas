@@ -7,6 +7,10 @@
 	"es": {
 		"connection": {
 			"host": "ES_HOST:ES_PORT"
+		},
+		"autoMigration": {
+			"__name": "ES_AUTO_MIGRATION",
+			"__format": "json"
 		}
 	},
 	"session": {

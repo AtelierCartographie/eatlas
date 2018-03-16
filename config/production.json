@@ -1,20 +1,21 @@
 {
-  "server": {
-    "port": 4000,
-    "host": "127.0.0.1"
-  },
-  "es": {
-    "connection": {
-      "host": "es:9200"
-    }
-  },
-  "redis": {
-    "host": "redis"
-  },
-  "session": {
-    "secret": "E-Atlas S3cr3T VErY MuCH SAYCURE"
-  },
-  "google": {
-    "clientId": "see https://console.cloud.google.com/apis/credentials"
-  }
+	"server": {
+		"port": 4000,
+		"host": "127.0.0.1"
+	},
+	"es": {
+		"connection": {
+			"host": "es:9200"
+		},
+		"autoMigration": false
+	},
+	"redis": {
+		"host": "redis"
+	},
+	"session": {
+		"secret": "E-Atlas S3cr3T VErY MuCH SAYCURE"
+	},
+	"google": {
+		"clientId": "see https://console.cloud.google.com/apis/credentials"
+	}
 }

@@ -17,6 +17,17 @@ const Body = require('./Body')
 
 const ENDPOINT = (process.env.REACT_APP_API_SERVER || '') + '/search'
 
+const hitTextTemplate = `
+  <strong><%= hit.title %></strong>
+  <% if (hit.subtitle) { %>
+    <span><%= hit.subtitle %></span>
+  <% } %>
+`
+
+const hitPreviewTemplate = `
+  <img src="<%= hit.preview.url %>" alt="">
+`
+
 const resultsTemplate = ({ showType = true }) => `
 <div class="row search-page">
   <% if (results.start > 1 || results.end < results.count) { %>
@@ -25,19 +36,19 @@ const resultsTemplate = ({ showType = true }) => `
     <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
   <% } %>
 </div>
-<% _.forEach(results, function (result) { %>
-  <a class="row search-result" href="<%= result.url %>">
-    ${showType && `<div class="search-result-type"><%= result.type %></div>`}
-    <% if (result.preview) { %>
+<% _.forEach(results.hits, function (hit) { %>
+  <a class="row search-result" href="<%= hit.url %>">
+    ${showType && `<div class="search-result-type"><%= hit.type %></div>`}
+    <% if (hit.preview) { %>
       <div class="search-result-preview col-sm-6">
-        <img src="<%= result.preview.url %>" alt="">
+        ${hitPreviewTemplate}
       </div>
       <div class="search-result-text col-sm-6">
-        <span><%= result.text %></span>
+        ${hitTextTemplate}
       </div>
     <% } else { %>
-      <div class="search-result-text col-sm-6">
-        <span><%= result.text %></span>
+      <div class="search-result-text col-sm-12">
+        ${hitTextTemplate}
       </div>
     <% } %>
   </a>
@@ -136,14 +147,15 @@ const Search = ({ topics, types, locales, keywords }) => {
         ],
       ),
     ]),
-    h(
-      'script.results-template',
-      { type: 'text/html' },
-      resultsTemplate({ showType: !types }),
-    ),
-    h('section.SearchResults', [
-      h('.container.search-results-error', { style: { display: 'none' } }),
-      h('.container.search-results-success', { style: { display: 'none' } }),
+    h('script.results-template', {
+      type: 'text/html',
+      dangerouslySetInnerHTML: {
+        __html: resultsTemplate({ showType: !types }),
+      },
+    }),
+    h('section.SearchResults', {}, [
+      h('strong.container.search-results-error'),
+      h('.container.search-results-success'),
     ]),
   ])
 }

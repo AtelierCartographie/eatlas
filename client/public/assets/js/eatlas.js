@@ -21,10 +21,16 @@
 
     // Output
     const showSearchError = data => {
-      console.error(data)
+      $('.SearchResults .search-results-error').text(data.message)
+      $('.SearchResults').attr('data-status', 'error')
     }
     const showSearchResults = results => {
-      console.info(results)
+      try {
+        $('.SearchResults .search-results-success').html(resultTpl({ results }))
+        $('.SearchResults').attr('data-status', 'success')
+      } catch (err) {
+        showSearchError(err)
+      }
     }
 
     // Throttle to avoid user double submit

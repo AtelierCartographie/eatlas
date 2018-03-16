@@ -98,9 +98,22 @@ exports.search = async (req, res) => {
     const result = await Resources.search({ body, size, from })
     debug('Result', result)
 
-    res.send(result.hits.hits)
+    res.send({
+      start: from + 1,
+      end: from + result.hits.hits.length,
+      count: result.hits.total,
+      hits: result.hits.hits.map(formatResultHit),
+    })
   } catch (err) {
     logger.error('Search failed', { input: req.body, err })
     res.boom.badImplementation(err)
   }
 }
+
+const formatResultHit = ({ _source: resource }) => ({
+  title: resource.title,
+  subtitle: resource.subtitle,
+  type: resource.type,
+  url: '#TODO',
+  preview: null,
+})

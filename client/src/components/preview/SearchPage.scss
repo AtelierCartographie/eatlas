@@ -76,4 +76,19 @@ $color-blue: #4778d1;
       }
     }
   }
+
+  .SearchResults {
+    & .search-results-error {
+      display: none;
+    }
+    & .search-results-success {
+      display: none;
+    }
+    &[data-status='success'] .search-results-success {
+      display: initial;
+    }
+    &[data-status='error'] .search-results-error {
+      display: initial;
+    }
+  }
 }

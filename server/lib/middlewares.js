@@ -9,9 +9,31 @@ const logger = require('./logger').child({ domain: 'app' })
 const debugCors = require('debug')('eatlas:cors')
 const Url = require('url')
 
-const publicUrl = (() => {
-  const { protocol, host } = Url.parse(config.publicUrl)
-  return protocol + '//' + host
+const localHosts = ['localhost', '127.0.0.1', '::1']
+
+const buildUrls = (protocol, hostname, port, resolveLocal = true) => {
+  if (resolveLocal && localHosts.includes(hostname)) {
+    return localHosts.map(hostname =>
+      buildUrls(protocol, hostname, port, false),
+    )
+  }
+  return protocol + '//' + hostname + (port ? ':' + port : '')
+}
+
+const publicUrls = (() => {
+  const { protocol, hostname, port } = Url.parse(config.publicUrl)
+  return buildUrls(protocol, hostname, port)
+})()
+
+const apiUrls = (() => {
+  const protocol = config.server.secure ? 'https:' : 'http:'
+  const hostname = config.server.host
+  const port =
+    (config.server.port === 80 && !config.server.secure) ||
+    (config.server.port === 443 && config.server.secure)
+      ? null
+      : config.server.port
+  return buildUrls(protocol, hostname, port)
 })()
 
 exports.cors = cors({
@@ -20,12 +42,15 @@ exports.cors = cors({
       debugCors('No origin & allowNoOrigin: OK')
       return cb(null, true)
     }
-    const origins = config.cors.origins.map(origin => {
+    const origins = config.cors.origins.reduce((origins, origin) => {
       if (origin === '$publicUrl') {
-        return publicUrl
+        return origins.concat(publicUrls)
       }
-      return origin
-    })
+      if (origin === '$apiUrl') {
+        return origins.concat(apiUrls)
+      }
+      return origins.concat([origin])
+    }, [])
     const ok = origins.includes(origin)
     debugCors({ origin, origins, ok })
     return ok ? cb(null, true) : cb(new Error('Not allowed by CORS'))

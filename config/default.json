@@ -34,7 +34,7 @@
 	},
 
 	"cors": {
-		"origins": ["$publicUrl"],
+		"origins": ["$publicUrl", "$apiUrl"],
 		"allowNoOrigin": false
 	},
 

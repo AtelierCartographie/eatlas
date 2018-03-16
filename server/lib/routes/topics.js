@@ -6,6 +6,7 @@ const { generateTopicHTML } = require('../html-generator')
 exports.list = (req, res) =>
   topics
     .list()
+    .then(topics => topics.sort((t1, t2) => t1.id - t2.id))
     .then(topics => res.send(topics))
     .catch(res.boom.send)
 

@@ -110,12 +110,12 @@ exports.getMediaPreviewUrl = (
   id,
   size,
   density,
-  host = process.env.REACT_APP_ADMIN_URL,
+  host = process.env.REACT_APP_API_SERVER,
 ) => `${host || ''}/resources/${id}/file/${size}-${density}`
 
 exports.getResourcePagePreviewUrl = (
   resource,
-  host = process.env.REACT_APP_ADMIN_URL,
+  host = process.env.REACT_APP_API_SERVER,
 ) => `${host}/preview/resources/${resource.id}`
 
 // { resourcesSlug, searchTypes, label }[]

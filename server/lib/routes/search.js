@@ -8,7 +8,7 @@ const { inspect } = require('util')
 
 const sortField = 'publishedAt'
 const sortDir = 'desc'
-const nbPerPage = 1
+const nbPerPage = 10
 
 const term = (field, values) => ({
   [Array.isArray(values) ? 'terms' : 'term']: { [field]: values },

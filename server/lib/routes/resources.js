@@ -27,12 +27,20 @@ exports.get = (req, res) => res.send(req.foundResource)
 
 exports.update = async (req, res) => {
   const baseData = Object.assign(
-    { updatedBy: req.session.user.email },
+    { updatedBy: req.session.user.email, updatedAt: Date.now() },
     req.body,
   )
   // Every field is a resource's field to be updated, except 'uploads' & 'accessToken'
   delete baseData.uploads
   delete baseData.accessToken
+
+  // Published at?
+  if (
+    req.body.status === 'published' &&
+    req.foundResource.status !== 'published'
+  ) {
+    baseData.publishedAt = Date.now()
+  }
 
   const body = Object.assign({}, req.foundResource, { uploads: [] }, req.body)
   // TODO handle upload deletion
@@ -69,6 +77,8 @@ const getBaseData = req => ({
     req.body.type === 'definition'
       ? 'published' // Lexicon is always published
       : 'submitted',
+  updatedAt: Date.now(),
+  publishedAt: req.body.status === 'published' ? Date.now() : null,
   createdAt: Date.now(),
   id: req.body.id,
   type: req.body.type,

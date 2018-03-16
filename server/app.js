@@ -10,8 +10,14 @@ const {
   validateBody,
   resBoomSend,
 } = require('./lib/middlewares')
-const { user, users, resources, topics, parsers } = require('./lib/routes')
-const { generateHomeHTML } = require('./lib/html-generator')
+const {
+  user,
+  users,
+  resources,
+  topics,
+  parsers,
+  previews,
+} = require('./lib/routes')
 
 const app = express()
 
@@ -51,10 +57,9 @@ app.post('/topics', topics.add)
 app.put('/topics/:id', topics.findTopic, topics.update)
 app.delete('/topics/:id', topics.findTopic, topics.remove)
 
-// TODO switch /preview suffix of above routes to a prefix like the route below
-app.get('/preview', async (req, res) => {
-  const html = await generateHomeHTML({ preview: true })
-  res.send(html)
-})
+// Preview routes
+// TODO stop using /resources/:id/preview and use /preview/resource/:id instead
+app.get('/preview/resource/:id', resources.findResource, previews.resource)
+app.get('/preview/:page?', previews.page)
 
 module.exports = app

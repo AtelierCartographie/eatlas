@@ -6,4 +6,5 @@ module.exports = {
   resources: require('./resources'),
   topics: require('./topics'),
   parsers: require('./parsers'),
+  previews: require('./previews'),
 }

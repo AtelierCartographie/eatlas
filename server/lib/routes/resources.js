@@ -10,7 +10,7 @@ const { updateFiles, deleteAllFiles } = require('../public-fs')
 const uploadManagers = require('../upload-managers')
 const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 const { rebuildAllHTML } = require('../site-builder')
-const previews = require('./resources') // for alias resources.preview = previews.resource
+const previews = require('./previews') // for alias resources.preview = previews.resource
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)

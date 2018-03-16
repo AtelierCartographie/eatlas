@@ -4,6 +4,7 @@ const config = require('config')
 const { resources: Resources } = require('../model')
 const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
+const { inspect } = require('util')
 
 const sortVal = r => new Date(r.publishedAt)
 const sortDir = 'desc'
@@ -19,7 +20,8 @@ const nested = (path, query) => ({ nested: { path, score_mode: 'max', query } })
 const range = (field, query) => ({ range: { [field]: query } })
 
 exports.search = async (req, res) => {
-  debug('Query', req.body)
+  debug('Input', req.body)
+
   try {
     // Base search: status (AND next criteria)
     const must = [
@@ -87,6 +89,10 @@ exports.search = async (req, res) => {
     const page = Number(req.body.page) || 1
     const size = Number(req.body.size) || nbPerPage
     const from = (page - 1) * size
+
+    if (debug.enabled) {
+      debug('Query', inspect({ query: { bool: { must } } }, false, 99, false))
+    }
 
     const resources = await Resources.list(
       { query: { bool: { must } } },

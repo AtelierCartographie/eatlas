@@ -70,10 +70,7 @@ networks:
 volumes:
   esdata:
     driver: local
-    name: eatlas_esdata
   redisdata:
     driver: local
-    name: eatlas_redisdata
   uploadsdata:
     driver: local
-    name: eatlas_uploadsdata

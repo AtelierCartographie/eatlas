@@ -79,7 +79,7 @@ const getBaseData = req => ({
       ? 'published' // Lexicon is always published
       : 'submitted',
   updatedAt: Date.now(),
-  publishedAt: req.body.status === 'published' ? Date.now() : null,
+  publishedAt: req.body.status === 'published' ? Date.now() : 0,
   createdAt: Date.now(),
   id: req.body.id,
   type: req.body.type,

@@ -51,10 +51,7 @@
       search(1)
     }
     $form.on('submit', onSearch)
-    $('.SearchPage input, .SearchPage select, .SearchPage textarea', $form).on(
-      'change',
-      onSearch,
-    )
+    $('input, select, textarea', $form).on('change', onSearch)
 
     // Expand/collapse filters
     $('.SearchPage .search-filters-toggle[data-filters-hidden]').on(

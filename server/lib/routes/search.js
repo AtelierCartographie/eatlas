@@ -73,7 +73,10 @@ const search = ({ preview = false } = {}) => async (req, res) => {
           bool: {
             must: [
               term('metas.type', 'keywords'),
-              nested('metas.list', term('metas.list.text', req.body.keywords)),
+              nested(
+                'metas.list',
+                term('metas.list.text.keyword', req.body.keywords),
+              ),
             ],
           },
         }),

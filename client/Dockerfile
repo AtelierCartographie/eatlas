@@ -1,7 +1,7 @@
 FROM nginx:stable-alpine
 
 ENV API_PORT=4000
-ENV API_HOST=api
+ENV API_HOST=backend
 
 RUN rm /etc/nginx/conf.d/default.conf
 

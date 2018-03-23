@@ -14,15 +14,17 @@ const Body = require('./Body')
 
 // subcomponents
 
+const apiBaseUrl = process.env.REACT_APP_API_SERVER || ''
+
 const ResourceMap = ({ resource }) => {
   return h('.ResourceMap', [
-    h('img', { src: `http://localhost:4000/resources/${resource.id}/file` }),
+    h('img', { src: `${apiBaseUrl}/resources/${resource.id}/file` }),
   ])
 }
 
 const ResourceImage = ({ resource }) => {
   return h('.ResourceImage', [
-    h('img', { src: `http://localhost:4000/resources/${resource.id}/file` }),
+    h('img', { src: `${apiBaseUrl}/resources/${resource.id}/file` }),
   ])
 }
 

@@ -1,22 +1,22 @@
 version: "2.1"
 
 services:
-  nginx:
+  frontend:
     build: client
-    image: sciencespo/eatlas-client:latest
+    image: sciencespo/eatlas-frontend:latest
     links:
-      - api:api
+      - backend:backend
     ports:
       - 80:80
     volumes_from:
-      - api
+      - backend
     networks:
-      - api
+      - backend
     volumes:
       - uploadsdata:/eatlas/data/uploads:ro
-  api:
+  backend:
     build: .
-    image: sciencespo/eatlas-api:latest
+    image: sciencespo/eatlas-backend:latest
     env_file:
       - docker-config.env
     environment:
@@ -30,7 +30,7 @@ services:
       - UPLOAD_PATH=/eatlas/data/uploads
       - CLIENT_PATH=/eatlas/data/uploads
     networks:
-      - api
+      - backend
       - es
       - redis
     links:
@@ -63,7 +63,7 @@ services:
       - redis
 
 networks:
-  api:
+  backend:
   es:
   redis:
 

@@ -162,7 +162,7 @@ La configuration des variables d'environnement se base sur le fichier `config/cu
 Voir donc ce fichier pour la liste des variables utilisées.
 On peut aussi mettre les variables d'environnement de la configuration du client.
 
-La confirguration du client est construite (`yarn build`) à chaque lancement du conteneur `api`.
+La confirguration du client est construite (`yarn build`) à chaque lancement du conteneur `backend`.
 
 ### Création du premier compte admin
 
@@ -175,7 +175,7 @@ yarn add-user "user@gmail.com" "Nom Complet" admin
 ou avec Docker:
 
 ```sh
-docker-compose -f docker-compose.prod.yml exec api yarn add-user "prenom.nom@mail.fr" "Prénom NOM" admin
+docker-compose -f docker-compose.prod.yml exec backend node ./bin/add-user "prenom.nom@mail.fr" "Prénom NOM" admin
 ```
 
 On peut dès lors se connecter avec ce compte et effectuer tout le reste depuis l'interface Web.
@@ -212,8 +212,8 @@ Le site web front est généré au fur et à mesure de la création de rubriques
 
 La production tourne dans des conteneurs Docker orchestrés par le fichier `docker-compose.prod.yml`.
 Des images sont construites directements via le Docker Hub lors d'un évènement `push` sur le dépôt Git:
-Client: https://hub.docker.com/r/sciencespo/eatlas-client/
-API: https://hub.docker.com/r/sciencespo/eatlas-api/
+Client: https://hub.docker.com/r/sciencespo/eatlas-frontend/
+API: https://hub.docker.com/r/sciencespo/eatlas-backend/
 
 ### Code
 
@@ -273,7 +273,7 @@ docker-compose -f docker-compose.prod.yml up -d
 Pour ajouter un utilisateur:
 
 ```sh
-docker-compose -f docker-compose.prod.yml exec api yarn add-user "prenom.nom@mail.fr" "Prénom NOM" admin
+docker-compose -f docker-compose.prod.yml exec backend node ./bin/add-user "prenom.nom@mail.fr" "Prénom NOM" admin
 ```
 
 ### Troubleshooting
@@ -281,12 +281,12 @@ docker-compose -f docker-compose.prod.yml exec api yarn add-user "prenom.nom@mai
 | Problème                                                        | Solution(s)                                                                                                                                                             |
 | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Erreur de connexion “Not a valid origin for the client […]”     | Aller configurer la clé d'API Google                                                                                                                                    |
-| Impossible de se connecter après l'installation                 | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_api_1 yarn add-user <email> <name> admin`                                                             |
-| Les pages semblent charger indéfiniment                         | - Regarder dans les logs de l'API : `docker logs eatlas_api_1`                                                                                                          |
+| Impossible de se connecter après l'installation                 | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_backend_1 yarn add-user <email> <name> admin`                                                             |
+| Les pages semblent charger indéfiniment                         | - Regarder dans les logs de l'API : `docker logs eatlas_backend_1`                                                                                                          |
 |                                                                 | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `CORS_ALLOW_NO_ORIGIN=1` dans `docker-config.env`                       |
-| Vérifier la configuration du serveur node                       | `docker exec eatlas_api_1 node -p "require('config')"`                                                                                                                  |
-| Les données ont disparu, l'index Elastic Search est corrompu…   | Lancer `docker exec eatlas_api_1 yarn es-index` pour analyser les index et éventuellement remplacer l'alias courant pour rebasculer sur une ancienne version de l'index |
-| La génération du site échoue, les HTML ne sont pas bien à jour… | Lancer `docker exec eatlas_api_1 yarn rebuild-site` pour une régénération complète du site                                                                              |
+| Vérifier la configuration du serveur node                       | `docker exec eatlas_backend_1 node -p "require('config')"`                                                                                                                  |
+| Les données ont disparu, l'index Elastic Search est corrompu…   | Lancer `docker exec eatlas_backend_1 yarn es-index` pour analyser les index et éventuellement remplacer l'alias courant pour rebasculer sur une ancienne version de l'index |
+| La génération du site échoue, les HTML ne sont pas bien à jour… | Lancer `docker exec eatlas_backend_1 yarn rebuild-site` pour une régénération complète du site                                                                              |
 
 ### Arrêt et journaux
 

@@ -9,7 +9,7 @@ const {
 } = require('./layout')
 const { Img } = require('./Tags')
 
-const TopMenuPanelSearch = () => {
+const TopMenuPanelSearch = ({ options }) => {
   const id = 'TopMenuPanel-search'
   return [
     h(
@@ -21,7 +21,7 @@ const TopMenuPanelSearch = () => {
         'aria-expanded': false,
         'aria-haspopup': true,
       },
-      [h(Img, { alt: 'rechercher', src: `/assets/img/search.svg` })],
+      [h(Img, { alt: 'rechercher', src: `/assets/img/search.svg`, options })],
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
       h('input', { placeholder: 'Rechercher', title: 'rechercher' }),
@@ -109,7 +109,9 @@ exports.TopMenu = ({ topic, topics, articles, options }) => {
   // used to add the bottom white border indicator (active)
   const currentTopic = topic || {}
   return h('.container.TopMenu', [
-    h('.TopMenuSearch', { role: 'search' }, [h(TopMenuPanelSearch)]),
+    h('.TopMenuSearch', { role: 'search' }, [
+      h(TopMenuPanelSearch, { options }),
+    ]),
     h('nav', { role: 'navigation' }, [
       h('ul', [
         h(TopMenuPanelMain, { options }),

@@ -23,7 +23,7 @@ class MissingPage extends Component {
   render() {
     const { topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: 'Missing page' }),
+      h(Head, { title: 'Missing page', options }),
       h(Body, { topics, options, topMenu: true }, [
         h(Content, { topics, articles, options }),
       ]),

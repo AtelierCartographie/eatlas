@@ -14,6 +14,7 @@ const NavBar = ({ logoColor, options }) =>
         h(Img, {
           alt: "Page d'accueil",
           src: `/assets/img/logo-eatlas-${logoColor}.svg`,
+          options,
         }),
       ]),
     ]),
@@ -52,5 +53,5 @@ module.exports = ({
       src:
         'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js',
     }),
-    h(Script, { src: '/assets/js/eatlas.js' }),
+    h(Script, { src: '/assets/js/eatlas.js', options }),
   ])

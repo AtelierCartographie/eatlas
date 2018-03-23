@@ -1,12 +1,13 @@
 // @flow
 const h = require('react-hyperscript')
 
-const HOST = process.env.REACT_APP_ADMIN_URL || ''
+const HOST = preview => (preview ? process.env.REACT_APP_ADMIN_URL || '' : '')
 
-exports.Script = ({ src }) => h('script', { src: `${HOST}${src}` })
+exports.Script = ({ src, options: { preview = false } = {} }) =>
+  h('script', { src: `${HOST(preview)}${src}` })
 
-exports.StyleSheet = ({ href }) =>
-  h('link', { rel: 'stylesheet', href: `${HOST}${href}` })
+exports.StyleSheet = ({ href, options: { preview = false } = {} }) =>
+  h('link', { rel: 'stylesheet', href: `${HOST(preview)}${href}` })
 
-exports.Img = ({ className, alt, src }) =>
-  h('img', { className, alt, src: `${HOST}${src}` })
+exports.Img = ({ className, alt, src, options: { preview = false } = {} }) =>
+  h('img', { className, alt, src: `${HOST(preview)}${src}` })

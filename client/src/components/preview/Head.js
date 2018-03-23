@@ -2,7 +2,7 @@
 const h = require('react-hyperscript')
 const { StyleSheet } = require('./Tags')
 
-module.exports = ({ title }) => {
+module.exports = ({ title, options }) => {
   return h('head', [
     h('meta', { charSet: 'utf-8' }),
     h('meta', { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' }),
@@ -21,7 +21,7 @@ module.exports = ({ title }) => {
       href:
         'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css',
     }),
-    h(StyleSheet, { href: '/index.css' }),
+    h(StyleSheet, { href: '/index.css', options }),
     h('link', {
       rel: 'stylesheet',
       href:
@@ -34,4 +34,3 @@ module.exports = ({ title }) => {
     }),
   ])
 }
-

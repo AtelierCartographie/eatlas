@@ -62,7 +62,13 @@ const ResourceTranscript = ({ resource }) =>
   h('.container.ResourceTranscript', [h('h2', 'Transcript'), h('div', 'TODO')])
 
 const ResourceDownload = ({ resource }) =>
-  h('.container.ResourceDownload', [h('h2', 'Téléchargement'), h('div', 'Pour toute utilisation, merci de consulter les mentions légales.')])
+  h('.container.ResourceDownload', [
+    h('h2', 'Téléchargement'),
+    h(
+      'div',
+      'Pour toute utilisation, merci de consulter les mentions légales.',
+    ),
+  ])
 
 const Resource = ({ resource }) => {
   let children
@@ -105,7 +111,7 @@ const Resource = ({ resource }) => {
     h(ResourceDescription, { resource }),
     ['sound', 'video'].includes(resource.type) &&
       h(ResourceTranscript, { resource }),
-    resource.type === 'map' && h(ResourceDownload, { resource })
+    resource.type === 'map' && h(ResourceDownload, { resource }),
   ])
 }
 
@@ -113,7 +119,7 @@ class ResourcePage extends Component /*::<{resource: Resource, topics: Topic[] }
   render() {
     const { resource, topics, options } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: resource.title }),
+      h(Head, { title: resource.title, options }),
       h(Body, { topics, options }, [
         h(Resource, { resource, topics, options }),
       ]),

@@ -91,7 +91,9 @@ const Search = ({ topics, types, locales, keywords, options }) => {
         [
           h('.row.search-input', [
             h('input', { name: 'q', placeholder: "Rechercher dans l'atlas" }),
-            h('button', [h(Img, { alt: '', src: `/assets/img/search.svg` })]),
+            h('button', [
+              h(Img, { alt: '', src: `/assets/img/search.svg`, options }),
+            ]),
           ]),
           h('.search-filters', [
             h('.container', [
@@ -172,7 +174,7 @@ class SearchPage extends Component /*::<{topics: Topic[], articles: Article[], t
   render() {
     const { topics, articles, options, types, locales, keywords } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: 'eAtlas - Recherche' }),
+      h(Head, { title: 'eAtlas - Recherche', options }),
       h(
         Body,
         { topics, articles, options, topMenu: true, logoColor: 'white' },

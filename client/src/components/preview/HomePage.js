@@ -15,7 +15,7 @@ const Body = require('./Body')
 
 // subcomponents
 
-const Home = ({ topics }) => {
+const Home = ({ topics, options }) => {
   return h('article.HomePage', [
     h('header.container.HomeHeader', [
       h('h1.HomeTitle', 'Un atlas pour comprendre'),
@@ -26,7 +26,9 @@ const Home = ({ topics }) => {
       ]),
       h('div', [
         h('input', { placeholder: "Rechercher dans l'atlas" }),
-        h('button', [h(Img, { alt: '', src: `/assets/img/search.svg` })]),
+        h('button', [
+          h(Img, { alt: '', src: `/assets/img/search.svg`, options }),
+        ]),
       ]),
     ]),
     h('section.HomeNav', [
@@ -127,10 +129,12 @@ class HomePage extends Component /*::<{topics: Topic[]}>*/ {
   render() {
     const { topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: 'eAtlas' }),
-      h(Body, { topics, articles, options, topMenu: true, logoColor: 'white' }, [
-        h(Home, { topics, options }),
-      ]),
+      h(Head, { title: 'eAtlas', options }),
+      h(
+        Body,
+        { topics, articles, options, topMenu: true, logoColor: 'white' },
+        [h(Home, { topics, options })],
+      ),
     ])
   }
 }

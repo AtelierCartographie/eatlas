@@ -74,7 +74,7 @@ exports.SideMenu = ({ topics, options }) =>
     ],
   )
 
-exports.SideMenuToggle = () =>
+exports.SideMenuToggle = ({ options }) =>
   h('div.navbar.navbar-default.navbar-fixed-top', [
     h(
       'button.navbar-toggle',
@@ -84,6 +84,6 @@ exports.SideMenuToggle = () =>
         'data-target': '#navmenu',
         'data-canvas': 'body',
       },
-      [h(Img, { alt: '', src: '/assets/img/picto-menu-B.svg' })],
+      [h(Img, { alt: '', src: '/assets/img/picto-menu-B.svg', options })],
     ),
   ])

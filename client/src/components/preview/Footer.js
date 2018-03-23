@@ -32,6 +32,7 @@ module.exports = ({ topics, options }) =>
             className: 'img-responsive',
             alt: 'Sciences Po',
             src: '/assets/img/sciences-po.svg',
+            options,
           }),
         ]),
       ]),

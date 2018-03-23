@@ -99,7 +99,7 @@ class TopicPage extends Component {
   render() {
     const { topic, topics, articles, options } = this.props
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: topic.name }),
+      h(Head, { title: topic.name, options }),
       h(Body, { topic, topics, articles, options, topMenu: true }, [
         h(Topic, { topic, topics, articles, options }),
       ]),

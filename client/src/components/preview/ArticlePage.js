@@ -296,7 +296,10 @@ const ArticleFooter = ({ article, topics, resources, options }) =>
   h('footer.DocFooter', [
     h(Keywords, { keywords: article.keywords }),
     h(Quote, { doc: article }),
-    h(Footnotes, { references: article.references, footnotes: article.footnotes }),
+    h(Footnotes, {
+      references: article.references,
+      footnotes: article.footnotes,
+    }),
     h(ArticleSeeAlso, { article, topics, resources, options }),
   ])
 
@@ -354,7 +357,7 @@ class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], de
     }
 
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: article.title }),
+      h(Head, { title: article.title, options }),
       h(Body, { topics, options, sideMenu: true }, [
         h(Article, {
           article,

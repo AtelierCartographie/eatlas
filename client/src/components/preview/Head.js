@@ -21,7 +21,7 @@ module.exports = ({ title, options }) => {
       href:
         'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css',
     }),
-    h(StyleSheet, { href: '/index.css', options }),
+    h(StyleSheet, { href: '/assets/index.css', options }),
     h('link', {
       rel: 'stylesheet',
       href:

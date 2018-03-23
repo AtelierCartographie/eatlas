@@ -11,6 +11,7 @@
 
 # sass output
 /public/*.css
+/public/assets/*.css
 
 # misc
 .DS_Store

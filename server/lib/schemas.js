@@ -258,11 +258,7 @@ exports.fullResource = {
     .required(),
   updatedAt: Joi.date()
     .timestamp()
-    .when('type', {
-      is: Joi.valid(['article', 'focus', 'definition', 'map']),
-      then: Joi.optional(),
-      otherwise: Joi.forbidden(),
-    }),
+    .optional(),
   publishedAt: Joi.date()
     .timestamp()
     .optional(),

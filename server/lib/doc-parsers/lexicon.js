@@ -34,40 +34,30 @@ module.exports = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })
   const $ = cheerio.load(`<div id="cheerio">${value}</div>`)
 
-  // parser state
-  let incipit = true
-  let skip = 0
-
   const parseChild = $ => (i, el) => {
-    // 'A' reached, start saving defs
-    if (el.name === 'h1') {
-      incipit = false
-      return null
-    }
-    if (incipit) return null
-
-    // Previously handled el.next elements
-    if (skip > 0) {
-      skip--
-      return null
-    }
+    if (el.name !== 'h2') return null
 
     const text = getText($, el)
     const [dt] = text.split(' [')
 
-    let dd = null
+    // phantom H2
+    if (!dt) return null
+
     let aliases = []
-    while (dd === null) {
-      el = el.next
-      skip++
-      const text = getText($, el)
-      const foundAliases = parseAliases(text)
-      if (foundAliases) {
-        aliases = aliases.concat(foundAliases)
-      } else {
-        dd = text
+    let dd = ''
+
+    // aliases?
+    if (el.next.name === 'h3') {
+      aliases = parseAliases(getText($, el.next))
+      if (el.next.next.name === 'p') {
+        dd = getText($, el.next.next)
       }
+    } else if (el.next.name === 'p') {
+      dd = getText($, el.next)
     }
+
+    // definition not provided yet
+    if (!dd) return null
 
     return {
       dt,

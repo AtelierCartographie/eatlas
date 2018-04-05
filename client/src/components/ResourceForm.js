@@ -513,7 +513,6 @@ class ResourceForm extends Component<Props, State> {
       }),
       this.getAttrField('description', {
         leftIcon: 'info',
-        mandatory: true,
         readOnly:
           readOnly ||
           (isArticle && this.state.parsed && this.state.parsed.description),

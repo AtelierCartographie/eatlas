@@ -106,7 +106,7 @@ exports.resource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string().required(),
+  description: Joi.string().optional(),
   copyright: Joi.string().optional(),
   mediaUrl: resourceMediaUrl.optional(),
 }
@@ -202,7 +202,7 @@ exports.fullResource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string().required(),
+  description: Joi.string().optional(),
   copyright: Joi.string().when('type', {
     is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
     then: Joi.optional(),

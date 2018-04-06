@@ -25,7 +25,7 @@ declare type AppState = {
   locale: Locale,
   users: { loading: boolean, saving: boolean, list: User[] },
   resources: { loading: boolean, fetched: boolean, list: Resource[] },
-  topics: { loading: boolean, list: Topic[] },
+  topics: { loading: boolean, saving: boolean, list: Topic[] },
   user: { current: ?User, checkedServerLogin: boolean, verifying: boolean },
 }
 

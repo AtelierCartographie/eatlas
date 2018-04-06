@@ -1,12 +1,13 @@
 // @flow
 
 import React, { Component } from 'react'
+import type { Node } from 'react'
 import Spinner from './Spinner'
 import Icon from './Icon'
 
 type Props = {
   promise: Promise<any>,
-  render: any => React$Element,
+  render: any => Node,
 }
 
 type State = {
@@ -22,7 +23,7 @@ class AsyncData extends Component<Props, State> {
     return <Spinner />
   }
 
-  renderError(error) {
+  renderError(error: ?string) {
     return (
       <span className="has-text-danger">
         <Icon icon="warning" />
@@ -31,12 +32,13 @@ class AsyncData extends Component<Props, State> {
     )
   }
 
-  renderSuccess(data) {
+  renderSuccess(data: ?any) {
     return this.props.render(data)
   }
 
-  onSuccess = data => this.setState({ data, status: 'success' })
-  onError = error => this.setState({ error: error.message, status: 'error' })
+  onSuccess = (data: any) => this.setState({ data, status: 'success' })
+  onError = (error: { message: string }) =>
+    this.setState({ error: error.message, status: 'error' })
 
   componentWillMount() {
     this.props.promise.then(this.onSuccess, this.onError)

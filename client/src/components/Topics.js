@@ -144,7 +144,7 @@ class Topics extends Component<Props, State> {
                 <tr key={t.id}>
                   <td>{t.id}</td>
                   <td>{t.name}</td>
-                  <td>{t.mediaUrl ? <VimeoIframe url={t.mediaUrl} name={t.name} /> : null }</td>
+                  <td>{t.mediaUrl ? <VimeoIframe url={t.mediaUrl} title={t.name} /> : null }</td>
                   {SHOWN_TYPES.map(type => (
                     <td key={type}>{this.renderCount(t.id, type)}</td>
                   ))}

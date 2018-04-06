@@ -561,7 +561,7 @@ class Resources extends Component<Props, State> {
   canAdd() {
     // No 'add' button if we're in the "definition" type, and there is already a lexicon
     if (this.props.filters.type === 'definition') {
-      if (!this.props.resources.loaded || this.props.resources.loading) {
+      if (!this.props.resources.fetched || this.props.resources.loading) {
         return false
       }
       if (this.props.resources.list.some(r => r.type === 'definition')) {

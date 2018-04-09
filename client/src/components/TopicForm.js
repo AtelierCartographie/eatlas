@@ -98,6 +98,7 @@ class TopicForm extends Component<Props, State> {
                   placeholder="id"
                   value={topic.id}
                   onChange={this.handleChange}
+                  readOnly={this.props.topicId}
                   required
                 />
               </div>

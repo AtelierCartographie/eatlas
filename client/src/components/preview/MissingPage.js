@@ -4,7 +4,6 @@
 // - require instead of import
 // - hyperscript instead of JSX
 
-const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -19,16 +18,18 @@ const Content = ({ topics, articles, options }) => {
   ])
 }
 
-class MissingPage extends Component {
-  render() {
-    const { topics, articles, options } = this.props
-    return h('html', { lang: 'fr' }, [
-      h(Head, { title: 'Missing page', options }),
-      h(Body, { topics, options, topMenu: true }, [
-        h(Content, { topics, articles, options }),
-      ]),
-    ])
-  }
-}
+const MissingPage = (
+  {
+    topics,
+    articles,
+    options,
+  } /*: { topics: Topic[], articles: Resource[], options: Object } */,
+) =>
+  h('html', { lang: 'fr' }, [
+    h(Head, { title: 'Missing page', options }),
+    h(Body, { topics, options, topMenu: true }, [
+      h(Content, { topics, articles, options }),
+    ]),
+  ])
 
 module.exports = MissingPage

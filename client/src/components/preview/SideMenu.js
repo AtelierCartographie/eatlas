@@ -54,7 +54,9 @@ const APropos = ({ options }) =>
     ),
   ])
 
-exports.SideMenu = ({ topics, options }) =>
+exports.SideMenu = (
+  { topics, options } /*: { topics: Topic[], options: Object } */,
+) =>
   h(
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },
@@ -74,7 +76,7 @@ exports.SideMenu = ({ topics, options }) =>
     ],
   )
 
-exports.SideMenuToggle = ({ options }) =>
+exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
   h('div.navbar.navbar-default.navbar-fixed-top', [
     h(
       'button.navbar-toggle',

@@ -85,7 +85,7 @@ exports.META_CONVERSION = {
   'Image header': 'image-header',
 }
 
-exports.LOCALES /*: { Locale: string }*/ = {
+exports.LOCALES = {
   fr: 'Français',
   en: 'English',
 }

@@ -125,18 +125,18 @@ const Home = ({ topics, options }) => {
   ])
 }
 
-class HomePage extends Component /*::<{topics: Topic[]}>*/ {
-  render() {
-    const { topics, articles, options } = this.props
-    return h('html', { lang: 'fr' }, [
-      h(Head, { title: 'eAtlas', options }),
-      h(
-        Body,
-        { topics, articles, options, topMenu: true, logoColor: 'white' },
-        [h(Home, { topics, options })],
-      ),
-    ])
-  }
-}
+const HomePage = (
+  {
+    topics,
+    articles,
+    options,
+  } /*:{topics: Topic[], articles: Resource[], options: Object }*/,
+) =>
+  h('html', { lang: 'fr' }, [
+    h(Head, { title: 'eAtlas', options }),
+    h(Body, { topics, articles, options, topMenu: true, logoColor: 'white' }, [
+      h(Home, { topics, options }),
+    ]),
+  ])
 
 module.exports = HomePage

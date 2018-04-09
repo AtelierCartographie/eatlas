@@ -20,16 +20,18 @@ const NavBar = ({ logoColor, options }) =>
     ]),
   ])
 
-module.exports = ({
-  topic,
-  topics,
-  articles,
-  sideMenu,
-  topMenu,
-  logoColor,
-  options,
-  children,
-}) =>
+module.exports = (
+  {
+    topic,
+    topics,
+    articles,
+    sideMenu,
+    topMenu,
+    logoColor,
+    options,
+    children,
+  } /*:{ topic: Topic, topics: Topic[], articles: Resource[], sideMenu: any, topMenu: any, logoColor: string, options: Object, children: any} */,
+) =>
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
     h(NavBar, { logoColor: logoColor || 'white', options }),

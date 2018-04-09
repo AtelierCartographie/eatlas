@@ -3,8 +3,8 @@ const h = require('react-hyperscript')
 const { Img } = require('./Tags')
 const { resourcesTypes, aPropos, getTopicPageUrl } = require('./layout')
 
-const Topics = ({ topics, options }) => {
-  return h('nav', [
+const Topics = ({ topics, options }) =>
+  h('nav', [
     h(
       'ul',
       topics.map(t =>
@@ -20,10 +20,11 @@ const Topics = ({ topics, options }) => {
       ),
     ),
   ])
-}
 
 // TODO flexbox to change order
-module.exports = ({ topics, options }) =>
+module.exports = (
+  { topics, options } /*: { topics: Topic[], options: Object } */,
+) =>
   h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.row', [
       h('.col-xs-6.col-sm-3', [

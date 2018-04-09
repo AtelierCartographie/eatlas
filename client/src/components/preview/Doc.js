@@ -10,7 +10,7 @@ moment.locale('fr')
 
 const { HOST } = require('./layout')
 
-exports.PublishedAt = ({ doc }) =>
+exports.PublishedAt = ({ doc } /*: { doc: Resource } */) =>
   !doc.publishedAt
     ? h('.PublishedAt', 'Non publié')
     : h('.PublishedAt', [
@@ -23,7 +23,9 @@ exports.PublishedAt = ({ doc }) =>
       ])
 
 // first parse lexicon, then footnotes
-exports.Paragraph = ({ p, lexiconId }) => {
+exports.Paragraph = (
+  { p, lexiconId } /*: {p: Object, lexiconId: {id: number }} */,
+) => {
   const parseFootnotes = str => {
     const m = str.match(/(.*)\[(\d+)\](.*)/)
     if (!m) return str
@@ -63,7 +65,7 @@ exports.Paragraph = ({ p, lexiconId }) => {
   return h('p.container.DocParagraph', parts)
 }
 
-exports.Keywords = ({ keywords }) => {
+exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
   if (!keywords || !keywords.length) return null
 
   return h('section.container.Keywords', [
@@ -77,7 +79,7 @@ exports.Keywords = ({ keywords }) => {
   ])
 }
 
-exports.Quote = ({ doc }) => {
+exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   // TODO conf?
   const publication = 'Atlas de la mondialisation'
   const year = 2016
@@ -100,11 +102,11 @@ exports.Quote = ({ doc }) => {
   ])
 }
 
-exports.Footnotes = ({ references, footnotes }) => {
+exports.Footnotes = (
+  { references, footnotes } /*: { references: Object[], footnotes: Object[] }*/,
+) => {
   if ((!references || !references.length) && (!footnotes || !footnotes.length))
     return null
-
-  console.log(references)
 
   const parseLinks = ({ text, links }) => {
     let parts = []
@@ -136,15 +138,15 @@ exports.Footnotes = ({ references, footnotes }) => {
     h(
       'ol',
       references.map((r, k) => {
-        return h('li', { key: k },
-          r.text
-        )
+        return h('li', { key: k }, r.text)
       }),
     ),
   ])
 }
 
-exports.Lexicon = ({ nodes, definitions }) =>
+exports.Lexicon = (
+  { nodes, definitions } /*: { nodes: Object[], definitions: Object[] } */,
+) =>
   h(
     'section.Lexicon',
     nodes

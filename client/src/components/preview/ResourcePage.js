@@ -4,7 +4,6 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -115,16 +114,16 @@ const Resource = ({ resource }) => {
   ])
 }
 
-class ResourcePage extends Component /*::<{resource: Resource, topics: Topic[] }>*/ {
-  render() {
-    const { resource, topics, options } = this.props
-    return h('html', { lang: 'fr' }, [
-      h(Head, { title: resource.title, options }),
-      h(Body, { topics, options }, [
-        h(Resource, { resource, topics, options }),
-      ]),
-    ])
-  }
-}
+const ResourcePage = (
+  {
+    resource,
+    topics,
+    options,
+  } /*:{resource: Resource, topics: Topic[], options: Object }*/,
+) =>
+  h('html', { lang: 'fr' }, [
+    h(Head, { title: resource.title, options }),
+    h(Body, { topics, options }, [h(Resource, { resource, topics, options })]),
+  ])
 
 module.exports = ResourcePage

@@ -2,8 +2,10 @@
 const h = require('react-hyperscript')
 const { StyleSheet } = require('./Tags')
 
-module.exports = ({ title, options }) => {
-  return h('head', [
+module.exports = (
+  { title, options } /*: { title: string, options: Object } */,
+) =>
+  h('head', [
     h('meta', { charSet: 'utf-8' }),
     h('meta', { httpEquiv: 'X-UA-Compatible', content: 'IE=edge' }),
     h('meta', {
@@ -33,4 +35,3 @@ module.exports = ({ title, options }) => {
         'https://fonts.googleapis.com/css?family=Gentium+Basic:400,400i,700,700i',
     }),
   ])
-}

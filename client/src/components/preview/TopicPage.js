@@ -84,8 +84,8 @@ const ArticleList = ({ articles, topics, options }) => {
   )
 }
 
-const Topic = ({ topic, articles, topics, options }) => {
-  return h('article.TopicPage', [
+const Topic = ({ topic, articles, topics, options }) =>
+  h('article.TopicPage', [
     h(TopicHeader, { topic }),
     h(ArticleList, {
       articles: articles.filter(a => a.topic === topic.id),
@@ -93,18 +93,20 @@ const Topic = ({ topic, articles, topics, options }) => {
       options,
     }),
   ])
-}
 
-class TopicPage extends Component {
-  render() {
-    const { topic, topics, articles, options } = this.props
-    return h('html', { lang: 'fr' }, [
-      h(Head, { title: topic.name, options }),
-      h(Body, { topic, topics, articles, options, topMenu: true }, [
-        h(Topic, { topic, topics, articles, options }),
-      ]),
-    ])
-  }
-}
+const TopicPage = (
+  {
+    topic,
+    topics,
+    articles,
+    options,
+  } /*: { topic: Topic, topics: Topic[], articles: Resource[], options: Object } */,
+) =>
+  h('html', { lang: 'fr' }, [
+    h(Head, { title: topic.name, options }),
+    h(Body, { topic, topics, articles, options, topMenu: true }, [
+      h(Topic, { topic, topics, articles, options }),
+    ]),
+  ])
 
 module.exports = TopicPage

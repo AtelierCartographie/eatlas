@@ -4,7 +4,6 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -170,18 +169,21 @@ const Search = ({ topics, types, locales, keywords, options }) => {
   ])
 }
 
-class SearchPage extends Component /*::<{topics: Topic[], articles: Article[], types: ?string[], keywords: string[], locales: { Locale: string } }>*/ {
-  render() {
-    const { topics, articles, options, types, locales, keywords } = this.props
-    return h('html', { lang: 'fr' }, [
-      h(Head, { title: 'eAtlas - Recherche', options }),
-      h(
-        Body,
-        { topics, articles, options, topMenu: true, logoColor: 'white' },
-        [h(Search, { topics, types, locales, keywords, options })],
-      ),
-    ])
-  }
-}
+const SearchPage = (
+  {
+    topics,
+    articles,
+    options,
+    types,
+    locales,
+    keywords,
+  } /*:{topics: Topic[], articles: Resource[], types: ?string[], keywords: string[], locales: { Locale: string }, options: Object }*/,
+) =>
+  h('html', { lang: 'fr' }, [
+    h(Head, { title: 'eAtlas - Recherche', options }),
+    h(Body, { topics, articles, options, topMenu: true, logoColor: 'white' }, [
+      h(Search, { topics, types, locales, keywords, options }),
+    ]),
+  ])
 
 module.exports = SearchPage

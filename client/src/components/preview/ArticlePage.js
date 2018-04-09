@@ -4,7 +4,6 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -341,36 +340,35 @@ const ArticlePrevNext = ({ article, articles, topics, options }) => {
   ]
 }
 
-class ArticlePage extends Component /*::<{article: Resource, topics: Topic[], definitions: Definition[], resources: Resource[]}>*/ {
-  render() {
-    const {
-      article,
-      articles,
-      topics,
-      definitions,
-      resources,
-      options,
-    } = this.props
-    // passed by reference between paragraphs
-    const lexiconId = {
-      id: 0,
-    }
-
-    return h('html', { lang: 'fr' }, [
-      h(Head, { title: article.title, options }),
-      h(Body, { topics, options, sideMenu: true }, [
-        h(Article, {
-          article,
-          topics,
-          definitions,
-          resources,
-          lexiconId,
-          options,
-        }),
-        h(ArticlePrevNext, { article, articles, topics, options }),
-      ]),
-    ])
+const ArticlePage = (
+  {
+    article,
+    articles,
+    topics,
+    definitions,
+    resources,
+    options,
+  } /*:{article: Resource, articles: Resource[], topics: Topic[], definitions: Definition[], resources: Resource[], options: Object }*/,
+) => {
+  // passed by reference between paragraphs
+  const lexiconId = {
+    id: 0,
   }
+
+  return h('html', { lang: 'fr' }, [
+    h(Head, { title: article.title, options }),
+    h(Body, { topics, options, sideMenu: true }, [
+      h(Article, {
+        article,
+        topics,
+        definitions,
+        resources,
+        lexiconId,
+        options,
+      }),
+      h(ArticlePrevNext, { article, articles, topics, options }),
+    ]),
+  ])
 }
 
 module.exports = ArticlePage

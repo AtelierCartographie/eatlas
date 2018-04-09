@@ -105,7 +105,14 @@ const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
   ])
 }
 
-exports.TopMenu = ({ topic, topics, articles, options }) => {
+exports.TopMenu = (
+  {
+    topic,
+    topics,
+    articles,
+    options,
+  } /*: { topic: Topic, topics: Topic[], articles: Resource[], options: Object } */,
+) => {
   // used to add the bottom white border indicator (active)
   const currentTopic = topic || {}
   return h('.container.TopMenu', [

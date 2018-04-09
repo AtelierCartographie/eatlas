@@ -260,6 +260,7 @@ class ResourceEdit extends Component<Props, State> {
     const result = await updateResource(id, {
       // $FlowFixMe: resource is not a ResourceNew but a Resource, dumbass
       status: resource.status,
+      author: resource.author,
       title: resource.title,
       subtitle: resource.subtitle,
       topic: resource.topic,

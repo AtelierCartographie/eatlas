@@ -175,14 +175,12 @@ class ResourceForm extends Component<Props, State> {
   cached_onChangeAttr: { [string]: Function } = {}
 
   render() {
-    const fields = this.getFormFields()
-
     return (
       <div className="ResourceForm">
         {this.state.error ? this.renderError(this.state.error.message) : null}
         {this.props.renderBeforeForm ? this.props.renderBeforeForm() : null}
         <form onSubmit={this.onSubmit}>
-          {fields.map(renderField)}
+          {this.getFormFields().map(renderField)}
           {this.props.renderEndForm ? this.props.renderEndForm() : null}
           {this.renderSave()}
         </form>
@@ -405,9 +403,8 @@ class ResourceForm extends Component<Props, State> {
         (resource ? resource.type === 'definition' : false),
     })
 
-    if (!resource || !resource.type) {
+    if (!resource || !resource.type)
       return [typeField].concat(resource && resource.id ? [idField] : [])
-    }
 
     const isArticle = resource.type === 'article' || resource.type === 'focus'
 
@@ -547,7 +544,8 @@ class ResourceForm extends Component<Props, State> {
         copyright = false,
         optionalTopic = false,
       }: { subtitle?: boolean, copyright?: boolean, optionalTopic?: boolean },
-    ) =>
+    ): FieldParams[] =>
+      // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams
       prependFields()
         .concat(fields)
         .concat(appendFields({ subtitle, copyright, optionalTopic }))
@@ -642,7 +640,7 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  getUrlsField(resource): FieldParams {
+  getUrlsField(resource): FieldParams | null {
     if (resource.status !== 'published') return null
 
     return {
@@ -671,7 +669,7 @@ class ResourceForm extends Component<Props, State> {
 
   getResponsiveImageField(resource, supportedSizes): FieldParams {
     const re = resource.type === 'map' ? /^map-/ : /^image-/
-    const docs = this.state.docs
+    const { docs } = this.state
     const keys = Object.keys(docs)
       .filter(key => docs[key] && key.match(re))
       .sort()

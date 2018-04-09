@@ -175,9 +175,9 @@ class Resources extends Component<Props, State> {
 
   renderMenuCountSuffix(field: string, value: ?any) {
     const filter = {
-      type: field === 'type' ? value : this.props.filters.type,
-      status: field === 'status' ? value : this.props.filters.status,
-      topic: field === 'topic' ? value : this.props.filters.topic,
+      type: field === 'type' ? (value || '') : this.props.filters.type,
+      status: field === 'status' ? String(value) : this.props.filters.status,
+      topic: field === 'topic' ? String(value) : this.props.filters.topic,
     }
     // $FlowFixMe: I know I'm not passing props but just partial filter (no sort intel either)
     const list = applyFilters(

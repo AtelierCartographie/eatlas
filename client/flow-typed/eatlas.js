@@ -47,6 +47,7 @@ declare type Topic = {
 declare type ResourceNew = {
   type: ResourceType,
   id: string,
+  author: string,
   title: string,
   subtitle?: string, // only article, focus, map
   topic: string,

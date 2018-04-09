@@ -267,9 +267,8 @@ const query = <T>({
     xhr.withCredentials = true
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
-        if (xhr.status === 204) {
-          return resolve({})
-        }
+        // $FlowFixMe
+        if (xhr.status === 204) return resolve({})
         try {
           const data = JSON.parse(xhr.responseText)
           if (data.error || String(xhr.status)[0] !== '2') {

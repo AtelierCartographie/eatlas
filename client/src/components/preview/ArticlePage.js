@@ -16,7 +16,6 @@ const {
   Footnotes,
   Lexicon,
 } = require('./Doc')
-const { Img } = require('./Tags')
 const Head = require('./Head')
 const Body = require('./Body')
 const {
@@ -41,7 +40,6 @@ const srcset = (image, size, options) => {
 // subcomponents
 
 const ArticleHeader = ({ article, resources, options }) => {
-  console.log('ArticleHeader', article.id, article.title)
   const imageHeader = getResource(resources, article.imageHeader)
   const imageHeaderUrl =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)

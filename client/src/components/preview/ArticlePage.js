@@ -66,7 +66,7 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
       h(
         'a',
         { href: getTopicPageUrl(topic, options) },
-        topic ? `${topic.id - 1}. ${topic.name}` : article.topic,
+        topic ? `${topic.id}. ${topic.name}` : article.topic,
       ),
     ]),
   ])

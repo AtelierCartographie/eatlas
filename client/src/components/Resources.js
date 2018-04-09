@@ -257,7 +257,7 @@ class Resources extends Component<Props, State> {
               activeClassName="active"
               isActive={() => t.id === this.props.filters.topic}
               to={this.getMenuTo({ topic: t.id })}>
-              {t.id - 1}. {t.name}
+              {t.id}. {t.name}
               {this.renderMenuCountSuffix('topic', t.id)}
             </NavLink>
           </li>

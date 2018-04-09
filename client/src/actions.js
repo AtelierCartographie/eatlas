@@ -114,10 +114,11 @@ export const getTopic = helper('GET_TOPIC', api.getTopic).action
 export const getTopics = helper('GET_TOPICS', api.getTopics).action
 export const deleteTopic = helper('DELETE_TOPIC', api.deleteTopic).action
 
-export const saveTopic = (data, id) => (dispatch: Function) => {
+export const saveTopic = (data, id: string) => (dispatch: Function) => {
   dispatch({ type: 'SAVE_TOPIC_REQUEST' })
 
-  const save = () => (id ? api.updateTopic(id, data) : api.addTopic(data))
+  // beware, id can be 0
+  const save = () => (id != null ? api.updateTopic(id, data) : api.addTopic(data))
   return save()
     .then(topic =>
       dispatch({

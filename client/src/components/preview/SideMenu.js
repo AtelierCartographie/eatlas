@@ -9,7 +9,7 @@ const Topics = ({ topics, options }) =>
     'ul.nav.navmenu-nav',
     topics.map((t, i) =>
       h('li', { key: i }, [
-        h('a', { href: getTopicPageUrl(t, options) }, `${t.id - 1}. ${t.name}`),
+        h('a', { href: getTopicPageUrl(t, options) }, `${t.id}. ${t.name}`),
       ]),
     ),
   )

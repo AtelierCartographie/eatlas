@@ -36,12 +36,14 @@ exports.fullUser = {
 // topics
 
 exports.fullTopic = {
+  // beware, id can be 0
   id: Joi.number()
-    .min(1)
+    .min(0)
     .max(999)
     .required(),
   name,
   mediaUrl: Joi.string(),
+  description: Joi.string(),
 }
 
 // resources

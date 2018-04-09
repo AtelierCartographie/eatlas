@@ -14,7 +14,7 @@ const Topics = ({ topics, options }) => {
             {
               href: getTopicPageUrl(t, options),
             },
-            `${t.id - 1}. ${t.name}`,
+            `${t.id}. ${t.name}`,
           ),
         ]),
       ),

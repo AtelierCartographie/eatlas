@@ -63,7 +63,7 @@ const Home = ({ topics, options }) => {
         h('h2', 'Sommaire'),
         h('.row', [
           h('.col-sm-4', [
-            h('.TopicNumber', topics[0].id - 1),
+            h('.TopicNumber', topics[0].id),
             h('div', topics[0].name),
           ]),
         ]),
@@ -72,7 +72,7 @@ const Home = ({ topics, options }) => {
           topics
             .slice(1)
             .map(t =>
-              h('.col-sm-4', [h('.TopicNumber', t.id - 1), h('div', t.name)]),
+              h('.col-sm-4', [h('.TopicNumber', t.id), h('div', t.name)]),
             ),
         ),
       ]),

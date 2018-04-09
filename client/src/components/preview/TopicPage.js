@@ -28,7 +28,7 @@ const TopicVideo = ({ url }) => {
 const TopicHeader = ({ topic }) => {
   return h('header.TopicHeader', [
     h('.container', [
-      h('h1', [h('.TopicId', topic.id - 1), h('.TopicName', topic.name)]),
+      h('h1', [h('.TopicId', topic.id), h('.TopicName', topic.name)]),
       h('div', [h(TopicVideo, { url: topic.mediaUrl })]),
     ]),
   ])

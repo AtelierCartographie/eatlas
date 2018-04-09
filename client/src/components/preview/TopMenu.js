@@ -82,14 +82,14 @@ const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
         'aria-expanded': false,
         'aria-haspopup': true,
       },
-      topic.id - 1,
+      topic.id,
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
       h('h2', [
         h(
           'a',
           { href: getTopicPageUrl(topic, options) },
-          `${topic.id - 1}. ${topic.name}`,
+          `${topic.id}. ${topic.name}`,
         ),
       ]),
       h('ol', [

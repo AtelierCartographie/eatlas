@@ -39,7 +39,8 @@ class TopicForm extends Component<Props, State> {
   state = {}
 
   componentDidMount() {
-    if (this.props.topicId) {
+    // beware topicId can be 0
+    if (this.props.topicId != null) {
       this.props.getTopic(this.props.topicId)
     } else {
       this.setState(() => ({ topic: newTopic }))
@@ -64,9 +65,8 @@ class TopicForm extends Component<Props, State> {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    if (this.props.saving) {
-      return // already saving: cancel
-    }
+    // already saving: cancel
+    if (this.props.saving) return
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {
       toast.success(<T id="toast-topic-saved" />)

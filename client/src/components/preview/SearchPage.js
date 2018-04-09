@@ -88,7 +88,7 @@ const Search = ({ topics, types, locales, keywords, options }) => {
           'data-api-url': searchEndpoint(options),
         },
         [
-          h('.row.search-input', [
+          h('.search-input', [
             h('input', { name: 'q', placeholder: "Rechercher dans l'atlas" }),
             h('button', [
               h(Img, { alt: '', src: `/assets/img/search.svg`, options }),
@@ -162,9 +162,9 @@ const Search = ({ topics, types, locales, keywords, options }) => {
         __html: resultsTemplate({ showType: !types }),
       },
     }),
-    h('section.SearchResults', {}, [
-      h('strong.container.search-results-error'),
-      h('.container.search-results-success'),
+    h('section.SearchResults.container', {}, [
+      h('strong.search-results-error'),
+      h('.search-results-success'),
     ]),
   ])
 }
@@ -181,7 +181,7 @@ const SearchPage = (
 ) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'eAtlas - Recherche', options }),
-    h(Body, { topics, articles, options, topMenu: true, logoColor: 'white' }, [
+    h(Body, { topics, articles, options, topMenu: false, logoColor: 'black' }, [
       h(Search, { topics, types, locales, keywords, options }),
     ]),
   ])

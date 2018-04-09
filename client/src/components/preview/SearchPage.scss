@@ -2,11 +2,10 @@
 $color-blue: #4778d1;
 
 .SearchPage {
-  background: linear-gradient(#ffe180, #fff7d9);
+  background: $color-white;
 
   .SearchForm {
-    margin-bottom: 48px;
-    padding-top: 112px;
+    padding-top: 48px;
 
     .search-filters-inputs label {
       display: block;
@@ -14,21 +13,15 @@ $color-blue: #4778d1;
   }
 
   .SearchResults {
-    background: $color-footer;
+    background: $color-white;
   }
 
   section {
     padding: $gap4;
   }
 
-  section,
-  p,
-  li {
-    font-size: 14px;
-  }
-
   button {
-    background-color: $color-blue;
+    background-color: $color-footer;
     border: 0;
     border-radius: $gap;
     color: $color-white;
@@ -44,6 +37,10 @@ $color-blue: #4778d1;
     img {
       height: 24px;
     }
+  }
+
+  .search-input {
+    text-align: center;
   }
 
   input {

@@ -33,6 +33,7 @@ const newTopic = {
   id: 0,
   name: '',
   mediaUrl: '',
+  description: '',
 }
 
 class TopicForm extends Component<Props, State> {
@@ -133,7 +134,20 @@ class TopicForm extends Component<Props, State> {
                   placeholder="video"
                   value={topic.mediaUrl}
                   onChange={this.handleChange}
-                  required
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="label">
+                <T id="resource-description" />
+              </label>
+              <div className="control">
+                <textarea
+                  className="textarea"
+                  name="description"
+                  value={topic.description}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>

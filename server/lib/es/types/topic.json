@@ -8,6 +8,9 @@
     },
     "mediaUrl": {
       "type": "text"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

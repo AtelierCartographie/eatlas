@@ -42,8 +42,9 @@ exports.fullTopic = {
     .max(999)
     .required(),
   name,
-  mediaUrl: Joi.string(),
-  description: Joi.string(),
+  // https://github.com/hapijs/joi/issues/482
+  mediaUrl: Joi.string().allow(''),
+  description: Joi.string().allow(''),
 }
 
 // resources

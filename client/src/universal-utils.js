@@ -12,7 +12,7 @@ exports.getDefinition = (
 ) /*: string*/ => {
   const search = dt.toLowerCase()
   if (!definitions) {
-    return null
+    return ''
   }
   const found = definitions.find(def => {
     if (def.dt.toLowerCase() === search) {
@@ -25,34 +25,41 @@ exports.getDefinition = (
     }
     return false
   })
-  return found && found.dd
+  return found ? found.dd : ''
 }
 
-const getMeta = (article, type) => article.metas.find(m => m.type === type)
-const getMetaList = (exports.getMetaList = (article, type) => {
+const getMeta = (article /*: Resource */, type /*: string */) =>
+  (article.metas || []).find(m => m.type === type)
+const getMetaList = (exports.getMetaList = (article /*: Resource */, type /*: string */) => {
   const found = getMeta(article, type)
   return (found && found.list) || []
 })
-const getMetaText = (exports.getMetaText = (article, type) => {
+const getMetaText = (exports.getMetaText = (
+  article /*: Resource */,
+  type /*: string */,
+) => {
   const found = getMeta(article, type)
   return found ? found.text : null
 })
 
-const parseRelated = (exports.parseRelated = string => {
+const parseRelated = (exports.parseRelated = (string /*: string */) => {
   const match = string.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
   const id = match && match[1]
   const text = match && match[2]
   return { id, text }
 })
 
-exports.getResourceIds = (article /*: Resource*/, onlyMandatory = false) =>
+exports.getResourceIds = (
+  article /*: Resource*/,
+  onlyMandatory /*: ?boolean */ = false,
+) =>
   [
     // Image header: mandatory
     getMetaText(article, 'image-header'),
     // Related article of a focus: mandatory
     getMetaText(article, 'related-article'),
     // Related resources: mandatory, except focus
-    ...article.nodes
+    ...(article.nodes || [])
       .filter(node => node.type === 'resource')
       .map(node => node.id)
       .filter(
@@ -90,9 +97,12 @@ exports.LOCALES = {
   en: 'English',
 }
 
-exports.slugify = text => slugify(text, { lower: true })
+exports.slugify = (text /*: string */) => slugify(text, { lower: true })
 
-exports.getMediaUrl = (file = '', host = null) => {
+exports.getMediaUrl = (
+  file /*: ?string */ = '',
+  host /*: ?string */ = null,
+) => {
   if (!host) {
     const root = process.env.REACT_APP_FRONT_URL || '/'
     const subpath = process.env.REACT_APP_MEDIA_SUBPATH || ''
@@ -102,21 +112,24 @@ exports.getMediaUrl = (file = '', host = null) => {
       host = root + slash1 + subpath
     }
   }
+
+  host = host || ''
+  file = file || ''
   const slash2 = host[host.length - 1] === '/' || file[0] === '/' ? '' : '/'
   return host + slash2 + file
 }
 
 exports.getMediaPreviewUrl = (
-  id,
-  size,
-  density,
-  host = process.env.REACT_APP_API_SERVER,
+  id /*: string */,
+  size /*: string */,
+  density /*: string */,
+  host /*: ?string */ = process.env.REACT_APP_API_SERVER,
 ) => `${host || ''}/resources/${id}/file/${size}-${density}`
 
 exports.getResourcePagePreviewUrl = (
-  resource,
-  host = process.env.REACT_APP_API_SERVER,
-) => `${host}/preview/resources/${resource.id}`
+  resource /*: Resource */,
+  host /*: ?string */ = process.env.REACT_APP_API_SERVER,
+) => `${host || ''}/preview/resources/${resource.id}`
 
 // { resourcesSlug, searchTypes, label }[]
 exports.footerResourcesConfig = [

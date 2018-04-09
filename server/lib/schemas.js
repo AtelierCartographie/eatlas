@@ -109,7 +109,7 @@ exports.resource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string().optional(),
+  description: Joi.string().allow('').optional(),
   copyright: Joi.string().optional(),
   mediaUrl: resourceMediaUrl.optional(),
 }

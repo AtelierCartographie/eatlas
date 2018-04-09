@@ -308,6 +308,8 @@ class ArticleForm extends Component<Props, State> {
         .filter(r => r[0].id !== node.id)
         .concat(exists && published ? [] : [[node, exists]]),
     }))
+    if (exists && published) return
+
     // Missing resource prevent publication
     const isFocus = node.id.match(/^\d+F.+$/)
     const isMandatory = !isFocus // Focus are not mandatory, to avoid circular dependency
@@ -317,9 +319,7 @@ class ArticleForm extends Component<Props, State> {
   }
 
   renderMissingResources(title: string, nodes: [ArticleNode, boolean][]) {
-    if (nodes.length === 0) {
-      return null
-    }
+    if (nodes.length === 0) return null
 
     return (
       <Fragment>

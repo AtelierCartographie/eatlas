@@ -86,6 +86,7 @@ exports.META_CONVERSION = {
   'Mots-clés': 'keywords',
   'Résumé-FR': 'summary-fr',
   "Continuer dans l'Atlas": 'related',
+  "Continuer dans l’Atlas": 'related', // different apostrophe
   Références: 'references',
   // focus only
   'article-associé': 'related-article',

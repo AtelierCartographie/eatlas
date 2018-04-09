@@ -2,6 +2,14 @@
 
 .ArticlePage {
 
+  figure {
+    margin-bottom: 3.2em;
+  }
+
+  .figure-title {
+    font-weight: normal;
+  }
+
   .ArticleHeader {
     background-color: $color-breadcrumb;
     background-position: center;
@@ -19,18 +27,18 @@
     }
 
     .ArticleTitle {
-      font-size: 70px;
+      font-size: 7rem;
       font-weight: normal;
-      line-height: 70px;
+      line-height: 7rem;
       text-shadow: 0em 0em 10px #444;
       box-decoration-break: clone;
     }
 
     .PublishedAt {
       font-family: $serif;
-      font-size: 18px;
+      font-size: 1.8rem;
       font-style: italic;
-      line-height: 18px;
+      line-height: 1.8rem;
       text-shadow: 0em 0em 10px #444;
       box-decoration-break: clone;
     }
@@ -39,7 +47,7 @@
   .ArticleBreadcrumb {
     background-color: $color-breadcrumb;
     font-family: $serif;
-    font-size: 14.5px;
+    font-size: 1.5rem;
     height: $gap3;
 
     a {
@@ -57,7 +65,7 @@
     h2 {
       background: $color-white;
       display: inline-block;
-      font-size: 2.2em;
+      font-size: 2.2rem;
       margin-top: 0;
       padding: 0 8px;
       position: relative;
@@ -67,8 +75,8 @@
 
     p {
       font-family: $serif;
-      font-size: 17px;
-      line-height: 26px;
+      font-size: 1.7rem;
+      line-height: 2.6rem;
       text-align: left;
     }
 
@@ -85,7 +93,7 @@
 
     .langs {
       background: white;
-      font-size: 1.45em;
+      font-size: 1.5rem;
       line-height: 22px;
       margin: 0;
       padding: 0;
@@ -122,17 +130,17 @@
   .ArticleResourceDownload {
     color: $color-breadcrumb;
     font-style: italic;
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 
   .ArticleResourceComment {
     display: flex;
-    font-size: 14px;
+    font-size: 1.4rem;
 
     > a {
       color: $color-breadcrumb;
       margin-right: 1em;
-      font-size: 14px;
+      font-size: 1.4rem;
       font-weight: bold;
       text-decoration: none;
     }
@@ -140,7 +148,7 @@
 
   .ArticleFocus {
     color: $color-text;
-    font-size: 20px;
+    font-size: 2rem;
     margin-top: 0;
     
     > div {
@@ -193,14 +201,14 @@
 
     .ArticleSeeAlsoTopic {
       font-family: $serif;
-      font-size: 15.8px;
-      line-height: 24px;
+      font-size: 1.5rem;
+      line-height: 2.4rem;
     }
 
     .ArticleSeeAlsoTitle {
-      font-size: 18px;
+      font-size: 1.8rem;
       font-weight: bold;
-      line-height: 21px;
+      line-height: 2.1rem;
     }
   }
 }
@@ -245,11 +253,11 @@
 
   .ArticlePrevNextTopic {
     font-family: $serif;
-    font-size: 1.4em;
+    font-size: 1.4rem;
   }
 
   .ArticlePrevNextTitle {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     font-weight: bold;
     padding: 0;
     margin: 5px 0 15px 0;

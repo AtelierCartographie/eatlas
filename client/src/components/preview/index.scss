@@ -1,12 +1,7 @@
-/* GENERAL ---------------------------------------- */
-
-.container {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-figure {
-  margin-bottom: 3.2em;
+html {
+  // everything should be expressed in rem
+  // for example 16px = 1.6rem
+  font-size: 62.5%;
 }
 
 // ribbon
@@ -15,8 +10,8 @@ body.preview::before {
   color: #fff;
   content: 'preview';
   display: block;
-  font-size: 30px;
-  font-weigth: bold;
+  font-size: 3rem;
+  font-weight: bold;
   position: fixed;
   right: -50px;
   text-align: center;
@@ -30,8 +25,7 @@ body.preview::before {
 
 body {
   font-family: 'Fira Sans', sans-serif;
-  font-size: 100%;
-  line-height: 1.524;
+  font-size: 1.6rem;
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -51,7 +45,6 @@ iframe {
 h1,
 h2 {
   font-size: 2.17em;
-  line-height: 1.3335;
   margin-top: 2em;
   margin-bottom: 0.417em;
 }
@@ -63,12 +56,9 @@ h3 {
   margin-bottom: 0.417em;
 }
 
-p,
-ul {
-  font-size: 1.9em;
-  line-height: inherit;
-  /* 1.524 */
-  margin-bottom: 1em;
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -178,16 +168,6 @@ ul.navmenu-nav a {
   margin: auto;
 }
 
-/* FIGURE ---------------------------------------- */
-h2.figure-title {
-  color: black;
-  font-weight: 300;
-}
-
-figcaption {
-  font-size: 1.45em;
-}
-
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
   // force showing the toggle
@@ -199,20 +179,6 @@ figcaption {
 @media (min-width: 755px) {
   .container {
     max-width: 740px;
-  }
-  .article .header-info h1 {
-    font-size: 7em;
-  }
-  h1,
-  h2 {
-    font-size: 2.4em;
-  }
-  p,
-  ul {
-    font-size: 2.1em;
-  }
-  figcaption {
-    font-size: 1.6em;
   }
 }
 

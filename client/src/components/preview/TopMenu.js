@@ -24,7 +24,12 @@ const TopMenuPanelSearch = ({ options }) => {
       [h(Img, { alt: 'rechercher', src: `/assets/img/search.svg`, options })],
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
-      h('input', { placeholder: 'Rechercher', title: 'rechercher' }),
+      h('input', {
+        placeholder: 'Rechercher',
+        title: 'rechercher',
+        // TODO
+        'data-search-page-url': options.preview ? '/preview/search' : '',
+      }),
     ]),
   ]
 }

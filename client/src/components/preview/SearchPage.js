@@ -78,8 +78,8 @@ const filtersToggle = (title, inputs) => [
 
 // sub-components
 
-const Search = ({ topics, types, locales, keywords, options }) => {
-  return h('article.SearchPage', [
+const Search = ({ topics, types, locales, keywords, options }) =>
+  h('article.SearchPage', [
     h('section.container.SearchForm', [
       h(
         'form.search',
@@ -167,7 +167,6 @@ const Search = ({ topics, types, locales, keywords, options }) => {
       h('.search-results-success'),
     ]),
   ])
-}
 
 const SearchPage = (
   {

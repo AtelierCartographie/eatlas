@@ -8,6 +8,13 @@
   $('.consultedAt').text(`${d}/${m}/${y}`)
   $('.articleUrl').text(document.location)
 
+  // TopMenu search
+  $('#TopMenuPanel-search input').on('keypress', evt => {
+    if (evt.which !== 13) return // enter
+    const $this = $(evt.currentTarget)
+    document.location = `${$this.data('search-page-url')}/?q=${$this.val()}`
+  })
+
   // Search page
   if ($('.SearchPage').length) {
     const resultTpl = _.template($('.SearchPage .results-template').text())
@@ -59,9 +66,9 @@
       e => {
         e.preventDefault()
         const $this = $(e.currentTarget)
-        const current = $this.attr('data-filters-hidden')
+        const current = $this.data('filters-hidden')
         const next = current === '1' ? '0' : '1'
-        $this.attr('data-filters-hidden', next)
+        $this.data('filters-hidden', next)
       },
     )
 

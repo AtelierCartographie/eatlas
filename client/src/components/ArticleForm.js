@@ -256,7 +256,7 @@ class ArticleForm extends Component<Props, State> {
           if (id) {
             const resource: ?Resource = resources.find(r => r.id === id)
             if (!resource || resource.status !== 'published') {
-              const node: ArticleNode = { id, text, type: 'resource' }
+              const node: ArticleNode = { id, text: text || '', type: 'resource' }
               result[string] = [node, !!resource]
             }
           }

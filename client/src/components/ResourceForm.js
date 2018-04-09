@@ -50,6 +50,7 @@ type Props = ContextIntl & {
   mode: 'create' | 'edit',
   resource: ?Resource,
   onSubmit: SaveCallback,
+  renderBeforeForm?: ?Function,
   renderAfterForm?: ?Function,
   renderEndForm?: ?Function,
   publishable: boolean,
@@ -459,7 +460,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: isArticle,
         readOnly:
           readOnly ||
-          (isArticle && this.state.parsed && this.state.parsed.author),
+          Boolean(isArticle && this.state.parsed && this.state.parsed.author),
         loading: this.state.parsing,
       }),
       this.getAttrField('title', {
@@ -467,7 +468,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: true,
         readOnly:
           readOnly ||
-          (isArticle && this.state.parsed && this.state.parsed.title),
+          Boolean(isArticle && this.state.parsed && this.state.parsed.title),
         loading: this.state.parsing,
       }),
       subtitle &&
@@ -475,7 +476,9 @@ class ResourceForm extends Component<Props, State> {
           leftIcon: 'header',
           readOnly:
             readOnly ||
-            (isArticle && this.state.parsed && this.state.parsed.subtitle),
+            Boolean(
+              isArticle && this.state.parsed && this.state.parsed.subtitle,
+            ),
           loading: this.state.parsing,
         }),
       this.getAttrField('topic', {
@@ -483,7 +486,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: !optionalTopic,
         readOnly:
           readOnly ||
-          (isArticle && this.state.parsed && this.state.parsed.topic),
+          Boolean(isArticle && this.state.parsed && this.state.parsed.topic),
         loading:
           this.state.parsing ||
           this.props.topics.loading ||
@@ -503,7 +506,7 @@ class ResourceForm extends Component<Props, State> {
         mandatory: true,
         readOnly:
           readOnly ||
-          (isArticle && this.state.parsed && this.state.parsed.language),
+          Boolean(isArticle && this.state.parsed && this.state.parsed.language),
         loading: this.state.parsing,
         options: this.buildSelectOptions(
           LOCALES,
@@ -515,7 +518,9 @@ class ResourceForm extends Component<Props, State> {
         leftIcon: 'info',
         readOnly:
           readOnly ||
-          (isArticle && this.state.parsed && this.state.parsed.description),
+          Boolean(
+            isArticle && this.state.parsed && this.state.parsed.description,
+          ),
         loading: this.state.parsing,
         rows: 5,
       }),
@@ -524,7 +529,9 @@ class ResourceForm extends Component<Props, State> {
           leftIcon: 'copyright',
           readOnly:
             readOnly ||
-            (isArticle && this.state.parsed && this.state.parsed.copyright),
+            Boolean(
+              isArticle && this.state.parsed && this.state.parsed.copyright,
+            ),
         }),
       this.getAttrField('updatedBy', {
         leftIcon: 'user',
@@ -636,9 +643,7 @@ class ResourceForm extends Component<Props, State> {
   }
 
   getUrlsField(resource): FieldParams {
-    if (resource.status !== 'published') {
-      return null
-    }
+    if (resource.status !== 'published') return null
 
     return {
       labelId: 'resource-uris',

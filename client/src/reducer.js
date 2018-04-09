@@ -59,7 +59,7 @@ export default (state: AppState = initialState, action: any): AppState => {
             .concat(action.payload),
         },
         user:
-          state.user.id === action.payload.id
+          (state.user.current || {}).id === action.payload.id
             ? { ...state.user, ...action.payload }
             : state.user,
       }

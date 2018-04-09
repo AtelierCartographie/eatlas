@@ -118,7 +118,7 @@ export const renderPreview = (resource: Resource) => {
     return <img className="preview" src={url} alt={resource.title} />
   }
 
-  if (resource.type === 'video') {
+  if (resource.type === 'video' && resource.mediaUrl) {
     return <VimeoIframe url={resource.mediaUrl} title={resource.title} />
   }
 

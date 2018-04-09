@@ -145,7 +145,7 @@ class ResourceEdit extends Component<Props, State> {
     )
   }
 
-  renderDefinitions(definitions: Array<{ dt: string, dd: string }>) {
+  renderDefinitions(definitions: Array<{ dt: string, dd: string, aliases: Array<any> }>) {
     const { openDetails, openDefinition } = this.state
 
     const renderDefinition = dd => (
@@ -157,9 +157,7 @@ class ResourceEdit extends Component<Props, State> {
     )
 
     const renderAliases = aliases => {
-      if (!aliases || aliases.length === 0) {
-        return null
-      }
+      if (!aliases || aliases.length === 0) return null
       return (
         <small>
           {' ('}
@@ -208,6 +206,7 @@ class ResourceEdit extends Component<Props, State> {
         'INVALID CONFIGURATION: rebuild client with REACT_APP_API_SERVER env properly set',
       )
     }
+    if (!this.props.resource) return ''
     return `${host}/preview/resources/${this.props.resource.id}`
   }
 

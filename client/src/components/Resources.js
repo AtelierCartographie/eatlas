@@ -175,7 +175,7 @@ class Resources extends Component<Props, State> {
 
   renderMenuCountSuffix(field: string, value: ?any) {
     const filter = {
-      type: field === 'type' ? (value || '') : this.props.filters.type,
+      type: field === 'type' ? value || '' : this.props.filters.type,
       status: field === 'status' ? String(value) : this.props.filters.status,
       topic: field === 'topic' ? String(value) : this.props.filters.topic,
     }
@@ -516,14 +516,17 @@ class Resources extends Component<Props, State> {
   }
 
   renderSortIndicator(field) {
-    if (this.props.sort.by !== field) {
-      return null
-    }
+    if (this.props.sort.by !== field)
+      return (
+        <span style={{ color: '#ccc' }}>
+          <Icon icon="sort" />
+        </span>
+      )
 
     return this.props.sort.dir === 'asc' ? (
-      <Icon icon="arrow-down" />
+      <Icon icon="sort-asc" />
     ) : (
-      <Icon icon="arrow-up" />
+      <Icon icon="sort-desc" />
     )
   }
 

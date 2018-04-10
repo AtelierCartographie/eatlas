@@ -53,6 +53,17 @@ class ResourceEdit extends Component<Props, State> {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    // trigger during a article -> add/edit resource
+    // without this reset, a validated resource cannot be published
+    if (this.props.id !== nextProps.id) {
+      this.setState({
+        publishable: true,
+        whyUnpublishable: [],
+      })
+    }
+  }
+
   render() {
     return (
       <div className="ResourceEdit">
@@ -145,7 +156,9 @@ class ResourceEdit extends Component<Props, State> {
     )
   }
 
-  renderDefinitions(definitions: Array<{ dt: string, dd: string, aliases: Array<any> }>) {
+  renderDefinitions(
+    definitions: Array<{ dt: string, dd: string, aliases: Array<any> }>,
+  ) {
     const { openDetails, openDefinition } = this.state
 
     const renderDefinition = dd => (
@@ -272,6 +285,7 @@ class ResourceEdit extends Component<Props, State> {
       accessToken,
     })
 
+    // redirect
     this.props.history.push('/resources?sort=createdAt&dir=desc')
 
     return result

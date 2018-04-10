@@ -1,7 +1,12 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { resourcesTypes, aPropos, getTopicPageUrl, prefixUrl } = require('./layout')
+const {
+  resourcesTypes,
+  aPropos,
+  getTopicPageUrl,
+  prefixUrl,
+} = require('./layout')
 
 const Topics = ({ topics, options }) =>
   h(
@@ -62,7 +67,10 @@ exports.SideMenu = (
     [
       h('form.navmenu-form', [
         h('div.form-group', [
-          h('input.form-control', { placeholder: 'Rechercher' }),
+          h('input.form-control', {
+            placeholder: 'Rechercher',
+            'data-search-page-url': options.preview ? '/preview/search' : '',
+          }),
         ]),
       ]),
       h('ul.nav.navmenu-nav', [

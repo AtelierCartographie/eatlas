@@ -8,15 +8,18 @@
   $('.consultedAt').text(`${d}/${m}/${y}`)
   $('.articleUrl').text(document.location)
 
-  // TopMenu search
-  $('#TopMenuPanel-search input').on('keypress', evt => {
+  const goToSearch = evt => {
     if (evt.which !== 13) return // enter
     const $this = $(evt.currentTarget)
     document.location = `${$this.data('search-page-url')}/?q=${$this.val()}`
-  })
-
+  }
+  // TODO merge all 3
+  $('#TopMenuPanel-search input').on('keypress', goToSearch)
+  $('.HomePage input').on('keypress', goToSearch)
+  $('form.navmenu-form').on('submit', (evt) => evt.preventDefault())
+  $('form.navmenu-form input').on('keypress', goToSearch)
   // Read more arrow in Footnotes
-  $('.read-more').on('click', function () {
+  $('.read-more').on('click', function() {
     let totalHeight = 0
     const $parent = $(this).parent()
 
@@ -88,9 +91,9 @@
       e => {
         e.preventDefault()
         const $this = $(e.currentTarget)
-        const current = $this.data('filters-hidden')
+        const current = $this.attr('data-filters-hidden')
         const next = current === '1' ? '0' : '1'
-        $this.data('filters-hidden', next)
+        $this.attr('data-filters-hidden', next)
       },
     )
 

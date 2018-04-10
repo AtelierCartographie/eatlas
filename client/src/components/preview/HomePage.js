@@ -24,7 +24,10 @@ const Home = ({ topics, options }) => {
         h('button.tour', 'Visite guidée'),
       ]),
       h('div', [
-        h('input', { placeholder: "Rechercher dans l'atlas" }),
+        h('input', {
+          placeholder: "Rechercher dans l'atlas",
+          'data-search-page-url': options.preview ? '/preview/search' : '',
+        }),
         h('button', [
           h('img', {
             alt: '',

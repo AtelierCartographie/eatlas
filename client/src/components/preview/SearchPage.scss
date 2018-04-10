@@ -6,18 +6,17 @@ $color-blue: #4778d1;
 
   .SearchForm {
     padding-top: 48px;
+    padding-bottom: $gap2;
 
     .search-filters-inputs label {
       display: block;
+      font-size: 1.2rem;
+      font-weight: normal;
     }
   }
 
   .SearchResults {
     background: $color-white;
-  }
-
-  section {
-    padding: $gap4;
   }
 
   button {
@@ -40,7 +39,12 @@ $color-blue: #4778d1;
   }
 
   .search-input {
+    margin-bottom: $gap2;
     text-align: center;
+
+    input {
+      width: 90%;
+    }
   }
 
   input {

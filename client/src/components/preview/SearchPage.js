@@ -101,7 +101,7 @@ const Search = ({ topics, types, locales, keywords, options }) =>
             h('.container', [
               h('.row.search-filters-title', 'Affiner la recherche'),
               ...filtersToggle(
-                'Chapitre',
+                'Partie',
                 topics.map(topic => [
                   h('input', {
                     type: 'checkbox',

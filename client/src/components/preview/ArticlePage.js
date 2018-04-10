@@ -112,7 +112,7 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
-const ArticleResource = ({ article, resource, options, topics }) => {
+const ArticleResource = ({ resource, options, topics }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
@@ -151,7 +151,7 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         h(ArticleResourceComment, { resource }),
       ])
 
-    case 'video':
+    case 'video': {
       const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
       return h('figure.container', [
         h('h2.figure-title', resource.title),
@@ -165,8 +165,9 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         }),
         h('figcaption', resource.description),
       ])
+    }
 
-    case 'sound':
+    case 'sound': {
       const url = getMediaUrl(resource.file)
       return h('figure.container', [
         h('h2.figure-title', resource.title),
@@ -176,6 +177,7 @@ const ArticleResource = ({ article, resource, options, topics }) => {
         }),
         h('figcaption', resource.description),
       ])
+    }
 
     case 'focus':
       return h('.container.ArticleFocus', [

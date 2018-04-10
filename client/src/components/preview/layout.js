@@ -26,8 +26,6 @@ exports.getImageUrl = (
   return getMediaUrl(file)
 }
 
-exports.getResource = (resources, id) => resources.find(r => r.id === id)
-
 exports.getResourcePageUrl = (resource, { preview = false } = {}) =>
   preview
     ? getResourcePagePreviewUrl(resource)

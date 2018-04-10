@@ -20,7 +20,6 @@ const Head = require('./Head')
 const Body = require('./Body')
 const {
   getImageUrl,
-  getResource,
   getResourcePageUrl,
   getTopicPageUrl,
 } = require('./layout')
@@ -40,7 +39,7 @@ const srcset = (image, size, options) => {
 // subcomponents
 
 const ArticleHeader = ({ article, resources, options }) => {
-  const imageHeader = getResource(resources, article.imageHeader)
+  const imageHeader = resources.find(r => r.id === article.imageHeader)
   const imageHeaderUrl =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
   const style = imageHeaderUrl
@@ -223,7 +222,7 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
       case 'p':
         return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {
-        const resource = getResource(resources, n.id)
+        const resource = resources.find(r => r.id === n.id)
         return !resource
           ? null
           : h(ArticleResource, {
@@ -245,7 +244,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
   const relateds = article.related
     .map(r => {
       const [articleId] = r.text.split(/\s*-\s*/)
-      return getResource(resources, articleId)
+      return resources.find(r => r.id === articleId)
     })
     .filter(a => !!a)
 

@@ -2,7 +2,7 @@
 
 const h = require('react-hyperscript')
 
-const { prefixUrl } = require('./layout')
+const { CDN, prefixUrl } = require('./layout')
 const { TopMenu } = require('./TopMenu')
 const { SideMenu, SideMenuToggle } = require('./SideMenu')
 const Footer = require('./Footer')
@@ -40,19 +40,16 @@ module.exports = (
     h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {
-      src: 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+      src: `${CDN}/jquery/3.3.1/jquery.min.js`,
     }),
     h('script', {
-      src:
-        'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js',
+      src: `${CDN}/lodash.js/4.17.5/lodash.min.js`,
     }),
     h('script', {
-      src:
-        'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js',
+      src: `${CDN}/twitter-bootstrap/3.3.7/js/bootstrap.min.js`,
     }),
     h('script', {
-      src:
-        'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js',
+      src: `${CDN}/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js`,
     }),
     h('script', { src: prefixUrl('/assets/js/eatlas.js', options.preview) }),
   ])

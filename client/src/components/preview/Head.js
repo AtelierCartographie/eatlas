@@ -1,6 +1,6 @@
 // @flow
 const h = require('react-hyperscript')
-const { prefixUrl } = require('./layout')
+const { CDN, prefixUrl } = require('./layout')
 
 module.exports = (
   { title, options } /*: { title: string, options: Object } */,
@@ -15,13 +15,11 @@ module.exports = (
     h('title', `${title} - eAtlas`),
     h('link', {
       rel: 'stylesheet',
-      href:
-        'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css',
+      href: `${CDN}/twitter-bootstrap/3.3.7/css/bootstrap.min.css`,
     }),
     h('link', {
       rel: 'stylesheet',
-      href:
-        'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css',
+      href: `${CDN}/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css`,
     }),
     h('link', {
       rel: 'stylesheet',

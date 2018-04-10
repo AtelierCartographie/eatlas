@@ -7,6 +7,8 @@ const {
   getResourcePagePreviewUrl,
 } = require('../../universal-utils')
 
+exports.CDN = 'https://cdnjs.cloudflare.com/ajax/libs'
+
 exports.prefixUrl = (url, preview) => {
   const host = preview ? process.env.REACT_APP_ADMIN_URL || '' : ''
   return `${host}${url}`

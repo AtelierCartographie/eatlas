@@ -79,11 +79,32 @@ exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
   ])
 }
 
-exports.Quote = ({ doc } /*: { doc: Resource } */) => {
+exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   // TODO conf?
   const publication = 'Atlas de la mondialisation'
-  const year = 2016
+  const year = (new Date(doc.publishedAt)).getFullYear()
   const url = `${HOST}`
+
+  const bibtex = `@book{eAtlas,
+  title={${doc.title}},
+  author={${doc.author}},
+  url={TODO},
+  year={${year}},
+  publisher={${publication}}
+}`
+  const endnote = `%0 Book
+%T ${doc.title}
+%A ${doc.author}
+%U TODO
+%D ${year}
+%I ${publication}`
+
+  const refman = `TY  - BOOK
+T1  - ${doc.title}
+A1  - ${doc.author}
+UR  - TODO
+Y1  - ${year}
+PB  - ${publication}`
 
   return h('section.container.Quote', [
     h('h2', 'Citation'),
@@ -99,6 +120,11 @@ exports.Quote = ({ doc } /*: { doc: Resource } */) => {
         h('span.articleUrl', url),
       ]),
     ]),
+    h('ul.exports', [
+      h('li', [h('a', { download: 'citation.bibtex', href: `data:,${encodeURIComponent(bibtex)}` }, ['BibTex'])]),
+      h('li', [h('a', { download: 'citation.enw', href: `data:,${encodeURIComponent(endnote)}` }, ['EndNote'])]),
+      h('li', [h('a', { download: 'citation.ris', href: `data:,${encodeURIComponent(refman)}` }, ['RefMan'])]),
+    ])
   ])
 }
 

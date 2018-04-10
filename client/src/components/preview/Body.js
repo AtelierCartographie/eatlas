@@ -34,7 +34,7 @@ module.exports = (
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
     h(NavBar, { logoColor: logoColor || 'white', options }),
-    sideMenu && h(SideMenuToggle),
+    sideMenu && h(SideMenuToggle, { options }),
     sideMenu && h(SideMenu, { topics, options }),
     topMenu && h(TopMenu, { topic, topics, articles, options }),
     h('main', { role: 'main' }, [children]),

@@ -7,17 +7,17 @@
     padding-bottom: $gap3;
 
     .TopicId {
-      font-size: 120px;
+      font-size: 12rem;
       font-weight: bold;
-      line-height: 120px;
+      line-height: 12rem;
       margin-top: 90px;
     }
 
     .TopicName {
       font-family: $serif;
-      font-size: 70px;
+      font-size: 7rem;
       font-style: italic;
-      line-height: 70px;
+      line-height: 7rem;
     }
 
     .TopicVideo {
@@ -57,22 +57,22 @@
     }
 
     .ArticleListInfo {
-      font-size: 15.8px;
-      line-height: 24px;
+      font-size: 1.5rem;
+      line-height: 2.4rem;
     }
 
     .ArticleListTitle {
-      font-size: 21px;
+      font-size: 2.1rem;
       font-weight: bold;
-      line-height: 24px;
+      line-height: 2.4rem;
       text-decoration: none;
     }
 
     .publishedAt {
       font-family: $serif;
-      font-size: 15.8px;
+      font-size: 1.5rem;
       font-style: italic;
-      line-height: 24px;
+      line-height: 2.4rem;
     }
 
     .ArticleListSummary {
@@ -81,7 +81,7 @@
 
     .ArticleListFocus {
       color: #000;
-      font-size: 20px;
+      font-size: 2rem;
       margin-top: $gap;
       margin-bottom: $gap3;
       

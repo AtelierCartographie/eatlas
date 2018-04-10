@@ -6,22 +6,22 @@
     padding-bottom: $gap3;
 
     .PageTitle {
-      font-size: 20px;
+      font-size: 2rem;
       font-weight: bold;
-      line-height: 20px;
+      line-height: 2rem;
       margin-bottom: 20px;
     }
 
     .ResourceType {
-      font-size: 20px;
+      font-size: 2rem;
       font-weight: normal;
-      line-height: 20px;
+      line-height: 2rem;
     }
 
     .ResourceTitle {
-      font-size: 30px;
+      font-size: 3rem;
       font-weight: normal;
-      line-height: 30px;
+      line-height: 3rem;
       margin-top: 20px;
     }
   }
@@ -39,13 +39,13 @@
 
   .ResourceCopyright, .ResourceDescription,
   .ResourceTranscript, .ResourceDownload {
-    font-size: 15.8px;
-    line-height: 24px;
+    font-size: 1.5rem;
+    line-height: 2.4rem;
 
     h2 {
-      font-size: 16px;
+      font-size: 1.6rem;
       font-weight: bold;
-      line-height: 16px;
+      line-height: 1.6rem;
       margin-top: $gap3;
     }
   }

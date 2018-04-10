@@ -5,7 +5,7 @@
   background-image: url('http://localhost:3000/assets/img/pictos-focus.svg');
   background-repeat: no-repeat;
   color: #ffc300;
-  font-size: 21px;
+  font-size: 2.1rem;
   padding-left: 40px;
   text-transform: uppercase;
 }
@@ -43,14 +43,8 @@ a.LexiconLink {
   }
 
   h2 {
-    font-size: 21px;
+    font-size: 2.1rem;
     margin-top: 0;
-  }
-
-  p,
-  ol {
-    font-size: 1.39em;
-    line-height: 21px;
   }
 }
 
@@ -89,8 +83,8 @@ a.LexiconLink {
   blockquote {
     border-left: 4px solid $color-white;
     font-family: $serif;
-    font-size: 10px;
-    line-height: 21px;
+    font-size: 1.2rem;
+    line-height: 2.1rem;
     margin: 0px;
     padding-left: 16px;
   }
@@ -131,7 +125,7 @@ a.LexiconLink {
 
   li {
     font-family: $serif;
-    font-size: 15.8px;
+    font-size: 1.5rem;
     margin-bottom: $gap;
   }
 
@@ -174,8 +168,8 @@ a.LexiconLink {
 
     dl {
       color: #3d485a;
-      font-size: 1.58em;
-      line-height: 24px;
+      font-size: 1.5rem;
+      line-height: 2.4rem;
       margin-top: .5em;
     }
 

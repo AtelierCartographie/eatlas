@@ -32,7 +32,7 @@ type State = {
 const newTopic = {
   id: 0,
   name: '',
-  mediaUrl: '',
+  resourceId: '',
   description: '',
 }
 
@@ -68,6 +68,8 @@ class TopicForm extends Component<Props, State> {
     evt.preventDefault()
     // already saving: cancel
     if (this.props.saving) return
+    // legacy cleaning during the mediaUrl -> resourceId migration
+    delete this.state.topic.mediaUrl
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {
       toast.success(<T id="toast-topic-saved" />)
@@ -124,15 +126,14 @@ class TopicForm extends Component<Props, State> {
 
             <div className="field">
               <label className="label">
-                <T id="resource-mediaUrl" />
+                <T id="resource" /> id
               </label>
               <div className="control">
                 <input
                   className="input"
-                  name="mediaUrl"
+                  name="resourceId"
                   type="text"
-                  placeholder="video"
-                  value={topic.mediaUrl}
+                  value={topic.resourceId}
                   onChange={this.handleChange}
                 />
               </div>

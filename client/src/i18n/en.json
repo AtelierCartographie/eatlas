@@ -75,6 +75,7 @@
   "resource-updatedBy": "Depositor",
   "resource-uris": "Public URL(s)",
   "resource-uris-help": "(can be invalid until resource is saved)",
+  "resource": "resource",
   "resources": "resources",
   "restore": "restore",
   "save-changes": "Validate",

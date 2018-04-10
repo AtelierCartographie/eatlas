@@ -6,7 +6,7 @@
     "name": {
       "type": "text"
     },
-    "mediaUrl": {
+    "resourceId": {
       "type": "text"
     },
     "description": {

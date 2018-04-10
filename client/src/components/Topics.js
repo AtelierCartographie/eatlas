@@ -128,7 +128,7 @@ class Topics extends Component<Props, State> {
                   <T id="name" />
                 </th>
                 <th>
-                  <T id="preview" />
+                  <T id="resource" />
                 </th>
                 {SHOWN_TYPES.map(type => (
                   <th className="fit" key={type}>
@@ -144,7 +144,13 @@ class Topics extends Component<Props, State> {
                 <tr key={t.id}>
                   <td>{t.id}</td>
                   <td>{t.name}</td>
-                  <td>{t.mediaUrl ? <VimeoIframe url={t.mediaUrl} title={t.name} /> : null }</td>
+                  <td>
+                    {t.resourceId && (
+                      <Link to={`/resources/${t.resourceId}/edit`}>
+                        {t.resourceId}
+                      </Link>
+                    )}
+                  </td>
                   {SHOWN_TYPES.map(type => (
                     <td key={type}>{this.renderCount(t.id, type)}</td>
                   ))}
@@ -165,9 +171,7 @@ class Topics extends Component<Props, State> {
                         </button>
                       </div>
                       <div className="control">
-                        <a
-                          className="button"
-                          href={this.getPreviewUrl(t)}>
+                        <a className="button" href={this.getPreviewUrl(t)}>
                           <IconButton icon="eye" />
                         </a>
                       </div>

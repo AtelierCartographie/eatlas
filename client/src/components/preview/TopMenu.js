@@ -6,10 +6,10 @@ const {
   aPropos,
   getResourcePageUrl,
   getTopicPageUrl,
+  prefixUrl,
 } = require('./layout')
-const { Img } = require('./Tags')
 
-const TopMenuPanelSearch = ({ options }) => {
+const TopMenuPanelSearch = ({ options: { preview } }) => {
   const id = 'TopMenuPanel-search'
   return [
     h(
@@ -21,14 +21,19 @@ const TopMenuPanelSearch = ({ options }) => {
         'aria-expanded': false,
         'aria-haspopup': true,
       },
-      [h(Img, { alt: 'rechercher', src: `/assets/img/search.svg`, options })],
+      [
+        h('img', {
+          alt: 'rechercher',
+          src: prefixUrl(`/assets/img/search.svg`, preview),
+        }),
+      ],
     ),
     h('.TopMenuPanel.dropdown-menu', { id }, [
       h('input', {
         placeholder: 'Rechercher',
         title: 'rechercher',
         // TODO
-        'data-search-page-url': options.preview ? '/preview/search' : '',
+        'data-search-page-url': preview ? '/preview/search' : '',
       }),
     ]),
   ]

@@ -7,6 +7,11 @@ const {
   getResourcePagePreviewUrl,
 } = require('../../universal-utils')
 
+exports.prefixUrl = (url, preview) => {
+  const host = preview ? process.env.REACT_APP_ADMIN_URL || '' : ''
+  return `${host}${url}`
+}
+
 exports.getImageUrl = (
   { id, images },
   size = 'medium',

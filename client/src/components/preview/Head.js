@@ -1,6 +1,6 @@
 // @flow
 const h = require('react-hyperscript')
-const { StyleSheet } = require('./Tags')
+const { prefixUrl } = require('./layout')
 
 module.exports = (
   { title, options } /*: { title: string, options: Object } */,
@@ -23,7 +23,10 @@ module.exports = (
       href:
         'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css',
     }),
-    h(StyleSheet, { href: '/assets/index.css', options }),
+    h('link', {
+      rel: 'stylesheet',
+      href: prefixUrl('/assets/index.css', options.preview),
+    }),
     h('link', {
       rel: 'stylesheet',
       href:

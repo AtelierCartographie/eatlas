@@ -4,12 +4,11 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
-const { Component } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { Img } = require('./Tags')
+const { prefixUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -27,7 +26,10 @@ const Home = ({ topics, options }) => {
       h('div', [
         h('input', { placeholder: "Rechercher dans l'atlas" }),
         h('button', [
-          h(Img, { alt: '', src: `/assets/img/search.svg`, options }),
+          h('img', {
+            alt: '',
+            src: prefixUrl('/assets/img/search.svg', options.preview),
+          }),
         ]),
       ]),
     ]),

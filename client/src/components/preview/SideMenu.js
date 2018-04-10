@@ -1,8 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { Img } = require('./Tags')
-const { resourcesTypes, aPropos, getTopicPageUrl } = require('./layout')
+const { resourcesTypes, aPropos, getTopicPageUrl, prefixUrl } = require('./layout')
 
 const Topics = ({ topics, options }) =>
   h(
@@ -86,6 +85,11 @@ exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
         'data-target': '#navmenu',
         'data-canvas': 'body',
       },
-      [h(Img, { alt: '', src: '/assets/img/picto-menu-B.svg', options })],
+      [
+        h('img', {
+          alt: '',
+          src: prefixUrl('/assets/img/picto-menu-B.svg', options.preview),
+        }),
+      ],
     ),
   ])

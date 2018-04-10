@@ -1,7 +1,11 @@
 // @flow
 const h = require('react-hyperscript')
-const { Img } = require('./Tags')
-const { resourcesTypes, aPropos, getTopicPageUrl } = require('./layout')
+const {
+  resourcesTypes,
+  aPropos,
+  getTopicPageUrl,
+  prefixUrl,
+} = require('./layout')
 
 const Topics = ({ topics, options }) =>
   h('nav', [
@@ -29,11 +33,10 @@ module.exports = (
     h('.row', [
       h('.col-xs-6.col-sm-3', [
         h('a', [
-          h(Img, {
+          h('img', {
             className: 'img-responsive',
             alt: 'Sciences Po',
-            src: '/assets/img/sciences-po.svg',
-            options,
+            src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
           }),
         ]),
       ]),

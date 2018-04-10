@@ -2,19 +2,18 @@
 
 const h = require('react-hyperscript')
 
+const { prefixUrl } = require('./layout')
 const { TopMenu } = require('./TopMenu')
 const { SideMenu, SideMenuToggle } = require('./SideMenu')
 const Footer = require('./Footer')
-const { Img, Script } = require('./Tags')
 
-const NavBar = ({ logoColor, options }) =>
+const NavBar = ({ logoColor, options: { preview } }) =>
   h('nav.navbar.navbar-default.navbar-static-top.navbar-logo', [
     h('div.container', [
-      h('a.navbar-brand', { href: options.preview ? '/preview' : 'TODO' }, [
-        h(Img, {
+      h('a.navbar-brand', { href: preview ? '/preview' : 'TODO' }, [
+        h('img', {
           alt: "Page d'accueil",
-          src: `/assets/img/logo-eatlas-${logoColor}.svg`,
-          options,
+          src: prefixUrl(`/assets/img/logo-eatlas-${logoColor}.svg`, preview),
         }),
       ]),
     ]),
@@ -55,5 +54,5 @@ module.exports = (
       src:
         'https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js',
     }),
-    h(Script, { src: '/assets/js/eatlas.js', options }),
+    h('script', { src: prefixUrl('/assets/js/eatlas.js', options.preview) }),
   ])

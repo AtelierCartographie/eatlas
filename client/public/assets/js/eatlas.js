@@ -15,6 +15,28 @@
     document.location = `${$this.data('search-page-url')}/?q=${$this.val()}`
   })
 
+  // Read more arrow in Footnotes
+  $('.read-more').on('click', function () {
+    let totalHeight = 0
+    const $parent = $(this).parent()
+
+    $parent.find('ol').each(function() {
+      totalHeight += $(this).outerHeight()
+    })
+
+    $parent
+      .css({
+        height: $parent.height(),
+        'max-height': 9999,
+      })
+      .animate({
+        height: totalHeight,
+      })
+
+    $(this).fadeOut()
+    return false
+  })
+
   // Search page
   if ($('.SearchPage').length) {
     const resultTpl = _.template($('.SearchPage .results-template').text())

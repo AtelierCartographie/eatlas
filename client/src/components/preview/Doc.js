@@ -82,7 +82,7 @@ exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
 exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   // TODO conf?
   const publication = 'Atlas de la mondialisation'
-  const year = (new Date(doc.publishedAt)).getFullYear()
+  const year = new Date(doc.publishedAt).getFullYear()
   const url = `${HOST}`
 
   const bibtex = `@book{eAtlas,
@@ -121,10 +121,37 @@ PB  - ${publication}`
       ]),
     ]),
     h('ul.exports', [
-      h('li', [h('a', { download: 'citation.bibtex', href: `data:,${encodeURIComponent(bibtex)}` }, ['BibTex'])]),
-      h('li', [h('a', { download: 'citation.enw', href: `data:,${encodeURIComponent(endnote)}` }, ['EndNote'])]),
-      h('li', [h('a', { download: 'citation.ris', href: `data:,${encodeURIComponent(refman)}` }, ['RefMan'])]),
-    ])
+      h('li', [
+        h(
+          'a',
+          {
+            download: 'citation.bibtex',
+            href: `data:,${encodeURIComponent(bibtex)}`,
+          },
+          ['BibTex'],
+        ),
+      ]),
+      h('li', [
+        h(
+          'a',
+          {
+            download: 'citation.enw',
+            href: `data:,${encodeURIComponent(endnote)}`,
+          },
+          ['EndNote'],
+        ),
+      ]),
+      h('li', [
+        h(
+          'a',
+          {
+            download: 'citation.ris',
+            href: `data:,${encodeURIComponent(refman)}`,
+          },
+          ['RefMan'],
+        ),
+      ]),
+    ]),
   ])
 }
 
@@ -152,21 +179,24 @@ exports.Footnotes = (
 
   return h('section.container.Footnotes', [
     h('h2', 'Notes'),
-    h(
-      'ol',
-      footnotes.map((n, k) => {
-        return h('li', { id: `footnote-${k + 1}`, key: k }, [
-          h('a.back', { href: `#note-${k + 1}` }, '^'),
-          parseLinks(n),
-        ])
-      }),
-    ),
-    h(
-      'ol',
-      references.map((r, k) => {
-        return h('li', { key: k }, r.text)
-      }),
-    ),
+    h('.gradient-expand', [
+      h(
+        'ol',
+        footnotes.map((n, k) => {
+          return h('li', { id: `footnote-${k + 1}`, key: k }, [
+            h('a.back', { href: `#note-${k + 1}` }, '^'),
+            parseLinks(n),
+          ])
+        }),
+      ),
+      h(
+        'ol',
+        references.map((r, k) => {
+          return h('li', { key: k }, r.text)
+        }),
+      ),
+      h('.read-more', ['▼']),
+    ]),
   ])
 }
 

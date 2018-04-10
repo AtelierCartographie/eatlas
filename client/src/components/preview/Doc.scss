@@ -118,9 +118,26 @@ a.LexiconLink {
 }
 
 .Footnotes {
+  .gradient-expand {
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+
+    .read-more { 
+      position: absolute; 
+      bottom: 0; 
+      left: 0;
+      width: 100%; 
+      text-align: center; 
+      margin: 0;
+      padding-top: 26px;
+      background-image: linear-gradient(to bottom, transparent, $color-footer);
+    }
+  }
+
   ol {
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 1em;
   }
 
   li {
@@ -152,29 +169,29 @@ a.LexiconLink {
 }
 
 .Lexicon {
-    background-color: #d1d6e0;
-    border-top: 1px solid #ccc;
-    bottom: -1px;
-    box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
-    font-family: $serif;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: 60%;
-    padding: 0px;
-    position: fixed;
-    right: 0;
-    z-index: 1;
+  background-color: #d1d6e0;
+  border-top: 1px solid #ccc;
+  bottom: -1px;
+  box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
+  font-family: $serif;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-height: 60%;
+  padding: 0px;
+  position: fixed;
+  right: 0;
+  z-index: 1;
 
-    dl {
-      color: #3d485a;
-      font-size: 1.5rem;
-      line-height: 2.4rem;
-      margin-top: .5em;
-    }
+  dl {
+    color: #3d485a;
+    font-size: 1.5rem;
+    line-height: 2.4rem;
+    margin-top: .5em;
+  }
 
-    dt {
-      font-weight: 700;
-    }
+  dt {
+    font-weight: 700;
+  }
 }
 

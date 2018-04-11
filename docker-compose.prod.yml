@@ -3,7 +3,7 @@ version: "2.1"
 services:
   frontend:
     build: client
-    image: sciencespo/eatlas-frontend:latest
+    image: sciencespo/eatlas-frontend:prod
     links:
       - backend:backend
     ports:
@@ -16,7 +16,7 @@ services:
       - uploadsdata:/eatlas/data/uploads:ro
   backend:
     build: .
-    image: sciencespo/eatlas-backend:latest
+    image: sciencespo/eatlas-backend:prod
     env_file:
       - docker-config.env
     environment:

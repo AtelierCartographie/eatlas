@@ -5,14 +5,6 @@ import { getResourceIds } from './universal-utils'
 
 export { getDefinition, parseRelated } from './universal-utils'
 
-export const range = (start: number, end: number): Array<number> => {
-  const result = []
-  for (let i = start; i <= end; i++) {
-    result.push(i)
-  }
-  return result
-}
-
 // https://gist.github.com/kottenator/9d936eb3e4e3c3e02598
 export const paginationItems = (
   current: number,

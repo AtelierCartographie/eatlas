@@ -466,26 +466,27 @@ class ResourceForm extends Component<Props, State> {
             ),
           loading: this.state.parsing,
         }),
-      this.getAttrField('topic', {
-        leftIcon: 'paragraph',
-        mandatory: !optionalTopic,
-        readOnly:
-          readOnly ||
-          Boolean(isArticle && this.state.parsed && this.state.parsed.topic),
-        loading:
-          this.state.parsing ||
-          this.props.topics.loading ||
-          this.props.shouldLoadTopics,
-        options: (this.props.mode === 'create' || optionalTopic
-          ? [{ label: '', value: null }]
-          : []
-        ).concat(
-          this.props.topics.list.map(({ name, id }) => ({
-            label: name,
-            value: id,
-          })),
-        ),
-      }),
+      !optionalTopic &&
+        this.getAttrField('topic', {
+          leftIcon: 'paragraph',
+          mandatory: true,
+          readOnly:
+            readOnly ||
+            Boolean(isArticle && this.state.parsed && this.state.parsed.topic),
+          loading:
+            this.state.parsing ||
+            this.props.topics.loading ||
+            this.props.shouldLoadTopics,
+          options: (this.props.mode === 'create'
+            ? [{ label: '', value: null }]
+            : []
+          ).concat(
+            this.props.topics.list.map(({ name, id }) => ({
+              label: name,
+              value: id,
+            })),
+          ),
+        }),
       this.getAttrField('language', {
         leftIcon: 'language',
         mandatory: true,
@@ -530,7 +531,7 @@ class ResourceForm extends Component<Props, State> {
       {
         subtitle = false,
         copyright = false,
-        optionalTopic = false,
+        optionalTopic = false, // lexicon
       }: { subtitle?: boolean, copyright?: boolean, optionalTopic?: boolean },
     ): FieldParams[] =>
       // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams

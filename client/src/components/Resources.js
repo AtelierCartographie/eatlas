@@ -717,7 +717,7 @@ class Resources extends Component<Props, State> {
         </p>
         {this.renderTypeMenu(typeItems)}
 
-        <p elassName="menu-label">
+        <p className="menu-label">
           <T id="resource-status" />
         </p>
         {this.renderStatusMenu()}

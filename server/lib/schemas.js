@@ -93,6 +93,12 @@ const upload = Joi.object().keys({
 
 const language = Joi.string()
 
+const transcript = Joi.string().when('type', {
+  is: Joi.valid(['sound', 'video']),
+  then: Joi.allow('').optional(),
+  otherwise: Joi.forbidden(),
+})
+
 exports.resource = {
   id: Joi.string().required(),
   type: resourceType.required(),
@@ -109,7 +115,10 @@ exports.resource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string().allow('').optional(),
+  description: Joi.string()
+    .allow('')
+    .optional(),
+  transcript,
   copyright: Joi.string().optional(),
   mediaUrl: resourceMediaUrl.optional(),
 }
@@ -206,6 +215,7 @@ exports.fullResource = {
   }),
   language: language.required(),
   description: Joi.string().optional(),
+  transcript,
   copyright: Joi.string().when('type', {
     is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
     then: Joi.optional(),
@@ -227,7 +237,6 @@ exports.fullResource = {
       then: Joi.required(),
       otherwise: Joi.forbidden(),
     }),
-
   definitions: Joi.array()
     .items(definition)
     .when('type', {
@@ -235,19 +244,16 @@ exports.fullResource = {
       then: Joi.required(),
       otherwise: Joi.forbidden(),
     }),
-
   file: Joi.string().when('type', {
     is: Joi.valid(['sound']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
-
   images: images.when('type', {
     is: Joi.valid(['image', 'map']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
-
   mediaUrl: resourceMediaUrl.when('type', {
     is: Joi.valid(['video']),
     then: Joi.required(),

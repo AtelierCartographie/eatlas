@@ -439,7 +439,7 @@ class ResourceForm extends Component<Props, State> {
       resource.status === 'published' && this.getUrlsField(resource),
     ]
 
-    const appendFields = ({ subtitle, copyright, optionalTopic }) => [
+    const appendFields = ({ subtitle, copyright, topic, transcript }) => [
       this.getAttrField('author', {
         leftIcon: 'user',
         mandatory: isArticle,
@@ -466,7 +466,7 @@ class ResourceForm extends Component<Props, State> {
             ),
           loading: this.state.parsing,
         }),
-      !optionalTopic &&
+      topic &&
         this.getAttrField('topic', {
           leftIcon: 'paragraph',
           mandatory: true,
@@ -510,6 +510,10 @@ class ResourceForm extends Component<Props, State> {
         loading: this.state.parsing,
         rows: 5,
       }),
+      transcript && this.getAttrField('transcript', {
+        leftIcon: 'align-center',
+        rows: 5,
+      }),
       copyright &&
         this.getAttrField('copyright', {
           leftIcon: 'copyright',
@@ -531,13 +535,14 @@ class ResourceForm extends Component<Props, State> {
       {
         subtitle = false,
         copyright = false,
-        optionalTopic = false, // lexicon
-      }: { subtitle?: boolean, copyright?: boolean, optionalTopic?: boolean },
+        topic = true, // lexicon
+        transcript = false,
+      }: { subtitle?: boolean, copyright?: boolean, topic?: boolean, transcript?: boolean },
     ): FieldParams[] =>
       // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams
       prependFields()
         .concat(fields)
-        .concat(appendFields({ subtitle, copyright, optionalTopic }))
+        .concat(appendFields({ subtitle, copyright, topic, transcript }))
         .filter(x => x)
 
     switch (resource.type) {
@@ -593,12 +598,12 @@ class ResourceForm extends Component<Props, State> {
               loading: this.state.parsing,
             }),
           ],
-          { copyright: true },
+          { copyright: true, transcript: true },
         )
       case 'sound':
         return buildFields(
           [this.getDocField(resource, 'sound', { mandatory: true })],
-          { subtitle: true, copyright: true },
+          { subtitle: true, copyright: true, transcript: true },
         )
       // Note: article is read-only, you have to re-upload
       case 'definition':
@@ -610,7 +615,7 @@ class ResourceForm extends Component<Props, State> {
             }),
             ...this.getLexiconFields(),
           ],
-          { subtitle: false, copyright: true, optionalTopic: true },
+          { copyright: true, topic: false },
         )
       default:
         return [
@@ -922,7 +927,7 @@ class ResourceForm extends Component<Props, State> {
       {
         labelId: 'nb-definitions',
         input: (
-          <span className="input" disabled>
+          <span className="input" readonly>
             {parsed.definitions.length}
           </span>
         ),

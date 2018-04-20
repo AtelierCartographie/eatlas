@@ -88,6 +88,7 @@ const getBaseData = req => ({
   topic: req.body.topic,
   language: req.body.language,
   description: req.body.description,
+  transcript: req.body.transcript,
   copyright: req.body.copyright,
   mediaUrl: req.body.mediaUrl,
 })

@@ -53,6 +53,7 @@ declare type ResourceNew = {
   topic: string,
   language: string,
   description: string,
+  transcript: string, // only sound, video
   copyright?: string, // only definition, map, image, video, sound
   mediaUrl?: string, // only video
 }

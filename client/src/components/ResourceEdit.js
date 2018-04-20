@@ -279,6 +279,7 @@ class ResourceEdit extends Component<Props, State> {
       topic: resource.topic,
       language: resource.language,
       description: resource.description,
+      transcript: resource.transcript,
       copyright: resource.copyright,
       mediaUrl: resource.mediaUrl,
       uploads,

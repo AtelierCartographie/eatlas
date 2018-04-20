@@ -218,6 +218,9 @@
     "description": {
       "type": "text"
     },
+    "transcript": {
+      "type": "text"
+    },
     "copyright": {
       "type": "text"
     },

@@ -58,7 +58,12 @@ const ResourceCopyright = ({ resource }) =>
   h('.container.ResourceCopyright', `Source: ${resource.copyright}`)
 
 const ResourceTranscript = ({ resource }) =>
-  h('.container.ResourceTranscript', [h('h2', 'Transcript'), h('div', 'TODO')])
+  !resource.transcript
+    ? null
+    : h('.container.ResourceTranscript', [
+        h('h2', 'Transcription'),
+        h('div', resource.transcript),
+      ])
 
 const ResourceDownload = ({ resource }) =>
   h('.container.ResourceDownload', [

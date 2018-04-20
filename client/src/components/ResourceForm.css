@@ -4,7 +4,6 @@
 .ResourceForm .has-icons-right .textarea {
   padding-right: 2.25em;
 }
-
 .ResourceForm .thumbnails {
   margin: 0;
 }
@@ -20,4 +19,9 @@
   font-size: 0.7em;
   color: #999;
   text-align: center;
+}
+.ResourceForm .input[readonly],
+.ResourceForm .textarea[readonly] {
+  border: 0;
+  cursor: default;
 }

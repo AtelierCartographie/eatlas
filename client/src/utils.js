@@ -1,5 +1,6 @@
 //@flow
 
+import { TYPE_FROM_LETTER } from './constants'
 import { getResourceIds } from './universal-utils'
 
 export { getDefinition, parseRelated } from './universal-utils'
@@ -108,4 +109,13 @@ export const canUnpublish = (
     // Check if resource is one of the mandatory linked resources of article
     article => getResourceIds(article, true).indexOf(resource.id) !== -1,
   )
+}
+
+export const guessResourceType = (resource: Resource): ?ResourceType => {
+  if (!resource.id) return null
+
+  const match = resource.id.match(/^\d+([CPVASF])/i)
+  if (!match) return null
+
+  return TYPE_FROM_LETTER[match[1]]
 }

@@ -17,7 +17,6 @@ import {
   LOCALES,
   STATUS_STYLE,
   LEXICON_ID,
-  TYPE_FROM_LETTER,
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
@@ -28,7 +27,7 @@ import {
   getResourceUrls,
 } from '../api'
 import ObjectDebug from './ObjectDebug'
-import { canUnpublish } from '../utils'
+import { canUnpublish, guessResourceType } from '../utils'
 import AsyncData from './AsyncData'
 
 const API_SERVER = process.env.REACT_APP_API_SERVER || ''
@@ -222,22 +221,11 @@ class ResourceForm extends Component<Props, State> {
       resource.id = LEXICON_ID
     }
     if (resource && !types.includes(resource.type)) {
-      const type: ?ResourceType = this.guessResourceType(resource)
+      const type: ?ResourceType = guessResourceType(resource)
       // $FlowFixMe We allow empty type temporarily
       resource.type = type || ''
     }
     return { types, resource }
-  }
-
-  guessResourceType(resource: Resource): ?ResourceType {
-    if (!resource.id) {
-      return null
-    }
-    const match = resource.id.match(/^\d+([CPVASF])/i)
-    if (!match) {
-      return null
-    }
-    return TYPE_FROM_LETTER[match[1]]
   }
 
   componentWillReceiveProps(props: Props) {
@@ -563,7 +551,6 @@ class ResourceForm extends Component<Props, State> {
           ],
           { subtitle: true },
         )
-
       case 'focus': // subtitle: true, copyright: false
         return buildFields(
           [
@@ -574,7 +561,6 @@ class ResourceForm extends Component<Props, State> {
           ],
           { subtitle: true, copyright: false },
         )
-
       case 'map':
         return buildFields(
           [
@@ -625,9 +611,6 @@ class ResourceForm extends Component<Props, State> {
           ],
           { subtitle: false, copyright: true, optionalTopic: true },
         )
-
-      //case 'focus': // subtitle: true, copyright: false
-
       default:
         return [
           typeField,
@@ -734,9 +717,9 @@ class ResourceForm extends Component<Props, State> {
 
     docs.forEach(doc => {
       const match = doc.name.match(re)
-      if (!match) {
+      if (!match)
         return toast.error(<T id="error-parsing-image-name" values={doc} />)
-      }
+
       const [, size = supportedSizes[0], density = '1x'] = match
       this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
     })
@@ -885,13 +868,11 @@ class ResourceForm extends Component<Props, State> {
       // language = first summary's language found
       const foundSummary: ?{ summary: string, lang: Locale } = LOCALES.reduce(
         (found, lang) => {
-          if (found) {
-            return found
-          }
+          if (found) return found
+
           const summary = getMetaText('summary-' + lang)
-          if (summary) {
-            return { summary, lang }
-          }
+          if (summary) return { summary, lang }
+
           return null
         },
         null,
@@ -934,9 +915,7 @@ class ResourceForm extends Component<Props, State> {
 
   getLexiconFields(): FieldParams[] {
     const { parsed } = this.state
-    if (!parsed) {
-      return []
-    }
+    if (!parsed) return []
 
     return [
       {
@@ -983,9 +962,7 @@ class ResourceForm extends Component<Props, State> {
   }
 
   renderSave() {
-    if (!this.state.resource) {
-      return null
-    }
+    if (!this.state.resource) return null
 
     return (
       <button
@@ -1006,9 +983,7 @@ class ResourceForm extends Component<Props, State> {
 
     const { resource, docs, accessToken, removedDocs } = this.state
 
-    if (!resource || !this.isSaveable()) {
-      return
-    }
+    if (!resource || !this.isSaveable()) return
 
     const uploads = Object.keys(docs)
       .filter(key => docs[key] && !!docs[key].id && !removedDocs.includes(key))
@@ -1057,24 +1032,16 @@ class ResourceForm extends Component<Props, State> {
     const { resource, docs } = this.state
 
     // Common mandatory fields
-    if (!resource) {
-      return false
-    }
-    if (!resource.type || !resource.id) {
-      return false
-    }
+    if (!resource) return false
+    if (!resource.type || !resource.id) return false
 
     // Type-specific validation
     switch (resource.type) {
       case 'article':
-        if (!docs.article) {
-          return false
-        }
+        if (!docs.article) return false
         break
       case 'focus':
-        if (!docs.focus) {
-          return false
-        }
+        if (!docs.focus) return false
         break
       case 'map':
         if (
@@ -1088,26 +1055,20 @@ class ResourceForm extends Component<Props, State> {
         if (
           Object.keys(docs).filter(k => docs[k] && k.match(/^image-/))
             .length === 0
-        ) {
+        )
           return false
-        }
         break
       case 'video':
         return true
       case 'sound':
-        if (!docs.sound) {
-          return false
-        }
+        if (!docs.sound) return false
         break
       case 'definition':
-        if (!docs.lexicon) {
-          return false
-        }
+        if (!docs.lexicon) return false
         break
       default:
         return null
     }
-
     // All good!
     return true
   }
@@ -1115,9 +1076,7 @@ class ResourceForm extends Component<Props, State> {
   docsFromResource(resource: ?Resource): GoogleDocs {
     const docs: { [x: string]: any } = {}
 
-    if (!resource || !resource.id) {
-      return docs
-    }
+    if (!resource || !resource.id) return docs
 
     if (resource.type === 'image' || resource.type === 'map') {
       const images = resource.images
@@ -1145,17 +1104,8 @@ class ResourceForm extends Component<Props, State> {
       }
     }
 
-    if (resource.type === 'article') {
-      docs['article'] = {
-        type: 'doc',
-        id: '',
-        mimeType: '',
-        name: resource.title + '.docx',
-      }
-    }
-
-    if (resource.type === 'focus') {
-      docs['focus'] = {
+    if (resource.type === 'article' || resource.type === 'focus') {
+      docs[resource.type] = {
         type: 'doc',
         id: '',
         mimeType: '',

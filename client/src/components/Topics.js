@@ -12,7 +12,6 @@ import IconButton from './IconButton'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Confirm from './Confirm'
-import VimeoIframe from './VimeoIframe'
 import { RESOURCE_TYPES, TYPE_ICON } from '../constants'
 
 const SHOWN_TYPES = RESOURCE_TYPES.filter(type => type !== 'definition')
@@ -62,17 +61,14 @@ class Topics extends Component<Props, State> {
   }
 
   renderCount(topicId, type) {
-    if (this.props.resources.loading) {
-      return <Spinner small />
-    }
+    const { resources } = this.props
+    if (resources.loading) return <Spinner small />
 
-    const nb = this.props.resources.list.filter(
+    const nb = resources.list.filter(
       r => r.type === type && r.topic === topicId,
     ).length
 
-    if (nb === 0) {
-      return <span className="topic-count">0</span>
-    }
+    if (nb === 0) return <span className="topic-count">0</span>
 
     return (
       <Link className="topic-count" to={`/resources/${type}/?topic=${topicId}`}>
@@ -91,103 +87,118 @@ class Topics extends Component<Props, State> {
     return `${host}/preview/topics/${topic.id}`
   }
 
+  renderHeader() {
+    return (
+      <div className="level">
+        <div className="level-left">
+          <div className="level-item">
+            <h1 className="title">
+              <T id="topics" />
+            </h1>
+          </div>
+        </div>
+        <div className="level-right">
+          <div className="level-item">
+            <Link className="button is-primary" to={`/topics/new`}>
+              <IconButton label="add" icon="plus" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  renderConfirm() {
+    return (
+      <Confirm
+        model={this.state.removeModel}
+        removing={this.state.removing}
+        onClose={() => this.askRemove(null)}
+        onConfirm={() => this.deleteModel()}
+      />
+    )
+  }
+
+  renderTable() {
+    const { topics } = this.props
+    const orderedTopics = topics.list.slice().sort((t1, t2) => t1.id - t2.id)
+
+    return (
+      <table className="table is-striped is-bordered is-fullwidth">
+        <thead>
+          <tr>
+            <th className="fit">
+              <T id="resource-id" />
+            </th>
+            <th>
+              <T id="name" />
+            </th>
+            <th>
+              <T id="resource" />
+            </th>
+            {SHOWN_TYPES.map(type => (
+              <th className="fit" key={type}>
+                <Icon icon={TYPE_ICON[type]} />
+                <T id={'type-' + type} />
+              </th>
+            ))}
+            <th className="fit" />
+          </tr>
+        </thead>
+        <tbody>
+          {orderedTopics.map(t => (
+            <tr key={t.id}>
+              <td>{t.id}</td>
+              <td>{t.name}</td>
+              <td>
+                {t.resourceId && (
+                  <Link to={`/resources/${t.resourceId}/edit`}>
+                    {t.resourceId}
+                  </Link>
+                )}
+              </td>
+              {SHOWN_TYPES.map(type => (
+                <td key={type}>{this.renderCount(t.id, type)}</td>
+              ))}
+              <td>
+                <div className="field is-grouped">
+                  <div className="control">
+                    <Link
+                      className="button is-primary"
+                      to={`/topics/${t.id}/edit`}>
+                      <IconButton icon="pencil" />
+                    </Link>
+                  </div>
+                  <div className="control">
+                    <button
+                      className="button is-danger is-outlined"
+                      onClick={() => this.askRemove(t)}>
+                      <IconButton icon="times" />
+                    </button>
+                  </div>
+                  <div className="control">
+                    <a className="button" href={this.getPreviewUrl(t)}>
+                      <IconButton icon="eye" />
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+
   render() {
     const { topics, resources } = this.props
-
-    const orderedList = topics.list.slice().sort((t1, t2) => t1.id - t2.id)
     const loading = topics.loading || resources.loading
 
     return (
       <div className="Topics">
-        <div className="level">
-          <div className="level-left">
-            <div className="level-item">
-              <h1 className="title">
-                <T id="topics" />
-              </h1>
-            </div>
-          </div>
-          <div className="level-right">
-            <div className="level-item">
-              <Link className="button is-primary" to={`/topics/new`}>
-                <IconButton label="add" icon="plus" />
-              </Link>
-            </div>
-          </div>
-        </div>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <table className="table is-striped is-bordered is-fullwidth">
-            <thead>
-              <tr>
-                <th className="fit">
-                  <T id="resource-id" />
-                </th>
-                <th>
-                  <T id="name" />
-                </th>
-                <th>
-                  <T id="resource" />
-                </th>
-                {SHOWN_TYPES.map(type => (
-                  <th className="fit" key={type}>
-                    <Icon icon={TYPE_ICON[type]} />
-                    <T id={'type-' + type} />
-                  </th>
-                ))}
-                <th className="fit" />
-              </tr>
-            </thead>
-            <tbody>
-              {orderedList.map(t => (
-                <tr key={t.id}>
-                  <td>{t.id}</td>
-                  <td>{t.name}</td>
-                  <td>
-                    {t.resourceId && (
-                      <Link to={`/resources/${t.resourceId}/edit`}>
-                        {t.resourceId}
-                      </Link>
-                    )}
-                  </td>
-                  {SHOWN_TYPES.map(type => (
-                    <td key={type}>{this.renderCount(t.id, type)}</td>
-                  ))}
-                  <td>
-                    <div className="field is-grouped">
-                      <div className="control">
-                        <Link
-                          className="button is-primary"
-                          to={`/topics/${t.id}/edit`}>
-                          <IconButton icon="pencil" />
-                        </Link>
-                      </div>
-                      <div className="control">
-                        <button
-                          className="button is-danger is-outlined"
-                          onClick={() => this.askRemove(t)}>
-                          <IconButton icon="times" />
-                        </button>
-                      </div>
-                      <div className="control">
-                        <a className="button" href={this.getPreviewUrl(t)}>
-                          <IconButton icon="eye" />
-                        </a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        <Confirm
-          model={this.state.removeModel}
-          removing={this.state.removing}
-          onClose={() => this.askRemove(null)}
-          onConfirm={() => this.deleteModel()}
-        />
+        {this.renderHeader()}
+        {loading ? <Spinner /> : this.renderTable()}
+        {this.renderConfirm()}
       </div>
     )
   }

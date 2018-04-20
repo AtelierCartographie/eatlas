@@ -27,6 +27,10 @@
       totalHeight += $(this).outerHeight()
     })
 
+    $parent.find('.masked').each(function() {
+      totalHeight += $(this).outerHeight()
+    })
+
     $parent
       .css({
         height: $parent.height(),

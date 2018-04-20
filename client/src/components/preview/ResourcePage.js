@@ -4,6 +4,7 @@
 // - require intead of import
 // - hyperscript instead of JSX
 
+const { Fragment } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -74,9 +75,30 @@ const ResourceDownload = ({ resource }) =>
     ),
   ])
 
+const ResourceLexicon = ({ definitions }) =>
+  h('.container.ResourceLexicon', [
+    h(
+      'dl',
+      definitions.map(({ dt, dd }) =>
+        h(Fragment, [
+          h('dt', dt),
+          h('dd', [
+            h('.gradient-expand', [
+              h('.masked', dd),
+              h('.read-more', [h('span', 'Lire la definition complète')]),
+            ]),
+          ]),
+        ]),
+      ),
+    ),
+  ])
+
 const Resource = ({ resource }) => {
   let children
   switch (resource.type) {
+    case 'definition':
+      children = [h(ResourceLexicon, { definitions: resource.definitions })]
+      break
     case 'map':
       children = [
         h(ResourceMap, { resource }),
@@ -112,7 +134,7 @@ const Resource = ({ resource }) => {
       h('h1.ResourceTitle', resource.title),
     ]),
     children,
-    h(ResourceDescription, { resource }),
+    resource.type !== 'definition' && h(ResourceDescription, { resource }),
     ['sound', 'video'].includes(resource.type) &&
       h(ResourceTranscript, { resource }),
     resource.type === 'map' && h(ResourceDownload, { resource }),

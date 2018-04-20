@@ -1,6 +1,9 @@
 @import 'var';
 
 .ResourcePage {
+
+  padding-bottom: $gap4;
+
   .ResourceHeader {
     padding-top: 48px;
     padding-bottom: $gap3;
@@ -47,6 +50,39 @@
       font-weight: bold;
       line-height: 1.6rem;
       margin-top: $gap3;
+    }
+  }
+
+  .ResourceLexicon {
+    dt {
+      font-family: $serif;
+      font-size: 2rem;
+    }
+    dd {
+      font-family: $serif;
+      margin-bottom: $gap3;
+    }
+    .gradient-expand {
+      max-height: 90px;
+      overflow: hidden;
+      position: relative;
+
+      .read-more {
+        position: absolute; 
+        bottom: 0; 
+        left: 0;
+        width: 100%; 
+        text-align: right;
+        margin: 0;
+        padding-top: 26px;
+        background-image: linear-gradient(to bottom, transparent, $color-white);
+
+        span {
+          background: $color-white;
+          font-family: $sans;
+          padding: 5px;
+        }
+      }
     }
   }
 }

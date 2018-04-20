@@ -927,7 +927,7 @@ class ResourceForm extends Component<Props, State> {
       {
         labelId: 'nb-definitions',
         input: (
-          <span className="input" readonly>
+          <span className="input" readOnly>
             {parsed.definitions.length}
           </span>
         ),

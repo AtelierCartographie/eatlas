@@ -173,9 +173,89 @@ class Resources extends Component<Props, State> {
     return `${host}/preview/resources/${resource.id}`
   }
 
-  renderMenuCountSuffix(field: string, value: ?any) {
+  askHardRemove(resource: ?Resource) {
+    this.setState({ removeResource: resource })
+  }
+
+  async restore(resource: Resource) {
+    if (resource.status !== 'deleted') return
+
+    // TODO Redux
+    this.setState({ restoring: resource })
+    await updateResource(resource.id, { status: 'submitted' })
+    this.setState({ restoring: null })
+    this.props.fetchResources()
+  }
+
+  async softRemove(resource: Resource) {
+    if (resource.status === 'deleted') return
+
+    // TODO Redux
+    this.setState({ removing: true })
+    await updateResource(resource.id, { status: 'deleted' })
+    this.setState({ removing: false, removeResource: null })
+    this.props.fetchResources()
+  }
+
+  async hardRemove() {
+    const resource = this.state.removeResource
+    if (!resource) return
+
+    // TODO Redux
+    this.setState({ removing: true })
+    await deleteResource(resource.id)
+    this.setState({ removing: false, removeResource: null })
+    this.props.fetchResources()
+  }
+
+  toggleSort = field => () => {
+    const newDir =
+      this.props.sort.by === field
+        ? this.props.sort.dir === 'asc'
+          ? 'desc'
+          : 'asc'
+        : this.props.sort.dir // Same field: toggle direction // Different field: keep direction
+
+    this.props.history.push(
+      updateLocation(this.props.history.location, {
+        search: {
+          sort: field,
+          dir: newDir,
+        },
+      }),
+    )
+  }
+
+  canAdd() {
+    // No 'add' button if we're in the "definition" type, and there is already a lexicon
+    if (this.props.filters.type === 'definition') {
+      if (!this.props.resources.fetched || this.props.resources.loading)
+        return false
+      if (this.props.resources.list.some(r => r.type === 'definition'))
+        return false
+    }
+    return true
+  }
+
+  onChangePaginationCount = e => {
+    this.props.history.push(
+      updateLocation(this.props.history.location, {
+        search: { count: e.target.value, page: null },
+      }),
+    )
+  }
+
+  onChangeSearch = e => {
+    this.props.history.push(
+      updateLocation(this.props.history.location, {
+        search: { q: e.target.value },
+      }),
+    )
+  }
+
+  renderMenuCountSuffix(field: string, value: string) {
     const filter = {
-      type: field === 'type' ? value || '' : this.props.filters.type,
+      type: field === 'type' ? String(value) : this.props.filters.type,
       status: field === 'status' ? String(value) : this.props.filters.status,
       topic: field === 'topic' ? String(value) : this.props.filters.topic,
     }
@@ -219,7 +299,7 @@ class Resources extends Component<Props, State> {
             to={this.getMenuTo({ status: null })}>
             <span className="button is-small is-rounded" />
             <T id="type-all" />
-            {this.renderMenuCountSuffix('status', null)}
+            {this.renderMenuCountSuffix('status', '')}
           </NavLink>
         </li>
         {RESOURCE_STATUSES.map(s => (
@@ -248,7 +328,7 @@ class Resources extends Component<Props, State> {
             to={this.getMenuTo({ topic: null })}>
             <span className="button is-small is-rounded" />
             <T id="type-all" />
-            {this.renderMenuCountSuffix('topic', null)}
+            {this.renderMenuCountSuffix('topic', '')}
           </NavLink>
         </li>
         {this.props.topics.list.map(t => (
@@ -293,10 +373,9 @@ class Resources extends Component<Props, State> {
 
   renderTypeCell(type) {
     const item = typeItems.find(x => x.type === type)
-    if (!item) {
-      // Can happen if data has been modified manually
-      return <td />
-    }
+    // Can happen if data has been modified manually
+    if (!item) return <td />
+
     return (
       <NavLink to={this.getMenuTo({ type })}>
         <Icon size="medium" icon={item.icon} />
@@ -373,46 +452,7 @@ class Resources extends Component<Props, State> {
     )
   }
 
-  askHardRemove(resource: ?Resource) {
-    this.setState({ removeResource: resource })
-  }
-
-  async restore(resource: Resource) {
-    if (resource.status !== 'deleted') {
-      return
-    }
-
-    // TODO Redux
-    this.setState({ restoring: resource })
-    await updateResource(resource.id, { status: 'submitted' })
-    this.setState({ restoring: null })
-    this.props.fetchResources()
-  }
-
-  async softRemove(resource: Resource) {
-    if (resource.status === 'deleted') {
-      return
-    }
-
-    // TODO Redux
-    this.setState({ removing: true })
-    await updateResource(resource.id, { status: 'deleted' })
-    this.setState({ removing: false, removeResource: null })
-    this.props.fetchResources()
-  }
-
-  async hardRemove() {
-    const resource = this.state.removeResource
-    if (!resource) return
-
-    // TODO Redux
-    this.setState({ removing: true })
-    await deleteResource(resource.id)
-    this.setState({ removing: false, removeResource: null })
-    this.props.fetchResources()
-  }
-
-  renderList() {
+  renderTable() {
     // Status then id asc
     return (
       <table className="table is-striped is-bordered is-fullwidth">
@@ -459,11 +499,10 @@ class Resources extends Component<Props, State> {
       case 'preview':
         return renderPreview(resource)
       case 'createdAt':
-      case 'updatedAt':
+      case 'updatedAt': {
         const value: ?string = resource[field]
-        if (!value) {
-          return <Icon icon="warning" title="Unknown date" />
-        }
+        if (!value) return <Icon icon="warning" title="Unknown date" />
+
         return (
           <FormattedDate
             value={new Date(value)}
@@ -472,9 +511,10 @@ class Resources extends Component<Props, State> {
             day="2-digit"
           />
         )
+      }
       //case 'createdBy':
       case 'updatedBy':
-      case 'author':
+      case 'author': {
         const email: string = resource[field]
         if (this.props.users.loading) {
           return (
@@ -494,25 +534,10 @@ class Resources extends Component<Props, State> {
           )
         }
         return <span title={user.email}>{user.name}</span>
+      }
       default:
         return resource[field]
     }
-  }
-
-  toggleSort = field => () => {
-    const newDir =
-      this.props.sort.by === field
-        ? this.props.sort.dir === 'asc' ? 'desc' : 'asc'
-        : this.props.sort.dir // Same field: toggle direction // Different field: keep direction
-
-    this.props.history.push(
-      updateLocation(this.props.history.location, {
-        search: {
-          sort: field,
-          dir: newDir,
-        },
-      }),
-    )
   }
 
   renderSortIndicator(field) {
@@ -561,23 +586,8 @@ class Resources extends Component<Props, State> {
     )
   }
 
-  canAdd() {
-    // No 'add' button if we're in the "definition" type, and there is already a lexicon
-    if (this.props.filters.type === 'definition') {
-      if (!this.props.resources.fetched || this.props.resources.loading) {
-        return false
-      }
-      if (this.props.resources.list.some(r => r.type === 'definition')) {
-        return false
-      }
-    }
-    return true
-  }
-
   renderTopicCell(resource: Resource) {
-    if (!resource.topic) {
-      return <td />
-    }
+    if (!resource.topic) return <td />
 
     if (this.props.topics.loading) {
       return (
@@ -692,19 +702,46 @@ class Resources extends Component<Props, State> {
     )
   }
 
-  onChangePaginationCount = e => {
-    this.props.history.push(
-      updateLocation(this.props.history.location, {
-        search: { count: e.target.value, page: null },
-      }),
+  renderMenu() {
+    return (
+      <aside className="menu">
+        <p className="menu-item">
+          <input
+            placeholder={this.props.intl.formatMessage({ id: 'search' })}
+            defaultValue={this.props.search}
+            onChange={this.onChangeSearch}
+          />
+        </p>
+        <p className="menu-label">
+          <T id="resource-type" />
+        </p>
+        {this.renderTypeMenu(typeItems)}
+
+        <p elassName="menu-label">
+          <T id="resource-status" />
+        </p>
+        {this.renderStatusMenu()}
+
+        <p className="menu-label">
+          <T id="resource-topic" />
+        </p>
+        {this.renderTopicMenu()}
+      </aside>
     )
   }
 
-  onChangeSearch = e => {
-    this.props.history.push(
-      updateLocation(this.props.history.location, {
-        search: { q: e.target.value },
-      }),
+  renderConfirm() {
+    return (
+      <Confirm
+        model={
+          this.state.removeResource
+            ? { name: this.state.removeResource.id }
+            : null
+        }
+        removing={this.state.removing}
+        onClose={() => this.askHardRemove(null)}
+        onConfirm={() => this.hardRemove()}
+      />
     )
   }
 
@@ -715,47 +752,13 @@ class Resources extends Component<Props, State> {
       <div className="Resources">
         {this.renderHeader()}
         <div className="columns">
-          <div className="column is-2">
-            <aside className="menu">
-              <p className="menu-item">
-                <input
-                  type="text"
-                  placeholder={this.props.intl.formatMessage({ id: 'search' })}
-                  defaultValue={this.props.search}
-                  onChange={this.onChangeSearch}
-                />
-              </p>
-              <p className="menu-label">
-                <T id="resource-type" />
-              </p>
-              {this.renderTypeMenu(typeItems)}
-
-              <p className="menu-label">
-                <T id="resource-status" />
-              </p>
-              {this.renderStatusMenu()}
-
-              <p className="menu-label">
-                <T id="resource-topic" />
-              </p>
-              {this.renderTopicMenu()}
-            </aside>
-          </div>
+          <div className="column is-2">{this.renderMenu()}</div>
           <div className="column is-10">
-            {loading ? <Spinner /> : this.renderList()}
+            {loading ? <Spinner /> : this.renderTable()}
             {loading ? null : this.renderPagination()}
           </div>
         </div>
-        <Confirm
-          model={
-            this.state.removeResource
-              ? { name: this.state.removeResource.id }
-              : null
-          }
-          removing={this.state.removing}
-          onClose={() => this.askHardRemove(null)}
-          onConfirm={() => this.hardRemove()}
-        />
+        {this.renderConfirm()}
       </div>
     )
   }

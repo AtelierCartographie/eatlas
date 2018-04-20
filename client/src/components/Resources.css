@@ -35,7 +35,8 @@
   white-space: nowrap;
 }
 
-.Resources .menu-list {
+.Resources .menu-list,
+.Resources table {
   font-size: 0.8em;
 }
 

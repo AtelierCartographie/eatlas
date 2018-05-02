@@ -155,6 +155,7 @@ PB  - ${publication}`
   ])
 }
 
+// also called simply 'Notes' or 'Références'
 exports.Footnotes = (
   { references, footnotes } /*: { references: Object[], footnotes: Object[] }*/,
 ) => {
@@ -178,7 +179,7 @@ exports.Footnotes = (
   }
 
   return h('section.container.Footnotes', [
-    h('h2', 'Notes'),
+    h('h2', 'Références'),
     h('.gradient-expand', [
       h(
         'ol',

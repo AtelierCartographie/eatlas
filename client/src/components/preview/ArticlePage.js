@@ -68,9 +68,10 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
   ])
 }
 
+// french and english (optional)
 const ArticleSummaries = ({ article }) =>
   h('section.container.resume.ArticleSummaries', [
-    !article.summaries.fr
+    !article.summaries.en
       ? null
       : h('ul.langs', { role: 'tablist' }, [
           h('li.active', { role: 'presentation' }, [
@@ -103,11 +104,11 @@ const ArticleSummaries = ({ article }) =>
         h('h2.line', 'Résumé'),
         h('p', article.summaries.fr),
       ]),
-      !article.summaries.fr
+      !article.summaries.en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('p', article.summaries.fr),
+            h('p', article.summaries.en),
           ]),
     ]),
   ])

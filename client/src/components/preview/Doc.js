@@ -26,43 +26,40 @@ exports.PublishedAt = ({ doc } /*: { doc: Resource } */) =>
 exports.Paragraph = (
   { p, lexiconId } /*: {p: Object, lexiconId: {id: number }} */,
 ) => {
-  const parseFootnotes = str => {
-    const m = str.match(/(.*)\[(\d+)\](.*)/)
-    if (!m) return str
-    return [
-      m[1],
-      h('sup', [
-        h(
-          'a.FootnoteLink',
-          { id: `note-${m[2]}`, href: `#footnote-${m[2]}` },
-          `[${m[2]}]`,
-        ),
-      ]),
-      m[3],
-    ]
-  }
+  return h(
+    'p.container.DocParagraph',
+    p.markup.map((m, idx) => {
+      // see doc-parsers/article parseMarkup
+      switch (m.type) {
+        case 'text':
+          return h(Fragment, { key: idx }, m.text)
 
-  let parts = []
-  parts.push(
-    p.lexicon.reduce((tail, l) => {
-      const [head, _tail] = tail.split(l)
-      parts.push(
-        head,
-        h(
-          'a.LexiconLink',
-          { href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
-          l,
-        ),
-      )
-      return _tail
-    }, p.text),
+        case 'em':
+        case 'strong':
+        case 'sup':
+          return h(m.type, { key: idx }, m.text)
+
+        case 'link':
+          return h('a.external', { href: m.url }, m.text)
+
+        case 'lexicon':
+          return h(
+            'a.LexiconLink',
+            { href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
+            m.text,
+          )
+
+        case 'footnote':
+          return h('sup', [
+            h(
+              'a.FootnoteLink',
+              { id: `note-${m.text}`, href: `#footnote-${m.text}` },
+              `[${m.text}]`,
+            ),
+          ])
+      }
+    }),
   )
-  parts = parts.map(p => {
-    if (typeof p !== 'string') return p
-    return h(Fragment, { key: p }, parseFootnotes(p))
-  })
-
-  return h('p.container.DocParagraph', parts)
 }
 
 exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
@@ -121,38 +118,39 @@ PB  - ${publication}`
       ]),
     ]),
     // TODO: where should exports link be available? Ref #128
-    false && h('ul.exports', [
-      h('li', [
-        h(
-          'a',
-          {
-            download: 'citation.bibtex',
-            href: `data:,${encodeURIComponent(bibtex)}`,
-          },
-          ['BibTex'],
-        ),
+    false &&
+      h('ul.exports', [
+        h('li', [
+          h(
+            'a',
+            {
+              download: 'citation.bibtex',
+              href: `data:,${encodeURIComponent(bibtex)}`,
+            },
+            ['BibTex'],
+          ),
+        ]),
+        h('li', [
+          h(
+            'a',
+            {
+              download: 'citation.enw',
+              href: `data:,${encodeURIComponent(endnote)}`,
+            },
+            ['EndNote'],
+          ),
+        ]),
+        h('li', [
+          h(
+            'a',
+            {
+              download: 'citation.ris',
+              href: `data:,${encodeURIComponent(refman)}`,
+            },
+            ['RefMan'],
+          ),
+        ]),
       ]),
-      h('li', [
-        h(
-          'a',
-          {
-            download: 'citation.enw',
-            href: `data:,${encodeURIComponent(endnote)}`,
-          },
-          ['EndNote'],
-        ),
-      ]),
-      h('li', [
-        h(
-          'a',
-          {
-            download: 'citation.ris',
-            href: `data:,${encodeURIComponent(refman)}`,
-          },
-          ['RefMan'],
-        ),
-      ]),
-    ]),
   ])
 }
 

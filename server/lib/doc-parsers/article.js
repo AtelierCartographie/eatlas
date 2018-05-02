@@ -101,6 +101,45 @@ const parseFootnotes = ($, el) => {
   }
 }
 
+// in paragraph
+const parseMarkup = ($, el) => {
+  const markup = $(el)
+    // include text nodes
+    .contents()
+    .map((i, el) => {
+      const text = getText($, el)
+      if (!text) return false
+      if (el.type === 'text') return { type: 'text', text }
+
+      switch (el.name) {
+        // styling
+        case 'em':
+        case 'strong':
+          return { type: el.name, text }
+
+        case 'sup': {
+          if (/\[\d+\]/.test(text))
+            return { type: 'footnote', text: text.slice(1, -1) }
+          // example 1er (premier)
+          return { type: 'sup', text }
+        }
+
+        case 'span':
+          if (el.attribs.style !== 'color: #ff0000') return false
+          return { type: 'lexicon', text }
+
+        case 'a':
+          if (!el.attribs.href) return false
+          return { type: 'link', text, url: el.attribs.href }
+      }
+      return false
+    })
+    .get()
+    .filter(x => x)
+
+  return markup
+}
+
 const parseChild = $ => (i, el) => {
   const text = getText($, el)
   if (i === 0) return { type: 'meta', id: 'title', text }
@@ -129,7 +168,8 @@ const parseChild = $ => (i, el) => {
   if (!el.prev.skipNext)
     return {
       type: getType(el.name),
-      text,
+      text, // clean data used for elastic-searching
+      markup: parseMarkup($, el), // used to build final output
       links: parseLinks($, el),
       lexicon: parseLexicon($, el),
     }

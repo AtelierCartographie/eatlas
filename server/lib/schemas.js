@@ -160,6 +160,17 @@ const node = Joi.object().keys({
   }),
   links,
   lexicon: Joi.array().items(Joi.string()),
+  markup: Joi.array().items(
+    Joi.object().keys({
+      type: Joi.string().required(),
+      text: Joi.string().required(),
+      url: Joi.string().when('type', {
+        is: Joi.valid('link'),
+        then: Joi.required(),
+        otherwise: Joi.forbidden(),
+      }),
+    }),
+  ),
 })
 
 const definition = Joi.object().keys({
@@ -214,7 +225,9 @@ exports.fullResource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string().allow('').optional(),
+  description: Joi.string()
+    .allow('')
+    .optional(),
   transcript,
   copyright: Joi.string().when('type', {
     is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),

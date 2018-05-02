@@ -79,7 +79,7 @@ const ArticleList = ({ articles, topics, options }) => {
               !a.publishedAt
                 ? 'Pas encore publié'
                 : [
-                    'Publié le',
+                    'Publié le ',
                     h(
                       'time',
                       { dateTime: a.publishedAt },

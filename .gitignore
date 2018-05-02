@@ -57,6 +57,9 @@ typings/
 config/local.json
 sample-data
 
-#Docker
+# Docker
 docker-config.env
 docker-compose.yml
+
+# output of 'yarn git-version'
+git-version.js

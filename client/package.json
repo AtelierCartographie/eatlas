@@ -24,13 +24,16 @@
     "timeago.js": "^3.0.2"
   },
   "scripts": {
+    "prestart": "yarn git-version",
     "start": "react-scripts start",
+    "prebuild": "yarn git-version",
     "build": "react-scripts build && node-sass src/components/preview/index.scss public/assets/index.css",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",
     "sass": "node-sass -w src/components/preview/index.scss -o public/assets",
-    "postinstall": "node ./bin/patch-react-scripts.js"
+    "postinstall": "node ./bin/patch-react-scripts.js",
+    "git-version": "echo export default \\\"$(git log -1 --pretty=format:'%h')\\\" > src/git-version.js"
   },
   "prettier": {
     "semi": false,

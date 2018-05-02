@@ -21,6 +21,7 @@ import Topics from './Topics'
 import UserForm from './UserForm'
 import Users from './Users'
 import { userLogout } from '../actions'
+import gitVersion from '../git-version'
 
 const NavLink = ({
   to,
@@ -137,7 +138,10 @@ class App extends Component<Props, State> {
               <NavLink to="/users" label="users" />
             </div>
           )}
-          <div className="navbar-end">{this.renderUserBox()}</div>
+          <div className="navbar-end">
+            <div className="navbar-item">version: {gitVersion}</div>
+            {this.renderUserBox()}
+          </div>
         </div>
       </nav>
     )

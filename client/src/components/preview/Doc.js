@@ -120,7 +120,8 @@ PB  - ${publication}`
         h('span.articleUrl', url),
       ]),
     ]),
-    h('ul.exports', [
+    // TODO: where should exports link be available? Ref #128
+    false && h('ul.exports', [
       h('li', [
         h(
           'a',

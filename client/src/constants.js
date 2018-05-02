@@ -6,7 +6,7 @@ import { LOCALES as localesHash } from './universal-utils'
 
 export { META_CONVERSION } from './universal-utils'
 
-export const LOCALES = Object.keys(localesHash)
+export const LOCALES: Locale[] = Object.keys(localesHash)
 
 export const ROLES: UserRole[] = ['visitor', 'admin']
 

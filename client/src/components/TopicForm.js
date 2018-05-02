@@ -69,6 +69,7 @@ class TopicForm extends Component<Props, State> {
     // already saving: cancel
     if (this.props.saving) return
     // legacy cleaning during the mediaUrl -> resourceId migration
+    // $FlowFixMe
     delete this.state.topic.mediaUrl
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {

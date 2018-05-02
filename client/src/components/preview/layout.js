@@ -9,7 +9,7 @@ const {
 
 exports.CDN = 'https://cdnjs.cloudflare.com/ajax/libs'
 
-exports.prefixUrl = (url, preview) => {
+exports.prefixUrl = (url /*: string */, preview /*: boolean */) => {
   const host = preview ? process.env.REACT_APP_ADMIN_URL || '' : ''
   return `${host}${url}`
 }
@@ -36,7 +36,7 @@ exports.getTopicPageUrl = (topic, { preview = false } = {}) =>
     ? `/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
-const globalPageUrl = (key, slug) => preview => {
+const globalPageUrl = (key /*: string */, slug) => (preview /*: boolean */) => {
   if (preview) return '#NO_PREVIEW_FOR_' + key
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''

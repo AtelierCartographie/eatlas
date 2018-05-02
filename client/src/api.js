@@ -19,6 +19,7 @@ const FAKE_RESOURCE: Resource = {
   topic: '1',
   updatedBy: 'no-one',
   mediaUrl: 'https://vimeo.com/256032055',
+  transcript: ''
 }
 
 const FAKE_TOPICS: Topic[] = [

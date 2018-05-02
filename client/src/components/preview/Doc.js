@@ -82,7 +82,7 @@ exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
 exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   // TODO conf?
   const publication = 'Atlas de la mondialisation'
-  const year = new Date(doc.publishedAt).getFullYear()
+  const year = new Date(doc.publishedAt || Date.now()).getFullYear()
   const url = `${HOST}`
 
   const bibtex = `@book{eAtlas,

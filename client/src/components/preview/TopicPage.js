@@ -37,6 +37,7 @@ const TopicHeader = ({ topic, resources, options }) => {
         resourceComponent = h('div', [
           h('img', {
             src: getImageUrl(resource, 'large', '1x', options),
+            alt: resource.title
           }),
         ])
         break
@@ -57,7 +58,7 @@ const TopicHeader = ({ topic, resources, options }) => {
   ])
 }
 
-const ArticleList = ({ articles, topics, options }) => {
+const ArticleList = ({ articles, options }) => {
   if (!articles || !articles.length) return null
   return h(
     'ul.container.ArticleList',

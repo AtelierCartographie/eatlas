@@ -78,7 +78,7 @@ const TopMenuPanelMain = ({ options }) => {
   ])
 }
 
-const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
+const TopMenuPanelTopic = ({ topic, articles, active, options }) => {
   const id = `TopMenuPanel-${topic.id}`
 
   return h('li.TopicMenuPanel', [

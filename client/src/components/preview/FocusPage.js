@@ -22,7 +22,7 @@ const { getResourcePageUrl } = require('./layout')
 
 // subcomponents
 
-const FocusBackToArticle = ({ focus, options, topics }) =>
+const FocusBackToArticle = ({ focus, options }) =>
   h('.FocusBackToArticle', [
     h('.container', [
       h(
@@ -64,7 +64,7 @@ const FocusNodes = ({ focus, lexiconId }) => {
   })
 }
 
-const FocusFooter = ({ focus, topics, resources, options }) =>
+const FocusFooter = ({ focus  }) =>
   h('footer.DocFooter', [
     h(Keywords, { keywords: focus.keywords }),
     h(Quote, { doc: focus }),

@@ -386,7 +386,11 @@ class Resources extends Component<Props, State> {
   renderRow = (resource: Resource) => {
     const deletable = canUnpublish(resource, this.props.resources.list)
     return (
-      <tr key={resource.id}>
+      <tr
+        key={resource.id}
+        style={{
+          background: resource.status === 'deleted' ? '#fff5f7' : 'auto',
+        }}>
         {FIELDS.map(field => (
           <td className={'cell-' + field} key={field}>
             {this.renderTd(resource, field)}

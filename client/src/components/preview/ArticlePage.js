@@ -186,7 +186,7 @@ const ArticleResource = ({ resource, options, topics }) => {
           h(
             'a',
             {
-              href: getResourcePageUrl(resource, topics, options),
+              href: getResourcePageUrl(resource, options),
             },
             [h('.FocusIcon', 'Focus'), resource.title],
           ),
@@ -263,7 +263,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
           h(
             'a',
             {
-              href: getResourcePageUrl(r, topics, options),
+              href: getResourcePageUrl(r, options),
             },
             [
               h('img', {
@@ -325,14 +325,14 @@ const ArticlePrevNext = ({ article, articles, topics, options }) => {
 
   return [
     prev &&
-      h('a.ArticlePrev', { href: getResourcePageUrl(prev, topics, options) }, [
+      h('a.ArticlePrev', { href: getResourcePageUrl(prev, options) }, [
         h('span.ArticlePrevNextTopic', [
           (topics.find(t => t.id === prev.topic) || {}).name,
         ]),
         h('span.ArticlePrevNextTitle', prev.title),
       ]),
     next &&
-      h('a.ArticleNext', { href: getResourcePageUrl(next, topics, options) }, [
+      h('a.ArticleNext', { href: getResourcePageUrl(next, options) }, [
         h('span.ArticlePrevNextTopic', [
           (topics.find(t => t.id === next.topic) || {}).name,
         ]),

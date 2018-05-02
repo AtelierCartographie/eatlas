@@ -1,3 +1,4 @@
+// @flow
 // shared by Menu and Footer
 
 const {
@@ -26,12 +27,12 @@ exports.getImageUrl = (
   return getMediaUrl(file)
 }
 
-exports.getResourcePageUrl = (resource, { preview = false } = {}) =>
+exports.getResourcePageUrl = (resource /*: Resource */, { preview = false } = {}) =>
   preview
     ? getResourcePagePreviewUrl(resource)
     : resource.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
-exports.getTopicPageUrl = (topic, { preview = false } = {}) =>
+exports.getTopicPageUrl = (topic /*: Topic */, { preview = false } = {}) =>
   preview
     ? `/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?

@@ -63,7 +63,7 @@ const ArticleList = ({ articles, topics, options }) => {
     'ul.container.ArticleList',
     articles.map(a => {
       return h('li', [
-        h('a', { href: getResourcePageUrl(a, topics, options) }, [
+        h('a', { href: getResourcePageUrl(a, options) }, [
           h('img', {
             alt: '',
             style: {
@@ -96,7 +96,7 @@ const ArticleList = ({ articles, topics, options }) => {
               h(
                 'a',
                 {
-                  href: getResourcePageUrl(a.focus, topics, options),
+                  href: getResourcePageUrl(a.focus, options),
                 },
                 [h('.FocusIcon', 'Focus'), a.focus.title],
               ),

@@ -107,7 +107,7 @@ const TopMenuPanelTopic = ({ topic, topics, articles, active, options }) => {
           .filter(a => a.topic === topic.id)
           .map(a =>
             h('li', { key: a.id }, [
-              h('a', { href: getResourcePageUrl(a, topics, options) }, a.title),
+              h('a', { href: getResourcePageUrl(a, options) }, a.title),
             ]),
           ),
       ]),

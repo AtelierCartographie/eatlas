@@ -199,6 +199,7 @@ const ArticleResource = ({ resource, options, topics }) => {
 }
 
 const ArticleResourceComment = ({ resource }) => {
+  if (!resource.description) return null
   const id = `comment-${resource.id}`
   return h('.ArticleResourceComment', [
     h(

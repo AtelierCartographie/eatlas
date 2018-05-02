@@ -214,7 +214,7 @@ exports.fullResource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string().optional(),
+  description: Joi.string().allow('').optional(),
   transcript,
   copyright: Joi.string().when('type', {
     is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),

@@ -52,7 +52,7 @@ const parseRelated = (exports.parseRelated = (string /*: string */) => {
 exports.getResourceIds = (
   article /*: Resource*/,
   onlyMandatory /*: ?boolean */ = false,
-) =>
+) /*: string[] */ =>
   [
     // Image header: mandatory
     getMetaText(article, 'image-header'),
@@ -73,7 +73,7 @@ exports.getResourceIds = (
       : getMetaList(article, 'related').map(
           ({ text }) => parseRelated(text).id,
         )),
-  ].filter(id => !!id)
+  ].filter(Boolean)
 
 // semantic agnostic
 exports.META_CONVERSION = {

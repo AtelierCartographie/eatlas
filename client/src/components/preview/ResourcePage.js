@@ -29,9 +29,8 @@ const ResourceImage = ({ resource }) => {
 }
 
 const ResourceSound = ({ resource }) => {
-  if (!resource.mediaUrl) return null
   return h('.container.ResourceSound', [
-    h('audio', { src: resource.mediaUrl, controls: true }),
+    h('audio', { src: `${apiBaseUrl}/resources/${resource.id}/file`, controls: true }),
   ])
 }
 

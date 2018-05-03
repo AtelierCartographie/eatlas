@@ -510,10 +510,11 @@ class ResourceForm extends Component<Props, State> {
         loading: this.state.parsing,
         rows: 5,
       }),
-      transcript && this.getAttrField('transcript', {
-        leftIcon: 'align-center',
-        rows: 5,
-      }),
+      transcript &&
+        this.getAttrField('transcript', {
+          leftIcon: 'align-center',
+          rows: 5,
+        }),
       copyright &&
         this.getAttrField('copyright', {
           leftIcon: 'copyright',
@@ -537,7 +538,12 @@ class ResourceForm extends Component<Props, State> {
         copyright = false,
         topic = true, // lexicon
         transcript = false,
-      }: { subtitle?: boolean, copyright?: boolean, topic?: boolean, transcript?: boolean },
+      }: {
+        subtitle?: boolean,
+        copyright?: boolean,
+        topic?: boolean,
+        transcript?: boolean,
+      },
     ): FieldParams[] =>
       // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams
       prependFields()
@@ -968,19 +974,24 @@ class ResourceForm extends Component<Props, State> {
   }
 
   renderSave() {
-    if (!this.state.resource) return null
+    if (!this.state.resource || !this.state.resource.type) return null
 
     return (
-      <button
-        className={cx('button is-primary', {
-          'is-loading': this.state.saving,
-        })}
-        disabled={!this.isSaveable()}>
-        <Icon icon="check" />
-        <span>
-          <T id="save-changes" />
-        </span>
-      </button>
+      <div className="field is-horizontal">
+        <div className="field-label" />
+        <div className="field-body">
+          <button
+            className={cx('button is-primary', {
+              'is-loading': this.state.saving,
+            })}
+            disabled={!this.isSaveable()}>
+            <Icon icon="check" />
+            <span>
+              <T id="save-changes" />
+            </span>
+          </button>
+        </div>
+      </div>
     )
   }
 
@@ -1016,6 +1027,8 @@ class ResourceForm extends Component<Props, State> {
           : [],
       )
 
+    this.setState({ saving: true })
+
     this.props
       .onSubmit(resource, uploads, accessToken || '')
       .then((resource: Resource) => {
@@ -1023,13 +1036,12 @@ class ResourceForm extends Component<Props, State> {
         this.setState({
           resource: { ...this.state.resource, ...resource },
           docs: this.docsFromResource(resource),
+          saving: false,
           removedDocs: [],
         })
         toast.success(<T id="toast-resource-saved" />)
       })
-      .catch(error => {
-        this.setState({ error })
-      })
+      .catch(error => this.setState({ error, saving: false }))
   }
 
   // TODO implement more complex validations here?

@@ -7,6 +7,8 @@ import { FormattedMessage as T } from 'react-intl'
 import { withRouter } from 'react-router'
 import { toast } from 'react-toastify'
 
+import './TopicForm.css'
+
 import { getTopic, saveTopic } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'

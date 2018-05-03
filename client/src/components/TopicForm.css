@@ -1,0 +1,4 @@
+.TopicForm .input[readonly] {
+  border: 0;
+  cursor: default;
+}

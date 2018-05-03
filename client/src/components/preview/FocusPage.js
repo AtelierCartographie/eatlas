@@ -64,9 +64,9 @@ const FocusNodes = ({ focus, lexiconId }) => {
   })
 }
 
-const FocusFooter = ({ focus  }) =>
+const FocusFooter = ({ focus, options }) =>
   h('footer.DocFooter', [
-    h(Keywords, { keywords: focus.keywords }),
+    h(Keywords, { keywords: focus.keywords, options }),
     h(Quote, { doc: focus }),
     h(Footnotes, { references: focus.references, footnotes: focus.footnotes }),
   ])

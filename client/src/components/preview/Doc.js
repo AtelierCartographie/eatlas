@@ -88,7 +88,9 @@ exports.Paragraph = (
   return h('p.container.DocParagraph', renderMarkup(p.markup, lexiconId))
 }
 
-exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
+exports.Keywords = (
+  { keywords, options } /*: { keywords: Object, options: Object } */,
+) => {
   if (!keywords || !keywords.length) return null
 
   return h('section.container.Keywords', [
@@ -96,7 +98,17 @@ exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
     h(
       'ul',
       keywords.map((kw, i) =>
-        h('li', { key: i }, [h('a', { href: '#TODO' }, kw.text)]),
+        h('li', { key: i }, [
+          h(
+            'a',
+            {
+              href: options.preview
+                ? `/preview/search?keywords[]=${kw.text}`
+                : '#TODO',
+            },
+            kw.text,
+          ),
+        ]),
       ),
     ),
   ])

@@ -16,7 +16,7 @@
   // TODO merge all 3
   $('#TopMenuPanel-search input').on('keypress', goToSearch)
   $('.HomePage input').on('keypress', goToSearch)
-  $('form.navmenu-form').on('submit', (evt) => evt.preventDefault())
+  $('form.navmenu-form').on('submit', evt => evt.preventDefault())
   $('form.navmenu-form input').on('keypress', goToSearch)
   // Read more arrow in Footnotes
   $('.read-more').on('click', function() {
@@ -56,7 +56,7 @@
     }
     if (searchParams.has('keywords[]')) {
       searchParams.getAll('keywords[]').forEach(kw => {
-        $(`input[type=checkbox][value=${kw}]`, $form).prop('checked', true)
+        $(`input[type=checkbox][value='${kw}']`, $form).prop('checked', true)
       })
     }
 

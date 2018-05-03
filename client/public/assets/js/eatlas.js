@@ -50,9 +50,14 @@
     const $form = $('.SearchPage form')
 
     // Pre-fill input from query string
-    const foundQ = document.location.search.match(/[?&]q=(.+?)(?:[?&]|$)/)
-    if (foundQ) {
-      $('input[name=q]', $form).val(foundQ[1])
+    const searchParams = new URLSearchParams(location.search)
+    if (searchParams.has('q')) {
+      $('input[name=q]', $form).val(searchParams.get('q'))
+    }
+    if (searchParams.has('keywords[]')) {
+      searchParams.getAll('keywords[]').forEach(kw => {
+        $(`input[type=checkbox][value=${kw}]`, $form).prop('checked', true)
+      })
     }
 
     // Output
@@ -101,10 +106,7 @@
       },
     )
 
-    // Initialize search if there is pre-filled input
-    if ($('input[name=q]', $form).val()) {
-      search(1)
-    }
+    search(1)
 
     // Pagination
     $('.SearchPage').on('click', '.search-results-prev', e => {

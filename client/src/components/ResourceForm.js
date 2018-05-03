@@ -482,7 +482,7 @@ class ResourceForm extends Component<Props, State> {
             : []
           ).concat(
             this.props.topics.list.map(({ name, id }) => ({
-              label: name,
+              label: `${id} - ${name}`,
               value: id,
             })),
           ),

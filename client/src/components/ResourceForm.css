@@ -8,8 +8,10 @@
   margin: 0;
 }
 .ResourceForm .thumbnails figure {
-  margin-top: 0.5em;
-  padding-right: 0.5em;
+  padding: 0.5em;
+}
+.ResourceForm .thumbnails figure:hover {
+  background: #eee;
 }
 .ResourceForm .thumbnails figure img {
   max-width: 100px;
@@ -19,6 +21,9 @@
   font-size: 0.7em;
   color: #999;
   text-align: center;
+}
+.ResourceForm .thumbnails figure:hover figcaption {
+  color: black;
 }
 .ResourceForm .input[readonly],
 .ResourceForm .textarea[readonly] {

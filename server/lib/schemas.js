@@ -138,9 +138,20 @@ const links = Joi.array().items(
   }),
 )
 
+const markup = Joi.object().keys({
+  type: Joi.string().required(),
+  text: Joi.string().required(),
+  url: Joi.string().when('type', {
+    is: Joi.valid('link'),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
+})
+
 const list = Joi.array().items(
   Joi.object().keys({
     text: Joi.string().required(),
+    markup: Joi.array().items(markup),
     links,
   }),
 )
@@ -160,17 +171,7 @@ const node = Joi.object().keys({
   }),
   links,
   lexicon: Joi.array().items(Joi.string()),
-  markup: Joi.array().items(
-    Joi.object().keys({
-      type: Joi.string().required(),
-      text: Joi.string().required(),
-      url: Joi.string().when('type', {
-        is: Joi.valid('link'),
-        then: Joi.required(),
-        otherwise: Joi.forbidden(),
-      }),
-    }),
-  ),
+  markup: Joi.array().items(markup),
 })
 
 const definition = Joi.object().keys({

@@ -22,7 +22,7 @@ const padText = (text, markup, idx) => {
 
   // punctuation
   if (['.', ',', ')'].includes(text[0])) prepend = false
-  if (['('].includes(text[text.length - 1])) append= false
+  if (['('].includes(text[text.length - 1])) append = false
 
   // siblings
   const next = markup[idx + 1]
@@ -45,46 +45,47 @@ exports.PublishedAt = ({ doc } /*: { doc: Resource } */) =>
         ),
       ])
 
-// first parse lexicon, then footnotes
+// used by Paragraphs and Footnotes/References
+const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
+  markup.map((m, idx) => {
+    // see doc-parsers/article parseMarkup
+    switch (m.type) {
+      case 'text':
+        return h(Fragment, { key: idx }, padText(m.text, markup, idx))
+
+      case 'em':
+      case 'strong':
+      case 'sup':
+        return h(m.type, { key: idx }, m.text)
+
+      case 'link':
+        return h('a.external', { href: m.url }, m.text)
+
+      case 'lexicon':
+        return h(
+          'a.LexiconLink',
+          { href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
+          m.text,
+        )
+
+      case 'footnote':
+        return h('sup', [
+          h(
+            'a.FootnoteLink',
+            { id: `note-${m.text}`, href: `#footnote-${m.text}` },
+            `[${m.text}]`,
+          ),
+        ])
+    }
+  })
+
 exports.Paragraph = (
   { p, lexiconId } /*: {p: Object, lexiconId: {id: number }} */,
 ) => {
-  if (!p.markup) throw new Error('no markup found. This document needs to be reimported')
+  if (!p.markup)
+    throw new Error('no markup found. This document needs to be reimported')
 
-  return h(
-    'p.container.DocParagraph',
-    p.markup.map((m, idx) => {
-      // see doc-parsers/article parseMarkup
-      switch (m.type) {
-        case 'text':
-          return h(Fragment, { key: idx }, padText(m.text, p.markup, idx))
-
-        case 'em':
-        case 'strong':
-        case 'sup':
-          return h(m.type, { key: idx }, m.text)
-
-        case 'link':
-          return h('a.external', { href: m.url }, m.text)
-
-        case 'lexicon':
-          return h(
-            'a.LexiconLink',
-            { href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
-            m.text,
-          )
-
-        case 'footnote':
-          return h('sup', [
-            h(
-              'a.FootnoteLink',
-              { id: `note-${m.text}`, href: `#footnote-${m.text}` },
-              `[${m.text}]`,
-            ),
-          ])
-      }
-    }),
-  )
+  return h('p.container.DocParagraph', renderMarkup(p.markup, lexiconId))
 }
 
 exports.Keywords = ({ keywords } /*: { keywords: Object } */) => {
@@ -142,7 +143,7 @@ PB  - ${publication}`
         h('span.articleUrl', url),
       ]),
     ]),
-    // TODO: where should exports link be available? Ref #128
+    // TODO: where should export links be available? Ref #128
     false &&
       h('ul.exports', [
         h('li', [
@@ -186,40 +187,26 @@ exports.Footnotes = (
   if ((!references || !references.length) && (!footnotes || !footnotes.length))
     return null
 
-  const parseLinks = ({ text, links }) => {
-    let parts = []
-    parts.push(
-      links.reduce((tail, link) => {
-        const [head, _tail] = tail.split(link.label)
-        parts.push(head, h('a.external', { href: link.url }, link.label))
-        return _tail
-      }, text),
-    )
-    parts = parts.map(p => {
-      if (typeof p !== 'string') return p
-      return h(Fragment, { key: p }, p)
-    })
-    return parts
-  }
-
   return h('section.container.Footnotes', [
     h('h2', 'Références'),
     h('.gradient-expand', [
-      h(
-        'ol',
-        footnotes.map((n, k) => {
-          return h('li', { id: `footnote-${k + 1}`, key: k }, [
-            h('a.back', { href: `#note-${k + 1}` }, '^'),
-            parseLinks(n),
-          ])
-        }),
-      ),
-      h(
-        'ol',
-        references.map((r, k) => {
-          return h('li', { key: k }, r.text)
-        }),
-      ),
+      footnotes &&
+        Boolean(footnotes.length) &&
+        h(
+          'ol',
+          footnotes.map((n, k) =>
+            h('li', { id: `footnote-${k + 1}`, key: k }, [
+              h('a.back', { href: `#note-${k + 1}` }, '^'),
+              renderMarkup(n.markup),
+            ]),
+          ),
+        ),
+      references &&
+        Boolean(references.length) &&
+        h(
+          'ol',
+          references.map((r, k) => h('li', { key: k }, renderMarkup(r.markup))),
+        ),
       h('.read-more', ['▼']),
     ]),
   ])

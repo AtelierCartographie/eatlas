@@ -16,7 +16,10 @@ const getText = ($, el) =>
 const getList = ($, el) =>
   $(el)
     .children()
-    .map((i, el) => getText($, el))
+    .map((i, el) => ({
+      text: getText($, el),
+      markup: parseMarkup($, el),
+    }))
     .get()
 
 const getType = name => {
@@ -60,7 +63,7 @@ const parseMeta = text => {
   return {
     type: 'meta',
     id,
-    // remove quotes
+    // remove quotes, ex: {partie}: “2”
     text: value.trim().slice(1, -1),
   }
 }
@@ -73,15 +76,20 @@ const parseMetaNext = ($, { next }, meta) => {
       meta.text = getText($, next)
       break
 
-    case 'ul':
+    case 'ul': {
       delete meta.text
-      meta.list = getList($, next).map(text => ({ text }))
+      // ideally we should remove markup for lists other than 'Références'
+      // but this exception make the Joi validation way too hard
+      meta.list = getList($, next)
       break
+    }
   }
   return meta
 }
 
 // <li id="footnote-0"><p><a>…</a></p></li>
+// proper 'Word footnotes' are being phased out in favor
+// of the Références meta
 const parseFootnotes = ($, el) => {
   return {
     type: 'footnotes',
@@ -90,6 +98,7 @@ const parseFootnotes = ($, el) => {
       .map((i, el) => ({
         // trim up arrow ↑
         text: getText($, el).slice(0, -2),
+        markup: parseMarkup($, el),
         links: parseLinks(
           $,
           $(el)
@@ -101,7 +110,8 @@ const parseFootnotes = ($, el) => {
   }
 }
 
-// in paragraph
+// in paragraph, footnotes and Références meta
+// info needed to build final preview output (see Doc.js)
 const parseMarkup = ($, el) => {
   const markup = $(el)
     // include text nodes

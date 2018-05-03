@@ -10,6 +10,29 @@ moment.locale('fr')
 
 const { HOST } = require('./layout')
 
+// spacing info is not kept by the parsing phase
+// se we need to emulate basic french typo rules here
+const padText = (text, markup, idx) => {
+  let prepend = true
+  let append = true
+
+  // position
+  if (idx === 0) prepend = false
+  if (idx === markup.length - 1) append = false
+
+  // punctuation
+  if (['.', ',', ')'].includes(text[0])) prepend = false
+  if (['('].includes(text[text.length - 1])) append= false
+
+  // siblings
+  const next = markup[idx + 1]
+  if (next && next.type === 'footnote') append = false
+
+  if (prepend) text = ` ${text}`
+  if (append) text = `${text} `
+  return text
+}
+
 exports.PublishedAt = ({ doc } /*: { doc: Resource } */) =>
   !doc.publishedAt
     ? h('.PublishedAt', 'Non publié')
@@ -26,13 +49,15 @@ exports.PublishedAt = ({ doc } /*: { doc: Resource } */) =>
 exports.Paragraph = (
   { p, lexiconId } /*: {p: Object, lexiconId: {id: number }} */,
 ) => {
+  if (!p.markup) throw new Error('no markup found. This document needs to be reimported')
+
   return h(
     'p.container.DocParagraph',
     p.markup.map((m, idx) => {
       // see doc-parsers/article parseMarkup
       switch (m.type) {
         case 'text':
-          return h(Fragment, { key: idx }, m.text)
+          return h(Fragment, { key: idx }, padText(m.text, p.markup, idx))
 
         case 'em':
         case 'strong':

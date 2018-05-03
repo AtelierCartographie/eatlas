@@ -28,7 +28,7 @@ type Props = {
 }
 
 type State = {
-  topic?: Topic,
+  topic: ?Topic,
   error: ?Error,
 }
 
@@ -40,7 +40,10 @@ const newTopic = {
 }
 
 class TopicForm extends Component<Props, State> {
-  state = {}
+  state = {
+    topic: null,
+    error: null
+  }
 
   componentDidMount() {
     // beware topicId can be 0
@@ -70,7 +73,7 @@ class TopicForm extends Component<Props, State> {
   handleSubmit = evt => {
     evt.preventDefault()
     // already saving: cancel
-    if (this.props.saving) return
+    if (this.props.saving || !this.state.topic) return
     // legacy cleaning during the mediaUrl -> resourceId migration
     // $FlowFixMe
     delete this.state.topic.mediaUrl

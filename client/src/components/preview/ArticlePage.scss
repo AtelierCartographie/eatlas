@@ -4,6 +4,12 @@
 
   figure {
     margin-bottom: 3.2em;
+
+    picture {
+      display: block;
+      margin: auto;
+      max-width: 1100px; // large
+    }
   }
 
   .figure-title {

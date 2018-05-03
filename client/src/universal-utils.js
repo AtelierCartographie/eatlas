@@ -122,8 +122,8 @@ exports.getMediaUrl = (
 
 exports.getMediaPreviewUrl = (
   id /*: string */,
-  size /*: string */,
-  density /*: string */,
+  size /*: ResourceSize */,
+  density /*: ResourceDensity */,
   host /*: ?string */ = process.env.REACT_APP_API_SERVER,
 ) => `${host || ''}/resources/${id}/file/${size}-${density}`
 

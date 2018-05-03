@@ -29,10 +29,11 @@ const srcset = (image, size, options) => {
   const image1 = getImageUrl(image, size, '1x', options)
   const image2 = getImageUrl(image, size, '2x', options)
   const image3 = getImageUrl(image, size, '3x', options)
+  // TODO: why this map- prefix?
   return [
-    image1 ? image1 + ',' : '',
-    image2 ? image2 + ' 2x,' : '',
-    image3 ? image3 + ' 3x,' : '',
+    image1 ? `${image1.replace('file/', 'file/map-')}',` : '',
+    image2 ? `${image2.replace('file/', 'file/map-')} 2x,` : '',
+    image3 ? `${image3.replace('file/', 'file/map-')} 3x,` : '',
   ].join('\n')
 }
 
@@ -133,9 +134,13 @@ const ArticleResource = ({ resource, options, topics }) => {
       ])
 
     case 'map':
-      return h('figure.container', [
-        h('h2.figure-title', resource.title),
+      return h('figure', [
+        h('h2.figure-title.container', resource.title),
         h('picture', [
+          h('source', {
+            srcSet: srcset(resource, 'large', options),
+            media: '(min-width: 700px)',
+          }),
           h('source', {
             srcSet: srcset(resource, 'medium', options),
             media: '(min-width: 560px)',
@@ -147,8 +152,8 @@ const ArticleResource = ({ resource, options, topics }) => {
             srcSet: srcset(resource, 'small', options),
           }),
         ]),
-        h('figcaption', resource.copyright),
-        h('.ArticleResourceDownload', 'Info & téléchargement'),
+        h('figcaption.container', resource.copyright),
+        h('.ArticleResourceDownload.container', 'Info & téléchargement'),
         h(ArticleResourceComment, { resource }),
       ])
 

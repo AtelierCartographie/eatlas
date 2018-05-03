@@ -29,6 +29,7 @@ type Props = {
 
 type State = {
   topic?: Topic,
+  error: ?Error,
 }
 
 const newTopic = {
@@ -74,14 +75,30 @@ class TopicForm extends Component<Props, State> {
     // $FlowFixMe
     delete this.state.topic.mediaUrl
 
-    this.props.saveTopic(this.state.topic, this.props.topicId).then(() => {
-      toast.success(<T id="toast-topic-saved" />)
-      this.props.redirect('/topics')
-    })
+    this.props.saveTopic(this.state.topic, this.props.topicId).then(
+      () => {
+        toast.success(<T id="toast-topic-saved" />)
+        this.props.redirect('/topics')
+      },
+      error => {
+        this.setState({ error })
+      },
+    )
+  }
+
+  renderError(message: any) {
+    return (
+      <div className="notification is-danger">
+        <strong>
+          <T id="error" />:
+        </strong>
+        {message}
+      </div>
+    )
   }
 
   render() {
-    const { loading, saving } = this.props
+    const { topicId, loading, saving } = this.props
     const { topic } = this.state
 
     return (
@@ -92,6 +109,9 @@ class TopicForm extends Component<Props, State> {
           <Spinner />
         ) : (
           <form onSubmit={this.handleSubmit}>
+            {this.state.error
+              ? this.renderError(this.state.error.message)
+              : null}
             <div className="field">
               <label className="label">
                 <T id="resource-id" />
@@ -127,20 +147,22 @@ class TopicForm extends Component<Props, State> {
               </div>
             </div>
 
-            <div className="field">
-              <label className="label">
-                <T id="resource" /> id
-              </label>
-              <div className="control">
-                <input
-                  className="input"
-                  name="resourceId"
-                  type="text"
-                  value={topic.resourceId}
-                  onChange={this.handleChange}
-                />
+            {topicId != null && (
+              <div className="field">
+                <label className="label">
+                  <T id="resource" /> id
+                </label>
+                <div className="control">
+                  <input
+                    className="input"
+                    name="resourceId"
+                    type="text"
+                    value={topic.resourceId}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="field">
               <label className="label">

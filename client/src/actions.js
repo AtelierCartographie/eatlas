@@ -81,12 +81,13 @@ export const saveUser = ({ id, ...data }) => (dispatch: Function) => {
         payload: user,
       }),
     )
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: 'SAVE_USER_FAILURE',
         error,
-      }),
-    )
+      })
+      throw error
+    })
 }
 
 // resources
@@ -126,12 +127,13 @@ export const saveTopic = (data, id: string) => (dispatch: Function) => {
         payload: topic,
       }),
     )
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: 'SAVE_TOPIC_FAILURE',
         error,
-      }),
-    )
+      })
+      throw error
+    })
 }
 
 // session

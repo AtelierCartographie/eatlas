@@ -1,6 +1,6 @@
 'use strict'
 
-const { topics } = require('../model')
+const { topics, resources } = require('../model')
 const { generateTopicHTML } = require('../html-generator')
 
 exports.list = (req, res) =>
@@ -24,11 +24,24 @@ exports.findTopic = (req, res, next) =>
 
 exports.get = (req, res) => res.send(req.foundTopic)
 
-exports.update = (req, res) =>
+exports.update = async (req, res) => {
+  // a valid resourceId can only been provided on update
+  // since topics must be created before related resources are imported
+  if (req.body.resourceId) {
+    const resource = await resources.findById(req.body.resourceId)
+    if (!resource) return res.boom.notFound('Unknown Resource Id')
+
+    if (!['image', 'video'].includes(resource.type))
+      return res.boom.badRequest('Wrong resource type should be image or video')
+
+    if (req.foundTopic.id !== resource.topic)
+      return res.boom.badRequest(`Resource topic mismatch: ${req.foundTopic.id} vs ${resource.topic}`)
+  }
   topics
     .update(req.foundTopic.id, req.body)
     .then(updatedTopic => res.send(updatedTopic))
     .catch(res.boom.send)
+}
 
 exports.add = (req, res) =>
   topics

@@ -1,6 +1,12 @@
 // @flow
 // shared by Menu and Footer
 
+/*::
+type Options = {
+  preview: boolean
+}
+*/
+
 const {
   getMediaUrl,
   footerResourcesConfig,
@@ -17,9 +23,9 @@ exports.prefixUrl = (url /*: string */, preview /*: boolean */) => {
 
 exports.getImageUrl = (
   { id, images },
-  size = 'medium',
-  density = '1x',
-  { preview = false } = {},
+  size /*: ResourceSize */ = 'medium',
+  density /*: ResourceDensity */ = '1x',
+  { preview = false } /*: Options */ = {},
 ) => {
   if (preview) return getMediaPreviewUrl(id, size, density)
 
@@ -27,12 +33,12 @@ exports.getImageUrl = (
   return getMediaUrl(file)
 }
 
-exports.getResourcePageUrl = (resource /*: Resource */, { preview = false } = {}) =>
+exports.getResourcePageUrl = (resource /*: Resource */, { preview = false } /*: Options */ = {}) =>
   preview
     ? getResourcePagePreviewUrl(resource)
     : resource.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
-exports.getTopicPageUrl = (topic /*: Topic */, { preview = false } = {}) =>
+exports.getTopicPageUrl = (topic /*: Topic */, { preview = false } /*: Options */ = {}) =>
   preview
     ? `/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?

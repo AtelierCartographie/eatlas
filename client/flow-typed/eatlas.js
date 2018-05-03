@@ -21,6 +21,10 @@ declare type ResourceStatus =
   | 'published'
   | 'deleted'
 
+declare type ResourceDensity = '1x' | '2x' | '3x'
+
+declare type ResourceSize = 'small' | 'medium' | 'large'
+
 declare type AppState = {
   locale: Locale,
   users: { loading: boolean, saving: boolean, list: User[] },

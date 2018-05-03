@@ -687,17 +687,20 @@ class ResourceForm extends Component<Props, State> {
                 <T id="resource-image-help" />
               </p>
               <div className="columns thumbnails">
-                {keys.map(key => (
-                  <figure key={key} onClick={this.unselectFile(key)}>
-                    <img
-                      src={this.getThumbUrl(resource, docs, key)}
-                      alt={docs[key] && docs[key].name}
-                    />
-                    <figcaption>
-                      {key.substring(6).replace('-', '@')}
-                    </figcaption>
-                  </figure>
-                ))}
+                {keys.map(key => {
+                  const [, size, density] = key.split('-')
+                  return (
+                    <figure key={key} onClick={this.unselectFile(key)}>
+                      <img
+                        src={this.getThumbUrl(resource, docs, key)}
+                        alt={docs[key] && docs[key].name}
+                      />
+                      <figcaption>
+                        {size}@{density}
+                      </figcaption>
+                    </figure>
+                  )
+                })}
               </div>
             </Fragment>
           )}

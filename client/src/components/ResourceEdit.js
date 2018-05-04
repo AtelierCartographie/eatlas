@@ -275,6 +275,7 @@ class ResourceEdit extends Component<Props, State> {
       status: resource.status,
       author: resource.author,
       title: resource.title,
+      titlePosition: resource.titlePosition,
       subtitle: resource.subtitle,
       topic: resource.topic,
       language: resource.language,

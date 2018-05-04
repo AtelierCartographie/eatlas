@@ -82,6 +82,12 @@ const resourceStatus = Joi.string().valid([
   'deleted',
 ])
 
+const resourceTitlePosition = Joi.string().valid([
+  'center',
+  'top',
+  'bottom',
+])
+
 // TODO probably extend to other providers: youtube…
 const resourceMediaUrl = Joi.string().regex(/^https:\/\/vimeo.com\/[0-9]+$/)
 
@@ -108,6 +114,11 @@ exports.resource = {
     otherwise: Joi.optional(),
   }),
   title: Joi.string().required(),
+  titlePosition: resourceType.when('type', {
+    is: Joi.valid(['article']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
   subtitle: Joi.string().optional(),
   topic: Joi.string().when('type', {
     is: Joi.valid(['definition']),
@@ -215,6 +226,11 @@ exports.fullResource = {
     otherwise: Joi.optional(),
   }),
   title: Joi.string().required(),
+  titlePosition: resourceType.when('type', {
+    is: Joi.valid(['article']),
+    then: Joi.required(),
+    otherwise: Joi.forbidden(),
+  }),
   subtitle: Joi.string().when('type', {
     is: Joi.valid(['article', 'focus', 'map']),
     then: Joi.optional(),

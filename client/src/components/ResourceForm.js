@@ -439,7 +439,13 @@ class ResourceForm extends Component<Props, State> {
       resource.status === 'published' && this.getUrlsField(resource),
     ]
 
-    const appendFields = ({ subtitle, copyright, topic, transcript }) => [
+    const appendFields = ({
+      subtitle,
+      titlePosition,
+      copyright,
+      topic,
+      transcript,
+    }) => [
       this.getAttrField('author', {
         leftIcon: 'user',
         mandatory: isArticle,
@@ -455,6 +461,15 @@ class ResourceForm extends Component<Props, State> {
           readOnly ||
           Boolean(isArticle && this.state.parsed && this.state.parsed.title),
         loading: this.state.parsing,
+      }),
+      titlePosition && this.getAttrField('titlePosition', {
+        leftIcon: 'arrows-v',
+        mandatory: true,
+        options: this.buildSelectOptions(
+          ['center', 'top', 'bottom'],
+          'position-',
+          false
+        ),
       }),
       subtitle &&
         this.getAttrField('subtitle', {
@@ -535,11 +550,13 @@ class ResourceForm extends Component<Props, State> {
       fields: Array<FieldParams>,
       {
         subtitle = false,
+        titlePosition = false,
         copyright = false,
         topic = true, // lexicon
         transcript = false,
       }: {
         subtitle?: boolean,
+        titlePosition?: string,
         copyright?: boolean,
         topic?: boolean,
         transcript?: boolean,
@@ -548,7 +565,7 @@ class ResourceForm extends Component<Props, State> {
       // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams
       prependFields()
         .concat(fields)
-        .concat(appendFields({ subtitle, copyright, topic, transcript }))
+        .concat(appendFields({ subtitle, titlePosition, copyright, topic, transcript }))
         .filter(x => x)
 
     switch (resource.type) {
@@ -561,7 +578,7 @@ class ResourceForm extends Component<Props, State> {
               onPick: this.onPickArticle,
             }),
           ],
-          { subtitle: true },
+          { subtitle: true, titlePosition: true },
         )
       case 'focus': // subtitle: true, copyright: false
         return buildFields(
@@ -876,6 +893,7 @@ class ResourceForm extends Component<Props, State> {
       const resource: Resource = { ...(state.resource || {}) }
       resource.id = getMetaText('id') || resource.id
       resource.title = getMetaText('title') || resource.title
+      resource.titlePosition = getMetaText('titlePosition') || resource.titlePosition
       resource.subtitle = getMetaText('subtitle') || resource.subtitle
       resource.copyright = getMetaText('copyright') || resource.copyright
       resource.topic = getMetaText('topic') || resource.topic

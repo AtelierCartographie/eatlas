@@ -18,11 +18,7 @@ const {
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
-const {
-  getImageUrl,
-  getResourcePageUrl,
-  getTopicPageUrl,
-} = require('./layout')
+const { getImageUrl, getResourcePageUrl, getTopicPageUrl } = require('./layout')
 const { getMediaUrl } = require('../../universal-utils')
 
 const srcset = (image, size, options) => {
@@ -43,16 +39,19 @@ const ArticleHeader = ({ article, resources, options }) => {
   const imageHeader = resources.find(r => r.id === article.imageHeader)
   const imageHeaderUrl =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
+
   const style = imageHeaderUrl
     ? {
         backgroundImage: `url(${imageHeaderUrl})`,
       }
     : {}
+
   return h('header.ArticleHeader', { style }, [
-    h('.container.ArticleHeaderInfo', [
-      h('h1.ArticleTitle', article.title),
-      h(PublishedAt, { doc: article }),
-    ]),
+    h(
+      '.container.ArticleHeaderInfo',
+      { className: `title-position-${article.titlePosition}` },
+      [h('h1.ArticleTitle', article.title), h(PublishedAt, { doc: article })],
+    ),
   ])
 }
 

@@ -27,9 +27,23 @@
     position: relative;
     text-align: center;
 
+    h1 {
+      margin: 0;
+    }
+
+    // .title-position-center
     .ArticleHeaderInfo {
       margin: auto;
     }
+
+    .title-position-top {
+      margin-top: 7rem;
+    }
+
+    .title-position-bottom {
+      margin-bottom: $gap2;
+    }
+
 
     .ArticleTitle {
       font-size: 7rem;

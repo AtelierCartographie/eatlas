@@ -84,7 +84,7 @@ exports.SideMenu = (
   )
 
 exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
-  h('div.navbar.navbar-default.navbar-fixed-top', [
+  h('div.navbar.navbar-fixed-top', [
     h(
       'button.navbar-toggle',
       {

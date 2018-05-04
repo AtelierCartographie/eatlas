@@ -3,21 +3,10 @@
 const h = require('react-hyperscript')
 
 const { CDN, prefixUrl } = require('./layout')
+const TopBar = require('./TopBar')
 const { TopMenu } = require('./TopMenu')
 const { SideMenu, SideMenuToggle } = require('./SideMenu')
 const Footer = require('./Footer')
-
-const NavBar = ({ logoColor, options: { preview } }) =>
-  h('nav.navbar.navbar-default.navbar-static-top.navbar-logo', [
-    h('div.container', [
-      h('a.navbar-brand', { href: preview ? '/preview' : 'TODO' }, [
-        h('img', {
-          alt: "Page d'accueil",
-          src: prefixUrl(`/assets/img/logo-eatlas-${logoColor}.svg`, preview),
-        }),
-      ]),
-    ]),
-  ])
 
 module.exports = (
   {
@@ -33,7 +22,7 @@ module.exports = (
 ) =>
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
-    h(NavBar, { logoColor: logoColor || 'white', options }),
+    h(TopBar, { logoColor: logoColor || 'white', options }),
     sideMenu && h(SideMenuToggle, { options }),
     sideMenu && h(SideMenu, { topics, options }),
     topMenu && h(TopMenu, { topic, topics, articles, options }),

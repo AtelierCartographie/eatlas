@@ -148,7 +148,7 @@ const ArticleResource = ({ resource, options, topics }) => {
           h('source', {
             srcSet: srcset(resource, 'small', options),
           }),
-          h('img.img-responsive', {
+          h('img', {
             srcSet: srcset(resource, 'small', options),
           }),
         ]),
@@ -206,7 +206,7 @@ const ArticleResource = ({ resource, options, topics }) => {
 const ArticleResourceComment = ({ resource }) => {
   if (!resource.description) return null
   const id = `comment-${resource.id}`
-  return h('.ArticleResourceComment', [
+  return h('.ArticleResourceComment.container', [
     h(
       'a',
       {

@@ -342,6 +342,22 @@ const ArticlePrevNext = ({ article, articles, topics, options }) => {
         ]),
         h('span.ArticlePrevNextTitle', next.title),
       ]),
+    // horrible pattern? yes? no? who knows?
+    h('script', { dangerouslySetInnerHTML: { __html:`
+window.addEventListener('DOMContentLoaded', () => {
+  const toggle = (sel, bool) => {
+    const el = document.querySelector(sel)
+    if (el) el.classList.toggle('hidden', bool)
+  }
+  const observer = new IntersectionObserver((entries) => {
+    const hidden = entries[0].isIntersecting
+    toggle('.ArticlePrev', hidden)
+    toggle('.ArticleNext', hidden)
+  })
+  observer.observe(document.querySelector('.ArticleHeader'))
+  observer.observe(document.querySelector('.DocFooter'))
+})
+` } }),
   ]
 }
 

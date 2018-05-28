@@ -50,15 +50,15 @@
     const $form = $('.SearchPage form')
 
     // Pre-fill input from query string
-    const searchParams = new URLSearchParams(location.search)
-    if (searchParams.has('q')) {
-      $('input[name=q]', $form).val(searchParams.get('q'))
-    }
-    if (searchParams.has('keywords[]')) {
-      searchParams.getAll('keywords[]').forEach(kw => {
-        $(`input[type=checkbox][value='${kw}']`, $form).prop('checked', true)
-      })
-    }
+    const searchParams = new URLSearchParams(document.location.search)
+    searchParams.forEach((value, key) => {
+      const $input = $(`input[name="${key}"]`, $form)
+      if ($input.is(':checkbox, :radio')) {
+        $input.filter(`[value="${value}"]`).prop('checked', true)
+      } else {
+        $input.val(value)
+      }
+    })
 
     // Output
     const showSearchError = data => {

@@ -14,7 +14,7 @@ const {
   populatePageUrl,
 } = require('./generator-utils')
 const {
-  footerResourcesConfig,
+  CLIENT_TYPES,
   LOCALES,
   getMetaList,
 } = require('../../client/src/universal-utils')
@@ -209,10 +209,7 @@ exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
   )
 }
 
-exports.generateSearchHTML = async (
-  { preview = false, types = null } = {},
-  props = {},
-) => {
+exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
   props = await topMenuProps(props, { preview })
   const keywords = props.articles.reduce(
     (kws, article) =>
@@ -222,7 +219,7 @@ exports.generateSearchHTML = async (
   return wrap(
     React.createElement(SearchPage, {
       ...props,
-      types,
+      types: CLIENT_TYPES,
       keywords: [...new Set(keywords)].sort(),
       locales: LOCALES,
       options: { preview },

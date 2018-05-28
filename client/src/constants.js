@@ -2,7 +2,7 @@
 
 // See https://github.com/facebook/flow/issues/961 for the sad state of DRY and enums with Flow
 
-import { LOCALES as localesHash } from './universal-utils'
+import { LOCALES as localesHash, TYPES as typesHash } from './universal-utils'
 
 export { META_CONVERSION } from './universal-utils'
 
@@ -10,15 +10,7 @@ export const LOCALES: Locale[] = Object.keys(localesHash)
 
 export const ROLES: UserRole[] = ['visitor', 'admin']
 
-export const RESOURCE_TYPES: ResourceType[] = [
-  'article',
-  'focus',
-  'image',
-  'map',
-  'sound',
-  'video',
-  'definition',
-]
+export const RESOURCE_TYPES: ResourceType[] = Object.keys(typesHash)
 
 export const TYPE_ICON: { [ResourceType]: string } = {
   article: 'file-text',

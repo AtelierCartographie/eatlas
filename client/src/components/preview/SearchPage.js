@@ -29,7 +29,7 @@ const hitPreviewTemplate = `
   <img src="<%= hit.preview.url %>" alt="">
 `
 
-const resultsTemplate = ({ showType = true }) => `
+const resultsTemplate = () => `
 <div class="row search-page">
   <% if (results.start > 1) { %>
     <a href="#prev" class="btn search-results-prev" title="Résultats précédent">&lt;&lt;</a>
@@ -45,7 +45,7 @@ const resultsTemplate = ({ showType = true }) => `
 </div>
 <% _.forEach(results.hits, function (hit) { %>
   <a class="row search-result" href="<%= hit.url %>">
-    ${showType && `<div class="search-result-type"><%= hit.type %></div>`}
+    <div class="search-result-type"><%= hit.type %></div>
     <% if (hit.preview) { %>
       <div class="search-result-preview col-sm-6">
         ${hitPreviewTemplate}
@@ -84,7 +84,6 @@ const Search = ({ topics, types, locales, keywords, options }) =>
       h(
         'form.search',
         {
-          'data-search-types': types ? JSON.stringify(types) : undefined,
           'data-api-url': searchEndpoint(options),
         },
         [
@@ -154,6 +153,18 @@ const Search = ({ topics, types, locales, keywords, options }) =>
                   h('span', { key: 'label' }, locales[locale]),
                 ]),
               ),
+              ...filtersToggle(
+                'Type',
+                Object.keys(types).map(type => [
+                  h('input', {
+                    type: 'checkbox',
+                    name: 'types[]',
+                    key: 'input',
+                    value: type,
+                  }),
+                  h('span', { key: 'label' }, types[type]),
+                ]),
+              ),
             ]),
           ]),
         ],
@@ -162,7 +173,7 @@ const Search = ({ topics, types, locales, keywords, options }) =>
     h('script.results-template', {
       type: 'text/html',
       dangerouslySetInnerHTML: {
-        __html: resultsTemplate({ showType: !types }),
+        __html: resultsTemplate(),
       },
     }),
     h('section.SearchResults.container', {}, [

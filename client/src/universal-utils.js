@@ -30,7 +30,10 @@ exports.getDefinition = (
 
 const getMeta = (article /*: Resource */, type /*: string */) =>
   (article.metas || []).find(m => m.type === type)
-const getMetaList = (exports.getMetaList = (article /*: Resource */, type /*: string */) => {
+const getMetaList = (exports.getMetaList = (
+  article /*: Resource */,
+  type /*: string */,
+) => {
   const found = getMeta(article, type)
   return (found && found.list) || []
 })
@@ -86,7 +89,7 @@ exports.META_CONVERSION = {
   'Mots-clés': 'keywords',
   'Résumé-FR': 'summary-fr',
   "Continuer dans l'Atlas": 'related',
-  "Continuer dans l’Atlas": 'related', // different apostrophe
+  'Continuer dans l’Atlas': 'related', // different apostrophe
   Références: 'references',
   // focus only
   'article-associé': 'related-article',
@@ -132,15 +135,32 @@ exports.getResourcePagePreviewUrl = (
   host /*: ?string */ = process.env.REACT_APP_API_SERVER,
 ) => `${host || ''}/preview/resources/${resource.id}`
 
+// Common types (back/front)
+exports.TYPES = {
+  article: 'Article',
+  focus: 'Focus',
+  image: 'Photos',
+  map: 'Cartes et diagrammes',
+  sound: 'Audio',
+  video: 'Vidéos',
+  definition: 'Lexique',
+  references: 'Références',
+}
+
+// Types that should appear on front side only: virtual type to now show in admin page
+const types = (exports.CLIENT_TYPES = Object.assign({}, exports.TYPES, {
+  references: 'Références',
+}))
+
 // { resourcesSlug, searchTypes, label }[]
 exports.footerResourcesConfig = [
-  { slug: 'maps-diagrams', types: ['map'], label: 'Cartes et diagrammes' },
+  { slug: 'maps-diagrams', types: ['map'], label: types.map },
   {
     slug: 'photos-videos',
     types: ['image', 'video'],
-    label: 'Photos et vidéos',
+    label: `${types.image} et ${types.video.toLowerCase()}`,
   },
-  { slug: 'focus', types: ['focus'], label: 'Focus' },
-  { slug: 'lexique', types: ['definition'], label: 'Lexique' },
-  { slug: 'references', types: ['references'], label: 'Références' }, // virtual type
+  { slug: 'focus', types: ['focus'], label: types.focus },
+  { slug: 'lexique', types: ['definition'], label: types.definition },
+  { slug: 'references', types: ['references'], label: types.references },
 ]

@@ -149,7 +149,7 @@ exports.TYPES = {
 // Types that should appear on front side only: virtual type to now show in admin page
 const types = (exports.CLIENT_TYPES = Object.assign({}, exports.TYPES, {
   'single-definition': 'Lexique',
-  references: 'Références',
+  reference: 'Références',
 }))
 delete types.definition // Client only sees virtual 'single-definition' type
 
@@ -167,5 +167,5 @@ exports.footerResourcesConfig = [
     types: ['single-definition'],
     label: types['single-definition'],
   },
-  { slug: 'references', types: ['references'], label: types.references },
+  { slug: 'references', types: ['reference'], label: types.reference },
 ]

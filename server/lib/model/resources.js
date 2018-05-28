@@ -17,18 +17,63 @@ exports.search = search
 exports.list = find
 exports.findById = findById
 
-// Destroy virtual docs generated when importing this lexicon (related by its id)
-const deleteSingleDefinitions = id =>
+const deleteLinkedVirtualResources = (virtualType, parentResourceId) => {
   deleteByQuery({
     query: {
       bool: {
         must: [
-          { term: { type: 'single-definition' } },
-          { term: { updatedBy: id } },
+          { term: { type: virtualType } },
+          { term: { updatedBy: parentResourceId } },
         ],
       },
     },
   })
+}
+
+// Destroy virtual docs generated when importing article
+const deleteReferences = id => deleteLinkedVirtualResources('reference', id)
+
+// Create virtual docs when importing an article
+const insertReferences = ({
+  language,
+  status,
+  author,
+  id: parentResourceId,
+  metas,
+}) =>
+  Promise.all(
+    metas
+      .filter(m => m.type === 'references')
+      .reduce((refs, m) => refs.concat(m.list), [])
+      .map(async ({ markup }, index) => {
+        const id = 'REF' + parentResourceId + '_' + index
+        const link = markup.find(m => m.type === 'link')
+        const text = markup.find(m => m.type === 'text')
+        if (!link && !text) {
+          return // skip corrupted data for reference
+        }
+        const title = text ? text.text : null
+        const url = link ? link.url || link.text : null
+        await insert(
+          {
+            id,
+            type: 'reference',
+            title: title || url,
+            description: url,
+            language,
+            status,
+            author,
+            updatedBy: parentResourceId,
+            createdAt: new Date(),
+          },
+          id,
+        )
+      }),
+  )
+
+// Destroy virtual docs generated when importing this lexicon (related by its id)
+const deleteSingleDefinitions = id =>
+  deleteLinkedVirtualResources('single-definition', id)
 
 // Create virtual docs when importing a lexicon
 const insertSingleDefinitions = ({
@@ -40,7 +85,7 @@ const insertSingleDefinitions = ({
 }) =>
   Promise.all(
     definitions.map(async ({ dt, dd, aliases }, index) => {
-      const id = 'LEX' + index
+      const id = 'REF' + parentResourceId + '_' + index
       await insert(
         {
           id,
@@ -65,10 +110,17 @@ const insertSingleDefinitions = ({
 exports.remove = async id => {
   const found = await findById(id)
   const result = await remove(id)
-  if (found && found.type === 'definition') {
-    // Removed lexicon: remove single definitions
-    await deleteSingleDefinitions(id)
+
+  if (found) {
+    // Remove linked virtual docs
+    if (found.type === 'definition') {
+      await deleteSingleDefinitions(id)
+    }
+    if (found.type === 'article' || found.type === 'focus') {
+      await deleteReferences(id)
+    }
   }
+
   return result
 }
 
@@ -83,9 +135,12 @@ exports.create = async resource => {
 
   // Side-effects: create virtual docs
   if (resource.type === 'definition' && resource.definitions) {
-    // Uploaded a full lexicon: create single definitions
     await deleteSingleDefinitions(body.id)
     await insertSingleDefinitions(body)
+  }
+  if (resource.type === 'article' || resource.type === 'focus') {
+    await deleteReferences(body.id)
+    await insertReferences(body)
   }
 
   return await insert(body, body.id)
@@ -103,9 +158,12 @@ exports.update = async (id, updates) => {
 
   // Side-effects: create virtual docs
   if (resource.type === 'definition' && updates.definitions) {
-    // Uploaded a full lexicon: create single definitions
     await deleteSingleDefinitions(id)
     await insertSingleDefinitions(Object.assign({}, resource, updates))
+  }
+  if (resource.type === 'article' || resource.type === 'focus') {
+    await deleteReferences(id)
+    await insertReferences(Object.assign({}, resource, updates))
   }
 
   const updated = await update(id, updates)

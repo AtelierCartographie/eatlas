@@ -53,7 +53,7 @@ const resultsTemplate = () => `
 </div>
 <% _.forEach(results.hits, function (hit) { %>
   <% if (hit.url) { %>
-  <a class="row search-result" href="<%= hit.url %>">
+  <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
   <% } else { %>
   <span class="row search-result">
   <% } %>

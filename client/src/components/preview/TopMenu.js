@@ -4,6 +4,7 @@ const h = require('react-hyperscript')
 const {
   resourcesTypes,
   aPropos,
+  getSearchUrl,
   getResourcePageUrl,
   getTopicPageUrl,
   prefixUrl,
@@ -32,8 +33,7 @@ const TopMenuPanelSearch = ({ options: { preview } }) => {
       h('input', {
         placeholder: 'Rechercher',
         title: 'rechercher',
-        // TODO
-        'data-search-page-url': preview ? '/preview/search' : '',
+        'data-search-page-url': getSearchUrl({}, { preview }),
       }),
     ]),
   ]

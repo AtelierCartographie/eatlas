@@ -6,6 +6,7 @@ const {
   aPropos,
   getTopicPageUrl,
   prefixUrl,
+  getSearchUrl,
 } = require('./layout')
 
 const Topics = ({ topics, options }) =>
@@ -69,7 +70,7 @@ exports.SideMenu = (
         h('div.form-group', [
           h('input.form-control', {
             placeholder: 'Rechercher',
-            'data-search-page-url': options.preview ? '/preview/search' : '',
+            'data-search-page-url': getSearchUrl({}, options),
           }),
         ]),
       ]),

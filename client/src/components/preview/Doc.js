@@ -2,6 +2,7 @@
 
 // components shared by ArticlePage and FocusPage
 
+const { getSearchUrl } = require('./layout')
 const { getDefinition } = require('../../universal-utils')
 const { Fragment } = require('react')
 const h = require('react-hyperscript')
@@ -102,9 +103,7 @@ exports.Keywords = (
           h(
             'a',
             {
-              href: options.preview
-                ? `/preview/search?keywords[]=${kw.text}`
-                : '#TODO',
+              href: getSearchUrl({ keywords: [kw.text] }, options),
             },
             kw.text,
           ),

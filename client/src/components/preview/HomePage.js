@@ -8,7 +8,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { prefixUrl } = require('./layout')
+const { prefixUrl, getSearchUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -62,7 +62,7 @@ const Home = ({ topics, options }) => {
       h('div', [
         h('input', {
           placeholder: "Rechercher dans l'atlas",
-          'data-search-page-url': options.preview ? '/preview/search' : '',
+          'data-search-page-url': getSearchUrl({}, options),
         }),
         h('button', [
           h('img', {

@@ -54,6 +54,9 @@ exports.populatePageUrl = (
   topics,
   { preview = false } = {},
 ) => resource => {
+  if (!config.pageUrls[key || resource.type]) {
+    return resource
+  }
   if (Array.isArray(resource)) {
     return resource.map(exports.populatePageUrl(key, topics, { preview }))
   }

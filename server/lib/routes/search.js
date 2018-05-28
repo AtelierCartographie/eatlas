@@ -6,6 +6,7 @@ const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
 const { populatePageUrl, populateThumbnailUrl } = require('../generator-utils')
+const { TYPES, CLIENT_TYPES } = require('../../../client/src/universal-utils')
 
 const sortField = 'publishedAt'
 const sortDir = 'desc'
@@ -66,7 +67,6 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     }
 
     // Keywords
-    // FIXME this query empties the whole set :(
     if (req.body.keywords) {
       must.push(
         nested('metas', {
@@ -165,12 +165,22 @@ const formatResultHit = resource => ({
   title: resource.title,
   subtitle: resource.subtitle,
   type: resource.type,
+  typeLabel: CLIENT_TYPES[resource.type] || TYPES[resource.type],
   url: resource.pageUrl,
   preview: resource.thumbnailUrl
     ? {
         url: resource.thumbnailUrl,
       }
     : null,
+  extra:
+    resource.type === 'single-definition'
+      ? {
+          definition: resource.description,
+          aliases: resource.metas
+            .filter(m => m.type === 'alias')
+            .map(m => m.text),
+        }
+      : null,
 })
 
 exports.search = search()

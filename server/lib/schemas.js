@@ -65,27 +65,18 @@ exports.googleOauth = {
   }),
 }
 
-const resourceType = Joi.string().valid([
-  'article',
-  'definition',
-  'focus',
-  'map',
-  'sound',
-  'image',
-  'video',
-])
+const resourceType = Joi.string().valid(
+  // Real types
+  ['article', 'definition', 'focus', 'map', 'sound', 'image', 'video']
+    // Virtual types
+    .concat(['single-definition']),
+)
 
 const resourceStatus = Joi.string().valid([
   'submitted',
   'validated',
   'published',
   'deleted',
-])
-
-const resourceTitlePosition = Joi.string().valid([
-  'center',
-  'top',
-  'bottom',
 ])
 
 // TODO probably extend to other providers: youtube…
@@ -237,7 +228,7 @@ exports.fullResource = {
     otherwise: Joi.forbidden(),
   }),
   topic: Joi.string().when('type', {
-    is: Joi.valid(['definition']),
+    is: Joi.valid(['definition', 'single-definition']),
     then: Joi.optional(),
     otherwise: Joi.required(),
   }),
@@ -263,7 +254,7 @@ exports.fullResource = {
   metas: Joi.array()
     .items(meta)
     .when('type', {
-      is: Joi.valid(['article', 'focus']),
+      is: Joi.valid(['article', 'focus', 'single-definition']),
       then: Joi.required(),
       otherwise: Joi.forbidden(),
     }),

@@ -1,7 +1,9 @@
 'use strict'
 
 const { Client } = require('elasticsearch')
-const { es: { connection, indices } } = require('config')
+const {
+  es: { connection, indices },
+} = require('config')
 const AgentKeepAlive = require('agentkeepalive')
 const { promisify } = require('util')
 const initIndices = require('./init-index')
@@ -83,6 +85,15 @@ module.exports = type => {
   const remove = id =>
     client.delete({ index: indices[type], type, id, refresh })
 
+  const deleteByQuery = body =>
+    client.deleteByQuery({
+      index: indices[type],
+      type,
+      body,
+      refresh,
+      conflicts: 'proceed',
+    })
+
   return {
     search,
     find,
@@ -91,6 +102,7 @@ module.exports = type => {
     insert,
     update,
     remove,
+    deleteByQuery,
     index: indices[type],
     type,
   }

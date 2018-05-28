@@ -36,7 +36,9 @@ exports.pagePath = (key, resource, topics, params = {}) => {
     typeLabel: resource ? getTypeLabel(resource) : key,
     topicSlug: resource
       ? // No topic can be found for definitions
-        key === 'definition' ? '' : getTopicSlug(resource, topics)
+        key === 'definition'
+        ? ''
+        : getTopicSlug(resource, topics)
       : '',
     resourceSlug: resource ? getResourceSlug(resource) : '',
     ...params,
@@ -76,4 +78,4 @@ exports.resourceMediaPath = (
 }
 
 exports.pathToUrl = filePath =>
-  getConf('publicUrl') + '/' + path.relative(pubDir, filePath)
+  filePath && getConf('publicUrl') + '/' + path.relative(pubDir, filePath)

@@ -19,9 +19,17 @@ const searchEndpoint = ({ preview = false } = {}) =>
   (preview ? '/preview/_search' : '/search')
 
 const hitTextTemplate = `
-  <strong><%= hit.title %></strong>
+  <strong class="search-result-title"><%= hit.title %></strong>
   <% if (hit.subtitle) { %>
-    <span><%= hit.subtitle %></span>
+    <span class="search-result-subtitle"><%= hit.subtitle %></span>
+  <% } %>
+  <% if (hit.type === 'single-definition' || hit.type === 'definition') { %>
+    <% if (hit.extra && hit.extra.aliases && hit.extra.aliases.length > 0) { %>
+      <em class="search-result-aliases"><%= hit.extra.aliases.join(', ') %></em>
+    <% } %>
+    <% if (hit.extra && hit.extra.definition) { %>
+      <div class="search-result-definition"><%= hit.extra.definition %></div>
+    <% } %>
   <% } %>
 `
 
@@ -44,8 +52,12 @@ const resultsTemplate = () => `
   <% } %>
 </div>
 <% _.forEach(results.hits, function (hit) { %>
+  <% if (hit.url) { %>
   <a class="row search-result" href="<%= hit.url %>">
-    <div class="search-result-type"><%= hit.type %></div>
+  <% } else { %>
+  <span class="row search-result">
+  <% } %>
+    <div class="search-result-type"><%= hit.typeLabel %></div>
     <% if (hit.preview) { %>
       <div class="search-result-preview col-sm-6">
         ${hitPreviewTemplate}
@@ -58,7 +70,11 @@ const resultsTemplate = () => `
         ${hitTextTemplate}
       </div>
     <% } %>
+  <% if (hit.url) { %>
   </a>
+  <% } else { %>
+  </span>
+  <% } %>
 <% }) %>
 `
 
@@ -164,6 +180,11 @@ const Search = ({ topics, types, locales, keywords, options }) =>
                   }),
                   h('span', { key: 'label' }, types[type]),
                 ]),
+              ),
+              h(
+                '.row.search-filters-warning-types',
+                { style: { display: 'none' } },
+                'Note : la recherche ne permet pas de combiner les références, définitions, et autres types',
               ),
             ]),
           ]),

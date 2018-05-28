@@ -144,13 +144,14 @@ exports.TYPES = {
   sound: 'Audio',
   video: 'Vidéos',
   definition: 'Lexique',
-  references: 'Références',
 }
 
 // Types that should appear on front side only: virtual type to now show in admin page
 const types = (exports.CLIENT_TYPES = Object.assign({}, exports.TYPES, {
+  'single-definition': 'Lexique',
   references: 'Références',
 }))
+delete types.definition // Client only sees virtual 'single-definition' type
 
 // { resourcesSlug, searchTypes, label }[]
 exports.footerResourcesConfig = [
@@ -161,6 +162,10 @@ exports.footerResourcesConfig = [
     label: `${types.image} et ${types.video.toLowerCase()}`,
   },
   { slug: 'focus', types: ['focus'], label: types.focus },
-  { slug: 'lexique', types: ['definition'], label: types.definition },
+  {
+    slug: 'lexique',
+    types: ['single-definition'],
+    label: types['single-definition'],
+  },
   { slug: 'references', types: ['references'], label: types.references },
 ]

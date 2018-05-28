@@ -48,17 +48,22 @@
   if ($('.SearchPage').length) {
     const resultTpl = _.template($('.SearchPage .results-template').text())
     const $form = $('.SearchPage form')
+    let currPage = null
 
     // Pre-fill input from query string
-    const searchParams = new URLSearchParams(document.location.search)
-    searchParams.forEach((value, key) => {
-      const $input = $(`input[name="${key}"]`, $form)
-      if ($input.is(':checkbox, :radio')) {
-        $input.filter(`[value="${value}"]`).prop('checked', true)
-      } else {
-        $input.val(value)
-      }
-    })
+    const readFromUrl = () => {
+      const searchParams = new URLSearchParams(window.location.search)
+      searchParams.forEach((value, key) => {
+        const $input = $(`input[name="${key}"]`, $form)
+        if ($input.is(':checkbox, :radio')) {
+          $input.filter(`[value="${value}"]`).prop('checked', true)
+        } else {
+          $input.val(value)
+        }
+      })
+      currPage = Number(searchParams.get('page')) || 1
+    }
+    readFromUrl()
 
     // Output
     const showSearchError = data => {
@@ -77,22 +82,38 @@
     }
 
     // Throttle to avoid user double submit
-    let currPage = null
-    const search = _.throttle(page => {
-      currPage = page
-      $.post(
-        $form.attr('data-api-url') || '/search',
-        $form.serialize() + '&page=' + page,
-      ).then(showSearchResults, showSearchError)
+    const search = _.throttle(updateUrl => {
+      const data = $form.serialize() + '&page=' + currPage
+      // Persist search parameters to URL
+      if (updateUrl) {
+        const qs = `?${data}`
+        // Ignore duplicate URLs triggered by resubmitting same for or duplicate events
+        if (qs !== window.location.search) {
+          window.history.pushState({ search: true }, window.title, qs)
+        }
+      }
+      // Run query
+      $.post($form.attr('data-api-url') || '/search', data).then(
+        showSearchResults,
+        showSearchError,
+      )
     }, 100)
 
+    // Handle browser's back/forward
+    window.addEventListener('popstate', e => {
+      readFromUrl()
+      search(false)
+    })
+
     // Run search on submit or change
-    const onSearch = e => {
-      e.preventDefault()
+    const onSearch = preventDefault => e => {
+      if (preventDefault) {
+        e.preventDefault()
+      }
       search(1)
     }
-    $form.on('submit', onSearch)
-    $('input, select, textarea', $form).on('change', onSearch)
+    $form.on('submit', onSearch(true))
+    $form.on('change', onSearch(false))
 
     // Expand/collapse filters
     $('.SearchPage .search-filters-toggle[data-filters-hidden]').on(
@@ -106,16 +127,19 @@
       },
     )
 
-    search(1)
+    // Run initial search on load
+    search(false)
 
     // Pagination
     $('.SearchPage').on('click', '.search-results-prev', e => {
       e.preventDefault()
-      search(Math.max(1, currPage - 1))
+      currPage = Math.max(1, currPage - 1)
+      search(true)
     })
     $('.SearchPage').on('click', '.search-results-next', e => {
       e.preventDefault()
-      search(currPage + 1)
+      currPage = currPage + 1
+      search(true)
     })
   }
 })()

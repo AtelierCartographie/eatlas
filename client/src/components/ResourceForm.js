@@ -893,7 +893,7 @@ class ResourceForm extends Component<Props, State> {
       const resource: Resource = { ...(state.resource || {}) }
       resource.id = getMetaText('id') || resource.id
       resource.title = getMetaText('title') || resource.title
-      resource.titlePosition = getMetaText('titlePosition') || resource.titlePosition
+      resource.titlePosition = getMetaText('titlePosition') || resource.titlePosition || 'center'
       resource.subtitle = getMetaText('subtitle') || resource.subtitle
       resource.copyright = getMetaText('copyright') || resource.copyright
       resource.topic = getMetaText('topic') || resource.topic

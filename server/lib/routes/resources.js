@@ -84,6 +84,7 @@ const getBaseData = req => ({
   id: req.body.id,
   type: req.body.type,
   title: req.body.title,
+  titlePosition: req.body.titlePosition,
   subtitle: req.body.subtitle,
   topic: req.body.topic,
   language: req.body.language,

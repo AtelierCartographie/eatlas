@@ -114,7 +114,7 @@ exports.resource = {
     otherwise: Joi.optional(),
   }),
   title: Joi.string().required(),
-  titlePosition: resourceType.when('type', {
+  titlePosition: resourceTitlePosition.when('type', {
     is: Joi.valid(['article']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
@@ -226,7 +226,7 @@ exports.fullResource = {
     otherwise: Joi.optional(),
   }),
   title: Joi.string().required(),
-  titlePosition: resourceType.when('type', {
+  titlePosition: resourceTitlePosition.when('type', {
     is: Joi.valid(['article']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),

@@ -141,5 +141,11 @@
       currPage = currPage + 1
       search(true)
     })
+
+    // Expand/collapse definitions
+    $('.SearchPage').on('click', '.search-result-definition', e => {
+      e.preventDefault()
+      $(e.currentTarget).toggleClass('expanded')
+    })
   }
 })()

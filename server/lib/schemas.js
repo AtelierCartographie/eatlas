@@ -90,6 +90,8 @@ const upload = Joi.object().keys({
 
 const language = Joi.string()
 
+const resourceTitlePosition = Joi.string().valid(['center', 'top', 'bottom'])
+
 const transcript = Joi.string().when('type', {
   is: Joi.valid(['sound', 'video']),
   then: Joi.allow('').optional(),

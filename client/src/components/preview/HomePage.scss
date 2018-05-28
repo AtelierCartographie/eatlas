@@ -10,11 +10,17 @@ $color-blue: #4778d1;
 
     .HomeTitle {
       color: $color-white;
-      font-size: 7rem;
+      font-size: 4rem;
       font-weight: bold;
-      line-height: 7rem;
-      margin-top: 64px;
+      line-height: 4rem;
+      margin-top: 96px;
+
+      @include breakpoint(desktop) {
+        font-size: 7rem;
+        line-height: 7rem;
+      }
     }
+
     .HomeTitleTyped {
       color: $color-blue;
       font-weight: normal;
@@ -88,16 +94,30 @@ $color-blue: #4778d1;
   .HomeTeam {
     ul {
       display: flex;
+      flex-direction: column;
       list-style: none;
       justify-content: space-between;
       padding: 0;
+
+      @include breakpoint(desktop) {
+        flex-direction: row;
+      }
     }
 
-    li {
-      text-align: center;
-      flex-basis: 0;
+    .HomeTeamMember {
+      align-items: center;
+      display: flex;
+      justify-content: start;
+      margin-bottom: $gap;
 
-      div {
+      @include breakpoint(desktop) {
+        flex-direction: column;
+      }
+    }
+
+    .HomeTeamMemberName {
+      @include breakpoint(desktop) {
+        text-align: center;
         white-space: nowrap;
       }
     }
@@ -106,8 +126,12 @@ $color-blue: #4778d1;
       background: $color-keyword;
       border-radius: 50%;
       height: 64px;
-      margin: 0 auto $gap;
+      margin: 0 $gap 0 0;
       width: 64px;
+
+      @include breakpoint(desktop) {
+        margin: 0 auto $gap;
+      }
     }
   }
 }

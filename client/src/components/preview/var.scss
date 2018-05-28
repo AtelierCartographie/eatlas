@@ -26,6 +26,9 @@ $color-keyword: #ffe9a1; // yellow
 
 // these breakpoints are independent from the ones
 // used by srcset="" to display images in articles
+
+// mobile first approach: use the desktop breakpoint
+// to overload the default style
 @mixin breakpoint($point) {
   @if $point == desktop {
     @media (min-width: 732px) { @content; }

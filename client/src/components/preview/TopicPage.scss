@@ -7,17 +7,27 @@
     padding-bottom: $gap3;
 
     .TopicId {
-      font-size: 12rem;
+      font-size: 7rem;
       font-weight: bold;
-      line-height: 12rem;
+      line-height: 7rem;
       margin-top: 90px;
+
+      @include breakpoint(desktop) {
+        font-size: 12rem;
+        line-height: 12rem;
+      }
     }
 
     .TopicName {
       font-family: $serif;
-      font-size: 7rem;
+      font-size: 3.8rem;
       font-style: italic;
-      line-height: 7rem;
+      line-height: 4.1rem;
+
+      @include breakpoint(desktop) {
+        font-size: 7rem;
+        line-height: 7rem;
+      }
     }
 
     .TopicVideo {
@@ -32,7 +42,7 @@
 
   .ArticleList {
     $height: 192px;
-    $line-height: 2.4rem;
+    $line-height: 2.1rem;
 
     list-style: none;
     margin-bottom: $gap3;
@@ -80,21 +90,36 @@
     }
 
     .ArticleListTitle {
-      font-size: 2.1rem;
+      font-size: 1.8rem;
       font-weight: bold;
       line-height: $line-height;
       text-decoration: none;
+
+      @include breakpoint(desktop) {
+        font-size: 2.1rem;
+        line-height: 2.4rem;
+      }
     }
 
     .publishedAt {
       font-family: $serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-style: italic;
       line-height: $line-height;
+
+      @include breakpoint(desktop) {
+        font-size: 1.5rem;
+        line-height: 2.4rem;
+      }
     }
 
     .ArticleListSummary {
       font-family: $serif;
+
+      @include breakpoint(desktop) {
+        font-size: 1.5rem;
+        line-height: 2.4rem;
+      }
     }
 
     .ArticleListFocus {

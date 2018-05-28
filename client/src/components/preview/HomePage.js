@@ -14,6 +14,42 @@ const Body = require('./Body')
 
 // subcomponents
 
+const HomeTeamMember = ({ member }) => {
+  return h('li.HomeTeamMember', [
+    h('.avatar'),
+    [h('div', [h('.HomeTeamMemberName', member[0]), h('.HomeTeamMemberName', member[1])])],
+  ])
+}
+
+const HomeTeam = () => {
+  const authors = [
+    ['Delphine', 'Allès'],
+    ['Mélanie', 'Albaret'],
+    ['Philippe', 'Copinschi'],
+    ['Marie Françoise', 'Durand'],
+    ['Lucile', 'Maertens'],
+    ['Delphine', 'Placidi-Frot'],
+  ]
+
+  const cartographers = [
+    ['Thomas', 'Ansart'],
+    ['Benoît', 'Martin'],
+    ['Patrice', 'Mitrano'],
+    ['Anouk', 'Pettes'],
+    ['Antoine', 'Rio'],
+  ]
+
+  return h('section.HomeTeam', [
+    h('.container', [
+      h('h2', "L'équipe"),
+      h('h3', 'Six auteurs'),
+      h('ul', authors.map(member => h(HomeTeamMember, { member }))),
+      h('h3', 'Cinq cartographes (Sciences Po - Atelier de cartographie)'),
+      h('ul', cartographers.map(member => h(HomeTeamMember, { member }))),
+    ]),
+  ])
+}
+
 const Home = ({ topics, options }) => {
   return h('article.HomePage', [
     h('header.container.HomeHeader', [
@@ -97,36 +133,7 @@ const Home = ({ topics, options }) => {
         ]),
       ]),
     ]),
-    h('section.HomeTeam', [
-      h('.container', [
-        h('h2', "L'équipe"),
-        h('h3', 'Six auteurs'),
-        h('ul', [
-          h('li', [h('.avatar'), h('div', 'Delphine'), h('div', 'Allès')]),
-          h('li', [h('.avatar'), h('div', 'Mélanie'), h('div', 'Albaret')]),
-          h('li', [h('.avatar'), h('div', 'Philippe'), h('div', 'Copinschi')]),
-          h('li', [
-            h('.avatar'),
-            h('div', 'Marie Françoise'),
-            h('div', 'Durand'),
-          ]),
-          h('li', [h('.avatar'), h('div', 'Lucile'), h('div', 'Maertens')]),
-          h('li', [
-            h('.avatar'),
-            h('div', 'Delphine'),
-            h('div', 'Placidi-Frot'),
-          ]),
-        ]),
-        h('h3', 'Cinq cartographes (Sciences Po - Atelier de cartographie)'),
-        h('ul', [
-          h('li', [h('.avatar'), h('div', 'Thomas'), h('div', 'Ansart')]),
-          h('li', [h('.avatar'), h('div', 'Benoît'), h('div', 'Martin')]),
-          h('li', [h('.avatar'), h('div', 'Patrice'), h('div', 'Mitrano')]),
-          h('li', [h('.avatar'), h('div', 'Anouk'), h('div', 'Pettes')]),
-          h('li', [h('.avatar'), h('div', 'Antoine'), h('div', 'Rio')]),
-        ]),
-      ]),
-    ]),
+    h(HomeTeam),
   ])
 }
 

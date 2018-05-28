@@ -25,13 +25,15 @@
       width: 100%;
     }
 
-    img {
+    .TopicImage {
       max-width: 100%;
     }
   }
 
   .ArticleList {
     $height: 192px;
+    $line-height: 2.4rem;
+
     list-style: none;
     margin-bottom: $gap3;
     margin-top: 0;
@@ -40,11 +42,17 @@
       margin-top: $gap3;
     }
 
+    // the whole li is clickable
     a {
       color: #333;
       display: flex;
+      flex-direction: column;
       text-decoration: none;
       transition: all .2s ease;
+
+      @include breakpoint(desktop) {
+        flex-direction: row;
+      }
     }
 
     img {
@@ -56,19 +64,25 @@
       display: block;
       flex-shrink: 0;
       height: $height;
+      margin-bottom: $gap2;
       margin-right: $gap2;
-      width: 288px;
+      width: 100%;
+
+      @include breakpoint(desktop) {
+        margin-bottom: 0;
+        width: 288px;
+      }
     }
 
     .ArticleListInfo {
       font-size: 1.5rem;
-      line-height: 2.4rem;
+      line-height: $line-height;
     }
 
     .ArticleListTitle {
       font-size: 2.1rem;
       font-weight: bold;
-      line-height: 2.4rem;
+      line-height: $line-height;
       text-decoration: none;
     }
 
@@ -76,7 +90,7 @@
       font-family: $serif;
       font-size: 1.5rem;
       font-style: italic;
-      line-height: 2.4rem;
+      line-height: $line-height;
     }
 
     .ArticleListSummary {
@@ -110,6 +124,5 @@
         margin-right: $gap;
       }
     }
-
   }
 }

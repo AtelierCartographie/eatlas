@@ -23,3 +23,14 @@ $color-white: white;
 $color-breadcrumb: #5e6776; // dark grey
 $color-footer: #d1d6e0; // light grey
 $color-keyword: #ffe9a1; // yellow
+
+// these breakpoints are independent from the ones
+// used by srcset="" to display images in articles
+@mixin breakpoint($point) {
+  @if $point == desktop {
+    @media (min-width: 732px) { @content; }
+  }
+  @else if $point == mobile {
+    @media (max-width: 732px)  { @content; }
+  }
+}

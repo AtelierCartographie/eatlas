@@ -35,7 +35,7 @@ const TopicHeader = ({ topic, resources, options }) => {
     switch (resource.type) {
       case 'image':
         resourceComponent = h('div', [
-          h('img', {
+          h('img.TopicImage', {
             src: getImageUrl(resource, 'large', '1x', options),
             alt: resource.title
           }),

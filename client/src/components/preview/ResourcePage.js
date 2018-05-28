@@ -30,7 +30,10 @@ const ResourceImage = ({ resource }) => {
 
 const ResourceSound = ({ resource }) => {
   return h('.container.ResourceSound', [
-    h('audio', { src: `${apiBaseUrl}/resources/${resource.id}/file`, controls: true }),
+    h('audio', {
+      src: `${apiBaseUrl}/resources/${resource.id}/file`,
+      controls: true,
+    }),
   ])
 }
 
@@ -50,19 +53,21 @@ const ResourceVideo = ({ resource }) => {
 const ResourceDescription = ({ resource }) => {
   return h('.container.ResourceDescription', [
     h('h2', 'Commentaire'),
-    h('div', resource.description),
+    h('div', { dangerouslySetInnerHTML: { __html: resource.description } }),
   ])
 }
 
 const ResourceCopyright = ({ resource }) =>
-  h('.container.ResourceCopyright', `Source: ${resource.copyright}`)
+  h('.container.ResourceCopyright', {
+    dangerouslySetInnerHTML: { __html: resource.copyright },
+  })
 
 const ResourceTranscript = ({ resource }) =>
   !resource.transcript
     ? null
     : h('.container.ResourceTranscript', [
         h('h2', 'Transcription'),
-        h('div', resource.transcript),
+        h('div', { dangerouslySetInnerHTML: { __html: resource.transcript } }),
       ])
 
 const ResourceDownload = ({ resource }) =>

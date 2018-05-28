@@ -29,6 +29,7 @@ import {
 import ObjectDebug from './ObjectDebug'
 import { canUnpublish, guessResourceType } from '../utils'
 import AsyncData from './AsyncData'
+import Editor from './WysiwygEditor'
 
 const API_SERVER = process.env.REACT_APP_API_SERVER || ''
 
@@ -331,7 +332,7 @@ class ResourceForm extends Component<Props, State> {
         )
       }
     } else if (rows > 1) {
-      input = <textarea className="textarea" rows={rows} {...props} />
+      input = <Editor {...props} rows={rows} />
     } else {
       input = <input className="input" type="text" {...props} />
     }
@@ -462,15 +463,16 @@ class ResourceForm extends Component<Props, State> {
           Boolean(isArticle && this.state.parsed && this.state.parsed.title),
         loading: this.state.parsing,
       }),
-      titlePosition && this.getAttrField('titlePosition', {
-        leftIcon: 'arrows-v',
-        mandatory: true,
-        options: this.buildSelectOptions(
-          ['center', 'top', 'bottom'],
-          'position-',
-          false
-        ),
-      }),
+      titlePosition &&
+        this.getAttrField('titlePosition', {
+          leftIcon: 'arrows-v',
+          mandatory: true,
+          options: this.buildSelectOptions(
+            ['center', 'top', 'bottom'],
+            'position-',
+            false,
+          ),
+        }),
       subtitle &&
         this.getAttrField('subtitle', {
           leftIcon: 'header',
@@ -516,7 +518,6 @@ class ResourceForm extends Component<Props, State> {
         ),
       }),
       this.getAttrField('description', {
-        leftIcon: 'info',
         readOnly:
           readOnly ||
           Boolean(
@@ -527,12 +528,11 @@ class ResourceForm extends Component<Props, State> {
       }),
       transcript &&
         this.getAttrField('transcript', {
-          leftIcon: 'align-center',
           rows: 5,
         }),
       copyright &&
         this.getAttrField('copyright', {
-          leftIcon: 'copyright',
+          rows: 5,
           readOnly:
             readOnly ||
             Boolean(
@@ -565,7 +565,15 @@ class ResourceForm extends Component<Props, State> {
       // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams
       prependFields()
         .concat(fields)
-        .concat(appendFields({ subtitle, titlePosition, copyright, topic, transcript }))
+        .concat(
+          appendFields({
+            subtitle,
+            titlePosition,
+            copyright,
+            topic,
+            transcript,
+          }),
+        )
         .filter(x => x)
 
     switch (resource.type) {
@@ -893,7 +901,8 @@ class ResourceForm extends Component<Props, State> {
       const resource: Resource = { ...(state.resource || {}) }
       resource.id = getMetaText('id') || resource.id
       resource.title = getMetaText('title') || resource.title
-      resource.titlePosition = getMetaText('titlePosition') || resource.titlePosition || 'center'
+      resource.titlePosition =
+        getMetaText('titlePosition') || resource.titlePosition || 'center'
       resource.subtitle = getMetaText('subtitle') || resource.subtitle
       resource.copyright = getMetaText('copyright') || resource.copyright
       resource.topic = getMetaText('topic') || resource.topic

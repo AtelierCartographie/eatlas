@@ -50,7 +50,6 @@ const GENERATORS = {
   contact: 'generateAboutContactHTML',
   legals: 'generateAboutLegalsHTML',
   sitemap: 'generateSiteMapHTML',
-  resources: 'generateResourcesHTML',
   topic: 'generateTopicHTML',
   article: 'generateArticleHTML',
   focus: 'generateFocusHTML',
@@ -231,17 +230,6 @@ exports.generateSearchHTML = async (
   )
 }
 
-exports.generateResourcesHTML = async (
-  { preview = false, resourcesSlug } = {},
-  props = {},
-) => {
-  const conf = footerResourcesConfig.find(({ slug }) => slug === resourcesSlug)
-  if (!conf) {
-    throw new Error('Invalid resourcesSlug "' + resourcesSlug + '"')
-  }
-  return exports.generateSearchHTML({ preview, types: conf.searchTypes }, props)
-}
-
 const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   props = await topMenuProps(props, { preview })
   return wrap(
@@ -252,7 +240,6 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   )
 }
 
-exports.generateResourcesHTML = generateMissingHTML
 exports.generateAboutWhoHTML = generateMissingHTML
 exports.generateAboutContactHTML = generateMissingHTML
 exports.generateAboutLegalsHTML = generateMissingHTML

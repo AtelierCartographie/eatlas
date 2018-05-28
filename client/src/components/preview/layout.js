@@ -83,9 +83,9 @@ const getSearchUrl = (exports.getSearchUrl = (params, { preview = false }) => {
   return url + qs
 })
 
-exports.resourcesTypes = footerResourcesConfig.map(({ slug, label }) => ({
+exports.resourcesTypes = footerResourcesConfig.map(({ types, label }) => ({
   text: label,
-  url: globalPageUrl('resources', slug),
+  url: preview => getSearchUrl({ types }, { preview }),
 }))
 
 exports.aPropos = [

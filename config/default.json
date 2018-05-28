@@ -83,7 +83,6 @@
 	"pageUrls": {
 		"index": "index.html",
 		"search": "recherche.html",
-		"resources": "ressources-$resourcesSlug.html",
 		"aboutUs": "a-propos/qui-sommes-nous.html",
 		"contact": "a-propos/contact.html",
 		"legals": "a-propos/mentions-legales.html",

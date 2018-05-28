@@ -248,7 +248,7 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
 }
 
 const ArticleSeeAlso = ({ article, topics, resources, options }) => {
-  // used by SeeAlso and PrevNext
+  // used by SeeAlso
   const relateds = article.related
     .map(r => {
       const [articleId] = r.text.split(/\s*-\s*/)
@@ -313,10 +313,12 @@ const Article = props =>
     h(ArticleBreadcrumb, props),
     h(ArticleSummaries, props),
     h(ArticleNodes, props),
+    h(ArticlePrevNextInline, props),
     h(ArticleFooter, props),
     h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
   ])
 
+// floating buttons on each side of the screen
 // use *all* the articles of the site
 const ArticlePrevNext = ({ article, articles, topics, options }) => {
   if (!articles || !articles.length) return null
@@ -343,7 +345,9 @@ const ArticlePrevNext = ({ article, articles, topics, options }) => {
         h('span.ArticlePrevNextTitle', next.title),
       ]),
     // horrible pattern? yes? no? who knows?
-    h('script', { dangerouslySetInnerHTML: { __html:`
+    h('script', {
+      dangerouslySetInnerHTML: {
+        __html: `
 window.addEventListener('DOMContentLoaded', () => {
   const toggle = (sel, bool) => {
     const el = document.querySelector(sel)
@@ -357,8 +361,64 @@ window.addEventListener('DOMContentLoaded', () => {
   observer.observe(document.querySelector('.ArticleHeader'))
   observer.observe(document.querySelector('.DocFooter'))
 })
-` } }),
+`,
+      },
+    }),
   ]
+}
+
+// these buttons appear just above the footer
+const ArticlePrevNextInline = ({ article, articles, topics, options }) => {
+  if (!articles || !articles.length) return null
+  const currentIndex = articles.findIndex(a => a.id === article.id)
+  const prevIndex = currentIndex !== 0 ? currentIndex - 1 : null
+  const nextIndex =
+    currentIndex !== articles.length - 1 ? currentIndex + 1 : null
+  let prev = articles[prevIndex]
+  const next = articles[nextIndex]
+
+  return h('.ArticlePrevNextInline.container', [
+    prev &&
+      h('.ArticlePrevWrapperInline', [
+        h('a.ArticlePrevInline', { href: getResourcePageUrl(prev, options) }, [
+          h('img', {
+            alt: '',
+            // TODO densities
+            style: {
+              backgroundImage:
+                prev.imageHeader &&
+                `url(${getImageUrl(prev.imageHeader, 'large', '1x', options)})`,
+            },
+          }),
+          h('div', [
+            h('.ArticlePrevNextTopicInline', [
+              (topics.find(t => t.id === prev.topic) || {}).name,
+            ]),
+            h('.ArticlePrevNextTitleInline', prev.title),
+          ]),
+        ]),
+      ]),
+    next &&
+      h('.ArticleNextWrapperInline', [
+        h('a.ArticleNextInline', { href: getResourcePageUrl(next, options) }, [
+          h('div', [
+            h('.ArticlePrevNextTopicInline', [
+              (topics.find(t => t.id === next.topic) || {}).name,
+            ]),
+            h('.ArticlePrevNextTitleInline', next.title),
+          ]),
+          h('img', {
+            alt: '',
+            // TODO densities
+            style: {
+              backgroundImage:
+                next.imageHeader &&
+                `url(${getImageUrl(next.imageHeader, 'large', '1x', options)})`,
+            },
+          }),
+        ]),
+      ]),
+  ])
 }
 
 const ArticlePage = (
@@ -381,6 +441,7 @@ const ArticlePage = (
     h(Body, { topics, options, sideMenu: true }, [
       h(Article, {
         article,
+        articles,
         topics,
         definitions,
         resources,

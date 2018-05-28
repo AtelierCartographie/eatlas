@@ -116,6 +116,16 @@ exports.generateArticleHTML = async (
     }),
   )
 
+  // Enhanced articles for Prev / Next inline
+  props.articles = await Promise.all(
+    (props.articles || resources.filter(r => r.type === 'article'))
+      .map(flattenMetas)
+      .map(async a => {
+        a.imageHeader = await getImageHeader(a)
+        return a
+      }),
+  )
+
   return wrap(
     React.createElement(ArticlePage, {
       ...props,

@@ -230,8 +230,82 @@
       line-height: 2.1rem;
     }
   }
+
+  .ArticlePrevNextInline {
+    margin-bottom: $gap3;
+    margin-top: $gap5;
+  }
+
+  .ArticlePrevInline,
+  .ArticleNextInline {
+    align-items: center;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    text-decoration: none;
+
+    .ArticlePrevNextTopicInline,
+    .ArticlePrevNextTitleInline {
+      color: black;
+      text-decoration: none;
+      width: 200px;
+    }
+
+    .ArticlePrevNextTopicInline {
+      font-family: $serif;
+      font-size: 1.4rem;
+    }
+
+    .ArticlePrevNextTitleInline {
+      font-size: 1.6rem;
+      font-weight: bold;
+      padding: 0;
+    }
+
+    img {
+      background: #ccc;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-size: cover;
+      display: block;
+      flex-shrink: 0;
+      height: 64px;
+      margin: 0 $gap2;
+      width: 200px;
+    }
+  }
+
+  .ArticlePrevInline {
+    text-align: left;
+    margin-bottom: $gap2;
+
+    &:before {
+      display: block;
+      font-family: 'Glyphicons Halflings';
+      font-size: 2.5rem;
+      content: "\e257";
+    }
+  }
+
+  .ArticleNextWrapperInline {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ArticleNextInline {
+    text-align: right;
+
+    &:after {
+      display: block;
+      font-family: 'Glyphicons Halflings';
+      font-size: 2.5rem;
+      content: "\e258";
+    }
+  }
 }
 
+// floating on each side of the screen
 .ArticlePrev,
 .ArticleNext {
   background-color: transparent;
@@ -244,7 +318,6 @@
   top: 40%;
   z-index: 2;
 
-  &:before,
   &:before {
     display: block;
     font-size: 2.5rem;

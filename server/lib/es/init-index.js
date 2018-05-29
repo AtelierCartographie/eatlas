@@ -138,7 +138,7 @@ const upgradeIndex = (client, index) => ({ index: realIndex, params }) => {
     params.mappings,
     indexMapping[index],
   )
-    .catch(() => migrateIndex(client, index, realIndex))
+    .catch(err => (logger.warn(err), migrateIndex(client, index, realIndex)))
     .then(info => info && logger.info(message(info)))
 }
 

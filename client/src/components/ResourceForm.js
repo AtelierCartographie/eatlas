@@ -260,6 +260,7 @@ class ResourceForm extends Component<Props, State> {
       value,
       rows = 1,
       loading = false,
+      type = 'text',
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
@@ -271,6 +272,7 @@ class ResourceForm extends Component<Props, State> {
       value?: any,
       rows?: number,
       loading?: boolean,
+      type?: string,
     } = {},
   ): FieldParams {
     const props = {
@@ -334,7 +336,7 @@ class ResourceForm extends Component<Props, State> {
     } else if (rows > 1) {
       input = <Editor {...props} rows={rows} />
     } else {
-      input = <input className="input" type="text" {...props} />
+      input = <input className="input" type={type} {...props} />
     }
 
     return {

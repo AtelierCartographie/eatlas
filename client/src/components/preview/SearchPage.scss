@@ -15,6 +15,17 @@ $color-blue: #4778d1;
     }
   }
 
+  .SearchPageTitle {
+    display: none;
+    font-size: 2.4rem;
+    margin-bottom: $gap;
+    margin-top: $gap;
+  }
+
+  .SearchPageTitleType {
+    color: $color-breadcrumb;
+  }
+
   .SearchResults {
     background: $color-white;
   }

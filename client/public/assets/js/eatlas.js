@@ -50,6 +50,26 @@
     const $form = $('.SearchPage form')
     let currPage = null
 
+    const setTitle = title => {
+      $('.SearchPageTitle').show()
+      $('.SearchPageTitleType').text(title)
+    }
+
+    // TODO brittle solution
+    const updatePageTitle = () => {
+      const searchParams = new URLSearchParams(window.location.search)
+      searchParams.forEach((value, key) => {
+        if (key !== 'types[]') return
+        if (value === 'map') return setTitle('cartes et graphiques')
+        if (value === 'image' || value === 'video')
+          return setTitle('photos et vidéos')
+        if (value === 'single-definition') return setTitle('lexique')
+        if (value === 'reference') return setTitle('références')
+      })
+    }
+    // for links coming from the Footer
+    updatePageTitle()
+
     // Pre-fill input from query string
     const readFromUrl = () => {
       const searchParams = new URLSearchParams(window.location.search)

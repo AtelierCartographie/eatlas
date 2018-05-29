@@ -38,7 +38,7 @@ const hitPreviewTemplate = `
 `
 
 const paginationTemplate = `
-<div class="row search-page">
+<div class="row search-page container">
   <% if (results.start > 1) { %>
     <a href="#prev" class="btn search-results-prev" title="Résultats précédent">&lt;&lt;</a>
   <% } %>
@@ -57,16 +57,16 @@ const resultsTemplate = () => `
 ${paginationTemplate}
 <% _.forEach(results.hits, function (hit) { %>
   <% if (hit.url) { %>
-  <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
+    <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
   <% } else { %>
-  <span class="row search-result">
+    <div class="row search-result">
   <% } %>
     <div class="search-result-type"><%= hit.typeLabel %></div>
     <% if (hit.preview) { %>
-      <div class="search-result-preview col-sm-6">
+      <div class="search-result-preview col-sm-3">
         ${hitPreviewTemplate}
       </div>
-      <div class="search-result-text col-sm-6">
+      <div class="search-result-text col-sm-9">
         ${hitTextTemplate}
       </div>
     <% } else { %>
@@ -75,9 +75,9 @@ ${paginationTemplate}
       </div>
     <% } %>
   <% if (hit.url) { %>
-  </a>
+    </a>
   <% } else { %>
-  </span>
+    </div>
   <% } %>
 <% }) %>
 `
@@ -212,6 +212,8 @@ const Search = ({ topics, types, locales, keywords, options }) =>
         ],
       ),
     ]),
+    // will be populated later
+    h('h1.SearchPageTitle.container', ['Resources > ', h('span.SearchPageTitleType')]),
     h('script.results-template', {
       type: 'text/html',
       dangerouslySetInnerHTML: {

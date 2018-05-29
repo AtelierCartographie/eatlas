@@ -25,26 +25,24 @@ const Topics = ({ topics, options }) =>
     ),
   ])
 
-// TODO flexbox to change order
+const FooterLogo = ({ options }) =>
+  h('a', [
+    h('img', {
+      alt: 'Sciences Po',
+      src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
+    }),
+  ])
+
 module.exports = (
   { topics, options } /*: { topics: Topic[], options: Object } */,
 ) =>
   h('footer.container.Footer', { role: 'contentinfo' }, [
-    h('.row', [
-      h('.col-xs-6.col-sm-3', [
-        h('a', [
-          h('img', {
-            className: 'img-responsive',
-            alt: 'Sciences Po',
-            src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
-          }),
-        ]),
-      ]),
-      h('.col-xs-6.col-sm-3', [
+    h('.FooterRow', [
+      h('.FooterColTopics', [
         h('h2', 'Sommaire'),
         h(Topics, { topics, options }),
       ]),
-      h('.col-xs-6.col-sm-3', [
+      h('.FooterColResources', [
         h('h2', 'Resources'),
         h(
           'ul',
@@ -55,7 +53,7 @@ module.exports = (
           ),
         ),
       ]),
-      h('.col-xs-6.col-sm-3', [
+      h('.FooterColAPropos', [
         h('h2', 'À propos'),
         h(
           'ul',
@@ -66,5 +64,6 @@ module.exports = (
           ),
         ),
       ]),
+      h('.FooterColLogo', [h(FooterLogo, { options })]),
     ]),
   ])

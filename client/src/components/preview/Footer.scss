@@ -5,15 +5,6 @@
   padding-bottom: $gap6;
   padding-top: $gap3;
 
-  // TODO bootstrap
-  section:first-child {
-    padding-left: 0;
-  }
-
-  section:last-child {
-    padding-right: 0;
-  }
-
   h2 {
     letter-spacing: 4px;
     font-size: 1.2em;
@@ -37,5 +28,29 @@
   a {
     color: inherit;
   }
-}
 
+  img {
+    width: 130px;
+  }
+
+  // reordering is needed between desktop and mobile
+  .FooterRow {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 $gap2;
+
+    & > div {
+      width: 50%;
+
+      @include breakpoint(desktop) {
+        width: 25%;
+      }
+    }
+
+    .FooterColLogo {
+      @include breakpoint(desktop) {
+        order: -1;
+      }
+    }
+  }
+}

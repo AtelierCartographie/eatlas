@@ -37,7 +37,7 @@ const hitPreviewTemplate = `
   <img src="<%= hit.preview.url %>" alt="">
 `
 
-const resultsTemplate = () => `
+const paginationTemplate = `
 <div class="row search-page">
   <% if (results.start > 1) { %>
     <a href="#prev" class="btn search-results-prev" title="Résultats précédent">&lt;&lt;</a>
@@ -51,6 +51,10 @@ const resultsTemplate = () => `
     <a href="#prev" class="btn search-results-next" title="Résultats suivant">&gt;&gt;</a>
   <% } %>
 </div>
+`
+
+const resultsTemplate = () => `
+${paginationTemplate}
 <% _.forEach(results.hits, function (hit) { %>
   <% if (hit.url) { %>
   <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
@@ -79,20 +83,112 @@ const resultsTemplate = () => `
 `
 
 const filtersToggle = (title, inputs) => [
-  h('.row.search-filters-toggle', { 'data-filters-hidden': '1' }, [
-    h('.col-sm-3.search-filters-subtitle', title),
-    h('.col-sm-1.toggle-expand', '⌄'),
-    h('.col-sm-1.toggle-collapse', '⌃'),
+  h('h2.search-filters-toggle', { 'data-filters-hidden': '1' }, [
+    h('span.search-filters-subtitle', title),
+    h('span.toggle-expand', '⌄'),
+    h('span.toggle-collapse', '⌃'),
   ]),
   h(
-    '.container.search-filters-inputs',
+    '.search-filters-inputs',
     inputs.map((input, key) =>
-      h('label.row.search-filters-input', { key }, input),
+      h('label.search-filters-input', { key }, input),
     ),
   ),
 ]
 
 // sub-components
+
+const SearchFilters = ({ topics, types, locales, keywords }) =>
+  h('.btn-group.pull-right', [
+    h(
+      'button.btn.btn-default.dropdown-toggle',
+      {
+        type: 'button',
+        'data-toggle': 'dropdown',
+        'aria-haspopup': 'true',
+        'aria-expanded': 'false',
+      },
+      ['Filtrer', h('span.caret')],
+    ),
+    h('.search-filters.dropdown-menu', [
+      h('h1.search-filters-title', 'Affiner la recherche'),
+      ...filtersToggle(
+        'Partie',
+        topics.map(topic => [
+          h('label', [
+            h('input', {
+              type: 'checkbox',
+              name: 'topics[]',
+              key: 'input',
+              value: topic.id,
+            }),
+            topic.name,
+          ]),
+        ]),
+      ),
+      ...filtersToggle(
+        'Mots-clés',
+        keywords.map(keyword => [
+          h('label', [
+            h('input', {
+              type: 'checkbox',
+              name: 'keywords[]',
+              key: 'input',
+              value: keyword,
+            }),
+            keyword
+          ]),
+        ]),
+      ),
+      ...filtersToggle('Date de publication', [
+        [
+          h('span', { key: 'label' }, 'Avant le…'),
+          h('input', {
+            type: 'date',
+            name: 'date-max',
+            key: 'input',
+          }),
+        ],
+        [
+          h('span', { key: 'label' }, 'Après le…'),
+          h('input', {
+            type: 'date',
+            name: 'date-min',
+            key: 'input',
+          }),
+        ],
+      ]),
+      ...filtersToggle(
+        'Langue',
+        Object.keys(locales).map(locale => [
+          h('input', {
+            type: 'checkbox',
+            name: 'locales[]',
+            key: 'input',
+            value: locale,
+          }),
+          h('span', { key: 'label' }, locales[locale]),
+        ]),
+      ),
+      ...filtersToggle(
+        'Type',
+        Object.keys(types).map(type => [
+          h('input', {
+            type: 'checkbox',
+            name: 'types[]',
+            key: 'input',
+            value: type,
+          }),
+          h('span', { key: 'label' }, types[type]),
+        ]),
+      ),
+      h(
+        '.search-filters-warning-types',
+        { style: { display: 'none' } },
+        'Note : la recherche ne permet pas de combiner les références, définitions, et autres types',
+      ),
+    ]),
+  ])
 
 const Search = ({ topics, types, locales, keywords, options }) =>
   h('article.SearchPage', [
@@ -112,82 +208,7 @@ const Search = ({ topics, types, locales, keywords, options }) =>
               }),
             ]),
           ]),
-          h('.search-filters', [
-            h('.container', [
-              h('.row.search-filters-title', 'Affiner la recherche'),
-              ...filtersToggle(
-                'Partie',
-                topics.map(topic => [
-                  h('input', {
-                    type: 'checkbox',
-                    name: 'topics[]',
-                    key: 'input',
-                    value: topic.id,
-                  }),
-                  h('span', { key: 'label' }, topic.name),
-                ]),
-              ),
-              ...filtersToggle(
-                'Mots-clés',
-                keywords.map(keyword => [
-                  h('input', {
-                    type: 'checkbox',
-                    name: 'keywords[]',
-                    key: 'input',
-                    value: keyword,
-                  }),
-                  h('span', { key: 'label' }, keyword),
-                ]),
-              ),
-              ...filtersToggle('Date de publication', [
-                [
-                  h('span', { key: 'label' }, 'Avant le…'),
-                  h('input', {
-                    type: 'date',
-                    name: 'date-max',
-                    key: 'input',
-                  }),
-                ],
-                [
-                  h('span', { key: 'label' }, 'Après le…'),
-                  h('input', {
-                    type: 'date',
-                    name: 'date-min',
-                    key: 'input',
-                  }),
-                ],
-              ]),
-              ...filtersToggle(
-                'Langue',
-                Object.keys(locales).map(locale => [
-                  h('input', {
-                    type: 'checkbox',
-                    name: 'locales[]',
-                    key: 'input',
-                    value: locale,
-                  }),
-                  h('span', { key: 'label' }, locales[locale]),
-                ]),
-              ),
-              ...filtersToggle(
-                'Type',
-                Object.keys(types).map(type => [
-                  h('input', {
-                    type: 'checkbox',
-                    name: 'types[]',
-                    key: 'input',
-                    value: type,
-                  }),
-                  h('span', { key: 'label' }, types[type]),
-                ]),
-              ),
-              h(
-                '.row.search-filters-warning-types',
-                { style: { display: 'none' } },
-                'Note : la recherche ne permet pas de combiner les références, définitions, et autres types',
-              ),
-            ]),
-          ]),
+          h(SearchFilters, { topics, types, locales, keywords }),
         ],
       ),
     ]),
@@ -203,16 +224,21 @@ const Search = ({ topics, types, locales, keywords, options }) =>
     ]),
   ])
 
-const SearchPage = (
-  {
-    topics,
-    articles,
-    options,
-    types,
-    locales,
-    keywords,
-  } /*:{topics: Topic[], articles: Resource[], types: ?string[], keywords: string[], locales: { Locale: string }, options: Object }*/,
-) =>
+const SearchPage = ({
+  topics,
+  articles,
+  options,
+  types,
+  locales,
+  keywords,
+} /*: {
+  topics: Topic[],
+  articles: Resource[],
+  types: ?(string[]),
+  keywords: string[],
+  locales: { Locale: string },
+  options: Object,
+} */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'eAtlas - Recherche', options }),
     h(Body, { topics, articles, options, topMenu: false, logoColor: 'black' }, [

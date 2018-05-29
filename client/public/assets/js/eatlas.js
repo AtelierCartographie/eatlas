@@ -100,7 +100,7 @@
     }, 100)
 
     // Handle browser's back/forward
-    window.addEventListener('popstate', e => {
+    window.addEventListener('popstate', () => {
       readFromUrl()
       search(false)
     })
@@ -124,8 +124,13 @@
         const current = $this.attr('data-filters-hidden')
         const next = current === '1' ? '0' : '1'
         $this.attr('data-filters-hidden', next)
+        e.stopPropagation()
       },
     )
+
+    $('.SearchPage .search-filters label').on('click', e => {
+      e.stopPropagation()
+    })
 
     // Run initial search on load
     search(false)

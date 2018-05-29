@@ -64,7 +64,7 @@ const upgradeMappings = (client, index, currentMappings, newMappings) => {
     `mapping-${index}-${Date.now()}-current.json`,
   )
   const fileNew = Path.join(tmpdir(), `mapping-${index}-${Date.now()}-new.json`)
-  Promise.all([
+  return Promise.all([
     writeFile(fileCurrent, JSON.stringify(currentMappings, null, 2)),
     writeFile(fileNew, JSON.stringify(newMappings, null, 2)),
   ])
@@ -80,24 +80,29 @@ const upgradeMappings = (client, index, currentMappings, newMappings) => {
         'Failed to write mappings to temp directory, manuall check ES indices and new config to know which differences triggered an upgrade',
       ),
     )
-
-  // Field or mapping to be deleted: trigger full reindex
-  const hasDeletedField = Object.keys(currentMappings).some(
-    type =>
-      !(type in newMappings) ||
-      Object.keys(currentMappings[type].properties).some(
-        field => !(field in newMappings[type].properties),
-      ),
-  )
-  if (hasDeletedField) {
-    return Promise.reject(new Error('FORCE_REINDEX_DROP_FIELD'))
-  }
-  // Try to just put mapping
-  return Promise.all(
-    Object.keys(newMappings).map(type =>
-      client.indices.putMapping({ index, type, body: newMappings[type] }),
-    ),
-  ).then(() => 'Simple putMapping')
+    .then(() => {
+      // Field or mapping to be deleted: trigger full reindex
+      const hasDeletedField = Object.keys(currentMappings).some(
+        type =>
+          !(type in newMappings) ||
+          Object.keys(currentMappings[type].properties).some(
+            field => !(field in newMappings[type].properties),
+          ),
+      )
+      if (hasDeletedField) {
+        return Promise.reject(
+          new Error(
+            'Missing fields in JSON configuration: update schema in server/lib/es/types/',
+          ),
+        )
+      }
+      // Try to just put mapping
+      return Promise.all(
+        Object.keys(newMappings).map(type =>
+          client.indices.putMapping({ index, type, body: newMappings[type] }),
+        ),
+      ).then(() => 'Simple putMapping')
+    })
 }
 
 const migrateIndex = (client, index, oldIndex) => {

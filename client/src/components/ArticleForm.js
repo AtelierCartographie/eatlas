@@ -21,12 +21,21 @@ type RProps = {
 }
 
 class _ResourceField extends Component<RProps> {
-  componentDidMount() {
-    if (!this.props.resource) {
-      return this.props.onIsMissing(false, false)
+  triggerIsMissing({ resource, onIsMissing }) {
+    if (!resource) {
+      return onIsMissing(false, false)
     }
-    const published = this.props.resource.status === 'published'
-    return this.props.onIsMissing(true, published)
+    return onIsMissing(true, resource.status === 'published')
+  }
+
+  componentDidMount() {
+    this.triggerIsMissing(this.props)
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.resource !== this.props.resource) {
+      this.triggerIsMissing(props)
+    }
   }
 
   render() {
@@ -256,7 +265,11 @@ class ArticleForm extends Component<Props, State> {
           if (id) {
             const resource: ?Resource = resources.find(r => r.id === id)
             if (!resource || resource.status !== 'published') {
-              const node: ArticleNode = { id, text: text || '', type: 'resource' }
+              const node: ArticleNode = {
+                id,
+                text: text || '',
+                type: 'resource',
+              }
               result[string] = [node, !!resource]
             }
           }

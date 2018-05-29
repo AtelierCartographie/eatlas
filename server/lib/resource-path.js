@@ -20,11 +20,11 @@ const getTopicSlug = (resource, topics) => {
   const topic = resource.topic
     ? topics.find(({ id }) => String(id) === String(resource.topic))
     : resource
-  if (!topic.name) {
+  if (!topic || !topic.name) {
     debug({ resource, topics })
     throw new Error('Topic not found')
   }
-  return topic ? slugify(topic.name) : ''
+  return slugify(topic.name)
 }
 
 const getResourceSlug = resource =>

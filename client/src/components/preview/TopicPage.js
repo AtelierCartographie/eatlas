@@ -37,7 +37,7 @@ const TopicHeader = ({ topic, resources, options }) => {
         resourceComponent = h('div', [
           h('img.TopicImage', {
             src: getImageUrl(resource, 'large', '1x', options),
-            alt: resource.title
+            alt: resource.title,
           }),
         ])
         break
@@ -53,7 +53,7 @@ const TopicHeader = ({ topic, resources, options }) => {
     h('.container', [
       h('h1', [h('.TopicId', topic.id), h('.TopicName', topic.name)]),
       resourceComponent,
-      topic.description ? h('div', topic.description) : null
+      topic.description ? h('div', topic.description) : null,
     ]),
   ])
 }

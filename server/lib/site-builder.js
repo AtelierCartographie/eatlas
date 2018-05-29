@@ -6,9 +6,9 @@ const path = require('path')
 const logger = require('./logger')
 const { topics: Topics, resources: Resources } = require('./model')
 const { pagePath } = require('./resource-path')
-const { footerResourcesConfig } = require('../../client/src/universal-utils')
 const { populatePageUrl } = require('./generator-utils')
 const { generateHTML } = require('./html-generator')
+const { TYPES } = require('../../client/src/universal-utils')
 
 const writePage = async (key, resource, topics, articles, params) => {
   const file = pagePath(key, resource, topics, params)
@@ -48,7 +48,9 @@ const removePage = async (key, resource, topics, params) => {
 exports.rebuildAllHTML = async () => {
   const topics = populatePageUrl('topic', null)(await Topics.list())
   topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
-  const resources = populatePageUrl(null, topics)(await Resources.list())
+  const resources = populatePageUrl(null, topics)(
+    await Resources.list({ query: { terms: { type: Object.keys(TYPES) } } }),
+  )
   const publishedResources = resources.filter(
     ({ status }) => status === 'published',
   )
@@ -71,12 +73,6 @@ exports.rebuildAllHTML = async () => {
     writePage('contact', null, topics, articles),
     writePage('legals', null, topics, articles),
     writePage('sitemap', null, topics, articles),
-    // Resources pages
-    Promise.all(
-      footerResourcesConfig.map(({ slug }) =>
-        writePage('resources', null, topics, articles, { resourcesSlug: slug }),
-      ),
-    ),
     // Topic pages
     Promise.all(
       topics.map(topic => writePage('topic', topic, topics, articles)),

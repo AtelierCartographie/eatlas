@@ -1,6 +1,5 @@
 'use strict'
 
-const { footerResourcesConfig } = require('../../../client/src/universal-utils')
 const { generateHTML } = require('../html-generator')
 
 // params.id = resource id
@@ -21,15 +20,6 @@ exports.page = async (req, res, next) => {
   try {
     const key = req.params.page || 'index'
     const options = { preview: true }
-    if (key === 'resources') {
-      const validSlugs = footerResourcesConfig.map(({ slug }) => slug)
-      if (!req.query.slug || !validSlugs.includes(req.query.slug)) {
-        return res.boom.badRequest(
-          `Requires ?slug=valid-slug (one of “${validSlugs.join('”, “')}”)`,
-        )
-      }
-      options.resourcesSlug = req.query.slug
-    }
     res.send(await generateHTML(key, null, options))
   } catch (err) {
     next(err)

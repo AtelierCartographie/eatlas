@@ -1,6 +1,7 @@
 'use strict'
 
 const { fullResource, validate } = require('../schemas')
+const { TYPES } = require('../../../client/src/universal-utils')
 
 const {
   search,
@@ -14,8 +15,11 @@ const {
 } = require('../es/client')('resource')
 
 exports.search = search
-exports.list = find
 exports.findById = findById
+
+exports.DEFAULT_LIST_QUERY = { terms: { type: Object.keys(TYPES) } }
+exports.list = (options = { query: exports.DEFAULT_LIST_QUERY }) =>
+  find(options)
 
 const deleteLinkedVirtualResources = (virtualType, parentResourceId) => {
   deleteByQuery({

@@ -12,7 +12,6 @@ const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 const { rebuildAllHTML } = require('../site-builder')
 const previews = require('./previews') // for alias resources.preview = previews.resource
 const { smallestImage } = require('../generator-utils')
-const { TYPES } = require('../../../client/src/universal-utils')
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)
@@ -142,7 +141,7 @@ exports.addFromGoogle = (req, res) => {
 exports.addFromGoogle.schema = schemas.uploadFromGoogleDrive
 
 exports.list = (req, res) =>
-  Resources.list({ query: { terms: { type: Object.keys(TYPES) } } })
+  Resources.list()
     .then(resources => res.send(resources))
     .catch(res.boom.send)
 

@@ -516,9 +516,10 @@ class Resources extends Component<Props, State> {
           />
         )
       }
+      case 'author':
+        return <span>{resource.author}</span>
       //case 'createdBy':
-      case 'updatedBy':
-      case 'author': {
+      case 'updatedBy': {
         const email: string = resource[field]
         if (this.props.users.loading) {
           return (

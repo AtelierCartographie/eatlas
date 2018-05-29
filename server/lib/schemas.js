@@ -125,6 +125,9 @@ exports.resource = {
   transcript,
   copyright: Joi.string().optional(),
   mediaUrl: resourceMediaUrl.optional(),
+  visiblePublishedAt: Joi.date()
+    .timestamp()
+    .optional(),
 }
 
 exports.uploadFromGoogleDrive = {
@@ -282,6 +285,9 @@ exports.fullResource = {
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
+  visiblePublishedAt: Joi.date()
+    .timestamp()
+    .optional(),
 
   // track changes
   updatedBy: exports.email,

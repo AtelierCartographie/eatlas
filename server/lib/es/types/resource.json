@@ -305,6 +305,9 @@
     "publishedAt": {
       "type": "date"
     },
+    "visiblePublishedAt": {
+      "type": "date"
+    },
     "language": {
       "type": "keyword"
     },

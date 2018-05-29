@@ -98,6 +98,7 @@ declare type Resource = ResourceNew & {
   createdAt: string, // Date (ISO 8601)
   updatedAt?: string, // Date (ISO 8601)
   publishedAt?: string, // Date (ISO 8601)
+  visiblePublishedAt?: string, // Date (ISO 8601)
   status: ResourceStatus,
 }
 

@@ -80,6 +80,8 @@
   "resource-updatedBy": "Depositor",
   "resource-uris": "Public URL(s)",
   "resource-uris-help": "(can be invalid until resource is saved)",
+  "resource-visiblePublishedAt": "Visible publication date",
+  "resource-visiblePublishedAt-help": "This value overrides real publication date (currently “{publishedAt}”)",
   "resource": "resource",
   "resources": "resources",
   "restore": "restore",

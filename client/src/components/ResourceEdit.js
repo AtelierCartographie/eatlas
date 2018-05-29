@@ -285,6 +285,7 @@ class ResourceEdit extends Component<Props, State> {
       mediaUrl: resource.mediaUrl,
       uploads,
       accessToken,
+      visiblePublishedAt: resource.visiblePublishedAt,
     })
 
     // redirect

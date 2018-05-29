@@ -552,6 +552,22 @@ class ResourceForm extends Component<Props, State> {
         mandatory: false,
         readOnly: true,
       }),
+      this.getAttrField('visiblePublishedAt', {
+        leftIcon: 'calendar',
+        mandatory: false,
+        readOnly: false,
+        type: 'date',
+        help: (
+          <T
+            id="resource-visiblePublishedAt-help"
+            values={{
+              publishedAt: new Date(resource.publishedAt).toLocaleDateString(
+                this.props.locale,
+              ),
+            }}
+          />
+        ),
+      }),
     ]
 
     const buildFields = (

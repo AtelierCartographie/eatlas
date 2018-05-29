@@ -10,6 +10,7 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const { PublishedAt } = require('./Doc')
 
 const { getImageUrl, getResourcePageUrl } = require('./layout')
 
@@ -75,19 +76,7 @@ const ArticleList = ({ articles, options }) => {
           }),
           h('.ArticleListInfo', [
             h('.ArticleListTitle', a.title),
-            h(
-              '.publishedAt',
-              !a.publishedAt
-                ? 'Pas encore publié'
-                : [
-                    'Publié le ',
-                    h(
-                      'time',
-                      { dateTime: a.publishedAt },
-                      moment(a.publishedAt).format('D MMMM YYYY'),
-                    ),
-                  ],
-            ),
+            h(PublishedAt, { doc: a }),
             h('.ArticleListSummary', a.summaries.fr),
           ]),
         ]),

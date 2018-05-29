@@ -34,17 +34,16 @@ const padText = (text, markup, idx) => {
   return text
 }
 
-exports.PublishedAt = ({ doc } /*: { doc: Resource } */) =>
-  !doc.publishedAt
-    ? h('.PublishedAt', 'Non publié')
-    : h('.PublishedAt', [
-        'Publié le ',
-        h(
-          'time',
-          { dateTime: doc.publishedAt },
-          moment(doc.publishedAt).format('D MMMM YYYY'),
-        ),
-      ])
+exports.PublishedAt = ({ doc } /*: { doc: Resource } */) => {
+  const date = doc.visiblePublishedAt || doc.publishedAt
+  if (!date) {
+    return h('.PublishedAt', 'Non publié')
+  }
+  return h('.PublishedAt', [
+    'Publié le ',
+    h('time', { dateTime: date }, moment(date).format('D MMMM YYYY')),
+  ])
+}
 
 // used by Paragraphs and Footnotes/References
 const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
@@ -80,26 +79,24 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
     }
   })
 
-exports.Paragraph = ({
-  p,
-  lexiconId,
-} /*: {
+exports.Paragraph = (
+  { p, lexiconId } /*: {
   p: Object,
   lexiconId: { id: number },
-} */) => {
+} */,
+) => {
   if (!p.markup)
     throw new Error('no markup found. This document needs to be reimported')
 
   return h('p.container.DocParagraph', renderMarkup(p.markup, lexiconId))
 }
 
-exports.Keywords = ({
-  keywords,
-  options,
-} /*: {
+exports.Keywords = (
+  { keywords, options } /*: {
   keywords: Object,
   options: Object,
-} */) => {
+} */,
+) => {
   if (!keywords || !keywords.length) return null
 
   return h('section.container.Keywords', [
@@ -124,7 +121,9 @@ exports.Keywords = ({
 exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   // TODO conf?
   const publication = 'Atlas de la mondialisation'
-  const year = new Date(doc.publishedAt || Date.now()).getFullYear()
+  const year = new Date(
+    doc.visiblePublishedAt || doc.publishedAt || Date.now(),
+  ).getFullYear()
   const url = `${HOST}`
 
   const bibtex = `@book{eAtlas,
@@ -200,13 +199,15 @@ PB  - ${publication}`
 }
 
 // also called simply 'Notes' or 'Références'
-exports.Footnotes = ({
-  references,
-  footnotes,
-} /*: {
+exports.Footnotes = (
+  {
+    references,
+    footnotes,
+  } /*: {
   references: Object[],
   footnotes: Object[],
-} */) => {
+} */,
+) => {
   if ((!references || !references.length) && (!footnotes || !footnotes.length))
     return null
 
@@ -235,15 +236,17 @@ exports.Footnotes = ({
   ])
 }
 
-exports.Lexicon = ({
-  nodes,
-  definitions,
-  options,
-} /*: {
+exports.Lexicon = (
+  {
+    nodes,
+    definitions,
+    options,
+  } /*: {
   nodes: Object[],
   definitions: Object[],
   options: Object,
-} */) =>
+} */,
+) =>
   h(
     'section.Lexicon',
     nodes

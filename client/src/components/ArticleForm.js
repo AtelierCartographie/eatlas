@@ -324,7 +324,7 @@ class ArticleForm extends Component<Props, State> {
     return (
       <Fragment>
         <h2 className="subtitle is-4">
-          <T id={title} />
+          <T id={title} /> ({ nodes.length })
         </h2>
         <ul>
           {nodes.map(([node, exists]) => (

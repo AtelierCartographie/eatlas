@@ -28,21 +28,16 @@ class ResourcesPreviewArticle extends Component<Props> {
   render() {
     const errors = this.getArticleErrors()
 
-    if (errors.length === 0) {
-      return this.props.article.title
-    }
+    if (!errors.length) return this.props.article.title
 
     return (
       <Fragment>
+        <div>{this.props.article.title}</div>
         <Icon
           icon="warning"
           className="has-text-danger"
-          title={this.props.intl.formatMessage(
-            { id: 'article-errors' },
-            { nb: errors.length },
-          )}
         />
-        {this.props.article.title}
+        <span>{this.props.intl.formatMessage( { id: 'article-errors' }, { nb: errors.length } )}</span>
       </Fragment>
     )
   }
@@ -55,6 +50,8 @@ class ResourcesPreviewArticle extends Component<Props> {
         | 'resource-not-found'
         | 'resource-not-published',
     }> = []
+
+    // checkers
 
     const checkResource = id => {
       const resource: ?Resource = this.props.resources.find(r => r.id === id)
@@ -81,6 +78,8 @@ class ResourcesPreviewArticle extends Component<Props> {
         errors.push({ what: dt, type: 'definition-not-found' })
       }
     }
+
+    // loops
 
     if (this.props.article.metas) {
       const metas: ArticleMeta[] = this.props.article.metas // Intermediate value for Flow

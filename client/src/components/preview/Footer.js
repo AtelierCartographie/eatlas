@@ -33,9 +33,21 @@ const FooterLogo = ({ options }) =>
     }),
   ])
 
-module.exports = (
-  { topics, options } /*: { topics: Topic[], options: Object } */,
-) =>
+const FooterUl = ({ array, options }) =>
+  h(
+    'ul',
+    array.map((r, i) =>
+      h('li', { key: i }, [h('a', { href: r.url(options.preview) }, r.text)]),
+    ),
+  )
+
+module.exports = ({
+  topics,
+  options,
+} /*: {
+  topics: Topic[],
+  options: Object,
+} */) =>
   h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.FooterRow', [
       h('.FooterColTopics', [
@@ -44,25 +56,11 @@ module.exports = (
       ]),
       h('.FooterColResources', [
         h('h2', 'Resources'),
-        h(
-          'ul',
-          resourcesTypes.map((r, i) =>
-            h('li', { key: i }, [
-              h('a', { href: r.url(options.preview) }, r.text),
-            ]),
-          ),
-        ),
+        h(FooterUl, { array: resourcesTypes, options }),
       ]),
       h('.FooterColAPropos', [
         h('h2', 'À propos'),
-        h(
-          'ul',
-          aPropos.map((a, i) =>
-            h('li', { key: i }, [
-              h('a', { href: a.url(options.preview) }, a.text),
-            ]),
-          ),
-        ),
+        h(FooterUl, { array: aPropos, options }),
       ]),
       h('.FooterColLogo', [h(FooterLogo, { options })]),
     ]),

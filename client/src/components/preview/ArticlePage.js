@@ -113,7 +113,7 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
-const ArticleResource = ({ resource, options, topics }) => {
+const ArticleResource = ({ resource, options }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
@@ -319,29 +319,16 @@ const Article = props =>
   ])
 
 // floating buttons on each side of the screen
-// use *all* the articles of the site
-const ArticlePrevNext = ({ article, articles, topics, options }) => {
-  if (!articles || !articles.length) return null
-  const currentIndex = articles.findIndex(a => a.id === article.id)
-  const prevIndex = currentIndex !== 0 ? currentIndex - 1 : null
-  const nextIndex =
-    currentIndex !== articles.length - 1 ? currentIndex + 1 : null
-  const prev = articles[prevIndex]
-  const next = articles[nextIndex]
-
+const ArticlePrevNext = ({ prevNext: { prev, next }, options }) => {
   return [
     prev &&
       h('a.ArticlePrev', { href: getResourcePageUrl(prev, options) }, [
-        h('span.ArticlePrevNextTopic', [
-          (topics.find(t => t.id === prev.topic) || {}).name,
-        ]),
+        h('span.ArticlePrevNextTopic', prev.topicName),
         h('span.ArticlePrevNextTitle', prev.title),
       ]),
     next &&
       h('a.ArticleNext', { href: getResourcePageUrl(next, options) }, [
-        h('span.ArticlePrevNextTopic', [
-          (topics.find(t => t.id === next.topic) || {}).name,
-        ]),
+        h('span.ArticlePrevNextTopic', next.topicName),
         h('span.ArticlePrevNextTitle', next.title),
       ]),
     // horrible pattern? yes? no? who knows?
@@ -349,6 +336,7 @@ const ArticlePrevNext = ({ article, articles, topics, options }) => {
       dangerouslySetInnerHTML: {
         __html: `
 window.addEventListener('DOMContentLoaded', () => {
+  if (!window.IntersectionObserver) return
   const toggle = (sel, bool) => {
     const el = document.querySelector(sel)
     if (el) el.classList.toggle('hidden', bool)
@@ -368,15 +356,10 @@ window.addEventListener('DOMContentLoaded', () => {
 }
 
 // these buttons appear just above the footer
-const ArticlePrevNextInline = ({ article, articles, topics, options }) => {
-  if (!articles || !articles.length) return null
-  const currentIndex = articles.findIndex(a => a.id === article.id)
-  const prevIndex = currentIndex !== 0 ? currentIndex - 1 : null
-  const nextIndex =
-    currentIndex !== articles.length - 1 ? currentIndex + 1 : null
-  let prev = articles[prevIndex]
-  const next = articles[nextIndex]
-
+const ArticlePrevNextInline = ({
+  prevNext: { prev, next },
+  options,
+}) => {
   return h('.ArticlePrevNextInline.container', [
     prev &&
       h('.ArticlePrevWrapperInline', [
@@ -391,9 +374,7 @@ const ArticlePrevNextInline = ({ article, articles, topics, options }) => {
             },
           }),
           h('div', [
-            h('.ArticlePrevNextTopicInline', [
-              (topics.find(t => t.id === prev.topic) || {}).name,
-            ]),
+            h('.ArticlePrevNextTopicInline', prev.topicName),
             h('.ArticlePrevNextTitleInline', prev.title),
           ]),
         ]),
@@ -402,9 +383,7 @@ const ArticlePrevNextInline = ({ article, articles, topics, options }) => {
       h('.ArticleNextWrapperInline', [
         h('a.ArticleNextInline', { href: getResourcePageUrl(next, options) }, [
           h('div', [
-            h('.ArticlePrevNextTopicInline', [
-              (topics.find(t => t.id === next.topic) || {}).name,
-            ]),
+            h('.ArticlePrevNextTopicInline', next.topicName),
             h('.ArticlePrevNextTitleInline', next.title),
           ]),
           h('img', {
@@ -419,6 +398,23 @@ const ArticlePrevNextInline = ({ article, articles, topics, options }) => {
         ]),
       ]),
   ])
+}
+
+// use *all* the articles of the site
+const getPrevNextArticles = (article, articles, topics) => {
+  if (!articles || !articles.length) return {}
+  const currentIndex = articles.findIndex(a => a.id === article.id)
+  const prevIndex = currentIndex !== 0 ? currentIndex - 1 : null
+  const nextIndex =
+    currentIndex !== articles.length - 1 ? currentIndex + 1 : null
+
+  const prev = articles[prevIndex]
+  const next = articles[nextIndex]
+
+  if (prev) prev.topicName = (topics.find(t => t.id === prev.topic) || {}).name
+  if (next) next.topicName = (topics.find(t => t.id === next.topic) || {}).name
+
+  return { prev, next }
 }
 
 const ArticlePage = (
@@ -436,19 +432,21 @@ const ArticlePage = (
     id: 0,
   }
 
+  const prevNext = getPrevNextArticles(article, articles, topics)
+
   return h('html', { lang: 'fr' }, [
     h(Head, { title: article.title, options }),
     h(Body, { topics, options, sideMenu: true }, [
       h(Article, {
         article,
-        articles,
+        prevNext,
         topics,
         definitions,
         resources,
         lexiconId,
         options,
       }),
-      h(ArticlePrevNext, { article, articles, topics, options }),
+      h(ArticlePrevNext, { prevNext, options }),
     ]),
   ])
 }

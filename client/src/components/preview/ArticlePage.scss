@@ -321,6 +321,7 @@
   &:before {
     display: block;
     font-size: 2.5rem;
+    font-family: 'Glyphicons Halflings';
   }
 
   &:hover {
@@ -370,7 +371,6 @@
   }
 
   &:before {
-    font-family: 'Glyphicons Halflings';
     content: "\e257";
     text-align: left;
   }
@@ -386,7 +386,6 @@
   }
 
   &:before {
-    font-family: 'Glyphicons Halflings';
     content: "\e258";
     text-align: right;
   }

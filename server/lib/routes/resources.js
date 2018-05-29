@@ -50,11 +50,7 @@ exports.update = async (req, res) => {
     .then(updates => Resources.update(req.foundResource.id, updates))
     .then(async resource => {
       const oldStatus = req.foundResource.status
-      const newStatus = resource.status
-      const changedPublished =
-        oldStatus !== newStatus &&
-        (oldStatus === 'published' || newStatus === 'published')
-      if (changedPublished) {
+      if (resource.status === 'published') {
         try {
           await updateFiles(resource)
           await rebuildAllHTML() // TODO handle error

@@ -25,6 +25,28 @@
         },
         "list": {
           "properties": {
+            "links": {
+              "properties": {
+                "label": {
+                    "fields": {
+                      "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "type": "text"
+                },
+                "url": {
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "type": "text"
+                }
+              }
+            },
             "text": {
               "type": "text"
             },

@@ -15,7 +15,7 @@
     "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js | bunyan -o short",
     "es-index": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js | bunyan -o short",
     "model-repl": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/model-repl.js",
-    "rebuild-site": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/rebuild-site.js | bunyan -o short",
+    "rebuild-site": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' 'ES_AUTO_MIGRATION=0' node bin/rebuild-site.js | bunyan -o short",
     "git-version": "echo module.exports=\\\"$(git log -1 --pretty=format:'%h')\\\" > ./git-version.js"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",

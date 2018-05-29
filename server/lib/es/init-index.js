@@ -12,6 +12,9 @@ const {
     indexSettings: settings,
   },
 } = require('config')
+const { writeFile } = require('fs-extra')
+const { tmpdir } = require('os')
+const Path = require('path')
 
 const indexMapping = Object.keys(indices).reduce(
   (mappings, type) =>
@@ -54,6 +57,30 @@ const upgradeMappings = (client, index, currentMappings, newMappings) => {
   if (isEqual(newMappings, currentMappings)) {
     return Promise.resolve(false)
   }
+
+  // Saves mappings for server maintenance purpose
+  const fileCurrent = Path.join(
+    tmpdir(),
+    `mapping-${index}-${Date.now()}-current.json`,
+  )
+  const fileNew = Path.join(tmpdir(), `mapping-${index}-${Date.now()}-new.json`)
+  Promise.all([
+    writeFile(fileCurrent, JSON.stringify(currentMappings, null, 2)),
+    writeFile(fileNew, JSON.stringify(newMappings, null, 2)),
+  ])
+    .then(() =>
+      logger.info(
+        { current: fileCurrent, upgrade: fileNew },
+        'Note: mappings written to temp directory for later comparison',
+      ),
+    )
+    .catch(err =>
+      logger.error(
+        err,
+        'Failed to write mappings to temp directory, manuall check ES indices and new config to know which differences triggered an upgrade',
+      ),
+    )
+
   // Field or mapping to be deleted: trigger full reindex
   const hasDeletedField = Object.keys(currentMappings).some(
     type =>

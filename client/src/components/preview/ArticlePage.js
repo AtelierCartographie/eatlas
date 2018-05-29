@@ -25,11 +25,10 @@ const srcset = (image, size, options) => {
   const image1 = getImageUrl(image, size, '1x', options)
   const image2 = getImageUrl(image, size, '2x', options)
   const image3 = getImageUrl(image, size, '3x', options)
-  // TODO: why this map- prefix?
   return [
-    image1 ? `${image1.replace('file/', 'file/map-')}',` : '',
-    image2 ? `${image2.replace('file/', 'file/map-')} 2x,` : '',
-    image3 ? `${image3.replace('file/', 'file/map-')} 3x,` : '',
+    image1 ? `${image1},` : '',
+    image2 ? `${image2} 2x,` : '',
+    image3 ? `${image3} 3x,` : '',
   ].join('\n')
 }
 

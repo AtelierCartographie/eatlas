@@ -200,9 +200,11 @@ const saveMediaUpload = ({ id, type }) => async ({ mimeType, key, buffer }) => {
   const fileName = getConf('mediaFileName', {
     id,
     type,
-    name: key,
+    // Remove duplicate 'type' info from upload key
+    name: key.replace(new RegExp(`^${type}-`), ''),
     ext: extension,
   })
+
   await saveAs(fileName, fileDir, buffer)
 
   return fileName

@@ -87,6 +87,7 @@ type FieldParams = {
   },
   key?: string,
   mandatory?: boolean,
+  help?: React$Element<any>,
 }
 
 type SelectOptions = {
@@ -106,6 +107,7 @@ const renderField = ({
   action,
   key,
   mandatory,
+  help,
 }: FieldParams) => {
   const ctrlClass = cx('control', {
     'is-expanded': action,
@@ -146,6 +148,7 @@ const renderField = ({
         <div className={cx('field', { 'has-addons': action })}>
           <div className={ctrlClass}>
             {input}
+            {help ? <p className="help">{help}</p> : null}
             {$leftIcon}
             {$rightIcon}
           </div>
@@ -261,6 +264,7 @@ class ResourceForm extends Component<Props, State> {
       rows = 1,
       loading = false,
       type = 'text',
+      help,
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
@@ -273,6 +277,7 @@ class ResourceForm extends Component<Props, State> {
       rows?: number,
       loading?: boolean,
       type?: string,
+      help?: React$Element<any>,
     } = {},
   ): FieldParams {
     const props = {
@@ -345,6 +350,7 @@ class ResourceForm extends Component<Props, State> {
       rightIcon,
       input,
       mandatory,
+      help,
     }
   }
 
@@ -668,24 +674,20 @@ class ResourceForm extends Component<Props, State> {
     return {
       labelId: 'resource-uris',
       input: (
-        <Fragment>
-          <AsyncData
-            promise={getResourceUrls(resource.id)}
-            render={links => (
-              <ul>
-                {links.map(url => (
-                  <li key={url}>
-                    <a href={url}>{url}</a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          />
-          <p className="help">
-            <T id="resource-uris-help" />
-          </p>
-        </Fragment>
+        <AsyncData
+          promise={getResourceUrls(resource.id)}
+          render={links => (
+            <ul>
+              {links.map(url => (
+                <li key={url}>
+                  <a href={url}>{url}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        />
       ),
+      help: <T id="resource-uris-help" />,
     }
   }
 

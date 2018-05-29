@@ -81,6 +81,24 @@ const upgradeMappings = (client, index, currentMappings, newMappings) => {
       ),
     )
     .then(() => {
+      if (!autoMigration) {
+        logger.warn(
+          'Automatic index migration: disabled (option "es.autoMigration")',
+        )
+        logger.warn(
+          'You should manually upgrade mapping ASAP (see files above)',
+        )
+        if (!acceptObsoleteMapping) {
+          logger.error(
+            'Obsolete mapping unaccepted (option "es.acceptObsoleteMapping"): exit now',
+          )
+          process.exit(1)
+        } else {
+          logger.warn('Obsolete mapping accepted')
+        }
+        return
+      }
+
       // Field or mapping to be deleted: trigger full reindex
       const hasDeletedField = Object.keys(currentMappings).some(
         type =>
@@ -109,18 +127,6 @@ const migrateIndex = (client, index, oldIndex) => {
   const mappings = indexMapping[index]
 
   logger.warn('Obsolete mapping')
-  // Disabled auto-migration: reject
-  if (!autoMigration) {
-    logger.warn('Automatic index migration: disabled')
-    logger.warn('You should manually upgrade mapping ASAP', { mappings })
-    if (!acceptObsoleteMapping) {
-      logger.error('Obsolete mapping unaccepted: exit now')
-      process.exit(1)
-    } else {
-      logger.warn('Obsolete mapping accepted')
-    }
-    return
-  }
 
   logger.info('Automatic index upgrade…')
   // Force upgrade mapping by reindexing

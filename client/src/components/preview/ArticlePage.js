@@ -25,6 +25,16 @@ const srcset = (image, size, options) => {
   const image1 = getImageUrl(image, size, '1x', options)
   const image2 = getImageUrl(image, size, '2x', options)
   const image3 = getImageUrl(image, size, '3x', options)
+  if (!image1 && !image2 && !image3) {
+    if (options.fallback) {
+      return (
+        srcset(image, 'large', { ...options, fallback: false }) ||
+        srcset(image, 'medium', { ...options, fallback: false }) ||
+        srcset(image, 'small', { ...options, fallback: false })
+      )
+    }
+    return null
+  }
   return [
     image1 ? `${image1},` : '',
     image2 ? `${image2} 2x,` : '',
@@ -112,20 +122,38 @@ const ArticleSummaries = ({ article }) =>
     ]),
   ])
 
+const Picture = ({
+  resource,
+  options,
+  main: { component, size },
+  sources = [],
+}) =>
+  h('picture', [
+    ...sources.map(({ size, minWidth }, key) => {
+      const srcSet = srcset(resource, size, options)
+      if (!srcSet) {
+        return null
+      }
+      console.log({ srcSet })
+      const more = minWidth ? { media: `(min-width: ${minWidth})` } : {}
+      return h('source', { key, srcSet, ...more })
+    }),
+    h(component, {
+      srcSet: srcset(resource, size, { ...options, fallback: true }),
+    }),
+  ])
+
 const ArticleResource = ({ resource, options }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
         h('h2.figure-title', resource.title),
-        h('picture', [
-          // Only one size (set to 'large')
-          h('source', {
-            srcSet: srcset(resource, 'large', options),
-          }),
-          h('img.img-responsive', {
-            srcSet: srcset(resource, 'large', options),
-          }),
-        ]),
+        Picture({
+          resource,
+          options,
+          main: { component: 'img.img-responsive', size: 'large' },
+          sources: [{ size: 'large' }],
+        }),
         h('figcaption', resource.copyright),
         h('.ArticleResourceDownload', 'Info & téléchargement'),
         h(ArticleResourceComment, { resource }),
@@ -134,22 +162,16 @@ const ArticleResource = ({ resource, options }) => {
     case 'map':
       return h('figure', [
         h('h2.figure-title.container', resource.title),
-        h('picture', [
-          h('source', {
-            srcSet: srcset(resource, 'large', options),
-            media: '(min-width: 700px)',
-          }),
-          h('source', {
-            srcSet: srcset(resource, 'medium', options),
-            media: '(min-width: 560px)',
-          }),
-          h('source', {
-            srcSet: srcset(resource, 'small', options),
-          }),
-          h('img', {
-            srcSet: srcset(resource, 'small', options),
-          }),
-        ]),
+        Picture({
+          resource,
+          options,
+          main: { component: 'img', size: 'small' },
+          sources: [
+            { size: 'large', minWidth: '700px' },
+            { size: 'medium', minWidth: '560px' },
+            { size: 'small' },
+          ],
+        }),
         h('figcaption.container', resource.copyright),
         h('.ArticleResourceDownload.container', 'Info & téléchargement'),
         h(ArticleResourceComment, { resource }),

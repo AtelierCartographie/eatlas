@@ -42,7 +42,7 @@ class ResourceCreate extends Component<Props> {
           accessToken,
         })
 
-    this.props.history.push('/resources?sort=createdAt&dir=desc')
+    this.props.history.goBack()
 
     return result
   }

@@ -288,7 +288,7 @@ class ResourceEdit extends Component<Props, State> {
     })
 
     // redirect
-    this.props.history.push('/resources?sort=createdAt&dir=desc')
+    this.props.history.goBack()
 
     return result
   }

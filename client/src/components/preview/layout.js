@@ -68,8 +68,7 @@ const getSearchUrl = (exports.getSearchUrl = (params, { preview = false }) => {
   }
   const qs = Object.keys(params).reduce((q, k) => {
     const v = params[k]
-    const multiple = 'length' in v && typeof v.reduce === 'function' // array
-    if (multiple && v.length > 0) {
+    if (Array.isArray(v) && v.length > 0) {
       const kk = k + '[]'
       return v.reduce((qq, vv) => append(qq, kk, vv), q)
     } else if (typeof v === 'string' || typeof v === 'number') {

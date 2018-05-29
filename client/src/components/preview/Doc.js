@@ -80,18 +80,26 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
     }
   })
 
-exports.Paragraph = (
-  { p, lexiconId } /*: {p: Object, lexiconId: {id: number }} */,
-) => {
+exports.Paragraph = ({
+  p,
+  lexiconId,
+} /*: {
+  p: Object,
+  lexiconId: { id: number },
+} */) => {
   if (!p.markup)
     throw new Error('no markup found. This document needs to be reimported')
 
   return h('p.container.DocParagraph', renderMarkup(p.markup, lexiconId))
 }
 
-exports.Keywords = (
-  { keywords, options } /*: { keywords: Object, options: Object } */,
-) => {
+exports.Keywords = ({
+  keywords,
+  options,
+} /*: {
+  keywords: Object,
+  options: Object,
+} */) => {
   if (!keywords || !keywords.length) return null
 
   return h('section.container.Keywords', [
@@ -192,9 +200,13 @@ PB  - ${publication}`
 }
 
 // also called simply 'Notes' or 'Références'
-exports.Footnotes = (
-  { references, footnotes } /*: { references: Object[], footnotes: Object[] }*/,
-) => {
+exports.Footnotes = ({
+  references,
+  footnotes,
+} /*: {
+  references: Object[],
+  footnotes: Object[],
+} */) => {
   if ((!references || !references.length) && (!footnotes || !footnotes.length))
     return null
 
@@ -223,9 +235,15 @@ exports.Footnotes = (
   ])
 }
 
-exports.Lexicon = (
-  { nodes, definitions } /*: { nodes: Object[], definitions: Object[] } */,
-) =>
+exports.Lexicon = ({
+  nodes,
+  definitions,
+  options,
+} /*: {
+  nodes: Object[],
+  definitions: Object[],
+  options: Object,
+} */) =>
   h(
     'section.Lexicon',
     nodes
@@ -236,7 +254,21 @@ exports.Lexicon = (
       )
       .map((l, k) =>
         h('.collapse.container', { key: k, id: `lexicon-${k + 1}` }, [
-          h('dl', [h('dt', l), h('dd', getDefinition(l, definitions))]),
+          h('dl', [
+            h('dt', [
+              h(
+                'a',
+                {
+                  href: getSearchUrl(
+                    { q: l, types: ['single-definition'] },
+                    options,
+                  ),
+                },
+                l,
+              ),
+            ]),
+            h('dd', getDefinition(l, definitions)),
+          ]),
         ]),
       ),
   )

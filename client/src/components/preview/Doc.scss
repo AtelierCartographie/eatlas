@@ -168,30 +168,36 @@ a.LexiconLink {
   }
 }
 
+// grey overlay appearing at the bottom of the screen
+// after a definition has been clicked
 .Lexicon {
-  background-color: #d1d6e0;
-  border-top: 1px solid #ccc;
-  bottom: -1px;
+  background-color: $color-footer;
+  bottom: 0;
   box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
   font-family: $serif;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
   max-height: 60%;
-  padding: 0px;
   position: fixed;
-  right: 0;
   z-index: 1;
+  width: 100%;
 
   dl {
-    color: #3d485a;
+    color: $color-breadcrumb;
     font-size: 1.5rem;
     line-height: 2.4rem;
-    margin-top: .5em;
+    margin: $gap;
+
+    @include breakpoint(desktop) {
+      font-size: 1.8rem;
+      line-height: 2.8rem;
+    }
   }
 
   dt {
-    font-weight: 700;
+    font-weight: bold;
+
+    a {
+      color: inherit;
+    }
   }
 }
 

@@ -77,7 +77,7 @@ const Focus = props =>
     h(FocusHeader, props),
     h(FocusNodes, props),
     h(FocusFooter, props),
-    h(Lexicon, { nodes: props.focus.nodes, definitions: props.definitions }),
+    h(Lexicon, { nodes: props.focus.nodes, definitions: props.definitions, options: props.options }),
   ])
 
 const FocusPage = (

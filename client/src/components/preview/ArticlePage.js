@@ -317,7 +317,7 @@ const Article = props =>
     h(ArticleNodes, props),
     h(ArticlePrevNextInline, props),
     h(ArticleFooter, props),
-    h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions }),
+    h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions, options: props.options }),
   ])
 
 // floating buttons on each side of the screen

@@ -218,7 +218,9 @@ const ArticleResourceComment = ({ resource }) => {
       },
       'Commentaire',
     ),
-    h('.collapse', { id }, [h('div', resource.description)]),
+    h('.collapse', { id }, [
+      h('div', { dangerouslySetInnerHTML: { __html: resource.description } }),
+    ]),
   ])
 }
 
@@ -356,10 +358,7 @@ window.addEventListener('DOMContentLoaded', () => {
 }
 
 // these buttons appear just above the footer
-const ArticlePrevNextInline = ({
-  prevNext: { prev, next },
-  options,
-}) => {
+const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
   return h('.ArticlePrevNextInline.container', [
     prev &&
       h('.ArticlePrevWrapperInline', [

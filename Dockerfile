@@ -9,7 +9,7 @@ COPY client/ /eatlas/client/
 
 RUN apk add --no-cache su-exec git
 
-RUN cd /eatlas/server && yarn install --frozen-lockfile --no-cache --production \
+RUN cd /eatlas/server && yarn install --frozen-lockfile --no-cache --production && yarn git-version \
     && cd /eatlas/client && yarn install --frozen-lockfile --no-cache --production=false \
     && rm -fr /usr/local/share/.cache/*
 

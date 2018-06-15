@@ -37,7 +37,7 @@
     "flow": "flow",
     "sass": "node-sass -w src/components/preview/index.scss -o public/assets",
     "postinstall": "node ./bin/patch-react-scripts.js",
-    "git-version": "echo export default \\\"$(git log -1 --pretty=format:'%h')\\\" > src/git-version.js"
+    "git-version": "echo export default \\\"$(cat ../.git/ORIG_HEAD | head -c 7)\\\" > src/git-version.js"
   },
   "prettier": {
     "semi": false,

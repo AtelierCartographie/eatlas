@@ -4,6 +4,7 @@ ENV NODE_ENV production
 
 ENV NODE_CONFIG_DIR /eatlas/config/
 
+COPY .git/ORIG_HEAD /eatlas/.git/ORIG_HEAD
 COPY server/package.json server/yarn.lock /eatlas/server/
 COPY client/ /eatlas/client/
 

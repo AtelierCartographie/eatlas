@@ -12,8 +12,8 @@
     "dev:test": "mocha --watch --growl --reporter list",
     "prestart": "yarn git-version",
     "start": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' NODE_ENV=production node server.js",
-    "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js | bunyan -o short",
-    "es-index": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js | bunyan -o short",
+    "add-user": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/add-user.js",
+    "es-index": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js",
     "model-repl": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/model-repl.js",
     "rebuild-site": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' 'ES_AUTO_MIGRATION=0' node bin/rebuild-site.js | bunyan -o short",
     "git-version": "echo module.exports=\\\"$(cat ../.git/ORIG_HEAD | head -c 7)\\\" > ./git-version.js"

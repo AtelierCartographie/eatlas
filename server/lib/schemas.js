@@ -108,7 +108,7 @@ exports.resource = {
   }),
   title: Joi.string().required(),
   titlePosition: resourceTitlePosition.when('type', {
-    is: Joi.valid(['article']),
+    is: Joi.valid(['article', 'focus']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
@@ -223,7 +223,7 @@ exports.fullResource = {
   }),
   title: Joi.string().required(),
   titlePosition: resourceTitlePosition.when('type', {
-    is: Joi.valid(['article']),
+    is: Joi.valid(['article', 'focus']),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),

@@ -88,7 +88,7 @@ const getBaseData = req => ({
   transcript: req.body.transcript,
   copyright: req.body.copyright,
   mediaUrl: req.body.mediaUrl,
-  visiblePublishedAt: +new Date(req.body.visiblePublishedAt),
+  visiblePublishedAt: +new Date(req.body.visiblePublishedAt) || null,
 })
 
 exports.add = (req, res) => {

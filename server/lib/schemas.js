@@ -94,7 +94,7 @@ const resourceTitlePosition = Joi.string().valid(['center', 'top', 'bottom'])
 
 const transcript = Joi.string().when('type', {
   is: Joi.valid(['sound', 'video']),
-  then: Joi.allow('').optional(),
+  then: Joi.allow('').allow(null).optional(),
   otherwise: Joi.forbidden(),
 })
 
@@ -104,7 +104,7 @@ exports.resource = {
   author: Joi.string().when('type', {
     is: Joi.valid(['article', 'focus']),
     then: Joi.required(),
-    otherwise: Joi.optional(),
+    otherwise: Joi.allow(null).optional(),
   }),
   title: Joi.string().required(),
   titlePosition: resourceTitlePosition.when('type', {
@@ -112,22 +112,22 @@ exports.resource = {
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
-  subtitle: Joi.string().optional(),
+  subtitle: Joi.string().allow(null).optional(),
   topic: Joi.string().when('type', {
     is: Joi.valid(['definition']),
-    then: Joi.optional(),
+    then: Joi.allow(null).optional(),
     otherwise: Joi.required(),
   }),
   language: language.required(),
   description: Joi.string()
     .allow('')
-    .optional(),
+    .allow(null).optional(),
   transcript,
-  copyright: Joi.string().optional(),
-  mediaUrl: resourceMediaUrl.optional(),
+  copyright: Joi.string().allow(null).optional(),
+  mediaUrl: resourceMediaUrl.allow(null).optional(),
   visiblePublishedAt: Joi.date()
     .timestamp()
-    .optional(),
+    .allow(null).optional(),
 }
 
 exports.uploadFromGoogleDrive = {
@@ -219,7 +219,7 @@ exports.fullResource = {
   author: Joi.string().when('type', {
     is: Joi.valid(['article', 'focus']),
     then: Joi.required(),
-    otherwise: Joi.optional(),
+    otherwise: Joi.allow(null).optional(),
   }),
   title: Joi.string().required(),
   titlePosition: resourceTitlePosition.when('type', {
@@ -229,22 +229,22 @@ exports.fullResource = {
   }),
   subtitle: Joi.string().when('type', {
     is: Joi.valid(['article', 'focus', 'map']),
-    then: Joi.optional(),
+    then: Joi.allow(null).optional(),
     otherwise: Joi.forbidden(),
   }),
   topic: Joi.string().when('type', {
     is: Joi.valid(['definition', 'single-definition']),
-    then: Joi.optional(),
+    then: Joi.allow(null).optional(),
     otherwise: Joi.required(),
   }),
   language: language.required(),
   description: Joi.string()
     .allow('')
-    .optional(),
+    .allow(null).optional(),
   transcript,
   copyright: Joi.string().when('type', {
     is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
-    then: Joi.optional(),
+    then: Joi.allow(null).optional(),
     otherwise: Joi.forbidden(),
   }),
   status: resourceStatus.required(),
@@ -287,7 +287,7 @@ exports.fullResource = {
   }),
   visiblePublishedAt: Joi.date()
     .timestamp()
-    .optional(),
+    .allow(null).optional(),
 
   // track changes
   updatedBy: exports.email,
@@ -296,8 +296,8 @@ exports.fullResource = {
     .required(),
   updatedAt: Joi.date()
     .timestamp()
-    .optional(),
+    .allow(null).optional(),
   publishedAt: Joi.date()
     .timestamp()
-    .optional(),
+    .allow(null).optional(),
 }

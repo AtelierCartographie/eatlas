@@ -4,7 +4,7 @@ ARG SOURCE_COMMIT
 
 ENV SOURCE_COMMIT=${SOURCE_COMMIT}
 
-RUN echo $SOURCE_COMMIT > /eatlas/.git/ORIG_HEAD
+RUN mkdir /eatlas/.git && echo $SOURCE_COMMIT > /eatlas/.git/ORIG_HEAD
 
 ENV NODE_ENV production
 

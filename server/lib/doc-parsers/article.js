@@ -4,7 +4,7 @@
 
 const mammoth = require('mammoth')
 const cheerio = require('cheerio')
-const { META_CONVERSION } = require('../../../client/src/universal-utils')
+const { META_CONVERSION, META_LIST_EXPECTED } = require('../../../client/src/universal-utils')
 
 // helpers
 
@@ -192,6 +192,9 @@ const extractMetas = nodes =>
     }
     if (m.text) meta.text = m.text
     if (m.list) meta.list = m.list
+    if (META_LIST_EXPECTED.includes(meta.type) && !meta.list) {
+      throw new Error(`La méta "${m.id}" attend une liste, mais un simple texte a été fourni`)
+    }
     return meta
   })
 

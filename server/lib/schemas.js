@@ -2,6 +2,7 @@
 
 const Joi = require('joi')
 const { promisify } = require('util')
+const { META_LIST_EXPECTED } = require('../../client/src/universal-utils')
 
 const validateP = promisify(Joi.validate)
 exports.validate = (value, schema) => validateP(value, schema)
@@ -205,7 +206,7 @@ const meta = Joi.object().keys({
   type: Joi.string().required(),
   text: Joi.string(),
   list: list.when('type', {
-    is: Joi.valid(['keywords', 'related', 'references']),
+    is: Joi.valid(META_LIST_EXPECTED),
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),

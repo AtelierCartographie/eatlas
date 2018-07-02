@@ -96,6 +96,8 @@ exports.META_CONVERSION = {
   'Image header': 'image-header',
 }
 
+exports.META_LIST_EXPECTED = ['keywords', 'references', 'related']
+
 exports.LOCALES = {
   fr: 'Français',
   en: 'English',

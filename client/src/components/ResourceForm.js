@@ -561,7 +561,7 @@ class ResourceForm extends Component<Props, State> {
           <T
             id="resource-visiblePublishedAt-help"
             values={{
-              publishedAt: new Date(resource.publishedAt).toLocaleDateString(
+              publishedAt: new Date(resource.publishedAt || Date.now()).toLocaleDateString(
                 this.props.locale,
               ),
             }}

@@ -18,7 +18,7 @@ const Topics = ({ topics, options }) =>
             {
               href: getTopicPageUrl(t, options),
             },
-            `${t.id}. ${t.name}`,
+            [t.id !== '0' && `${t.id}. `, t.name],
           ),
         ]),
       ),

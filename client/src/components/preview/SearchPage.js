@@ -18,6 +18,17 @@ const searchEndpoint = ({ preview = false } = {}) =>
   (process.env.REACT_APP_API_SERVER || '') +
   (preview ? '/preview/_search' : '/search')
 
+/* in the following lodash templates, the `results` and `formData` variable are
+ set in /client/public/assets/js/eatlas.js:
+results = {
+  start: number,
+  end: number,
+  cound: number,
+  hits: [ hit ]
+}
+*/
+
+
 const hitTextTemplate = `
   <strong class="search-result-title"><%= hit.title %></strong>
   <% if (hit.subtitle) { %>
@@ -61,7 +72,9 @@ ${paginationTemplate}
   <% } else { %>
     <div class="row search-result">
   <% } %>
-    <div class="search-result-type"><%= hit.typeLabel %></div>
+    <% if (!ui.hideSearchResultsType) { %>
+      <div class="search-result-type"><%= hit.typeLabel %></div>
+    <% } %>
     <% if (hit.preview) { %>
       <div class="search-result-preview col-sm-3">
         ${hitPreviewTemplate}

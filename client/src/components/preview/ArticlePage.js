@@ -131,10 +131,7 @@ const Picture = ({
   h('picture', [
     ...sources.map(({ size, minWidth }, key) => {
       const srcSet = srcset(resource, size, options)
-      if (!srcSet) {
-        return null
-      }
-      console.log({ srcSet })
+      if (!srcSet) return null
       const more = minWidth ? { media: `(min-width: ${minWidth})` } : {}
       return h('source', { key, srcSet, ...more })
     }),
@@ -152,7 +149,7 @@ const ArticleResource = ({ resource, options }) => {
           resource,
           options,
           main: { component: 'img.img-responsive', size: 'large' },
-          sources: [{ size: 'large' }],
+          sources: [{ size: 'large', minWidth: 0 }],
         }),
         h('figcaption', resource.copyright),
         h('.ArticleResourceDownload', 'Info & téléchargement'),
@@ -169,7 +166,7 @@ const ArticleResource = ({ resource, options }) => {
           sources: [
             { size: 'large', minWidth: '700px' },
             { size: 'medium', minWidth: '560px' },
-            { size: 'small' },
+            { size: 'small', minWidth: 0 },
           ],
         }),
         h('figcaption.container', resource.copyright),

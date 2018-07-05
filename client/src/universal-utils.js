@@ -142,7 +142,7 @@ exports.TYPES = {
   article: 'Article',
   focus: 'Focus',
   image: 'Photos',
-  map: 'Cartes et diagrammes',
+  map: 'Cartes et graphiques',
   sound: 'Audio',
   video: 'Vidéos',
   definition: 'Lexique',
@@ -160,8 +160,8 @@ exports.footerResourcesConfig = [
   { slug: 'maps-diagrams', types: ['map'], label: types.map },
   {
     slug: 'photos-videos',
-    types: ['image', 'video'],
-    label: `${types.image} et ${types.video.toLowerCase()}`,
+    types: ['image'],
+    label: `${types.image}`,
   },
   { slug: 'focus', types: ['focus'], label: types.focus },
   {

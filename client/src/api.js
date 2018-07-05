@@ -19,7 +19,7 @@ const FAKE_RESOURCE: Resource = {
   topic: '1',
   updatedBy: 'no-one',
   mediaUrl: 'https://vimeo.com/256032055',
-  transcript: ''
+  transcript: '',
 }
 
 const FAKE_TOPICS: Topic[] = [
@@ -27,37 +27,37 @@ const FAKE_TOPICS: Topic[] = [
     id: 1,
     name: 'Présentation',
     resourceId: '',
-    description: '',
+    description_fr: '',
   },
   {
     id: 2,
     name: 'Contrastes et inégalités',
     resourceId: '',
-    description: '',
+    description_fr: '',
   },
   {
     id: 3,
     name: 'Mobilités',
     resourceId: '',
-    description: '',
+    description_fr: '',
   },
   {
     id: 4,
     name: 'Stratégies des acteurs transnationaux',
     resourceId: '',
-    description: '',
+    description_fr: '',
   },
   {
     id: 5,
     name: '(in)sécurités/paix',
     resourceId: '',
-    description: '',
+    description_fr: '',
   },
   {
     id: 6,
     name: 'Vulnérabilités et défis',
     resourceId: '',
-    description: '',
+    description_fr: '',
   },
 ]
 

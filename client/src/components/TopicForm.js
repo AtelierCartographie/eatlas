@@ -36,13 +36,14 @@ const newTopic = {
   id: 0,
   name: '',
   resourceId: '',
-  description: '',
+  description_fr: '',
+  description_en: '',
 }
 
 class TopicForm extends Component<Props, State> {
   state = {
     topic: null,
-    error: null
+    error: null,
   }
 
   componentDidMount() {
@@ -70,6 +71,16 @@ class TopicForm extends Component<Props, State> {
     }))
   }
 
+  handleChangeDescription = ({ target }) => {
+    const { name, value } = target
+    this.setState(state => ({
+      topic: {
+        ...state.topic,
+       [`description_${name}`]: value
+      },
+    }))
+  }
+
   handleSubmit = evt => {
     evt.preventDefault()
     // already saving: cancel
@@ -77,6 +88,9 @@ class TopicForm extends Component<Props, State> {
     // legacy cleaning during the mediaUrl -> resourceId migration
     // $FlowFixMe
     delete this.state.topic.mediaUrl
+    // legacy cleaning during the description -> description_fr migration
+    // $FlowFixMe
+    delete this.state.topic.description
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(
       () => {
@@ -167,19 +181,21 @@ class TopicForm extends Component<Props, State> {
               </div>
             )}
 
-            <div className="field">
-              <label className="label">
-                <T id="resource-description" />
-              </label>
-              <div className="control">
-                <textarea
-                  className="textarea"
-                  name="description"
-                  value={topic.description}
-                  onChange={this.handleChange}
-                />
+            {['fr', 'en'].map(lang => (
+              <div className="field">
+                <label className="label">
+                  <T id="resource-description" /> {lang}
+                </label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    name={lang}
+                    value={topic[`description_${lang}`]}
+                    onChange={this.handleChangeDescription}
+                  />
+                </div>
               </div>
-            </div>
+            ))}
 
             <div className="field is-grouped">
               <div className="control">

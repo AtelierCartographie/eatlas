@@ -45,7 +45,8 @@ declare type Topic = {
   id: number, // this id can't be totally arbitrary, docx rely on special numbers
   name: string,
   resourceId: string, // for the video / image
-  description: string,
+  description_fr: string,
+  description_en: string,
 }
 
 declare type ResourceNew = {

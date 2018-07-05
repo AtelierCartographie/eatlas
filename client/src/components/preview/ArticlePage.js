@@ -79,7 +79,8 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
 
 // french and english (optional)
 const ArticleSummaries = ({ article }) =>
-  h('section.container.resume.ArticleSummaries', [
+  h('section.container.Summaries', [
+    // pills
     !article.summaries.en
       ? null
       : h('ul.langs', { role: 'tablist' }, [
@@ -108,6 +109,7 @@ const ArticleSummaries = ({ article }) =>
             ),
           ]),
         ]),
+    // panes
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),

@@ -1,0 +1,73 @@
+// used in TopicPage and ArticlePage
+
+.Summaries {
+  color: $color-breadcrumb;
+  margin-bottom: $gap6;
+  margin-top: $gap6;
+  // for langs
+  position: relative;
+
+  h2 {
+    background: $color-white;
+    display: inline-block;
+    font-size: 2.2rem;
+    margin-top: 0;
+    padding: 0 8px;
+    position: relative;
+    text-align: center;
+    top: -16px;
+  }
+
+  p {
+    font-family: $serif;
+    font-size: 1.7rem;
+    line-height: 2.6rem;
+    text-align: left;
+  }
+
+  .tab-content {
+    border-top: $color-breadcrumb 1px solid;
+    border-bottom: $color-breadcrumb 1px solid;
+    padding: 0 $gap2;
+    text-align: center;
+  }
+
+  .tab-pane {
+    position: relative;
+  }
+
+  .langs {
+    background: white;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: -12px;
+    z-index: 1;
+
+    li {
+      display: inline-block;
+      margin-right: 5px;
+      height: $gap3;
+      width: $gap3;
+    }
+
+    a {
+      border: 1px solid $color-breadcrumb;
+      color: $color-breadcrumb;
+      display: block;
+      height: $gap3;
+      text-decoration: none;
+      width: $gap3;
+    }
+
+    li.active a,
+    li.active a:hover,
+    li.active a:focus {
+      color: $color-white;
+      background-color: $color-breadcrumb;
+    }
+  }
+}

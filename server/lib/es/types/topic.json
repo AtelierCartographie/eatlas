@@ -9,7 +9,10 @@
     "resourceId": {
       "type": "text"
     },
-    "description": {
+    "description_fr": {
+      "type": "text"
+    },
+    "description_en": {
       "type": "text"
     }
   }

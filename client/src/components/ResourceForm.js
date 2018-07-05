@@ -580,7 +580,7 @@ class ResourceForm extends Component<Props, State> {
         transcript = false,
       }: {
         subtitle?: boolean,
-        titlePosition?: string,
+        titlePosition?: boolean,
         copyright?: boolean,
         topic?: boolean,
         transcript?: boolean,

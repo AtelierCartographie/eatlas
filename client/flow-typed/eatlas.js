@@ -54,6 +54,7 @@ declare type ResourceNew = {
   author: string,
   title: string,
   subtitle?: string, // only article, focus, map
+  titlePosition?: string, // center, top, bottom
   topic: string,
   language: string,
   description: string,

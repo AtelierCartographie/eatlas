@@ -1,5 +1,9 @@
 'use strict'
 
+// React dependencies for HTML generation
+const React = require('react')
+const { renderToStaticMarkup } = require('react-dom/server')
+
 // Tools to grab data required by components
 const {
   flattenMetas,
@@ -19,10 +23,6 @@ const {
   getMetaList,
 } = require('../../client/src/universal-utils')
 
-// React dependencies for HTML generation
-const React = require('react')
-const { renderToStaticMarkup } = require('react-dom/server')
-
 // Inject client-side env variables before requiring components, we don't "require" from there
 const config = require('config')
 const dotenv = require('dotenv')
@@ -35,13 +35,14 @@ for (let key in config.pageUrls) {
 }
 
 // Now all env variables are available just like if it was built for client side
-const ArticlePage = require('../../client/src/components/preview/ArticlePage')
-const FocusPage = require('../../client/src/components/preview/FocusPage')
-const TopicPage = require('../../client/src/components/preview/TopicPage')
-const ResourcePage = require('../../client/src/components/preview/ResourcePage')
-const HomePage = require('../../client/src/components/preview/HomePage')
-const SearchPage = require('../../client/src/components/preview/SearchPage')
-const MissingPage = require('../../client/src/components/preview/MissingPage')
+const PREVIEW_DIR = '../../client/src/components/preview'
+const ArticlePage = require(`${PREVIEW_DIR}/ArticlePage`)
+const FocusPage = require(`${PREVIEW_DIR}/FocusPage`)
+const TopicPage = require(`${PREVIEW_DIR}/TopicPage`)
+const ResourcePage = require(`${PREVIEW_DIR}/ResourcePage`)
+const HomePage = require(`${PREVIEW_DIR}/HomePage`)
+const SearchPage = require(`${PREVIEW_DIR}/SearchPage`)
+const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 
 const GENERATORS = {
   index: 'generateHomeHTML',

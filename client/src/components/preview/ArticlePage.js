@@ -428,8 +428,8 @@ const getPrevNextArticles = (article, articles, topics) => {
   const nextIndex =
     currentIndex !== articles.length - 1 ? currentIndex + 1 : null
 
-  const prev = articles[prevIndex]
-  const next = articles[nextIndex]
+  const prev = prevIndex !== null && articles[prevIndex]
+  const next = nextIndex !== null && articles[nextIndex]
 
   if (prev) prev.topicName = (topics.find(t => t.id === prev.topic) || {}).name
   if (next) next.topicName = (topics.find(t => t.id === next.topic) || {}).name

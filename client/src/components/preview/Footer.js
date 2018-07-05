@@ -1,4 +1,5 @@
 // @flow
+
 const h = require('react-hyperscript')
 const {
   resourcesTypes,
@@ -25,7 +26,7 @@ const Topics = ({ topics, options }) =>
     ),
   ])
 
-const FooterLogo = ({ options }) =>
+const FooterLogo = ({ options } /*: { options: FrontOptions } */) =>
   h('a', [
     h('img', {
       alt: 'Sciences Po',

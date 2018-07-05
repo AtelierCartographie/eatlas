@@ -1,12 +1,6 @@
 // @flow
 // shared by Menu and Footer
 
-/*::
-type Options = {
-  preview: boolean
-}
-*/
-
 const {
   getMediaUrl,
   footerResourcesConfig,
@@ -25,7 +19,7 @@ exports.getImageUrl = (
   { id, images },
   size /*: ResourceSize */ = 'medium',
   density /*: ResourceDensity */ = '1x',
-  { preview = false } /*: Options */ = {},
+  { preview = false } /*: FrontOptions */ = {},
 ) => {
   if (preview) return getMediaPreviewUrl(id, size, density)
 
@@ -35,7 +29,7 @@ exports.getImageUrl = (
 
 exports.getResourcePageUrl = (
   resource /*: Resource */,
-  { preview = false } /*: Options */ = {},
+  { preview = false } /*: FrontOptions */ = {},
 ) =>
   preview
     ? getResourcePagePreviewUrl(resource)
@@ -43,7 +37,7 @@ exports.getResourcePageUrl = (
 
 exports.getTopicPageUrl = (
   topic /*: Topic */,
-  { preview = false } /*: Options */ = {},
+  { preview = false } /*: FrontOptions */ = {},
 ) =>
   preview
     ? `/preview/topics/${topic.id}`
@@ -57,7 +51,7 @@ const globalPageUrl = (key /*: string */, slug) => (preview /*: boolean */) => {
   return slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
 }
 
-const getSearchUrl = (exports.getSearchUrl = (params, { preview = false }) => {
+const getSearchUrl = (exports.getSearchUrl = (params, { preview = false } /*: FrontOptions */) => {
   const url = preview
     ? '/preview/search'
     : process.env['REACT_APP_PAGE_URL_search'] || '#ERROR_SEARCH_URL'

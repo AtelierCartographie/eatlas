@@ -9,8 +9,6 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { HOST } = require('./layout')
-
 // spacing info is not kept by the parsing phase
 // se we need to emulate basic french typo rules here
 const padText = (text, markup, idx) => {
@@ -124,7 +122,7 @@ exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   const year = new Date(
     doc.visiblePublishedAt || doc.publishedAt || Date.now(),
   ).getFullYear()
-  const url = `${HOST}`
+  const url = ''
 
   const bibtex = `@book{eAtlas,
   title={${doc.title}},

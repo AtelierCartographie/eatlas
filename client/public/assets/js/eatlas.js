@@ -90,10 +90,18 @@
       $('.SearchPage .SearchResults .search-results-error').text(data.message)
       $('.SearchPage .SearchResults').attr('data-status', 'error')
     }
-    const showSearchResults = results => {
+    const showSearchResults = (results, formData) => {
       try {
         $('.SearchPage .SearchResults .search-results-success').html(
-          resultTpl({ results }),
+          resultTpl({
+            results,
+            formData,
+            ui: {
+              // no need to repeat the type each time in lexicon
+              hideSearchResultsType:
+                formData.filter(fd => fd.name === 'types[]').length === 1,
+            },
+          }),
         )
         $('.SearchPage .SearchResults').attr('data-status', 'success')
       } catch (err) {
@@ -104,6 +112,7 @@
     // Throttle to avoid user double submit
     const search = _.throttle(updateUrl => {
       const data = $form.serialize() + '&page=' + currPage
+      const formData = $form.serializeArray()
       // Persist search parameters to URL
       if (updateUrl) {
         const qs = `?${data}`
@@ -114,7 +123,7 @@
       }
       // Run query
       $.post($form.attr('data-api-url') || '/search', data).then(
-        showSearchResults,
+        results => showSearchResults(results, formData),
         showSearchError,
       )
     }, 100)

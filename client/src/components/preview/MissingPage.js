@@ -12,7 +12,7 @@ const Head = require('./Head')
 const Body = require('./Body')
 
 const Content = ({ topics, articles, options }) => {
-  return h('article.MissingPage', [
+  return h('article.container.MissingPage', [
     h('h1', 'This page is a placeholder'),
     h('p', 'HTML generator not implemented yet?'),
   ])

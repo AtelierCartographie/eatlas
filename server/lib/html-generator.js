@@ -42,6 +42,7 @@ const TopicPage = require(`${PREVIEW_DIR}/TopicPage`)
 const ResourcePage = require(`${PREVIEW_DIR}/ResourcePage`)
 const HomePage = require(`${PREVIEW_DIR}/HomePage`)
 const SearchPage = require(`${PREVIEW_DIR}/SearchPage`)
+const AboutUsLegalsPage = require(`${PREVIEW_DIR}/AboutUsLegalsPage`)
 const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 
 const GENERATORS = {
@@ -249,6 +250,18 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
 }
 
 exports.generateAboutWhoHTML = generateMissingHTML
+
+// TODO link google form instead #133
 exports.generateAboutContactHTML = generateMissingHTML
-exports.generateAboutLegalsHTML = generateMissingHTML
+
+exports.generateAboutLegalsHTML = async ({ preview = false } = {}, props = {}) => {
+  props = await topMenuProps(props, { preview })
+  return wrap(
+    React.createElement(AboutUsLegalsPage, {
+      ...props,
+      options: { preview },
+    }),
+  )
+}
+
 exports.generateSiteMapHTML = generateMissingHTML

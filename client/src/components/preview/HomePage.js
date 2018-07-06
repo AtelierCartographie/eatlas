@@ -57,13 +57,15 @@ const HomeTeam = () => {
 
 const Home = ({ topics, options }) => {
   return h('article.HomePage', [
+    h('video.HomeVideo', { autoPlay: true, loop: true }, [
+      h('source', {
+        type: 'video/mp4',
+        src: prefixUrl('/assets/viz-home-bg-1080p.mp4', options.preview),
+      }),
+    ]),
     h('header.container.HomeHeader', [
       h('h1.HomeTitle', 'Un atlas pour comprendre'),
       h('h1.HomeTitle.HomeTitleTyped', "l'espace mondial contemporain"),
-      h('div', [
-        h('button', 'Commencer la lecture'),
-        h('button.tour', 'Visite guidée'),
-      ]),
       h('div', [
         h('input', {
           placeholder: "Rechercher dans l'atlas",

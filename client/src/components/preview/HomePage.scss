@@ -2,10 +2,14 @@
 $color-blue: #4778d1;
 
 .HomePage {
-  background: linear-gradient(#ffe180, #fff7d9);
+
+  .HomeVideo {
+    position: absolute;
+    z-index: -1;
+  }
 
   .HomeHeader {
-    margin-bottom: 48px;
+    margin-bottom: 96px;
     padding-top: 48px;
 
     .HomeTitle {
@@ -14,6 +18,7 @@ $color-blue: #4778d1;
       font-weight: bold;
       line-height: 4rem;
       margin-top: 96px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, .2);
 
       @include breakpoint(desktop) {
         font-size: 7rem;
@@ -22,7 +27,7 @@ $color-blue: #4778d1;
     }
 
     .HomeTitleTyped {
-      color: $color-blue;
+      color: $color-yellow;
       font-weight: normal;
       margin-top: 0;
     }
@@ -57,7 +62,7 @@ $color-blue: #4778d1;
   }
 
   button {
-    background-color: $color-blue;
+    background-color: $color-breadcrumb;
     border: 0;
     border-radius: $gap;
     color: $color-white;
@@ -81,6 +86,7 @@ $color-blue: #4778d1;
     font-size: 1.4rem;
     margin-right: $gap;
     padding: 8px;
+    width: 50%;
   }
 
   .HomeTopics {

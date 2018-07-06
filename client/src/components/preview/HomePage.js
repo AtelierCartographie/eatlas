@@ -8,7 +8,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { prefixUrl, getSearchUrl } = require('./layout')
+const { prefixUrl, getSearchUrl, getTopicPageUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -109,7 +109,7 @@ const Home = ({ topics, options }) => {
         h('h2', 'Sommaire'),
         h('.row', [
           h('.col-sm-4', [
-            h('.HomeTopic', [
+            h('a.HomeTopic', { href: getTopicPageUrl(topics[0], options) }, [
               h('.TopicNumber'),
               h('.TopicName', topics[0].name),
             ]),
@@ -121,7 +121,7 @@ const Home = ({ topics, options }) => {
             .slice(1)
             .map(t =>
               h('.col-md-4', [
-                h('.HomeTopic', [
+                h('a.HomeTopic', { href: getTopicPageUrl(t, options) }, [
                   h('.TopicNumber', t.id),
                   h('.TopicName', t.name),
                 ]),

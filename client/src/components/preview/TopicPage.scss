@@ -11,6 +11,7 @@
       font-weight: bold;
       line-height: 7rem;
       margin-top: 90px;
+      min-height: 7rem;
 
       @include breakpoint(desktop) {
         font-size: 12rem;

@@ -17,7 +17,12 @@ const Body = require('./Body')
 const HomeTeamMember = ({ member }) => {
   return h('li.HomeTeamMember', [
     h('.avatar'),
-    [h('div', [h('.HomeTeamMemberName', member[0]), h('.HomeTeamMemberName', member[1])])],
+    [
+      h('div', [
+        h('.HomeTeamMemberName', member[0]),
+        h('.HomeTeamMemberName', member[1]),
+      ]),
+    ],
   ])
 }
 
@@ -104,8 +109,10 @@ const Home = ({ topics, options }) => {
         h('h2', 'Sommaire'),
         h('.row', [
           h('.col-sm-4', [
-            h('.TopicNumber'),
-            h('div', topics[0].name),
+            h('.HomeTopic', [
+              h('.TopicNumber'),
+              h('.TopicName', topics[0].name),
+            ]),
           ]),
         ]),
         h(
@@ -113,7 +120,12 @@ const Home = ({ topics, options }) => {
           topics
             .slice(1)
             .map(t =>
-              h('.col-sm-4', [h('.TopicNumber', t.id), h('div', t.name)]),
+              h('.col-md-4', [
+                h('.HomeTopic', [
+                  h('.TopicNumber', t.id),
+                  h('.TopicName', t.name),
+                ]),
+              ]),
             ),
         ),
       ]),
@@ -137,13 +149,15 @@ const Home = ({ topics, options }) => {
   ])
 }
 
-const HomePage = (
-  {
-    topics,
-    articles,
-    options,
-  } /*:{topics: Topic[], articles: Resource[], options: Object }*/,
-) =>
+const HomePage = ({
+  topics,
+  articles,
+  options,
+} /*: {
+  topics: Topic[],
+  articles: Resource[],
+  options: Object,
+} */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'eAtlas', options }),
     h(Body, { topics, articles, options, topMenu: true, logoColor: 'white' }, [

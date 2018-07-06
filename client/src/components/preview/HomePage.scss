@@ -1,4 +1,4 @@
-@import 'var';
+@import "var";
 $color-blue: #4778d1;
 
 .HomePage {
@@ -28,11 +28,15 @@ $color-blue: #4778d1;
     }
   }
 
-  .HomeNav, .HomeTopics, .HomeTeam {
+  .HomeNav,
+  .HomeTopics,
+  .HomeTeam {
     background: $color-footer;
   }
 
-  .HomeBook, .HomeProject, .HomeResources {
+  .HomeBook,
+  .HomeProject,
+  .HomeResources {
     background: $color-white;
   }
 
@@ -40,11 +44,14 @@ $color-blue: #4778d1;
     padding: $gap4;
   }
 
-  section, p, li {
+  section,
+  p,
+  li {
     font-size: 1.4rem;
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     color: $color-breadcrumb;
     margin-top: 0;
   }
@@ -77,18 +84,22 @@ $color-blue: #4778d1;
   }
 
   .HomeTopics {
-    .row > div {
+    .HomeTopic {
       background: $color-breadcrumb;
       border-radius: $gap;
       color: $color-white;
-      height: 100px;
+      font-weight: bold;
+      height: 120px;
       padding: $gap;
-      margin: $gap;
+      margin: $gap2 0;
     }
 
     .TopicNumber {
       font-size: 3.2rem;
       min-height: 3.2rem;
+    }
+    .TopicName {
+      font-size: 1.8rem;
     }
   }
 

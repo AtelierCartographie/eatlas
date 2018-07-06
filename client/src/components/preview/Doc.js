@@ -57,7 +57,7 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
         return h(m.type, { key: idx }, m.text)
 
       case 'link':
-        return h('a.external', { href: m.url }, m.text)
+        return h('a.external', { href: m.url, target: '_blank' }, m.text)
 
       case 'lexicon':
         return h(

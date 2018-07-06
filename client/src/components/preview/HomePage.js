@@ -104,7 +104,7 @@ const Home = ({ topics, options }) => {
         h('h2', 'Sommaire'),
         h('.row', [
           h('.col-sm-4', [
-            h('.TopicNumber', topics[0].id),
+            h('.TopicNumber'),
             h('div', topics[0].name),
           ]),
         ]),

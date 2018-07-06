@@ -23,7 +23,7 @@ const searchEndpoint = ({ preview = false } = {}) =>
 results = {
   start: number,
   end: number,
-  cound: number,
+  count: number,
   hits: [ hit ]
 }
 */
@@ -121,7 +121,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
         'aria-haspopup': 'true',
         'aria-expanded': 'false',
       },
-      ['Filtrer', h('span.caret')],
+      ['Filtrer', h('span.SearchFiltersCount'), h('span.caret')],
     ),
     h('.search-filters.dropdown-menu', [
       h('h1.search-filters-title', 'Affiner la recherche'),

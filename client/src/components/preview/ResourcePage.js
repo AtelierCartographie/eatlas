@@ -152,13 +152,15 @@ const Resource = ({ resource }) => {
   ])
 }
 
-const ResourcePage = (
-  {
-    resource,
-    topics,
-    options,
-  } /*:{resource: Resource, topics: Topic[], options: Object }*/,
-) =>
+const ResourcePage = ({
+  resource,
+  topics,
+  options,
+} /*: {
+  resource: Resource,
+  topics: Topic[],
+  options: Object,
+} */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: resource.title, options }),
     h(Body, { topics, options }, [h(Resource, { resource, topics, options })]),

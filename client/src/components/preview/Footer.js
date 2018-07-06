@@ -34,10 +34,10 @@ const FooterLogo = ({ options } /*: { options: FrontOptions } */) =>
     }),
   ])
 
-const FooterUl = ({ array, options }) =>
+const FooterUl = ({ links, options }) =>
   h(
     'ul',
-    array.map((r, i) =>
+    links.map((r, i) =>
       h('li', { key: i }, [h('a', { href: r.url(options.preview) }, r.text)]),
     ),
   )
@@ -57,11 +57,11 @@ module.exports = ({
       ]),
       h('.FooterColResources', [
         h('h2', 'Resources'),
-        h(FooterUl, { array: resourcesTypes, options }),
+        h(FooterUl, { links: resourcesTypes, options }),
       ]),
       h('.FooterColAPropos', [
         h('h2', 'À propos'),
-        h(FooterUl, { array: aPropos, options }),
+        h(FooterUl, { links: aPropos, options }),
       ]),
       h('.FooterColLogo', [h(FooterLogo, { options })]),
     ]),

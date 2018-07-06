@@ -55,6 +55,9 @@
       $('.SearchPageTitleType').text(title)
     }
 
+    const setFiltersCount = count =>
+      $('.SearchFiltersCount').text(count ? `(${count})` : '')
+
     // TODO brittle solution
     const updatePageTitle = () => {
       const searchParams = new URLSearchParams(window.location.search)
@@ -104,6 +107,8 @@
           }),
         )
         $('.SearchPage .SearchResults').attr('data-status', 'success')
+        // only checkboxes for now
+        setFiltersCount(formData.filter(fd => fd.name.endsWith('[]')).length)
       } catch (err) {
         showSearchError(err)
       }

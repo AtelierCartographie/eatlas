@@ -99,29 +99,36 @@ const ResourceLexicon = ({ definitions }) =>
 
 const Resource = ({ resource }) => {
   let children
+  // TODO proper i18n for FO
+  let displayedType = resource.type
   switch (resource.type) {
     case 'definition':
+      displayedType = 'Définition'
       children = [h(ResourceLexicon, { definitions: resource.definitions })]
       break
     case 'map':
+      displayedType = 'Carte'
       children = [
         h(ResourceMap, { resource }),
         h(ResourceCopyright, { resource }),
       ]
       break
     case 'image':
+      displayedType = 'Image'
       children = [
         h(ResourceImage, { resource }),
         h(ResourceCopyright, { resource }),
       ]
       break
     case 'sound':
+      displayedType = 'Son'
       children = [
         h(ResourceSound, { resource }),
         h(ResourceCopyright, { resource }),
       ]
       break
     case 'video':
+      displayedType = 'Vidéo'
       children = [
         h(ResourceVideo, { resource }),
         h(ResourceCopyright, { resource }),
@@ -134,7 +141,7 @@ const Resource = ({ resource }) => {
   return h('article.ResourcePage', [
     h('header.container.ResourceHeader', [
       h('.PageTitle', 'Ressources'),
-      h('.ResourceType', resource.type),
+      h('.ResourceType', displayedType),
       h('h1.ResourceTitle', resource.title),
     ]),
     children,

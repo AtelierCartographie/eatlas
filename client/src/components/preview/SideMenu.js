@@ -14,7 +14,11 @@ const Topics = ({ topics, options }) =>
     'ul.nav.navmenu-nav',
     topics.map((t, i) =>
       h('li', { key: i }, [
-        h('a', { href: getTopicPageUrl(t, options) }, `${t.id}. ${t.name}`),
+        h(
+          'a',
+          { href: getTopicPageUrl(t, options) },
+          [t.id !== '0' && `${t.id}. `, t.name],
+        ),
       ]),
     ),
   )
@@ -59,9 +63,13 @@ const APropos = ({ options }) =>
     ),
   ])
 
-exports.SideMenu = (
-  { topics, options } /*: { topics: Topic[], options: Object } */,
-) =>
+exports.SideMenu = ({
+  topics,
+  options,
+} /*: {
+  topics: Topic[],
+  options: Object,
+} */) =>
   h(
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },

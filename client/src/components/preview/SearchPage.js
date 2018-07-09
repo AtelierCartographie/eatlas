@@ -171,6 +171,8 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           }),
         ],
       ]),
+      // TODO show this filters in the future - #133
+      /*
       ...filtersToggle(
         'Langue',
         Object.keys(locales).map(locale => [
@@ -183,6 +185,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           h('span', { key: 'label' }, locales[locale]),
         ]),
       ),
+      */
       ...filtersToggle(
         'Type',
         Object.keys(types).map(type => [

@@ -11,6 +11,47 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 
+const TeamMember = ({ member }) => {
+  return h('li.TeamMember', [
+    h('.avatar'),
+    [
+      h('div', [
+        h('.TeamMemberName', member[0]),
+        h('.TeamMemberName', member[1]),
+      ]),
+    ],
+  ])
+}
+
+const Team = () => {
+  const authors = [
+    ['Delphine', 'Allès'],
+    ['Mélanie', 'Albaret'],
+    ['Philippe', 'Copinschi'],
+    ['Marie Françoise', 'Durand'],
+    ['Lucile', 'Maertens'],
+    ['Delphine', 'Placidi-Frot'],
+  ]
+
+  const cartographers = [
+    ['Thomas', 'Ansart'],
+    ['Benoît', 'Martin'],
+    ['Patrice', 'Mitrano'],
+    ['Anouk', 'Pettes'],
+    ['Antoine', 'Rio'],
+  ]
+
+  return h('section.AboutTeam', [
+    h('.container', [
+      h('h2', "L'équipe"),
+      h('h3', 'Les textes'),
+      h('ul', authors.map(member => h(TeamMember, { member }))),
+      h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
+      h('ul', cartographers.map(member => h(TeamMember, { member }))),
+    ]),
+  ])
+}
+
 const About = ({ topics, options }) => {
   return h('article.AboutPage', [
     h('header.AboutHeader', [
@@ -31,6 +72,7 @@ const About = ({ topics, options }) => {
         ]),
       ]),
     ]),
+    h(Team),
     h('section.AboutBook', [
       h('.container', [
         h('.row', [

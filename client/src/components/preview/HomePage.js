@@ -14,47 +14,6 @@ const Body = require('./Body')
 
 // subcomponents
 
-const HomeTeamMember = ({ member }) => {
-  return h('li.HomeTeamMember', [
-    h('.avatar'),
-    [
-      h('div', [
-        h('.HomeTeamMemberName', member[0]),
-        h('.HomeTeamMemberName', member[1]),
-      ]),
-    ],
-  ])
-}
-
-const HomeTeam = () => {
-  const authors = [
-    ['Delphine', 'Allès'],
-    ['Mélanie', 'Albaret'],
-    ['Philippe', 'Copinschi'],
-    ['Marie Françoise', 'Durand'],
-    ['Lucile', 'Maertens'],
-    ['Delphine', 'Placidi-Frot'],
-  ]
-
-  const cartographers = [
-    ['Thomas', 'Ansart'],
-    ['Benoît', 'Martin'],
-    ['Patrice', 'Mitrano'],
-    ['Anouk', 'Pettes'],
-    ['Antoine', 'Rio'],
-  ]
-
-  return h('section.HomeTeam', [
-    h('.container', [
-      h('h2', "L'équipe"),
-      h('h3', 'Six auteurs'),
-      h('ul', authors.map(member => h(HomeTeamMember, { member }))),
-      h('h3', 'Cinq cartographes (Sciences Po - Atelier de cartographie)'),
-      h('ul', cartographers.map(member => h(HomeTeamMember, { member }))),
-    ]),
-  ])
-}
-
 const Home = ({ topics, options }) => {
   return h('article.HomePage', [
     h('video.HomeVideo', { autoPlay: true, loop: true }, [
@@ -147,7 +106,6 @@ const Home = ({ topics, options }) => {
         ]),
       ]),
     ]),
-    h(HomeTeam),
   ])
 }
 

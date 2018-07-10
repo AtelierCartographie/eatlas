@@ -42,7 +42,7 @@ const Home = ({ topics, options }) => {
       h('.container', [
         h('h2', 'Sommaire'),
         h('.row', [
-          h('.col-sm-4', [
+          h('.col-xs-6 .col-md-4', [
             h('a.HomeTopic', { href: getTopicPageUrl(topics[0], options) }, [
               h('.TopicNumber'),
               h('.TopicName', topics[0].name),
@@ -54,7 +54,7 @@ const Home = ({ topics, options }) => {
           topics
             .slice(1)
             .map(t =>
-              h('.col-md-4', [
+              h('.col-xs-6 .col-md-4', [
                 h('a.HomeTopic', { href: getTopicPageUrl(t, options) }, [
                   h('.TopicNumber', t.id),
                   h('.TopicName', t.name),

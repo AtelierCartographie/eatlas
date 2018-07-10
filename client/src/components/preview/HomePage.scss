@@ -5,6 +5,11 @@
   .HomeVideo {
     position: absolute;
     z-index: -1;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translateX(-50%) translateY(-50%);
   }
 
   .HomeHeader {
@@ -107,11 +112,19 @@
     }
 
     .TopicNumber {
-      font-size: 3.2rem;
-      min-height: 3.2rem;
+      font-size: 2.9rem;
+      min-height: 2.9rem;
+
+      @include breakpoint(desktop) {
+        font-size: 3.2rem;
+      }
     }
     .TopicName {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
+
+      @include breakpoint(desktop) {
+        font-size: 1.8rem;
+      }
     }
   }
 }

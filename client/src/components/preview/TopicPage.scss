@@ -20,9 +20,7 @@
     }
 
     .TopicName {
-      font-family: $serif;
       font-size: 3.8rem;
-      font-style: italic;
       line-height: 4.1rem;
 
       @include breakpoint(desktop) {

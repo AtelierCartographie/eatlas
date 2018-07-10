@@ -51,6 +51,7 @@ const GENERATORS = {
   search: 'generateSearchHTML',
   project: 'generateAboutHTML',
   team: 'generateAboutHTML',
+  book: 'generateAboutHTML',
   contact: 'generateContactHTML',
   legals: 'generateLegalsHTML',
   sitemap: 'generateSiteMapHTML',

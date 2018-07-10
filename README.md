@@ -129,6 +129,7 @@ Le côté serveur est configuré à l'aide de fichiers, dans le dossier `config`
     "resources": "ressources-$resourcesSlug.html",
     "project": "a-propos.html#project",
     "team": "a-propos.html#team",
+    "book": "a-propos.html#book",
     "contact": "GOOGLE FORM URL",
     "legals": "mentions-legales.html",
     "sitemap": "plan-du-site.html",

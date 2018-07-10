@@ -41,7 +41,7 @@ const Team = () => {
     ['Antoine', 'Rio'],
   ]
 
-  return h('section.AboutTeam', [
+  return h('section.AboutTeam#team', [
     h('.container', [
       h('h2', "L'équipe"),
       h('h3', 'Les textes'),
@@ -57,7 +57,7 @@ const About = ({ topics, options }) => {
     h('header.AboutHeader', [
       h('.container', [h('h1.AboutTitle', 'À propos')]),
     ]),
-    h('section.AboutProject', [
+    h('section.AboutProject#project', [
       h('.container', [
         h('h2', 'Le projet'),
         h('h3', 'La génèse'),
@@ -78,7 +78,7 @@ const About = ({ topics, options }) => {
       ]),
     ]),
     h(Team),
-    h('section.AboutContact', [
+    h('section.AboutContact#contact', [
       h('.container', [
         h('h2', 'Nous contacter'),
         h('.row', [
@@ -89,7 +89,7 @@ const About = ({ topics, options }) => {
         ]),
       ]),
     ]),
-    h('section.AboutBook', [
+    h('section.AboutBook#book', [
       h('.container', [
         h('h2', 'Le livre'),
         h('.row', [

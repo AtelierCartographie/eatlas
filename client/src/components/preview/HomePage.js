@@ -8,7 +8,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { prefixUrl, getSearchUrl, getTopicPageUrl } = require('./layout')
+const { prefixUrl, getSearchUrl, getTopicPageUrl, globalPageUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -90,6 +90,7 @@ const Home = ({ topics, options }) => {
           ]),
           h('.col-sm-6'),
         ]),
+        h('a.more', { href: globalPageUrl('project')(options.preview) }, 'En savoir plus >'),
       ]),
     ]),
     h('section.HomeTeam', [
@@ -105,6 +106,7 @@ const Home = ({ topics, options }) => {
           'p',
           'Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio',
         ),
+        h('a.more', { href: globalPageUrl('team')(options.preview)  }, 'En savoir plus >'),
       ]),
     ]),
     h('section.HomeBook', [
@@ -116,7 +118,8 @@ const Home = ({ topics, options }) => {
               'p',
               'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
             ),
-            h('button', 'Acheter le livre'),
+            h('a.more', { href: globalPageUrl('book')(options.preview)  }, 'En savoir plus >'),
+            h('div', [h('button', 'Acheter le livre')]),
           ]),
           h('.col-sm-6', ''),
         ]),

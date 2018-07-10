@@ -43,7 +43,7 @@ exports.getTopicPageUrl = (
     ? `/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
-const globalPageUrl = (key /*: string */, slug) => (preview /*: boolean */) => {
+const globalPageUrl = exports.globalPageUrl = (key /*: string */, slug) => (preview /*: boolean */) => {
   if (preview) return `/preview/${key}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''

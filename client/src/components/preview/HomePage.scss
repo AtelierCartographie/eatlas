@@ -1,5 +1,4 @@
 @import "var";
-$color-blue: #4778d1;
 
 .HomePage {
 
@@ -87,6 +86,12 @@ $color-blue: #4778d1;
     margin-right: $gap;
     padding: 8px;
     width: 50%;
+  }
+
+  a.more {
+    color: $color-breadcrumb;
+    font-style: italic;
+    font-weight: bold;
   }
 
   .HomeTopics {

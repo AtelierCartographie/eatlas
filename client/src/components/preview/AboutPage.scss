@@ -1,10 +1,9 @@
 @import "var";
 
 .AboutPage {
-
   .AboutHeader {
     background: $color-breadcrumb;
-    color: rgba(255,255,255,.9);
+    color: rgba(255, 255, 255, 0.9);
     padding-bottom: 96px;
     padding-top: 96px;
 
@@ -14,7 +13,7 @@
       font-weight: bold;
       line-height: 4rem;
       margin-top: 96px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 
       @include breakpoint(desktop) {
         font-size: 7rem;
@@ -47,6 +46,25 @@
   h3 {
     color: $color-breadcrumb;
     margin-top: 0;
+  }
+
+  button {
+    background-color: $color-breadcrumb;
+    border: 0;
+    border-radius: $gap;
+    color: $color-white;
+    font-size: 1.4rem;
+    margin: $gap $gap 0 0;
+    padding: $gap;
+
+    &.tour {
+      background: $color-white;
+      color: $color-breadcrumb;
+    }
+
+    img {
+      height: 24px;
+    }
   }
 
   .AboutTeam {

@@ -44,14 +44,17 @@ exports.getTopicPageUrl = (
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
 const globalPageUrl = (key /*: string */, slug) => (preview /*: boolean */) => {
-  if (preview) return '#NO_PREVIEW_FOR_' + key
+  if (preview) return `/preview/${key}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''
   if (!urlTemplate) return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
   return slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
 }
 
-const getSearchUrl = (exports.getSearchUrl = (params, { preview = false } /*: FrontOptions */) => {
+const getSearchUrl = (exports.getSearchUrl = (
+  params,
+  { preview = false } /*: FrontOptions */,
+) => {
   const url = preview
     ? '/preview/search'
     : process.env['REACT_APP_PAGE_URL_search'] || '#ERROR_SEARCH_URL'
@@ -83,8 +86,12 @@ exports.resourcesTypes = footerResourcesConfig.map(({ types, label }) => ({
 
 exports.aPropos = [
   {
-    text: 'Qui sommes-nous ?',
-    url: globalPageUrl('aboutUs'),
+    text: 'Le projet',
+    url: globalPageUrl('project'),
+  },
+  {
+    text: "L'équipe",
+    url: globalPageUrl('team'),
   },
   {
     text: 'Nous contacter',

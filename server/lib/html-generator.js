@@ -42,7 +42,7 @@ const TopicPage = require(`${PREVIEW_DIR}/TopicPage`)
 const ResourcePage = require(`${PREVIEW_DIR}/ResourcePage`)
 const HomePage = require(`${PREVIEW_DIR}/HomePage`)
 const SearchPage = require(`${PREVIEW_DIR}/SearchPage`)
-const AboutUsLegalsPage = require(`${PREVIEW_DIR}/AboutUsLegalsPage`)
+const LegalsPage = require(`${PREVIEW_DIR}/LegalsPage`)
 const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 
 const GENERATORS = {
@@ -258,7 +258,7 @@ exports.generateContactHTML = generateMissingHTML
 exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
   props = await topMenuProps(props, { preview })
   return wrap(
-    React.createElement(AboutUsLegalsPage, {
+    React.createElement(LegalsPage, {
       ...props,
       options: { preview },
     }),

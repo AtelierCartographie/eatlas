@@ -60,27 +60,43 @@ const About = ({ topics, options }) => {
     h('section.AboutProject', [
       h('.container', [
         h('h2', 'Le projet'),
-        h('.row', [
-          h(
-            '.col-sm-6',
-            'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-          ),
-          h(
-            '.col-sm-6',
-            'nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-          ),
-        ]),
+        h('h3', 'La génèse'),
+        h(
+          'p',
+          'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+        ),
+        h('h3', 'Paragraphe 2'),
+        h(
+          'p',
+          'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+        ),
+        h('h3', 'Paragraphe 3'),
+        h(
+          'p',
+          'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+        ),
       ]),
     ]),
     h(Team),
+    h('section.AboutContact', [
+      h('.container', [
+        h('h2', 'Nous contacter'),
+        h('.row', [
+          h('.col-sm-8', [
+            'Rentrer en contact avec les rédacteurs et les cartographes',
+          ]),
+          h('.col-sm-4', [h('button', 'Nous contacter')]),
+        ]),
+      ]),
+    ]),
     h('section.AboutBook', [
       h('.container', [
+        h('h2', 'Le livre'),
         h('.row', [
-          h('.col-sm-4', [
+          h('.col-sm-8', [
             'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
-            h('button', 'Acheter le livre'),
           ]),
-          h('.col-sm-8', ''),
+          h('.col-sm-4', [h('button', 'Acheter le livre')]),
         ]),
       ]),
     ]),

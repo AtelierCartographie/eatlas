@@ -33,16 +33,16 @@ $color-blue: #4778d1;
     }
   }
 
-  .HomeNav,
-  .HomeTopics,
-  .HomeTeam {
+  .HomeTopics, .HomeAbout, .HomeBook {
+    background: $color-white;
+  }
+
+  .HomeResources {
     background: $color-footer;
   }
 
-  .HomeBook,
-  .HomeProject,
-  .HomeResources {
-    background: $color-white;
+  .HomeTeam {
+    background: $color-keyword;
   }
 
   section {
@@ -107,50 +107,6 @@ $color-blue: #4778d1;
     }
     .TopicName {
       font-size: 1.8rem;
-    }
-  }
-
-  .HomeTeam {
-    ul {
-      display: flex;
-      flex-direction: column;
-      list-style: none;
-      justify-content: space-between;
-      padding: 0;
-
-      @include breakpoint(desktop) {
-        flex-direction: row;
-      }
-    }
-
-    .HomeTeamMember {
-      align-items: center;
-      display: flex;
-      justify-content: start;
-      margin-bottom: $gap;
-
-      @include breakpoint(desktop) {
-        flex-direction: column;
-      }
-    }
-
-    .HomeTeamMemberName {
-      @include breakpoint(desktop) {
-        text-align: center;
-        white-space: nowrap;
-      }
-    }
-
-    .avatar {
-      background: $color-keyword;
-      border-radius: 50%;
-      height: 64px;
-      margin: 0 $gap 0 0;
-      width: 64px;
-
-      @include breakpoint(desktop) {
-        margin: 0 auto $gap;
-      }
     }
   }
 }

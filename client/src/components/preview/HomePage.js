@@ -38,33 +38,6 @@ const Home = ({ topics, options }) => {
         ]),
       ]),
     ]),
-    h('section.HomeNav', [
-      h('.container', [
-        h('.row', [
-          h('.col-sm-4', [
-            'Un ouvrage numérique accessible librement fruit d’une collaboration de six auteurs.',
-
-            h('button', 'Accéder au sommaire'),
-          ]),
-          h('.col-sm-4', [
-            'Des ressources originales nombreuses (cartes, graphiques, photos, définitions)',
-            h('button', 'Voir les ressources'),
-          ]),
-          h('.col-sm-4', 'Un projet mené par trois équipes de Sciences Po.'),
-        ]),
-      ]),
-    ]),
-    h('section.HomeBook', [
-      h('.container', [
-        h('.row', [
-          h('.col-sm-4', [
-            'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
-            h('button', 'Acheter le livre'),
-          ]),
-          h('.col-sm-8', ''),
-        ]),
-      ]),
-    ]),
     h('section.HomeTopics', [
       h('.container', [
         h('h2', 'Sommaire'),
@@ -91,18 +64,61 @@ const Home = ({ topics, options }) => {
         ),
       ]),
     ]),
+    h('section.HomeResources', [
+      h('.container', [
+        h('h2', 'Ressources'),
+        h('.row', [
+          h('.col-sm-6', [
+            h(
+              'p',
+              'Lorem ipsum dolor sit amet, cartes et graphiques consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam  erat  photos  volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation  lexique ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
+            ),
+          ]),
+          h('.col-sm-6'),
+        ]),
+      ]),
+    ]),
     h('section.HomeProject', [
       h('.container', [
-        h('h2', 'Le projet'),
+        h('h2', 'À propos'),
         h('.row', [
-          h(
-            '.col-sm-6',
-            'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-          ),
-          h(
-            '.col-sm-6',
-            'nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-          ),
+          h('.col-sm-6', [
+            h(
+              'p',
+              'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+            ),
+          ]),
+          h('.col-sm-6'),
+        ]),
+      ]),
+    ]),
+    h('section.HomeTeam', [
+      h('.container', [
+        h('h2', "L'équipe"),
+        h('h3', 'Les textes'),
+        h(
+          'p',
+          'Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens et Delphine Placidi-Frot',
+        ),
+        h('h3', 'Les visualisations : Sciences Po - Atelier de cartographie'),
+        h(
+          'p',
+          'Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio',
+        ),
+      ]),
+    ]),
+    h('section.HomeBook', [
+      h('.container', [
+        h('h2', 'Le livre'),
+        h('.row', [
+          h('.col-sm-6', [
+            h(
+              'p',
+              'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
+            ),
+            h('button', 'Acheter le livre'),
+          ]),
+          h('.col-sm-6', ''),
         ]),
       ]),
     ]),

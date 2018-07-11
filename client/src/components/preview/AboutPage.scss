@@ -2,10 +2,16 @@
 
 .AboutPage {
   .AboutHeader {
-    background: $color-breadcrumb;
+    background: no-repeat fixed 90% 20%/250px url("../assets/img/sciences-po-embleme.png"),
+    $color-breadcrumb;
     color: rgba(255, 255, 255, 0.9);
     padding-bottom: 96px;
     padding-top: 96px;
+
+    @include breakpoint(desktop) {
+      background-position: 90% 13%;
+      background-size: 400px;
+    }
 
     .AboutTitle {
       color: $color-white;
@@ -48,6 +54,17 @@
     margin-top: 0;
   }
 
+  .logo {
+    // TODO centrer verticalement le logo
+
+    img {
+      width: 240px;
+      margin: 0 0 20px;
+    }
+  }
+
+
+
   button {
     background-color: $color-breadcrumb;
     border: 0;
@@ -80,7 +97,7 @@
       }
     }
 
-    .AboutTeamMember {
+    .TeamMember {
       align-items: center;
       display: flex;
       justify-content: start;
@@ -91,7 +108,7 @@
       }
     }
 
-    .AboutTeamMemberName {
+    .TeamMemberName {
       @include breakpoint(desktop) {
         text-align: center;
         white-space: nowrap;
@@ -101,9 +118,9 @@
     .avatar {
       background: $color-keyword;
       border-radius: 50%;
-      height: 64px;
+      height: 96px;
       margin: 0 $gap 0 0;
-      width: 64px;
+      width: 96px;
 
       @include breakpoint(desktop) {
         margin: 0 auto $gap;

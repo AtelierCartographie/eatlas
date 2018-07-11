@@ -10,9 +10,12 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const {
+  prefixUrl,
+} = require('./layout')
 
 const TeamMember = ({ member }) => {
-  return h('li.TeamMember', [
+  return h('li.col-md-2.TeamMember', [
     h('.avatar'),
     [
       h('div', [
@@ -39,6 +42,7 @@ const Team = () => {
     ['Patrice', 'Mitrano'],
     ['Anouk', 'Pettes'],
     ['Antoine', 'Rio'],
+    ['', '']
   ]
 
   return h('section.AboutTeam#team', [
@@ -61,10 +65,17 @@ const About = ({ topics, options }) => {
       h('.container', [
         h('h2', 'Le projet'),
         h('h3', 'La génèse'),
-        h(
-          'p',
+        h('.row', [
+          h('p.col-sm-8',
           'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-        ),
+          ),
+          h('a.col-sm-4.logo', [
+            h('img', {
+              alt: 'Sciences Po',
+              src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
+            }),
+          ]),
+        ]),
         h('h3', 'Paragraphe 2'),
         h(
           'p',
@@ -114,7 +125,7 @@ const AboutPage = ({
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'À propos', options }),
-    h(Body, { topics, options, topMenu: true, logoColor: 'white' }, [
+    h(Body, { topics, options, topMenu: false, logoColor: 'white' }, [
       h(About, { topics, articles, options }),
     ]),
   ])

@@ -4,7 +4,10 @@
 
 const mammoth = require('mammoth')
 const cheerio = require('cheerio')
-const { META_CONVERSION, META_LIST_EXPECTED } = require('../../../client/src/universal-utils')
+const {
+  META_CONVERSION,
+  META_LIST_EXPECTED,
+} = require('../../../client/src/universal-utils')
 
 // helpers
 
@@ -45,6 +48,9 @@ const parseLexicon = ($, el) =>
     )
     // beware of cheerio and flatMap
     .map((i, el) => [getText($, el)])
+    // in some weird documents, the "red range" include blanks and punctuation marks
+    // see 5A05 "Alimentation" pre vs pro editing
+    .filter((i, text) => text.length > 1)
     .get()
 
 const parseResource = text => {
@@ -193,7 +199,9 @@ const extractMetas = nodes =>
     if (m.text) meta.text = m.text
     if (m.list) meta.list = m.list
     if (META_LIST_EXPECTED.includes(meta.type) && !meta.list) {
-      throw new Error(`La méta "${m.id}" attend une liste, mais un simple texte a été fourni`)
+      throw new Error(
+        `La méta "${m.id}" attend une liste, mais un simple texte a été fourni`,
+      )
     }
     return meta
   })

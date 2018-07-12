@@ -142,6 +142,9 @@ const Picture = ({
     }),
   ])
 
+const FigCaption = ({ content }) =>
+  h('figcaption.container', { dangerouslySetInnerHTML: { __html: content } })
+
 const ArticleResource = ({ resource, options }) => {
   switch (resource.type) {
     case 'image':
@@ -153,7 +156,7 @@ const ArticleResource = ({ resource, options }) => {
           main: { component: 'img.img-responsive', size: 'large' },
           sources: [{ size: 'large', minWidth: 0 }],
         }),
-        h('figcaption', resource.copyright),
+        h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload', 'Info & téléchargement'),
         h(ArticleResourceComment, { resource }),
       ])
@@ -171,7 +174,7 @@ const ArticleResource = ({ resource, options }) => {
             { size: 'small', minWidth: 0 },
           ],
         }),
-        h('figcaption.container', resource.copyright),
+        h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload.container', 'Info & téléchargement'),
         h(ArticleResourceComment, { resource }),
       ])
@@ -188,7 +191,7 @@ const ArticleResource = ({ resource, options }) => {
           width: 740,
           allowFullScreen: true,
         }),
-        h('figcaption', resource.description),
+        h(FigCaption, { content: resource.description }),
       ])
     }
 
@@ -200,7 +203,7 @@ const ArticleResource = ({ resource, options }) => {
           src: url,
           controls: true,
         }),
-        h('figcaption', resource.description),
+        h(FigCaption, { content: resource.description }),
       ])
     }
 
@@ -337,7 +340,11 @@ const Article = props =>
     h(ArticleNodes, props),
     h(ArticlePrevNextInline, props),
     h(ArticleFooter, props),
-    h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions, options: props.options }),
+    h(Lexicon, {
+      nodes: props.article.nodes,
+      definitions: props.definitions,
+      options: props.options,
+    }),
   ])
 
 // floating buttons on each side of the screen
@@ -436,16 +443,21 @@ const getPrevNextArticles = (article, articles, topics) => {
   return { prev, next }
 }
 
-const ArticlePage = (
-  {
-    article,
-    articles,
-    topics,
-    definitions,
-    resources,
-    options,
-  } /*:{article: Resource, articles: Resource[], topics: Topic[], definitions: Definition[], resources: Resource[], options: Object }*/,
-) => {
+const ArticlePage = ({
+  article,
+  articles,
+  topics,
+  definitions,
+  resources,
+  options,
+} /*: {
+  article: Resource,
+  articles: Resource[],
+  topics: Topic[],
+  definitions: Definition[],
+  resources: Resource[],
+  options: Object,
+} */) => {
   // passed by reference between paragraphs
   const lexiconId = {
     id: 0,

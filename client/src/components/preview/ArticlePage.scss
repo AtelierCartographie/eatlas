@@ -81,11 +81,11 @@
   }
 
   .ArticleResourceComment {
-    display: flex;
     font-size: 1.4rem;
 
     > a {
       color: $color-breadcrumb;
+      display: block;
       margin-right: 1em;
       font-size: 1.4rem;
       font-weight: bold;

@@ -66,8 +66,9 @@ exports.rebuildAllHTML = async () => {
     // Global pages
     writePage('index', null, topics, articles),
     writePage('search', null, topics, articles),
-    writePage('aboutUs', null, topics, articles),
-    writePage('contact', null, topics, articles),
+    writePage('project', null, topics, articles),
+    writePage('team', null, topics, articles),
+    writePage('book', null, topics, articles),
     writePage('legals', null, topics, articles),
     writePage('sitemap', null, topics, articles),
     // Topic pages

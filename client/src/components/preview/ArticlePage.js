@@ -335,7 +335,7 @@ const Article = props =>
     h(ArticleBreadcrumb, props),
     h(ArticleSummaries, props),
     h(ArticleNodes, props),
-    // h(ArticlePrevNextInline, props), #136
+    h(ArticlePrevNextInline, props),
     h(ArticleFooter, props),
     h(Lexicon, { nodes: props.article.nodes, definitions: props.definitions, options: props.options }),
   ])
@@ -377,7 +377,7 @@ window.addEventListener('DOMContentLoaded', () => {
   ]
 }
 
-// these buttons appear just above the footer - not used anymore #136
+// these buttons appear just above the footer
 const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
   return h('.ArticlePrevNextInline.container', [
     prev &&

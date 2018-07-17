@@ -14,7 +14,7 @@ const { prefixUrl } = require('./layout')
 const { slugify } = require('../../universal-utils')
 
 const avatarUrl = member =>
-  `/assets/img/team/team-${toId(member.firstname)}_${toId(member.lastname)}.jpg`
+  `/assets/img/team/team-${toId(member.firstname)}_${toId(member.lastname)}.png`
 
 const toId = lastname => slugify(lastname)
 
@@ -65,7 +65,7 @@ const TeamMemberModal = ({ member, options }) => {
 }
 
 const TeamMember = ({ member, options }) => {
-  return h('li.col-md-2.TeamMember', [
+  return h('li.col-sm-2.col-xs-6.TeamMember', [
     h(
       'button',
       {

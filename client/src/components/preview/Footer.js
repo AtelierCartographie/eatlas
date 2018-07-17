@@ -56,7 +56,7 @@ module.exports = ({
         h(Topics, { topics, options }),
       ]),
       h('.FooterColResources', [
-        h('h2', 'Resources'),
+        h('h2', 'Ressources'),
         h(FooterUl, { links: resourcesTypes, options }),
       ]),
       h('.FooterColAPropos', [

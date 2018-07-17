@@ -229,7 +229,7 @@ const Search = ({ topics, types, locales, keywords, options }) =>
       ),
     ]),
     // will be populated later
-    h('h1.SearchPageTitle.container', ['Resources > ', h('span.SearchPageTitleType')]),
+    h('h1.SearchPageTitle.container', ['Ressources > ', h('span.SearchPageTitleType')]),
     h('script.results-template', {
       type: 'text/html',
       dangerouslySetInnerHTML: {

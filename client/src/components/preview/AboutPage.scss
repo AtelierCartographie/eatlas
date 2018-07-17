@@ -63,8 +63,6 @@
     }
   }
 
-
-
   button {
     background-color: $color-breadcrumb;
     border: 0;
@@ -95,6 +93,11 @@
       @include breakpoint(desktop) {
         flex-direction: row;
       }
+    }
+
+    button {
+      background: transparent;
+      color: initial;
     }
 
     .TeamMember {

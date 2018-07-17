@@ -10,19 +10,42 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
-const {
-  prefixUrl,
-} = require('./layout')
+const { prefixUrl } = require('./layout')
+
+
+// AllÈs
+const toId = (lastname) => lastname.toLowerCase().replace('è', 'e')
+
+const TeamMemberModal = ({ member }) => {
+  return h(
+    `#${toId(member[1])}.modal.fade`,
+    { tabIndex: -1, role: 'dialog', 'aria-labelledby': 'modal' },
+    [
+      h('.modal-dialog', { role: 'document' }, [
+        h('.modal-content', {}, [member[0]]),
+      ]),
+    ],
+  )
+}
 
 const TeamMember = ({ member }) => {
   return h('li.col-md-2.TeamMember', [
-    h('.avatar'),
-    [
-      h('div', [
-        h('.TeamMemberName', member[0]),
-        h('.TeamMemberName', member[1]),
-      ]),
-    ],
+    h(
+      'button',
+      {
+        'data-toggle': 'modal',
+        'data-target': `#${toId(member[1])}`,
+      },
+      [
+        h('.avatar'),
+        [
+          h('div', [
+            h('.TeamMemberName', member[0]),
+            h('.TeamMemberName', member[1]),
+          ]),
+        ],
+      ],
+    ),
   ])
 }
 
@@ -42,7 +65,7 @@ const Team = () => {
     ['Patrice', 'Mitrano'],
     ['Anouk', 'Pettes'],
     ['Antoine', 'Rio'],
-    ['', '']
+    ['', ''],
   ]
 
   return h('section.AboutTeam#team', [
@@ -52,11 +75,13 @@ const Team = () => {
       h('ul', authors.map(member => h(TeamMember, { member }))),
       h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
       h('ul', cartographers.map(member => h(TeamMember, { member }))),
+      authors.map(member => h(TeamMemberModal, { member })),
+      cartographers.map(member => h(TeamMemberModal, { member })),
     ]),
   ])
 }
 
-const About = ({ topics, options }) => {
+const About = ({ options }) => {
   return h('article.AboutPage', [
     h('header.AboutHeader', [
       h('.container', [h('h1.AboutTitle', 'À propos')]),
@@ -66,8 +91,9 @@ const About = ({ topics, options }) => {
         h('h2', 'Le projet'),
         h('h3', 'La génèse'),
         h('.row', [
-          h('p.col-sm-8',
-          'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+          h(
+            'p.col-sm-8',
+            'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
           ),
           h('a.col-sm-4.logo', [
             h('img', {

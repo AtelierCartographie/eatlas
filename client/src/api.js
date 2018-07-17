@@ -28,36 +28,42 @@ const FAKE_TOPICS: Topic[] = [
     name: 'Présentation',
     resourceId: '',
     description_fr: '',
+    description_en: ''
   },
   {
     id: 2,
     name: 'Contrastes et inégalités',
     resourceId: '',
     description_fr: '',
+    description_en: ''
   },
   {
     id: 3,
     name: 'Mobilités',
     resourceId: '',
     description_fr: '',
+    description_en: ''
   },
   {
     id: 4,
     name: 'Stratégies des acteurs transnationaux',
     resourceId: '',
     description_fr: '',
+    description_en: ''
   },
   {
     id: 5,
     name: '(in)sécurités/paix',
     resourceId: '',
     description_fr: '',
+    description_en: ''
   },
   {
     id: 6,
     name: 'Vulnérabilités et défis',
     resourceId: '',
     description_fr: '',
+    description_en: ''
   },
 ]
 

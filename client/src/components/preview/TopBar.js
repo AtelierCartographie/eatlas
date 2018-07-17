@@ -3,7 +3,13 @@
 const h = require('react-hyperscript')
 const { prefixUrl } = require('./layout')
 
-module.exports = ({ logoColor, options: { preview } }) =>
+module.exports = ({
+  logoColor,
+  options: { preview },
+} /*: {
+  logoColor: string,
+  options: FrontOptions,
+} */) =>
   h('nav.navbar.navbar-static-top.navbar-logo', [
     h('div.container', [
       h('a.navbar-brand', { href: preview ? '/preview' : 'TODO' }, [
@@ -14,4 +20,3 @@ module.exports = ({ logoColor, options: { preview } }) =>
       ]),
     ]),
   ])
-

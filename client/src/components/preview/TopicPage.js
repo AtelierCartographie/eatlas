@@ -52,7 +52,10 @@ const TopicHeader = ({ topic, resources, options }) => {
 
   return h('header.TopicHeader', [
     h('.container', [
-      h('h1', [h('.TopicId', topic.id !== '0' && topic.id), h('.TopicName', topic.name)]),
+      h('h1', [
+        h('.TopicId', topic.id !== '0' && topic.id),
+        h('.TopicName', topic.name),
+      ]),
       resourceComponent,
     ]),
   ])
@@ -93,13 +96,15 @@ const TopicDescriptions = ({ topic }) =>
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('p', topic.description_fr),
+        h('div', { dangerouslySetInnerHTML: { __html: topic.description_fr } }),
       ]),
       !topic.description_en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('p', topic.description_en),
+            h('div', {
+              dangerouslySetInnerHTML: { __html: topic.description_en },
+            }),
           ]),
     ]),
   ])

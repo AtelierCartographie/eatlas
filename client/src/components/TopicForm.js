@@ -12,6 +12,7 @@ import './TopicForm.css'
 import { getTopic, saveTopic } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
+import Editor from './WysiwygEditor'
 
 import type { ContextRouter } from 'react-router'
 
@@ -71,12 +72,11 @@ class TopicForm extends Component<Props, State> {
     }))
   }
 
-  handleChangeDescription = ({ target }) => {
-    const { name, value } = target
+  handleChangeDescription = (lang, value) => {
     this.setState(state => ({
       topic: {
         ...state.topic,
-       [`description_${name}`]: value
+        [`description_${lang}`]: value,
       },
     }))
   }
@@ -182,16 +182,14 @@ class TopicForm extends Component<Props, State> {
             )}
 
             {['fr', 'en'].map(lang => (
-              <div className="field">
+              <div className="field" key={lang}>
                 <label className="label">
                   <T id="resource-description" /> {lang}
                 </label>
                 <div className="control">
-                  <textarea
-                    className="textarea"
-                    name={lang}
-                    value={topic[`description_${lang}`]}
-                    onChange={this.handleChangeDescription}
+                  <Editor
+                    onChange={({ target }) => this.handleChangeDescription(lang, target.value)}
+                    value={topic[`description_${lang}`] || ''}
                   />
                 </div>
               </div>

@@ -7,7 +7,7 @@ import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import classNames from 'classnames'
+import cx from 'classnames'
 import { toast, ToastContainer } from 'react-toastify'
 
 import IconButton from './IconButton'
@@ -112,7 +112,7 @@ class App extends Component<Props, State> {
       <nav className="navbar is-fixed-top is-dark" aria-label="main navigation">
         <div className="navbar-brand">
           <button
-            className={classNames('button', 'navbar-burger', {
+            className={cx('button', 'navbar-burger', {
               'is-active': this.state.menuActive,
             })}
             onClick={this.toggleActive}>
@@ -123,7 +123,7 @@ class App extends Component<Props, State> {
         </div>
 
         <div
-          className={classNames('navbar-menu', {
+          className={cx('navbar-menu', {
             'is-active': this.state.menuActive,
           })}
           onClick={this.toggleActive}>

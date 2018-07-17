@@ -115,7 +115,7 @@ const Team = ({ options }) => {
       social: '',
     },
     {
-      firstname: 'Marie Françoise',
+      firstname: 'Marie-Françoise',
       lastname: 'Durand',
       title: 'Professeure agrégée de géographie',
       bio: `Professeure agrégée de géographie à Sciences Po de 1989 à 2015, Marie-Françoise Durand a créé l'Atelier de cartographie, coordonné le cours Espace mondial, la production de plusieurs MOOCs et les 6 éditions de l'Atlas de la mondialisation `,

@@ -2,8 +2,9 @@
 
 .AboutPage {
   .AboutHeader {
-    background: no-repeat fixed 90% 20%/250px url("../assets/img/sciences-po-embleme.png"),
-    $color-breadcrumb;
+    background: no-repeat fixed 90% 20%/250px
+        url("../assets/img/sciences-po-embleme.png"),
+      $color-breadcrumb;
     color: rgba(255, 255, 255, 0.9);
     padding-bottom: 96px;
     padding-top: 96px;
@@ -128,6 +129,10 @@
       @include breakpoint(desktop) {
         margin: 0 auto $gap;
       }
+    }
+
+    .TeamMemberLinks a {
+      margin-right: $gap;
     }
   }
 }

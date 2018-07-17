@@ -12,17 +12,33 @@ const Head = require('./Head')
 const Body = require('./Body')
 const { prefixUrl } = require('./layout')
 
-
 // AllÈs
-const toId = (lastname) => lastname.toLowerCase().replace('è', 'e')
+const toId = lastname => lastname.toLowerCase().replace('è', 'e')
 
 const TeamMemberModal = ({ member }) => {
   return h(
-    `#${toId(member[1])}.modal.fade`,
+    `#${toId(member.lastname)}.modal.fade`,
     { tabIndex: -1, role: 'dialog', 'aria-labelledby': 'modal' },
     [
-      h('.modal-dialog', { role: 'document' }, [
-        h('.modal-content', {}, [member[0]]),
+      h('.modal-dialog.modal-lg', { role: 'document' }, [
+        h('.modal-content', {}, [
+          h('.modal-body', [
+            h('.row', [
+              h('.col-md-4', h('img', { alt: `${member.firstname} ${member.lastname}`})),
+              h('.col-md-8', [
+                h('h2', `${member.firstname} ${member.lastname}`),
+                h('h3', member.title),
+                h('p', member.bio),
+                h('div.TeamMemberLinks', [
+                  Boolean(member.page) &&
+                    h('a', { href: member.page}, member.page),
+                  Boolean(member.social) &&
+                    h('a', { href: member.social}, member.social),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
       ]),
     ],
   )
@@ -34,14 +50,14 @@ const TeamMember = ({ member }) => {
       'button',
       {
         'data-toggle': 'modal',
-        'data-target': `#${toId(member[1])}`,
+        'data-target': `#${toId(member.lastname)}`,
       },
       [
         h('.avatar'),
         [
           h('div', [
-            h('.TeamMemberName', member[0]),
-            h('.TeamMemberName', member[1]),
+            h('.TeamMemberName', member.firstname),
+            h('.TeamMemberName', member.lastname),
           ]),
         ],
       ],
@@ -51,21 +67,97 @@ const TeamMember = ({ member }) => {
 
 const Team = () => {
   const authors = [
-    ['Delphine', 'Allès'],
-    ['Mélanie', 'Albaret'],
-    ['Philippe', 'Copinschi'],
-    ['Marie Françoise', 'Durand'],
-    ['Lucile', 'Maertens'],
-    ['Delphine', 'Placidi-Frot'],
+    {
+      firstname: 'Delphine',
+      lastname: 'Allès',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Mélanie',
+      lastname: 'Albaret',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Philippe',
+      lastname: 'Copinschi',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Marie Françoise',
+      lastname: 'Durand',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Lucile',
+      lastname: 'Maertens',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Delphine',
+      lastname: 'Placidi-Frot',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
   ]
 
   const cartographers = [
-    ['Thomas', 'Ansart'],
-    ['Benoît', 'Martin'],
-    ['Patrice', 'Mitrano'],
-    ['Anouk', 'Pettes'],
-    ['Antoine', 'Rio'],
-    ['', ''],
+    {
+      firstname: 'Thomas',
+      lastname: 'Ansart',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: 'page',
+      social: 'social',
+    },
+    {
+      firstname: 'Benoît',
+      lastname: 'Martin',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Patrice',
+      lastname: 'Mitrano',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Anouk',
+      lastname: 'Pettes',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
+    {
+      firstname: 'Antoine',
+      lastname: 'Rio',
+      title: 'TITLE',
+      bio: 'BIO',
+      page: '',
+      social: '',
+    },
   ]
 
   return h('section.AboutTeam#team', [

@@ -142,7 +142,11 @@
 
     .modal {
       img {
-        width: 100%;
+        width: 50%;
+
+        @include breakpoint(desktop) {
+          width: 100%;
+        }
       }
 
       .TeamMemberLinks a {

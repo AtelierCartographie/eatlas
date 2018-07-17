@@ -40,7 +40,7 @@ const TeamMemberModal = ({ member, options }) => {
           h('.modal-body', [
             h('.row', [
               h('.col-md-4', [
-                h('img', {
+                h('img.center-block', {
                   src: prefixUrl(avatarUrl(member), options.preview),
                   alt: `${member.firstname} ${member.lastname}`,
                 }),

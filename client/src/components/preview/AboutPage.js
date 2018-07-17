@@ -25,6 +25,18 @@ const TeamMemberModal = ({ member, options }) => {
     [
       h('.modal-dialog.modal-lg', { role: 'document' }, [
         h('.modal-content', {}, [
+          // TODO styling on top right without padding
+          false && h('.modal-header', [
+            h(
+              'button.close',
+              {
+                type: 'button',
+                'data-dismiss': 'modal',
+                'aria-label': 'Close',
+              },
+              [h('span', { 'aria-hidden': true }, '×')],
+            ),
+          ]),
           h('.modal-body', [
             h('.row', [
               h('.col-md-4', [

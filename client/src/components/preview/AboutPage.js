@@ -11,11 +11,15 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 const { prefixUrl } = require('./layout')
+const { slugify } = require('../../universal-utils')
 
-// AllÈs
-const toId = lastname => lastname.toLowerCase().replace('è', 'e')
+const avatarUrl = member =>
+  `/assets/img/team/team-${toId(member.firstname)}_${toId(member.lastname)}.jpg`
 
-const TeamMemberModal = ({ member }) => {
+const toId = lastname =>
+  slugify(lastname)
+
+const TeamMemberModal = ({ member, options }) => {
   return h(
     `#${toId(member.lastname)}.modal.fade`,
     { tabIndex: -1, role: 'dialog', 'aria-labelledby': 'modal' },
@@ -24,16 +28,21 @@ const TeamMemberModal = ({ member }) => {
         h('.modal-content', {}, [
           h('.modal-body', [
             h('.row', [
-              h('.col-md-4', h('img', { alt: `${member.firstname} ${member.lastname}`})),
+              h('.col-md-4', [
+                h('img', {
+                  src: prefixUrl(avatarUrl(member), options.preview),
+                  alt: `${member.firstname} ${member.lastname}`,
+                }),
+              ]),
               h('.col-md-8', [
                 h('h2', `${member.firstname} ${member.lastname}`),
                 h('h3', member.title),
                 h('p', member.bio),
                 h('div.TeamMemberLinks', [
                   Boolean(member.page) &&
-                    h('a', { href: member.page}, member.page),
+                    h('a', { href: member.page }, member.page),
                   Boolean(member.social) &&
-                    h('a', { href: member.social}, member.social),
+                    h('a', { href: member.social }, member.social),
                 ]),
               ]),
             ]),
@@ -44,7 +53,7 @@ const TeamMemberModal = ({ member }) => {
   )
 }
 
-const TeamMember = ({ member }) => {
+const TeamMember = ({ member, options }) => {
   return h('li.col-md-2.TeamMember', [
     h(
       'button',
@@ -53,7 +62,10 @@ const TeamMember = ({ member }) => {
         'data-target': `#${toId(member.lastname)}`,
       },
       [
-        h('.avatar'),
+        h('img', {
+          src: prefixUrl(avatarUrl(member), options.preview),
+          alt: `${member.firstname} ${member.lastname}`,
+        }),
         [
           h('div', [
             h('.TeamMemberName', member.firstname),
@@ -65,7 +77,7 @@ const TeamMember = ({ member }) => {
   ])
 }
 
-const Team = () => {
+const Team = ({ options }) => {
   const authors = [
     {
       firstname: 'Delphine',
@@ -164,11 +176,11 @@ const Team = () => {
     h('.container', [
       h('h2', "L'équipe"),
       h('h3', 'Les textes'),
-      h('ul', authors.map(member => h(TeamMember, { member }))),
+      h('ul', authors.map(member => h(TeamMember, { member, options }))),
       h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
-      h('ul', cartographers.map(member => h(TeamMember, { member }))),
-      authors.map(member => h(TeamMemberModal, { member })),
-      cartographers.map(member => h(TeamMemberModal, { member })),
+      h('ul', cartographers.map(member => h(TeamMember, { member, options }))),
+      authors.map(member => h(TeamMemberModal, { member, options })),
+      cartographers.map(member => h(TeamMemberModal, { member, options })),
     ]),
   ])
 }
@@ -206,7 +218,7 @@ const About = ({ options }) => {
         ),
       ]),
     ]),
-    h(Team),
+    h(Team, { options }),
     h('section.AboutContact#contact', [
       h('.container', [
         h('h2', 'Nous contacter'),

@@ -97,8 +97,14 @@
     }
 
     button {
-      background: transparent;
+      background: white;
       color: initial;
+      margin: 0;
+
+      img {
+        height: auto;
+        width: 100%;
+      }
     }
 
     .TeamMember {
@@ -131,8 +137,14 @@
       }
     }
 
-    .TeamMemberLinks a {
-      margin-right: $gap;
+    .modal {
+      img {
+        width: 100%;
+      }
+
+      .TeamMemberLinks a {
+        margin-right: $gap;
+      }
     }
   }
 }

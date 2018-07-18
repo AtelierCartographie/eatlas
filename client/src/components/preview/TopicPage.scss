@@ -1,9 +1,12 @@
-@import 'var';
+@import "var";
 
 .TopicPage {
   .TopicHeader {
-    background: $color-breadcrumb;
-    color: rgba(255,255,255,.9);
+    background-color: $color-breadcrumb;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: rgba(255, 255, 255, 0.9);
     padding-bottom: $gap3;
 
     .TopicId {
@@ -57,7 +60,7 @@
       display: flex;
       flex-direction: column;
       text-decoration: none;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
 
       @include breakpoint(desktop) {
         flex-direction: row;
@@ -126,12 +129,12 @@
       font-size: 2rem;
       margin-top: $gap;
       margin-bottom: $gap3;
-      
+
       > div {
         background-color: #fff7d9;
         border-left: 4px solid $color-keyword;
         padding: 10px 20px;
-        transition: all .2s ease;
+        transition: all 0.2s ease;
 
         &:hover {
           background-color: $color-keyword;

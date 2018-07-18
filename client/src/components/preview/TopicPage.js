@@ -12,7 +12,7 @@ const Head = require('./Head')
 const Body = require('./Body')
 const { PublishedAt } = require('./Doc')
 
-const { getImageUrl, getResourcePageUrl } = require('./layout')
+const { getImageUrl, getResourcePageUrl, prefixUrl } = require('./layout')
 
 const TopicVideo = ({ url }) => {
   if (!url) return null
@@ -50,15 +50,25 @@ const TopicHeader = ({ topic, resources, options }) => {
     }
   }
 
-  return h('header.TopicHeader', [
-    h('.container', [
-      h('h1', [
-        h('.TopicId', topic.id !== '0' && topic.id),
-        h('.TopicName', topic.name),
+  const bg = prefixUrl(`/assets/img/headers/topic-${topic.id}.png`, options.preview)
+
+  return h(
+    'header.TopicHeader',
+    {
+      style: {
+        backgroundImage: `url(${bg})`,
+      },
+    },
+    [
+      h('.container', [
+        h('h1', [
+          h('.TopicId', topic.id !== '0' && topic.id),
+          h('.TopicName', topic.name),
+        ]),
+        resourceComponent,
       ]),
-      resourceComponent,
-    ]),
-  ])
+    ],
+  )
 }
 
 const TopicDescriptions = ({ topic }) =>
@@ -173,7 +183,7 @@ const TopicPage = ({
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: topic.name, options }),
-    h(Body, { topic, topics, articles, options, topMenu: true }, [
+    h(Body, { topic, topics, articles, options, topMenu: false }, [
       h(Topic, { topic, topics, articles, resources, options }),
     ]),
   ])

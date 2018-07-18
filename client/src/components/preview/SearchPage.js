@@ -28,7 +28,6 @@ results = {
 }
 */
 
-
 const hitTextTemplate = `
   <strong class="search-result-title"><%= hit.title %></strong>
   <% if (hit.subtitle) { %>
@@ -103,9 +102,7 @@ const filtersToggle = (title, inputs) => [
   ]),
   h(
     '.search-filters-inputs',
-    inputs.map((input, key) =>
-      h('label.search-filters-input', { key }, input),
-    ),
+    inputs.map((input, key) => h('label.search-filters-input', { key }, input)),
   ),
 ]
 
@@ -149,7 +146,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
               key: 'input',
               value: keyword,
             }),
-            keyword
+            keyword,
           ]),
         ]),
       ),
@@ -229,7 +226,10 @@ const Search = ({ topics, types, locales, keywords, options }) =>
       ),
     ]),
     // will be populated later
-    h('h1.SearchPageTitle.container', ['Ressources > ', h('span.SearchPageTitleType')]),
+    h('h1.SearchPageTitle.container', [
+      'Ressources > ',
+      h('span.SearchPageTitleType'),
+    ]),
     h('script.results-template', {
       type: 'text/html',
       dangerouslySetInnerHTML: {
@@ -244,22 +244,20 @@ const Search = ({ topics, types, locales, keywords, options }) =>
 
 const SearchPage = ({
   topics,
-  articles,
-  options,
   types,
-  locales,
   keywords,
+  locales,
+  options,
 } /*: {
   topics: Topic[],
-  articles: Resource[],
   types: ?(string[]),
   keywords: string[],
   locales: { Locale: string },
-  options: Object,
+  options: FrontOptions,
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'eAtlas - Recherche', options }),
-    h(Body, { topics, articles, options, topMenu: false, logoColor: 'black' }, [
+    h(Body, { topics, options, logoColor: 'black' }, [
       h(Search, { topics, types, locales, keywords, options }),
     ]),
   ])

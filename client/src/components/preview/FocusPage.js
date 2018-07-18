@@ -77,25 +77,33 @@ const Focus = props =>
     h(FocusHeader, props),
     h(FocusNodes, props),
     h(FocusFooter, props),
-    h(Lexicon, { nodes: props.focus.nodes, definitions: props.definitions, options: props.options }),
+    h(Lexicon, {
+      nodes: props.focus.nodes,
+      definitions: props.definitions,
+      options: props.options,
+    }),
   ])
 
-const FocusPage = (
-  {
-    focus,
-    topics,
-    definitions,
-    resources,
-    options,
-  } /*:{focus: Resource, topics: Topic[], definitions: Definition[], resources: Resource[], options: Object}*/,
-) => {
+const FocusPage = ({
+  focus,
+  topics,
+  definitions,
+  resources,
+  options,
+} /*: {
+  focus: Resource,
+  topics: Topic[],
+  definitions: Definition[],
+  resources: Resource[],
+  options: FrontOptions,
+} */) => {
   {
     const lexiconId = {
       id: 0,
     }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: focus.title, options }),
-      h(Body, { topics, options, logoColor: 'black', sideMenu: true }, [
+      h(Body, { topics, options, logoColor: 'black' }, [
         h(Focus, { focus, topics, definitions, resources, lexiconId, options }),
       ]),
     ])

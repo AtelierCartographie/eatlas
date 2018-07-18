@@ -67,7 +67,7 @@ const GENERATORS = {
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
 
-const topMenuProps = async (
+const menuProps = async (
   { topics = null, articles = null } = {},
   { preview = false } = {},
 ) => {
@@ -93,7 +93,7 @@ exports.generateHTML = async (key, resource, options, props = {}) => {
     }
   }
 
-  props = await topMenuProps(props, options)
+  props = await menuProps(props, options)
   const html = resource
     ? await generator(resource, options, props)
     : await generator(options, props)
@@ -106,7 +106,7 @@ exports.generateArticleHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   const article = flattenMetas(resource)
   const definitions = await getDefinitions()
   let resources = await getArticleResources(resource, !preview)
@@ -149,7 +149,7 @@ exports.generateFocusHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   let focus = flattenMetas(resource)
   // to create the "go back to article" link
   focus.relatedArticleId = focus.relatedArticle
@@ -175,7 +175,7 @@ exports.generateTopicHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   const resources = await getTopicResources(topic)
   // Enhanced articles for data list in topic page
   props.articles = await Promise.all(
@@ -204,7 +204,7 @@ exports.generateResourceHTML = async (
   { preview = false } = {},
   props = {},
 ) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   return wrap(
     React.createElement(ResourcePage, {
       ...props,
@@ -215,7 +215,7 @@ exports.generateResourceHTML = async (
 }
 
 exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   return wrap(
     React.createElement(HomePage, {
       ...props,
@@ -225,7 +225,7 @@ exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
 }
 
 exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   const keywords = props.articles.reduce(
     (kws, article) =>
       kws.concat(getMetaList(article, 'keywords').map(({ text }) => text)),
@@ -243,7 +243,7 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
 }
 
 const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   return wrap(
     React.createElement(MissingPage, {
       ...props,
@@ -253,7 +253,7 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
 }
 
 exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   return wrap(
     React.createElement(AboutPage, {
       ...props,
@@ -266,7 +266,7 @@ exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
 exports.generateContactHTML = generateMissingHTML
 
 exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await topMenuProps(props, { preview })
+  props = await menuProps(props, { preview })
   return wrap(
     React.createElement(LegalsPage, {
       ...props,

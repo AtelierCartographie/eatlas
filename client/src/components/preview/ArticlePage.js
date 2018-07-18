@@ -462,7 +462,7 @@ const ArticlePage = ({
   topics: Topic[],
   definitions: Definition[],
   resources: Resource[],
-  options: Object,
+  options: FrontOptions,
 } */) => {
   // passed by reference between paragraphs
   const lexiconId = {
@@ -473,7 +473,7 @@ const ArticlePage = ({
 
   return h('html', { lang: 'fr' }, [
     h(Head, { title: article.title, options }),
-    h(Body, { topics, options, sideMenu: true }, [
+    h(Body, { topics, options }, [
       h(Article, {
         article,
         prevNext,

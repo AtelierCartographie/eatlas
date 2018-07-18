@@ -76,11 +76,11 @@ const AboutUsLegalsPage = ({
 } /*: {
   topics: Topic[],
   articles: Resource[],
-  options: Object,
+  options: FrontOptions,
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'Mentions légales', options }),
-    h(Body, { topics, options, topMenu: true, logoColor: 'black' }, [
+    h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { topics, articles, options }),
     ]),
   ])

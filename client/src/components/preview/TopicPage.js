@@ -50,7 +50,10 @@ const TopicHeader = ({ topic, resources, options }) => {
     }
   }
 
-  const bg = prefixUrl(`/assets/img/headers/topic-${topic.id}.png`, options.preview)
+  const bg = prefixUrl(
+    `/assets/img/headers/topic-${topic.id}.png`,
+    options.preview,
+  )
 
   return h(
     'header.TopicHeader',
@@ -179,11 +182,11 @@ const TopicPage = ({
   topics: Topic[],
   articles: Resource[],
   resources: Resource[],
-  options: Object,
+  options: FrontOptions,
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: topic.name, options }),
-    h(Body, { topic, topics, articles, options, topMenu: false }, [
+    h(Body, { topics, options }, [
       h(Topic, { topic, topics, articles, resources, options }),
     ]),
   ])

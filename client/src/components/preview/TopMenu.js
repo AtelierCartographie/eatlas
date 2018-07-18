@@ -1,5 +1,7 @@
 // @flow
 
+// this component is now obsolete see: #141
+
 const h = require('react-hyperscript')
 const {
   resourcesTypes,

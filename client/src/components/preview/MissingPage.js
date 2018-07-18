@@ -11,25 +11,24 @@ moment.locale('fr')
 const Head = require('./Head')
 const Body = require('./Body')
 
-const Content = ({ topics, articles, options }) => {
-  return h('article.container.MissingPage', [
+const Content = ({ topics, articles, options }) =>
+  h('article.container.MissingPage', [
     h('h1', 'This page is a placeholder'),
     h('p', 'HTML generator not implemented yet?'),
   ])
-}
 
-const MissingPage = (
-  {
-    topics,
-    articles,
-    options,
-  } /*: { topics: Topic[], articles: Resource[], options: Object } */,
-) =>
+const MissingPage = ({
+  topics,
+  articles,
+  options,
+} /*: {
+  topics: Topic[],
+  articles: Resource[],
+  options: FrontOptions,
+} */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'Missing page', options }),
-    h(Body, { topics, options, topMenu: true }, [
-      h(Content, { topics, articles, options }),
-    ]),
+    h(Body, { topics, options }, [h(Content, { topics, articles, options })]),
   ])
 
 module.exports = MissingPage

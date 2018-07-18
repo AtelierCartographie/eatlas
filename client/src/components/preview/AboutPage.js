@@ -262,11 +262,11 @@ const AboutPage = ({
 } /*: {
   topics: Topic[],
   articles: Resource[],
-  options: Object,
+  options: FrontOptions,
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'À propos', options }),
-    h(Body, { topics, options, topMenu: false, logoColor: 'white' }, [
+    h(Body, { topics, options, logoColor: 'white' }, [
       h(About, { topics, articles, options }),
     ]),
   ])

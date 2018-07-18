@@ -159,11 +159,11 @@ const ResourcePage = ({
 } /*: {
   resource: Resource,
   topics: Topic[],
-  options: Object,
+  options: FrontOptions,
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: resource.title, options }),
-    h(Body, { topics, options }, [h(Resource, { resource, topics, options })]),
+    h(Body, { topics, options, logoColor: 'black' }, [h(Resource, { resource, topics, options })]),
   ])
 
 module.exports = ResourcePage

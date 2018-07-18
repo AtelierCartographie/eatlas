@@ -146,6 +146,12 @@ const FigCaption = ({ content }) =>
   h('figcaption.container', { dangerouslySetInnerHTML: { __html: content } })
 
 const ArticleResource = ({ resource, options }) => {
+  const infoLink = h(
+    'a',
+    { href: getResourcePageUrl(resource, options) },
+    'Info & téléchargement',
+  )
+
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
@@ -157,7 +163,7 @@ const ArticleResource = ({ resource, options }) => {
           sources: [{ size: 'large', minWidth: 0 }],
         }),
         h(FigCaption, { content: resource.copyright }),
-        h('.ArticleResourceDownload', 'Info & téléchargement'),
+        h('.ArticleResourceDownload', [infoLink]),
         h(ArticleResourceComment, { resource }),
       ])
 
@@ -175,7 +181,7 @@ const ArticleResource = ({ resource, options }) => {
           ],
         }),
         h(FigCaption, { content: resource.copyright }),
-        h('.ArticleResourceDownload.container', 'Info & téléchargement'),
+        h('.ArticleResourceDownload.container', [infoLink]),
         h(ArticleResourceComment, { resource }),
       ])
 

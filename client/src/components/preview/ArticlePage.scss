@@ -1,7 +1,6 @@
-@import 'var';
+@import "var";
 
 .ArticlePage {
-
   figure {
     margin-bottom: 3.2em;
 
@@ -44,7 +43,6 @@
       margin-bottom: 16rem;
     }
 
-
     .ArticleTitle {
       font-size: 7rem;
       font-weight: normal;
@@ -74,7 +72,7 @@
     }
   }
 
-  .ArticleResourceDownload {
+  .ArticleResourceDownload a {
     color: $color-breadcrumb;
     font-style: italic;
     font-size: 1.4rem;
@@ -97,12 +95,12 @@
     color: $color-text;
     font-size: 2rem;
     margin-top: 0;
-    
+
     > div {
       background-color: #fff7d9;
       border-left: 4px solid $color-keyword;
       padding: 10px 20px;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
 
       &:hover {
         background-color: $color-keyword;
@@ -131,7 +129,7 @@
       color: #333;
       display: flex;
       text-decoration: none;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
     }
 
     img {
@@ -210,7 +208,7 @@
 
     &:before {
       display: block;
-      font-family: 'Glyphicons Halflings';
+      font-family: "Glyphicons Halflings";
       font-size: 2.5rem;
       content: "\e257";
     }
@@ -226,7 +224,7 @@
 
     &:after {
       display: block;
-      font-family: 'Glyphicons Halflings';
+      font-family: "Glyphicons Halflings";
       font-size: 2.5rem;
       content: "\e258";
     }
@@ -249,12 +247,12 @@
   &:before {
     display: block;
     font-size: 2.5rem;
-    font-family: 'Glyphicons Halflings';
+    font-family: "Glyphicons Halflings";
   }
 
   &:hover {
     background-color: $color-white;
-    border: 1px solid #EEEEEE;
+    border: 1px solid #eeeeee;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     text-decoration: none;
   }
@@ -318,4 +316,3 @@
     text-align: right;
   }
 }
-

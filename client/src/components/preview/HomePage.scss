@@ -91,14 +91,22 @@
     margin-top: 0;
   }
 
-  button,.button {
+  button,
+  .button {
       background-color: $color-breadcrumb;
       border: 0;
       border-radius: $gap;
       color: $color-white;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       margin: $gap $gap 0 0;
       padding: $gap;
+      transition: color 0.1s ease-in, background 0.1s ease-in;
+
+      &:focus,
+      &:hover {
+        background-color: $color-yellow;
+        color: $color-breadcrumb;
+      }
 
       &.tour {
         background: $color-white;

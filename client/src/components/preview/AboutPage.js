@@ -38,7 +38,7 @@ const TeamMemberModal = ({ member, options }) => {
             ),
           ]),
           h('.modal-body', [
-            h('.row', [
+            h('.row.vcenter', [
               h('.col-md-4', [
                 h('img.center-block', {
                   src: prefixUrl(avatarUrl(member), options.preview),
@@ -51,9 +51,9 @@ const TeamMemberModal = ({ member, options }) => {
                 h('p', member.bio),
                 h('div.TeamMemberLinks', [
                   Boolean(member.page) &&
-                    h('a', { href: member.page }, member.page),
+                    h('a', { href: member.pageURL }, member.page),
                   Boolean(member.social) &&
-                    h('a', { href: member.social }, member.social),
+                    h('a', { href: member.socialURL }, member.social),
                 ]),
               ]),
             ]),
@@ -95,15 +95,19 @@ const Team = ({ options }) => {
       lastname: 'Allès',
       title: 'Professeure des universités en science politique',
       bio: `Professeure de Science politique, Delphine Allès dirige la filière Relations internationales de l’Institut national des langues et civilisations orientales (INALCO). Ses recherches portent sur le rôle de la religion dans l’espace mondial et les approches extra-occidentales de l’international.`,
-      page: 'http://u-pec.academia.edu/DelphineAlles',
-      social: 'https://twitter.com/DelphineAlles',
+      pageURL: 'http://u-pec.academia.edu/DelphineAlles',
+      page: 'Academia',
+      socialURL: 'https://twitter.com/DelphineAlles',
+      social: '@DelphineAlles',
     },
     {
       firstname: 'Mélanie',
       lastname: 'Albaret',
       title: 'Maîtresse de conférences en sience politique',
       bio: `Docteure en science politique (relations internationales), Mélanie Albaret est maîtresse de conférences à l'Université Clermont Auvergne. Ses recherches portent sur les organisations internationales (notamment l'ONU) et sur le multilatéralisme.`,
+      pageURL: '',
       page: '',
+      socialURL: '',
       social: '',
     },
     {
@@ -111,7 +115,9 @@ const Team = ({ options }) => {
       lastname: 'Copinschi',
       title: 'Enseignant, consultant',
       bio: `Philippe Copinschi est docteur en science politique (relations internationales) de Sciences Po Paris. Il enseigne à la Paris School of International Affairs (PSIA) de Sciences Po Paris et travaille comme consultant indépendant dans le domaine de l’énergie, en particulier en Afrique.`,
+      pageURL: '',
       page: '',
+      socialURL: '',
       social: '',
     },
     {
@@ -119,7 +125,9 @@ const Team = ({ options }) => {
       lastname: 'Durand',
       title: 'Professeure agrégée de géographie',
       bio: `Professeure agrégée de géographie à Sciences Po de 1989 à 2015, Marie-Françoise Durand a créé l'Atelier de cartographie, coordonné le cours Espace mondial, la production de plusieurs MOOCs et les 6 éditions de l'Atlas de la mondialisation `,
+      pageURL: '',
       page: '',
+      socialURL: '',
       social: '',
     },
     {
@@ -127,7 +135,9 @@ const Team = ({ options }) => {
       lastname: 'Maertens',
       title: 'Maître-assistante en relations internationales',
       bio: `Docteure en science politique, Lucile Maertens est maître-assistante en relations internationales à l'Université de Lausanne (IEPHI) et chercheuse associée à Sciences Po/CERI. Ses recherches portent sur l'action des organisations internationales dans le domaine de l'environnement et de la sécurité.`,
-      page: 'https://unil.academia.edu/LucileMaertens',
+      pageURL: 'https://unil.academia.edu/LucileMaertens',
+      page: 'Academia',
+      socialURL: '',
       social: '',
     },
     {
@@ -135,7 +145,9 @@ const Team = ({ options }) => {
       lastname: 'Placidi-Frot',
       title: 'Professeure des universités en science politique',
       bio: `Professeure de science politique, Delphine Placidi-Frot codirige les M2 Diplomatie et négociations stratégiques et Gouvernance de projets de développement durable au Sud de l'Université Paris-Saclay. Ses recherches portent sur la politique extérieure et les organisations multilatérales (notamment onusiennes).`,
+      pageURL: '',
       page: '',
+      socialURL: '',
       social: '',
     },
   ]
@@ -146,15 +158,19 @@ const Team = ({ options }) => {
       lastname: 'Ansart',
       title: 'cartographie, data visualisation, R',
       bio: '',
+      pageURL: 'https://thomasansart.com/',
       page: 'https://thomasansart.com/',
-      social: 'https://twitter.com/ThomasAnsart',
+      socialURL: 'https://twitter.com/ThomasAnsart',
+      social: '@ThomasAnsart',
     },
     {
       firstname: 'Benoît',
       lastname: 'Martin',
       title: '',
       bio: '',
+      pageURL: '',
       page: '',
+      socialURL: '',
       social: '',
     },
     {
@@ -162,15 +178,19 @@ const Team = ({ options }) => {
       lastname: 'Mitrano',
       title: 'Géographe-cartographe',
       bio: `Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement "viz". Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012. (318)`,
-      page: 'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
-      social: 'https://twitter.com/MitranoP',
+      pageURL: 'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
+      page: 'Atelier de cartographie',
+      socialURL: 'https://twitter.com/MitranoP',
+      social: '@MitranoP',
     },
     {
       firstname: 'Anouk',
       lastname: 'Pettes',
       title: '',
       bio: '',
+      pageURL: '',
       page: '',
+      socialURL: '',
       social: '',
     },
     {
@@ -178,8 +198,10 @@ const Team = ({ options }) => {
       lastname: 'Rio',
       title: '',
       bio: '',
+      pageURL: '',
       page: '',
-      social: '',
+      socialURL: 'https://twitter.com/antoinerio',
+      social: '@antoinerio',
     },
   ]
 
@@ -233,11 +255,17 @@ const About = ({ options }) => {
     h('section.AboutContact#contact', [
       h('.container', [
         h('h2', 'Nous contacter'),
-        h('.row', [
+        h('.row.vcenter', [
           h('.col-sm-8', [
             'Rentrer en contact avec les rédacteurs et les cartographes',
           ]),
-          h('.col-sm-4', [h('button', 'Nous contacter')]),
+          h('.col-sm-4', [
+            h(
+              'a.button.btn',
+              { href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2', target: '_blank', role: 'button' },
+              'Nous contacter',
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -245,10 +273,23 @@ const About = ({ options }) => {
       h('.container', [
         h('h2', 'Le livre'),
         h('.row', [
-          h('.col-sm-8', [
-            'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
+          h('.col-sm-6', [
+            h(
+              'p',
+              'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po. Lipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+            ),
+            h(
+              'a.button.btn',
+              { href: 'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530', target: '_blank', role: 'button' },
+              'Acheter le livre',
+            ),
           ]),
-          h('.col-sm-4', [h('button', 'Acheter le livre')]),
+          h('.col-sm-6', [
+            h('img.img-responsive', {
+              alt: '',
+              src: prefixUrl('/assets/img/eatlas-paper.png', options.preview),
+            }),
+          ]),
         ]),
       ]),
     ]),

@@ -147,6 +147,14 @@
       height: 140px;
       padding: $gap $gap2;
       margin: $gap 0;
+      transition: color 0.1s ease-in, background 0.1s ease-in;
+
+      &:focus,
+      &:hover {
+        background: $color-yellow;
+        color: $color-breadcrumb;
+        text-decoration: none;
+      }
     }
 
     .TopicNumber {

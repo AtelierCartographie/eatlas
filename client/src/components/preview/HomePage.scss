@@ -49,14 +49,40 @@
     background: $color-keyword;
   }
 
+  .logo {
+    img {
+      width: 240px;
+    }
+  }
+
+  img {
+    margin: $gap2 0 0 0;
+
+    @include breakpoint(desktop) {
+      margin: 0;
+    }
+  }
+
   section {
-    padding: $gap4;
+    padding: $gap4 0;
   }
 
   section,
   p,
   li {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+
+    @include breakpoint(desktop) {
+      font-size: 1.8rem;
+    }
+  }
+
+  h2 {
+    font-size: 3.3rem;
+
+    @include breakpoint(desktop) {
+      font-size: 3.8rem;
+    }
   }
 
   h2,
@@ -65,19 +91,19 @@
     margin-top: 0;
   }
 
-  button {
-    background-color: $color-breadcrumb;
-    border: 0;
-    border-radius: $gap;
-    color: $color-white;
-    font-size: 1.4rem;
-    margin: $gap $gap 0 0;
-    padding: $gap;
+  button,.button {
+      background-color: $color-breadcrumb;
+      border: 0;
+      border-radius: $gap;
+      color: $color-white;
+      font-size: 1.4rem;
+      margin: $gap $gap 0 0;
+      padding: $gap;
 
-    &.tour {
-      background: $color-white;
-      color: $color-breadcrumb;
-    }
+      &.tour {
+        background: $color-white;
+        color: $color-breadcrumb;
+      }
 
     img {
       height: 24px;
@@ -100,31 +126,43 @@
   }
 
   .HomeTopics {
+    .gutter > [class*='col-'] {
+    padding-right:0;
+    }
+
     .HomeTopic {
       background: $color-breadcrumb;
       border-radius: $gap;
       color: $color-white;
       display: block;
       font-weight: bold;
-      height: 120px;
-      padding: $gap;
-      margin: $gap2 0;
+      height: 140px;
+      padding: $gap $gap2;
+      margin: $gap 0;
     }
 
     .TopicNumber {
-      font-size: 2.9rem;
-      min-height: 2.9rem;
+      font-size: 3.3rem;
+      min-height: 3.3rem;
 
       @include breakpoint(desktop) {
-        font-size: 3.2rem;
+        font-size: 3.8rem;
       }
     }
     .TopicName {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
 
       @include breakpoint(desktop) {
-        font-size: 1.8rem;
+        font-size: 2.1rem;
+        line-height: 2.3rem;
       }
+    }
+  }
+
+  .vcenter, .HomeTopics .vcenter {
+    @include breakpoint(desktop) {
+      display: flex;
+      align-items: center;
     }
   }
 }

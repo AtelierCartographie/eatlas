@@ -46,20 +46,24 @@ const Home = ({ topics, options }) => {
     h('section.HomeTopics', [
       h('.container', [
         h('h2', 'Sommaire'),
-        h('.row', [
-          h('.col-xs-6 .col-md-4', [
-            h('a.HomeTopic', { href: getTopicPageUrl(topics[0], options) }, [
+        h(
+          'p',
+          "Regarder le monde comme un espace mobile et fluide. S’émanciper de l’idée d’une scène internationale orchestrée par les seuls États. Sortir des figures classiques de l’ennemi, de la frontière, des identités exclusives. Montrer tous les acteurs des échanges internationaux, qu’ils soient publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux. Représenter les innombrables interdépendances et enchevêtrements de nos histoires,  autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Apporter quelques notes à la partition du vivre-ensemble. Telle est l’ambition de cet atlas.",
+        ),
+        h('.row.gutter', [
+          h('.col-xs-6.col-md-4', [
+            h('a.HomeTopic.vcenter', { href: getTopicPageUrl(topics[0], options) }, [
               h('.TopicNumber'),
               h('.TopicName', topics[0].name),
             ]),
           ]),
         ]),
         h(
-          '.row',
+          '.row.gutter',
           topics
             .slice(1)
             .map(t =>
-              h('.col-xs-6 .col-md-4', [
+              h('.col-xs-6.col-md-4', [
                 h('a.HomeTopic', { href: getTopicPageUrl(t, options) }, [
                   h('.TopicNumber', t.id),
                   h('.TopicName', t.name),
@@ -73,33 +77,38 @@ const Home = ({ topics, options }) => {
       h('.container', [
         h('h2', 'Ressources'),
         h('.row', [
-          h('.col-sm-6', [
+          h('.col-sm-8', [
             h(
               'p',
               'Lorem ipsum dolor sit amet, cartes et graphiques consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam  erat  photos  volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation  lexique ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
             ),
           ]),
-          h('.col-sm-6'),
+          h('.col-sm-4'),
         ]),
       ]),
     ]),
     h('section.HomeProject', [
       h('.container', [
-        h('h2', 'À propos'),
-        h('.row', [
-          h('.col-sm-6', [
+        h('h2.text-right', 'À propos'),
+        h('.row.vcenter', [
+          h('.col-sm-8.col-sm-push-4.text-right', [
             h(
               'p',
               'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
             ),
+            h(
+              'a.more',
+              { href: globalPageUrl('project')(options.preview) },
+              'En savoir plus >',
+            ),
           ]),
-          h('.col-sm-6'),
+          h('.col-sm-4..col-sm-pull-8.logo', [
+            h('img', {
+              alt: 'Sciences Po',
+              src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
+            }),
+          ]),
         ]),
-        h(
-          'a.more',
-          { href: globalPageUrl('project')(options.preview) },
-          'En savoir plus >',
-        ),
       ]),
     ]),
     h('section.HomeTeam', [
@@ -110,10 +119,10 @@ const Home = ({ topics, options }) => {
           'p',
           'Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens et Delphine Placidi-Frot',
         ),
-        h('h3', 'Les visualisations : Sciences Po - Atelier de cartographie'),
+        h('h3', 'Les visualisations'),
         h(
           'p',
-          'Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio',
+          'Sciences Po - Atelier de cartographie : Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio',
         ),
         h(
           'a.more',
@@ -124,21 +133,31 @@ const Home = ({ topics, options }) => {
     ]),
     h('section.HomeBook', [
       h('.container', [
-        h('h2', 'Le livre'),
         h('.row', [
-          h('.col-sm-6', [
+          h('.col-sm-6.col-sm-push-6.text-right', [
+            h('h2.text-right', 'Le livre'),
             h(
               'p',
-              'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po.',
+              'Espace Mondial : l’Atlas est aussi un beau livre publié aux Presses de Sciences Po.',
             ),
             h(
               'a.more',
               { href: globalPageUrl('book')(options.preview) },
               'En savoir plus >',
             ),
-            h('div', [h('button', 'Acheter le livre')]),
+            h('div', [
+              h(
+                'a.button.btn',
+                { href: 'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530', target: '_blank', role: 'button' },
+                'Acheter le livre',
+              )]),
           ]),
-          h('.col-sm-6', ''),
+          h('.col-sm-6.col-sm-pull-6', [
+            h('img.img-responsive', {
+              alt: '',
+              src: prefixUrl('/assets/img/eatlas-paper.png', options.preview),
+            }),
+          ]),
         ]),
       ]),
     ]),

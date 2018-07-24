@@ -205,7 +205,7 @@ const About = ({ options }) => {
       h('.container', [
         h('h2', 'Le projet'),
         h('h3', 'La génèse'),
-        h('.row', [
+        h('.row.vcenter', [
           h(
             'p.col-sm-8',
             'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',

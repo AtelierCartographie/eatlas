@@ -41,7 +41,11 @@ const EmbeddedResource = ({ resource, options }) => {
           resource,
           options,
           main: { component: 'img.img-responsive', size: 'large' },
-          sources: [{ size: 'large', minWidth: 0 }],
+          sources: [
+            { size: 'large', minWidth: '700px' },
+            { size: 'medium', minWidth: '560px'},
+            { size: 'small', minWidth: 0 },
+          ],
         }),
         h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload', [infoLink]),

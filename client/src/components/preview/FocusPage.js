@@ -18,6 +18,7 @@ const {
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
+const EmbeddedResource = require('./EmbeddedResource')
 const { getResourcePageUrl } = require('./layout')
 
 // subcomponents
@@ -51,13 +52,19 @@ const FocusHeader = ({ focus }) =>
     ]),
   ])
 
-const FocusNodes = ({ focus, lexiconId }) => {
+const FocusNodes = ({ focus, lexiconId, resources, options }) => {
   return focus.nodes.map(n => {
     switch (n.type) {
       case 'header':
         return h('h2.container', { key: n.id }, n.text)
       case 'p':
         return h(Paragraph, { p: n, key: n.id, lexiconId })
+      case 'resource': {
+        const resource = resources.find(r => r.id === n.id)
+        return !resource
+          ? null
+          : h(EmbeddedResource, { resource, options, key: n.id })
+      }
       default:
         return null
     }

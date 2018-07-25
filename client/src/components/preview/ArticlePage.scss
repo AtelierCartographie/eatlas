@@ -1,19 +1,6 @@
 @import "var";
 
 .ArticlePage {
-  figure {
-    margin-bottom: 3.2em;
-
-    picture {
-      display: block;
-      text-align: center;
-    }
-  }
-
-  .figure-title {
-    font-weight: normal;
-  }
-
   .ArticleHeader {
     background-color: $color-breadcrumb;
     background-position: center;

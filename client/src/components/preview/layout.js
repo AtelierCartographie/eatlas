@@ -103,3 +103,11 @@ exports.aPropos = [
   },
   { text: 'Plan du site', url: globalPageUrl('sitemap') },
 ]
+
+exports.articleHeaderImageUrl = (article, options) =>
+  article &&
+  article.imageHeader &&
+  // TODO densities
+  `url(${exports.getImageUrl(article.imageHeader, 'small', '1x', options) ||
+    exports.getImageUrl(article.imageHeader, 'medium', '1x', options) ||
+    exports.getImageUrl(article.imageHeader, 'large', '1x', options)})`

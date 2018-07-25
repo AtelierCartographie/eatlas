@@ -18,7 +18,7 @@ const {
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
-const { getImageUrl, getResourcePageUrl, getTopicPageUrl } = require('./layout')
+const { getImageUrl, getResourcePageUrl, getTopicPageUrl, articleHeaderImageUrl } = require('./layout')
 const EmbeddedResource = require('./EmbeddedResource')
 
 // subcomponents
@@ -147,13 +147,8 @@ const ArticleSeeAlso = ({ article, topics, resources, options }) => {
             [
               h('img', {
                 alt: '',
-                // TODO densities
                 style: {
-                  backgroundImage:
-                    r.imageHeader &&
-                    `url(${getImageUrl(r.imageHeader, 'small', '1x', options) ||
-                      getImageUrl(r.imageHeader, 'medium', '1x', options) ||
-                      getImageUrl(r.imageHeader, 'large', '1x', options)})`,
+                  backgroundImage: articleHeaderImageUrl(r, options),
                 },
               }),
               h('div', [
@@ -242,11 +237,8 @@ const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
         h('a.ArticlePrevInline', { href: getResourcePageUrl(prev, options) }, [
           h('img', {
             alt: '',
-            // TODO densities
             style: {
-              backgroundImage:
-                prev.imageHeader &&
-                `url(${getImageUrl(prev.imageHeader, 'large', '1x', options)})`,
+              backgroundImage: articleHeaderImageUrl(prev, options),
             },
           }),
           h('div', [
@@ -264,11 +256,8 @@ const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
           ]),
           h('img', {
             alt: '',
-            // TODO densities
             style: {
-              backgroundImage:
-                next.imageHeader &&
-                `url(${getImageUrl(next.imageHeader, 'large', '1x', options)})`,
+              backgroundImage: articleHeaderImageUrl(next, options),
             },
           }),
         ]),

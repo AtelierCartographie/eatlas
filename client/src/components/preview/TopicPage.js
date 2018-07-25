@@ -12,7 +12,7 @@ const Head = require('./Head')
 const Body = require('./Body')
 const { PublishedAt } = require('./Doc')
 
-const { getImageUrl, getResourcePageUrl, prefixUrl } = require('./layout')
+const { getImageUrl, getResourcePageUrl, prefixUrl, articleHeaderImageUrl } = require('./layout')
 
 const TopicVideo = ({ url }) => {
   if (!url) return null
@@ -132,9 +132,7 @@ const ArticleList = ({ articles, options }) => {
           h('img', {
             alt: '',
             style: {
-              backgroundImage:
-                a.imageHeader &&
-                `url(${getImageUrl(a.imageHeader, 'large', '1x', options)})`,
+              backgroundImage: articleHeaderImageUrl(a, options),
             },
           }),
           h('.ArticleListInfo', [

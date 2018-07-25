@@ -19,10 +19,10 @@ const srcset = (image, size, options) => {
     return null
   }
   return [
-    image1 ? `${image1},` : '',
-    image2 ? `${image2} 2x,` : '',
-    image3 ? `${image3} 3x,` : '',
-  ].join('\n')
+    ...(image1 ? [image1] : []),
+    ...(image2 ? [`${image2} 2x`] : []),
+    ...(image3 ? [`${image3} 3x`] : []),
+  ].join(', ')
 }
 
 const Picture = ({

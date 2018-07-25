@@ -21,9 +21,9 @@ exports.getImageUrl = (
   density /*: ResourceDensity */ = '1x',
   { preview = false } /*: FrontOptions */ = {},
 ) => {
-  if (preview) return getMediaPreviewUrl(id, size, density)
-
   const file = images && images[size] && images[size][density]
+  if (!file) return null
+  if (preview) return getMediaPreviewUrl(id, size, density)
   return getMediaUrl(file)
 }
 

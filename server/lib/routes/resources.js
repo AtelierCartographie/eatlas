@@ -11,7 +11,6 @@ const uploadManagers = require('../upload-managers')
 const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 const { rebuildAllHTML } = require('../site-builder')
 const previews = require('./previews') // for alias resources.preview = previews.resource
-const { smallestImage } = require('../generator-utils')
 
 exports.findResource = (req, res, next) =>
   Resources.findById(req.params.id)
@@ -167,16 +166,15 @@ exports.file = async (req, res, next) => {
           // or a "doc key", like "image-small-2x"
           // we convert the second into the first:
           const keyMatch = req.params.k.match(
-            /^(map|image)-(small|medium|large)-([123]x)/,
+            /^(small|medium|large)-([123]x)/,
           )
           const keyPath = keyMatch
-            ? keyMatch[2] + '.' + keyMatch[3]
+            ? keyMatch[1] + '.' + keyMatch[2]
             : req.params.k
           file = get(images, keyPath)
         }
         if (!file) {
-          // use first found image (smaller to larger)
-          file = smallestImage(images)
+          return res.boom.badRequest('Image not found for requested size and density')
         }
         const { up } = resourceMediaPath(req.foundResource, file, {
           pub: false,

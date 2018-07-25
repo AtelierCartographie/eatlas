@@ -2,29 +2,9 @@
 
 const h = require('react-hyperscript')
 
-const { getImageUrl, getResourcePageUrl } = require('./layout')
+const { getResourcePageUrl } = require('./layout')
 const { getMediaUrl } = require('../../universal-utils')
-
-const srcset = (image, size, options) => {
-  const image1 = getImageUrl(image, size, '1x', options)
-  const image2 = getImageUrl(image, size, '2x', options)
-  const image3 = getImageUrl(image, size, '3x', options)
-  if (!image1 && !image2 && !image3) {
-    if (options.fallback) {
-      return (
-        srcset(image, 'large', { ...options, fallback: false }) ||
-        srcset(image, 'medium', { ...options, fallback: false }) ||
-        srcset(image, 'small', { ...options, fallback: false })
-      )
-    }
-    return null
-  }
-  return [
-    image1 ? `${image1},` : '',
-    image2 ? `${image2} 2x,` : '',
-    image3 ? `${image3} 3x,` : '',
-  ].join('\n')
-}
+const Picture = require('./Picture')
 
 const EmbeddedResource = ({ resource, options }) => {
   const infoLink = h(
@@ -37,16 +17,7 @@ const EmbeddedResource = ({ resource, options }) => {
     case 'image':
       return h('figure.container', [
         h('h2.figure-title', resource.title),
-        Picture({
-          resource,
-          options,
-          main: { component: 'img', size: 'large' },
-          sources: [
-            { size: 'large', minWidth: '700px' },
-            { size: 'medium', minWidth: '560px'},
-            { size: 'small', minWidth: 0 },
-          ],
-        }),
+        Picture.Responsive({ resource, options, mainSize: 'large' }),
         h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload', [infoLink]),
         h(ArticleResourceComment, { resource }),
@@ -55,16 +26,7 @@ const EmbeddedResource = ({ resource, options }) => {
     case 'map':
       return h('figure', [
         h('h2.figure-title.container', resource.title),
-        Picture({
-          resource,
-          options,
-          main: { component: 'img', size: 'small' },
-          sources: [
-            { size: 'large', minWidth: '700px' },
-            { size: 'medium', minWidth: '560px' },
-            { size: 'small', minWidth: 0 },
-          ],
-        }),
+        Picture.Responsive({ resource, options, mainSize: 'small' }),
         h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload.container', [infoLink]),
         h(ArticleResourceComment, { resource }),
@@ -137,24 +99,6 @@ const ArticleResourceComment = ({ resource }) => {
     ]),
   ])
 }
-
-const Picture = ({
-  resource,
-  options,
-  main: { component, size },
-  sources = [],
-}) =>
-  h('picture', [
-    ...sources.map(({ size, minWidth }, key) => {
-      const srcSet = srcset(resource, size, options)
-      if (!srcSet) return null
-      const more = minWidth ? { media: `(min-width: ${minWidth})` } : {}
-      return h('source', { key, srcSet, ...more })
-    }),
-    h(component, {
-      srcSet: srcset(resource, size, { ...options, fallback: true }),
-    }),
-  ])
 
 const FigCaption = ({ content }) =>
   h('figcaption.container', { dangerouslySetInnerHTML: { __html: content } })

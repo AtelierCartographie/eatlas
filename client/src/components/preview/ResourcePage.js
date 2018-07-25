@@ -11,20 +11,21 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const Picture = require('./Picture')
 
 // subcomponents
 
 const apiBaseUrl = process.env.REACT_APP_API_SERVER || ''
 
-const ResourceMap = ({ resource }) => {
+const ResourceMap = ({ resource, options }) => {
   return h('.ResourceMap', [
-    h('img', { src: `${apiBaseUrl}/resources/${resource.id}/file` }),
+    Picture.Responsive({ resource, options, mainSize: 'large' }),
   ])
 }
 
-const ResourceImage = ({ resource }) => {
+const ResourceImage = ({ resource, options }) => {
   return h('.ResourceImage', [
-    h('img', { src: `${apiBaseUrl}/resources/${resource.id}/file` }),
+    Picture.Responsive({ resource, options, mainSize: 'large' }),
   ])
 }
 

@@ -98,7 +98,7 @@ const ResourceLexicon = ({ definitions }) =>
     ),
   ])
 
-const Resource = ({ resource }) => {
+const Resource = ({ resource, options }) => {
   let children
   // TODO proper i18n for FO
   let displayedType = resource.type
@@ -110,29 +110,29 @@ const Resource = ({ resource }) => {
     case 'map':
       displayedType = 'Carte'
       children = [
-        h(ResourceMap, { resource }),
-        h(ResourceCopyright, { resource }),
+        h(ResourceMap, { resource, options }),
+        h(ResourceCopyright, { resource, options }),
       ]
       break
     case 'image':
       displayedType = 'Image'
       children = [
-        h(ResourceImage, { resource }),
-        h(ResourceCopyright, { resource }),
+        h(ResourceImage, { resource, options }),
+        h(ResourceCopyright, { resource, options }),
       ]
       break
     case 'sound':
       displayedType = 'Son'
       children = [
-        h(ResourceSound, { resource }),
-        h(ResourceCopyright, { resource }),
+        h(ResourceSound, { resource, options }),
+        h(ResourceCopyright, { resource, options }),
       ]
       break
     case 'video':
       displayedType = 'Vidéo'
       children = [
-        h(ResourceVideo, { resource }),
-        h(ResourceCopyright, { resource }),
+        h(ResourceVideo, { resource, options }),
+        h(ResourceCopyright, { resource, options }),
       ]
       break
 

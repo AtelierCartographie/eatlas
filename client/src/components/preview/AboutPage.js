@@ -285,7 +285,7 @@ const About = ({ options }) => {
             ),
           ]),
           h('.col-sm-6', [
-            h('img.img-responsive', {
+            h('img', {
               alt: '',
               src: prefixUrl('/assets/img/eatlas-paper.png', options.preview),
             }),

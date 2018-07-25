@@ -40,7 +40,7 @@ const EmbeddedResource = ({ resource, options }) => {
         Picture({
           resource,
           options,
-          main: { component: 'img.img-responsive', size: 'large' },
+          main: { component: 'img', size: 'large' },
           sources: [
             { size: 'large', minWidth: '700px' },
             { size: 'medium', minWidth: '560px'},

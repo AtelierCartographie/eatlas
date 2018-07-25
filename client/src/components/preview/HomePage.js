@@ -153,7 +153,7 @@ const Home = ({ topics, options }) => {
               )]),
           ]),
           h('.col-sm-6.col-sm-pull-6', [
-            h('img.img-responsive', {
+            h('img', {
               alt: '',
               src: prefixUrl('/assets/img/eatlas-paper.png', options.preview),
             }),

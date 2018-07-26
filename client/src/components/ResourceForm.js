@@ -541,6 +541,17 @@ class ResourceForm extends Component<Props, State> {
         loading: this.state.parsing,
         rows: 5,
       }),
+      resource.type === 'article' && this.getAttrField('description_en', {
+        labelId: 'resource-description',
+        labelValues: { lang: 'en' },
+        readOnly:
+          readOnly ||
+          Boolean(
+            isArticle && this.state.parsed && this.state.parsed.description_en,
+          ),
+        loading: this.state.parsing,
+        rows: 5,
+      }),
       transcript &&
         this.getAttrField('transcript', {
           rows: 5,

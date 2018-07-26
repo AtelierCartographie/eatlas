@@ -16,7 +16,8 @@
     "es-index": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/es-index.js",
     "model-repl": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/model-repl.js",
     "rebuild-site": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' 'ES_AUTO_MIGRATION=0' node bin/rebuild-site.js | bunyan -o short",
-    "git-version": "echo module.exports=\\\"$(cat ../.git/ORIG_HEAD | head -c 7)\\\" > ./git-version.js"
+    "git-version": "echo module.exports=\\\"$(cat ../.git/ORIG_HEAD | head -c 7)\\\" > ./git-version.js",
+    "migrate-description-issue-137": "cross-env 'NODE_CONFIG_DIR=${NODE_CONFIG_DIR:../config}' node bin/20180726-137-migrate_description | bunyan -o short"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",
   "license": "MIT",

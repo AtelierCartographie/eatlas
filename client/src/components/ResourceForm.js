@@ -647,6 +647,10 @@ class ResourceForm extends Component<Props, State> {
               'small',
               'medium',
               'large',
+            ], [
+              '1x',
+              '2x',
+              '3x',
             ]),
           ],
           {
@@ -656,7 +660,13 @@ class ResourceForm extends Component<Props, State> {
         )
       case 'image':
         return buildFields(
-          [this.getResponsiveImageField(resource, ['large'])],
+          [this.getResponsiveImageField(resource, [
+            'small',
+            'medium',
+            'large',
+          ], [
+            '1x',
+          ])],
           {
             copyright: true,
           },
@@ -725,7 +735,7 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  getResponsiveImageField(resource, supportedSizes): FieldParams {
+  getResponsiveImageField(resource, supportedSizes, supportedDensities): FieldParams {
     const re = resource.type === 'map' ? /^map-/ : /^image-/
     const { docs } = this.state
     const keys = Object.keys(docs)
@@ -739,7 +749,7 @@ class ResourceForm extends Component<Props, State> {
           <DocPicker
             locale={this.props.locale}
             label="select-images"
-            onPick={this.onPickResponsiveImage(resource, supportedSizes)}
+            onPick={this.onPickResponsiveImage(resource, supportedSizes, supportedDensities)}
             showPickerAfterUpload={true}
             multiple={true}
             mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
@@ -782,26 +792,24 @@ class ResourceForm extends Component<Props, State> {
           `${API_SERVER}/resources/${resource.id}/file/${key}`
       : null
 
-  onPickResponsiveImage = (resource, supportedSizes) => async (
-    docs: GoogleDoc[],
-    accessToken: string,
-  ) => {
+  onPickResponsiveImage = (resource, supportedSizes, supportedDensities) => {
     // name: <id>-<size>[@<density>] => key = image-<size>-<density>
     const key = resource.type // 'image' or 'map'
     const re =
       supportedSizes.length === 1 // only 1 size = size is optional in name
-        ? new RegExp(`(?:-(${supportedSizes[0]}))?(?:@([123]x))?\\.[.a-z]+$`)
-        : new RegExp(`-(${supportedSizes.join('|')})(?:@([123]x))?\\.[.a-z]+$`)
+        ? new RegExp(`(?:-(${supportedSizes[0]}))?(?:@(${supportedDensities.join('|')}))?\\.[.a-z]+$`)
+        : new RegExp(`-(${supportedSizes.join('|')})(?:@(${supportedDensities.join('|')}))?\\.[.a-z]+$`)
+    return async (docs: GoogleDoc[], accessToken: string) => {
+      docs.forEach(doc => {
+        const match = doc.name.match(re)
+        if (!match)
+          return toast.error(<T id="error-parsing-image-name" values={doc} />)
 
-    docs.forEach(doc => {
-      const match = doc.name.match(re)
-      if (!match)
-        return toast.error(<T id="error-parsing-image-name" values={doc} />)
-
-      const [, size = supportedSizes[0], density = '1x'] = match
-      this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
-    })
-    return {}
+        const [, size = supportedSizes[0], density = '1x'] = match
+        this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
+      })
+      return {}
+    }
   }
 
   clearResponsiveImageDocs = resource => () => {}

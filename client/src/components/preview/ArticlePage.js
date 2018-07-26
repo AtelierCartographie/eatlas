@@ -18,7 +18,13 @@ const {
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
-const { getImageUrl, getResourcePageUrl, getTopicPageUrl, articleHeaderImageUrl } = require('./layout')
+const {
+  getImageUrl,
+  getResourcePageUrl,
+  getTopicPageUrl,
+  articleHeaderImageUrl,
+  ensureHTML
+} = require('./layout')
 const EmbeddedResource = require('./EmbeddedResource')
 
 // subcomponents
@@ -60,7 +66,7 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
 const ArticleSummaries = ({ article }) =>
   h('section.container.Summaries', [
     // pills
-    !article.summaries.en
+    !article.description_en
       ? null
       : h('ul.langs', { role: 'tablist' }, [
           h('li.active', { role: 'presentation' }, [
@@ -92,13 +98,13 @@ const ArticleSummaries = ({ article }) =>
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('p', article.summaries.fr),
+        h('div', { dangerouslySetInnerHTML: { __html: ensureHTML(article.description_fr) } }),
       ]),
-      !article.summaries.en
+      !article.description_en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('p', article.summaries.en),
+            h('div', { dangerouslySetInnerHTML: { __html: ensureHTML(article.description_en) } }),
           ]),
     ]),
   ])

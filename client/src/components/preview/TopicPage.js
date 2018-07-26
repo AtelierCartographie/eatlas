@@ -12,7 +12,13 @@ const Head = require('./Head')
 const Body = require('./Body')
 const { PublishedAt } = require('./Doc')
 
-const { getImageUrl, getResourcePageUrl, prefixUrl, articleHeaderImageUrl } = require('./layout')
+const {
+  getImageUrl,
+  getResourcePageUrl,
+  prefixUrl,
+  articleHeaderImageUrl,
+  ensureHTML
+} = require('./layout')
 
 const TopicVideo = ({ url }) => {
   if (!url) return null
@@ -109,14 +115,14 @@ const TopicDescriptions = ({ topic }) =>
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('div', { dangerouslySetInnerHTML: { __html: topic.description_fr } }),
+        h('div', { dangerouslySetInnerHTML: { __html: ensureHTML(topic.description_fr) } }),
       ]),
       !topic.description_en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
             h('div', {
-              dangerouslySetInnerHTML: { __html: topic.description_en },
+              dangerouslySetInnerHTML: { __html: ensureHTML(topic.description_en) },
             }),
           ]),
     ]),

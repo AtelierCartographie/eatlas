@@ -111,3 +111,10 @@ exports.articleHeaderImageUrl = (article, options) =>
   `url(${exports.getImageUrl(article.imageHeader, 'small', '1x', options) ||
     exports.getImageUrl(article.imageHeader, 'medium', '1x', options) ||
     exports.getImageUrl(article.imageHeader, 'large', '1x', options)})`
+
+exports.ensureHTML = (string, tag = 'p') => {
+  if (!string.match(/^\s*</)) {
+    return `<${tag}>${string}</${tag}>`
+  }
+  return string
+}

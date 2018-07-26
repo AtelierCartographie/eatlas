@@ -45,8 +45,8 @@ exports.fullTopic = {
   name,
   // https://github.com/hapijs/joi/issues/482
   resourceId: Joi.string().allow(''),
-  description_fr: Joi.string().allow(),
-  description_en: Joi.string().allow(),
+  description_fr: Joi.string().allow(''),
+  description_en: Joi.string().allow(''),
 }
 
 // resources

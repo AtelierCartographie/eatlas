@@ -77,10 +77,13 @@ module.exports = type => {
       .index({ index: indices[type], type, body, refresh, id })
       .then(({ _id }) => formatHit({ _source: body, _id }))
 
-  const update = (id, doc) =>
-    client
-      .update({ index: indices[type], type, id, body: { doc }, refresh })
+  const update = (id, doc, advanced = false) => {
+    // Advanced update: full body provided (e.g. { script })
+    const body = advanced ? doc : { doc }
+    return client
+      .update({ index: indices[type], type, id, body, refresh })
       .then(() => findById(id))
+  }
 
   const remove = id =>
     client.delete({ index: indices[type], type, id, refresh })

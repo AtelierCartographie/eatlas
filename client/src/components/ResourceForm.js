@@ -265,6 +265,8 @@ class ResourceForm extends Component<Props, State> {
       loading = false,
       type = 'text',
       help,
+      labelId = null,
+      labelValues = {},
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
@@ -278,6 +280,8 @@ class ResourceForm extends Component<Props, State> {
       loading?: boolean,
       type?: string,
       help?: React$Element<any>,
+      labelId?: string,
+      labelValues?: any,
     } = {},
   ): FieldParams {
     const props = {
@@ -345,7 +349,8 @@ class ResourceForm extends Component<Props, State> {
     }
 
     return {
-      labelId: 'resource-' + attr,
+      labelId: labelId || 'resource-' + attr,
+      labelValues,
       leftIcon,
       rightIcon,
       input,
@@ -525,11 +530,13 @@ class ResourceForm extends Component<Props, State> {
           this.props.mode === 'create',
         ),
       }),
-      this.getAttrField('description', {
+      this.getAttrField('description_fr', {
+        labelId: 'resource-description',
+        labelValues: { lang: 'fr' },
         readOnly:
           readOnly ||
           Boolean(
-            isArticle && this.state.parsed && this.state.parsed.description,
+            isArticle && this.state.parsed && this.state.parsed.description_fr,
           ),
         loading: this.state.parsing,
         rows: 5,
@@ -940,7 +947,13 @@ class ResourceForm extends Component<Props, State> {
         null,
       )
       resource.language = foundSummary ? foundSummary.lang : ''
-      resource.description = foundSummary ? foundSummary.summary : ''
+      if (foundSummary.lang === 'en') {
+        resource.description_fr = getMetaText('summary-fr') || ''
+        resource.description_en = foundSummary ? foundSummary.summary : ''
+      } else {
+        resource.description_fr = foundSummary ? foundSummary.summary : ''
+        resource.description_en = getMetaText('summary-en') || ''
+      }
       return { parsed, resource }
     }
     const parseDoc = key === 'article' ? parseArticleDoc : parseFocusDoc
@@ -962,12 +975,13 @@ class ResourceForm extends Component<Props, State> {
             resource.title ||
             this.props.intl.formatMessage({ id: 'lexicon-title' }),
           language: resource.language || this.props.locale,
-          description:
-            resource.description ||
+          description_fr:
+            resource.description_fr ||
             this.props.intl.formatMessage(
               { id: 'lexicon-description' },
               { nb: parsed.definitions.length },
             ),
+          description_en: '',
         }
       }
       return newState

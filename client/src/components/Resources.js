@@ -804,7 +804,8 @@ const resourceMatchSearch = (resource: Resource, lcWords: string[]) => {
     resource.title,
     resource.subtitle,
     resource.language,
-    resource.description,
+    resource.description_fr,
+    resource.description_en,
     ...(resource.definitions
       ? resource.definitions.reduce(
           (strings, def) => strings.concat([def.dt, def.dd, ...def.aliases]),

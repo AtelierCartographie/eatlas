@@ -121,7 +121,10 @@ exports.resource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string()
+  description_fr: Joi.string()
+    .allow('')
+    .allow(null).optional(),
+  description_en: Joi.string()
     .allow('')
     .allow(null).optional(),
   transcript,
@@ -240,7 +243,10 @@ exports.fullResource = {
     otherwise: Joi.required(),
   }),
   language: language.required(),
-  description: Joi.string()
+  description_fr: Joi.string()
+    .allow('')
+    .allow(null).optional(),
+  description_en: Joi.string()
     .allow('')
     .allow(null).optional(),
   transcript,

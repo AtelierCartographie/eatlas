@@ -44,7 +44,7 @@ const EmbeddedResource = ({ resource, options }) => {
           width: 740,
           allowFullScreen: true,
         }),
-        h(FigCaption, { content: resource.description }),
+        h(FigCaption, { content: resource.description_fr }),
       ])
     }
 
@@ -56,7 +56,7 @@ const EmbeddedResource = ({ resource, options }) => {
           src: url,
           controls: true,
         }),
-        h(FigCaption, { content: resource.description }),
+        h(FigCaption, { content: resource.description_fr }),
       ])
     }
 
@@ -79,7 +79,7 @@ const EmbeddedResource = ({ resource, options }) => {
 }
 
 const ArticleResourceComment = ({ resource }) => {
-  if (!resource.description) return null
+  if (!resource.description_fr) return null
   const id = `comment-${resource.id}`
   return h('.ArticleResourceComment.container', [
     h(
@@ -95,7 +95,7 @@ const ArticleResourceComment = ({ resource }) => {
       'Commentaire',
     ),
     h('.collapse', { id }, [
-      h('div', { dangerouslySetInnerHTML: { __html: resource.description } }),
+      h('div', { dangerouslySetInnerHTML: { __html: resource.description_fr } }),
     ]),
   ])
 }

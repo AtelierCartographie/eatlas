@@ -58,7 +58,8 @@ declare type ResourceNew = {
   titlePosition?: string, // center, top, bottom
   topic: string,
   language: string,
-  description: string,
+  description_fr: string,
+  description_en?: string,
   transcript: string, // only sound, video
   copyright?: string, // only definition, map, image, video, sound
   mediaUrl?: string, // only video

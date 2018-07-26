@@ -54,7 +54,7 @@ const ResourceVideo = ({ resource }) => {
 const ResourceDescription = ({ resource }) => {
   return h('.container.ResourceDescription', [
     h('h2', 'Commentaire'),
-    h('div', { dangerouslySetInnerHTML: { __html: resource.description } }),
+    h('div', { dangerouslySetInnerHTML: { __html: resource.description_fr } }),
   ])
 }
 

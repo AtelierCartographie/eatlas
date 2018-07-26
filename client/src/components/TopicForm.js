@@ -184,7 +184,7 @@ class TopicForm extends Component<Props, State> {
             {['fr', 'en'].map(lang => (
               <div className="field" key={lang}>
                 <label className="label">
-                  <T id="resource-description" /> {lang}
+                  <T id="resource-description" values={{ lang }} />
                 </label>
                 <div className="control">
                   <Editor

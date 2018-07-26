@@ -10,7 +10,8 @@ const FAKE_USER: User = {
 const FAKE_RESOURCE: Resource = {
   id: '0V00',
   type: 'video',
-  description: 'some fake video',
+  description_fr: 'une fausse vidéo',
+  description_en: 'some fake video',
   language: 'en',
   author: 'me@myself',
   createdAt: new Date().toISOString(),

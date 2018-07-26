@@ -166,7 +166,7 @@ const formatResultHit = resource => ({
   subtitle: resource.subtitle,
   type: resource.type,
   typeLabel: CLIENT_TYPES[resource.type] || TYPES[resource.type],
-  url: resource.type === 'reference' ? resource.description : resource.pageUrl,
+  url: resource.type === 'reference' ? resource.description_fr : resource.pageUrl,
   preview: resource.thumbnailUrl
     ? {
         url: resource.thumbnailUrl,
@@ -175,7 +175,7 @@ const formatResultHit = resource => ({
   extra:
     resource.type === 'single-definition'
       ? {
-          definition: resource.description,
+          definition: resource.description_fr,
           aliases: resource.metas
             .filter(m => m.type === 'alias')
             .map(m => m.text),

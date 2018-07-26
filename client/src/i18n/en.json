@@ -61,7 +61,7 @@
   "resource-copyright": "Copyright",
   "resource-create": "Add resource",
   "resource-createdAt": "Creation date",
-  "resource-description": "Description",
+  "resource-description": "Description ({lang})",
   "resource-edit": "{type}: {id}",
   "resource-edit-loading": "Loading resource #{id}",
   "resource-id": "Identifier",

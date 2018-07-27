@@ -18,24 +18,24 @@ const Picture = require('./Picture')
 const apiBaseUrl = process.env.REACT_APP_API_SERVER || ''
 
 const ResourceMap = ({ resource, options }) => {
-  return h('.ResourceMap', [
+  return h('.ResourceMap',
     Picture.Responsive({ resource, options, mainSize: 'large' }),
-  ])
+  )
 }
 
 const ResourceImage = ({ resource, options }) => {
-  return h('.ResourceImage', [
+  return h('.ResourceImage',
     Picture.Responsive({ resource, options, mainSize: 'large' }),
-  ])
+  )
 }
 
 const ResourceSound = ({ resource }) => {
-  return h('.container.ResourceSound', [
+  return h('.container.ResourceSound',
     h('audio', {
       src: `${apiBaseUrl}/resources/${resource.id}/file`,
       controls: true,
     }),
-  ])
+  )
 }
 
 const ResourceVideo = ({ resource }) => {
@@ -85,7 +85,7 @@ const ResourceLexicon = ({ definitions }) =>
     h(
       'dl',
       definitions.map(({ dt, dd }) =>
-        h(Fragment, [
+        h(Fragment, { key: dt }, [
           h('dt', dt),
           h('dd', [
             h('.gradient-expand', [
@@ -139,18 +139,20 @@ const Resource = ({ resource, options }) => {
     default:
       children = 'ResourcePage component not not implemented'
   }
-  return h('article.ResourcePage', [
-    h('header.container.ResourceHeader', [
+  return h('article.ResourcePage',
+    {},
+    h('header.container.ResourceHeader',
+      {},
       h('.PageTitle', 'Ressources'),
       h('.ResourceType', displayedType),
       h('h1.ResourceTitle', resource.title),
-    ]),
-    children,
+    ),
+    ...children,
     resource.type !== 'definition' && h(ResourceDescription, { resource }),
     ['sound', 'video'].includes(resource.type) &&
       h(ResourceTranscript, { resource }),
     resource.type === 'map' && h(ResourceDownload, { resource }),
-  ])
+  )
 }
 
 const ResourcePage = ({

@@ -65,27 +65,25 @@ const TeamMemberModal = ({ member, options }) => {
 }
 
 const TeamMember = ({ member, options }) => {
-  return h('li.col-sm-2.col-xs-6.TeamMember', [
+  return h('li.col-sm-2.col-xs-6.TeamMember', { key: Math.random() },
     h(
       'button',
       {
+        key: Math.random(),
         'data-toggle': 'modal',
         'data-target': `#${toId(member.lastname)}`,
       },
-      [
-        h('img', {
-          src: prefixUrl(avatarUrl(member), options.preview),
-          alt: `${member.firstname} ${member.lastname}`,
-        }),
-        [
-          h('div', [
-            h('.TeamMemberName', member.firstname),
-            h('.TeamMemberName', member.lastname),
-          ]),
-        ],
-      ],
+      h('img', {
+        key: Math.random(),
+        src: prefixUrl(avatarUrl(member), options.preview),
+        alt: `${member.firstname} ${member.lastname}`,
+      }),
+      h('div',
+        h('.TeamMemberName', { key: Math.random() }, member.firstname),
+        h('.TeamMemberName', { key: Math.random() }, member.lastname),
+      ),
     ),
-  ])
+  )
 }
 
 const Team = ({ options }) => {
@@ -209,11 +207,11 @@ const Team = ({ options }) => {
     h('.container', [
       h('h2', "L'équipe"),
       h('h3', 'Les textes'),
-      h('ul', authors.map(member => h(TeamMember, { member, options }))),
+      h('ul', authors.map((member, key) => h(TeamMember, { key, member, options }))),
       h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
       h('ul', cartographers.map(member => h(TeamMember, { member, options }))),
-      authors.map(member => h(TeamMemberModal, { member, options })),
-      cartographers.map(member => h(TeamMemberModal, { member, options })),
+      authors.map((member, key) => h(TeamMemberModal, { key, member, options })),
+      cartographers.map((member, key) => h(TeamMemberModal, { key, member, options })),
     ]),
   ])
 }

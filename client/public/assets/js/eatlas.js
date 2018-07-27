@@ -202,7 +202,7 @@
       create: false,
       highlight: true,
       dropdownParent: 'body',
-      maxOptions: 5,
+      //maxOptions: 5,
     })
   }
 })(window.jQuery)

@@ -26,6 +26,10 @@ module.exports = ({
     h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {
+      // Array.from, URLSearchParams, and other features required by eatlas.js
+      src: 'https://cdn.polyfill.io/v2/polyfill.min.js',
+    }),
+    h('script', {
       src: `${CDN}/jquery/3.3.1/jquery.min.js`,
     }),
     h('script', {

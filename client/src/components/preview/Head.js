@@ -35,4 +35,9 @@ module.exports = (
       href:
         'https://fonts.googleapis.com/css?family=Gentium+Basic:400,400i,700,700i',
     }),
+    h('link', {
+      rel: 'stylesheet',
+      href:
+        `${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`,
+    }),
   ])

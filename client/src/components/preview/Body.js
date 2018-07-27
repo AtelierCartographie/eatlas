@@ -45,6 +45,9 @@ module.exports = ({
       src: `${CDN}/picturefill/3.0.3/picturefill.min.js`,
     }),
     h('script', {
+      src: `${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`,
+    }),
+    h('script', {
       src: prefixUrl('/assets/js/eatlas.es5.js', options.preview),
     }),
   ])

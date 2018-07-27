@@ -1,4 +1,4 @@
-;(() => {
+(($) => {
   /* globals $, _ */
   $(document).on('click', () => $('.collapse').collapse('hide'))
   const [y, m, d] = new Date()
@@ -196,5 +196,13 @@
       e.preventDefault()
       $(e.currentTarget).toggleClass('expanded')
     })
+
+    // Enable auto-complete for keywords
+    $('select.keywords').selectize({
+      create: false,
+      highlight: true,
+      dropdownParent: 'body',
+      maxOptions: 5,
+    })
   }
-})()
+})(window.jQuery)

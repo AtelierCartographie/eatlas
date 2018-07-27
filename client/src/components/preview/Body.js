@@ -40,5 +40,7 @@ module.exports = ({
     h('script', {
       src: `${CDN}/picturefill/3.0.3/picturefill.min.js`,
     }),
-    h('script', { src: prefixUrl('/assets/js/eatlas.js', options.preview) }),
+    h('script', {
+      src: prefixUrl('/assets/js/eatlas.es5.js', options.preview),
+    }),
   ])

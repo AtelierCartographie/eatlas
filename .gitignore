@@ -63,3 +63,4 @@ docker-compose.yml
 
 # output of 'yarn git-version'
 git-version.js
+client/public/assets/js/eatlas.es5.js

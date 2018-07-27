@@ -138,17 +138,13 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       ),
       ...filtersToggle(
         'Mots-clés',
-        keywords.map(keyword => [
-          h('label', [
-            h('input', {
-              type: 'checkbox',
-              name: 'keywords[]',
-              key: 'input',
-              value: keyword,
-            }),
-            keyword,
-          ]),
-        ]),
+        [h(
+          'select.keywords',
+          { multiple: true, size: 5, name: 'keywords[]' },
+          keywords.map(value =>
+            h('option', { value, key: value }, value)
+          ),
+        )],
       ),
       ...filtersToggle('Date de publication', [
         [

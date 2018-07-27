@@ -59,6 +59,7 @@
       $('.SearchFiltersCount').text(count ? `(${count})` : '')
 
     // TODO brittle solution
+    // TODO i18n
     const updatePageTitle = () => {
       const searchParams = new URLSearchParams(window.location.search)
       searchParams.forEach((value, key) => {
@@ -74,14 +75,23 @@
     updatePageTitle()
 
     // Pre-fill input from query string
+    const valueSelector = v => `[value="${v}"]`
     const readFromUrl = () => {
       const searchParams = new URLSearchParams(window.location.search)
-      searchParams.forEach((value, key) => {
-        const $input = $(`input[name="${key}"]`, $form)
+      Array.from(searchParams.keys()).forEach(key => {
+        const $input = $(`[name="${key}"]`, $form)
+        if (!$input.length) {
+          return // No matching filter
+        }
+        const values = searchParams.getAll(key)
         if ($input.is(':checkbox, :radio')) {
-          $input.filter(`[value="${value}"]`).prop('checked', true)
+          const selector = values.map(valueSelector).join(',')
+          const $inputs = $input.filter(selector)
+          $inputs.prop('checked', true)
+        } else if ($input.is('select[multiple]')) {
+          $input.val(searchParams.getAll(key))
         } else {
-          $input.val(value)
+          $input.val(searchParams.get(key))
         }
       })
       currPage = Number(searchParams.get('page')) || 1

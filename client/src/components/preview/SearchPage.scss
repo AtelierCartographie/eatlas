@@ -59,6 +59,9 @@ $color-blue: #4778d1;
 
     input {
       width: 90%;
+      @include breakpoint(mobile) {
+        width: 70%;
+      }
     }
   }
 
@@ -68,6 +71,20 @@ $color-blue: #4778d1;
     font-size: 1.4rem;
     margin-right: $gap;
     padding: 2px;
+  }
+
+  form {
+    position: relative;
+  }
+
+  .search-filters-container {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    @include breakpoint(mobile) {
+      left: auto;
+      right: 0;
+    }
   }
 
   .search-filters {
@@ -123,6 +140,13 @@ $color-blue: #4778d1;
     }
     &[data-status="success"] .search-results-success {
       display: initial;
+
+      .search-page.container {
+        padding-left: 128px;
+        @include breakpoint(mobile) {
+          padding-left: 12px;
+        }
+      }
     }
     &[data-status="error"] .search-results-error {
       display: initial;

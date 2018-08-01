@@ -1,5 +1,3 @@
-@import "var";
-
 html {
   // everything should be expressed in rem
   // for example 16px = 1.6rem
@@ -154,13 +152,6 @@ ul.navmenu-nav a {
   border: none;
   padding: 10px 15px;
   margin: auto;
-}
-
-// Extension of "pull-right"
-.pull-right-if-mobile {
-  @include breakpoint(mobile) {
-    float: right !important;
-  }
 }
 
 /* MEDIA QUERIES ---------------------------------------- */

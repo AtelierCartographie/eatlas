@@ -94,8 +94,8 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Published at
     if (req.body['date-min'] || req.body['date-max']) {
-      const min = new Date(req.body['date-min'])
-      const max = new Date(req.body['date-max'])
+      const min = req.body['date-min'] && new Date(req.body['date-min'])
+      const max = req.body['date-max'] && new Date(req.body['date-max'])
       if (min || max) {
         let cmp = {}
         if (min) cmp.gte = min

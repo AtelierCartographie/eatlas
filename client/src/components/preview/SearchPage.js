@@ -123,7 +123,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
     h('.search-filters.dropdown-menu', [
       h('h1.search-filters-title', 'Affiner la recherche'),
       ...filtersToggle(
-        'Partie',
+        'Rubriques',
         topics.map(topic => [
           h('label', { key: topic.id }, [
             h('input', {
@@ -148,19 +148,21 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       ),
       ...filtersToggle('Date de publication', [
         [
-          h('span', { key: 'label' }, 'Avant le…'),
+          h('span', { key: 'label' }, 'Avant…'),
           h('input', {
-            type: 'date',
+            type: 'number',
             name: 'date-max',
             key: 'input',
+            placeholder: 2018,
           }),
         ],
         [
-          h('span', { key: 'label' }, 'Après le…'),
+          h('span', { key: 'label' }, 'Après…'),
           h('input', {
-            type: 'date',
+            type: 'number',
             name: 'date-min',
             key: 'input',
+            placeholder: 2000,
           }),
         ],
       ]),
@@ -179,6 +181,8 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
         ]),
       ),
       */
+      // TODO removed this filter - #133
+      /*
       ...filtersToggle(
         'Type',
         Object.keys(types).map(type => [
@@ -191,6 +195,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           h('span', { key: 'label' }, types[type]),
         ]),
       ),
+      */
       h(
         '.search-filters-warning-types',
         { style: { display: 'none' } },

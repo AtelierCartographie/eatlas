@@ -169,5 +169,4 @@ exports.footerResourcesConfig = [
     types: ['single-definition'],
     label: types['single-definition'],
   },
-  { slug: 'references', types: ['reference'], label: types.reference },
 ]

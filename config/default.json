@@ -103,12 +103,31 @@
 	"searchFields": [
 		"title",
 		"subtitle",
-		"description",
+		"description_fr",
+		"description_en",
 		"author",
 		"metas.text",
 		"nodes.links.text",
 		"nodes.list.text",
 		"nodes.list.list",
 		"nodes.text"
-	]
+	],
+
+	"// searchSort": "Rules to compute score for specific ordering",
+	"searchSort": {
+		"// boostType": "Boost score depending on doc's type",
+		"boostType": {
+			"single-definition": 20
+		},
+		"// boostSearchField": "Boost applied to text searchFields listed above (not listed = 1)",
+		"boostSearchField": {
+			"title": 40,
+			"description_fr": 10,
+			"description_en": 10
+		},
+		"// scoreSpecial": "Score applied to specific search criteria: status, type, language, topic, or keyword (not listed = 0)",
+		"scoreSpecial": {
+			"keyword": 200
+		}
+	}
 }

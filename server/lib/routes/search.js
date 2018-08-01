@@ -15,11 +15,17 @@ const nbPerPage = 10
 const term = (field, values) => ({
   [Array.isArray(values) ? 'terms' : 'term']: { [field]: values },
 })
-const match = (field, text) => ({
-  match: { [field]: { query: text, operator: 'and', cutoff_frequency: 0.001 } },
+const match = (field, text, boost = 1) => ({
+  match: { [field]: { query: text, operator: 'and', cutoff_frequency: 0.001, boost } },
 })
 const nested = (path, query) => ({ nested: { path, score_mode: 'max', query } })
 const range = (field, query) => ({ range: { [field]: query } })
+
+// WARNING! Destructive method
+const push = (filters, filter, boost = null) => filters.push(boost === null
+  ? filter
+  : { constant_score: { filter, boost } }
+)
 
 const search = ({ preview = false } = {}) => async (req, res) => {
   debug('Input', req.body)
@@ -30,27 +36,28 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Exclude unpublished resources
     if (!preview) {
-      must.push(term('status', 'published'))
+      push(must, term('status', 'published'), config.searchSort.scoreSpecial.status || 0)
     }
 
     // Exclude Lexicon because we can't handle definitions properly
-    must.push({ bool: { must_not: term('id', 'LEXIC') } })
+    push(must, { bool: { must_not: term('id', 'LEXIC') } }, 0)
 
     // Resource types?
     if (req.body.types) {
-      must.push(term('type', req.body.types))
+      push(must, term('type', req.body.types), config.searchSort.scoreSpecial.type || 0)
     }
 
     // Full-text query (OR on each field)
+    // Meaningful score here: handle boost carefully
     if (req.body.q) {
       const should = []
       config.searchFields.forEach(field => {
         if (field.indexOf('.') !== -1) {
           // Nested field
           const path = field.substring(0, field.indexOf('.'))
-          should.push(nested(path, match(field, req.body.q)))
+          should.push(nested(path, match(field, req.body.q, config.searchSort.boostSearchField[path] || 1)))
         } else {
-          should.push(match(field, req.body.q))
+          should.push(match(field, req.body.q, config.searchSort.boostSearchField[field] || 1))
         }
       })
       must.push({ bool: { should } })
@@ -58,17 +65,18 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Locale
     if (req.body.locales) {
-      must.push(term('language', req.body.locales))
+      push(must, term('language', req.body.locales), config.searchSort.scoreSpecial.keywords || 0)
     }
 
     // Topics
     if (req.body.topics) {
-      must.push(term('topic', req.body.topics))
+      push(must, term('topic', req.body.topics), config.searchSort.scoreSpecial.topic || 0)
     }
 
     // Keywords
     if (req.body.keywords) {
-      must.push(
+      push(
+        must,
         nested('metas', {
           bool: {
             must: [
@@ -80,6 +88,7 @@ const search = ({ preview = false } = {}) => async (req, res) => {
             ],
           },
         }),
+        config.searchSort.scoreSpecial.keyword,
       )
     }
 
@@ -91,7 +100,7 @@ const search = ({ preview = false } = {}) => async (req, res) => {
         let cmp = {}
         if (min) cmp.gte = min
         if (max) cmp.lte = max
-        must.push(range('publishedAt', cmp))
+        push(must, range('publishedAt', cmp), 0) // filter out => score = 0
       }
     }
 
@@ -99,14 +108,27 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     const size = Number(req.body.size) || nbPerPage
     const from = (page - 1) * size
 
-    const body = { query: { bool: { must } }, sort: [{ [sortField]: sortDir }] }
+    const withBoost = {
+      function_score: {
+        script_score: {
+          script: {
+            lang: 'painless',
+            params: { typeBoost: config.searchSort.boostType },
+            inline: `if (params.typeBoost[doc['type'].value] != null) { return _score * params.typeBoost[doc['type'].value] } else { return _score }`,
+          },
+        },
+        query: { bool: { must } },
+      }
+    }
+
+    const body = { explain: debug.enabled, query: withBoost, sort: [{ _score: 'desc', [sortField]: sortDir }] }
     if (debug.enabled) {
       debug('Query', inspect({ body, size, from }, false, 99, false))
     }
 
     const result = await Resources.search({ body, size, from })
     if (debug.enabled) {
-      debug('Result', inspect(result, false, 3, false))
+      debug('Result', inspect(result, false, 10, false))
     }
 
     const topics = await Topics.list()

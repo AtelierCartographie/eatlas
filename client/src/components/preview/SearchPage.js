@@ -201,6 +201,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
         { style: { display: 'none' } },
         'Note : la recherche ne permet pas de combiner les références, définitions, et autres types',
       ),
+      h('input.reset-filters', { type: 'reset' }),
     ]),
   ])
 

@@ -158,6 +158,7 @@
     }
     $form.on('submit', onSearch(true))
     $form.on('change', onSearch(false))
+    $form.on('reset', () => setTimeout(onSearch(false), 10))
 
     // Expand/collapse filters
     $('.SearchPage .search-filters-toggle[data-filters-hidden]').on(

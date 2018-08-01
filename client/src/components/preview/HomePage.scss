@@ -43,6 +43,14 @@
 
   .HomeResources {
     background: $color-footer;
+
+    a {
+      font-weight: bold;
+      color: $color-text;
+      background: $color-keyword;
+      border-radius: 5px;
+      padding: 3px 6px;
+    }
   }
 
   .HomeTeam {

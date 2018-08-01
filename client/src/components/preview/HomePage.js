@@ -78,10 +78,15 @@ const Home = ({ topics, options }) => {
         h('h2', 'Ressources'),
         h('.row', [
           h('.col-sm-8', [
-            h(
-              'p',
-              'Lorem ipsum dolor sit amet, cartes et graphiques consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam  erat  photos  volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation  lexique ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
-            ),
+            h('p', [
+              'Lorem ipsum dolor sit amet, ',
+              h('a', { href: getSearchUrl({ types: ['map'] }, options) }, 'cartes et graphiques'),
+              ' consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam erat ',
+              h('a', { href: getSearchUrl({ types: ['image'] }, options) }, 'photos'),
+              ' volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation ',
+              h('a', { href: getSearchUrl({ types: ['single-definition'] }, options) }, 'lexique'),
+              ' ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
+            ]),
           ]),
           h('.col-sm-4'),
         ]),

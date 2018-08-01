@@ -15,7 +15,7 @@
   }
   // TODO merge all 3
   $('#TopMenuPanel-search input').on('keypress', goToSearch)
-  $('.HomePage input').on('keypress', goToSearch)
+  $('input.search-field').on('keypress', goToSearch)
   $('form.navmenu-form').on('submit', evt => evt.preventDefault())
   $('form.navmenu-form input').on('keypress', goToSearch)
   // Read more arrow in Footnotes
@@ -205,4 +205,15 @@
       //maxOptions: 5,
     })
   }
+
+  // Top bar search field
+  $('.search-toggle-button').on('click', e => {
+    $(e.currentTarget).parent().addClass('expand');
+    $(e.currentTarget).parent().find('.search-field').focus();
+  });
+  $('body').on('click', e => {
+    if (!$(e.target).closest('.search-toggle.expand').length) {
+      $('.search-toggle.expand').removeClass('expand');
+    }
+  });
 })(window.jQuery)

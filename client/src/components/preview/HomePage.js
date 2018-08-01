@@ -31,7 +31,7 @@ const Home = ({ topics, options }) => {
       h('h1.HomeTitle', 'Un atlas pour comprendre'),
       h('h1.HomeTitle.HomeTitleTyped', "l'espace mondial contemporain"),
       h('div', [
-        h('input', {
+        h('input.search-field', {
           placeholder: "Rechercher dans l'atlas",
           'data-search-page-url': getSearchUrl({}, options),
         }),

@@ -85,7 +85,32 @@ ul.navmenu-nav a {
   right: auto;
 }
 
-.navbar-toggle {
+.search-toggle {
+  position: fixed;
+  right: 0;
+  z-index: 2000;
+  padding: 12px;
+  .search-toggle-button {
+    margin-top: 0;
+  }
+  .search-field {
+    min-width: 250px;
+    display: none;
+  }
+  &.expand {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0 0 0 5px;
+    .search-field {
+      display: inline-block;
+    }
+    .search-toggle-button {
+      float: right;
+    }
+  }
+}
+
+.navbar-toggle, .search-toggle-button {
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.4);
   border: none;
   border-radius: 0;

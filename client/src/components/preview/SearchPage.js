@@ -109,7 +109,7 @@ const filtersToggle = (title, inputs) => [
 // sub-components
 
 const SearchFilters = ({ topics, types, locales, keywords }) =>
-  h('.btn-group.pull-right', [
+  h('.btn-group.pull-right-if-mobile', [
     h(
       'button.btn.btn-default.dropdown-toggle',
       {

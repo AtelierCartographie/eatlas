@@ -61,6 +61,11 @@ const paginationTemplate = `
     <a href="#prev" class="btn search-results-next" title="Résultats suivant">&gt;&gt;</a>
   <% } %>
 </div>
+<div class="row search-page-a-z container">
+  ${['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(letter =>
+    `<span class="search-filter-a-z" data-letter="${letter}">${letter}</span>`
+  ).join('')}
+</div>
 `
 
 const resultsTemplate = () => `
@@ -94,17 +99,22 @@ ${paginationTemplate}
 <% }) %>
 `
 
-const filtersToggle = (title, inputs) => [
-  h('h2.search-filters-toggle', { 'data-filters-hidden': '1' }, [
-    h('span.search-filters-subtitle', title),
-    h('span.toggle-expand', '⌄'),
-    h('span.toggle-collapse', '⌃'),
-  ]),
-  h(
-    '.search-filters-inputs',
-    inputs.map((input, key) => h('label.search-filters-input', { key }, input)),
-  ),
-]
+const filtersToggle = (title, inputs, hidden = false) => {
+  const children = [
+    h('h2.search-filters-toggle', { 'data-filters-hidden': '1' }, [
+      h('span.search-filters-subtitle', title),
+      h('span.toggle-expand', '⌄'),
+      h('span.toggle-collapse', '⌃'),
+    ]),
+    h(
+      '.search-filters-inputs',
+      inputs.map((input, key) => h('label.search-filters-input', { key }, input)),
+    ),
+  ]
+  return hidden
+    ? [ h('div', { style: { display: 'none' } }, children) ]
+    : children
+}
 
 // sub-components
 
@@ -196,6 +206,8 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
         ]),
         true,
       ),
+      // Hidden a-z filter
+      h('input', { type: 'hidden', name: 'letter' }),
       // Hidden warning shown in specific case
       h(
         '.search-filters-warning-types',

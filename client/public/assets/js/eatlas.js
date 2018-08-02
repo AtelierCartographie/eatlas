@@ -109,21 +109,28 @@
       $('.SearchPage .SearchResults').attr('data-status', 'error')
     }
     const showSearchResults = (results, formData) => {
+      const types = formData.filter(fd => fd.name === 'types[]')
+      if (types.length === 1 && types[0].value === 'single-definition') {
+        $('.SearchPage').addClass('is-lexicon')
+      } else {
+        $('.SearchPage').removeClass('is-lexicon');
+      }
       try {
         $('.SearchPage .SearchResults .search-results-success').html(
           resultTpl({
             results,
             formData,
             ui: {
-              // no need to repeat the type each time in lexicon
-              hideSearchResultsType:
-                formData.filter(fd => fd.name === 'types[]').length === 1,
+              // no need to repeat the type each time in one-type-only results
+              hideSearchResultsType: types.length === 1,
             },
           }),
         )
         $('.SearchPage .SearchResults').attr('data-status', 'success')
         // only checkboxes for now
         setFiltersCount(formData.filter(fd => fd.name.endsWith('[]')).length)
+        const letter = formData.filter(fd => fd.name === 'letter')
+        showActiveLetter(letter.length === 1 ? letter[0].value : null)
       } catch (err) {
         showSearchError(err)
       }
@@ -159,7 +166,8 @@
       if (preventDefault) {
         e.preventDefault()
       }
-      search(1)
+      currPage = 1
+      search(true)
     }
     $form.on('submit', onSearch(true))
     $form.on('change', onSearch(false))
@@ -210,6 +218,26 @@
       dropdownParent: 'body',
       //maxOptions: 5,
     })
+
+    // Lexicon additional filter
+    $('.SearchPage').on('click', '.search-filter-a-z', e => {
+      const $this = $(e.currentTarget);
+      if ($this.is('.active')) {
+        $('[name=letter]').val('')
+        showActiveLetter(null)
+      } else {
+        $('[name=letter]').val($this.data('letter'));
+        showActiveLetter($this.data('letter'))
+      }
+      currPage = 1
+      search(true)
+    });
+    const showActiveLetter = letter => {
+      $('.search-filter-a-z.active').removeClass('active')
+      if (letter) {
+        $(`.search-filter-a-z[data-letter="${letter}"]`).addClass('active')
+      }
+    }
   }
 
   // Top bar search field

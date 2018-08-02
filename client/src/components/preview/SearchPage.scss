@@ -34,6 +34,26 @@ $color-blue: #4778d1;
     }
   }
 
+  .search-page-a-z {
+    display: none;
+    padding: 12px 0px;
+    margin: 0;
+    .search-filter-a-z {
+      padding: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      &:first-child {
+        padding-left: 0;
+      }
+      &.active {
+        font-weight: bold;
+      }
+    }
+  }
+  &.is-lexicon .search-page-a-z {
+    display: block;
+  }
+
   .SearchPageTitleType {
     color: $color-breadcrumb;
   }

@@ -45,6 +45,8 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     // Resource types?
     if (req.body.types) {
       push(must, term('type', req.body.types), config.searchSort.scoreSpecial.type || 0)
+      // Specific to lexicon: filter by A-Z
+      push(must, { prefix: { 'title.keyword': req.body.letter } })
     }
 
     // Full-text query (OR on each field)

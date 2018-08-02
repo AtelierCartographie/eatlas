@@ -195,6 +195,7 @@ $color-blue: #4778d1;
       max-height: 70px;
       overflow: hidden;
       position: relative;
+      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
       &:before {
         content: "";
         width: 100%;
@@ -206,8 +207,8 @@ $color-blue: #4778d1;
       }
       // expanded
       &.expanded {
-        max-height: initial;
-        overflow: auto;
+        transition: max-height 1s ease-in-out;
+        max-height: 1000px;
       }
       &.expanded:before {
         content: none;

@@ -21,6 +21,18 @@ $color-blue: #4778d1;
     margin-bottom: $gap;
     margin-top: $gap;
   }
+  &.has-title {
+    .SearchPageTitle {
+      display: block;
+    }
+    .search-filters-container {
+      top: 110px;
+      @include breakpoint(mobile) {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
 
   .SearchPageTitleType {
     color: $color-breadcrumb;

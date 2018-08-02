@@ -51,8 +51,13 @@
     let currPage = null
 
     const setTitle = title => {
-      $('.SearchPageTitle').show()
-      $('.SearchPageTitleType').text(title)
+      if (title) {
+        $('.SearchPage').addClass('has-title')
+        $('.SearchPageTitleType').text(title)
+      } else {
+        $('.SearchPage').removeClass('has-title')
+        $('.SearchPageTitleType').text('')
+      }
     }
 
     const setFiltersCount = count =>

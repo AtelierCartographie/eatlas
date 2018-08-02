@@ -182,7 +182,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       ),
       */
       // TODO removed this filter - #133
-      /*
+      // Note we keep it in DOM to keep 'resource' pages
       ...filtersToggle(
         'Type',
         Object.keys(types).map(type => [
@@ -194,13 +194,15 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           }),
           h('span', { key: 'label' }, types[type]),
         ]),
+        true,
       ),
-      */
+      // Hidden warning shown in specific case
       h(
         '.search-filters-warning-types',
         { style: { display: 'none' } },
         'Note : la recherche ne permet pas de combiner les références, définitions, et autres types',
       ),
+      // Reset button - #133
       h('input.reset-filters', { type: 'reset' }),
     ]),
   ])

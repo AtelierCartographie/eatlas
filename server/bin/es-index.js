@@ -4,6 +4,7 @@
 
 const { ready, client } = require('../lib/es/client')
 const config = require('config')
+const { migrateIndex } = require('../lib/es/init-index')
 
 const listIndices = async () => {
   const indices = await client.cat.indices({ format: 'json' })
@@ -61,9 +62,14 @@ const showIndices = async () => {
     }
     console.log('')
   }
+  console.log('')
   console.log('To switch index version:')
   console.log('``yarn es-index <name key> <version suffix>``')
-  console.log('e.g. ``yarn es-index resource 12397987')
+  console.log('e.g. ``yarn es-index resource 12397987``')
+  console.log('')
+  console.log('To manually reindex (after changed mapping for example):')
+  console.log('``yarn es-index reindex <name key>')
+  console.log('e.g. ``yarn es-index reindex resource``')
   console.log('')
 }
 
@@ -75,11 +81,23 @@ const changeVersion = async (key, version) => {
   console.log('OK.')
 }
 
+const reindex = async (key) => {
+  const alias = config.es.indices[key] || key
+  const oldIndex = await getAlias(alias)
+  const message = await migrateIndex(client, alias, oldIndex)
+  console.log(message)
+  console.log('OK.')
+}
+
 const main = async () => {
   if (process.argv.length === 2) {
-    showIndices()
+    await showIndices()
   } else if (process.argv.length === 4) {
-    changeVersion(process.argv[2], process.argv[3])
+    if (process.argv[2] === 'reindex') {
+      await reindex(process.argv[3])
+    } else {
+      await changeVersion(process.argv[2], process.argv[3])
+    }
   }
 }
 

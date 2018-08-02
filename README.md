@@ -280,15 +280,16 @@ docker-compose -f docker-compose.prod.yml exec backend node ./bin/add-user "pren
 
 ### Troubleshooting
 
-| Problème                                                        | Solution(s)                                                                                                                                                             |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Erreur de connexion “Not a valid origin for the client […]”     | Aller configurer la clé d'API Google                                                                                                                                    |
-| Impossible de se connecter après l'installation                 | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_backend_1 yarn add-user <email> <name> admin`                                                             |
-| Les pages semblent charger indéfiniment                         | - Regarder dans les logs de l'API : `docker logs eatlas_backend_1`                                                                                                          |
-|                                                                 | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `CORS_ALLOW_NO_ORIGIN=1` dans `docker-config.env`                       |
-| Vérifier la configuration du serveur node                       | `docker exec eatlas_backend_1 node -p "require('config')"`                                                                                                                  |
+| Problème | Solution(s) |
+| -------- | ----------- |
+| Erreur de connexion “Not a valid origin for the client […]”     | Aller configurer la clé d'API Google |
+| Impossible de se connecter après l'installation                 | Il manque sûrement l'utilisateur initial :<br>`docker exec eatlas_backend_1 yarn add-user <email> <name> admin` |
+| Les pages semblent charger indéfiniment                         | - Regarder dans les logs de l'API : `docker logs eatlas_backend_1` |
+|                                                                 | - En cas d'erreur "CORS", en production il doit pouvoir être désactivé, vérifier la présence de `CORS_ALLOW_NO_ORIGIN=1` dans `docker-config.env` |
+| Vérifier la configuration du serveur node                       | `docker exec eatlas_backend_1 node -p "require('config')"` |
 | Les données ont disparu, l'index Elastic Search est corrompu…   | Lancer `docker exec eatlas_backend_1 yarn es-index` pour analyser les index et éventuellement remplacer l'alias courant pour rebasculer sur une ancienne version de l'index |
-| La génération du site échoue, les HTML ne sont pas bien à jour… | Lancer `docker exec eatlas_backend_1 yarn rebuild-site` pour une régénération complète du site                                                                              |
+| La génération du site échoue, les HTML ne sont pas bien à jour… | Lancer `docker exec eatlas_backend_1 yarn rebuild-site` pour une régénération complète du site |
+| Le mapping Elastic Search a été modifié, mais malgré le redémarrage du serveur les nouveaux paramètres ne sont pas pris en compte | Lancer ``yarn es-index`` puis éventuellement ``yarn es-index reindex resource`` pour forcer la réindexation complète (un redémarrage du serveur peut ensuite être nécessaire pour migrer sur le nouvel index) |
 
 ### Arrêt et journaux
 

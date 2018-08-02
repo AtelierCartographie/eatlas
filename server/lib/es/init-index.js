@@ -194,3 +194,5 @@ module.exports = (client, indices) =>
   Promise.all(
     Object.keys(indices).map(type => initIndex(client, indices[type])),
   )
+
+module.exports.migrateIndex = migrateIndex

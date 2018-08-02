@@ -1,9 +1,7 @@
 'use strict'
 
 const { Client } = require('elasticsearch')
-const {
-  es: { connection, indices },
-} = require('config')
+const { es: { connection, indices } } = require('config')
 const AgentKeepAlive = require('agentkeepalive')
 const { promisify } = require('util')
 const initIndices = require('./init-index')

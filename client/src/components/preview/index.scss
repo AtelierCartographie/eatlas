@@ -145,12 +145,51 @@ ul.navmenu-nav a {
 }
 
 .navmenu {
-  padding-top: 15px;
+  padding: 0 0 40px 12px;
+  font-size: 15.8px;
+
+  .close-button {
+    color: #000;
+    text-decoration: none;
+    font-size: 21px;
+    line-height: 21px;
+    font-weight: bold;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 21px;
+    margin: 40px 0 24px 0;
+    padding: 0;
+    &:first-of-type {
+      margin-top: 12px;
+    }
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      padding: 0;
+      margin: 0;
+      a {
+        padding: 12px 0 0 12px;
+      }
+      &:first-child a {
+        padding-top: 0;
+      }
+      &:last-child a {
+        padding-bottom: 0;
+      }
+    }
+  }
 }
 
 .navmenu-form {
   border: none;
-  padding: 10px 15px;
+  padding: 6px 15px;
   margin: auto;
 }
 

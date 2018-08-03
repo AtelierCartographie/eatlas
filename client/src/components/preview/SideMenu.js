@@ -24,44 +24,32 @@ const Topics = ({ topics, options }) =>
   )
 
 const Resources = ({ options }) =>
-  h('li.dropdown', [
-    h(
-      'a.dropdown-toggle menu',
-      {
-        'data-toggle': 'dropdown',
-        role: 'button',
-        'aria-haspopup': true,
-        'aria-expanded': false,
-      },
-      ['Ressources', h('span.caret')],
-    ),
-    h(
-      'ul.dropdown-menu.navmenu-nav',
-      resourcesTypes.map((a, i) =>
-        h('li', { key: i }, [h('a', { href: a.url(options.preview) }, a.text)]),
+  h(
+    'ul.nav.navmenu-nav',
+    resourcesTypes.map((r, i) =>
+      h('li', { key: i },
+        h(
+          'a',
+          { href: r.url(options.preview) },
+          r.text,
+        ),
       ),
     ),
-  ])
+  )
 
 const APropos = ({ options }) =>
-  h('li.dropdown', [
-    h(
-      'a.dropdown-toggle menu',
-      {
-        'data-toggle': 'dropdown',
-        role: 'button',
-        'aria-haspopup': true,
-        'aria-expanded': false,
-      },
-      ['À propos', h('span.caret')],
-    ),
-    h(
-      'ul.dropdown-menu.navmenu-nav',
-      aPropos.map((a, i) =>
-        h('li', { key: i }, [h('a', { href: a.url(options.preview) }, a.text)]),
+  h(
+    'ul.nav.navmenu-nav',
+    aPropos.map((r, i) =>
+      h('li', { key: i },
+        h(
+          'a',
+          { href: r.url(options.preview) },
+          r.text,
+        ),
       ),
     ),
-  ])
+  )
 
 exports.SideMenu = ({
   topics,
@@ -74,21 +62,13 @@ exports.SideMenu = ({
     'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
     { role: 'navigation' },
     [
-      h('form.navmenu-form', [
-        h('div.form-group', [
-          h('input.form-control', {
-            placeholder: 'Rechercher',
-            'data-search-page-url': getSearchUrl({}, options),
-          }),
-        ]),
-      ]),
-      h('ul.nav.navmenu-nav', [
-        h(Topics, { topics, options }),
-        h('hr'),
-        h(Resources, { options }),
-        h(APropos, { options }),
-        h('hr'),
-      ]),
+      h('a.close-button', '#', '⨯'),
+      h('h1.navmenu-title', 'Sommaire'),
+      h(Topics, { topics, options }),
+      h('h1.navmenu-title', 'Ressources'),
+      h(Resources, { options }),
+      h('h1.navmenu-title', 'À propos'),
+      h(APropos, { options }),
     ],
   )
 

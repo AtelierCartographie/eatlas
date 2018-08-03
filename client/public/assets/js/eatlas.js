@@ -250,4 +250,10 @@
       $('.search-toggle.expand').removeClass('expand');
     }
   });
+
+  // navmenu (sidemenu) close button
+  $('#navmenu').on('click', '.close-button', e => {
+    e.preventDefault();
+    $('#navmenu').offcanvas('hide');
+  })
 })(window.jQuery)

@@ -31,8 +31,8 @@ const Picture = ({
   main: { component, size },
   sources = [],
 }) =>
-  h('picture',
-    sources.map(({ size, minWidth }, key) => {
+  h('picture', [
+    ...sources.map(({ size, minWidth }, key) => {
       const srcSet = srcset(resource, size, options)
       if (!srcSet) return null
       const more = minWidth ? { media: `(min-width: ${minWidth})` } : {}
@@ -41,7 +41,7 @@ const Picture = ({
     h(component, {
       srcSet: srcset(resource, size, { ...options, fallback: true }),
     }),
-  )
+  ])
 
 const defaultSources = [
   { size: 'large', minWidth: '700px' },

@@ -61,8 +61,8 @@ const TopMenuPanelMain = ({ options }) => {
           h('h2', 'Ressources'),
           h(
             'ul',
-            resourcesTypes.map((rt, key) =>
-              h('li', { key }, [h('a', { href: rt.url(options.preview) }, rt.text)]),
+            resourcesTypes.map(rt =>
+              h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
             ),
           ),
         ]),
@@ -70,8 +70,8 @@ const TopMenuPanelMain = ({ options }) => {
           h('h2', 'À propos'),
           h(
             'ul',
-            aPropos.map((rt, key) =>
-              h('li', { key }, [h('a', { href: rt.url(options.preview) }, rt.text)]),
+            aPropos.map(rt =>
+              h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
             ),
           ),
         ]),

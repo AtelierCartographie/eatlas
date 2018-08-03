@@ -133,7 +133,7 @@ const ArticleList = ({ articles, options }) => {
   return h(
     'ul.container.ArticleList',
     articles.map(a => {
-      return h('li', { key: a.id }, [
+      return h('li', [
         h('a', { href: getResourcePageUrl(a, options) }, [
           h('img', {
             alt: '',

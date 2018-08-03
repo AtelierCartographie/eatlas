@@ -135,7 +135,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       ...filtersToggle(
         'Rubriques',
         topics.map(topic => [
-          h('label', { key: topic.id }, [
+          h('label', [
             h('input', {
               type: 'checkbox',
               name: 'topics[]',
@@ -199,7 +199,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           h('input', {
             type: 'checkbox',
             name: 'types[]',
-            key: 'types',
+            key: 'input',
             value: type,
           }),
           h('span', { key: 'label' }, types[type]),

@@ -105,7 +105,9 @@ const Resource = ({ resource, options }) => {
   switch (resource.type) {
     case 'definition':
       displayedType = 'Définition'
-      children = [h(ResourceLexicon, { definitions: resource.definitions })]
+      children = [
+        h(ResourceLexicon, { definitions: resource.definitions })
+      ]
       break
     case 'map':
       displayedType = 'Carte'
@@ -137,7 +139,9 @@ const Resource = ({ resource, options }) => {
       break
 
     default:
-      children = 'ResourcePage component not not implemented'
+      children = [
+        'ResourcePage component not not implemented'
+      ]
   }
   return h('article.ResourcePage', [
     h('header.container.ResourceHeader', [
@@ -145,7 +149,7 @@ const Resource = ({ resource, options }) => {
       h('.ResourceType', displayedType),
       h('h1.ResourceTitle', resource.title),
     ]),
-    children,
+    ...children,
     resource.type !== 'definition' && h(ResourceDescription, { resource }),
     ['sound', 'video'].includes(resource.type) &&
       h(ResourceTranscript, { resource }),

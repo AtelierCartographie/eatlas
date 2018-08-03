@@ -110,7 +110,7 @@ const FocusPage = ({
     }
     return h('html', { lang: 'fr' }, [
       h(Head, { title: focus.title, options }),
-      h(Body, { topics, options, logoColor: 'black' }, [
+      h(Body, { altTitle: focus.title, topics, options, logoColor: 'black' }, [
         h(Focus, { focus, topics, definitions, resources, lexiconId, options }),
       ]),
     ])

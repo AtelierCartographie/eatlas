@@ -190,7 +190,7 @@ const TopicPage = ({
 } */) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: topic.name, options }),
-    h(Body, { topics, options }, [
+    h(Body, { altTitle: `${topic.id}. ${topic.name}`, topics, options }, [
       h(Topic, { topic, topics, articles, resources, options }),
     ]),
   ])

@@ -312,7 +312,7 @@ const ArticlePage = ({
 
   return h('html', { lang: 'fr' }, [
     h(Head, { title: article.title, options }),
-    h(Body, { topics, options }, [
+    h(Body, { altTitle: article.title, topics, options }, [
       h(Article, {
         article,
         prevNext,

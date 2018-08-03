@@ -10,6 +10,7 @@ const Footer = require('./Footer')
 module.exports = ({
   topics,
   logoColor,
+  altTitle,
   options,
   children,
 } /*: {
@@ -20,7 +21,7 @@ module.exports = ({
 } */) =>
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
-    h(TopBar, { logoColor: logoColor || 'white', options }),
+    h(TopBar, { altTitle, logoColor: logoColor || 'white', options }),
     h(SideMenu, { topics, options }),
     h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),

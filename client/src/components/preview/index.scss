@@ -83,6 +83,8 @@ ul.navmenu-nav a {
 
 #topbar {
   height: 48px;
+  margin-top: -2px;
+
   .if-not-scrolled {
     display: block;
   }
@@ -101,6 +103,13 @@ ul.navmenu-nav a {
     .if-scrolled {
       display: block;
     }
+  }
+}
+@media (min-width: 810px) {
+  #topbar {
+    width: 810px;
+    left: 50%;
+    margin-left: -405px;
   }
 }
 

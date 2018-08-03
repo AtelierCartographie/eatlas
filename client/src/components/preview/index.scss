@@ -81,13 +81,33 @@ ul.navmenu-nav a {
   width: 100%;
 }
 
-.navbar-fixed-top {
-  right: auto;
+#topbar {
+  height: 48px;
+  .if-not-scrolled {
+    display: block;
+  }
+  .if-scrolled {
+    display: none;
+  }
+  &.scrolled {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.06);
+    border-bottom: 1px solid #ccc;
+    .if-not-scrolled {
+      display: none;
+    }
+    .if-scrolled {
+      display: block;
+    }
+  }
 }
 
 .search-toggle {
-  position: fixed;
+  position: absolute;
   right: 0;
+  top: 0;
   z-index: 2000;
   padding: 12px;
   .search-toggle-button {

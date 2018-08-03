@@ -4,8 +4,7 @@ const h = require('react-hyperscript')
 
 const { CDN, prefixUrl } = require('./layout')
 const TopBar = require('./TopBar')
-const SearchToggle = require('./SearchBar')
-const { SideMenu, SideMenuToggle } = require('./SideMenu')
+const { SideMenu } = require('./SideMenu')
 const Footer = require('./Footer')
 
 module.exports = ({
@@ -22,8 +21,6 @@ module.exports = ({
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
     h(TopBar, { logoColor: logoColor || 'white', options }),
-    h(SideMenuToggle, { options }),
-    h(SearchToggle, { options }),
     h(SideMenu, { topics, options }),
     h('main', { role: 'main' }, [children]),
     h(Footer, { topics, options }),

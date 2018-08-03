@@ -256,4 +256,15 @@
     e.preventDefault();
     $('#navmenu').offcanvas('hide');
   })
+
+  // Top bar on scroll
+  $(window).on('load resize scroll', e => {
+    const scroll = $(window).scrollTop();
+    const height = window.innerHeight;
+    if (scroll / height > 0.7) {
+      $('#topbar').addClass('scrolled');
+    } else {
+      $('#topbar').removeClass('scrolled');
+    }
+  })
 })(window.jQuery)

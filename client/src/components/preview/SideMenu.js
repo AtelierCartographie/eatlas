@@ -100,7 +100,6 @@ exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
         type: 'button',
         'data-toggle': 'offcanvas',
         'data-target': '#navmenu',
-        'data-canvas': 'body',
       },
       [
         h('img', {

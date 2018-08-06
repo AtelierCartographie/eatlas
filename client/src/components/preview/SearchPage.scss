@@ -18,15 +18,15 @@ $color-blue: #4778d1;
   .SearchPageTitle {
     display: none;
     font-size: 2.4rem;
-    margin-bottom: $gap;
-    margin-top: $gap;
+    margin-bottom: $gap2;
+    margin-top: $gap2;
   }
   &.has-title {
     .SearchPageTitle {
       display: block;
     }
     .search-filters-container {
-      top: 110px;
+      top: 118px;
       @include breakpoint(mobile) {
         left: auto;
         right: 0;
@@ -113,7 +113,7 @@ $color-blue: #4778d1;
   .search-filters-container {
     position: absolute;
     left: 0;
-    top: 60px;
+    top: 68px;
     @include breakpoint(mobile) {
       left: auto;
       right: 0;
@@ -168,9 +168,11 @@ $color-blue: #4778d1;
     & .search-results-error {
       display: none;
     }
+
     & .search-results-success {
       display: none;
     }
+
     &[data-status="success"] .search-results-success {
       display: initial;
 
@@ -181,13 +183,60 @@ $color-blue: #4778d1;
         }
       }
     }
+
     &[data-status="error"] .search-results-error {
       display: initial;
     }
+
     .search-result {
-      .search-result-preview img {
-        max-width: 300px;
-        max-height: 100px;
+      display: block;
+      padding: 0 0 $gap 0;
+      margin: 0 0 $gap 0;
+      border-bottom: 1px solid $color-footer;
+      text-decoration: none;
+      color: $color-text;
+
+      &:first-of-type {
+        margin-top: 16px;
+      }
+
+      .search-result-type {
+        display: block;
+        height: $gap2;
+        line-height: $gap2;
+        font-size: 1rem;
+        margin: 0;
+        padding: 0;
+        color: $color-breadcrumb;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .search-result-text {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        .search-result-title {
+          font-weight: bold;
+          font-size: 1.5rem;
+        }
+        .search-result-subtitle {
+          font-weight: lighter;
+          font-size: 1rem;
+        }
+      }
+
+      .search-result-preview {
+        width: 120px;
+        height: 63px;
+        float: left;
+        overflow: hidden;
+        margin: 0 12px 0 0;
+        padding: 0;
+
+        img {
+          max-width: 120px;
+        }
       }
     }
 

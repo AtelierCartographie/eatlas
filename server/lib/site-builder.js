@@ -3,13 +3,27 @@
 const { writeFile, ensureDir, unlink, exists, stat } = require('fs-extra')
 const path = require('path')
 const { promisify } = require('util')
+const config = require('config')
+const sitemap = require('sitemap')
 
 const logger = require('./logger')
 const { topics: Topics, resources: Resources } = require('./model')
-const { pagePath } = require('./resource-path')
+const { pagePath, publicPath, pathToUrl } = require('./resource-path')
 const { populatePageUrl } = require('./generator-utils')
 const { generateHTML } = require('./html-generator')
 const babel = require('babel-core')
+
+const writeFileLogged = async (file, content) => {
+  await ensureDir(path.dirname(file))
+  try {
+    await writeFile(file, content)
+    logger.info('WRITE OK', file)
+    return { error: null, write: file }
+  } catch (err) {
+    logger.error('WRITE FAILED (skipped)', err)
+    return { error: err, write: file }
+  }
+}
 
 const writePage = async (key, resource, topics, articles, params) => {
   const file = pagePath(key, resource, topics, params)
@@ -19,15 +33,7 @@ const writePage = async (key, resource, topics, articles, params) => {
     { preview: false, ...params },
     { topics, articles },
   )
-  await ensureDir(path.dirname(file))
-  try {
-    await writeFile(file, html)
-    logger.info('WRITE OK', file)
-    return { error: null, write: file }
-  } catch (err) {
-    logger.error('WRITE FAILED (skipped)', err)
-    return { error: err, write: file }
-  }
+  return await writeFileLogged(file, html)
 }
 
 const removePage = async (key, resource, topics, params) => {
@@ -44,6 +50,33 @@ const removePage = async (key, resource, topics, params) => {
     logger.error('REMOVE FAILED', file)
     return { error: err, unlink: file }
   }
+}
+
+const writeRobotsTxt = async () => {
+  const file = publicPath('robots.txt')
+  const txt = [
+    'User-agent: *',
+    'Disallow:',
+    '',
+    `Sitemap: ${config.publicUrl}/sitemap.xml`,
+  ].join('\n')
+  return await writeFileLogged(file, txt)
+}
+
+const writeSitemapXml = async (urls) => {
+  const file = publicPath('sitemap.xml')
+  const sm = sitemap.createSitemap({
+    hostname: config.publicUrl,
+    cacheTime: 3600000,
+    urls: urls.map(url => ({
+      url,
+      changefreq: 'daily',
+      priority: 0.5,
+    }))
+  })
+  const getXML = promisify(sm.toXML.bind(sm))
+  const xml = await getXML()
+  return await writeFileLogged(file, xml)
 }
 
 exports.rebuildAllHTML = async () => {
@@ -90,6 +123,14 @@ exports.rebuildAllHTML = async () => {
     (res, item) => res.concat(Array.isArray(item) ? item : [item]),
     [],
   )
+
+  // SEO
+  await writeSitemapXml(details
+    .map(({ error, write, noop }) => error ? null : (write || noop))
+    .filter(url => url !== null)
+    .map(url => pathToUrl(url, false))
+  )
+  await writeRobotsTxt()
 
   // report
   return {

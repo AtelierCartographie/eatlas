@@ -44,13 +44,11 @@ exports.pagePath = (key, resource, topics, params = {}) => {
     ...params,
     ...(resource || {}),
   }
-  return path.resolve(
-    __dirname,
-    '..',
-    getConf('publicPath'),
-    getConf('pageUrls.' + key, locals),
-  )
+  return exports.publicPath(getConf('pageUrls.' + key, locals))
 }
+
+exports.publicPath = (filePath) =>
+  path.resolve(__dirname, '..', getConf('publicPath'), filePath)
 
 // Public and private paths to uploaded media file
 exports.resourceMediaPath = (
@@ -77,5 +75,5 @@ exports.resourceMediaPath = (
   return result
 }
 
-exports.pathToUrl = filePath =>
-  filePath && getConf('publicUrl') + '/' + path.relative(pubDir, filePath)
+exports.pathToUrl = (filePath, fullUrl = true) =>
+  filePath && ((fullUrl ? getConf('publicUrl') : '') + '/' + path.relative(pubDir, filePath))

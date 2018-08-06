@@ -94,5 +94,57 @@
       }
     }
   }
+
+  .ResourceDownload {
+    .download-blocks {
+      display: flex;
+      flex-wrap: wrap;
+      .download-block {
+        background: $color-footer;
+        margin: $gap;
+        flex: 1;
+        display: flex;
+        min-width: 300px;
+        .download-preview {
+          max-width: 120px;
+          max-height: 80px;
+          object-fit: cover;
+          margin: 0 $gap 0 0;
+          padding: 0;
+          flex: 1;
+        }
+        .download-info {
+          margin: 0;
+          padding: 0;
+          flex: 1;
+          strong {
+            display: block;
+            margin: 0 0 $gap2 0;
+          }
+          a {
+            color: $color-breadcrumb;
+            font-size: 1.25rem;
+            &:before {
+              content: '';
+              background-image: url("../assets/img/download.png");
+              background-repeat: no-repeat;
+              background-size: 1.5rem 1.5rem;
+              display: inline-block;
+              width: 1.5rem;
+              height: 1.5rem;
+              padding: 0;
+              margin: 0 0.25rem 0 0;
+            }
+            .link {
+              font-weight: bold;
+            }
+            .info {
+
+            }
+          }
+        }
+      }
+    }
+  }
 }
 

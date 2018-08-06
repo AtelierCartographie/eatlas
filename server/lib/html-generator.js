@@ -16,6 +16,7 @@ const {
   getResource,
   getArticles,
   populatePageUrl,
+  populateImageStats,
 } = require('./generator-utils')
 const {
   CLIENT_TYPES,
@@ -205,6 +206,9 @@ exports.generateResourceHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview })
+  if (resource.type === 'map' || resource.type === 'image') {
+    await populateImageStats(resource, { preview })
+  }
   return wrap(
     React.createElement(ResourcePage, {
       ...props,

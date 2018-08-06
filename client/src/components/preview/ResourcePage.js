@@ -9,6 +9,8 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
+const { globalPageUrl } = require('./layout');
+
 const Head = require('./Head')
 const Body = require('./Body')
 const Picture = require('./Picture')
@@ -71,13 +73,35 @@ const ResourceTranscript = ({ resource }) =>
         h('div', { dangerouslySetInnerHTML: { __html: resource.transcript } }),
       ])
 
-const ResourceDownload = ({ resource }) =>
-  h('.container.ResourceDownload', [
+const ResourceImageDownload = ({ resource, options }) => {
+  const large = resource.imageStats['large-3x'] || resource.imageStats['large-2x'] || resource.imageStats['large-1x']
+  const medium = resource.imageStats['medium-3x'] || resource.imageStats['medium-2x'] || resource.imageStats['medium-1x']
+  const small = resource.imageStats['small-3x'] || resource.imageStats['small-2x'] || resource.imageStats['small-1x']
+  return h('.container.ResourceDownload', [
     h('h2', 'Téléchargement'),
-    h(
-      'div',
-      'Pour toute utilisation, merci de consulter les mentions légales.',
-    ),
+    h('.warning', [
+      'Pour toute utilisation, merci de consulter les ',
+      h('a', { href: globalPageUrl('legals')(options.preview) }, 'mentions légales'),
+      '.',
+    ]),
+    h('.download-blocks', [
+      large ? ResourceImageDownloadBlock({ resource, title: 'version détaillée', stats: large }) : null,
+      medium ? ResourceImageDownloadBlock({ resource, title: 'version simplifiée', stats: medium }) : null,
+      small ? ResourceImageDownloadBlock({ resource, title: 'version très simplifiée', stats: small }) : null,
+    ]),
+  ])
+}
+
+const ResourceImageDownloadBlock = ({ resource, title, stats: { type, humanSize, width, height, url }}) =>
+  h('.download-block', [
+    h('img.download-preview', { src: url }),
+    h('.download-info', [
+      h('strong', title),
+      h('a', { href: url, download: `${resource.id} - ${title}.${type}` }, [
+        h('span.link', 'télécharger'),
+        h('span.info', ` (${type} - ${humanSize})`),
+      ])
+    ]),
   ])
 
 const ResourceLexicon = ({ definitions }) =>
@@ -123,7 +147,7 @@ const Resource = ({ resource, options }) => {
         h(ResourceMap, { resource, options }),
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
-        h(ResourceDownload, { resource }),
+        h(ResourceImageDownload, { resource, options }),
       ]
       break
     case 'image':
@@ -132,7 +156,7 @@ const Resource = ({ resource, options }) => {
         h(ResourceImage, { resource, options }),
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
-        h(ResourceDownload, { resource }),
+        h(ResourceImageDownload, { resource, options }),
       ]
       break
     case 'sound':

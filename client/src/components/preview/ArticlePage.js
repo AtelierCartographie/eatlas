@@ -23,7 +23,7 @@ const {
   getResourcePageUrl,
   getTopicPageUrl,
   articleHeaderImageUrl,
-  ensureHTML
+  ensureHTML,
 } = require('./layout')
 const EmbeddedResource = require('./EmbeddedResource')
 

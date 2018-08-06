@@ -52,6 +52,7 @@
     "express-session": "^1.15.6",
     "fs-extra": "^5.0.0",
     "googleapis": "^24.0.0",
+    "image-size": "^0.6.3",
     "joi": "^13.0.2",
     "lodash": "^4.17.5",
     "lodash.get": "^4.4.2",

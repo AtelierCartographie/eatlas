@@ -1,6 +1,10 @@
 'use strict'
 
 const config = require('config')
+const { promisify } = require('util')
+const imageSize = promisify(require('image-size'))
+const { stat } = require('fs-extra')
+
 const { resources: Resources, topics: Topics } = require('./model')
 const {
   getResourceIds,
@@ -10,7 +14,7 @@ const {
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
 } = require('../../client/src/universal-utils')
-const { pathToUrl, pagePath } = require('./resource-path')
+const { pathToUrl, pagePath, resourceMediaPath } = require('./resource-path')
 
 const apiUrl = config.apiUrl
 const publicMediaUrl =
@@ -66,6 +70,53 @@ exports.populatePageUrl = (
       : pathToUrl(pagePath(key || resource.type, resource, topics))
   }
   return resource
+}
+
+exports.populateImageStats = async (resource, options) => {
+  if (resource.images) {
+    resource.imageStats = {}
+    for (let size of ['small', 'medium', 'large']) {
+      if (resource.images[size]) {
+        for (let density of ['1x', '2x', '3x']) {
+          if (resource.images[size][density]) {
+            const found = { size, density, file: resource.images[size][density] }
+            resource.imageStats[`${size}-${density}`] = await getImageStats(resource, found, options)
+          }
+        }
+      }
+    }
+  }
+}
+
+const humanSize = bytes => {
+  let value = bytes
+  let unit = 'o'
+  if (value > 1000) {
+    value /= 1000
+    unit = 'Ko'
+  }
+  if (value > 1000) {
+    value /= 1000
+    unit = 'Mo'
+  }
+  if (value > 1000) {
+    value /= 1000
+    unit = 'Go'
+  }
+  if (value > 1000) {
+    value /= 1000
+    unit = 'To'
+  }
+  return `${Math.floor(value)} ${unit}` // eslint-disable-line no-irregular-whitespace
+}
+
+const getImageStats = async (resource, found, { preview = false } = {}) => {
+  const { up: filePath } = resourceMediaPath(resource.type, found.file, { up: true, pub: false })
+  const [{ width, height, type }, { size }] = await Promise.all([imageSize(filePath), stat(filePath)])
+  const url = preview
+    ? getMediaPreviewUrl(resource.id, found.size, found.density, apiUrl)
+    : getMediaUrl(found.file, publicMediaUrl)
+  return { width, height, type, size, humanSize: humanSize(size), filePath, url }
 }
 
 const smallestImageKey = images => {

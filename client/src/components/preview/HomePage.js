@@ -103,7 +103,7 @@ const Home = ({ topics, options }) => {
             ),
             h(
               'a.more',
-              { href: globalPageUrl('project')(options.preview) },
+              { href: globalPageUrl('about', null, 'project')(options.preview) },
               'En savoir plus >',
             ),
           ]),
@@ -131,7 +131,7 @@ const Home = ({ topics, options }) => {
         ),
         h(
           'a.more',
-          { href: globalPageUrl('team')(options.preview) },
+          { href: globalPageUrl('about', null, 'team')(options.preview) },
           'En savoir plus >',
         ),
       ]),
@@ -147,7 +147,7 @@ const Home = ({ topics, options }) => {
             ),
             h(
               'a.more',
-              { href: globalPageUrl('book')(options.preview) },
+              { href: globalPageUrl('about', null, 'book')(options.preview) },
               'En savoir plus >',
             ),
             h('div', [

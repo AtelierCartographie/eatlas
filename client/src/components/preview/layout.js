@@ -43,12 +43,13 @@ exports.getTopicPageUrl = (
     ? `/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
-const globalPageUrl = exports.globalPageUrl = (key /*: string */, slug /*: string */) => (preview /*: boolean */) => {
-  if (preview) return `/preview/${key}`
+const globalPageUrl = exports.globalPageUrl = (key /*: string */, slug /*: string? */, hash /*: string? */) => (preview /*: boolean */) => {
+  if (preview) return hash ? `/preview/${key}#${hash}` : `/preview/${key}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''
   if (!urlTemplate) return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
-  return slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
+  const url = slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
+  return hash ? `${url}#${hash}` : url
 }
 
 const getSearchUrl = (exports.getSearchUrl = (
@@ -87,15 +88,15 @@ exports.resourcesTypes = footerResourcesConfig.map(({ types, label }) => ({
 exports.aPropos = [
   {
     text: 'Le projet',
-    url: globalPageUrl('project'),
+    url: globalPageUrl('about', null, 'project'),
   },
   {
     text: "L'équipe",
-    url: globalPageUrl('team'),
+    url: globalPageUrl('about', null, 'team'),
   },
   {
     text: 'Nous contacter',
-    url: globalPageUrl('contact'),
+    url: globalPageUrl('about', null, 'contact'),
   },
   {
     text: 'Mentions légales',

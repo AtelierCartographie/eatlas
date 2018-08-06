@@ -51,10 +51,7 @@ const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 const GENERATORS = {
   index: 'generateHomeHTML',
   search: 'generateSearchHTML',
-  project: 'generateAboutHTML',
-  team: 'generateAboutHTML',
-  book: 'generateAboutHTML',
-  contact: 'generateContactHTML',
+  about: 'generateAboutHTML',
   legals: 'generateLegalsHTML',
   sitemap: 'generateSiteMapHTML',
   topic: 'generateTopicHTML',

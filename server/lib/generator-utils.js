@@ -88,6 +88,13 @@ exports.populateImageStats = async (resource, options) => {
   }
 }
 
+exports.populateImageRelatedResources = async (resource) => {
+  resource.relatedResources = await Resources.list({ query: { nested: {
+    path: 'nodes',
+    query: { term: { 'nodes.id.keyword': resource.id } },
+  } } })
+}
+
 const humanSize = bytes => {
   let value = bytes
   let unit = 'o'
@@ -204,9 +211,12 @@ const getNodeList = (article, type) => {
   return (found && found.list) || []
 }
 
-exports.getTopicResources = async (topic /*, excludeUnpublished = false*/) => {
-  // TODO handle query ES side
-  return (await Resources.list()).filter(r => r.topic == topic.id)
+exports.getTopicResources = async (topic, excludeUnpublished = false) => {
+  let filter = { term: { topic: topic.id } }
+  if (excludeUnpublished) {
+    filter = { bool: { must: [filter, { term: { status: 'published' } }] } }
+  }
+  return Resources.list({ query: { constant_score: { filter } } })
 }
 
 exports.getArticleResources = async (article, excludeUnpublished = false) => {

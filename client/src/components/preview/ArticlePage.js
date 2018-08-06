@@ -128,19 +128,22 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   })
 }
 
-const ArticleSeeAlso = ({ article, topics, resources, options }) => {
+const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
   // used by SeeAlso
-  const relateds = article.related
+  const relateds = article.relatedResources || ( // Use directly 'relatedResources', e.g. provided by populateImageRelatedResources
+    // otherwise, we need full resources to look into
+    (article.related || [])
     .map(r => {
       const [articleId] = r.text.split(/\s*-\s*/)
       return resources.find(r => r.id === articleId)
     })
     .filter(a => !!a)
+  )
 
   if (!relateds || !relateds.length) return null
 
   return h('section.container.ArticleSeeAlso', [
-    h('h2', "Continuer dans l'Atlas"),
+    h('h2', title || "Continuer dans l'Atlas"),
     h(
       'ul',
       relateds.map(r =>
@@ -328,3 +331,4 @@ const ArticlePage = ({
 }
 
 module.exports = ArticlePage
+module.exports.ArticleSeeAlso = ArticleSeeAlso

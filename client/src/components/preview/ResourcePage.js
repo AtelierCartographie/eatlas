@@ -14,6 +14,7 @@ const { globalPageUrl } = require('./layout');
 const Head = require('./Head')
 const Body = require('./Body')
 const Picture = require('./Picture')
+const { ArticleSeeAlso } = require('./ArticlePage')
 
 // subcomponents
 
@@ -129,7 +130,7 @@ const ResourceSource = ({ resource }) => {
   ])
 }
 
-const Resource = ({ resource, options }) => {
+const Resource = ({ resource, topics, options }) => {
   let children
   // TODO proper i18n for FO
   let displayedType = resource.type
@@ -148,6 +149,7 @@ const Resource = ({ resource, options }) => {
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
         h(ResourceImageDownload, { resource, options }),
+        h(ArticleSeeAlso, { article: resource, topics, options, title: 'Article ou focus lié' }),
       ]
       break
     case 'image':
@@ -157,6 +159,7 @@ const Resource = ({ resource, options }) => {
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
         h(ResourceImageDownload, { resource, options }),
+        h(ArticleSeeAlso, { article: resource, topics, options, title: 'Article ou focus lié' }),
       ]
       break
     case 'sound':
@@ -197,6 +200,7 @@ const ResourcePage = ({
 } /*: {
   resource: Resource,
   topics: Topic[],
+  resources: Resource[],
   options: FrontOptions,
 } */) =>
   h('html', { lang: 'fr' }, [

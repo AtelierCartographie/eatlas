@@ -346,6 +346,9 @@
           "ignore_above": 256
         }
       }
+    },
+    "source": {
+      "type": "text"
     }
   }
 }

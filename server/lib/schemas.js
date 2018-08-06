@@ -133,6 +133,7 @@ exports.resource = {
   visiblePublishedAt: Joi.date()
     .timestamp()
     .allow(null).optional(),
+  source: Joi.string().allow(null).optional(),
 }
 
 exports.uploadFromGoogleDrive = {
@@ -296,6 +297,7 @@ exports.fullResource = {
   visiblePublishedAt: Joi.date()
     .timestamp()
     .allow(null).optional(),
+  source: Joi.string().allow(null).optional(),
 
   // track changes
   updatedBy: exports.email,

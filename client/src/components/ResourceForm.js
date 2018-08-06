@@ -459,6 +459,7 @@ class ResourceForm extends Component<Props, State> {
       copyright,
       topic,
       transcript,
+      source,
     }) => [
       this.getAttrField('author', {
         leftIcon: 'user',
@@ -556,6 +557,10 @@ class ResourceForm extends Component<Props, State> {
         this.getAttrField('transcript', {
           rows: 5,
         }),
+      source &&
+        this.getAttrField('source', {
+          rows: 5,
+        }),
       copyright &&
         this.getAttrField('copyright', {
           rows: 5,
@@ -596,12 +601,14 @@ class ResourceForm extends Component<Props, State> {
         copyright = false,
         topic = true, // lexicon
         transcript = false,
+        source = false,
       }: {
         subtitle?: boolean,
         titlePosition?: boolean,
         copyright?: boolean,
         topic?: boolean,
         transcript?: boolean,
+        source?: boolean,
       },
     ): FieldParams[] =>
       // $FlowFixMe: the filter(x => x) takes care of weeding out the non FieldParams
@@ -614,6 +621,7 @@ class ResourceForm extends Component<Props, State> {
             copyright,
             topic,
             transcript,
+            source,
           }),
         )
         .filter(x => x)
@@ -656,6 +664,7 @@ class ResourceForm extends Component<Props, State> {
           {
             subtitle: true,
             copyright: true,
+            source: true,
           },
         )
       case 'image':
@@ -669,6 +678,7 @@ class ResourceForm extends Component<Props, State> {
           ])],
           {
             copyright: true,
+            source: true,
           },
         )
       case 'video':

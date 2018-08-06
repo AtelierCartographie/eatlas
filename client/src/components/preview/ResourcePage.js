@@ -98,6 +98,13 @@ const ResourceLexicon = ({ definitions }) =>
     ),
   ])
 
+const ResourceSource = ({ resource }) => {
+  return h('.container.ResourceSource', [
+    'Source : ',
+    h('span.source-content', { dangerouslySetInnerHTML: { __html: resource.source } }),
+  ])
+}
+
 const Resource = ({ resource, options }) => {
   let children
   // TODO proper i18n for FO
@@ -106,21 +113,26 @@ const Resource = ({ resource, options }) => {
     case 'definition':
       displayedType = 'Définition'
       children = [
-        h(ResourceLexicon, { definitions: resource.definitions })
+        h(ResourceLexicon, { definitions: resource.definitions }),
+        h(ResourceDescription, { resource }),
       ]
       break
     case 'map':
       displayedType = 'Carte'
       children = [
         h(ResourceMap, { resource, options }),
+        h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceDownload, { resource }),
       ]
       break
     case 'image':
       displayedType = 'Image'
       children = [
         h(ResourceImage, { resource, options }),
+        h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceDownload, { resource }),
       ]
       break
     case 'sound':
@@ -128,6 +140,7 @@ const Resource = ({ resource, options }) => {
       children = [
         h(ResourceSound, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceTranscript, { resource }),
       ]
       break
     case 'video':
@@ -135,9 +148,9 @@ const Resource = ({ resource, options }) => {
       children = [
         h(ResourceVideo, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceTranscript, { resource }),
       ]
       break
-
     default:
       children = [
         'ResourcePage component not not implemented'
@@ -150,10 +163,6 @@ const Resource = ({ resource, options }) => {
       h('h1.ResourceTitle', resource.title),
     ]),
     ...children,
-    resource.type !== 'definition' && h(ResourceDescription, { resource }),
-    ['sound', 'video'].includes(resource.type) &&
-      h(ResourceTranscript, { resource }),
-    resource.type === 'map' && h(ResourceDownload, { resource }),
   ])
 }
 

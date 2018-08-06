@@ -14,7 +14,8 @@ const {
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
 } = require('../../client/src/universal-utils')
-const { pathToUrl, pagePath, resourceMediaPath } = require('./resource-path')
+const { pathToUrl, pagePath, resourceMediaPath, getTypeLabel } = require('./resource-path')
+const { getResourcePageUrl, getTopicPageUrl, globalPageUrl } = require('../../client/src/components/preview/layout')
 
 const apiUrl = config.apiUrl
 const publicMediaUrl =
@@ -248,3 +249,43 @@ exports.getTopics = async () =>
   (await Topics.list()).sort((a, b) => a.id > b.id)
 
 exports.getResource = async id => Resources.findById(id)
+
+// type Link = { url: string, title: string, info: string?, children: Link[] }
+// @return Link[]
+exports.getAllUrls = async (preview = false) => {
+  const topics = await exports.getTopics()
+  // Urls tree
+  const urls = []
+  const getPageDescription = (title, key, { resource = null, hash = null, children = [], info = null } = {}) => {
+    const url = resource
+      ? key === 'topic'
+        ? getTopicPageUrl(resource, { preview })
+        : getResourcePageUrl(resource, { preview })
+      : globalPageUrl(key, null, hash)(preview)
+    children = children.map(args => getPageDescription(...args))
+    return { url, title, info, children }
+  }
+  const addPage = (title, key, options) => {
+    urls.push(getPageDescription(title, key, options))
+  }
+  // Global pages
+  addPage('Accueil', 'index')
+  addPage('Recherche', 'search')
+  addPage('À propos', 'about', { children: [
+    ['Le projet', 'about', { hash: 'project' }],
+    ['L’équipe', 'about', { hash: 'team' }],
+    ['Nous contacter', 'about', { hash: 'contact' }],
+    ['Le livre', 'about', { hash: 'book' }],
+  ] })
+  addPage('Mentions légales', 'legals')
+  // Topics & resources
+  for (const topic of topics) {
+    const resources = await exports.getTopicResources(topic, !preview)
+    const children = resources.map(r => [r.title, r.type, {
+      resource: r,
+      info: `(${getTypeLabel(r)})`
+    }])
+    addPage(topic.name, 'topic', { resource: topic, children, info: '(rubrique)' })
+  }
+  return urls
+}

@@ -9,8 +9,9 @@ const root = path.join(__dirname, '..')
 const pubDir = path.resolve(root, getConf('publicPath'))
 const upDir = path.resolve(root, getConf('uploadPath', {}))
 
-const getTypeLabel = ({ type }) =>
+const getTypeLabel = exports.getTypeLabel = ({ type }) =>
   ({
+    definition: 'définition',
     map: 'carte',
     sound: 'audio',
     image: 'photo',

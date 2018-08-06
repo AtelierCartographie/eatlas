@@ -18,6 +18,7 @@ const {
   populatePageUrl,
   populateImageStats,
   populateImageRelatedResources,
+  getAllUrls,
 } = require('./generator-utils')
 const {
   CLIENT_TYPES,
@@ -48,13 +49,14 @@ const AboutPage = require(`${PREVIEW_DIR}/AboutPage`)
 const LegalsPage = require(`${PREVIEW_DIR}/LegalsPage`)
 const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 const NotFoundPage = require(`${PREVIEW_DIR}/NotFoundPage`)
+const SitemapPage = require(`${PREVIEW_DIR}/SitemapPage`)
 
 const GENERATORS = {
   index: 'generateHomeHTML',
   search: 'generateSearchHTML',
   about: 'generateAboutHTML',
   legals: 'generateLegalsHTML',
-  sitemap: 'generateSiteMapHTML',
+  sitemap: 'generateSitemapHTML',
   topic: 'generateTopicHTML',
   article: 'generateArticleHTML',
   focus: 'generateFocusHTML',
@@ -289,7 +291,17 @@ exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
   )
 }
 
-exports.generateSiteMapHTML = generateMissingHTML
+exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
+  props = await menuProps(props, { preview })
+  const urls = await getAllUrls(preview)
+  return wrap(
+    React.createElement(SitemapPage, {
+      urls,
+      ...props,
+      options: { preview },
+    }),
+  )
+}
 
 exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
   props = await menuProps(props, { preview })

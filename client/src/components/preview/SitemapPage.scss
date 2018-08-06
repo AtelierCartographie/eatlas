@@ -1,0 +1,35 @@
+@import 'var';
+
+.SitemapPage {
+  padding: 100px $gap2;
+
+  h1 {
+    margin: 0 0 $gap2 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0 0 0 $gap4;
+    list-style-type: none;
+
+    li {
+      margin: 0;
+      padding: 0 0 $gap 0;
+      &:first-of-type {
+        padding-top: $gap;
+      }
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+
+      .title {
+        font-weight: bold;
+        color: $color-text;
+      }
+      .info {
+        font-weight: lighter;
+        color: $color-breadcrumb;
+      }
+    }
+  }
+}

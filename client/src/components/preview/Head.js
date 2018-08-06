@@ -1,6 +1,7 @@
 // @flow
 const h = require('react-hyperscript')
 const { CDN, prefixUrl } = require('./layout')
+const googleAnalyticsScript = require('./google-analytics-script')
 
 module.exports = (
   { title, options } /*: { title: string, options: Object } */,
@@ -40,4 +41,9 @@ module.exports = (
       href:
         `${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`,
     }),
+    options.analytics && options.analytics.google
+      ? h('script', {
+        dangerouslySetInnerHTML: { __html: googleAnalyticsScript(options.analytics.google) },
+      })
+      : null,
   ])

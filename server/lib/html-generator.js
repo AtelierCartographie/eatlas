@@ -142,7 +142,7 @@ exports.generateArticleHTML = async (
         definitions,
       ),
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -168,7 +168,7 @@ exports.generateFocusHTML = async (
         definitions,
       ),
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -197,7 +197,7 @@ exports.generateTopicHTML = async (
       topic: populatePageUrl('topic', null, { preview })(topic),
       articles: props.articles,
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -216,7 +216,7 @@ exports.generateResourceHTML = async (
     React.createElement(ResourcePage, {
       ...props,
       resource: populatePageUrl(null, props.topics, { preview })(resource),
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -226,7 +226,7 @@ exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(HomePage, {
       ...props,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -253,7 +253,7 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
       types: CLIENT_TYPES,
       keywords: sortedKeywords,
       locales: LOCALES,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -263,7 +263,7 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(MissingPage, {
       ...props,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -273,7 +273,7 @@ exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(AboutPage, {
       ...props,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -286,7 +286,7 @@ exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(LegalsPage, {
       ...props,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -298,7 +298,7 @@ exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
     React.createElement(SitemapPage, {
       urls,
       ...props,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }
@@ -308,7 +308,7 @@ exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(NotFoundPage, {
       ...props,
-      options: { preview },
+      options: { preview, analytics: config.analytics },
     }),
   )
 }

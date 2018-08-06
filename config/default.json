@@ -127,5 +127,10 @@
 		"scoreSpecial": {
 			"keyword": 200
 		}
+	},
+
+	"analytics": {
+		"// google": "Google Analytics tracker code, e.g. UA-XXXXX-Y",
+		"google": null
 	}
 }

@@ -42,6 +42,7 @@ $color-blue: #4778d1;
       padding: 8px;
       font-size: 1.1em;
       cursor: pointer;
+      float: left;
       &:first-child {
         padding-left: 0;
       }
@@ -51,7 +52,7 @@ $color-blue: #4778d1;
     }
   }
   &.is-lexicon .search-page-a-z {
-    display: block;
+    display: inline-block;
   }
 
   .SearchPageTitleType {

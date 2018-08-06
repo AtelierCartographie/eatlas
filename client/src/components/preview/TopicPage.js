@@ -20,11 +20,11 @@ const {
   ensureHTML
 } = require('./layout')
 
-const TopicVideo = ({ url }) => {
+const TopicVideo = ({ title, url }) => {
   if (!url) return null
   const id = url.slice('https://vimeo.com/'.length)
   return h('iframe.TopicVideo', {
-    title: 'TODO',
+    title,
     src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
     frameBorder: 0,
     allowFullScreen: true,
@@ -50,7 +50,7 @@ const TopicHeader = ({ topic, resources, options }) => {
         break
       case 'video':
         resourceComponent = h('div', [
-          h(TopicVideo, { url: resource.mediaUrl }),
+          h(TopicVideo, { title: topic.name, url: resource.mediaUrl }),
         ])
         break
     }

@@ -46,7 +46,7 @@ const ResourceVideo = ({ resource }) => {
   const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
   return h('.container.ResourceVideo', [
     h('iframe', {
-      title: 'TODO',
+      title: resource.title,
       src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
       frameBorder: 0,
       allowFullScreen: true,

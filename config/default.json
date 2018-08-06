@@ -83,6 +83,7 @@
 	"pageUrls": {
 		"index": "index.html",
 		"search": "recherche.html",
+		"notFound": "not-found.html",
 		"about": "a-propos.html",
 		"legals": "mentions-legales.html",
 		"sitemap": "plan-du-site.html",

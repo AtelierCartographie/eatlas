@@ -47,6 +47,7 @@ const SearchPage = require(`${PREVIEW_DIR}/SearchPage`)
 const AboutPage = require(`${PREVIEW_DIR}/AboutPage`)
 const LegalsPage = require(`${PREVIEW_DIR}/LegalsPage`)
 const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
+const NotFoundPage = require(`${PREVIEW_DIR}/NotFoundPage`)
 
 const GENERATORS = {
   index: 'generateHomeHTML',
@@ -62,6 +63,7 @@ const GENERATORS = {
   video: 'generateResourceHTML',
   image: 'generateResourceHTML',
   map: 'generateResourceHTML',
+  notFound: 'generate404HTML',
 }
 
 const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
@@ -288,3 +290,14 @@ exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
 }
 
 exports.generateSiteMapHTML = generateMissingHTML
+
+exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
+  props = await menuProps(props, { preview })
+  return wrap(
+    React.createElement(NotFoundPage, {
+      ...props,
+      options: { preview },
+    }),
+  )
+}
+

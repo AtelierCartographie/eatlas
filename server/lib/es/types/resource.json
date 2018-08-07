@@ -225,6 +225,9 @@
         },
         "aliases": {
           "type": "text"
+        },
+        "lexicon": {
+          "type": "text"
         }
       }
     },

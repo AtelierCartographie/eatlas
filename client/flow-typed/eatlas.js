@@ -69,6 +69,7 @@ declare type Definition = {
   dt: string,
   dd: string,
   aliases: string[],
+  lexicon: string[],
 }
 
 declare type ArticleNode = {

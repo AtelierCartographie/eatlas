@@ -8,7 +8,7 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { prefixUrl } = require('./layout')
+const { prefixUrl, globalPageUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
 
@@ -16,7 +16,11 @@ const Content = ({ options }) => {
   return h('article.container.NotFoundPage', [
     h('h1', 'Page non trouvée'),
     h('p', 'La page que vous avez demandéz n’existe pas, ou n’existe plus.'),
-    h('p', 'Vous pouvez signaler le lien brisé via notre formulaire de contact.'),
+    h('p', [
+      'Vous pouvez signaler le lien brisé via ',
+      h('a', { href: globalPageUrl('about', null, 'contact')(options.preview) }, 'notre formulaire de contact'),
+      '.'
+    ]),
     h('p.back-home', [
       h('a.button.btn', { href: options.preview ? '/preview' : prefixUrl('/'), role: 'link' }, 'Retour à la page d’accueil'),
     ])

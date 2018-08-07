@@ -6,7 +6,6 @@ const {
   aPropos,
   getTopicPageUrl,
   prefixUrl,
-  getSearchUrl,
 } = require('./layout')
 
 const Topics = ({ topics, options }) =>

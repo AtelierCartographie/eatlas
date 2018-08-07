@@ -84,7 +84,7 @@ const Home = ({ topics, options }) => {
               ' consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam erat ',
               h('a', { href: getSearchUrl({ types: ['image'] }, options) }, 'photos'),
               ' volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation ',
-              h('a', { href: getSearchUrl({ types: ['single-definition'] }, options) }, 'lexique'),
+              h('a', { href: globalPageUrl('lexicon')() }, 'lexique'),
               ' ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
             ]),
           ]),

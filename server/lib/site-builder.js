@@ -105,7 +105,7 @@ exports.rebuildAllHTML = async () => {
     writePage('legals', null, topics, articles),
     writePage('sitemap', null, topics, articles),
     writePage('notFound', null, topics, articles),
-    writePage('lexicon', null, topics, articles),
+    writePage('definition', null, topics, articles),
     // Topic pages
     Promise.all(
       topics.map(topic => writePage('topic', topic, topics, articles)),

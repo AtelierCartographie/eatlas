@@ -63,7 +63,7 @@ const Home = ({ topics, options }) => {
           topics
             .slice(1)
             .map(t =>
-              h('.col-xs-6.col-md-4', [
+              h('.col-xs-6.col-md-4', { key: t.id }, [
                 h('a.HomeTopic', { href: getTopicPageUrl(t, options) }, [
                   h('.TopicNumber', t.id),
                   h('.TopicName', t.name),

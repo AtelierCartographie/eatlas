@@ -12,7 +12,7 @@ const Topics = ({ topics, options }) =>
   h(
     'ul.nav.navmenu-nav',
     topics.map((t, i) =>
-      h('li', { key: i }, [
+      h('li', { key: t.id }, [
         h(
           'a',
           { href: getTopicPageUrl(t, options) },

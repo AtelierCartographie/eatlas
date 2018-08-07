@@ -39,6 +39,7 @@ const Picture = ({
       return h('source', { key, srcSet, ...more })
     }),
     h(component, {
+      key: 'maincomponent',
       srcSet: srcset(resource, size, { ...options, fallback: true }),
     }),
   ])

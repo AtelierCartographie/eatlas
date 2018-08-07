@@ -110,7 +110,7 @@ const ResourceLexicon = ({ definitions }) =>
     h(
       'dl',
       definitions.map(({ dt, dd }) =>
-        h(Fragment, [
+        h(Fragment, { key: dt }, [
           h('dt', dt),
           h('dd', [
             h('.gradient-expand', [

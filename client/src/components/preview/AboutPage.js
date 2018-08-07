@@ -209,11 +209,11 @@ const Team = ({ options }) => {
     h('.container', [
       h('h2', "L'équipe"),
       h('h3', 'Les textes'),
-      h('ul', authors.map(member => h(TeamMember, { member, options }))),
+      h('ul', authors.map((member, key) => h(TeamMember, { key, member, options }))),
       h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
-      h('ul', cartographers.map(member => h(TeamMember, { member, options }))),
-      authors.map(member => h(TeamMemberModal, { member, options })),
-      cartographers.map(member => h(TeamMemberModal, { member, options })),
+      h('ul', cartographers.map((member, key) => h(TeamMember, { key, member, options }))),
+      authors.map((member, key) => h(TeamMemberModal, { key, member, options })),
+      cartographers.map((member, key) => h(TeamMemberModal, { key, member, options })),
     ]),
   ])
 }

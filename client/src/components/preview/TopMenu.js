@@ -62,7 +62,7 @@ const TopMenuPanelMain = ({ options }) => {
           h(
             'ul',
             resourcesTypes.map(rt =>
-              h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
+              h('li', { key: rt.text }, [h('a', { href: rt.url(options.preview) }, rt.text)]),
             ),
           ),
         ]),
@@ -71,7 +71,7 @@ const TopMenuPanelMain = ({ options }) => {
           h(
             'ul',
             aPropos.map(rt =>
-              h('li', [h('a', { href: rt.url(options.preview) }, rt.text)]),
+              h('li', { key: rt.text }, [h('a', { href: rt.url(options.preview) }, rt.text)]),
             ),
           ),
         ]),

@@ -57,23 +57,26 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
         return h(m.type, { key: idx }, m.text)
 
       case 'link':
-        return h('a.external', { href: m.url, target: '_blank' }, m.text)
+        return h('a.external', { key: idx, href: m.url, target: '_blank' }, m.text)
 
       case 'lexicon':
         return h(
           'a.LexiconLink',
-          { href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
+          { key: idx, href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
           m.text,
         )
 
       case 'footnote':
-        return h('sup', [
+        return h('sup', { key: idx }, [
           h(
             'a.FootnoteLink',
             { id: `note-${m.text}`, href: `#footnote-${m.text}` },
             `[${m.text}]`,
           ),
         ])
+
+      default:
+        return null
     }
   })
 

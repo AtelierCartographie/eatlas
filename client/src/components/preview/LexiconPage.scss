@@ -1,0 +1,33 @@
+@import "var";
+
+.LexiconPage {
+  padding-top: 100px;
+  padding-bottom: 100px;
+
+  h1.SearchPageTitle {
+    display: block;
+  }
+  section.SearchResults {
+    display: block;
+    .search-results-success {
+      display: block;
+      .search-result:target {
+        padding-top: 70px;
+      }
+      .search-page-a-z {
+        display: block;
+        a.search-filter-a-z {
+          text-decoration: none;
+          color: $color-breadcrumb;
+          &.disabled {
+            color: $color-footer;
+            pointer-events: none;
+          }
+        }
+      }
+      .search-result-definition {
+        display: inline-block;
+      }
+    }
+  }
+}

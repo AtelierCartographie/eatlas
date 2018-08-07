@@ -50,6 +50,7 @@ const LegalsPage = require(`${PREVIEW_DIR}/LegalsPage`)
 const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 const NotFoundPage = require(`${PREVIEW_DIR}/NotFoundPage`)
 const SitemapPage = require(`${PREVIEW_DIR}/SitemapPage`)
+const LexiconPage = require(`${PREVIEW_DIR}/LexiconPage`)
 
 const GENERATORS = {
   index: 'generateHomeHTML',
@@ -60,7 +61,7 @@ const GENERATORS = {
   topic: 'generateTopicHTML',
   article: 'generateArticleHTML',
   focus: 'generateFocusHTML',
-  definition: 'generateResourceHTML',
+  definition: 'generateLexiconHTML',
   sound: 'generateResourceHTML',
   video: 'generateResourceHTML',
   image: 'generateResourceHTML',
@@ -216,6 +217,18 @@ exports.generateResourceHTML = async (
     React.createElement(ResourcePage, {
       ...props,
       resource: populatePageUrl(null, props.topics, { preview })(resource),
+      options: { preview, analytics: config.analytics },
+    }),
+  )
+}
+
+exports.generateLexiconHTML = async ({ preview = false } = {}, props = {}) => {
+  props = await menuProps(props, { preview })
+  const lexicon = await getResource('LEXIC')
+  return wrap(
+    React.createElement(LexiconPage, {
+      ...props,
+      definitions: lexicon.definitions,
       options: { preview, analytics: config.analytics },
     }),
   )

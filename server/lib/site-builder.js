@@ -84,10 +84,10 @@ exports.rebuildAllHTML = async () => {
   topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
   const resources = populatePageUrl(null, topics)(await Resources.list())
   const publishedResources = resources.filter(
-    ({ status }) => status === 'published',
+    ({ status, type }) => status === 'published' && type !== 'definition',
   )
   const unpublishedResources = resources.filter(
-    ({ status }) => status !== 'published',
+    ({ status, type }) => status !== 'published' && type !== 'definition',
   )
   const articles = publishedResources.filter(({ type }) => type === 'article')
 
@@ -105,6 +105,7 @@ exports.rebuildAllHTML = async () => {
     writePage('legals', null, topics, articles),
     writePage('sitemap', null, topics, articles),
     writePage('notFound', null, topics, articles),
+    writePage('lexicon', null, topics, articles),
     // Topic pages
     Promise.all(
       topics.map(topic => writePage('topic', topic, topics, articles)),

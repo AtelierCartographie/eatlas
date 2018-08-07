@@ -88,7 +88,7 @@
 		"legals": "mentions-legales.html",
 		"sitemap": "plan-du-site.html",
 		"topic": "rubrique-$topicSlug.html",
-		"definition": "lexique.html",
+		"lexicon": "lexique.html",
 		"article": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
 		"focus": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
 		"image": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",

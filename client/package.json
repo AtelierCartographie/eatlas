@@ -5,6 +5,7 @@
   "dependencies": {
     "browser-locale": "^1.0.3",
     "classnames": "^2.2.5",
+    "diacritics": "^1.3.0",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "html-to-draftjs": "^1.4.0",

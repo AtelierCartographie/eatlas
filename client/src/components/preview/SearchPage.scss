@@ -1,6 +1,7 @@
 @import "var";
 $color-blue: #4778d1;
 
+.LexiconPage, // Styles shared with Lexicon page
 .SearchPage {
   background: $color-white;
 
@@ -223,6 +224,11 @@ $color-blue: #4778d1;
         .search-result-subtitle {
           font-weight: lighter;
           font-size: 1rem;
+        }
+        .search-result-aliases {
+          padding-left: 1rem;
+          font-size: 1rem;
+          color: $color-breadcrumb;
         }
       }
 

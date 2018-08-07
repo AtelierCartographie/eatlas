@@ -205,12 +205,6 @@
       search(true)
     })
 
-    // Expand/collapse definitions
-    $('.SearchPage').on('click', '.search-result-definition', e => {
-      e.preventDefault()
-      $(e.currentTarget).toggleClass('expanded')
-    })
-
     // Enable auto-complete for keywords
     $('select.keywords').selectize({
       create: false,
@@ -238,6 +232,15 @@
         $(`.search-filter-a-z[data-letter="${letter}"]`).addClass('active')
       }
     }
+  }
+
+  // Shared code between search page and definitions list
+  if ($('.SearchPage, .LexiconPage').length) {
+    // Expand/collapse definitions
+    $('.SearchPage, .LexiconPage').on('click', '.search-result-definition', e => {
+      e.preventDefault()
+      $(e.currentTarget).toggleClass('expanded')
+    })
   }
 
   // Top bar search field

@@ -93,7 +93,7 @@ ul.navmenu-nav a {
   .if-scrolled {
     display: none;
   }
-  &.scrolled {
+  body.scrolled & {
     position: fixed;
     top: 0;
     background-color: white;

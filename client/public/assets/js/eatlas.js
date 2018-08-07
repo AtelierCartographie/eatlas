@@ -265,9 +265,9 @@
     const scroll = $(window).scrollTop();
     const height = window.innerHeight;
     if (scroll / height > 0.7) {
-      $('#topbar').addClass('scrolled');
+      $('body').addClass('scrolled');
     } else {
-      $('#topbar').removeClass('scrolled');
+      $('body').removeClass('scrolled');
     }
   })
 })(window.jQuery)

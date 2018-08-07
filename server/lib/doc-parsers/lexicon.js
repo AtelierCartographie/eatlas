@@ -30,6 +30,17 @@ const parseAliases = text => {
   return null
 }
 
+const parseInternalDefinitions = ($, el) =>
+  $(el)
+    .children()
+    .filter((i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000')
+    // beware of cheerio and flatMap
+    .map((i, el) => [getText($, el)])
+    // in some weird documents, the "red range" include blanks and punctuation marks
+    // see 5A05 "Alimentation" pre vs pro editing
+    .filter((i, text) => text.length > 1)
+    .get()
+
 module.exports = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })
   const $ = cheerio.load(`<div id="cheerio">${value}</div>`)
@@ -45,14 +56,17 @@ module.exports = async buffer => {
 
     let aliases = []
     let dd = ''
+    let lexicon = []
 
     // aliases?
     if (el.next.name === 'h3') {
       aliases = parseAliases(getText($, el.next))
       if (el.next.next.name === 'p') {
+        lexicon = parseInternalDefinitions($, el.next.next)
         dd = getText($, el.next.next)
       }
     } else if (el.next.name === 'p') {
+      lexicon = parseInternalDefinitions($, el.next)
       dd = getText($, el.next)
     }
 
@@ -63,6 +77,7 @@ module.exports = async buffer => {
       dt,
       dd,
       aliases,
+      lexicon,
     }
   }
 

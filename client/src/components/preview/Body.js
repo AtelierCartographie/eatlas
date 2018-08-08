@@ -30,6 +30,10 @@ module.exports = ({
       src: 'https://cdn.polyfill.io/v2/polyfill.min.js',
     }),
     h('script', {
+      // Polyfill for CSS object-fit in IE
+      src: prefixUrl('/assets/js/fitie.js', options.preview),
+    }),
+    h('script', {
       src: `${CDN}/jquery/3.3.1/jquery.min.js`,
     }),
     h('script', {

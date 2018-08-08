@@ -2,8 +2,8 @@
 
 // components shared by ArticlePage and FocusPage
 
-const { getSearchUrl } = require('./layout')
-const { getDefinition } = require('../../universal-utils')
+const { getSearchUrl, globalPageUrl } = require('./layout')
+const { getDefinition, slugify } = require('../../universal-utils')
 const { Fragment } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
@@ -256,23 +256,40 @@ exports.Lexicon = (
           node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
         [],
       )
-      .map((l, k) =>
+      .map((dt, k) =>
         h('.collapse.container', { key: k, id: `lexicon-${k + 1}` }, [
           h('dl', [
             h('dt', [
               h(
                 'a',
-                {
-                  href: getSearchUrl(
-                    { q: l, types: ['single-definition'] },
-                    options,
-                  ),
-                },
-                l,
+                { href: globalPageUrl('definition', null, slugify(dt))(options.preview) },
+                dt,
               ),
             ]),
-            h('dd', getDefinition(l, definitions)),
+            h('dd', {}, exports.linkInternalDefinitions(
+              getDefinition(dt, definitions, true),
+              definitions,
+              globalPageUrl('definition')(options.preview),
+            )),
           ]),
         ]),
       ),
   )
+
+const marker = `£¨§ø£`
+exports.linkInternalDefinitions = (singleDefinition, definitions, url = '') => {
+  if (!singleDefinition) {
+    return null
+  }
+  const { lexicon: dts, dd } = singleDefinition
+  const markedText = dts.reduce((txt, dt) => txt.replace(dt, marker + dt + marker), dd)
+  const tokens = markedText.split(marker)
+  return tokens.map(token => {
+    const found = getDefinition(token, definitions, true)
+    if (found) {
+      return h('a', { href: url + '#' + slugify(found.dt) }, token)
+    } else {
+      return token
+    }
+  })
+}

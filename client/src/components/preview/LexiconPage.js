@@ -5,25 +5,13 @@ const removeDiacritics = require('diacritics').remove
 const moment = require('moment')
 moment.locale('fr')
 
-const { slugify, getDefinition } = require('../../universal-utils')
+const { slugify } = require('../../universal-utils')
+const { linkInternalDefinitions } = require('./Doc')
 
 const Head = require('./Head')
 const Body = require('./Body')
 
 const az = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-const withInternalDefinitions = (text, dts, definitions) => {
-  const markedText = dts.reduce((txt, dt) => txt.replace(dt, '£££' + dt + '£££'), text)
-  const tokens = markedText.split('£££')
-  return tokens.map(token => {
-    const found = getDefinition(token, definitions, true)
-    if (found) {
-      return h('a', { href: '#' + slugify(found.dt) }, token)
-    } else {
-      return token
-    }
-  })
-}
 
 const Content = ({ definitions, options }) => {
   let prevLetter = null
@@ -58,7 +46,7 @@ const Content = ({ definitions, options }) => {
                 dt,
               ]),
               (aliases && aliases.length) ? h('em.search-result-aliases', aliases.join(', ')) : null,
-              h('em.search-result-definition', withInternalDefinitions(dd, lexicon, definitions)),
+              h('em.search-result-definition', linkInternalDefinitions({ dd, lexicon }, definitions)),
             ]),
           ])
         ),

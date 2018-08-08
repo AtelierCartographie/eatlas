@@ -237,6 +237,9 @@
   // Shared code between search page and definitions list
   if ($('.SearchPage, .LexiconPage').length) {
     // Expand/collapse definitions
+    $('.SearchPage, .LexiconPage').on('click', '.search-result-definition a', e => {
+      e.stopPropagation();
+    })
     $('.SearchPage, .LexiconPage').on('click', '.search-result-definition', e => {
       e.preventDefault()
       $(e.currentTarget).toggleClass('expanded')

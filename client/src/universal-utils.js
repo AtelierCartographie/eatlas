@@ -9,6 +9,7 @@ const slugify = require('slugify')
 exports.getDefinition = (
   dt /*: string*/,
   definitions /*: ?Array<Definition>*/,
+  fullDefinitionObject = false,
 ) /*: string*/ => {
   const search = dt.toLowerCase()
   if (!definitions) {
@@ -25,7 +26,7 @@ exports.getDefinition = (
     }
     return false
   })
-  return found ? found.dd : ''
+  return fullDefinitionObject ? found : (found ? found.dd : '')
 }
 
 const getMeta = (article /*: Resource */, type /*: string */) =>

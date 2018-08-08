@@ -11,7 +11,9 @@
     display: block;
     .search-results-success {
       display: block;
-      .search-result:target {
+      .search-result:target .definition-anchor,
+      .search-result .definition-anchor:target {
+        display: inline-block;
         padding-top: 70px;
       }
       .search-page-a-z {

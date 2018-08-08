@@ -161,5 +161,5 @@ exports.footerResourcesConfig = [
   { slug: 'maps-diagrams', types: ['map'], label: types.map },
   { slug: 'photos-videos', types: ['image'], label: `${types.image}` },
   { slug: 'focus', types: ['focus'], label: types.focus },
-  { slug: 'lexique', page: ['lexicon'], label: types['single-definition'] },
+  { slug: 'lexique', page: ['definition'], label: types['single-definition'] },
 ]

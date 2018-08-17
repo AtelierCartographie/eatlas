@@ -10,6 +10,8 @@ services:
       - 80:80
     volumes_from:
       - backend
+    env_file:
+      - docker-config.env
     networks:
       - backend
     volumes:

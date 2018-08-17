@@ -2,6 +2,7 @@ FROM nginx:stable-alpine
 
 ENV API_PORT=4000
 ENV API_HOST=backend
+ENV BO_URI=/admin
 
 RUN rm /etc/nginx/conf.d/default.conf
 

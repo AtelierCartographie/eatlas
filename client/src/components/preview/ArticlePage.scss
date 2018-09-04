@@ -23,7 +23,11 @@
     }
 
     .title-position-top {
-      margin-top: 34rem;
+      margin-top: 15rem;
+
+      @include breakpoint(desktop) {
+        margin-top: 34rem;
+      }
     }
 
     .title-position-bottom {

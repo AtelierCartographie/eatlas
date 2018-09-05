@@ -9,6 +9,7 @@
     background-size: cover;
     color: $color-white;
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     position: relative;
     text-align: center;
@@ -49,6 +50,17 @@
       line-height: 1.8rem;
       text-shadow: 0em 0em 10px #444;
       box-decoration-break: clone;
+    }
+
+    .imageHeaderInfo {
+      margin-bottom: 0;
+      text-align: left;
+      font-size: 1.4rem;
+
+      > a {
+        font-size: 1.4rem;
+        text-decoration: none;
+      }
     }
   }
 

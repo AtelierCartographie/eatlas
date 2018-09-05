@@ -24,6 +24,7 @@ const {
   getTopicPageUrl,
   articleHeaderImageUrl,
   ensureHTML,
+  prefixUrl,
 } = require('./layout')
 const EmbeddedResource = require('./EmbeddedResource')
 
@@ -46,6 +47,24 @@ const ArticleHeader = ({ article, resources, options }) => {
       { className: `title-position-${article.titlePosition}` },
       [h('h1.ArticleTitle', article.title), h(PublishedAt, { doc: article })],
     ),
+    // h('.container.imageHeaderInfo', [
+    //   h(
+    //     'a',
+    //     {
+    //       href: `#comment`,
+    //       'data-toggle': 'collapse',
+    //       role: 'button',
+    //       'aria-controls': 'comment',
+    //       'aria-expanded': false,
+    //       'aria-haspopup': true,
+    //     },
+    //     [h('img', { alt: 'commentaire', src: prefixUrl(`/assets/img/info.svg`),
+    //     }),],
+    //   ),
+    //   h('.collapse', { id: 'comment' }, [
+    //     h('div', { dangerouslySetInnerHTML: { __html: 'copyright + description' } }),
+    //   ]),
+    // ])
   ])
 }
 

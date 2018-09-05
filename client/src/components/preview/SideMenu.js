@@ -72,7 +72,7 @@ exports.SideMenu = ({
   )
 
 exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
-  h('div.navbar', [
+  h('div.navbar.SideMenuToggle', [
     h(
       'button.navbar-toggle',
       {

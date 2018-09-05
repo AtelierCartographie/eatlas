@@ -99,6 +99,7 @@ ul.navmenu-nav a {
     background-color: white;
     box-shadow: 0 4px 4px rgba(0,0,0,0.06);
     border-bottom: 1px solid #ccc;
+    transition: background-color 0.2s;
     .if-not-scrolled {
       display: none;
     }
@@ -139,7 +140,7 @@ ul.navmenu-nav a {
 
 .navbar-toggle, .search-toggle-button {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   border-radius: 0;
   float: left;
@@ -151,10 +152,10 @@ ul.navmenu-nav a {
 
   &:hover,
   &:focus {
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2), 0px 10px 14px rgba(0, 0, 0, 0.1),
-      inset 0px 1px 0px rgba(255, 255, 255, 0.25),
-      inset 0px -1px 0px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.66);
+    // box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2), 0px 10px 14px rgba(0, 0, 0, 0.1),
+    //   inset 0px 1px 0px rgba(255, 255, 255, 0.25),
+    //   inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0);
     border-color: #919191;
   }
 }
@@ -169,6 +170,10 @@ ul.navmenu-nav a {
   font-family: Fira sans, sans-serif;
   font-size: 18px;
   color: #000;
+
+  &.if-scrolled {
+    line-height: 35px;
+  }
 }
 
 .navbar > .container .navbar-brand {

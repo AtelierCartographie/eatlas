@@ -81,9 +81,13 @@ exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
         'data-target': '#navmenu',
       },
       [
-        h('img', {
-          alt: '',
-          src: prefixUrl('/assets/img/picto-menu-B.svg', options.preview),
+        h('img.if-not-scrolled', {
+          alt: 'Menu',
+          src: prefixUrl('/assets/img/picto-menu-B-white.svg', options.preview),
+        }),
+        h('img.if-scrolled', {
+          alt: 'Menu',
+          src: prefixUrl('/assets/img/picto-menu-B-black.svg', options.preview),
         }),
       ],
     ),

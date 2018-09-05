@@ -10,9 +10,15 @@ module.exports = ({ options }) =>
       'data-search-page-url': getSearchUrl({}, options),
     }),
     h('button.search-toggle-button', { type: 'button' },
-      h('img', {
-        alt: '',
-        src: prefixUrl('/assets/img/search.svg', options.preview),
-      })
+      [
+        h('img.if-not-scrolled', {
+          alt: '',
+          src: prefixUrl('/assets/img/search-white.svg', options.preview),
+        }),
+        h('img.if-scrolled', {
+          alt: '',
+          src: prefixUrl('/assets/img/search-black.svg', options.preview),
+        }),
+      ],
     ),
   ])

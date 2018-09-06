@@ -123,17 +123,20 @@ ul.navmenu-nav a {
     margin-top: 0;
   }
   .search-field {
-    min-width: 250px;
+    min-width: 0px;
     display: none;
+    transition: min-width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+
+    &:focus {
+      min-width: 250px;
+    }
   }
   &.expand {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 0 0 0 5px;
     .search-field {
       display: inline-block;
     }
     .search-toggle-button {
-      float: right;
+      display: none;
     }
   }
 }

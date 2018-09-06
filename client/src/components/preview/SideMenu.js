@@ -62,6 +62,13 @@ exports.SideMenu = ({
     { role: 'navigation' },
     [
       h('a.close-button', '#', '⨯'),
+      h('h1.navmenu-title', [
+        h(
+          'a',
+          { href: options.preview ? '/preview' : prefixUrl('/') },
+          `Espace mondial : l'Atlas`,
+        ),
+      ]),
       h('h1.navmenu-title', 'Sommaire'),
       h(Topics, { topics, options }),
       h('h1.navmenu-title', 'Ressources'),

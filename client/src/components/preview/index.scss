@@ -168,7 +168,7 @@ ul.navmenu-nav a {
   text-align: center;
   width: 280px;
   font-family: Fira sans, sans-serif;
-  font-size: 18px;
+  font-size: 1.8rem;
   color: #000;
 
   &.if-scrolled {
@@ -180,28 +180,36 @@ ul.navmenu-nav a {
   margin-left: -140px;
 }
 
+.offcanvas.in {
+  box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
 .navmenu {
   padding: 0 0 40px 12px;
-  font-size: 15.8px;
+  font-size: 1.58rem;
 
   .close-button {
     color: #000;
     text-decoration: none;
-    font-size: 21px;
+    font-size: 4rem;
     line-height: 21px;
     font-weight: bold;
     position: absolute;
-    right: 12px;
     top: 12px;
     cursor: pointer;
   }
 
   h1 {
-    font-size: 21px;
+    font-size: 2.1rem;
     margin: 40px 0 24px 0;
     padding: 0;
     &:first-of-type {
-      margin-top: 12px;
+      margin-top: 60px;
+      font-size: 2.4rem;
+    }
+    a {
+      text-decoration: none;
+      color: $color-text;
     }
   }
   ul {

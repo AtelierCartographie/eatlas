@@ -53,6 +53,12 @@
       background: $color-keyword;
       border-radius: 5px;
       padding: 3px 6px;
+
+      &:focus,
+      &:hover {
+        background: $color-yellow;
+        text-decoration: none;
+      }
     }
   }
 
@@ -62,7 +68,7 @@
 
   .logo {
     img {
-      width: 240px;
+      width: 210px;
     }
   }
 

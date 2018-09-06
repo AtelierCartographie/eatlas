@@ -166,10 +166,10 @@ const Team = ({ options }) => {
     {
       firstname: 'Benoît',
       lastname: 'Martin',
-      title: '',
-      bio: '',
-      pageURL: '',
-      page: '',
+      title: 'Géographe-cartographe et doctorant en science politique',
+      bio: `Cartographe à Sciences Po depuis 2006, ses recherches portent sur la production des statistiques internationales – sa thèse de Doctorat explore le cas de l’UNODC, sur la drogue et le crime – et notamment les enjeux politiques qui entourent les activités d’expertise des organisations internationales.`,
+      pageURL: 'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
+      page: 'Atelier de cartographie',
       socialURL: '',
       social: '',
     },
@@ -186,7 +186,7 @@ const Team = ({ options }) => {
     {
       firstname: 'Anouk',
       lastname: 'Pettes',
-      title: '',
+      title: 'Géographe-cartographe',
       bio: '',
       pageURL: '',
       page: '',
@@ -196,7 +196,7 @@ const Team = ({ options }) => {
     {
       firstname: 'Antoine',
       lastname: 'Rio',
-      title: '',
+      title: 'Géographe-cartographe',
       bio: '',
       pageURL: '',
       page: '',
@@ -257,7 +257,7 @@ const About = ({ options }) => {
         h('h2', 'Nous contacter'),
         h('.row.vcenter', [
           h('.col-sm-8', [
-            'Rentrer en contact avec les rédacteurs et les cartographes',
+            'Entrer en contact avec les rédacteurs et les cartographes',
           ]),
           h('.col-sm-4', [
             h(
@@ -285,7 +285,7 @@ const About = ({ options }) => {
             ),
           ]),
           h('.col-sm-6', [
-            h('img', {
+            h('img.img-responsive', {
               alt: '',
               src: prefixUrl('/assets/img/eatlas-paper.png', options.preview),
             }),

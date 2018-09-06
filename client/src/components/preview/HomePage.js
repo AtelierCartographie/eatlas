@@ -50,7 +50,7 @@ const Home = ({ topics, options }) => {
         h('h2', 'Sommaire'),
         h(
           'p',
-          "Regarder le monde comme un espace mobile et fluide. S’émanciper de l’idée d’une scène internationale orchestrée par les seuls États. Sortir des figures classiques de l’ennemi, de la frontière, des identités exclusives. Montrer tous les acteurs des échanges internationaux, qu’ils soient publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux. Représenter les innombrables interdépendances et enchevêtrements de nos histoires,  autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Apporter quelques notes à la partition du vivre-ensemble. Telle est l’ambition de cet atlas.",
+          "Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Etudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.",
         ),
         h('.row.gutter', [
           h('.col-xs-6.col-md-4', [
@@ -160,7 +160,7 @@ const Home = ({ topics, options }) => {
               )]),
           ]),
           h('.col-sm-6.col-sm-pull-6', [
-            h('img', {
+            h('img.img-responsive', {
               alt: '',
               src: prefixUrl('/assets/img/eatlas-paper.png', options.preview),
             }),

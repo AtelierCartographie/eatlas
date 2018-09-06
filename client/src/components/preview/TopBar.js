@@ -10,7 +10,7 @@ module.exports = ({
   options,
   altTitle,
 } /*: {
-  logoColor: string,
+  logoColor: 'black' | 'white',
   options: FrontOptions,
 } */) =>
   h('nav#topbar.navbar.navbar-static-top.navbar-logo', [
@@ -30,6 +30,6 @@ module.exports = ({
             }),
           ])
     ]),
-    h(SideMenuToggle, { options }),
-    h(SearchToggle, { options }),
+    h(SideMenuToggle, { logoColor, options }),
+    h(SearchToggle, { logoColor, options }),
   ])

@@ -78,7 +78,13 @@ exports.SideMenu = ({
     ],
   )
 
-exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
+exports.SideMenuToggle = ({
+  logoColor,
+  options,
+} /*: {
+  logoColor: 'black' | 'white',
+  options: Object,
+ } */) =>
   h('div.navbar.SideMenuToggle', [
     h(
       'button.navbar-toggle',
@@ -90,7 +96,7 @@ exports.SideMenuToggle = ({ options } /*: { options: Object } */) =>
       [
         h('img.if-not-scrolled', {
           alt: 'Menu',
-          src: prefixUrl('/assets/img/picto-menu-B-white.svg', options.preview),
+          src: prefixUrl(`/assets/img/picto-menu-B-${logoColor}.svg`, options.preview),
         }),
         h('img.if-scrolled', {
           alt: 'Menu',

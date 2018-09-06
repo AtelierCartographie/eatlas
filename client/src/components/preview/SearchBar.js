@@ -3,7 +3,10 @@
 const h = require('react-hyperscript')
 const { prefixUrl, getSearchUrl } = require('./layout')
 
-module.exports = ({ options }) =>
+module.exports = ({
+  logoColor,
+  options,
+ }) =>
   h('div.search-toggle', {}, [
     h('input.search-field', {
       placeholder: "Rechercher dans l'atlas",
@@ -13,7 +16,7 @@ module.exports = ({ options }) =>
       [
         h('img.if-not-scrolled', {
           alt: '',
-          src: prefixUrl('/assets/img/search-white.svg', options.preview),
+          src: prefixUrl(`/assets/img/search-${logoColor}.svg`, options.preview),
         }),
         h('img.if-scrolled', {
           alt: '',

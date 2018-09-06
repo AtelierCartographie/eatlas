@@ -27,7 +27,7 @@ const TopMenuPanelSearch = ({ options: { preview } }) => {
       [
         h('img', {
           alt: 'rechercher',
-          src: prefixUrl(`/assets/img/search.svg`, preview),
+          src: prefixUrl(`/assets/img/search-white.svg`, preview),
         }),
       ],
     ),

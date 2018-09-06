@@ -40,7 +40,7 @@ const Home = ({ topics, options }) => {
         h('button', [
           h('img', {
             alt: '',
-            src: prefixUrl('/assets/img/search.svg', options.preview),
+            src: prefixUrl('/assets/img/search-white.svg', options.preview),
           }),
         ]),
       ]),

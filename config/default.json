@@ -1,136 +1,131 @@
 {
-	"server": {
-		"port": 4000,
-		"host": "localhost",
-		"secure": false
-	},
+  "server": {
+    "port": 4000,
+    "host": "localhost",
+    "secure": false
+  },
 
-	"apiUrl": "http://localhost:4000",
-	"publicUrl": "http://localhost:3000",
+  "apiUrl": "http://localhost:4000",
+  "publicUrl": "http://localhost:3000",
 
-	"//clientPath": "Relative to server's root or absolute",
-	"clientPath": "../client",
+  "//clientPath": "Relative to server's root or absolute",
+  "clientPath": "../client",
 
-	"es": {
-		"connection": {
-			"host": "localhost:9200"
-		},
-		"indices": {
-			"user": "eatlas_user",
-			"resource": "eatlas_resource",
-			"topic": "eatlas_topic"
-		},
-		"indexSettings": {},
-		"autoMigration": true,
-		"acceptObsoleteMapping": false
-	},
+  "es": {
+    "connection": {
+      "host": "localhost:9200"
+    },
+    "indices": {
+      "user": "eatlas_user",
+      "resource": "eatlas_resource",
+      "topic": "eatlas_topic"
+    },
+    "indexSettings": {},
+    "autoMigration": true,
+    "acceptObsoleteMapping": false,
+    "maxConcurrentWrites": 50
+  },
 
-	"session": {
-		"secret": "E-Atlas S3cr3T"
-	},
+  "session": {
+    "secret": "E-Atlas S3cr3T"
+  },
 
-	"redis": {
-		"host": "localhost",
-		"port": 6379
-	},
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  },
 
-	"cors": {
-		"origins": ["$publicUrl", "$apiUrl"],
-		"allowNoOrigin": false
-	},
+  "cors": {
+    "origins": ["$publicUrl", "$apiUrl"],
+    "allowNoOrigin": false
+  },
 
-	"google": {
-		"clientId": "see https://console.cloud.google.com/apis/credentials",
-		"exportUrl":
-			"https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
-		"downloadUrl":
-			"https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
-		"exportTrigger": {
-			"article": ["application/vnd.google-apps.document"],
-			"focus": ["application/vnd.google-apps.document"],
-			"definition": ["application/vnd.google-apps.document"]
-		},
-		"exportFormat": {
-			"article":
-				"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-			"focus":
-				"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-			"definition":
-				"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-		}
-	},
+  "google": {
+    "clientId": "see https://console.cloud.google.com/apis/credentials",
+    "exportUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID/export?mimeType=FORMAT",
+    "downloadUrl": "https://www.googleapis.com/drive/v3/files/FILE_ID?alt=media",
+    "exportTrigger": {
+      "article": ["application/vnd.google-apps.document"],
+      "focus": ["application/vnd.google-apps.document"],
+      "definition": ["application/vnd.google-apps.document"]
+    },
+    "exportFormat": {
+      "article": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "focus": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "definition": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    }
+  },
 
-	"logger": {
-		"name": "eatlas",
-		"level": "info",
-		"src": false
-	},
+  "logger": {
+    "name": "eatlas",
+    "level": "info",
+    "src": false
+  },
 
-	"//publishFileCommand": "'symlink' or 'copy'",
-	"publishFileCommand": "copy",
+  "//publishFileCommand": "'symlink' or 'copy'",
+  "publishFileCommand": "copy",
 
-	"//uploadPath": "Unpublished files are in this folder, named <id>*.<ext>",
-	"uploadPath": "./data/uploads",
+  "//uploadPath": "Unpublished files are in this folder, named <id>*.<ext>",
+  "uploadPath": "./data/uploads",
 
-	"//keepUploadsOnDelete":
-		"if set to true, uploaded files will NOT be deleted when resource is removed",
-	"keepUploadsOnDelete": false,
+  "//keepUploadsOnDelete": "if set to true, uploaded files will NOT be deleted when resource is removed",
+  "keepUploadsOnDelete": false,
 
-	"//publicPath": "Root path of public website",
-	"publicPath": "$clientPath/public/generated",
-	"mediaSubPath": "media",
-	"mediaFileName": "$type-$id-$name.$ext",
-	"pageUrls": {
-		"index": "index.html",
-		"search": "recherche.html",
-		"notFound": "not-found.html",
-		"about": "a-propos.html",
-		"legals": "mentions-legales.html",
-		"sitemap": "plan-du-site.html",
-		"topic": "rubrique-$topicSlug.html",
-		"definition": "lexique.html",
-		"article": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-		"focus": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-		"image": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-		"map": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-		"sound": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-		"video": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
-	},
+  "//publicPath": "Root path of public website",
+  "publicPath": "$clientPath/public/generated",
+  "mediaSubPath": "media",
+  "mediaFileName": "$type-$id-$name.$ext",
+  "pageUrls": {
+    "index": "index.html",
+    "search": "recherche.html",
+    "notFound": "not-found.html",
+    "about": "a-propos.html",
+    "legals": "mentions-legales.html",
+    "sitemap": "plan-du-site.html",
+    "topic": "rubrique-$topicSlug.html",
+    "definition": "lexique.html",
+    "article": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "focus": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "image": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "map": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "sound": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+    "video": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
+  },
 
-	"// searchFields": "Full-text search fields, use dot for nested fields",
-	"searchFields": [
-		"title",
-		"subtitle",
-		"description_fr",
-		"description_en",
-		"author",
-		"metas.text",
-		"nodes.links.text",
-		"nodes.list.text",
-		"nodes.list.list",
-		"nodes.text"
-	],
+  "// searchFields": "Full-text search fields, use dot for nested fields",
+  "searchFields": [
+    "title",
+    "subtitle",
+    "description_fr",
+    "description_en",
+    "author",
+    "metas.text",
+    "nodes.links.text",
+    "nodes.list.text",
+    "nodes.list.list",
+    "nodes.text"
+  ],
 
-	"// searchSort": "Rules to compute score for specific ordering",
-	"searchSort": {
-		"// boostType": "Boost score depending on doc's type",
-		"boostType": {
-			"single-definition": 20
-		},
-		"// boostSearchField": "Boost applied to text searchFields listed above (not listed = 1)",
-		"boostSearchField": {
-			"title": 40,
-			"description_fr": 10,
-			"description_en": 10
-		},
-		"// scoreSpecial": "Score applied to specific search criteria: status, type, language, topic, or keyword (not listed = 0)",
-		"scoreSpecial": {
-			"keyword": 200
-		}
-	},
+  "// searchSort": "Rules to compute score for specific ordering",
+  "searchSort": {
+    "// boostType": "Boost score depending on doc's type",
+    "boostType": {
+      "single-definition": 20
+    },
+    "// boostSearchField": "Boost applied to text searchFields listed above (not listed = 1)",
+    "boostSearchField": {
+      "title": 40,
+      "description_fr": 10,
+      "description_en": 10
+    },
+    "// scoreSpecial": "Score applied to specific search criteria: status, type, language, topic, or keyword (not listed = 0)",
+    "scoreSpecial": {
+      "keyword": 200
+    }
+  },
 
-	"analytics": {
-		"// google": "Google Analytics tracker code, e.g. UA-XXXXX-Y",
-		"google": null
-	}
+  "analytics": {
+    "// google": "Google Analytics tracker code, e.g. UA-XXXXX-Y",
+    "google": null
+  }
 }

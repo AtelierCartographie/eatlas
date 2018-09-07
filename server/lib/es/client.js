@@ -1,12 +1,15 @@
 'use strict'
 
 const { Client } = require('elasticsearch')
-const { es: { connection, indices } } = require('config')
+const {
+  es: { connection, indices, maxConcurrentWrites },
+} = require('config')
 const AgentKeepAlive = require('agentkeepalive')
 const { promisify } = require('util')
 const initIndices = require('./init-index')
 const EsLogger = require('./logger')
 const logger = require('../logger')
+const writeQueue = require('./queue')({ max: maxConcurrentWrites })
 
 // https://github.com/elastic/elasticsearch-js/issues/117
 // needs to be true to have IMMEDIATE and CORRECT results in a search succeeding a delete for example
@@ -71,29 +74,34 @@ module.exports = type => {
       : null
 
   const insert = (body, id = null) =>
-    client
-      .index({ index: indices[type], type, body, refresh, id })
-      .then(({ _id }) => formatHit({ _source: body, _id }))
+    writeQueue(() =>
+      client
+        .index({ index: indices[type], type, body, refresh, id })
+        .then(({ _id }) => formatHit({ _source: body, _id })),
+    )
 
-  const update = (id, doc, advanced = false) => {
-    // Advanced update: full body provided (e.g. { script })
-    const body = advanced ? doc : { doc }
-    return client
-      .update({ index: indices[type], type, id, body, refresh })
-      .then(() => findById(id))
-  }
+  const update = (id, doc, advanced = false) =>
+    writeQueue(() => {
+      // Advanced update: full body provided (e.g. { script })
+      const body = advanced ? doc : { doc }
+      return client
+        .update({ index: indices[type], type, id, body, refresh })
+        .then(() => findById(id))
+    })
 
   const remove = id =>
-    client.delete({ index: indices[type], type, id, refresh })
+    writeQueue(() => client.delete({ index: indices[type], type, id, refresh }))
 
   const deleteByQuery = body =>
-    client.deleteByQuery({
-      index: indices[type],
-      type,
-      body,
-      refresh,
-      conflicts: 'proceed',
-    })
+    writeQueue(() =>
+      client.deleteByQuery({
+        index: indices[type],
+        type,
+        body,
+        refresh,
+        conflicts: 'proceed',
+      }),
+    )
 
   return {
     search,

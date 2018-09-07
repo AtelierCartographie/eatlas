@@ -33,7 +33,9 @@ const parseAliases = text => {
 const parseInternalDefinitions = ($, el) =>
   $(el)
     .children()
-    .filter((i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000')
+    .filter(
+      (i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000',
+    )
     // beware of cheerio and flatMap
     .map((i, el) => [getText($, el)])
     // in some weird documents, the "red range" include blanks and punctuation marks
@@ -41,50 +43,50 @@ const parseInternalDefinitions = ($, el) =>
     .filter((i, text) => text.length > 1)
     .get()
 
+/**
+ * Expected format:
+ *
+ * (<h1>Letter
+ *   (<h2>Title
+ *    (<h3>Alias)*
+ *    (<p>Definition)+
+ *   )*
+ * )*
+ */
 module.exports = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })
   const $ = cheerio.load(`<div id="cheerio">${value}</div>`)
 
+  const newDefinition = dt => ({ dt, dd: '', aliases: [], lexicon: [] })
+
+  // Current parsed definition
+  let definitions = []
+  let currentDefinition = null
+
   const parseChild = $ => (i, el) => {
-    if (el.name !== 'h2') return null
-
-    const text = getText($, el)
-    const [dt] = text.split(' [')
-
-    // phantom H2
-    if (!dt) return null
-
-    let aliases = []
-    let dd = ''
-    let lexicon = []
-
-    // aliases?
-    if (el.next.name === 'h3') {
-      aliases = parseAliases(getText($, el.next))
-      if (el.next.next.name === 'p') {
-        lexicon = parseInternalDefinitions($, el.next.next)
-        dd = getText($, el.next.next)
-      }
-    } else if (el.next.name === 'p') {
-      lexicon = parseInternalDefinitions($, el.next)
-      dd = getText($, el.next)
-    }
-
-    // definition not provided yet
-    if (!dd) return null
-
-    return {
-      dt,
-      dd,
-      aliases,
-      lexicon,
+    if (el.name === 'h2') {
+      // Title = new definition
+      const text = getText($, el)
+      const [dt] = text.split(' [')
+      currentDefinition = newDefinition(dt)
+    } else if (currentDefinition && el.name === 'h3') {
+      // Aliases in current definition
+      currentDefinition.aliases = currentDefinition.aliases.concat(
+        parseAliases(getText($, el)),
+      )
+    } else if (currentDefinition && el.name === 'p') {
+      // The actual definition
+      currentDefinition.lexicon = parseInternalDefinitions($, el)
+      currentDefinition.dd = getText($, el)
+      // Definition ends here
+      definitions.push(currentDefinition)
+      currentDefinition = null
     }
   }
 
-  return {
-    definitions: $('#cheerio')
-      .children()
-      .map(parseChild($))
-      .get(),
-  }
+  $('#cheerio')
+    .children()
+    .each(parseChild($))
+
+  return { definitions }
 }

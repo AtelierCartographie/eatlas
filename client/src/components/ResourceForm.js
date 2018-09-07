@@ -1011,7 +1011,7 @@ class ResourceForm extends Component<Props, State> {
         null,
       )
       resource.language = foundSummary ? foundSummary.lang : ''
-      if (foundSummary.lang === 'en') {
+      if (resource.language === 'en') {
         resource.description_fr = getMetaText('summary-fr') || ''
         resource.description_en = foundSummary ? foundSummary.summary : ''
       } else {

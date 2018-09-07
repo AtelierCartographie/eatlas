@@ -267,6 +267,8 @@ class ResourceForm extends Component<Props, State> {
       help,
       labelId = null,
       labelValues = {},
+      rich = false,
+      editorOptions = {},
     }: {
       readOnly?: boolean,
       mandatory?: boolean,
@@ -282,6 +284,8 @@ class ResourceForm extends Component<Props, State> {
       help?: React$Element<any>,
       labelId?: string,
       labelValues?: any,
+      rich?: boolean,
+      editorOptions?: any,
     } = {},
   ): FieldParams {
     const props = {
@@ -342,8 +346,10 @@ class ResourceForm extends Component<Props, State> {
           </div>
         )
       }
+    } else if (rich) {
+      input = <Editor {...props} {...editorOptions} rows={rows} />
     } else if (rows > 1) {
-      input = <Editor {...props} rows={rows} />
+      input = <textarea className="textarea" {...props} rows={rows} />
     } else {
       input = <input className="input" type={type} {...props} />
     }
@@ -351,7 +357,7 @@ class ResourceForm extends Component<Props, State> {
     return {
       labelId: labelId || 'resource-' + attr,
       labelValues,
-      leftIcon,
+      leftIcon: rich ? null : leftIcon,
       rightIcon,
       input,
       mandatory,
@@ -476,6 +482,8 @@ class ResourceForm extends Component<Props, State> {
           readOnly ||
           Boolean(isArticle && this.state.parsed && this.state.parsed.title),
         loading: this.state.parsing,
+        rich: true,
+        editorOptions: { singleLine: true },
       }),
       titlePosition &&
         this.getAttrField('titlePosition', {
@@ -496,6 +504,8 @@ class ResourceForm extends Component<Props, State> {
               isArticle && this.state.parsed && this.state.parsed.subtitle,
             ),
           loading: this.state.parsing,
+          rich: true,
+          editorOptions: { singleLine: true },
         }),
       topic &&
         this.getAttrField('topic', {
@@ -541,29 +551,37 @@ class ResourceForm extends Component<Props, State> {
           ),
         loading: this.state.parsing,
         rows: 5,
+        rich: true,
       }),
-      resource.type === 'article' && this.getAttrField('description_en', {
-        labelId: 'resource-description',
-        labelValues: { lang: 'en' },
-        readOnly:
-          readOnly ||
-          Boolean(
-            isArticle && this.state.parsed && this.state.parsed.description_en,
-          ),
-        loading: this.state.parsing,
-        rows: 5,
-      }),
+      resource.type === 'article' &&
+        this.getAttrField('description_en', {
+          labelId: 'resource-description',
+          labelValues: { lang: 'en' },
+          readOnly:
+            readOnly ||
+            Boolean(
+              isArticle &&
+                this.state.parsed &&
+                this.state.parsed.description_en,
+            ),
+          loading: this.state.parsing,
+          rows: 5,
+          rich: true,
+        }),
       transcript &&
         this.getAttrField('transcript', {
           rows: 5,
+          rich: true,
         }),
       source &&
         this.getAttrField('source', {
           rows: 5,
+          rich: true,
         }),
       copyright &&
         this.getAttrField('copyright', {
           rows: 5,
+          rich: true,
           readOnly:
             readOnly ||
             Boolean(
@@ -584,9 +602,9 @@ class ResourceForm extends Component<Props, State> {
           <T
             id="resource-visiblePublishedAt-help"
             values={{
-              publishedAt: new Date(resource.publishedAt || Date.now()).toLocaleDateString(
-                this.props.locale,
-              ),
+              publishedAt: new Date(
+                resource.publishedAt || Date.now(),
+              ).toLocaleDateString(this.props.locale),
             }}
           />
         ),
@@ -651,15 +669,11 @@ class ResourceForm extends Component<Props, State> {
       case 'map':
         return buildFields(
           [
-            this.getResponsiveImageField(resource, [
-              'small',
-              'medium',
-              'large',
-            ], [
-              '1x',
-              '2x',
-              '3x',
-            ]),
+            this.getResponsiveImageField(
+              resource,
+              ['small', 'medium', 'large'],
+              ['1x', '2x', '3x'],
+            ),
           ],
           {
             subtitle: true,
@@ -669,13 +683,13 @@ class ResourceForm extends Component<Props, State> {
         )
       case 'image':
         return buildFields(
-          [this.getResponsiveImageField(resource, [
-            'small',
-            'medium',
-            'large',
-          ], [
-            '1x',
-          ])],
+          [
+            this.getResponsiveImageField(
+              resource,
+              ['small', 'medium', 'large'],
+              ['1x'],
+            ),
+          ],
           {
             copyright: true,
             source: true,
@@ -745,7 +759,11 @@ class ResourceForm extends Component<Props, State> {
     }
   }
 
-  getResponsiveImageField(resource, supportedSizes, supportedDensities): FieldParams {
+  getResponsiveImageField(
+    resource,
+    supportedSizes,
+    supportedDensities,
+  ): FieldParams {
     const re = resource.type === 'map' ? /^map-/ : /^image-/
     const { docs } = this.state
     const keys = Object.keys(docs)
@@ -759,7 +777,11 @@ class ResourceForm extends Component<Props, State> {
           <DocPicker
             locale={this.props.locale}
             label="select-images"
-            onPick={this.onPickResponsiveImage(resource, supportedSizes, supportedDensities)}
+            onPick={this.onPickResponsiveImage(
+              resource,
+              supportedSizes,
+              supportedDensities,
+            )}
             showPickerAfterUpload={true}
             multiple={true}
             mimeTypes={resource.type ? MIME_TYPES[resource.type] : []}
@@ -807,8 +829,16 @@ class ResourceForm extends Component<Props, State> {
     const key = resource.type // 'image' or 'map'
     const re =
       supportedSizes.length === 1 // only 1 size = size is optional in name
-        ? new RegExp(`(?:-(${supportedSizes[0]}))?(?:@(${supportedDensities.join('|')}))?\\.[.a-z]+$`)
-        : new RegExp(`-(${supportedSizes.join('|')})(?:@(${supportedDensities.join('|')}))?\\.[.a-z]+$`)
+        ? new RegExp(
+            `(?:-(${supportedSizes[0]}))?(?:@(${supportedDensities.join(
+              '|',
+            )}))?\\.[.a-z]+$`,
+          )
+        : new RegExp(
+            `-(${supportedSizes.join('|')})(?:@(${supportedDensities.join(
+              '|',
+            )}))?\\.[.a-z]+$`,
+          )
     return async (docs: GoogleDoc[], accessToken: string) => {
       docs.forEach(doc => {
         const match = doc.name.match(re)

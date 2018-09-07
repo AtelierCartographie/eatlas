@@ -11,6 +11,7 @@ type Props = {
   value: string,
   onChange: Function,
   readOnly: boolean,
+  singleLine: boolean,
 }
 
 class WysiwygEditor extends Component<Props> {
@@ -49,26 +50,32 @@ class WysiwygEditor extends Component<Props> {
         <div
           className="textarea"
           rows={this.props.rows}
-          dangerouslySetInnerHTML={{ __html: draftToHtml(convertToRaw(editorState.getCurrentContent()))}}
+          dangerouslySetInnerHTML={{
+            __html: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+          }}
           readOnly
         />
       )
     }
-    return (
-      <div>
-        <Editor
-          editorState={editorState}
-          editorClassName="WysiwygEditor"
-          onEditorStateChange={this.onEditorStateChange}
-          toolbar={{
-            options: ['inline', 'list', 'link'],
-            inline: {
-              options: ['bold', 'italic'],
-            },
-          }}
-        />
-      </div>
-    )
+    const props = {
+      editorState,
+      editorClassName: 'WysiwygEditor',
+      onEditorStateChange: this.onEditorStateChange,
+      toolbar: {
+        options: this.props.singleLine
+          ? ['inline', 'link']
+          : ['inline', 'list', 'link'],
+        inline: {
+          options: ['bold', 'italic'],
+        },
+      },
+    }
+
+    if (this.props.singleLine) {
+      props.handleReturn = () => true
+    }
+
+    return <Editor {...props} />
   }
 }
 

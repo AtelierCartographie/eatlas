@@ -28,7 +28,7 @@ const srcset = (image, size, options) => {
 const Picture = ({
   resource,
   options,
-  main: { component, size },
+  main: { component, size, props },
   sources = [],
 }) =>
   h('picture', [
@@ -39,6 +39,7 @@ const Picture = ({
       return h('source', { key, srcSet, ...more })
     }),
     h(component, {
+      ...props,
       key: 'maincomponent',
       srcSet: srcset(resource, size, { ...options, fallback: true }),
     }),
@@ -46,15 +47,26 @@ const Picture = ({
 
 const defaultSources = [
   { size: 'large', minWidth: '700px' },
-  { size: 'medium', minWidth: '560px'},
+  { size: 'medium', minWidth: '560px' },
   { size: 'small', minWidth: 0 },
 ]
 
-const ResponsivePicture = ({ resource, options, mainSize, sources = defaultSources }) =>
+const ResponsivePicture = ({
+  resource,
+  options,
+  mainSize,
+  sources = defaultSources,
+}) =>
   Picture({
     resource,
     options,
-    main: { component: 'img', size: mainSize },
+    main: {
+      component: 'img',
+      size: mainSize,
+      props: {
+        className: 'img-responsive center-block',
+      },
+    },
     sources,
   })
 

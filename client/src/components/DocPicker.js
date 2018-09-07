@@ -118,14 +118,16 @@ class DocPicker extends Component<Props, State> {
         onChange={this.callback}
         multiselect={this.props.multiple}
         createPicker={(google, oauthToken) => {
-          const docsView = new google.picker.View(google.picker.ViewId.DOCS)
+          const docsView = new google.picker.DocsView()
+          //docsView.setEnableTeamDrives(true)
+          //docsView.setIncludeFolders(true)
           if (this.props.mimeTypes) {
             docsView.setMimeTypes(this.props.mimeTypes.join(','))
           }
 
           const uploadView = new google.picker.DocsUploadView()
 
-          const picker = new window.google.picker.PickerBuilder()
+          const picker = new google.picker.PickerBuilder()
             .setLocale(this.props.locale || 'en')
             .addView(docsView)
             .addView(uploadView)

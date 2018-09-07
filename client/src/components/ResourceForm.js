@@ -1011,13 +1011,8 @@ class ResourceForm extends Component<Props, State> {
         null,
       )
       resource.language = foundSummary ? foundSummary.lang : ''
-      if (resource.language === 'en') {
-        resource.description_fr = getMetaText('summary-fr') || ''
-        resource.description_en = foundSummary ? foundSummary.summary : ''
-      } else {
-        resource.description_fr = foundSummary ? foundSummary.summary : ''
-        resource.description_en = getMetaText('summary-en') || ''
-      }
+      resource.description_fr = getMetaText('summary-fr') || ''
+      resource.description_en = getMetaText('summary-en') || ''
       return { parsed, resource }
     }
     const parseDoc = key === 'article' ? parseArticleDoc : parseFocusDoc

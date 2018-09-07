@@ -337,7 +337,7 @@ class ArticleForm extends Component<Props, State> {
     return (
       <Fragment>
         <h2 className="subtitle is-4">
-          <T id={title} /> ({ nodes.length })
+          <T id={title} /> ({nodes.length})
         </h2>
         <ul>
           {nodes.map(([node, exists]) => (
@@ -446,9 +446,15 @@ class ArticleForm extends Component<Props, State> {
   renderMeta = (meta: ArticleMeta, k: number) => {
     // Do not display metas handled in ResourceForm
     if (
-      ['title', 'type', 'author', 'topic', 'id', 'summary-fr'].includes(
-        meta.type,
-      )
+      [
+        'title',
+        'type',
+        'author',
+        'topic',
+        'id',
+        'summary-fr',
+        'summary-en',
+      ].includes(meta.type)
     ) {
       return null
     }
@@ -576,6 +582,9 @@ class ArticleForm extends Component<Props, State> {
   }
 }
 
-export default connect(({ resources }: AppState) => ({ resources }), {
-  fetchResources,
-})(ArticleForm)
+export default connect(
+  ({ resources }: AppState) => ({ resources }),
+  {
+    fetchResources,
+  },
+)(ArticleForm)

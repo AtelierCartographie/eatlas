@@ -26,7 +26,7 @@ exports.getDefinition = (
     }
     return false
   })
-  return fullDefinitionObject ? found : (found ? found.dd : '')
+  return fullDefinitionObject ? found : found ? found.dd : ''
 }
 
 const getMeta = (article /*: Resource */, type /*: string */) =>
@@ -89,6 +89,7 @@ exports.META_CONVERSION = {
   identifiant: 'id',
   'Mots-clés': 'keywords',
   'Résumé-FR': 'summary-fr',
+  'Résumé-EN': 'summary-en',
   "Continuer dans l'Atlas": 'related',
   'Continuer dans l’Atlas': 'related', // different apostrophe
   Références: 'references',

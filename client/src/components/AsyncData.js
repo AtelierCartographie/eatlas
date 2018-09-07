@@ -18,6 +18,7 @@ type State = {
 
 class AsyncData extends Component<Props, State> {
   state = { status: 'loading', error: null, data: null }
+  listening = false
 
   renderLoading() {
     return <Spinner />
@@ -36,12 +37,18 @@ class AsyncData extends Component<Props, State> {
     return this.props.render(data)
   }
 
-  onSuccess = (data: any) => this.setState({ data, status: 'success' })
+  onSuccess = (data: any) =>
+    this.listening && this.setState({ data, status: 'success' })
   onError = (error: { message: string }) =>
-    this.setState({ error: error.message, status: 'error' })
+    this.listening && this.setState({ error: error.message, status: 'error' })
 
   componentWillMount() {
+    this.listening = true
     this.props.promise.then(this.onSuccess, this.onError)
+  }
+
+  componentWillUnmount() {
+    this.listening = false
   }
 
   render() {

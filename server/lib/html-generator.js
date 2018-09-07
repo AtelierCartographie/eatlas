@@ -248,18 +248,23 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
   props = await menuProps(props, { preview })
   const keywordsWithOccurrences = props.articles
     // Article[] => string[]
-    .reduce((kws, article) =>
-      kws.concat(getMetaList(article, 'keywords').map(({ text }) => text)),
-    [])
+    .reduce(
+      (kws, article) =>
+        kws.concat(getMetaList(article, 'keywords').map(({ text }) => text)),
+      [],
+    )
     // string[] => { [string]: number }
-    .reduce((hash, kw) =>
-      Object.assign(hash, { [kw]: (hash[kw] || 0) + 1 }),
-    {})
+    .reduce(
+      (hash, kw) => Object.assign(hash, { [kw]: (hash[kw] || 0) + 1 }),
+      {},
+    )
   const sortedKeywords = Object.keys(keywordsWithOccurrences)
     // First sort alphabetically
     .sort()
     // Then sort by occurrence DESC
-    .sort((kw1, kw2) => keywordsWithOccurrences[kw2] - keywordsWithOccurrences[kw1])
+    .sort(
+      (kw1, kw2) => keywordsWithOccurrences[kw2] - keywordsWithOccurrences[kw1],
+    )
   return wrap(
     React.createElement(SearchPage, {
       ...props,
@@ -325,4 +330,3 @@ exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
     }),
   )
 }
-

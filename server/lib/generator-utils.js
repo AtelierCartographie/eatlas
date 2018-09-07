@@ -14,8 +14,17 @@ const {
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
 } = require('../../client/src/universal-utils')
-const { pathToUrl, pagePath, resourceMediaPath, getTypeLabel } = require('./resource-path')
-const { getResourcePageUrl, getTopicPageUrl, globalPageUrl } = require('../../client/src/components/preview/layout')
+const {
+  pathToUrl,
+  pagePath,
+  resourceMediaPath,
+  getTypeLabel,
+} = require('./resource-path')
+const {
+  getResourcePageUrl,
+  getTopicPageUrl,
+  globalPageUrl,
+} = require('../../client/src/components/preview/layout')
 
 const apiUrl = config.apiUrl
 const publicMediaUrl =
@@ -80,8 +89,16 @@ exports.populateImageStats = async (resource, options) => {
       if (resource.images[size]) {
         for (let density of ['1x', '2x', '3x']) {
           if (resource.images[size][density]) {
-            const found = { size, density, file: resource.images[size][density] }
-            resource.imageStats[`${size}-${density}`] = await getImageStats(resource, found, options)
+            const found = {
+              size,
+              density,
+              file: resource.images[size][density],
+            }
+            resource.imageStats[`${size}-${density}`] = await getImageStats(
+              resource,
+              found,
+              options,
+            )
           }
         }
       }
@@ -89,11 +106,15 @@ exports.populateImageStats = async (resource, options) => {
   }
 }
 
-exports.populateImageRelatedResources = async (resource) => {
-  resource.relatedResources = await Resources.list({ query: { nested: {
-    path: 'nodes',
-    query: { term: { 'nodes.id.keyword': resource.id } },
-  } } })
+exports.populateImageRelatedResources = async resource => {
+  resource.relatedResources = await Resources.list({
+    query: {
+      nested: {
+        path: 'nodes',
+        query: { term: { 'nodes.id.keyword': resource.id } },
+      },
+    },
+  })
 }
 
 const humanSize = bytes => {
@@ -119,12 +140,26 @@ const humanSize = bytes => {
 }
 
 const getImageStats = async (resource, found, { preview = false } = {}) => {
-  const { up: filePath } = resourceMediaPath(resource.type, found.file, { up: true, pub: false })
-  const [{ width, height, type }, { size }] = await Promise.all([imageSize(filePath), stat(filePath)])
+  const { up: filePath } = resourceMediaPath(resource.type, found.file, {
+    up: true,
+    pub: false,
+  })
+  const [{ width, height, type }, { size }] = await Promise.all([
+    imageSize(filePath),
+    stat(filePath),
+  ])
   const url = preview
     ? getMediaPreviewUrl(resource.id, found.size, found.density, apiUrl)
     : getMediaUrl(found.file, publicMediaUrl)
-  return { width, height, type, size, humanSize: humanSize(size), filePath, url }
+  return {
+    width,
+    height,
+    type,
+    size,
+    humanSize: humanSize(size),
+    filePath,
+    url,
+  }
 }
 
 const smallestImageKey = images => {
@@ -248,7 +283,14 @@ exports.getArticles = async () =>
 exports.getTopics = async () =>
   (await Topics.list()).sort((a, b) => a.id > b.id)
 
-exports.getResource = async id => Resources.findById(id)
+exports.getResource = async id => {
+  const found = await Resources.findById(id)
+  if (!found && id === 'LEXIC') {
+    // No lexicon uploaded: just go with a fake one with no definitions
+    return { definitions: [] }
+  }
+  return found
+}
 
 // type Link = { url: string, title: string, info: string?, children: Link[] }
 // @return Link[]
@@ -256,7 +298,11 @@ exports.getAllUrls = async (preview = false) => {
   const topics = await exports.getTopics()
   // Urls tree
   const urls = []
-  const getPageDescription = (title, key, { resource = null, hash = null, children = [], info = null } = {}) => {
+  const getPageDescription = (
+    title,
+    key,
+    { resource = null, hash = null, children = [], info = null } = {},
+  ) => {
     const url = resource
       ? key === 'topic'
         ? getTopicPageUrl(resource, { preview })
@@ -271,21 +317,31 @@ exports.getAllUrls = async (preview = false) => {
   // Global pages
   addPage('Accueil', 'index')
   addPage('Recherche', 'search')
-  addPage('À propos', 'about', { children: [
-    ['Le projet', 'about', { hash: 'project' }],
-    ['L’équipe', 'about', { hash: 'team' }],
-    ['Nous contacter', 'about', { hash: 'contact' }],
-    ['Le livre', 'about', { hash: 'book' }],
-  ] })
+  addPage('À propos', 'about', {
+    children: [
+      ['Le projet', 'about', { hash: 'project' }],
+      ['L’équipe', 'about', { hash: 'team' }],
+      ['Nous contacter', 'about', { hash: 'contact' }],
+      ['Le livre', 'about', { hash: 'book' }],
+    ],
+  })
   addPage('Mentions légales', 'legals')
   // Topics & resources
   for (const topic of topics) {
     const resources = await exports.getTopicResources(topic, !preview)
-    const children = resources.map(r => [r.title, r.type, {
-      resource: r,
-      info: `(${getTypeLabel(r)})`
-    }])
-    addPage(topic.name, 'topic', { resource: topic, children, info: '(rubrique)' })
+    const children = resources.map(r => [
+      r.title,
+      r.type,
+      {
+        resource: r,
+        info: `(${getTypeLabel(r)})`,
+      },
+    ])
+    addPage(topic.name, 'topic', {
+      resource: topic,
+      children,
+      info: '(rubrique)',
+    })
   }
   return urls
 }

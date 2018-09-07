@@ -63,7 +63,7 @@ const writeRobotsTxt = async () => {
   return await writeFileLogged(file, txt)
 }
 
-const writeSitemapXml = async (urls) => {
+const writeSitemapXml = async urls => {
   const file = publicPath('sitemap.xml')
   const sm = sitemap.createSitemap({
     hostname: config.publicUrl,
@@ -72,7 +72,7 @@ const writeSitemapXml = async (urls) => {
       url,
       changefreq: 'daily',
       priority: 0.5,
-    }))
+    })),
   })
   const getXML = promisify(sm.toXML.bind(sm))
   const xml = await getXML()
@@ -125,10 +125,11 @@ exports.rebuildAllHTML = async () => {
   )
 
   // SEO
-  await writeSitemapXml(details
-    .map(({ error, write, noop }) => error ? null : (write || noop))
-    .filter(url => url !== null)
-    .map(url => pathToUrl(url, false))
+  await writeSitemapXml(
+    details
+      .map(({ error, write, noop }) => (error ? null : write || noop))
+      .filter(url => url !== null)
+      .map(url => pathToUrl(url, false)),
   )
   await writeRobotsTxt()
 
@@ -154,19 +155,27 @@ exports.rebuildAssets = async () => {
   // Compile 'eatlas.js' into 'eatlas.es5.js'
   const pubDir = path.join(__dirname, '..', '..', 'client', 'public') // FIXME should we read from config here?
   const source = path.resolve(pubDir, path.join('assets', 'js', 'eatlas.js'))
-  const target = path.resolve(pubDir, path.join('assets', 'js', 'eatlas.es5.js'))
-  const [sourceMtime, targetMtime] = await Promise.all([source, target].map(getMTime))
+  const target = path.resolve(
+    pubDir,
+    path.join('assets', 'js', 'eatlas.es5.js'),
+  )
+  const [sourceMtime, targetMtime] = await Promise.all(
+    [source, target].map(getMTime),
+  )
   if (targetMtime >= sourceMtime) {
     // Skip rebuild: target is fresh
     return
   }
   const options = {
     presets: [
-      ['env', {
-        targets: {
-          browsers: ['last 2 versions', 'safari >= 7']
+      [
+        'env',
+        {
+          targets: {
+            browsers: ['last 2 versions', 'safari >= 7'],
+          },
         },
-      }],
+      ],
     ],
   }
   const { code } = await compileJS(source, options)

@@ -266,6 +266,7 @@ class ResourceForm extends Component<Props, State> {
       type = 'text',
       help,
       labelId = null,
+      key = labelId,
       labelValues = {},
       rich = false,
       editorOptions = {},
@@ -283,6 +284,7 @@ class ResourceForm extends Component<Props, State> {
       type?: string,
       help?: React$Element<any>,
       labelId?: string,
+      key?: string,
       labelValues?: any,
       rich?: boolean,
       editorOptions?: any,
@@ -356,6 +358,7 @@ class ResourceForm extends Component<Props, State> {
 
     return {
       labelId: labelId || 'resource-' + attr,
+      key: key || labelId || 'key-' + attr,
       labelValues,
       leftIcon: rich ? null : leftIcon,
       rightIcon,
@@ -543,6 +546,7 @@ class ResourceForm extends Component<Props, State> {
       }),
       this.getAttrField('description_fr', {
         labelId: 'resource-description',
+        key: 'resource-description-fr',
         labelValues: { lang: 'fr' },
         readOnly:
           readOnly ||
@@ -556,6 +560,7 @@ class ResourceForm extends Component<Props, State> {
       resource.type === 'article' &&
         this.getAttrField('description_en', {
           labelId: 'resource-description',
+          key: 'resource-description-en',
           labelValues: { lang: 'en' },
           readOnly:
             readOnly ||

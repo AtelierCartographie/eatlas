@@ -5,6 +5,7 @@ import { FormattedMessage as T, injectIntl } from 'react-intl'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
+import { slugify } from '../universal-utils'
 
 import './ResourceForm.css'
 
@@ -1250,7 +1251,7 @@ class ResourceForm extends Component<Props, State> {
         type: 'doc',
         id: '',
         mimeType: '',
-        name: resource.title + '.docx',
+        name: slugify(resource.title) + '.docx',
       }
     }
 
@@ -1259,7 +1260,7 @@ class ResourceForm extends Component<Props, State> {
         type: 'sound',
         id: '',
         mimeType: '',
-        name: resource.title + '.mp3',
+        name: slugify(resource.title) + '.mp3',
       }
     }
 

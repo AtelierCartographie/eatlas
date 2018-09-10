@@ -91,19 +91,21 @@ const Focus = props =>
     }),
   ])
 
-const FocusPage = ({
-  focus,
-  topics,
-  definitions,
-  resources,
-  options,
-} /*: {
+const FocusPage = (
+  {
+    focus,
+    topics,
+    definitions,
+    resources,
+    options,
+  } /*: {
   focus: Resource,
   topics: Topic[],
   definitions: Definition[],
   resources: Resource[],
   options: FrontOptions,
-} */) => {
+} */,
+) => {
   {
     const lexiconId = {
       id: 0,

@@ -105,7 +105,14 @@ exports.LOCALES = {
   en: 'English',
 }
 
-exports.slugify = (text /*: string */) => slugify(text, { lower: true })
+exports.stripTags = (text /*: string */, whitelist /* string[] */ = []) =>
+  text.replace(
+    /<\/?(.*?)>/g,
+    (orig, tag) => (whitelist.includes(tag) ? orig : ''),
+  )
+
+exports.slugify = (text /*: string */) =>
+  slugify(exports.stripTags(text), { lower: true })
 
 exports.getMediaUrl = (
   file /*: ?string */ = '',

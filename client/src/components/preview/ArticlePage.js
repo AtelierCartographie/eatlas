@@ -24,7 +24,6 @@ const {
   getTopicPageUrl,
   articleHeaderImageUrl,
   ensureHTML,
-  prefixUrl,
 } = require('./layout')
 const EmbeddedResource = require('./EmbeddedResource')
 
@@ -117,13 +116,21 @@ const ArticleSummaries = ({ article }) =>
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('div', { dangerouslySetInnerHTML: { __html: ensureHTML(article.description_fr) } }),
+        h('div', {
+          dangerouslySetInnerHTML: {
+            __html: ensureHTML(article.description_fr),
+          },
+        }),
       ]),
       !article.description_en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('div', { dangerouslySetInnerHTML: { __html: ensureHTML(article.description_en) } }),
+            h('div', {
+              dangerouslySetInnerHTML: {
+                __html: ensureHTML(article.description_en),
+              },
+            }),
           ]),
     ]),
   ])
@@ -149,15 +156,15 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
 
 const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
   // used by SeeAlso
-  const relateds = article.relatedResources || ( // Use directly 'relatedResources', e.g. provided by populateImageRelatedResources
+  const relateds =
+    article.relatedResources || // Use directly 'relatedResources', e.g. provided by populateImageRelatedResources
     // otherwise, we need full resources to look into
     (article.related || [])
-    .map(r => {
-      const [articleId] = r.text.split(/\s*-\s*/)
-      return resources.find(r => r.id === articleId)
-    })
-    .filter(a => !!a)
-  )
+      .map(r => {
+        const [articleId] = r.text.split(/\s*-\s*/)
+        return resources.find(r => r.id === articleId)
+      })
+      .filter(a => !!a)
 
   if (!relateds || !relateds.length) return null
 
@@ -310,21 +317,23 @@ const getPrevNextArticles = (article, articles, topics) => {
   return { prev, next }
 }
 
-const ArticlePage = ({
-  article,
-  articles,
-  topics,
-  definitions,
-  resources,
-  options,
-} /*: {
+const ArticlePage = (
+  {
+    article,
+    articles,
+    topics,
+    definitions,
+    resources,
+    options,
+  } /*: {
   article: Resource,
   articles: Resource[],
   topics: Topic[],
   definitions: Definition[],
   resources: Resource[],
   options: FrontOptions,
-} */) => {
+} */,
+) => {
   // passed by reference between paragraphs
   const lexiconId = {
     id: 0,

@@ -11,8 +11,9 @@
   "article-error-missing-resource": "missing resources",
   "article-missing-definitions": "Missing definitions ({nb})",
   "article-missing-related": "Missing “see also” articles (optional)",
-  "article-missing-resources":
-    "Missing related resources (mandatory, except focus)",
+  "article-missing-resources": "Missing related resources (mandatory)",
+  "focus-missing-related": "Missing “see also” articles (optional)",
+  "focus-missing-resources": "Missing related resources (optional)",
   "article-more-details": "Content details",
   "article-related-create": "Create “{title}”",
   "article-related-edit": "Edit resource {id}",

@@ -11,8 +11,9 @@
   "article-error-missing-resource": "ressources manquantes",
   "article-missing-definitions": "Définitions manquantes ({nb})",
   "article-missing-related": "Articles « voir aussi » manquants (optionnels)",
-  "article-missing-resources":
-    "Ressources liées manquantes (requises, sauf focus)",
+  "article-missing-resources": "Ressources liées manquantes (obligatoires)",
+  "focus-missing-related": "Articles « voir aussi » manquants (optionnels)",
+  "focus-missing-resources": "Ressources liées manquantes (optionnelles)",
   "article-more-details": "Détails du contenu",
   "article-related-create": "Créer « {title} »",
   "article-related-edit": "Éditer la ressource {id}",

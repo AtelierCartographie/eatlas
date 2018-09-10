@@ -513,11 +513,11 @@ class ArticleForm extends Component<Props, State> {
     return (
       <div className="ArticleForm">
         {this.renderMissingResources(
-          'article-missing-resources',
+          `${this.props.article.type}-missing-resources`,
           this.state.missingResources,
         )}
         {this.renderMissingResources(
-          'article-missing-related',
+          `${this.props.article.type}-missing-related`,
           // $FlowFixMe: TODO polyfill
           Object.values(this.state.missingRelated),
         )}

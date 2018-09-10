@@ -221,7 +221,7 @@ const ArticlePrevNext = ({ prevNext: { prev, next }, options }) => {
     // horrible pattern? yes? no? who knows?
     h(
       Html,
-      { component: 'script' },
+      { component: 'script', whitelist: 'all' },
       `
 window.addEventListener('DOMContentLoaded', () => {
   if (!window.IntersectionObserver) return

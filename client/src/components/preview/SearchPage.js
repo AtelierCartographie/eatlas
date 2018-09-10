@@ -278,7 +278,11 @@ const Search = ({ topics, types, locales, keywords, options }) =>
     ]),
     h(
       Html,
-      { component: 'script.results-template', type: 'text/html' },
+      {
+        component: 'script.results-template',
+        type: 'text/html',
+        whitelist: 'all',
+      },
       resultsTemplate(),
     ),
     h('section.SearchResults.container', {}, [

@@ -22,7 +22,7 @@ const Body = require('./Body')
 const Home = ({ topics, options }) => {
   return h('article.HomePage', [
     h('.HomeVideo', {}, [
-      h('video', { autoPlay: true, loop: true }, [
+      h('video', { autoPlay: true, muted: true, loop: true }, [
         h('source', {
           type: 'video/mp4',
           src: prefixUrl('/assets/viz-home-bg-1080p.mp4', options.preview),
@@ -50,14 +50,15 @@ const Home = ({ topics, options }) => {
         h('h2', 'Sommaire'),
         h(
           'p',
-          "Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Etudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.",
+          'Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Etudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.',
         ),
         h('.row.gutter', [
           h('.col-xs-6.col-md-4', [
-            h('a.HomeTopic.vcenter', { href: getTopicPageUrl(topics[0], options) }, [
-              h('.TopicNumber'),
-              h('.TopicName', topics[0].name),
-            ]),
+            h(
+              'a.HomeTopic.vcenter',
+              { href: getTopicPageUrl(topics[0], options) },
+              [h('.TopicNumber'), h('.TopicName', topics[0].name)],
+            ),
           ]),
         ]),
         h(
@@ -82,11 +83,23 @@ const Home = ({ topics, options }) => {
           h('.col-sm-8', [
             h('p', [
               'Lorem ipsum dolor sit amet, ',
-              h('a', { href: getSearchUrl({ types: ['map'] }, options) }, 'cartes et graphiques'),
+              h(
+                'a',
+                { href: getSearchUrl({ types: ['map'] }, options) },
+                'cartes et graphiques',
+              ),
               ' consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam erat ',
-              h('a', { href: getSearchUrl({ types: ['image'] }, options) }, 'photos'),
+              h(
+                'a',
+                { href: getSearchUrl({ types: ['image'] }, options) },
+                'photos',
+              ),
               ' volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation ',
-              h('a', { href: globalPageUrl('definition')(options.preview) }, 'lexique'),
+              h(
+                'a',
+                { href: globalPageUrl('definition')(options.preview) },
+                'lexique',
+              ),
               ' ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
             ]),
           ]),
@@ -105,7 +118,9 @@ const Home = ({ topics, options }) => {
             ),
             h(
               'a.more',
-              { href: globalPageUrl('about', null, 'project')(options.preview) },
+              {
+                href: globalPageUrl('about', null, 'project')(options.preview),
+              },
               'En savoir plus >',
             ),
           ]),
@@ -155,9 +170,15 @@ const Home = ({ topics, options }) => {
             h('div', [
               h(
                 'a.button.btn',
-                { href: 'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530', target: '_blank', role: 'button' },
+                {
+                  href:
+                    'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530',
+                  target: '_blank',
+                  role: 'button',
+                },
                 'Acheter le livre',
-              )]),
+              ),
+            ]),
           ]),
           h('.col-sm-6.col-sm-pull-6', [
             h('img.img-responsive', {
@@ -171,14 +192,16 @@ const Home = ({ topics, options }) => {
   ])
 }
 
-const HomePage = ({
-  topics,
-  options,
-} /*: {
+const HomePage = (
+  {
+    topics,
+    options,
+  } /*: {
   topics: Topic[],
   articles: Resource[],
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'eAtlas', options }),
     h(Body, { topics, options, logoColor: 'white' }, [

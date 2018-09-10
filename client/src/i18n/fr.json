@@ -13,7 +13,7 @@
   "article-missing-definitions": "Définitions manquantes ({nb})",
   "article-missing-related": "Articles « voir aussi » manquants (optionnels)",
   "article-missing-resources":
-    "Resources liées manquantes (requises, sauf focus)",
+    "Ressources liées manquantes (requises, sauf focus)",
   "article-more-details": "Détails du contenu",
   "article-related-create": "Créer « {title} »",
   "article-related-edit": "Éditer la ressource {id}",
@@ -82,7 +82,8 @@
   "resource-uris": "URL(s) publique(s)",
   "resource-uris-help": "(peuvent être invalides avant sauvegarde)",
   "resource-visiblePublishedAt": "Date de publication visible",
-  "resource-visiblePublishedAt-help": "Cette date surcharge la date réelle de publication (actuellement “{publishedAt}”)",
+  "resource-visiblePublishedAt-help":
+    "Cette date surcharge la date réelle de publication (actuellement “{publishedAt}”)",
   "resource": "ressource",
   "resources": "ressources",
   "restore": "restaurer",

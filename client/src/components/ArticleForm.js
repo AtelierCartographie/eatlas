@@ -214,7 +214,7 @@ type Props = {
     loading: boolean,
     fetched: boolean,
   },
-  onUnpublishable?: string => void,
+  onNotPublishable?: string => void,
   fetchResources: Function,
 }
 
@@ -323,11 +323,11 @@ class ArticleForm extends Component<Props, State> {
     }))
     if (exists && published) return
 
-    // Missing resource prevent publication
-    const isFocus = node.id.match(/^\d+F.+$/)
+    // Missing resource prevent publication (except for focus which can be published whatsoever)
+    const isFocus = this.props.article.type === 'focus'
     const isMandatory = !isFocus // Focus are not mandatory, to avoid circular dependency
-    if (this.props.onUnpublishable && isMandatory) {
-      this.props.onUnpublishable('article-error-missing-resource')
+    if (this.props.onNotPublishable && isMandatory) {
+      this.props.onNotPublishable('article-error-missing-resource')
     }
   }
 
@@ -384,8 +384,8 @@ class ArticleForm extends Component<Props, State> {
     })
     // Missing definition prevent publication
     // Missing resource prevent publication
-    if (this.props.onUnpublishable) {
-      this.props.onUnpublishable('article-error-missing-definition')
+    if (this.props.onNotPublishable) {
+      this.props.onNotPublishable('article-error-missing-definition')
     }
   }
 

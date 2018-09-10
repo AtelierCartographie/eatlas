@@ -143,7 +143,7 @@ class ResourceEdit extends Component<Props, State> {
         <hr />
         <ArticleForm
           article={article}
-          onUnpublishable={reason =>
+          onNotPublishable={reason =>
             this.setState(state => ({
               publishable: false,
               whyUnpublishable: state.whyUnpublishable

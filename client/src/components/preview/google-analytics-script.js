@@ -1,9 +1,11 @@
+const Html = require('./Html')
+
 module.exports = (h, code) => [
   h('script', {
     async: true,
     src: `https://www.googletagmanager.com/gtag/js?id=${code}`,
   }),
-  h('script', { dangerouslySetInnerHTML: { __html: js(code) } }),
+  h(Html, { component: 'script' }, js(code)),
 ]
 
 const js = code => `

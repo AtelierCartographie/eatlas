@@ -11,6 +11,7 @@ const {
   getTopicPageUrl,
   prefixUrl,
 } = require('./layout')
+const { stripTags } = require('../../universal-utils')
 
 const TopMenuPanelSearch = ({ options: { preview } }) => {
   const id = 'TopMenuPanel-search'
@@ -62,7 +63,9 @@ const TopMenuPanelMain = ({ options }) => {
           h(
             'ul',
             resourcesTypes.map(rt =>
-              h('li', { key: rt.text }, [h('a', { href: rt.url(options.preview) }, rt.text)]),
+              h('li', { key: rt.text }, [
+                h('a', { href: rt.url(options.preview) }, rt.text),
+              ]),
             ),
           ),
         ]),
@@ -71,7 +74,9 @@ const TopMenuPanelMain = ({ options }) => {
           h(
             'ul',
             aPropos.map(rt =>
-              h('li', { key: rt.text }, [h('a', { href: rt.url(options.preview) }, rt.text)]),
+              h('li', { key: rt.text }, [
+                h('a', { href: rt.url(options.preview) }, rt.text),
+              ]),
             ),
           ),
         ]),
@@ -109,7 +114,11 @@ const TopMenuPanelTopic = ({ topic, articles, active, options }) => {
           .filter(a => a.topic === topic.id)
           .map(a =>
             h('li', { key: a.id }, [
-              h('a', { href: getResourcePageUrl(a, options) }, a.title),
+              h(
+                'a',
+                { href: getResourcePageUrl(a, options) },
+                stripTags(a.title),
+              ),
             ]),
           ),
       ]),

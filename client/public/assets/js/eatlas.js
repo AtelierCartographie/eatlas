@@ -1,4 +1,4 @@
-(($) => {
+;($ => {
   /* globals $, _ */
   $(document).on('click', () => $('.collapse').collapse('hide'))
   const [y, m, d] = new Date()
@@ -113,7 +113,7 @@
       if (types.length === 1 && types[0].value === 'single-definition') {
         $('.SearchPage').addClass('is-lexicon')
       } else {
-        $('.SearchPage').removeClass('is-lexicon');
+        $('.SearchPage').removeClass('is-lexicon')
       }
       try {
         $('.SearchPage .SearchResults .search-results-success').html(
@@ -215,17 +215,17 @@
 
     // Lexicon additional filter
     $('.SearchPage').on('click', '.search-filter-a-z', e => {
-      const $this = $(e.currentTarget);
+      const $this = $(e.currentTarget)
       if ($this.is('.active')) {
         $('[name=letter]').val('')
         showActiveLetter(null)
       } else {
-        $('[name=letter]').val($this.data('letter'));
+        $('[name=letter]').val($this.data('letter'))
         showActiveLetter($this.data('letter'))
       }
       currPage = 1
       search(true)
-    });
+    })
     const showActiveLetter = letter => {
       $('.search-filter-a-z.active').removeClass('active')
       if (letter) {
@@ -237,40 +237,53 @@
   // Shared code between search page and definitions list
   if ($('.SearchPage, .LexiconPage').length) {
     // Expand/collapse definitions
-    $('.SearchPage, .LexiconPage').on('click', '.search-result-definition a', e => {
-      e.stopPropagation();
-    })
-    $('.SearchPage, .LexiconPage').on('click', '.search-result-definition', e => {
-      e.preventDefault()
-      $(e.currentTarget).toggleClass('expanded')
-    })
+    $('.SearchPage, .LexiconPage').on(
+      'click',
+      '.search-result-definition a',
+      e => {
+        e.stopPropagation()
+      },
+    )
+    $('.SearchPage, .LexiconPage').on(
+      'click',
+      '.search-result-definition',
+      e => {
+        e.preventDefault()
+        $(e.currentTarget).toggleClass('expanded')
+      },
+    )
   }
 
   // Top bar search field
   $('.search-toggle-button').on('click', e => {
-    $(e.currentTarget).parent().addClass('expand');
-    $(e.currentTarget).parent().find('.search-field').focus();
-  });
+    $(e.currentTarget)
+      .parent()
+      .addClass('expand')
+    $(e.currentTarget)
+      .parent()
+      .find('.search-field')
+      .focus()
+  })
   $('body').on('click', e => {
     if (!$(e.target).closest('.search-toggle.expand').length) {
-      $('.search-toggle.expand').removeClass('expand');
+      $('.search-toggle.expand').removeClass('expand')
     }
-  });
+  })
 
   // navmenu (sidemenu) close button
   $('#navmenu').on('click', '.close-button', e => {
-    e.preventDefault();
-    $('#navmenu').offcanvas('hide');
+    e.preventDefault()
+    $('#navmenu').offcanvas('hide')
   })
 
   // Top bar on scroll
   $(window).on('load resize scroll', e => {
-    const scroll = $(window).scrollTop();
-    const height = window.innerHeight;
+    const scroll = $(window).scrollTop()
+    const height = window.innerHeight
     if (scroll / height > 0.7) {
-      $('body').addClass('scrolled');
+      $('body').addClass('scrolled')
     } else {
-      $('body').removeClass('scrolled');
+      $('body').removeClass('scrolled')
     }
   })
 })(window.jQuery)

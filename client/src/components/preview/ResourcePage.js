@@ -9,11 +9,13 @@ const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
 
-const { globalPageUrl } = require('./layout');
+const { globalPageUrl } = require('./layout')
+const { stripTags } = require('../../universal-utils')
 
 const Head = require('./Head')
 const Body = require('./Body')
 const Picture = require('./Picture')
+const Html = require('./Html')
 const { ArticleSeeAlso } = require('./ArticlePage')
 
 // subcomponents
@@ -46,7 +48,7 @@ const ResourceVideo = ({ resource }) => {
   const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
   return h('.container.ResourceVideo', [
     h('iframe', {
-      title: resource.title,
+      title: stripTags(resource.title),
       src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
       frameBorder: 0,
       allowFullScreen: true,
@@ -57,43 +59,76 @@ const ResourceVideo = ({ resource }) => {
 const ResourceDescription = ({ resource }) => {
   return h('.container.ResourceDescription', [
     h('h2', 'Commentaire'),
-    h('div', { dangerouslySetInnerHTML: { __html: resource.description_fr } }),
+    h(Html, { whitelist: 'all' }, resource.description_fr),
   ])
 }
 
 const ResourceCopyright = ({ resource }) =>
-  h('.container.ResourceCopyright', {
-    dangerouslySetInnerHTML: { __html: resource.copyright },
-  })
+  h(Html, { component: '.container.ResourceCopyright' }, resource.copyright)
 
 const ResourceTranscript = ({ resource }) =>
   !resource.transcript
     ? null
     : h('.container.ResourceTranscript', [
         h('h2', 'Transcription'),
-        h('div', { dangerouslySetInnerHTML: { __html: resource.transcript } }),
+        h(Html, {}, resource.transcript),
       ])
 
 const ResourceImageDownload = ({ resource, options }) => {
-  const large = resource.imageStats['large-3x'] || resource.imageStats['large-2x'] || resource.imageStats['large-1x']
-  const medium = resource.imageStats['medium-3x'] || resource.imageStats['medium-2x'] || resource.imageStats['medium-1x']
-  const small = resource.imageStats['small-3x'] || resource.imageStats['small-2x'] || resource.imageStats['small-1x']
+  const large =
+    resource.imageStats['large-3x'] ||
+    resource.imageStats['large-2x'] ||
+    resource.imageStats['large-1x']
+  const medium =
+    resource.imageStats['medium-3x'] ||
+    resource.imageStats['medium-2x'] ||
+    resource.imageStats['medium-1x']
+  const small =
+    resource.imageStats['small-3x'] ||
+    resource.imageStats['small-2x'] ||
+    resource.imageStats['small-1x']
   return h('.container.ResourceDownload', [
     h('h2', 'Téléchargement'),
     h('.warning', [
       'Pour toute utilisation, merci de consulter les ',
-      h('a', { href: globalPageUrl('legals')(options.preview) }, 'mentions légales'),
+      h(
+        'a',
+        { href: globalPageUrl('legals')(options.preview) },
+        'mentions légales',
+      ),
       '.',
     ]),
     h('.download-blocks', [
-      large ? ResourceImageDownloadBlock({ resource, title: 'version détaillée', stats: large }) : null,
-      medium ? ResourceImageDownloadBlock({ resource, title: 'version simplifiée', stats: medium }) : null,
-      small ? ResourceImageDownloadBlock({ resource, title: 'version très simplifiée', stats: small }) : null,
+      large
+        ? ResourceImageDownloadBlock({
+            resource,
+            title: 'version détaillée',
+            stats: large,
+          })
+        : null,
+      medium
+        ? ResourceImageDownloadBlock({
+            resource,
+            title: 'version simplifiée',
+            stats: medium,
+          })
+        : null,
+      small
+        ? ResourceImageDownloadBlock({
+            resource,
+            title: 'version très simplifiée',
+            stats: small,
+          })
+        : null,
     ]),
   ])
 }
 
-const ResourceImageDownloadBlock = ({ resource, title, stats: { type, humanSize, width, height, url }}) =>
+const ResourceImageDownloadBlock = ({
+  resource,
+  title,
+  stats: { type, humanSize, width, height, url },
+}) =>
   h('.download-block', [
     h('img.download-preview', { src: url }),
     h('.download-info', [
@@ -101,7 +136,7 @@ const ResourceImageDownloadBlock = ({ resource, title, stats: { type, humanSize,
       h('a', { href: url, download: `${resource.id} - ${title}.${type}` }, [
         h('span.link', 'télécharger'),
         h('span.info', ` (${type} - ${humanSize})`),
-      ])
+      ]),
     ]),
   ])
 
@@ -126,7 +161,7 @@ const ResourceLexicon = ({ definitions }) =>
 const ResourceSource = ({ resource }) => {
   return h('.container.ResourceSource', [
     'Source : ',
-    h('span.source-content', { dangerouslySetInnerHTML: { __html: resource.source } }),
+    h(Html, { component: 'span.source-content' }, resource.source),
   ])
 }
 
@@ -149,7 +184,12 @@ const Resource = ({ resource, topics, options }) => {
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
         h(ResourceImageDownload, { resource, options }),
-        h(ArticleSeeAlso, { article: resource, topics, options, title: 'Article ou focus lié' }),
+        h(ArticleSeeAlso, {
+          article: resource,
+          topics,
+          options,
+          title: 'Article ou focus lié',
+        }),
       ]
       break
     case 'image':
@@ -159,7 +199,12 @@ const Resource = ({ resource, topics, options }) => {
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
         h(ResourceImageDownload, { resource, options }),
-        h(ArticleSeeAlso, { article: resource, topics, options, title: 'Article ou focus lié' }),
+        h(ArticleSeeAlso, {
+          article: resource,
+          topics,
+          options,
+          title: 'Article ou focus lié',
+        }),
       ]
       break
     case 'sound':
@@ -179,33 +224,35 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     default:
-      children = [
-        'ResourcePage component not not implemented'
-      ]
+      children = ['ResourcePage component not not implemented']
   }
   return h('article.ResourcePage', [
     h('header.container.ResourceHeader', [
       h('.PageTitle', 'Ressources'),
       h('.ResourceType', displayedType),
-      h('h1.ResourceTitle', resource.title),
+      h(Html, { component: 'h1.ResourceTitle' }, resource.title),
     ]),
     ...children,
   ])
 }
 
-const ResourcePage = ({
-  resource,
-  topics,
-  options,
-} /*: {
+const ResourcePage = (
+  {
+    resource,
+    topics,
+    options,
+  } /*: {
   resource: Resource,
   topics: Topic[],
   resources: Resource[],
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
-    h(Head, { title: resource.title, options }),
-    h(Body, { topics, options, logoColor: 'black' }, [h(Resource, { resource, topics, options })]),
+    h(Head, { title: stripTags(resource.title), options }),
+    h(Body, { topics, options, logoColor: 'black' }, [
+      h(Resource, { resource, topics, options }),
+    ]),
   ])
 
 module.exports = ResourcePage

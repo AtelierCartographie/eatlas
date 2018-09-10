@@ -11,6 +11,7 @@ moment.locale('fr')
 const { prefixUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
+const Html = require('./Html')
 
 // helpers
 
@@ -62,9 +63,39 @@ const paginationTemplate = `
   <% } %>
 </div>
 <div class="row search-page-a-z container">
-  ${['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map(letter =>
-    `<span class="search-filter-a-z" data-letter="${letter}">${letter}</span>`
-  ).join('')}
+  ${[
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+  ]
+    .map(
+      letter =>
+        `<span class="search-filter-a-z" data-letter="${letter}">${letter}</span>`,
+    )
+    .join('')}
 </div>
 `
 
@@ -108,11 +139,13 @@ const filtersToggle = (title, inputs, hidden = false) => {
     ]),
     h(
       '.search-filters-inputs',
-      inputs.map((input, key) => h('label.search-filters-input', { key }, input)),
+      inputs.map((input, key) =>
+        h('label.search-filters-input', { key }, input),
+      ),
     ),
   ]
   return hidden
-    ? [ h('div', { style: { display: 'none' } }, children) ]
+    ? [h('div', { style: { display: 'none' } }, children)]
     : children
 }
 
@@ -146,16 +179,13 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           ]),
         ]),
       ),
-      ...filtersToggle(
-        'Mots-clés',
-        [h(
+      ...filtersToggle('Mots-clés', [
+        h(
           'select.keywords',
           { multiple: true, size: 5, name: 'keywords[]' },
-          keywords.map(value =>
-            h('option', { value, key: value }, value)
-          ),
-        )],
-      ),
+          keywords.map(value => h('option', { value, key: value }, value)),
+        ),
+      ]),
       ...filtersToggle('Date de publication', [
         [
           h('span', { key: 'label' }, 'Avant…'),
@@ -246,31 +276,32 @@ const Search = ({ topics, types, locales, keywords, options }) =>
       'Ressources > ',
       h('span.SearchPageTitleType'),
     ]),
-    h('script.results-template', {
-      type: 'text/html',
-      dangerouslySetInnerHTML: {
-        __html: resultsTemplate(),
-      },
-    }),
+    h(
+      Html,
+      { component: 'script.results-template', type: 'text/html' },
+      resultsTemplate(),
+    ),
     h('section.SearchResults.container', {}, [
       h('strong.search-results-error'),
       h('.search-results-success'),
     ]),
   ])
 
-const SearchPage = ({
-  topics,
-  types,
-  keywords,
-  locales,
-  options,
-} /*: {
+const SearchPage = (
+  {
+    topics,
+    types,
+    keywords,
+    locales,
+    options,
+  } /*: {
   topics: Topic[],
   types: ?(string[]),
   keywords: string[],
   locales: { Locale: string },
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'eAtlas - Recherche', options }),
     h(Body, { topics, options, logoColor: 'black' }, [

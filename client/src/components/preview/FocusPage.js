@@ -19,7 +19,9 @@ const {
 const Head = require('./Head')
 const Body = require('./Body')
 const EmbeddedResource = require('./EmbeddedResource')
+const Html = require('./Html')
 const { getResourcePageUrl } = require('./layout')
+const { stripTags } = require('../../universal-utils')
 
 // subcomponents
 
@@ -36,8 +38,8 @@ const FocusBackToArticle = ({ focus, options }) =>
         [
           '< ',
           focus.relatedArticle
-            ? focus.relatedArticle.title
-            : h('strike', focus.relatedArticleId),
+            ? h(Html, { component: 'span' }, focus.relatedArticle.title)
+            : h(Html, { component: 'strike' }, focus.relatedArticleId),
         ],
       ),
     ]),
@@ -47,7 +49,7 @@ const FocusHeader = ({ focus }) =>
   h('header.FocusHeader', [
     h('.container.FocusHeaderInfo', [
       h('.FocusIcon', 'Focus'),
-      h('h1.FocusTitle', focus.title),
+      h(Html, { component: 'h1.FocusTitle' }, focus.title),
       h(PublishedAt, { doc: focus }),
     ]),
   ])
@@ -111,10 +113,26 @@ const FocusPage = (
       id: 0,
     }
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: focus.title, options }),
-      h(Body, { altTitle: focus.title, topics, options, logoColor: 'black' }, [
-        h(Focus, { focus, topics, definitions, resources, lexiconId, options }),
-      ]),
+      h(Head, { title: stripTags(focus.title), options }),
+      h(
+        Body,
+        {
+          altTitle: stripTags(focus.title),
+          topics,
+          options,
+          logoColor: 'black',
+        },
+        [
+          h(Focus, {
+            focus,
+            topics,
+            definitions,
+            resources,
+            lexiconId,
+            options,
+          }),
+        ],
+      ),
     ])
   }
 }

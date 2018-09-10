@@ -8,6 +8,7 @@ import { fetchResources } from './../actions'
 import { LEXICON_ID } from '../constants'
 import { getDefinition, parseRelated } from '../utils'
 
+import Html from './preview/Html'
 import Icon from './Icon'
 
 type Props = ContextIntl & {
@@ -27,17 +28,20 @@ class ResourcesPreviewArticle extends Component<Props> {
 
   render() {
     const errors = this.getArticleErrors()
+    const title = <Html component="div">{this.props.article.title}</Html>
 
-    if (!errors.length) return this.props.article.title
+    if (!errors.length) return title
 
     return (
       <Fragment>
-        <div>{this.props.article.title}</div>
-        <Icon
-          icon="warning"
-          className="has-text-danger"
-        />
-        <span>{this.props.intl.formatMessage( { id: 'article-errors' }, { nb: errors.length } )}</span>
+        {title}
+        <Icon icon="warning" className="has-text-danger" />
+        <span>
+          {this.props.intl.formatMessage(
+            { id: 'article-errors' },
+            { nb: errors.length },
+          )}
+        </span>
       </Fragment>
     )
   }

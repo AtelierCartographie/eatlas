@@ -21,6 +21,7 @@ import {
   TYPE_ICON,
 } from '../constants'
 import { paginationItems, updateLocation, canUnpublish } from '../utils'
+import { stripTags } from '../universal-utils'
 
 import Spinner from './Spinner'
 import IconButton from './IconButton'
@@ -115,11 +116,13 @@ export const renderPreview = (resource: Resource) => {
 
   if (resource.type === 'image' || resource.type === 'map') {
     const url = `${API_SERVER}/resources/${resource.id}/file`
-    return <img className="preview" src={url} alt={resource.title} />
+    return <img className="preview" src={url} alt={stripTags(resource.title)} />
   }
 
   if (resource.type === 'video' && resource.mediaUrl) {
-    return <VimeoIframe url={resource.mediaUrl} title={resource.title} />
+    return (
+      <VimeoIframe url={resource.mediaUrl} title={stripTags(resource.title)} />
+    )
   }
 
   if (resource.type === 'sound' && resource.file) {

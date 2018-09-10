@@ -3,8 +3,9 @@
 const h = require('react-hyperscript')
 
 const { getResourcePageUrl } = require('./layout')
-const { getMediaUrl } = require('../../universal-utils')
+const { getMediaUrl, stripTags } = require('../../universal-utils')
 const Picture = require('./Picture')
+const Html = require('./Html')
 
 const EmbeddedResource = ({ resource, options }) => {
   const infoLink = h(
@@ -16,7 +17,7 @@ const EmbeddedResource = ({ resource, options }) => {
   switch (resource.type) {
     case 'image':
       return h('figure.container', [
-        h('h2.figure-title', resource.title),
+        h(Html, { component: 'h2.figure-title' }, resource.title),
         Picture.Responsive({ resource, options, mainSize: 'large' }),
         h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload', [infoLink]),
@@ -25,7 +26,7 @@ const EmbeddedResource = ({ resource, options }) => {
 
     case 'map':
       return h('figure', [
-        h('h2.figure-title.container', resource.title),
+        h(Html, { component: 'h2.figure-title.container' }, resource.title),
         Picture.Responsive({ resource, options, mainSize: 'small' }),
         h(FigCaption, { content: resource.copyright }),
         h('.ArticleResourceDownload.container', [infoLink]),
@@ -35,28 +36,28 @@ const EmbeddedResource = ({ resource, options }) => {
     case 'video': {
       const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
       return h('figure.container', [
-        h('h2.figure-title', resource.title),
+        h(Html, { component: 'h2.figure-title' }, resource.title),
         h('iframe', {
-          title: resource.title,
+          title: stripTags(resource.title),
           src: `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`,
           frameBorder: 0,
           height: 420,
           width: 740,
           allowFullScreen: true,
         }),
-        h(FigCaption, { content: resource.description_fr }),
+        h(FigCaption, { content: stripTags(resource.description_fr) }),
       ])
     }
 
     case 'sound': {
       const url = getMediaUrl(resource.file)
       return h('figure.container', [
-        h('h2.figure-title', resource.title),
+        h(Html, { component: 'h2.figure-title' }, resource.title),
         h('audio', {
           src: url,
           controls: true,
         }),
-        h(FigCaption, { content: resource.description_fr }),
+        h(FigCaption, { content: stripTags(resource.description_fr) }),
       ])
     }
 
@@ -68,7 +69,7 @@ const EmbeddedResource = ({ resource, options }) => {
             {
               href: getResourcePageUrl(resource, options),
             },
-            [h('.FocusIcon', 'Focus'), resource.title],
+            [h('.FocusIcon', 'Focus'), h(Html, {}, resource.title)],
           ),
         ]),
       ])
@@ -94,13 +95,11 @@ const ArticleResourceComment = ({ resource }) => {
       },
       'Commentaire',
     ),
-    h('.collapse', { id }, [
-      h('div', { dangerouslySetInnerHTML: { __html: resource.description_fr } }),
-    ]),
+    h('.collapse', { id }, [h(Html, {}, resource.description_fr)]),
   ])
 }
 
 const FigCaption = ({ content }) =>
-  h('figcaption.container', { dangerouslySetInnerHTML: { __html: content } })
+  h(Html, { component: 'figcaption.container' }, content)
 
 module.exports = EmbeddedResource

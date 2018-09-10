@@ -10,6 +10,7 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const Html = require('./Html')
 const { PublishedAt } = require('./Doc')
 
 const {
@@ -17,8 +18,8 @@ const {
   getResourcePageUrl,
   prefixUrl,
   articleHeaderImageUrl,
-  ensureHTML
 } = require('./layout')
+const { stripTags } = require('../../universal-utils')
 
 const TopicVideo = ({ title, url }) => {
   if (!url) return null
@@ -44,7 +45,7 @@ const TopicHeader = ({ topic, resources, options }) => {
         resourceComponent = h('div', [
           h('img.TopicImage', {
             src: getImageUrl(resource, 'large', '1x', options),
-            alt: resource.title,
+            alt: stripTags(resource.title),
           }),
         ])
         break
@@ -115,15 +116,13 @@ const TopicDescriptions = ({ topic }) =>
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('div', { dangerouslySetInnerHTML: { __html: ensureHTML(topic.description_fr) } }),
+        h(Html, { whitelist: 'all' }, topic.description_fr),
       ]),
       !topic.description_en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('div', {
-              dangerouslySetInnerHTML: { __html: ensureHTML(topic.description_en) },
-            }),
+            h(Html, { whitelist: 'all' }, topic.description_en),
           ]),
     ]),
   ])
@@ -142,9 +141,9 @@ const ArticleList = ({ articles, options }) => {
             },
           }),
           h('.ArticleListInfo', [
-            h('.ArticleListTitle', a.title),
+            h(Html, { component: '.ArticleListTitle' }, a.title),
             h(PublishedAt, { doc: a }),
-            h('.ArticleListSummary', a.summaries.fr),
+            h(Html, { component: '.ArticleListSummary' }, a.summaries.fr),
           ]),
         ]),
         a.focus &&
@@ -175,19 +174,21 @@ const Topic = ({ topic, topics, articles, resources, options }) =>
     }),
   ])
 
-const TopicPage = ({
-  topic,
-  topics,
-  articles,
-  resources,
-  options,
-} /*: {
+const TopicPage = (
+  {
+    topic,
+    topics,
+    articles,
+    resources,
+    options,
+  } /*: {
   topic: Topic,
   topics: Topic[],
   articles: Resource[],
   resources: Resource[],
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: topic.name, options }),
     h(Body, { altTitle: `${topic.id}. ${topic.name}`, topics, options }, [

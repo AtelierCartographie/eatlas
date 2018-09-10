@@ -3,11 +3,13 @@
 // components shared by ArticlePage and FocusPage
 
 const { getSearchUrl, globalPageUrl } = require('./layout')
-const { getDefinition, slugify } = require('../../universal-utils')
+const { getDefinition, slugify, stripTags } = require('../../universal-utils')
 const { Fragment } = require('react')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
+
+const Html = require('./Html')
 
 // spacing info is not kept by the parsing phase
 // se we need to emulate basic french typo rules here
@@ -57,12 +59,20 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
         return h(m.type, { key: idx }, m.text)
 
       case 'link':
-        return h('a.external', { key: idx, href: m.url, target: '_blank' }, m.text)
+        return h(
+          'a.external',
+          { key: idx, href: m.url, target: '_blank' },
+          m.text,
+        )
 
       case 'lexicon':
         return h(
           'a.LexiconLink',
-          { key: idx, href: `#lexicon-${++lexiconId.id}`, 'data-toggle': 'collapse' },
+          {
+            key: idx,
+            href: `#lexicon-${++lexiconId.id}`,
+            'data-toggle': 'collapse',
+          },
           m.text,
         )
 
@@ -128,14 +138,14 @@ exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   const url = ''
 
   const bibtex = `@book{eAtlas,
-  title={${doc.title}},
+  title={${stripTags(doc.title)}},
   author={${doc.author}},
   url={TODO},
   year={${year}},
   publisher={${publication}}
 }`
   const endnote = `%0 Book
-%T ${doc.title}
+%T ${stripTags(doc.title)}
 %A ${doc.author}
 %U TODO
 %D ${year}
@@ -153,7 +163,8 @@ PB  - ${publication}`
     h('blockquote', [
       h('p', [
         h(
-          'span',
+          Html,
+          { component: 'span' },
           `"${doc.title}", ${publication}, ${year}, [en ligne], consulté le `,
         ),
         h('span.consultedAt', moment().format('D MMMM YYYY')),
@@ -262,15 +273,23 @@ exports.Lexicon = (
             h('dt', [
               h(
                 'a',
-                { href: globalPageUrl('definition', null, slugify(dt))(options.preview) },
+                {
+                  href: globalPageUrl('definition', null, slugify(dt))(
+                    options.preview,
+                  ),
+                },
                 dt,
               ),
             ]),
-            h('dd', {}, exports.linkInternalDefinitions(
-              getDefinition(dt, definitions, true),
-              definitions,
-              globalPageUrl('definition')(options.preview),
-            )),
+            h(
+              'dd',
+              {},
+              exports.linkInternalDefinitions(
+                getDefinition(dt, definitions, true),
+                definitions,
+                globalPageUrl('definition')(options.preview),
+              ),
+            ),
           ]),
         ]),
       ),
@@ -282,7 +301,10 @@ exports.linkInternalDefinitions = (singleDefinition, definitions, url = '') => {
     return null
   }
   const { lexicon: dts, dd } = singleDefinition
-  const markedText = dts.reduce((txt, dt) => txt.replace(dt, marker + dt + marker), dd)
+  const markedText = dts.reduce(
+    (txt, dt) => txt.replace(dt, marker + dt + marker),
+    dd,
+  )
   const tokens = markedText.split(marker)
   return tokens.map(token => {
     const found = getDefinition(token, definitions, true)

@@ -10,40 +10,41 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const { stripTags } = require('../../universal-utils')
 
 const ul = urls => {
   if (!urls || urls.length === 0) {
     return null
   }
 
-  return h('ul', urls.map(({ title, info, url, children }) =>
-    h('li', { key: title }, [
-      h('a', { href: url }, [
-        h('span.title', title),
+  return h(
+    'ul',
+    urls.map(({ title, info, url, children }) =>
+      h('li', { key: title }, [
+        h('a', { href: url }, [h('span.title', stripTags(title))]),
+        ' ',
+        info ? h('span.info', info) : null,
+        ul(children),
       ]),
-      ' ',
-      info ? h('span.info', info) : null,
-      ul(children),
-    ])
-  ))
+    ),
+  )
 }
 
 const Content = ({ urls, options }) =>
-  h('article.container.SitemapPage', [
-    h('h1', 'Plan du site'),
-    ul(urls),
-  ])
+  h('article.container.SitemapPage', [h('h1', 'Plan du site'), ul(urls)])
 
-const SitemapPage = ({
-  urls,
-  topics,
-  options,
-} /*: {
+const SitemapPage = (
+  {
+    urls,
+    topics,
+    options,
+  } /*: {
   // type Link = { url: string, title: string, info: string?, children: Link[] }
   urls: Link[],
   topics: Topic[],
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'Plan du site', options }),
     h(Body, { topics, options, logoColor: 'black' }, [

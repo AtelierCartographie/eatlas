@@ -6,7 +6,11 @@ const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
 const { populatePageUrl, populateThumbnailUrl } = require('../generator-utils')
-const { TYPES, CLIENT_TYPES } = require('../../../client/src/universal-utils')
+const {
+  TYPES,
+  CLIENT_TYPES,
+  stripTags,
+} = require('../../../client/src/universal-utils')
 
 const sortField = 'publishedAt'
 const sortDir = 'desc'
@@ -16,16 +20,16 @@ const term = (field, values) => ({
   [Array.isArray(values) ? 'terms' : 'term']: { [field]: values },
 })
 const match = (field, text, boost = 1) => ({
-  match: { [field]: { query: text, operator: 'and', cutoff_frequency: 0.001, boost } },
+  match: {
+    [field]: { query: text, operator: 'and', cutoff_frequency: 0.001, boost },
+  },
 })
 const nested = (path, query) => ({ nested: { path, score_mode: 'max', query } })
 const range = (field, query) => ({ range: { [field]: query } })
 
 // WARNING! Destructive method
-const push = (filters, filter, boost = null) => filters.push(boost === null
-  ? filter
-  : { constant_score: { filter, boost } }
-)
+const push = (filters, filter, boost = null) =>
+  filters.push(boost === null ? filter : { constant_score: { filter, boost } })
 
 const search = ({ preview = false } = {}) => async (req, res) => {
   debug('Input', req.body)
@@ -36,7 +40,11 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Exclude unpublished resources
     if (!preview) {
-      push(must, term('status', 'published'), config.searchSort.scoreSpecial.status || 0)
+      push(
+        must,
+        term('status', 'published'),
+        config.searchSort.scoreSpecial.status || 0,
+      )
     }
 
     // Exclude Lexicon because we can't handle definitions properly
@@ -44,7 +52,11 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Resource types?
     if (req.body.types) {
-      push(must, term('type', req.body.types), config.searchSort.scoreSpecial.type || 0)
+      push(
+        must,
+        term('type', req.body.types),
+        config.searchSort.scoreSpecial.type || 0,
+      )
       // Specific to lexicon: filter by A-Z
       push(must, { prefix: { 'title.keyword': req.body.letter } })
     }
@@ -57,9 +69,24 @@ const search = ({ preview = false } = {}) => async (req, res) => {
         if (field.indexOf('.') !== -1) {
           // Nested field
           const path = field.substring(0, field.indexOf('.'))
-          should.push(nested(path, match(field, req.body.q, config.searchSort.boostSearchField[path] || 1)))
+          should.push(
+            nested(
+              path,
+              match(
+                field,
+                req.body.q,
+                config.searchSort.boostSearchField[path] || 1,
+              ),
+            ),
+          )
         } else {
-          should.push(match(field, req.body.q, config.searchSort.boostSearchField[field] || 1))
+          should.push(
+            match(
+              field,
+              req.body.q,
+              config.searchSort.boostSearchField[field] || 1,
+            ),
+          )
         }
       })
       must.push({ bool: { should } })
@@ -67,12 +94,20 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Locale
     if (req.body.locales) {
-      push(must, term('language', req.body.locales), config.searchSort.scoreSpecial.keywords || 0)
+      push(
+        must,
+        term('language', req.body.locales),
+        config.searchSort.scoreSpecial.keywords || 0,
+      )
     }
 
     // Topics
     if (req.body.topics) {
-      push(must, term('topic', req.body.topics), config.searchSort.scoreSpecial.topic || 0)
+      push(
+        must,
+        term('topic', req.body.topics),
+        config.searchSort.scoreSpecial.topic || 0,
+      )
     }
 
     // Keywords
@@ -120,10 +155,14 @@ const search = ({ preview = false } = {}) => async (req, res) => {
           },
         },
         query: { bool: { must } },
-      }
+      },
     }
 
-    const body = { explain: debug.enabled, query: withBoost, sort: [{ _score: 'desc', [sortField]: sortDir }] }
+    const body = {
+      explain: debug.enabled,
+      query: withBoost,
+      sort: [{ _score: 'desc', [sortField]: sortDir }],
+    }
     if (debug.enabled) {
       debug('Query', inspect({ body, size, from }, false, 99, false))
     }
@@ -186,11 +225,12 @@ const getResourcesForThumbnails = async (resources, { preview }) => {
 }
 
 const formatResultHit = resource => ({
-  title: resource.title,
-  subtitle: resource.subtitle,
+  title: stripTags(resource.title),
+  subtitle: stripTags(resource.subtitle),
   type: resource.type,
   typeLabel: CLIENT_TYPES[resource.type] || TYPES[resource.type],
-  url: resource.type === 'reference' ? resource.description_fr : resource.pageUrl,
+  url:
+    resource.type === 'reference' ? resource.description_fr : resource.pageUrl,
   preview: resource.thumbnailUrl
     ? {
         url: resource.thumbnailUrl,

@@ -167,27 +167,28 @@ exports.file = async (req, res, next) => {
           // req.params.k can be directly a path into 'images' property, like "small.2x"
           // or a "doc key", like "image-small-2x"
           // we convert the second into the first:
-          const keyMatch = req.params.k.match(
-            /(small|medium|large)-([123]x)/,
-          )
+          const keyMatch = req.params.k.match(/(small|medium|large)-([123]x)/)
           const keyPath = keyMatch
             ? keyMatch[1] + '.' + keyMatch[2]
             : req.params.k
           file = get(images, keyPath)
         } else {
           // Requested with no params = get smallest (used for thumbnail)
-          file = get(images, 'small.1x')
-            || get(images, 'small.2x')
-            || get(images, 'small.3x')
-            || get(images, 'medium.1x')
-            || get(images, 'medium.2x')
-            || get(images, 'medium.3x')
-            || get(images, 'large.1x')
-            || get(images, 'large.2x')
-            || get(images, 'large.3x')
+          file =
+            get(images, 'small.1x') ||
+            get(images, 'small.2x') ||
+            get(images, 'small.3x') ||
+            get(images, 'medium.1x') ||
+            get(images, 'medium.2x') ||
+            get(images, 'medium.3x') ||
+            get(images, 'large.1x') ||
+            get(images, 'large.2x') ||
+            get(images, 'large.3x')
         }
         if (!file) {
-          return res.boom.badRequest('Image not found for requested size and density')
+          return res.boom.badRequest(
+            'Image not found for requested size and density',
+          )
         }
         const { up } = resourceMediaPath(req.foundResource, file, {
           pub: false,

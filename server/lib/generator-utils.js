@@ -40,10 +40,10 @@ exports.flattenMetas = article => ({
   ...article,
   imageHeader: getMetaText(article, 'image-header'),
   relatedArticle: getMetaText(article, 'related-article'),
-  title: getMetaText(article, 'title'),
+  title: article.title || getMetaText(article, 'title'),
   summaries: {
-    en: getMetaText(article, 'summary-en'),
-    fr: getMetaText(article, 'summary-fr'),
+    en: article.description_en || getMetaText(article, 'summary-en'),
+    fr: article.description_fr || getMetaText(article, 'summary-fr'),
   },
   keywords: getMetaList(article, 'keywords'),
   footnotes: getNodeList(article, 'footnotes'),

@@ -23,9 +23,10 @@ const {
   getResourcePageUrl,
   getTopicPageUrl,
   articleHeaderImageUrl,
-  ensureHTML,
 } = require('./layout')
+const { stripTags } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
+const Html = require('./Html')
 
 // subcomponents
 
@@ -44,26 +45,11 @@ const ArticleHeader = ({ article, resources, options }) => {
     h(
       '.container.ArticleHeaderInfo',
       { className: `title-position-${article.titlePosition}` },
-      [h('h1.ArticleTitle', article.title), h(PublishedAt, { doc: article })],
+      [
+        h(Html, { component: 'h1.ArticleTitle' }, article.title),
+        h(PublishedAt, { doc: article }),
+      ],
     ),
-    // h('.container.imageHeaderInfo', [
-    //   h(
-    //     'a',
-    //     {
-    //       href: `#comment`,
-    //       'data-toggle': 'collapse',
-    //       role: 'button',
-    //       'aria-controls': 'comment',
-    //       'aria-expanded': false,
-    //       'aria-haspopup': true,
-    //     },
-    //     [h('img', { alt: 'commentaire', src: prefixUrl(`/assets/img/info.svg`),
-    //     }),],
-    //   ),
-    //   h('.collapse', { id: 'comment' }, [
-    //     h('div', { dangerouslySetInnerHTML: { __html: 'copyright + description' } }),
-    //   ]),
-    // ])
   ])
 }
 
@@ -116,21 +102,13 @@ const ArticleSummaries = ({ article }) =>
     h('.tab-content', [
       h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
         h('h2.line', 'Résumé'),
-        h('div', {
-          dangerouslySetInnerHTML: {
-            __html: ensureHTML(article.description_fr),
-          },
-        }),
+        h(Html, { whitelist: 'all' }, article.description_fr),
       ]),
       !article.description_en
         ? null
         : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
             h('h2.line', 'Summary'),
-            h('div', {
-              dangerouslySetInnerHTML: {
-                __html: ensureHTML(article.description_en),
-              },
-            }),
+            h(Html, { whitelist: 'all' }, article.description_en),
           ]),
     ]),
   ])
@@ -191,7 +169,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
                   '.ArticleSeeAlsoTopic',
                   (topics.find(t => t.id === r.topic) || {}).name,
                 ),
-                h('.ArticleSeeAlsoTitle', r.title),
+                h(Html, { component: '.ArticleSeeAlsoTitle' }, r.title),
               ]),
             ],
           ),
@@ -233,17 +211,18 @@ const ArticlePrevNext = ({ prevNext: { prev, next }, options }) => {
     prev &&
       h('a.ArticlePrev', { href: getResourcePageUrl(prev, options) }, [
         h('span.ArticlePrevNextTopic', prev.topicName),
-        h('span.ArticlePrevNextTitle', prev.title),
+        h(Html, { component: 'span.ArticlePrevNextTitle' }, prev.title),
       ]),
     next &&
       h('a.ArticleNext', { href: getResourcePageUrl(next, options) }, [
         h('span.ArticlePrevNextTopic', next.topicName),
-        h('span.ArticlePrevNextTitle', next.title),
+        h(Html, { component: 'span.ArticlePrevNextTitle' }, next.title),
       ]),
     // horrible pattern? yes? no? who knows?
-    h('script', {
-      dangerouslySetInnerHTML: {
-        __html: `
+    h(
+      Html,
+      { component: 'script' },
+      `
 window.addEventListener('DOMContentLoaded', () => {
   if (!window.IntersectionObserver) return
   const toggle = (sel, bool) => {
@@ -259,8 +238,7 @@ window.addEventListener('DOMContentLoaded', () => {
   observer.observe(document.querySelector('.DocFooter'))
 })
 `,
-      },
-    }),
+    ),
   ]
 }
 
@@ -342,8 +320,8 @@ const ArticlePage = (
   const prevNext = getPrevNextArticles(article, articles, topics)
 
   return h('html', { lang: 'fr' }, [
-    h(Head, { title: article.title, options }),
-    h(Body, { altTitle: article.title, topics, options }, [
+    h(Head, { title: stripTags(article.title), options }),
+    h(Body, { altTitle: stripTags(article.title), topics, options }, [
       h(Article, {
         article,
         prevNext,

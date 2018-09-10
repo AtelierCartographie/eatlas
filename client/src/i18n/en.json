@@ -8,7 +8,6 @@
   "article-content-metas": "Metas",
   "article-content-paragraph": "Paragraph",
   "article-errors": "{nb} error(s)",
-  "article-error-missing-definition": "missing definitions",
   "article-error-missing-resource": "missing resources",
   "article-missing-definitions": "Missing definitions ({nb})",
   "article-missing-related": "Missing “see also” articles (optional)",
@@ -82,7 +81,8 @@
   "resource-uris": "Public URL(s)",
   "resource-uris-help": "(can be invalid until resource is saved)",
   "resource-visiblePublishedAt": "Visible publication date",
-  "resource-visiblePublishedAt-help": "This value overrides real publication date (currently “{publishedAt}”)",
+  "resource-visiblePublishedAt-help":
+    "This value overrides real publication date (currently “{publishedAt}”)",
   "resource": "resource",
   "resources": "resources",
   "restore": "restore",

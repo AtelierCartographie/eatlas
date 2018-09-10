@@ -370,7 +370,6 @@ class ArticleForm extends Component<Props, State> {
     )
   }
 
-  // TODO use getResourceIds from 'universal-utils'
   onIsMissingDefinition = (dt: string, missingLexicon: boolean) => {
     this.setState(state => {
       const newState = {
@@ -382,11 +381,6 @@ class ArticleForm extends Component<Props, State> {
       }
       return newState
     })
-    // Missing definition prevent publication
-    // Missing resource prevent publication
-    if (this.props.onNotPublishable) {
-      this.props.onNotPublishable('article-error-missing-definition')
-    }
   }
 
   renderMissingDefinitions() {

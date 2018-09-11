@@ -28,8 +28,8 @@
             "links": {
               "properties": {
                 "label": {
-                    "fields": {
-                      "keyword": {
+                  "fields": {
+                    "keyword": {
                       "ignore_above": 256,
                       "type": "keyword"
                     }
@@ -351,6 +351,18 @@
       }
     },
     "source": {
+      "type": "text"
+    },
+    "title_clean": {
+      "type": "text"
+    },
+    "subtitle_clean": {
+      "type": "text"
+    },
+    "description_fr_clean": {
+      "type": "text"
+    },
+    "description_en_clean": {
       "type": "text"
     }
   }

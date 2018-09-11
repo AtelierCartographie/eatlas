@@ -2,6 +2,9 @@
 
 const { fullResource, validate } = require('../schemas')
 const { TYPES } = require('../../../client/src/universal-utils')
+const { pick } = require('lodash')
+const { cleanSearchFields, cleanSearchFieldSuffix } = require('config')
+const { cleanFields } = require('../clean-fields')
 
 const {
   search,
@@ -59,7 +62,7 @@ const insertReferences = ({
         const title = text ? text.text : null
         const url = link ? link.url || link.text : null
         await insert(
-          {
+          cleanFields({
             id,
             type: 'reference',
             title: title || url,
@@ -69,7 +72,7 @@ const insertReferences = ({
             author,
             updatedBy: parentResourceId,
             createdAt: new Date(),
-          },
+          }),
           id,
         )
       }),
@@ -91,7 +94,7 @@ const insertSingleDefinitions = ({
     definitions.map(async ({ dt, dd, aliases }, index) => {
       const id = 'REF' + parentResourceId + '_' + index
       await insert(
-        {
+        cleanFields({
           id,
           type: 'single-definition',
           title: dt,
@@ -106,7 +109,7 @@ const insertSingleDefinitions = ({
           })),
           updatedBy: parentResourceId,
           createdAt: new Date(),
-        },
+        }),
         id,
       )
     }),
@@ -148,7 +151,7 @@ exports.create = async resource => {
     await insertReferences(body)
   }
 
-  return await insert(body, body.id)
+  return await insert(cleanFields(body), body.id)
 }
 
 exports.update = async (id, updates) => {
@@ -170,6 +173,16 @@ exports.update = async (id, updates) => {
     await deleteReferences(id)
     await insertReferences(Object.assign({}, resource, updates))
   }
+
+  // Re-compute clean fields even if original fields were not updated, if the computation system has changed
+  const newClean = pick(
+    cleanFields(Object.assign({}, resource, updates)),
+    cleanSearchFields.map(f => f + cleanSearchFieldSuffix),
+  )
+  const changedClean = Object.keys(newClean).filter(
+    f => newClean[f] !== resource[f],
+  )
+  Object.assign(updates, pick(newClean, changedClean))
 
   const updated = await update(id, updates)
 

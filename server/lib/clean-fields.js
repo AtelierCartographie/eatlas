@@ -3,6 +3,7 @@
 const removeDiacritics = require('diacritics').remove
 const removeStopWords = require('./remove-stopwords')
 const { cleanSearchFields, cleanSearchFieldSuffix } = require('config')
+const { stripTags } = require('../../client/src/universal-utils')
 
 // DESTRUCTIVE: changes `…_clean` fields
 exports.cleanFields = (resource, language = null) =>
@@ -29,6 +30,8 @@ const guessLanguage = (resource, field, language) => {
 }
 
 exports.cleanString = (string, language) =>
-  removeQuotes(removeStopWords(removeDiacritics(string), language))
+  removeQuotes(
+    removeStopWords(removeDiacritics(stripTags(string)), language),
+  ).trim()
 
 const removeQuotes = string => string.replace(/[“”«»'’]/g, '')

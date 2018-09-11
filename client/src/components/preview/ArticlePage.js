@@ -23,6 +23,7 @@ const {
   getResourcePageUrl,
   getTopicPageUrl,
   articleHeaderImageUrl,
+  prefixUrl,
 } = require('./layout')
 const { stripTags } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
@@ -47,6 +48,34 @@ const ArticleHeader = ({ article, resources, options }) => {
       { className: `title-position-${article.titlePosition}` },
       [
         h(Html, { component: 'h1.ArticleTitle' }, article.title),
+        article.copyright &&
+          h('.container.imageHeaderInfo', [
+            h(
+              'a',
+              {
+                href: `#comment`,
+                'data-toggle': 'collapse',
+                role: 'button',
+                'aria-controls': 'comment',
+                'aria-expanded': false,
+                'aria-haspopup': true,
+              },
+              [
+                h('img', {
+                  alt: 'commentaire',
+                  width: 16,
+                  src: prefixUrl(`/assets/img/info.svg`, options.preview),
+                }),
+              ],
+            ),
+            h('.collapse', { id: 'comment' }, [
+              h('div', {
+                dangerouslySetInnerHTML: {
+                  __html: `copyright ${article.copyright}`,
+                },
+              }),
+            ]),
+          ]),
         h(PublishedAt, { doc: article }),
       ],
     ),

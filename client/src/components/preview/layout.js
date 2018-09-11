@@ -61,7 +61,7 @@ const getSearchUrl = (exports.getSearchUrl = (
   { preview = false } /*: FrontOptions */,
 ) => {
   const url = preview
-    ? '/preview/_search'
+    ? '/preview/search'
     : process.env['REACT_APP_PAGE_URL_search'] || '#ERROR_SEARCH_URL'
   // Single-level query string (nested objects not supported in search URL)
   const append = (q, k, v) => {

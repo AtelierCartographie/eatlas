@@ -16,13 +16,22 @@
     position: relative;
     text-align: center;
     top: -16px;
+
+    @include breakpoint(desktop) {
+      font-size: 2.4rem;
+    }
   }
 
   p {
     font-family: $serif;
-    font-size: 1.7rem;
-    line-height: 2.6rem;
+    font-size: 1.45rem;
+    line-height: 2.2rem;
     text-align: left;
+
+    @include breakpoint(desktop) {
+      font-size: 1.7rem;
+      line-height: 2.6rem;
+    }
   }
 
   .tab-content {

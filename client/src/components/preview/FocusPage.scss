@@ -19,17 +19,27 @@
     margin-bottom: 48px;
 
     .FocusTitle {
-      font-size: 7rem;
+      font-size: 3.8rem;
       font-weight: normal;
-      line-height: 7rem;
+      line-height: 4.1rem;
       margin-top: 24px;
+
+      @include breakpoint(desktop) {
+        font-size: 7rem;
+        line-height: 7rem;
+      }
     }
 
     .PublishedAt {
       font-family: $serif;
-      font-size: 1.8rem;
+      font-size: 1.45rem;
       font-style: italic;
-      line-height: 1.8rem;
+      line-height: 1.45rem;
+
+      @include breakpoint(desktop) {
+        font-size: 1.8rem;
+        line-height: 1.8rem;
+      }
     }
 
   }

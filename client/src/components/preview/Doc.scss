@@ -1,18 +1,37 @@
 @import 'var';
 
 .FocusIcon {
-  // TODO path
-  background-image: url('http://localhost:3000/assets/img/pictos-focus.svg');
+  background-image: url('../assets/img/pictos-focus.svg');
   background-repeat: no-repeat;
   color: #ffc300;
-  font-size: 2.1rem;
+  font-size: 1.8rem;
   padding-left: 40px;
   text-transform: uppercase;
+
+  @include breakpoint(desktop) {
+    font-size: 2.1rem;
+  }
+}
+
+.DocInterTitle {
+  font-size: 2.1rem;
+  line-height: 2.8rem;
+
+  @include breakpoint(desktop) {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+  }
 }
 
 .DocParagraph {
   font-family: $serif;
-  font-size: 2.1rem;
+  font-size: 1.84rem;
+  line-height: 2.8rem;
+
+  @include breakpoint(desktop) {
+    font-size: 2.1rem;
+    line-height: 3.2rem;
+  }
 }
 
 a.LexiconLink {
@@ -43,8 +62,14 @@ a.LexiconLink {
   }
 
   h2 {
-    font-size: 2.1rem;
+    font-size: 1.8rem;
+    line-height: 2.1rem;
     margin-top: 0;
+
+    @include breakpoint(desktop) {
+      font-size: 2.1rem;
+      line-height: 2.4rem;
+    }
   }
 }
 
@@ -64,8 +89,8 @@ a.LexiconLink {
     background-color: $color-keyword;
     color: rgba(0,0,0,.8);
     font-family: $serif;
-    font-size: 1.6rem;
-    line-height: 2.4rem;
+    font-size: 1.39rem;
+    line-height: 2.5rem;
     padding: 3px 8px;
     text-decoration: none;
     transition-duration: 0.2s;
@@ -76,6 +101,11 @@ a.LexiconLink {
       color: rgba(0,0,0,.8);
       background-color: #ffd754;
     }
+
+    @include breakpoint(desktop) {
+      font-size: 1.58rem;
+      line-height: 2.8rem;
+    }
   }
 }
 
@@ -83,10 +113,15 @@ a.LexiconLink {
   blockquote {
     border-left: 4px solid $color-white;
     font-family: $serif;
-    font-size: 1.5rem;
+    font-size: 1.39rem;
     line-height: 2.1rem;
     margin: 0px;
     padding-left: 16px;
+
+    @include breakpoint(desktop) {
+      font-size: 1.58rem;
+      line-height: 2.4rem;
+    }
   }
   ul {
     list-style: none;
@@ -123,12 +158,12 @@ a.LexiconLink {
     overflow: hidden;
     position: relative;
 
-    .read-more { 
-      position: absolute; 
-      bottom: 0; 
+    .read-more {
+      position: absolute;
+      bottom: 0;
       left: 0;
-      width: 100%; 
-      text-align: center; 
+      width: 100%;
+      text-align: center;
       margin: 0;
       padding-top: 26px;
       background-image: linear-gradient(to bottom, transparent, $color-footer);
@@ -142,8 +177,14 @@ a.LexiconLink {
 
   li {
     font-family: $serif;
-    font-size: 1.5rem;
+    font-size: 1.39rem;
+    line-height: 2.1rem;
     margin-bottom: $gap;
+
+    @include breakpoint(desktop) {
+      font-size: 1.58rem;
+      line-height: 2.4rem;
+    }
   }
 
   li:target {
@@ -165,7 +206,7 @@ a.LexiconLink {
 
   .external {
     border-bottom: 2px solid $color-keyword;
-    
+
     &:focus,
     &:hover {
       box-shadow: inset 0 -4px 0 #ffe9a1;
@@ -187,12 +228,12 @@ a.LexiconLink {
 
   dl {
     color: $color-breadcrumb;
-    font-size: 1.5rem;
+    font-size: 1.58rem;
     line-height: 2.4rem;
     margin: $gap;
 
     @include breakpoint(desktop) {
-      font-size: 1.8rem;
+      font-size: 1.84rem;
       line-height: 2.8rem;
     }
   }
@@ -205,4 +246,3 @@ a.LexiconLink {
     }
   }
 }
-

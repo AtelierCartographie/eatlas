@@ -36,20 +36,30 @@
     }
 
     .ArticleTitle {
-      font-size: 7rem;
+      font-size: 3.8rem;
       font-weight: normal;
-      line-height: 7rem;
+      line-height: 4.1rem;
       text-shadow: 0em 0em 10px #444;
       box-decoration-break: clone;
+
+      @include breakpoint(desktop) {
+        font-size: 7rem;
+        line-height: 7rem;
+      }
     }
 
     .PublishedAt {
       font-family: $serif;
-      font-size: 1.8rem;
+      font-size: 1.45rem;
       font-style: italic;
-      line-height: 1.8rem;
+      line-height: 1.45rem;
       text-shadow: 0em 0em 10px #444;
       box-decoration-break: clone;
+
+      @include breakpoint(desktop) {
+        font-size: 1.8rem;
+        line-height: 1.8rem;
+      }
     }
 
     .imageHeaderInfo {
@@ -82,13 +92,18 @@
   }
 
   .ArticleResourceComment {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
+    line-height: 1.9rem;
+
+    @include breakpoint(desktop) {
+      font-size: 1.6rem;
+      line-height: 2.1rem;
+    }
 
     > a {
       color: $color-breadcrumb;
       display: block;
       margin-right: 1em;
-      font-size: 1.4rem;
       font-weight: bold;
       text-decoration: none;
     }
@@ -139,13 +154,25 @@
 
     .ArticlePrevNextTopicInline {
       font-family: $serif;
-      font-size: 1.4rem;
+      font-size: 1.39rem;
+      line-height: 2.1rem;
+
+      @include breakpoint(desktop) {
+        font-size: 1.58rem;
+        line-height: 2.4rem;
+      }
     }
 
     .ArticlePrevNextTitleInline {
-      font-size: 1.6rem;
+      font-size: 1.58rem;
       font-weight: bold;
+      line-height: 1.84rem;
       padding: 0;
+
+      @include breakpoint(desktop) {
+        font-size: 1.8rem;
+        line-height: 2.1rem;
+      }
     }
 
     img {
@@ -232,11 +259,11 @@
 
   .ArticlePrevNextTopic {
     font-family: $serif;
-    font-size: 1.4rem;
+    font-size: 1.58rem;
   }
 
   .ArticlePrevNextTitle {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: bold;
     padding: 0;
     margin: 5px 0 15px 0;
@@ -311,14 +338,24 @@
 
     .ArticleSeeAlsoTopic {
       font-family: $serif;
-      font-size: 1.5rem;
-      line-height: 2.4rem;
+      font-size: 1.39rem;
+      line-height: 2.1rem;
+
+      @include breakpoint(desktop) {
+        font-size: 1.58rem;
+        line-height: 2.4rem;
+      }
     }
 
     .ArticleSeeAlsoTitle {
-      font-size: 1.8rem;
+      font-size: 1.58rem;
       font-weight: bold;
-      line-height: 2.1rem;
+      line-height: 1.84rem;
+
+      @include breakpoint(desktop) {
+        font-size: 1.8rem;
+        line-height: 2.1rem;
+      }
     }
   }
 }

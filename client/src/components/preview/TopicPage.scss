@@ -106,30 +106,36 @@
 
     .PublishedAt {
       font-family: $serif;
-      font-size: 1.4rem;
+      font-size: 1.39rem;
       font-style: italic;
       line-height: $line-height;
 
       @include breakpoint(desktop) {
-        font-size: 1.5rem;
+        font-size: 1.58rem;
         line-height: 2.4rem;
       }
     }
 
     .ArticleListSummary {
       font-family: $serif;
+      font-size: 1.39rem;
+      line-height: $line-height;
 
       @include breakpoint(desktop) {
-        font-size: 1.5rem;
+        font-size: 1.58rem;
         line-height: 2.4rem;
       }
     }
 
     .ArticleListFocus {
       color: #000;
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-top: $gap;
       margin-bottom: $gap3;
+
+      @include breakpoint(desktop) {
+        font-size: 2.1rem;
+      }
 
       > div {
         background-color: #fff7d9;

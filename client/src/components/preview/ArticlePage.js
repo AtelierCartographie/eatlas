@@ -117,7 +117,7 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
-        return h('h2.container', { key: n.id }, n.text)
+        return h('h2.DocInterTitle.container', { key: n.id }, n.text)
       case 'p':
         return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {

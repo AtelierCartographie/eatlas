@@ -176,6 +176,9 @@ ul.navmenu-nav a {
 
   &.if-scrolled {
     line-height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 

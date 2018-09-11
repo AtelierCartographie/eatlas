@@ -178,7 +178,7 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     case 'map':
-      displayedType = 'Carte'
+      displayedType = 'Cartes et graphiques'
       children = [
         h(ResourceMap, { resource, options }),
         h(ResourceSource, { resource, options }),
@@ -193,7 +193,7 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     case 'image':
-      displayedType = 'Image'
+      displayedType = 'Photos'
       children = [
         h(ResourceImage, { resource, options }),
         h(ResourceSource, { resource, options }),
@@ -208,7 +208,7 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     case 'sound':
-      displayedType = 'Son'
+      displayedType = 'Sons'
       children = [
         h(ResourceSound, { resource, options }),
         h(ResourceCopyright, { resource, options }),
@@ -216,7 +216,7 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     case 'video':
-      displayedType = 'Vidéo'
+      displayedType = 'Vidéos'
       children = [
         h(ResourceVideo, { resource, options }),
         h(ResourceCopyright, { resource, options }),
@@ -224,7 +224,7 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     default:
-      children = ['ResourcePage component not not implemented']
+      children = ['ResourcePage component not implemented']
   }
   return h('article.ResourcePage', [
     h('header.container.ResourceHeader', [

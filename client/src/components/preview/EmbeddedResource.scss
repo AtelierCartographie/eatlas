@@ -7,6 +7,16 @@
       display: block;
       text-align: center;
     }
+
+    figcaption {
+      font-size: 1.45rem;
+      line-height: 1.9rem;
+
+      @include breakpoint(desktop) {
+        font-size: 1.6rem;
+        line-height: 2.1rem;
+      }
+    }
   }
 
   .figure-title {

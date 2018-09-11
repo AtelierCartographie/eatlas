@@ -139,7 +139,11 @@ exports.getMediaPreviewUrl = (
   size /*: ResourceSize */,
   density /*: ResourceDensity */,
   host /*: ?string */ = process.env.REACT_APP_API_SERVER,
-) => `${host || ''}/resources/${id}/file/${size}-${density}`
+  isFull = false,
+) =>
+  `${host || ''}/resources/${id}/file/${
+    isFull ? 'full-' : ''
+  }${size}-${density}`
 
 exports.getResourcePagePreviewUrl = (
   resource /*: Resource */,

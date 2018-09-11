@@ -4,6 +4,7 @@ const config = require('config')
 const { promisify } = require('util')
 const imageSize = promisify(require('image-size'))
 const { stat } = require('fs-extra')
+const { basename } = require('path')
 
 const { resources: Resources, topics: Topics } = require('./model')
 const {
@@ -140,17 +141,25 @@ const humanSize = bytes => {
 }
 
 const getImageStats = async (resource, found, { preview = false } = {}) => {
-  const { up: filePath } = resourceMediaPath(resource.type, found.file, {
+  const paths = resourceMediaPath(resource.type, found.file, {
     up: true,
     pub: false,
+    full: true,
   })
+  const filePath = paths.upFull || paths.up
   const [{ width, height, type }, { size }] = await Promise.all([
     imageSize(filePath),
     stat(filePath),
   ])
   const url = preview
-    ? getMediaPreviewUrl(resource.id, found.size, found.density, apiUrl)
-    : getMediaUrl(found.file, publicMediaUrl)
+    ? getMediaPreviewUrl(
+        resource.id,
+        found.size,
+        found.density,
+        apiUrl,
+        !!paths.upFull,
+      )
+    : getMediaUrl(basename(filePath), publicMediaUrl)
   return {
     width,
     height,

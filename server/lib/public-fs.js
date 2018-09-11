@@ -67,9 +67,17 @@ const publish = async resource => {
   const { files: getFiles } = uploadManagers[resource.type]
   await Promise.all(
     getFiles(resource).map(async file => {
-      const { up, pub } = resourceMediaPath(resource, file)
+      const { up, pub, upFull, pubFull } = resourceMediaPath(resource, file, {
+        up: true,
+        pub: true,
+        full: true,
+      })
       await ensureDir(path.dirname(pub))
       await exports.copyPublic(up, pub)
+      if (upFull) {
+        await ensureDir(path.dirname(pubFull))
+        await exports.copyPublic(upFull, pubFull)
+      }
     }),
   )
 

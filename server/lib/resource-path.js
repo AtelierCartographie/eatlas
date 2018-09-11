@@ -4,18 +4,19 @@ const path = require('path')
 const getConf = require('./dynamic-config-variable')
 const { slugify } = require('../../client/src/universal-utils')
 const debug = require('debug')('eatlas:path')
+const { accessSync } = require('fs')
 
 const root = path.join(__dirname, '..')
 const pubDir = path.resolve(root, getConf('publicPath'))
 const upDir = path.resolve(root, getConf('uploadPath', {}))
 
-const getTypeLabel = exports.getTypeLabel = ({ type }) =>
+const getTypeLabel = (exports.getTypeLabel = ({ type }) =>
   ({
     definition: 'définition',
     map: 'carte',
     sound: 'audio',
     image: 'photo',
-  }[type] || type)
+  }[type] || type))
 
 const getTopicSlug = (resource, topics) => {
   const topic = resource.topic
@@ -48,14 +49,14 @@ exports.pagePath = (key, resource, topics, params = {}) => {
   return exports.publicPath(getConf('pageUrls.' + key, locals))
 }
 
-exports.publicPath = (filePath) =>
+exports.publicPath = filePath =>
   path.resolve(__dirname, '..', getConf('publicPath'), filePath)
 
 // Public and private paths to uploaded media file
 exports.resourceMediaPath = (
   typeOrResource,
   file = null,
-  { up = true, pub = true } = {},
+  { up = true, pub = true, full = false } = {},
 ) => {
   const resource = typeof typeOrResource === 'object' ? typeOrResource : null
   const type = resource ? resource.type : typeOrResource
@@ -73,8 +74,23 @@ exports.resourceMediaPath = (
   if (pub) {
     result.pub = path.join(pubDir, getConf('mediaSubPath'), basename)
   }
+  if (full) {
+    // xxx.jpg → xxx-full.jpg
+    // xxx@2x.jpg → xxx-full@2x.jpg
+    const fullImageName = basename.replace(/([@-][0-9]+x)?(\..*)$/, '-full$1$2')
+    const fullImagePath = path.join(upDir, fullImageName)
+    try {
+      accessSync(fullImagePath)
+      result.upFull = fullImagePath
+      result.pubFull = path.join(pubDir, getConf('mediaSubPath'), fullImageName)
+    } catch (err) {
+      // Full image does not exist
+      result.full = false
+    }
+  }
   return result
 }
 
 exports.pathToUrl = (filePath, fullUrl = true) =>
-  filePath && ((fullUrl ? getConf('publicUrl') : '') + '/' + path.relative(pubDir, filePath))
+  filePath &&
+  (fullUrl ? getConf('publicUrl') : '') + '/' + path.relative(pubDir, filePath)

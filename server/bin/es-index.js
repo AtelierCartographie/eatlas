@@ -81,7 +81,7 @@ const changeVersion = async (key, version) => {
   console.log('OK.')
 }
 
-const reindex = async (key) => {
+const reindex = async key => {
   const alias = config.es.indices[key] || key
   const oldIndex = await getAlias(alias)
   const message = await migrateIndex(client, alias, oldIndex)

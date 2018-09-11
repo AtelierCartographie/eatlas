@@ -154,7 +154,7 @@ exports.remove = (req, res) =>
     .then(() => res.status(204).end())
     .catch(res.boom.send)
 
-exports.file = async (req, res, next) => {
+exports.file = isFull => async (req, res, next) => {
   try {
     switch (req.foundResource.type) {
       // Binary previews: audio, map and image
@@ -190,10 +190,12 @@ exports.file = async (req, res, next) => {
             'Image not found for requested size and density',
           )
         }
-        const { up } = resourceMediaPath(req.foundResource, file, {
+        const { up, upFull } = resourceMediaPath(req.foundResource, file, {
           pub: false,
+          full: isFull,
+          up: true,
         })
-        return res.sendFile(up)
+        return res.sendFile(upFull || up)
       }
       case 'sound': {
         const { up } = resourceMediaPath(req.foundResource, null, {

@@ -106,7 +106,7 @@ exports.LOCALES = {
 }
 
 exports.stripTags = (text /*: string */, whitelist /* string[] */ = []) =>
-  text.replace(
+  (text || '').replace(
     /<\/?(.*?)>/g,
     (orig, tag) => (whitelist.includes(tag) ? orig : ''),
   )

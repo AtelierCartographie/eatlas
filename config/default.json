@@ -106,6 +106,15 @@
     "nodes.text"
   ],
 
+  "// cleanSearchFields": "Those fields have diacritics-less and stopwords-less versions of them, generated at index-time, with '_clean' suffix",
+  "cleanSearchFields": [
+    "title",
+    "subtitle",
+    "description_fr",
+    "description_en"
+  ],
+  "cleanSearchFieldSuffix": "_clean",
+
   "// searchSort": "Rules to compute score for specific ordering",
   "searchSort": {
     "// boostType": "Boost score depending on doc's type",

@@ -111,7 +111,9 @@
     "title",
     "subtitle",
     "description_fr",
-    "description_en"
+    "description_en",
+    "metas.text",
+    "nodes.text"
   ],
   "cleanSearchFieldSuffix": "_clean",
 

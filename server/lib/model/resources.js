@@ -2,9 +2,9 @@
 
 const { fullResource, validate } = require('../schemas')
 const { TYPES } = require('../../../client/src/universal-utils')
-const { pick } = require('lodash')
-const { cleanSearchFields, cleanSearchFieldSuffix } = require('config')
+const { merge } = require('lodash')
 const { cleanFields } = require('../clean-fields')
+const objectDiff = require('../object-difference')
 
 const {
   search,
@@ -175,14 +175,9 @@ exports.update = async (id, updates) => {
   }
 
   // Re-compute clean fields even if original fields were not updated, if the computation system has changed
-  const newClean = pick(
-    cleanFields(Object.assign({}, resource, updates)),
-    cleanSearchFields.map(f => f + cleanSearchFieldSuffix),
-  )
-  const changedClean = Object.keys(newClean).filter(
-    f => newClean[f] !== resource[f],
-  )
-  Object.assign(updates, pick(newClean, changedClean))
+  const newNoClean = merge({}, resource, updates)
+  const newClean = cleanFields(newNoClean)
+  merge(updates, newClean) // Import the new whole object, as nested updates don't work just like that in ES
 
   const updated = await update(id, updates)
 

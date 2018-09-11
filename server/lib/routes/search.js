@@ -65,7 +65,11 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     // Meaningful score here: handle boost carefully
     if (req.body.q) {
       const should = []
-      config.searchFields.forEach(field => {
+      config.searchFields.forEach(f => {
+        // Look into real field or the clean version of it?
+        const field = config.cleanSearchFields.includes(f)
+          ? f + config.cleanSearchFieldSuffix
+          : f
         if (field.indexOf('.') !== -1) {
           // Nested field
           const path = field.substring(0, field.indexOf('.'))

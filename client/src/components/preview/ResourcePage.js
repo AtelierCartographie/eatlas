@@ -160,7 +160,6 @@ const ResourceLexicon = ({ definitions }) =>
 
 const ResourceSource = ({ resource }) => {
   return h('.container.ResourceSource', [
-    'Source : ',
     h(Html, { component: 'span.source-content' }, resource.source),
   ])
 }

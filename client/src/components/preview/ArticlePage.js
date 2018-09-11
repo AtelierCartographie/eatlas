@@ -48,36 +48,38 @@ const ArticleHeader = ({ article, resources, options }) => {
       { className: `title-position-${article.titlePosition}` },
       [
         h(Html, { component: 'h1.ArticleTitle' }, article.title),
-        h(PublishedAt, { doc: article })],
-      ),
-    imageHeader.description_fr &&
-        h('.container.imageHeaderInfo', [
-          h(
-            'a',
-            {
-              href: `#comment`,
-              'data-toggle': 'collapse',
-              role: 'button',
-              'aria-controls': 'comment',
-              'aria-expanded': false,
-              'aria-haspopup': true,
-            },
-            [
-              h('img', {
-                alt: 'commentaire',
-                width: 24,
-                src: prefixUrl(`/assets/img/info.svg`, options.preview),
-              }),
-            ],
-          ),
-          h('.collapse', { id: 'comment' }, [
-            h('div', {
-              dangerouslySetInnerHTML: {
-                __html: `${imageHeader.copyright} ${imageHeader.description_fr}`,
-              },
+        h(PublishedAt, { doc: article }),
+      ],
+    ),
+    imageHeader &&
+      imageHeader.description_fr &&
+      h('.container.imageHeaderInfo', [
+        h(
+          'a',
+          {
+            href: `#comment`,
+            'data-toggle': 'collapse',
+            role: 'button',
+            'aria-controls': 'comment',
+            'aria-expanded': false,
+            'aria-haspopup': true,
+          },
+          [
+            h('img', {
+              alt: 'commentaire',
+              width: 24,
+              src: prefixUrl(`/assets/img/info.svg`, options.preview),
             }),
-          ]),
+          ],
+        ),
+        h('.collapse', { id: 'comment' }, [
+          h('div', {
+            dangerouslySetInnerHTML: {
+              __html: `${imageHeader.copyright} ${imageHeader.description_fr}`,
+            },
+          }),
         ]),
+      ]),
   ])
 }
 

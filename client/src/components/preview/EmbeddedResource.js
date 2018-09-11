@@ -86,29 +86,7 @@ const ArticleResourceComment = ({ resource }) => {
   return h('.ArticleResourceComment.container', [
     h('.gradient-expand', {}, [
       h('strong.comment-title', 'Commentaire'),
-      h(
-        Html,
-        { component: 'p' },
-        description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description +
-          description,
-      ),
+      h(Html, { component: 'p' }, description),
       h('.read-more', ['▼']),
     ]),
   ])

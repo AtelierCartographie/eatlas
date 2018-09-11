@@ -117,6 +117,9 @@
   ],
   "cleanSearchFieldSuffix": "_clean",
 
+  "// searchFuzziness": "https://www.elastic.co/guide/en/elasticsearch/guide/current/fuzziness.html",
+  "searchFuzziness": "AUTO",
+
   "// searchSort": "Rules to compute score for specific ordering",
   "searchSort": {
     "// boostType": "Boost score depending on doc's type",

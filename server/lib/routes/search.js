@@ -22,7 +22,13 @@ const term = (field, values) => ({
 })
 const match = (field, text, boost = 1) => ({
   match: {
-    [field]: { query: text, operator: 'and', cutoff_frequency: 0.001, boost },
+    [field]: {
+      query: text,
+      operator: 'and',
+      cutoff_frequency: 0.001,
+      boost,
+      fuzziness: config.searchFuzziness,
+    },
   },
 })
 const nested = (path, query) => ({ nested: { path, score_mode: 'max', query } })

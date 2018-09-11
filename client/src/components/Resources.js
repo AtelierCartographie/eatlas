@@ -543,6 +543,8 @@ class Resources extends Component<Props, State> {
         }
         return <span title={user.email}>{user.name}</span>
       }
+      case 'title':
+        return <span>{stripTags(resource.title)}</span>
       default:
         return resource[field]
     }

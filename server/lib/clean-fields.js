@@ -26,12 +26,10 @@ const cleanObject = (root, obj, language) => {
         if (obj[field]) {
           if (typeof obj[field] === 'object') {
             // Recursive transform
-            console.log('recursive')
             cleanObject(`${root}${field}.`, obj[field], language)
           } else {
             // String transforma
             const lang = guessLanguage(obj, root + field, language)
-            console.log('transform', exports.cleanString(obj[field], lang))
             obj[field + cleanSearchFieldSuffix] = exports.cleanString(
               obj[field],
               lang,

@@ -48,37 +48,36 @@ const ArticleHeader = ({ article, resources, options }) => {
       { className: `title-position-${article.titlePosition}` },
       [
         h(Html, { component: 'h1.ArticleTitle' }, article.title),
-        article.copyright &&
-          h('.container.imageHeaderInfo', [
-            h(
-              'a',
-              {
-                href: `#comment`,
-                'data-toggle': 'collapse',
-                role: 'button',
-                'aria-controls': 'comment',
-                'aria-expanded': false,
-                'aria-haspopup': true,
-              },
-              [
-                h('img', {
-                  alt: 'commentaire',
-                  width: 16,
-                  src: prefixUrl(`/assets/img/info.svg`, options.preview),
-                }),
-              ],
-            ),
-            h('.collapse', { id: 'comment' }, [
-              h('div', {
-                dangerouslySetInnerHTML: {
-                  __html: `copyright ${article.copyright}`,
-                },
+        h(PublishedAt, { doc: article })],
+      ),
+    imageHeader.description_fr &&
+        h('.container.imageHeaderInfo', [
+          h(
+            'a',
+            {
+              href: `#comment`,
+              'data-toggle': 'collapse',
+              role: 'button',
+              'aria-controls': 'comment',
+              'aria-expanded': false,
+              'aria-haspopup': true,
+            },
+            [
+              h('img', {
+                alt: 'commentaire',
+                width: 24,
+                src: prefixUrl(`/assets/img/info.svg`, options.preview),
               }),
-            ]),
+            ],
+          ),
+          h('.collapse', { id: 'comment' }, [
+            h('div', {
+              dangerouslySetInnerHTML: {
+                __html: `${imageHeader.copyright} ${imageHeader.description_fr}`,
+              },
+            }),
           ]),
-        h(PublishedAt, { doc: article }),
-      ],
-    ),
+        ]),
   ])
 }
 
@@ -146,7 +145,7 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   return article.nodes.map(n => {
     switch (n.type) {
       case 'header':
-        return h('h2.DocInterTitle.container', { key: n.id }, n.text)
+        return h('h2.container.DocInterTitle', { key: n.id }, n.text)
       case 'p':
         return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {

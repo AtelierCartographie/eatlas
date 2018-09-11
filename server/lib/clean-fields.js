@@ -22,7 +22,6 @@ const cleanObject = (root, obj, language) => {
       .map(f => f.substring(root.length))
       .forEach(f => {
         const [field] = f.split('.')
-        console.log({ prop: obj[field], f, field })
         // Nested's parent
         if (obj[field]) {
           if (typeof obj[field] === 'object') {

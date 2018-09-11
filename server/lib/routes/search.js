@@ -11,6 +11,7 @@ const {
   CLIENT_TYPES,
   stripTags,
 } = require('../../../client/src/universal-utils')
+const { cleanString } = require('../clean-fields')
 
 const sortField = 'publishedAt'
 const sortDir = 'desc'
@@ -32,7 +33,8 @@ const push = (filters, filter, boost = null) =>
   filters.push(boost === null ? filter : { constant_score: { filter, boost } })
 
 const search = ({ preview = false } = {}) => async (req, res) => {
-  debug('Input', req.body)
+  const input = req.body
+  debug('Input', input)
 
   try {
     // AND
@@ -51,19 +53,21 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     push(must, { bool: { must_not: term('id', 'LEXIC') } }, 0)
 
     // Resource types?
-    if (req.body.types) {
+    if (input.types) {
       push(
         must,
-        term('type', req.body.types),
+        term('type', input.types),
         config.searchSort.scoreSpecial.type || 0,
       )
       // Specific to lexicon: filter by A-Z
-      push(must, { prefix: { 'title.keyword': req.body.letter } })
+      push(must, { prefix: { 'title.keyword': input.letter } })
     }
 
     // Full-text query (OR on each field)
     // Meaningful score here: handle boost carefully
-    if (req.body.q) {
+    if (input.q) {
+      // TODO user's language
+      const fullTextQuery = cleanString(input.q, 'fr').trim() || input.q // if user has only requested stopwords we have empty query, use original one in that case
       const should = []
       config.searchFields.forEach(f => {
         // Look into real field or the clean version of it?
@@ -78,7 +82,7 @@ const search = ({ preview = false } = {}) => async (req, res) => {
               path,
               match(
                 field,
-                req.body.q,
+                fullTextQuery,
                 config.searchSort.boostSearchField[path] || 1,
               ),
             ),
@@ -87,7 +91,7 @@ const search = ({ preview = false } = {}) => async (req, res) => {
           should.push(
             match(
               field,
-              req.body.q,
+              fullTextQuery,
               config.searchSort.boostSearchField[field] || 1,
             ),
           )
@@ -97,25 +101,25 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     }
 
     // Locale
-    if (req.body.locales) {
+    if (input.locales) {
       push(
         must,
-        term('language', req.body.locales),
+        term('language', input.locales),
         config.searchSort.scoreSpecial.keywords || 0,
       )
     }
 
     // Topics
-    if (req.body.topics) {
+    if (input.topics) {
       push(
         must,
-        term('topic', req.body.topics),
+        term('topic', input.topics),
         config.searchSort.scoreSpecial.topic || 0,
       )
     }
 
     // Keywords
-    if (req.body.keywords) {
+    if (input.keywords) {
       push(
         must,
         nested('metas', {
@@ -124,7 +128,7 @@ const search = ({ preview = false } = {}) => async (req, res) => {
               term('metas.type', 'keywords'),
               nested(
                 'metas.list',
-                term('metas.list.text.keyword', req.body.keywords),
+                term('metas.list.text.keyword', input.keywords),
               ),
             ],
           },
@@ -134,9 +138,9 @@ const search = ({ preview = false } = {}) => async (req, res) => {
     }
 
     // Published at
-    if (req.body['date-min'] || req.body['date-max']) {
-      const min = req.body['date-min'] && new Date(req.body['date-min'])
-      const max = req.body['date-max'] && new Date(req.body['date-max'])
+    if (input['date-min'] || input['date-max']) {
+      const min = input['date-min'] && new Date(input['date-min'])
+      const max = input['date-max'] && new Date(input['date-max'])
       if (min || max) {
         let cmp = {}
         if (min) cmp.gte = min
@@ -145,8 +149,8 @@ const search = ({ preview = false } = {}) => async (req, res) => {
       }
     }
 
-    const page = Number(req.body.page) || 1
-    const size = Number(req.body.size) || nbPerPage
+    const page = Number(input.page) || 1
+    const size = Number(input.size) || nbPerPage
     const from = (page - 1) * size
 
     const withBoost = {
@@ -195,7 +199,7 @@ const search = ({ preview = false } = {}) => async (req, res) => {
         .map(formatResultHit),
     })
   } catch (err) {
-    logger.error('Search failed', { input: req.body, err })
+    logger.error('Search failed', { input, err })
     res.boom.badImplementation(err)
   }
 }

@@ -35,7 +35,7 @@
 }
 
 a.LexiconLink {
-  color: rgba(0,0,0,.8);
+  color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
   transition-duration: 0.2s;
   transition-property: all;
@@ -87,7 +87,7 @@ a.LexiconLink {
 
   a {
     background-color: $color-keyword;
-    color: rgba(0,0,0,.8);
+    color: rgba(0, 0, 0, 0.8);
     font-family: $serif;
     font-size: 1.39rem;
     line-height: 2.5rem;
@@ -98,7 +98,7 @@ a.LexiconLink {
 
     &:focus,
     &:hover {
-      color: rgba(0,0,0,.8);
+      color: rgba(0, 0, 0, 0.8);
       background-color: #ffd754;
     }
 
@@ -136,7 +136,7 @@ a.LexiconLink {
 
   a {
     background-color: $color-white;
-    color: rgba(0,0,0,.8);
+    color: rgba(0, 0, 0, 0.8);
     font-size: 1.2rem;
     line-height: 2.4rem;
     padding: 3px 8px;
@@ -146,13 +146,14 @@ a.LexiconLink {
 
     &:focus,
     &:hover {
-      color: rgba(0,0,0,.8);
+      color: rgba(0, 0, 0, 0.8);
       background-color: #ffd754;
     }
   }
 }
 
-.Footnotes {
+.Footnotes,
+.ArticleResourceComment {
   .gradient-expand {
     max-height: 100px;
     overflow: hidden;
@@ -169,7 +170,34 @@ a.LexiconLink {
       background-image: linear-gradient(to bottom, transparent, $color-footer);
     }
   }
+}
+.ArticleResourceComment {
+  margin-top: 0.5em;
+  .gradient-expand {
+    max-height: 70px;
+  }
+  .comment-title {
+    float: left;
+    display: block;
+    margin: 0 2em 1em 0;
+  }
+  .ArticlePage & .gradient-expand .read-more {
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      $background-article
+    );
+  }
+  .FocusPage & .gradient-expand .read-more {
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      $background-focus2
+    );
+  }
+}
 
+.Footnotes {
   ol {
     margin: 0;
     padding: 0 0 0 1em;
@@ -191,7 +219,9 @@ a.LexiconLink {
     background: white;
   }
 
-  a, a:focus, a:hover {
+  a,
+  a:focus,
+  a:hover {
     color: inherit;
     text-decoration: none;
   }
@@ -219,7 +249,7 @@ a.LexiconLink {
 .Lexicon {
   background-color: $color-footer;
   bottom: 0;
-  box-shadow: 0 -4px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.06);
   font-family: $serif;
   max-height: 60%;
   position: fixed;

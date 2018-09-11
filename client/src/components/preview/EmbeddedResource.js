@@ -80,26 +80,41 @@ const EmbeddedResource = ({ resource, options }) => {
 }
 
 const ArticleResourceComment = ({ resource }) => {
-  if (!resource.description_fr) return null
-  const id = `comment-${resource.id}`
+  const description =
+    resource[`description_${resource.language}`] || resource.description_fr
+  if (!description) return null
   return h('.ArticleResourceComment.container', [
-    h(
-      'a',
-      {
-        href: `#${id}`,
-        'data-toggle': 'collapse',
-        role: 'button',
-        'aria-controls': id,
-        'aria-expanded': false,
-        'aria-haspopup': true,
-      },
-      'Commentaire',
-    ),
-    h('.collapse', { id }, [h(Html, {}, resource.description_fr)]),
+    h('.gradient-expand', {}, [
+      h('strong.comment-title', 'Commentaire'),
+      h(
+        Html,
+        { component: 'p' },
+        description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description +
+          description,
+      ),
+      h('.read-more', ['▼']),
+    ]),
   ])
 }
 
 const FigCaption = ({ content }) =>
-  h(Html, { component: 'figcaption.container' }, content)
+  content ? h(Html, { component: 'figcaption.container' }, content) : null
 
 module.exports = EmbeddedResource

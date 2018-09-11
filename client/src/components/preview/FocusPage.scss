@@ -1,7 +1,7 @@
 @import 'var';
 
 .FocusPage {
-  background: linear-gradient(#fff7d9, #ffe180);
+  background: $background-focus;
 
   .FocusBackToArticle {
     background: $color-breadcrumb;
@@ -41,7 +41,5 @@
         line-height: 1.8rem;
       }
     }
-
   }
-
 }

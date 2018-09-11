@@ -25,6 +25,11 @@ $color-footer: #d1d6e0; // light grey
 $color-keyword: #ffe9a1; // light yellow
 $color-yellow: #ffd653;
 
+$background-focus1: #fff7d9;
+$background-focus2: #ffe180;
+$background-focus: linear-gradient($background-focus1, $background-focus2);
+$background-article: white;
+
 // these breakpoints are independent from the ones
 // used by srcset="" to display images in articles
 
@@ -32,9 +37,12 @@ $color-yellow: #ffd653;
 // to overload the default style
 @mixin breakpoint($point) {
   @if $point == desktop {
-    @media (min-width: 732px) { @content; }
-  }
-  @else if $point == mobile {
-    @media (max-width: 732px)  { @content; }
+    @media (min-width: 732px) {
+      @content;
+    }
+  } @else if $point == mobile {
+    @media (max-width: 732px) {
+      @content;
+    }
   }
 }

@@ -18,12 +18,13 @@
   $('input.search-field').on('keypress', goToSearch)
   $('form.navmenu-form').on('submit', evt => evt.preventDefault())
   $('form.navmenu-form input').on('keypress', goToSearch)
-  // Read more arrow in Footnotes
+
+  // Read more arrow in Footnotes and embedded resources comment
   $('.read-more').on('click', function() {
     let totalHeight = 0
     const $parent = $(this).parent()
 
-    $parent.find('ol').each(function() {
+    $parent.find('ol, p').each(function() {
       totalHeight += $(this).outerHeight()
     })
 

@@ -1,4 +1,4 @@
-@import "var";
+@import 'var';
 
 .ArticlePage {
   .ArticleHeader {
@@ -203,9 +203,9 @@
 
     &:before {
       display: block;
-      font-family: "Glyphicons Halflings";
+      font-family: 'Glyphicons Halflings';
       font-size: 2.5rem;
-      content: "\e257";
+      content: '\e257';
     }
   }
 
@@ -219,9 +219,9 @@
 
     &:after {
       display: block;
-      font-family: "Glyphicons Halflings";
+      font-family: 'Glyphicons Halflings';
       font-size: 2.5rem;
-      content: "\e258";
+      content: '\e258';
     }
   }
 }
@@ -242,7 +242,7 @@
   &:before {
     display: block;
     font-size: 2.5rem;
-    font-family: "Glyphicons Halflings";
+    font-family: 'Glyphicons Halflings';
   }
 
   &:hover {
@@ -292,7 +292,7 @@
   }
 
   &:before {
-    content: "\e257";
+    content: '\e257';
     text-align: left;
   }
 }
@@ -307,13 +307,16 @@
   }
 
   &:before {
-    content: "\e258";
+    content: '\e258';
     text-align: right;
   }
 }
 
 // Shared by ResourcePage too
-.ArticlePage, .ResourcePage {
+.ArticlePage,
+.ResourcePage {
+  background: $background-article;
+
   .ArticleSeeAlso {
     ul {
       list-style: none;

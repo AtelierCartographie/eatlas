@@ -164,5 +164,7 @@ declare type GoogleApi = {
 }
 
 declare type FrontOptions = {
-  preview: boolean
+  preview: boolean,
+  analytics: string,
+  apiUrl: string,
 }

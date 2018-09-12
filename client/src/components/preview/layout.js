@@ -37,18 +37,27 @@ exports.getResourcePageUrl = (
 
 exports.getTopicPageUrl = (
   topic /*: Topic */,
-  { preview = false } /*: FrontOptions */ = {},
+  {
+    preview = false,
+    apiUrl = process.env.REACT_APP_API_SERVER,
+  } /*: FrontOptions */ = {},
 ) =>
   preview
-    ? `/preview/topics/${topic.id}`
+    ? `${apiUrl || ''}/preview/topics/${topic.id}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
 const globalPageUrl = (exports.globalPageUrl = (
   key /*: string */,
   slug /*: string? */,
   hash /*: string? */,
-) => (preview /*: boolean */) => {
-  if (preview) return hash ? `/preview/${key}#${hash}` : `/preview/${key}`
+) => ({
+  preview /*: boolean */,
+  apiUrl = process.env.REACT_APP_API_SERVER,
+}) => {
+  if (preview)
+    return hash
+      ? `${apiUrl || ''}/preview/${key}#${hash}`
+      : `${apiUrl || ''}/preview/${key}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''
   if (!urlTemplate) return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
@@ -58,10 +67,13 @@ const globalPageUrl = (exports.globalPageUrl = (
 
 const getSearchUrl = (exports.getSearchUrl = (
   params,
-  { preview = false } /*: FrontOptions */,
+  {
+    preview = false,
+    apiUrl = process.env.REACT_APP_API_SERVER,
+  } /*: FrontOptions */,
 ) => {
   const url = preview
-    ? '/preview/search'
+    ? `${apiUrl || ''}/preview/search`
     : process.env['REACT_APP_PAGE_URL_search'] || '#ERROR_SEARCH_URL'
   // Single-level query string (nested objects not supported in search URL)
   const append = (q, k, v) => {
@@ -89,7 +101,7 @@ exports.resourcesTypes = footerResourcesConfig.map(
     text: label,
     url: page
       ? globalPageUrl(...page)
-      : preview => getSearchUrl({ types }, { preview }),
+      : options => getSearchUrl({ types }, options),
   }),
 )
 

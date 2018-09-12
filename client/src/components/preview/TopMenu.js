@@ -13,7 +13,7 @@ const {
 } = require('./layout')
 const { stripTags } = require('../../universal-utils')
 
-const TopMenuPanelSearch = ({ options: { preview } }) => {
+const TopMenuPanelSearch = ({ options }) => {
   const id = 'TopMenuPanel-search'
   return [
     h(
@@ -28,7 +28,7 @@ const TopMenuPanelSearch = ({ options: { preview } }) => {
       [
         h('img', {
           alt: 'rechercher',
-          src: prefixUrl(`/assets/img/search-white.svg`, preview),
+          src: prefixUrl(`/assets/img/search-white.svg`, options.preview),
         }),
       ],
     ),
@@ -36,7 +36,7 @@ const TopMenuPanelSearch = ({ options: { preview } }) => {
       h('input', {
         placeholder: 'Rechercher',
         title: 'rechercher',
-        'data-search-page-url': getSearchUrl({}, { preview }),
+        'data-search-page-url': getSearchUrl({}, options),
       }),
     ]),
   ]
@@ -64,7 +64,7 @@ const TopMenuPanelMain = ({ options }) => {
             'ul',
             resourcesTypes.map(rt =>
               h('li', { key: rt.text }, [
-                h('a', { href: rt.url(options.preview) }, rt.text),
+                h('a', { href: rt.url(options) }, rt.text),
               ]),
             ),
           ),
@@ -75,7 +75,7 @@ const TopMenuPanelMain = ({ options }) => {
             'ul',
             aPropos.map(rt =>
               h('li', { key: rt.text }, [
-                h('a', { href: rt.url(options.preview) }, rt.text),
+                h('a', { href: rt.url(options) }, rt.text),
               ]),
             ),
           ),

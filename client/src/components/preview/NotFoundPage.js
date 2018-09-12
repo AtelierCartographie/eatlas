@@ -18,27 +18,37 @@ const Content = ({ options }) => {
     h('p', 'La page que vous avez demandéz n’existe pas, ou n’existe plus.'),
     h('p', [
       'Vous pouvez signaler le lien brisé via ',
-      h('a', { href: globalPageUrl('about', null, 'contact')(options.preview) }, 'notre formulaire de contact'),
-      '.'
+      h(
+        'a',
+        { href: globalPageUrl('about', null, 'contact')(options) },
+        'notre formulaire de contact',
+      ),
+      '.',
     ]),
     h('p.back-home', [
-      h('a.button.btn', { href: options.preview ? '/preview' : prefixUrl('/'), role: 'link' }, 'Retour à la page d’accueil'),
-    ])
+      h(
+        'a.button.btn',
+        {
+          href: options.preview
+            ? `${options.apiUrl || ''}/preview`
+            : prefixUrl('/'),
+          role: 'link',
+        },
+        'Retour à la page d’accueil',
+      ),
+    ]),
   ])
 }
 
-const NotFoundPage = ({
-  topics,
-  options,
-} /*: {
+const NotFoundPage = (
+  { topics, options } /*: {
   topics: Topic[],
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'Page introuvable', options }),
-    h(Body, { topics, options, logoColor: 'black' }, [
-      h(Content, { options }),
-    ]),
+    h(Body, { topics, options, logoColor: 'black' }, [h(Content, { options })]),
   ])
 
 module.exports = NotFoundPage

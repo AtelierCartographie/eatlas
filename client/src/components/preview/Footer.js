@@ -38,17 +38,16 @@ const FooterUl = ({ links, options }) =>
   h(
     'ul',
     links.map((r, i) =>
-      h('li', { key: i }, [h('a', { href: r.url(options.preview) }, r.text)]),
+      h('li', { key: i }, [h('a', { href: r.url(options) }, r.text)]),
     ),
   )
 
-module.exports = ({
-  topics,
-  options,
-} /*: {
+module.exports = (
+  { topics, options } /*: {
   topics: Topic[],
   options: Object,
-} */) =>
+} */,
+) =>
   h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.FooterRow', [
       h('.FooterColTopics', [

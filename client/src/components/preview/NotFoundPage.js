@@ -28,7 +28,12 @@ const Content = ({ options }) => {
     h('p.back-home', [
       h(
         'a.button.btn',
-        { href: options.preview ? '/preview' : prefixUrl('/'), role: 'link' },
+        {
+          href: options.preview
+            ? `${options.apiUrl || ''}/preview`
+            : prefixUrl('/'),
+          role: 'link',
+        },
         'Retour à la page d’accueil',
       ),
     ]),

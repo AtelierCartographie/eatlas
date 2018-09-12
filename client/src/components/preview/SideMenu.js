@@ -51,7 +51,11 @@ exports.SideMenu = (
       h('h1.navmenu-title', [
         h(
           'a',
-          { href: options.preview ? '/preview' : prefixUrl('/') },
+          {
+            href: options.preview
+              ? `${options.apiUrl || ''}/preview`
+              : prefixUrl('/'),
+          },
           `Espace mondial : l'Atlas`,
         ),
       ]),

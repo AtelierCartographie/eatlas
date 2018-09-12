@@ -91,11 +91,7 @@ const ResourceImageDownload = ({ resource, options }) => {
     h('h2', 'Téléchargement'),
     h('.warning', [
       'Pour toute utilisation, merci de consulter les ',
-      h(
-        'a',
-        { href: globalPageUrl('legals')(options.preview) },
-        'mentions légales',
-      ),
+      h('a', { href: globalPageUrl('legals')(options) }, 'mentions légales'),
       '.',
     ]),
     h('.download-blocks', [

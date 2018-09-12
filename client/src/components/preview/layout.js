@@ -56,8 +56,8 @@ const globalPageUrl = (exports.globalPageUrl = (
 }) => {
   if (preview)
     return hash
-      ? `${apiUrl}/preview/${key}#${hash}`
-      : `${apiUrl}/preview/${key}`
+      ? `${apiUrl || ''}/preview/${key}#${hash}`
+      : `${apiUrl || ''}/preview/${key}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''
   if (!urlTemplate) return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
@@ -73,7 +73,7 @@ const getSearchUrl = (exports.getSearchUrl = (
   } /*: FrontOptions */,
 ) => {
   const url = preview
-    ? `${apiUrl}/preview/search`
+    ? `${apiUrl || ''}/preview/search`
     : process.env['REACT_APP_PAGE_URL_search'] || '#ERROR_SEARCH_URL'
   // Single-level query string (nested objects not supported in search URL)
   const append = (q, k, v) => {

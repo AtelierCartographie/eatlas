@@ -85,8 +85,16 @@ const menuProps = async (
   return { topics, articles }
 }
 
-exports.generateHTML = async (key, resource, options, props = {}) => {
-  let generator = GENERATORS[key]
+exports.generateHTML = async (
+  key,
+  resource,
+  options,
+  props = {},
+  fallbackGenerator = null,
+) => {
+  let generator =
+    GENERATORS[key] ||
+    (fallbackGenerator ? GENERATORS[fallbackGenerator] : null)
   if (!generator) {
     throw new Error(`No HTML generator for "${key}"`)
   }

@@ -1,15 +1,18 @@
 'use strict'
 
-const { generateHTML } = require('../html-generator')
+const { generateHTML, generate404HTML } = require('../html-generator')
 const { rebuildAssets } = require('../site-builder')
 
 // params.id = resource id
 exports.resource = async (req, res, next) => {
   try {
+    const options = { preview: true }
+    if (!req.foundResource) {
+      return res.send(await generate404HTML(options))
+    }
     const resource = req.foundResource
     const key = resource.type
-    const options = { preview: true }
-    res.send(await generateHTML(key, resource, options))
+    res.send(await generateHTML(key, resource, options, {}, 'notFound'))
   } catch (err) {
     next(err)
   }
@@ -21,7 +24,7 @@ exports.page = async (req, res, next) => {
   try {
     const key = req.params.page || 'index'
     const options = { preview: true }
-    res.send(await generateHTML(key, null, options))
+    res.send(await generateHTML(key, null, options, {}, 'notFound'))
   } catch (err) {
     next(err)
   }

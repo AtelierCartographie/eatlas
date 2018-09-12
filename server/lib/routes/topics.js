@@ -1,7 +1,7 @@
 'use strict'
 
 const { topics, resources } = require('../model')
-const { generateTopicHTML } = require('../html-generator')
+const { generateTopicHTML, generate404HTML } = require('../html-generator')
 
 exports.list = (req, res) =>
   topics
@@ -10,11 +10,11 @@ exports.list = (req, res) =>
     .then(topics => res.send(topics))
     .catch(res.boom.send)
 
-exports.findTopic = (req, res, next) =>
+exports.findTopic = (allowNotFound = false) => (req, res, next) =>
   topics
     .findById(req.params.id)
     .then(topic => {
-      if (!topic) {
+      if (!topic && !allowNotFound) {
         return res.boom.notFound('Unknown Topic Id')
       }
       req.foundTopic = topic
@@ -35,7 +35,9 @@ exports.update = async (req, res) => {
       return res.boom.badRequest('Wrong resource type should be image or video')
 
     if (req.foundTopic.id !== resource.topic)
-      return res.boom.badRequest(`Resource topic mismatch: ${req.foundTopic.id} vs ${resource.topic}`)
+      return res.boom.badRequest(
+        `Resource topic mismatch: ${req.foundTopic.id} vs ${resource.topic}`,
+      )
   }
   topics
     .update(req.foundTopic.id, req.body)
@@ -57,6 +59,9 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
+    if (!req.foundTopic) {
+      return res.send(await generate404HTML({ preview: true }))
+    }
     const html = await generateTopicHTML(req.foundTopic, { preview: true })
     res.send(html)
   } catch (err) {

@@ -12,10 +12,10 @@ const { resourceMediaPath, pagePath, pathToUrl } = require('../resource-path')
 const { rebuildAllHTML } = require('../site-builder')
 const previews = require('./previews') // for alias resources.preview = previews.resource
 
-exports.findResource = (req, res, next) =>
+exports.findResource = (allowNotFound = false) => (req, res, next) =>
   Resources.findById(req.params.id)
     .then(resource => {
-      if (!resource) {
+      if (!resource && !allowNotFound) {
         return res.boom.notFound('Unknown Resource Id')
       }
       req.foundResource = resource

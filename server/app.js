@@ -46,26 +46,26 @@ app.get('/resources', user.private(), resources.list)
 app.get(
   '/resources/:id/preview',
   user.private(),
-  resources.findResource,
+  resources.findResource(),
   resources.preview,
 )
 app.get(
   '/resources/:id/file/full-:k?',
   user.private(),
-  resources.findResource,
+  resources.findResource(),
   resources.file(true),
 )
 app.get(
   '/resources/:id/file/:k?',
   user.private(),
-  resources.findResource,
+  resources.findResource(),
   resources.file(false),
 )
 app.get('/resources/:id', user.private(), resources.findResource, resources.get)
 app.get(
   '/resources/:id/urls',
   user.private(),
-  resources.findResource,
+  resources.findResource(),
   resources.urls,
 )
 app.post(
@@ -77,25 +77,30 @@ app.post('/resources', user.private('admin'), validateBody(resources.add))
 app.put(
   '/resources/:id',
   user.private('admin'),
-  resources.findResource,
+  resources.findResource(),
   resources.update,
 ) // TODO body schema
 app.delete(
   '/resources/:id',
   user.private('admin'),
-  resources.findResource,
+  resources.findResource(),
   resources.remove,
 )
 
 app.get('/topics', user.private(), topics.list)
-app.get('/topics/:id/preview', user.private(), topics.findTopic, topics.preview)
-app.get('/topics/:id', user.private(), topics.findTopic, topics.get)
+app.get(
+  '/topics/:id/preview',
+  user.private(),
+  topics.findTopic(),
+  topics.preview,
+)
+app.get('/topics/:id', user.private(), topics.findTopic(), topics.get)
 app.post('/topics', user.private('admin'), topics.add)
-app.put('/topics/:id', user.private('admin'), topics.findTopic, topics.update)
+app.put('/topics/:id', user.private('admin'), topics.findTopic(), topics.update)
 app.delete(
   '/topics/:id',
   user.private('admin'),
-  topics.findTopic,
+  topics.findTopic(),
   topics.remove,
 )
 
@@ -105,14 +110,14 @@ app.get(
   '/preview/resources/:id',
   user.private(),
   previews.ensureAssets(),
-  resources.findResource,
+  resources.findResource(true),
   previews.resource,
 )
 app.get(
   '/preview/topics/:id',
   user.private(),
   previews.ensureAssets(),
-  topics.findTopic,
+  topics.findTopic(true),
   topics.preview,
 )
 app.post(

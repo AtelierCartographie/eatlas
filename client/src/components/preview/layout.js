@@ -122,7 +122,6 @@ exports.aPropos = [
     text: 'Mentions légales',
     url: globalPageUrl('legals'),
   },
-  { text: 'Plan du site', url: globalPageUrl('sitemap') },
 ]
 
 exports.articleHeaderImageUrl = (article, options) =>

@@ -18,7 +18,7 @@ const Html = require('./Html')
 const searchEndpoint = ({
   preview = false,
   apiUrl = process.env.REACT_APP_API_SERVER,
-} = {}) => (apiUrl || '')(preview ? '/preview/_search' : '/search')
+} = {}) => (apiUrl || '') + (preview ? '/preview/_search' : '/search')
 
 /* in the following lodash templates, the `results` and `formData` variable are
  set in /client/public/assets/js/eatlas.js:

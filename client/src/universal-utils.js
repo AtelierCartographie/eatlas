@@ -138,17 +138,17 @@ exports.getMediaPreviewUrl = (
   id /*: string */,
   size /*: ResourceSize */,
   density /*: ResourceDensity */,
-  host /*: ?string */ = process.env.REACT_APP_API_SERVER,
+  apiUrl /*: ?string */ = process.env.REACT_APP_API_SERVER,
   isFull = false,
 ) =>
-  `${host || ''}/resources/${id}/file/${
+  `${apiUrl || ''}/resources/${id}/file/${
     isFull ? 'full-' : ''
   }${size}-${density}`
 
 exports.getResourcePagePreviewUrl = (
   resource /*: Resource */,
-  host /*: ?string */ = process.env.REACT_APP_API_SERVER,
-) => `${host || ''}/preview/resources/${resource.id}`
+  apiUrl /*: ?string */ = process.env.REACT_APP_API_SERVER,
+) => `${apiUrl || ''}/preview/resources/${resource.id}`
 
 // Common types (back/front)
 exports.TYPES = {

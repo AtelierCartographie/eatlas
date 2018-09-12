@@ -31,6 +31,7 @@ const config = require('config')
 const dotenv = require('dotenv')
 dotenv.config({ path: `${config.clientPath}/.env` })
 dotenv.config({ path: `${config.clientPath}/.env.local` })
+const apiUrl = config.apiUrl
 
 // Inject client-side env variables allowing generation of URLs
 for (let key in config.pageUrls) {
@@ -143,7 +144,7 @@ exports.generateArticleHTML = async (
         definitions,
       ),
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -169,7 +170,7 @@ exports.generateFocusHTML = async (
         definitions,
       ),
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -198,7 +199,7 @@ exports.generateTopicHTML = async (
       topic: populatePageUrl('topic', null, { preview })(topic),
       articles: props.articles,
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -217,7 +218,7 @@ exports.generateResourceHTML = async (
     React.createElement(ResourcePage, {
       ...props,
       resource: populatePageUrl(null, props.topics, { preview })(resource),
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -229,7 +230,7 @@ exports.generateLexiconHTML = async ({ preview = false } = {}, props = {}) => {
     React.createElement(LexiconPage, {
       ...props,
       definitions: lexicon.definitions,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -239,7 +240,7 @@ exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(HomePage, {
       ...props,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -271,7 +272,7 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
       types: CLIENT_TYPES,
       keywords: sortedKeywords,
       locales: LOCALES,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -281,7 +282,7 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(MissingPage, {
       ...props,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -291,7 +292,7 @@ exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(AboutPage, {
       ...props,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -304,7 +305,7 @@ exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(LegalsPage, {
       ...props,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -316,7 +317,7 @@ exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
     React.createElement(SitemapPage, {
       urls,
       ...props,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }
@@ -326,7 +327,7 @@ exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(NotFoundPage, {
       ...props,
-      options: { preview, analytics: config.analytics },
+      options: { preview, analytics: config.analytics, apiUrl },
     }),
   )
 }

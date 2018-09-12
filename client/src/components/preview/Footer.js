@@ -42,13 +42,12 @@ const FooterUl = ({ links, options }) =>
     ),
   )
 
-module.exports = ({
-  topics,
-  options,
-} /*: {
+module.exports = (
+  { topics, options } /*: {
   topics: Topic[],
   options: Object,
-} */) =>
+} */,
+) =>
   h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.FooterRow', [
       h('.FooterColTopics', [

@@ -303,7 +303,7 @@ exports.getResource = async id => {
 
 // type Link = { url: string, title: string, info: string?, children: Link[] }
 // @return Link[]
-exports.getAllUrls = async (preview = false) => {
+exports.getAllUrls = async ({ preview = false, apiUrl = config.apiUrl }) => {
   const topics = await exports.getTopics()
   // Urls tree
   const urls = []

@@ -312,7 +312,7 @@ exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
 
 exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
   props = await menuProps(props, { preview })
-  const urls = await getAllUrls(preview)
+  const urls = await getAllUrls({ preview, apiUrl })
   return wrap(
     React.createElement(SitemapPage, {
       urls,

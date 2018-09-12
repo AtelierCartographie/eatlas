@@ -274,9 +274,7 @@ exports.Lexicon = (
               h(
                 'a',
                 {
-                  href: globalPageUrl('definition', null, slugify(dt))(
-                    options.preview,
-                  ),
+                  href: globalPageUrl('definition', null, slugify(dt))(options),
                 },
                 dt,
               ),
@@ -287,7 +285,7 @@ exports.Lexicon = (
               exports.linkInternalDefinitions(
                 getDefinition(dt, definitions, true),
                 definitions,
-                globalPageUrl('definition')(options.preview),
+                globalPageUrl('definition')(options),
               ),
             ),
           ]),

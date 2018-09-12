@@ -95,11 +95,7 @@ const Home = ({ topics, options }) => {
                 'photos',
               ),
               ' volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation ',
-              h(
-                'a',
-                { href: globalPageUrl('definition')(options.preview) },
-                'lexique',
-              ),
+              h('a', { href: globalPageUrl('definition')(options) }, 'lexique'),
               ' ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
             ]),
           ]),
@@ -119,7 +115,7 @@ const Home = ({ topics, options }) => {
             h(
               'a.more',
               {
-                href: globalPageUrl('about', null, 'project')(options.preview),
+                href: globalPageUrl('about', null, 'project')(options),
               },
               'En savoir plus >',
             ),
@@ -127,7 +123,7 @@ const Home = ({ topics, options }) => {
           h('.col-sm-4..col-sm-pull-8.logo', [
             h('img', {
               alt: 'Sciences Po',
-              src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
+              src: prefixUrl('/assets/img/sciences-po.svg', options),
             }),
           ]),
         ]),
@@ -164,7 +160,7 @@ const Home = ({ topics, options }) => {
             ),
             h(
               'a.more',
-              { href: globalPageUrl('about', null, 'book')(options.preview) },
+              { href: globalPageUrl('about', null, 'book')(options) },
               'En savoir plus >',
             ),
             h('div', [

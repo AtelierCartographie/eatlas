@@ -38,7 +38,7 @@ const FooterUl = ({ links, options }) =>
   h(
     'ul',
     links.map((r, i) =>
-      h('li', { key: i }, [h('a', { href: r.url(options.preview) }, r.text)]),
+      h('li', { key: i }, [h('a', { href: r.url(options) }, r.text)]),
     ),
   )
 

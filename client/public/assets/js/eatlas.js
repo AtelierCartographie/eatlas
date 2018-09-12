@@ -11,7 +11,7 @@
   const goToSearch = evt => {
     if (evt.which !== 13) return // enter
     const $this = $(evt.currentTarget)
-    document.location = `${$this.data('search-page-url')}/?q=${$this.val()}`
+    document.location = `${$this.data('search-page-url')}?q=${$this.val()}`
   }
   // TODO merge all 3
   $('#TopMenuPanel-search input').on('keypress', goToSearch)

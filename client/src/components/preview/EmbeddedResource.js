@@ -16,11 +16,11 @@ const EmbeddedResource = ({ resource, options }) => {
 
   switch (resource.type) {
     case 'image':
-      return h('figure.container', [
-        h(Html, { component: 'h2.figure-title' }, resource.title),
+      return h('figure', [
+        h(Html, { component: 'h2.figure-title.container' }, resource.title),
         Picture.Responsive({ resource, options, mainSize: 'large' }),
         h(FigCaption, { content: resource.copyright }),
-        h('.ArticleResourceDownload', [infoLink]),
+        h('.ArticleResourceDownload.container', [infoLink]),
         h(ArticleResourceComment, { resource }),
       ])
 

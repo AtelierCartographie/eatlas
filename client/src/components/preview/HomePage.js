@@ -144,7 +144,7 @@ const Home = ({ topics, options }) => {
         ),
         h(
           'a.more',
-          { href: globalPageUrl('about', null, 'team')(options.preview) },
+          { href: globalPageUrl('about', null, 'team')(options) },
           'En savoir plus >',
         ),
       ]),

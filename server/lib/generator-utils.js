@@ -303,7 +303,7 @@ exports.getResource = async id => {
 
 // type Link = { url: string, title: string, info: string?, children: Link[] }
 // @return Link[]
-exports.getAllUrls = async ({ preview = false, apiUrl = config.apiUrl }) => {
+exports.getAllUrls = async options => {
   const topics = await exports.getTopics()
   // Urls tree
   const urls = []
@@ -314,9 +314,9 @@ exports.getAllUrls = async ({ preview = false, apiUrl = config.apiUrl }) => {
   ) => {
     const url = resource
       ? key === 'topic'
-        ? getTopicPageUrl(resource, { preview })
-        : getResourcePageUrl(resource, { preview })
-      : globalPageUrl(key, null, hash)(preview)
+        ? getTopicPageUrl(resource, options)
+        : getResourcePageUrl(resource, options)
+      : globalPageUrl(key, null, hash)(options)
     children = children.map(args => getPageDescription(...args))
     return { url, title, info, children }
   }
@@ -337,7 +337,7 @@ exports.getAllUrls = async ({ preview = false, apiUrl = config.apiUrl }) => {
   addPage('Mentions légales', 'legals')
   // Topics & resources
   for (const topic of topics) {
-    const resources = await exports.getTopicResources(topic, !preview)
+    const resources = await exports.getTopicResources(topic, !options.preview)
     const children = resources.map(r => [
       r.title,
       r.type,

@@ -13,11 +13,11 @@
     const $this = $(evt.currentTarget)
     document.location = `${$this.data('search-page-url')}?q=${$this.val()}`
   }
-  // TODO merge all 3
-  $('#TopMenuPanel-search input').on('keypress', goToSearch)
-  $('input.search-field').on('keypress', goToSearch)
+  // Search inputs
   $('form.navmenu-form').on('submit', evt => evt.preventDefault())
-  $('form.navmenu-form input').on('keypress', goToSearch)
+  $(
+    '#TopMenuPanel-search input, input.search-field, form.navmenu-form input',
+  ).on('keypress', goToSearch)
 
   // Read more arrow in Footnotes and embedded resources comment
   $('.read-more').on('click', function() {
@@ -89,15 +89,29 @@
         if (!$input.length) {
           return // No matching filter
         }
-        const values = searchParams.getAll(key)
+        let open = false // Open filters section if a filter is actually enabled
         if ($input.is(':checkbox, :radio')) {
-          const selector = values.map(valueSelector).join(',')
+          const selector = searchParams
+            .getAll(key)
+            .map(valueSelector)
+            .join(',')
           const $inputs = $input.filter(selector)
+          open = $inputs.length > 0
           $inputs.prop('checked', true)
         } else if ($input.is('select[multiple]')) {
-          $input.val(searchParams.getAll(key))
+          const values = searchParams.getAll(key)
+          $input.val(values)
+          open = values.length > 0
         } else {
-          $input.val(searchParams.get(key))
+          const value = searchParams.get(key)
+          $input.val(value)
+          open = !!value
+        }
+        if (open) {
+          $input
+            .closest('.search-filters-inputs')
+            .prev()
+            .attr('data-filters-hidden', '0')
         }
       })
       currPage = Number(searchParams.get('page')) || 1
@@ -233,6 +247,21 @@
         $(`.search-filter-a-z[data-letter="${letter}"]`).addClass('active')
       }
     }
+
+    // Wide-screen: filters container is always visible, fixed inside left margin
+    // Detect this without trusting client width, but filters' actual positioning
+    const repositionFiltersDropdown = () => {
+      const $dropdown = $('.SearchPage .search-filters.dropdown-menu')
+      const $content = $('.SearchPage .SearchResults')
+      const maxLeft = $content.offset().left - $dropdown.width()
+      // If margin is wide enough, position dropdown right beside the content
+      // Otherwise, css should have gone back to standard/mobile display
+      if (maxLeft > 0) {
+        $dropdown.css({ left: `${maxLeft}px` })
+      }
+    }
+    repositionFiltersDropdown()
+    $(window).on('resize', repositionFiltersDropdown) // also reposition on resize as it may change
   }
 
   // Shared code between search page and definitions list

@@ -1,4 +1,4 @@
-@import "var";
+@import 'var';
 $color-blue: #4778d1;
 
 .LexiconPage, // Styles shared with Lexicon page
@@ -65,7 +65,7 @@ $color-blue: #4778d1;
   }
 
   .SearchFiltersCount {
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
   }
 
   button {
@@ -115,54 +115,73 @@ $color-blue: #4778d1;
     position: absolute;
     left: 0;
     top: 68px;
+
+    .search-filters.dropdown-menu {
+      background-color: $color-footer;
+      width: 300px;
+    }
+
+    .search-filters-title {
+      color: $color-breadcrumb;
+      font-size: 1.7rem;
+      margin: 0;
+      padding: 4px;
+    }
+
+    .search-filters-toggle {
+      background-color: #ebedf1;
+      color: $color-breadcrumb;
+      font-size: 1.5rem;
+      margin: $gap 0;
+      padding: $gap;
+
+      &[data-filters-hidden='1'] {
+        .toggle-collapse {
+          display: none;
+        }
+        & + .search-filters-inputs {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+        }
+      }
+      &[data-filters-hidden='0'] {
+        .toggle-expand {
+          display: none;
+        }
+        & + .search-filters-inputs {
+          max-height: 500px;
+          overflow: hidden;
+          transition: max-height 0.2s ease-in;
+        }
+      }
+    }
+
+    .search-filters-inputs {
+      padding: 0 $gap;
+    }
+
+    // Mobile: search filters on right side
     @include breakpoint(mobile) {
       left: auto;
       right: 0;
+      .search-filters.dropdown-menu {
+        left: -230px;
+      }
     }
-  }
 
-  .search-filters {
-    background-color: $color-footer;
-  }
-
-  .search-filters-title {
-    color: $color-breadcrumb;
-    font-size: 1.7rem;
-    margin: 0;
-    padding: 4px;
-  }
-
-  .search-filters-toggle {
-    background-color: #ebedf1;
-    color: $color-breadcrumb;
-    font-size: 1.5rem;
-    margin: $gap 0;
-    padding: $gap;
-
-    &[data-filters-hidden="1"] {
-      .toggle-collapse {
+    // Wide screen: search filters follow scroll and positioned left in the margin
+    @media (min-width: 1300px) {
+      .dropdown-toggle {
         display: none;
       }
-      & + .search-filters-inputs {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
+      .search-filters.dropdown-menu {
+        display: block;
+        position: fixed;
+        top: 130px;
+        left: 0;
       }
     }
-    &[data-filters-hidden="0"] {
-      .toggle-expand {
-        display: none;
-      }
-      & + .search-filters-inputs {
-        max-height: 500px;
-        overflow: hidden;
-        transition: max-height 0.2s ease-in;
-      }
-    }
-  }
-
-  .search-filters-inputs {
-    padding: 0 $gap;
   }
 
   .SearchResults {
@@ -174,18 +193,22 @@ $color-blue: #4778d1;
       display: none;
     }
 
-    &[data-status="success"] .search-results-success {
+    &[data-status='success'] .search-results-success {
       display: initial;
 
       .search-page.container {
         padding-left: 128px;
+        // Mobile & wide-screen: search filters are not on left of pagination, put it left
         @include breakpoint(mobile) {
+          padding-left: 12px;
+        }
+        @media (min-width: 1300px) {
           padding-left: 12px;
         }
       }
     }
 
-    &[data-status="error"] .search-results-error {
+    &[data-status='error'] .search-results-error {
       display: initial;
     }
 
@@ -253,7 +276,7 @@ $color-blue: #4778d1;
       position: relative;
       transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
       &:before {
-        content: "";
+        content: '';
         width: 100%;
         height: 100%;
         position: absolute;

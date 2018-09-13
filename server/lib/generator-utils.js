@@ -261,7 +261,10 @@ exports.getTopicResources = async (topic, excludeUnpublished = false) => {
   if (excludeUnpublished) {
     filter = { bool: { must: [filter, { term: { status: 'published' } }] } }
   }
-  return Resources.list({ query: { constant_score: { filter } } })
+  return Resources.list({
+    query: { constant_score: { filter } },
+    sort: [{ id: 'asc' }],
+  })
 }
 
 exports.getArticleResources = async (article, excludeUnpublished = false) => {

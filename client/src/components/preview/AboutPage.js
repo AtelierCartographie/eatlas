@@ -157,7 +157,7 @@ const Team = ({ options }) => {
       firstname: 'Thomas',
       lastname: 'Ansart',
       title: 'cartographie, data visualisation, R',
-      bio: '',
+      bio: `Entrée par la cartographie à Sciences Po en 2008, Thomas Ansart jongle depuis entre les créations de data visualisations, la conception d'outils, le design de site web et le suivi de projets. Avec un soupcon de lignes de code toujours plus important.`
       pageURL: 'https://thomasansart.com/',
       page: 'https://thomasansart.com/',
       socialURL: 'https://twitter.com/ThomasAnsart',
@@ -177,7 +177,7 @@ const Team = ({ options }) => {
       firstname: 'Patrice',
       lastname: 'Mitrano',
       title: 'Géographe-cartographe',
-      bio: `Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement "viz". Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012. (318)`,
+      bio: `Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement "viz". Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012.`,
       pageURL: 'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
       page: 'Atelier de cartographie',
       socialURL: 'https://twitter.com/MitranoP',
@@ -197,7 +197,7 @@ const Team = ({ options }) => {
       firstname: 'Antoine',
       lastname: 'Rio',
       title: 'Géographe-cartographe',
-      bio: '',
+      bio: `Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014.`
       pageURL: '',
       page: '',
       socialURL: 'https://twitter.com/antoinerio',

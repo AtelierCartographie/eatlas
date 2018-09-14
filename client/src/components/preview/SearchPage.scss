@@ -117,7 +117,6 @@ $color-blue: #4778d1;
     top: 68px;
 
     .search-filters.dropdown-menu {
-      background-color: $color-footer;
       width: 300px;
     }
 
@@ -129,7 +128,7 @@ $color-blue: #4778d1;
     }
 
     .search-filters-toggle {
-      background-color: #ebedf1;
+      background-color: #f8f8f8;
       color: $color-breadcrumb;
       font-size: 1.5rem;
       margin: $gap 0;
@@ -178,8 +177,10 @@ $color-blue: #4778d1;
       .search-filters.dropdown-menu {
         display: block;
         position: fixed;
-        top: 130px;
+        top: 180px;
         left: 0;
+        border: none;
+        box-shadow: none;
       }
     }
   }

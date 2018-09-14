@@ -278,8 +278,13 @@ exports.getArticleResources = async (article, excludeUnpublished = false) => {
   return Resources.list({ query: { constant_score: { filter } } })
 }
 
-const getTypeResources = async type =>
-  Resources.list({ query: { term: { type } } })
+const getTypeResources = async (type, sort = null) => {
+  const body = { query: { term: { type } } }
+  if (sort) {
+    body.sort = sort
+  }
+  return await Resources.list(body)
+}
 
 exports.getDefinitions = async () => {
   const lexicons = await getTypeResources('definition')
@@ -290,7 +295,7 @@ exports.getDefinitions = async () => {
 }
 
 exports.getArticles = async () =>
-  (await getTypeResources('article')).sort((a, b) => a.id > b.id)
+  await getTypeResources('article', { id: 'asc' })
 
 exports.getTopics = async () =>
   (await Topics.list()).sort((a, b) => a.id > b.id)

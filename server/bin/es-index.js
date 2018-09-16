@@ -15,7 +15,6 @@ const listIndices = async () => {
 
 const getAlias = async index => {
   const aliases = await client.indices.getAlias({ index })
-  console.log('getAlias', { aliases })
   return Object.keys(aliases)[0]
 }
 

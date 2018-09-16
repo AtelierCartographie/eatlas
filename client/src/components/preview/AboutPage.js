@@ -26,17 +26,18 @@ const TeamMemberModal = ({ member, options }) => {
       h('.modal-dialog.modal-lg', { role: 'document' }, [
         h('.modal-content', {}, [
           // TODO styling on top right without padding
-          false && h('.modal-header', [
-            h(
-              'button.close',
-              {
-                type: 'button',
-                'data-dismiss': 'modal',
-                'aria-label': 'Close',
-              },
-              [h('span', { 'aria-hidden': true }, '×')],
-            ),
-          ]),
+          false &&
+            h('.modal-header', [
+              h(
+                'button.close',
+                {
+                  type: 'button',
+                  'data-dismiss': 'modal',
+                  'aria-label': 'Close',
+                },
+                [h('span', { 'aria-hidden': true }, '×')],
+              ),
+            ]),
           h('.modal-body', [
             h('.row.vcenter', [
               h('.col-md-4', [
@@ -157,7 +158,7 @@ const Team = ({ options }) => {
       firstname: 'Thomas',
       lastname: 'Ansart',
       title: 'cartographie, data visualisation, R',
-      bio: `Entrée par la cartographie à Sciences Po en 2008, Thomas Ansart jongle depuis entre les créations de data visualisations, la conception d'outils, le design de site web et le suivi de projets. Avec un soupcon de lignes de code toujours plus important.`
+      bio: `Entrée par la cartographie à Sciences Po en 2008, Thomas Ansart jongle depuis entre les créations de data visualisations, la conception d'outils, le design de site web et le suivi de projets. Avec un soupcon de lignes de code toujours plus important.`,
       pageURL: 'https://thomasansart.com/',
       page: 'https://thomasansart.com/',
       socialURL: 'https://twitter.com/ThomasAnsart',
@@ -168,7 +169,8 @@ const Team = ({ options }) => {
       lastname: 'Martin',
       title: 'Géographe-cartographe et doctorant en science politique',
       bio: `Cartographe à Sciences Po depuis 2006, ses recherches portent sur la production des statistiques internationales – sa thèse de Doctorat explore le cas de l’UNODC, sur la drogue et le crime – et notamment les enjeux politiques qui entourent les activités d’expertise des organisations internationales.`,
-      pageURL: 'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
+      pageURL:
+        'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
       page: 'Atelier de cartographie',
       socialURL: '',
       social: '',
@@ -178,7 +180,8 @@ const Team = ({ options }) => {
       lastname: 'Mitrano',
       title: 'Géographe-cartographe',
       bio: `Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement "viz". Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012.`,
-      pageURL: 'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
+      pageURL:
+        'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
       page: 'Atelier de cartographie',
       socialURL: 'https://twitter.com/MitranoP',
       social: '@MitranoP',
@@ -197,7 +200,7 @@ const Team = ({ options }) => {
       firstname: 'Antoine',
       lastname: 'Rio',
       title: 'Géographe-cartographe',
-      bio: `Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014.`
+      bio: `Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014.`,
       pageURL: '',
       page: '',
       socialURL: 'https://twitter.com/antoinerio',
@@ -209,11 +212,23 @@ const Team = ({ options }) => {
     h('.container', [
       h('h2', "L'équipe"),
       h('h3', 'Les textes'),
-      h('ul', authors.map((member, key) => h(TeamMember, { key, member, options }))),
+      h(
+        'ul',
+        authors.map((member, key) => h(TeamMember, { key, member, options })),
+      ),
       h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
-      h('ul', cartographers.map((member, key) => h(TeamMember, { key, member, options }))),
-      authors.map((member, key) => h(TeamMemberModal, { key, member, options })),
-      cartographers.map((member, key) => h(TeamMemberModal, { key, member, options })),
+      h(
+        'ul',
+        cartographers.map((member, key) =>
+          h(TeamMember, { key, member, options }),
+        ),
+      ),
+      authors.map((member, key) =>
+        h(TeamMemberModal, { key, member, options }),
+      ),
+      cartographers.map((member, key) =>
+        h(TeamMemberModal, { key, member, options }),
+      ),
     ]),
   ])
 }
@@ -262,7 +277,11 @@ const About = ({ options }) => {
           h('.col-sm-4', [
             h(
               'a.button.btn',
-              { href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2', target: '_blank', role: 'button' },
+              {
+                href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2',
+                target: '_blank',
+                role: 'button',
+              },
               'Nous contacter',
             ),
           ]),
@@ -280,7 +299,12 @@ const About = ({ options }) => {
             ),
             h(
               'a.button.btn',
-              { href: 'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530', target: '_blank', role: 'button' },
+              {
+                href:
+                  'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530',
+                target: '_blank',
+                role: 'button',
+              },
               'Acheter le livre',
             ),
           ]),
@@ -296,15 +320,17 @@ const About = ({ options }) => {
   ])
 }
 
-const AboutPage = ({
-  topics,
-  articles,
-  options,
-} /*: {
+const AboutPage = (
+  {
+    topics,
+    articles,
+    options,
+  } /*: {
   topics: Topic[],
   articles: Resource[],
   options: FrontOptions,
-} */) =>
+} */,
+) =>
   h('html', { lang: 'fr' }, [
     h(Head, { title: 'À propos', options }),
     h(Body, { topics, options, logoColor: 'white' }, [

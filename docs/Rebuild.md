@@ -1,13 +1,13 @@
 # e-Atlas ‑ documentation technique
 
-Note : voir [la configuration](./Configuration.md) et [l'architecture](./Architecture.md) pour complément d'information.
+Note : voir [la configuration](./Configuration.md#configuration) et [l'architecture](./Architecture.md#architecture-technique) pour complément d'information.
 
 ## Régénération du site
 
 La régénération du site _front_ consiste en :
 
 - La compilation des assets _front_ (aujourd'hui ça consiste uniquement en la transpilation de `client/public/assets/js/eatlas.js` en `client/public/assets/js/eatlas.es5.js` qui sera inclus dans le HTML du _front_)
-- La génération de toutes les pages HTML (voire [l'option `pageUrls`](./Configuration.md)) :
+- La génération de toutes les pages HTML (voire [l'option `pageUrls`](./Configuration.md#configuration)) :
   - Les pages "fixes" : la _home_, la recherche, la page "à propos", mentions légales, etc…
   - La page lexique complet
   - Une page par article, focus, carte, son, vidéo…

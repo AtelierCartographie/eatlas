@@ -2,7 +2,7 @@
 
 ## Configuration
 
-Note : La compréhension de [l'architecture technique du projet](./Architecture.md) peut être utile pour distinguer front/back.
+Note : La compréhension de [l'architecture technique du projet](./Architecture.md#architecture-technique) peut être utile pour distinguer front/back.
 
 ### Node (backoffice et api)
 
@@ -231,7 +231,7 @@ Pour prendre en compte une modification de la configuration, le serveur doit êt
 
 ### Front (build du site)
 
-La configuration dite "front" consiste en la configuration de la tâche de _build_ (utilisant webpack) générant les pages du site statique (voir [Régénération du site](./Rebuild.md)). Utilisant `create-react-app` la configuration ne peut être effectuée que par variables d'environnements :
+La configuration dite "front" consiste en la configuration de la tâche de _build_ (utilisant webpack) générant les pages du site statique (voir [Régénération du site](./Rebuild.md#régénération-du-site)régénération-du-site)). Utilisant `create-react-app` la configuration ne peut être effectuée que par variables d'environnements :
 
 - `REACT_APP_MOCK_API` : si `yes` alors le serveur d'API ne sera pas utilisé et les requêtes seront simulés à la place
 - Les URLs (définies par le [serveur web proxy](./Architecture.md#architecture-réseau))

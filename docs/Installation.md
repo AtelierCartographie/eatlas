@@ -2,7 +2,7 @@
 
 ## Installation
 
-Note : La compréhension de [l'architecture technique du projet](./Architecture.md) peut être utile pour appréhender le fonctionnement général.
+Note : La compréhension de [l'architecture technique du projet](./Architecture.md#architecture-technique) peut être utile pour appréhender le fonctionnement général.
 
 ### Code
 
@@ -17,7 +17,7 @@ cd eatlas
 
 Pour préparer un poste de développement, l'application doit tourner en local. Le plus simple est d'utiliser l'image Docker :
 
-1. Éventuellement [configurer le projet](./Configuration.md) pour les contraintes locales (port, url, chemins…)
+1. Éventuellement [configurer le projet](./Configuration.md#configuration) pour les contraintes locales (port, url, chemins…)
 2. Installer les dépendances requises manquantes :
    - [`yarn`](https://yarnpkg.com/en/docs/install)
    - [`docker`](https://docs.docker.com/install/)
@@ -47,7 +47,7 @@ Des images sont construites directements via le Docker Hub lors d'un évènement
 - Client: https://hub.docker.com/r/sciencespo/eatlas-frontend/
 - API: https://hub.docker.com/r/sciencespo/eatlas-backend/
 
-1. [Configurer l'application](./Configuration.md)
+1. [Configurer l'application](./Configuration.md#configuration)
 2. Installer les dépendances requises manquantes :
    - [`yarn`](https://yarnpkg.com/en/docs/install)
    - [`docker`](https://docs.docker.com/install/)

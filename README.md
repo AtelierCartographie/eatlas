@@ -9,7 +9,7 @@
 
 ## Documentation
 
-Pour l'installation, la configuration et l'utilisation, voir [la documentation principale](./docs/README.md)
+Pour l'installation, la configuration et l'utilisation, voir [la documentation principale](./docs/README.md#e-atlas-documentation-technique)
 
 ### Participants
 

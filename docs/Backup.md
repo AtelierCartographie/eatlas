@@ -7,9 +7,9 @@ Les éléments à sauvegarder sont les suivants :
 - Les données dans Elastic Search
   - La technique recommandée repose sur [les snapshots](https://www.elastic.co/guide/en/elasticsearch/guide/current/backing-up-your-cluster.html)
 - Les fichiers uploadés dans le dossier d'upload
-  - Voir l'option de [configuration](./Configuration.md) `uploadPath`
+  - Voir l'option de [configuration](./Configuration.md#configuration) `uploadPath`
 - Éventuellement le site généré pour une restauration plus rapide
-  - Voir l'option de [configuration](./Configuration.md) `publicPath`
+  - Voir l'option de [configuration](./Configuration.md#configuration) `publicPath`
 
 Note : à la date actuelle, Redis ne contient que des informations volatiles (les sessions utilisateur du backoffice) et sa sauvegarde a un faible intérêt.
 

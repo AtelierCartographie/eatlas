@@ -27,13 +27,13 @@ On peut dénombrer 3 "lots" d'URLs servies par le serveur web :
 
 ### Choix de conception : stockage des données
 
-Afin de ne pas avoir à mettre en place une indexation et un stockage séparés, nous avons décidé de stocker l'ensemble dans Elastic Search. Ce choix implique la prudence car il a été expérimenté (douloureusement) que l'aspect non _schemaless_ d'Elastic Search impose des manipulation d'index lors des modification de la structure de données qui peuvent mener à la perte de données : [Les sauvegardes sont importantes](./Backup.md) et il est conseillé de désactiver la migration automatique (cf. [option `es.autoMigration`](./Configuration.md)) après le premier démarrage.
+Afin de ne pas avoir à mettre en place une indexation et un stockage séparés, nous avons décidé de stocker l'ensemble dans Elastic Search. Ce choix implique la prudence car il a été expérimenté (douloureusement) que l'aspect non _schemaless_ d'Elastic Search impose des manipulation d'index lors des modification de la structure de données qui peuvent mener à la perte de données : [Les sauvegardes sont importantes](./Backup.md#sauvegarde) et il est conseillé de désactiver la migration automatique (cf. [option `es.autoMigration`](./Configuration.md#configuration)) après le premier démarrage.
 
-Les [données](./Data.md) sont distribuées sur 3 indices :
+Les [données](./Data.md#structure-des-données) sont distribuées sur 3 indices :
 
-- `eatlas_user` (cf. [option `es.indices.user`](./Configuration.md))
-- `eatlas_resource` (cf. [option `es.indices.resource`](./Configuration.md))
-- `eatlas_topic` (cf. [option `es.indices.topic`](./Configuration.md))
+- `eatlas_user` (cf. [option `es.indices.user`](./Configuration.md#configuration))
+- `eatlas_resource` (cf. [option `es.indices.resource`](./Configuration.md#configuration))
+- `eatlas_topic` (cf. [option `es.indices.topic`](./Configuration.md#configuration))
 
 #### Mapping, alias, et migration automatique
 
@@ -108,5 +108,5 @@ Liste des fichiers concernés :
 
 - Tout le dossier `client/src/components/preview`
 - Les bibliothèques "communes" (chargée par le front et le serveur)
-  - `client/src/universal-utils.js` : on y trouvera pêle-mêle de la configuration ([car le front ne peut accéder directement à la config serveur](./Configuration.md)) et des APIs de parcours des données
+  - `client/src/universal-utils.js` : on y trouvera pêle-mêle de la configuration ([car le front ne peut accéder directement à la config serveur](./Configuration.md#configuration)) et des APIs de parcours des données
   - `client/src/components/preview/layout.js` : contient de la logique purement front jusqu'à récemment où le serveur la charge pour sa fonction `globalePageUrl` (il pourrait être intéressant à terme de supprimer ce module pour le fusionner avec `universal-utils`)

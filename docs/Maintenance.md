@@ -24,7 +24,7 @@ docker exec eatlas_node node ./bin/add-user "prenom.nom@mail.fr" "Prénom NOM" a
 
 On peut soit passer par l'API Elastic Search :
 
-- Les index sont définis dans [la configuration](./Configuration.md)
+- Les index sont définis dans [la configuration](./Configuration.md#configuration)
 - Ces index sont chacun un alias vers l'index réel suffixé par un timestamp
 
 On peut également attaquer les données via l'API Node à l'aide d'une application dédiée :
@@ -33,7 +33,7 @@ On peut également attaquer les données via l'API Node à l'aide d'une applicat
 yarn model-repl
 ```
 
-On entre dans un _REPL_ Node personnalisé simplifiant l'utilisation des méthodes d'accès au modèle, par exemple si on souhaite forcer le status "publié" d'un article (il suffira de [régénérer le site ensuite](./Rebuild.md)) :
+On entre dans un _REPL_ Node personnalisé simplifiant l'utilisation des méthodes d'accès au modèle, par exemple si on souhaite forcer le status "publié" d'un article (il suffira de [régénérer le site ensuite](./Rebuild.md#régénération-du-site)) :
 
 ```
 eatlas-model > Resources.findBy('4A07')

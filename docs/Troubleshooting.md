@@ -1,6 +1,6 @@
 # e-Atlas ‑ documentation technique
 
-## Troubleshooting
+## Résolution des problèmes
 
 ### Erreur de connexion “_Not a valid origin for the client […]_”
 
@@ -19,7 +19,7 @@ Il manque sûrement [l'utilisateur initial](./Installation.md#création-du-premi
 
 Utiliser [le script `es-index`](./Maintenance.md#manipuler-les-indices-elastic-search) pour analyser les index et éventuellement remplacer l'alias courant pour rebasculer sur une ancienne version de l'index.
 
-Sinon le plus direct et efficace est généralement la restauration d'une [sauvegarde](./Backup.md).
+Sinon le plus direct et efficace est généralement la restauration d'une [sauvegarde](./Backup.md#sauvegarde).
 
 ### La génération du site échoue, les HTML ne sont pas bien à jour…
 

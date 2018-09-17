@@ -22,10 +22,10 @@ const Body = require('./Body')
 const Home = ({ topics, options }) => {
   return h('article.HomePage', [
     h('.HomeVideo', {}, [
-      h('video', { autoPlay: true, muted: true, loop: true }, [
+      h('video', { autoPlay: true, muted: true, loop: true, poster: prefixUrl('/assets/viz-home-bg-poster.jpg', options.preview) }, [
         h('source', {
           type: 'video/mp4',
-          src: prefixUrl('/assets/viz-home-bg-1080p.mp4', options.preview),
+          src: prefixUrl('/assets/viz-home-bg-720p.mp4', options.preview),
         }),
       ]),
     ]),

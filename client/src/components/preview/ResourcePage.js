@@ -178,6 +178,7 @@ const Resource = ({ resource, topics, options }) => {
         h(ResourceMap, { resource, options }),
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceDescription, { resource }),
         h(ResourceImageDownload, { resource, options }),
         h(ArticleSeeAlso, {
           article: resource,
@@ -193,6 +194,7 @@ const Resource = ({ resource, topics, options }) => {
         h(ResourceImage, { resource, options }),
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceDescription, { resource }),
         h(ResourceImageDownload, { resource, options }),
         h(ArticleSeeAlso, {
           article: resource,
@@ -207,6 +209,7 @@ const Resource = ({ resource, topics, options }) => {
       children = [
         h(ResourceSound, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceDescription, { resource }),
         h(ResourceTranscript, { resource }),
       ]
       break
@@ -215,6 +218,7 @@ const Resource = ({ resource, topics, options }) => {
       children = [
         h(ResourceVideo, { resource, options }),
         h(ResourceCopyright, { resource, options }),
+        h(ResourceDescription, { resource }),
         h(ResourceTranscript, { resource }),
       ]
       break

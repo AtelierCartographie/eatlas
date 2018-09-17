@@ -21,5 +21,12 @@
 
   .figure-title {
     font-weight: normal;
+    font-size: 2.1rem;
+    line-height: 2.8rem;
+
+    @include breakpoint(desktop) {
+      font-size: 2.4rem;
+      line-height: 3.2rem;
+    }
   }
 }

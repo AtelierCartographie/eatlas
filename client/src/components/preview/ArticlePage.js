@@ -33,16 +33,39 @@ const Html = require('./Html')
 
 const ArticleHeader = ({ article, resources, options }) => {
   const imageHeader = resources.find(r => r.id === article.imageHeader)
-  const imageHeaderUrl =
+  const imageHeaderUrlL =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
+  const imageHeaderUrlM =
+      imageHeader && getImageUrl(imageHeader, 'medium', '1x', options)
+  const imageHeaderUrlS =
+      imageHeader && getImageUrl(imageHeader, 'small', '1x', options)
 
-  const style = imageHeaderUrl
-    ? {
-        backgroundImage: `url(${imageHeaderUrl})`,
+  return h('header.ArticleHeader', [
+    h(
+      Html,
+      { component: 'script' },
+      `
+      function mediaSize() {
+        var el = document.getElementsByClassName("ArticleHeader")[0];
+        switch (true) {
+          case window.matchMedia('(min-width: 700px)').matches:
+            el.style.backgroundImage = 'url(${imageHeaderUrlL})';
+
+            break;
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px)').matches:
+            el.style.backgroundImage = 'url(${imageHeaderUrlM})';
+
+            break;
+          case window.matchMedia('(max-width: 560px)').matches:
+            el.style.backgroundImage = 'url(${imageHeaderUrlS})';
+
+            break;
+        }
       }
-    : {}
-
-  return h('header.ArticleHeader', { style }, [
+      window.addEventListener('resize', mediaSize, false);
+      document.addEventListener('DOMContentLoaded', mediaSize);
+      `,
+    ),
     h(
       '.container.ArticleHeaderInfo',
       { className: `title-position-${article.titlePosition}` },
@@ -251,7 +274,7 @@ const ArticlePrevNext = ({ prevNext: { prev, next }, options }) => {
     // horrible pattern? yes? no? who knows?
     h(
       Html,
-      { component: 'script', whitelist: 'all' },
+      { component: 'script' },
       `
 window.addEventListener('DOMContentLoaded', () => {
   if (!window.IntersectionObserver) return

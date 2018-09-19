@@ -33,31 +33,101 @@ const Html = require('./Html')
 
 const ArticleHeader = ({ article, resources, options }) => {
   const imageHeader = resources.find(r => r.id === article.imageHeader)
-  const imageHeaderUrlL =
+  const imageHeaderUrlL1 =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
-  const imageHeaderUrlM =
+  const imageHeaderUrlL2 =
+    imageHeader && getImageUrl(imageHeader, 'large', '2x', options)
+  const imageHeaderUrlL3 =
+    imageHeader && getImageUrl(imageHeader, 'large', '3x', options)
+  const imageHeaderUrlM1 =
       imageHeader && getImageUrl(imageHeader, 'medium', '1x', options)
-  const imageHeaderUrlS =
+  const imageHeaderUrlM2 =
+      imageHeader && getImageUrl(imageHeader, 'medium', '2x', options)
+  const imageHeaderUrlM3 =
+      imageHeader && getImageUrl(imageHeader, 'medium', '3x', options)
+  const imageHeaderUrlS1 =
       imageHeader && getImageUrl(imageHeader, 'small', '1x', options)
+  const imageHeaderUrlS2 =
+      imageHeader && getImageUrl(imageHeader, 'small', '2x', options)
+  const imageHeaderUrlS3 =
+      imageHeader && getImageUrl(imageHeader, 'small', '3x', options)
 
-  return h('header.ArticleHeader', [
+  const style = imageHeaderUrlS1
+      ? {
+          backgroundImage: `url(${imageHeaderUrlS1})`,
+        }
+      : {}
+
+  return h('header.ArticleHeader', { style }, [
     h(
       Html,
       { component: 'script' },
       `
       function mediaSize() {
+        var bgImg = new Image();
         var el = document.getElementsByClassName("ArticleHeader")[0];
         switch (true) {
-          case window.matchMedia('(min-width: 700px)').matches:
-            el.style.backgroundImage = 'url(${imageHeaderUrlL})';
+          case window.matchMedia('(min-width: 700px) and (min-resolution: 3dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlL3})';
+            };
+            bgImg.src = '${imageHeaderUrlL3}';
 
             break;
-          case window.matchMedia('(min-width: 560px) and (max-width: 700px)').matches:
-            el.style.backgroundImage = 'url(${imageHeaderUrlM})';
+          case window.matchMedia('(min-width: 700px) and (min-resolution: 2dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlL2})';
+            };
+            bgImg.src = '${imageHeaderUrlL2}';
 
             break;
-          case window.matchMedia('(max-width: 560px)').matches:
-            el.style.backgroundImage = 'url(${imageHeaderUrlS})';
+          case window.matchMedia('(min-width: 700px) and (min-resolution: 1dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlL1})';
+            };
+            bgImg.src = '${imageHeaderUrlL1}';
+
+            break;
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 3dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlM3})';
+            };
+            bgImg.src = '${imageHeaderUrlM3}';
+
+            break;
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 2dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlM2})';
+            };
+            bgImg.src = '${imageHeaderUrlM2}';
+
+            break;
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 1dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlM1})';
+            };
+            bgImg.src = '${imageHeaderUrlM1}';
+
+            break;
+          case window.matchMedia('(max-width: 560px) and (min-resolution: 3dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlS3})';
+            };
+            bgImg.src = '${imageHeaderUrlS3}';
+
+            break;
+          case window.matchMedia('(max-width: 560px) and (min-resolution: 2dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlS2})';
+            };
+            bgImg.src = '${imageHeaderUrlS2}';
+
+            break;
+          case window.matchMedia('(max-width: 560px) and (min-resolution: 1dppx)').matches:
+            bgImg.onload = function(){
+              el.style.backgroundImage = 'url(${imageHeaderUrlS1})';
+            };
+            bgImg.src = '${imageHeaderUrlS1}';
 
             break;
         }

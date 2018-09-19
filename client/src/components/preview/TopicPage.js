@@ -82,7 +82,10 @@ const TopicHeader = ({ topic, resources, options }) => {
 }
 
 const TopicDescriptions = ({ topic }) =>
-  h('section.container.Summaries', [
+  !topic.description_fr && !topic.description_en
+  ? null
+  : h(
+    'section.container.Summaries', [
     // pills
     !topic.description_en
       ? null

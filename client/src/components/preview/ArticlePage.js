@@ -58,18 +58,19 @@ const ArticleHeader = ({ article, resources, options }) => {
         }
       : {}
 
-  return h('header.ArticleHeader', { style }, [
+  return h('header.ArticleHeader', [
     h(
       Html,
       { component: 'script' },
       `
       function mediaSize() {
         var bgImg = new Image();
-        var el = document.getElementsByClassName("ArticleHeader")[0];
+        var el = document.getElementsByClassName("ImageHeader")[0];
         switch (true) {
           case window.matchMedia('(min-width: 700px) and (min-resolution: 3dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlL3})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlL3}';
 
@@ -77,6 +78,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(min-width: 700px) and (min-resolution: 2dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlL2})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlL2}';
 
@@ -84,6 +86,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(min-width: 700px) and (min-resolution: 1dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlL1})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlL1}';
 
@@ -91,6 +94,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 3dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlM3})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlM3}';
 
@@ -98,6 +102,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 2dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlM2})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlM2}';
 
@@ -105,6 +110,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 1dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlM1})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlM1}';
 
@@ -112,6 +118,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(max-width: 560px) and (min-resolution: 3dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlS3})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlS3}';
 
@@ -119,6 +126,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(max-width: 560px) and (min-resolution: 2dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlS2})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlS2}';
 
@@ -126,6 +134,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           case window.matchMedia('(max-width: 560px) and (min-resolution: 1dppx)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlS1})';
+              el.style.filter = 'none';
             };
             bgImg.src = '${imageHeaderUrlS1}';
 
@@ -136,6 +145,7 @@ const ArticleHeader = ({ article, resources, options }) => {
       document.addEventListener('DOMContentLoaded', mediaSize);
       `,
     ),
+    h('.ImageHeader', { style }),
     h(
       '.container.ArticleHeaderInfo',
       { className: `title-position-${article.titlePosition}` },

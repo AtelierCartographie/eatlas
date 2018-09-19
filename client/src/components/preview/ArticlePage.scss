@@ -2,20 +2,35 @@
 
 .ArticlePage {
   .ArticleHeader {
-    background-color: $color-breadcrumb;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-size: cover;
+    // background-color: $color-breadcrumb;
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: 100%;
+    // background-size: cover;
     color: $color-white;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     position: relative;
     text-align: center;
+    z-index: 0;
 
     h1 {
       margin: 0;
+    }
+    .ImageHeader {
+      background-color: $color-breadcrumb;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-size: cover;
+      min-height: 100vh;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      filter: blur(25px);
+      transition: filter 0.2s linear;
     }
 
     // .title-position-center

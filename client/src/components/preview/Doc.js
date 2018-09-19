@@ -131,7 +131,7 @@ exports.Keywords = (
 
 exports.Quote = ({ doc } /*: { doc: Resource } */) => {
   // TODO conf?
-  const publication = 'Atlas de la mondialisation'
+  const publication = `Espace mondial l'Atlas`
   const year = new Date(
     doc.visiblePublishedAt || doc.publishedAt || Date.now(),
   ).getFullYear()

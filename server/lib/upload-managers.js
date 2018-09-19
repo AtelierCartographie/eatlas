@@ -7,7 +7,7 @@ const { parseArticle, parseLexicon } = require('./doc-parsers')
 const getConf = require('./dynamic-config-variable')
 const { saveAs } = require('./public-fs')
 
-const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x)$/ // only one density
+const RE_IMAGE_UPLOAD_KEY = /^image-(small|medium|large)-(1x|2x|3x)$/
 const RE_MAP_UPLOAD_KEY = /^map-(small|medium|large)-(1x|2x|3x)$/
 
 exports.article = {

@@ -693,7 +693,7 @@ class ResourceForm extends Component<Props, State> {
             this.getResponsiveImageField(
               resource,
               ['small', 'medium', 'large'],
-              ['1x'],
+              ['1x', '2x', '3x'],
             ),
           ],
           {

@@ -41,12 +41,12 @@ const Content = ({ definitions, options }) => {
         definitions.map(({ dt, dd, aliases, lexicon }) =>
           h('.row.search-result', { key: dt, id: slugify(dt) }, [
             h('.search-result-text.col-sm-12', [
-              h('strong.search-result-title', {}, [
+              h('.search-result-title', {}, [
                 h('a.definition-anchor', { name: firstLetterId(dt) }, ''),
                 dt,
               ]),
-              (aliases && aliases.length) ? h('em.search-result-aliases', aliases.join(', ')) : null,
-              h('em.search-result-definition', linkInternalDefinitions({ dd, lexicon }, definitions)),
+              (aliases && aliases.length) ? h('.search-result-aliases', aliases.join(', ')) : null,
+              h('.search-result-definition', linkInternalDefinitions({ dd, lexicon }, definitions)),
             ]),
           ])
         ),

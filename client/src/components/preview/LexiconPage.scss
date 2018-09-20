@@ -27,8 +27,36 @@
           }
         }
       }
+      .search-result-title {
+        font-weight: bold;
+        font-size: 1.31rem;
+        line-height: 1.5rem;
+
+        @include breakpoint(desktop) {
+          font-size: 1.5rem;
+          line-height: 2rem;
+        }
+      }
+      .search-result-aliases {
+        font-size: 1.1rem;
+        line-height: 2rem;
+
+        @include breakpoint(desktop) {
+          font-size: 1.3rem;
+          line-height: 2rem;
+        }
+      }
       .search-result-definition {
         display: block;
+        font-family: $serif;
+        font-size: 1.45rem;
+        line-height: 2.2rem;
+        margin: $gap;
+
+        @include breakpoint(desktop) {
+          font-size: 1.7rem;
+          line-height: 2.6rem;
+        }
       }
     }
   }

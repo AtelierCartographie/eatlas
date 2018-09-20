@@ -235,6 +235,10 @@ $color-blue: #4778d1;
         color: $color-breadcrumb;
         font-weight: bold;
         text-decoration: none;
+
+        @include breakpoint(desktop) {
+          font-size: 1.2rem;
+        }
       }
 
       .search-result-text {
@@ -243,16 +247,27 @@ $color-blue: #4778d1;
         padding: 0;
         .search-result-title {
           font-weight: bold;
-          font-size: 1.5rem;
+          font-size: 1.31rem;
+          line-height: 1.5rem;
+
+          @include breakpoint(desktop) {
+            font-size: 1.5rem;
+            line-height: 2rem;
+          }
         }
         .search-result-subtitle {
           font-weight: lighter;
           font-size: 1rem;
         }
         .search-result-aliases {
-          padding-left: 1rem;
-          font-size: 1rem;
+          font-size: 1.1rem;
+          line-height: 2rem;
           color: $color-breadcrumb;
+
+          @include breakpoint(desktop) {
+            font-size: 1.3rem;
+            line-height: 2rem;
+          }
         }
       }
 
@@ -276,6 +291,15 @@ $color-blue: #4778d1;
       overflow: hidden;
       position: relative;
       transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+      font-family: $serif;
+      font-size: 1.45rem;
+      line-height: 2.2rem;
+      margin: $gap;
+
+      @include breakpoint(desktop) {
+        font-size: 1.7rem;
+        line-height: 2.6rem;
+      }
       &:before {
         content: '';
         width: 100%;

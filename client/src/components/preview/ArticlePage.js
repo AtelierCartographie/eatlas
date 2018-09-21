@@ -67,7 +67,7 @@ const ArticleHeader = ({ article, resources, options }) => {
         var bgImg = new Image();
         var el = document.getElementsByClassName("ImageHeader")[0];
         switch (true) {
-          case window.matchMedia('(min-width: 700px) and (min-resolution: 3dppx)').matches:
+          case window.matchMedia('(min-width: 700px) and (min-resolution: 3dppx), (min-width: 700px) and (-webkit-min-device-pixel-ratio: 3)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlL3})';
               el.style.filter = 'none';
@@ -75,7 +75,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlL3}';
 
             break;
-          case window.matchMedia('(min-width: 700px) and (min-resolution: 2dppx)').matches:
+          case window.matchMedia('(min-width: 700px) and (min-resolution: 2dppx), (min-width: 700px) and (-webkit-min-device-pixel-ratio: 2)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlL2})';
               el.style.filter = 'none';
@@ -83,7 +83,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlL2}';
 
             break;
-          case window.matchMedia('(min-width: 700px) and (min-resolution: 1dppx)').matches:
+          case window.matchMedia('(min-width: 700px) and (min-resolution: 1dppx), (min-width: 700px) and (-webkit-min-device-pixel-ratio: 1)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlL1})';
               el.style.filter = 'none';
@@ -91,7 +91,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlL1}';
 
             break;
-          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 3dppx)').matches:
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 3dppx), (min-width: 560px) and (max-width: 700px) and (-webkit-min-device-pixel-ratio: 3)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlM3})';
               el.style.filter = 'none';
@@ -99,7 +99,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlM3}';
 
             break;
-          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 2dppx)').matches:
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 2dppx), (min-width: 560px) and (max-width: 700px) and (-webkit-min-device-pixel-ratio: 2)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlM2})';
               el.style.filter = 'none';
@@ -107,7 +107,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlM2}';
 
             break;
-          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 1dppx)').matches:
+          case window.matchMedia('(min-width: 560px) and (max-width: 700px) and (min-resolution: 1dppx), (min-width: 560px) and (max-width: 700px) and (-webkit-min-device-pixel-ratio: 1)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlM1})';
               el.style.filter = 'none';
@@ -115,7 +115,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlM1}';
 
             break;
-          case window.matchMedia('(max-width: 560px) and (min-resolution: 3dppx)').matches:
+          case window.matchMedia('(max-width: 560px) and (min-resolution: 3dppx), (max-width: 560px) and (-webkit-min-device-pixel-ratio: 3)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlS3})';
               el.style.filter = 'none';
@@ -123,7 +123,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlS3}';
 
             break;
-          case window.matchMedia('(max-width: 560px) and (min-resolution: 2dppx)').matches:
+          case window.matchMedia('(max-width: 560px) and (min-resolution: 2dppx), (max-width: 560px) and (-webkit-min-device-pixel-ratio: 2)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlS2})';
               el.style.filter = 'none';
@@ -131,7 +131,7 @@ const ArticleHeader = ({ article, resources, options }) => {
             bgImg.src = '${imageHeaderUrlS2}';
 
             break;
-          case window.matchMedia('(max-width: 560px) and (min-resolution: 1dppx)').matches:
+          case window.matchMedia('(max-width: 560px) and (min-resolution: 1dppx), (max-width: 560px) and (-webkit-min-device-pixel-ratio: 1)').matches:
             bgImg.onload = function(){
               el.style.backgroundImage = 'url(${imageHeaderUrlS1})';
               el.style.filter = 'none';

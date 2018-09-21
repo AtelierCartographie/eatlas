@@ -2,11 +2,6 @@
 
 .ArticlePage {
   .ArticleHeader {
-    // background-color: $color-breadcrumb;
-    // background-position: center;
-    // background-repeat: no-repeat;
-    // background-size: 100%;
-    // background-size: cover;
     color: $color-white;
     display: flex;
     flex-direction: column;
@@ -88,7 +83,11 @@
       }
 
       p {
+        display: table;
         margin: 0;
+        padding: 2px 4px;
+        color: $color-breadcrumb;
+        background-color: $color-white;
       }
 
       p:first-of-type {

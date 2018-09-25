@@ -155,7 +155,7 @@ const ArticleHeader = ({ article, resources, options }) => {
       ],
     ),
     imageHeader &&
-      imageHeader.description_fr &&
+      (imageHeader.copyright || imageHeader.description_fr) &&
       h('.container.imageHeaderInfo', [
         h(
           'a',

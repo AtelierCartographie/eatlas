@@ -295,7 +295,7 @@ const About = ({ options }) => {
           h('.col-sm-6', [
             h(
               'p',
-              'Espace Mondial : l’Atlas est aussi un beau livre papier publié aux Presses de Sciences Po. Lipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
+              'Espace Mondial : l’Atlas est aussi un beau livre publié aux Presses de Sciences Po.',
             ),
             h(
               'a.button.btn',

@@ -104,6 +104,10 @@
     }
   }
 
+  h2:first-of-type {
+    margin-top: $gap4;
+  }
+
   h2,
   h3 {
     color: $color-breadcrumb;

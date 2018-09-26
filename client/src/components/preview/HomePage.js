@@ -47,11 +47,11 @@ const Home = ({ topics, options }) => {
     ]),
     h('section.HomeTopics', [
       h('.container', [
-        h('h2', 'Sommaire'),
         h(
           'p',
-          'Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Etudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.',
+          'Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Étudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.',
         ),
+        h('h2', 'Sommaire'),
         h('.row.gutter', [
           h('.col-xs-6.col-md-4', [
             h(
@@ -82,21 +82,21 @@ const Home = ({ topics, options }) => {
         h('.row', [
           h('.col-sm-8', [
             h('p', [
-              'Lorem ipsum dolor sit amet, ',
+              'Espace mondial : l’Atlas est plus qu’un simple atlas. Le lecteur peut le parcourir selon l’ordre du sommaire, autrement dit, en suivant la structure proposée par les auteurs. Mais il peut aussi, dans une page dédiée, en apprécier les plus de 200 ',
               h(
                 'a',
                 { href: getSearchUrl({ types: ['map'] }, options) },
                 'cartes et graphiques',
               ),
-              ' consectetuer adipiscing elit, sed diam nonummy nibh  euismod tincidunt ut laoreet dolore magna aliquam erat ',
+              ' qui enrichissent les articles et certains focus ; tout comme voir, regroupées, toutes les ',
               h(
                 'a',
                 { href: getSearchUrl({ types: ['image'] }, options) },
                 'photos',
               ),
-              ' volutpat. Ut wisi enim ad minim veniam,  quis nostrud exerci tation ',
+              ' d’ouverture des articles. Enfin une page dédiée au ',
               h('a', { href: globalPageUrl('definition')(options) }, 'lexique'),
-              ' ullamcorper suscipit  lobortis nisl ut aliquip ex ea commodo consequat. Duis  autem vel eum iriure dolor in hendrerit in vulputate  velit esse molestie consequat, vel illum dolore eu',
+              ' regroupe toutes les définitions qui jalonnent l’Atlas.',
             ]),
           ]),
           h('.col-sm-4'),

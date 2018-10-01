@@ -32,6 +32,7 @@ const dotenv = require('dotenv')
 dotenv.config({ path: `${config.clientPath}/.env` })
 dotenv.config({ path: `${config.clientPath}/.env.local` })
 const apiUrl = config.apiUrl
+const publicUrl = config.publicUrl
 
 // Inject client-side env variables allowing generation of URLs
 for (let key in config.pageUrls) {
@@ -152,7 +153,7 @@ exports.generateArticleHTML = async (
         definitions,
       ),
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -178,7 +179,7 @@ exports.generateFocusHTML = async (
         definitions,
       ),
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -207,7 +208,7 @@ exports.generateTopicHTML = async (
       topic: populatePageUrl('topic', null, { preview })(topic),
       articles: props.articles,
       resources: populatePageUrl(null, props.topics, { preview })(resources),
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -226,7 +227,7 @@ exports.generateResourceHTML = async (
     React.createElement(ResourcePage, {
       ...props,
       resource: populatePageUrl(null, props.topics, { preview })(resource),
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -238,7 +239,7 @@ exports.generateLexiconHTML = async ({ preview = false } = {}, props = {}) => {
     React.createElement(LexiconPage, {
       ...props,
       definitions: lexicon.definitions,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -248,7 +249,7 @@ exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(HomePage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -280,7 +281,7 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
       types: CLIENT_TYPES,
       keywords: sortedKeywords,
       locales: LOCALES,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -290,7 +291,7 @@ const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(MissingPage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -313,19 +314,19 @@ exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(LegalsPage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
 
 exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
   props = await menuProps(props, { preview })
-  const urls = await getAllUrls({ preview, apiUrl })
+  const urls = await getAllUrls({ preview, apiUrl, publicUrl })
   return wrap(
     React.createElement(SitemapPage, {
       urls,
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }
@@ -335,7 +336,7 @@ exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(NotFoundPage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )
 }

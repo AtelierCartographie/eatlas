@@ -53,6 +53,7 @@ const globalPageUrl = (exports.globalPageUrl = (
 ) => ({
   preview /*: boolean */,
   apiUrl = process.env.REACT_APP_API_SERVER,
+  publicUrl = process.env.REACT_APP_FRONT_URL,
 }) => {
   if (preview)
     return hash
@@ -62,7 +63,7 @@ const globalPageUrl = (exports.globalPageUrl = (
   const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''
   if (!urlTemplate) return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
   const url = slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
-  return hash ? `${url}#${hash}` : url
+  return hash ? `${publicUrl}/${url}#${hash}` : `${publicUrl}/${url}`
 })
 
 const getSearchUrl = (exports.getSearchUrl = (
@@ -70,6 +71,7 @@ const getSearchUrl = (exports.getSearchUrl = (
   {
     preview = false,
     apiUrl = process.env.REACT_APP_API_SERVER,
+    publicUrl = process.env.REACT_APP_FRONT_URL,
   } /*: FrontOptions */,
 ) => {
   const url = preview
@@ -93,7 +95,7 @@ const getSearchUrl = (exports.getSearchUrl = (
       return q
     }
   }, '')
-  return url + qs
+  return `${publicUrl}/${url}${qs}`
 })
 
 exports.resourcesTypes = footerResourcesConfig.map(

@@ -167,4 +167,5 @@ declare type FrontOptions = {
   preview: boolean,
   analytics: string,
   apiUrl: string,
+  publicUrl: string,
 }

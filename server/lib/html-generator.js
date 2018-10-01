@@ -167,7 +167,9 @@ exports.generateFocusHTML = async (
   let focus = flattenMetas(resource)
   // to create the "go back to article" link
   focus.relatedArticleId = focus.relatedArticle
-  focus.relatedArticle = await getResource(focus.relatedArticleId)
+  focus.relatedArticle = populatePageUrl(null, props.topics, { preview })(
+    await getResource(focus.relatedArticleId),
+  )
   const definitions = await getDefinitions()
   const resources = await getArticleResources(resource, !preview)
 

@@ -229,6 +229,14 @@ const Team = ({ options }) => {
       cartographers.map((member, key) =>
         h(TeamMemberModal, { key, member, options }),
       ),
+      h('h3', 'Le projet'),
+      h('p', [
+        'Delphine Lereculeur et Anne L’Hôte (conduite de projet, Sciences Po DRIS).',
+        h('br'),
+        'ByteClub (développement).',
+        h('br'),
+        'Les Presses de Sciences Po (editing et déclinaison papier).',
+      ]),
     ]),
   ])
 }
@@ -240,13 +248,21 @@ const About = ({ options }) => {
     ]),
     h('section.AboutProject#project', [
       h('.container', [
-        h('h2', 'Le projet'),
-        h('h3', 'La génèse'),
+        h('h2', [
+          'Qu’est-ce que ',
+          h('em', 'Espace mondial : l’Atlas ?'),
+        ]),
         h('.row.vcenter', [
           h(
-            'p.col-sm-8',
-            'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-          ),
+            'ul.col-sm-8.AboutInfo', [
+              h('li', '// La volonté d’un accès libre et gratuit'),
+              h('li', '// Le prolongement d’un cours phare de Sciences Po'),
+              h('li', '// Un projet rassemblant une équipe d’auteurs et de cartographes'),
+              h('li', '// Des contenus scientifiques à jour abordant les grands enjeux actuels'),
+              h('li', '// Des formats s’adaptant à tous les supports, notamment mobiles'),
+              h('li', '// De multiples formes de lecture : linéaire classique, thématique à la manière d’un manuel ou par type de média'),
+              h('li', '// Le pari d’une déclinaison papier sous la forme d’un beau livre aux Presses de Sciences Po'),
+          ]),
           h('a.col-sm-4.logo', [
             h('img', {
               alt: 'Sciences Po',
@@ -254,16 +270,6 @@ const About = ({ options }) => {
             }),
           ]),
         ]),
-        h('h3', 'Paragraphe 2'),
-        h(
-          'p',
-          'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-        ),
-        h('h3', 'Paragraphe 3'),
-        h(
-          'p',
-          'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-        ),
       ]),
     ]),
     h(Team, { options }),
@@ -294,9 +300,10 @@ const About = ({ options }) => {
         h('.row', [
           h('.col-sm-6', [
             h(
-              'p',
-              'Espace Mondial : l’Atlas est aussi un beau livre publié aux Presses de Sciences Po.',
-            ),
+              'p', [
+              h('em', 'Espace mondial : l’Atlas'),
+              ' est aussi un beau livre publié aux Presses de Sciences Po.',
+            ]),
             h(
               'a.button.btn',
               {

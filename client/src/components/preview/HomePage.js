@@ -82,21 +82,22 @@ const Home = ({ topics, options }) => {
         h('.row', [
           h('.col-sm-8', [
             h('p', [
-              'Espace mondial : l’Atlas est plus qu’un simple atlas. Le lecteur peut le parcourir selon l’ordre du sommaire, autrement dit, en suivant la structure proposée par les auteurs. Mais il peut aussi, dans une page dédiée, en apprécier les plus de 200 ',
+              h('em', 'Espace mondial : l’Atlas'),
+              ' est aussi un moteur de recherche donnant accès à plus de 200 ',
               h(
                 'a',
                 { href: getSearchUrl({ types: ['map'] }, options) },
                 'cartes et graphiques',
               ),
-              ' qui enrichissent les articles et certains focus ; tout comme voir, regroupées, toutes les ',
+              ' qui enrichissent les articles et les focus, à des ',
               h(
                 'a',
                 { href: getSearchUrl({ types: ['image'] }, options) },
                 'photos',
               ),
-              ' d’ouverture des articles. Enfin une page dédiée au ',
+              ' commentées ou à un ',
               h('a', { href: globalPageUrl('definition')(options) }, 'lexique'),
-              ' regroupe toutes les définitions qui jalonnent l’Atlas.',
+              ' regroupant les notions clés.',
             ]),
           ]),
           h('.col-sm-4'),
@@ -109,9 +110,11 @@ const Home = ({ topics, options }) => {
         h('.row.vcenter', [
           h('.col-sm-8.col-sm-push-4.text-right', [
             h(
-              'p',
-              'Texte sur le projet... ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-            ),
+              'p', [
+              'Aventure collective et prolongement d’un cours phare de Sciences Po, ',
+              h('em', 'Espace mondial : l’Atlas'),
+              ' offre un accès libre et gratuit à des contenus scientifiques sur les grandes problématiques de notre temps.',
+            ]),
             h(
               'a.more',
               {
@@ -155,9 +158,10 @@ const Home = ({ topics, options }) => {
           h('.col-sm-6.col-sm-push-6.text-right', [
             h('h2.text-right', 'Le livre'),
             h(
-              'p',
-              'Espace Mondial : l’Atlas est aussi un beau livre publié aux Presses de Sciences Po.',
-            ),
+              'p', [
+                h('em', 'Espace mondial : l’Atlas'),
+                ' est aussi un beau livre publié aux Presses de Sciences Po.',
+            ]),
             h(
               'a.more',
               { href: globalPageUrl('about', null, 'book')(options) },

@@ -39,6 +39,14 @@
     background: $color-white;
   }
 
+  .AboutInfo {
+    list-style: none;
+
+    li {
+      line-height: 2.8rem;
+    }
+  }
+
   section {
     padding: $gap4 0;
   }

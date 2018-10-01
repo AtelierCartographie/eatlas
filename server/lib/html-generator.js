@@ -192,7 +192,9 @@ exports.generateTopicHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview })
-  const resources = await getTopicResources(topic)
+  const resources = populatePageUrl(null, props.topics, { preview })(
+    await getTopicResources(topic),
+  )
   // Enhanced articles for data list in topic page
   props.articles = await Promise.all(
     (props.articles || resources.filter(r => r.type === 'article'))
@@ -209,7 +211,7 @@ exports.generateTopicHTML = async (
       ...props,
       topic: populatePageUrl('topic', null, { preview })(topic),
       articles: props.articles,
-      resources: populatePageUrl(null, props.topics, { preview })(resources),
+      resources,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
   )

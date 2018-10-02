@@ -15,6 +15,11 @@ module.exports = (
     }),
     h('title', `${title} - Espace mondial : l'Atlas`),
     h('link', {
+      rel: 'shortcut icon',
+      href: prefixUrl('/assets/img/favicon.ico'),
+      type: 'image/x-icon',
+    }),
+    h('link', {
       rel: 'stylesheet',
       href: `${CDN}/twitter-bootstrap/3.3.7/css/bootstrap.min.css`,
     }),

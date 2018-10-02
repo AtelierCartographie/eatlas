@@ -13,7 +13,7 @@ module.exports = (
       name: 'viewport',
       content: 'width=device-width, initial-scale=1',
     }),
-    h('title', `${title} - eAtlas`),
+    h('title', `${title} - Espace mondial : l'Atlas`),
     h('link', {
       rel: 'stylesheet',
       href: `${CDN}/twitter-bootstrap/3.3.7/css/bootstrap.min.css`,

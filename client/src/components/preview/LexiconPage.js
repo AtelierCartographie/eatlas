@@ -65,7 +65,7 @@ const SearchPage = ({
   definitions: { dt: string, dd: string, aliases: string[] }[],
 } */) =>
   h('html', { lang: 'fr' }, [
-    h(Head, { title: 'eAtlas - Recherche', options }),
+    h(Head, { title: 'Lexique', options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { definitions, options }),
     ]),

@@ -308,7 +308,7 @@ const SearchPage = (
 } */,
 ) =>
   h('html', { lang: 'fr' }, [
-    h(Head, { title: 'eAtlas - Recherche', options }),
+    h(Head, { title: 'Recherche', options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Search, { topics, types, locales, keywords, options }),
     ]),

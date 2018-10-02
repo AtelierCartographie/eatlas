@@ -203,7 +203,7 @@ const HomePage = (
 } */,
 ) =>
   h('html', { lang: 'fr' }, [
-    h(Head, { title: 'eAtlas', options }),
+    h(Head, { title: 'Accueil', options }),
     h(Body, { topics, options, logoColor: 'white' }, [
       h(Home, { topics, options }),
     ]),

@@ -5,5 +5,8 @@
   "publisher": "Espace mondial l'Atlas",
   "quote-title": "Citation",
   "quote-text": "« {title} » {publisher}, {year}, [en ligne], consulté le",
-  "references": "Références"
+  "references": "Références",
+  "comment": "commentaire",
+  "summary": "Résumé",
+  "see-also-alt-title": "Continuer dans l’Atlas"
 }

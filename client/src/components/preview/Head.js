@@ -21,7 +21,7 @@ module.exports = injectIntl(
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       }),
-      h('title', `${title} - Espace mondial : l'Atlas`),
+      h('title', `${title} - ${intl.formatMessage({ id: 'fo.title' })}`),
       h('link', {
         rel: 'shortcut icon',
         href: prefixUrl('/assets/img/favicon.ico'),

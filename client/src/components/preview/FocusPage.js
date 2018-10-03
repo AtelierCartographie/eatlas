@@ -5,7 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
-const { injectIntl } = require('react-intl')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -50,7 +50,7 @@ const FocusBackToArticle = ({ focus, options }) =>
 const FocusHeader = ({ focus }) =>
   h('header.FocusHeader', [
     h('.container.FocusHeaderInfo', [
-      h('.FocusIcon', 'Focus'),
+      h('.FocusIcon', h(T, { id: 'fo.type-focus' })),
       h(Html, { component: 'h1.FocusTitle' }, focus.title),
       h(PublishedAt, { doc: focus }),
     ]),

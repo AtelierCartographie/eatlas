@@ -5,7 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
-const { injectIntl } = require('react-intl')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -33,7 +33,7 @@ const Html = require('./Html')
 
 // subcomponents
 
-const ArticleHeader = ({ article, resources, options }) => {
+const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
   const imageHeader = resources.find(r => r.id === article.imageHeader)
   const imageHeaderUrlL1 =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
@@ -179,7 +179,7 @@ const ArticleHeader = ({ article, resources, options }) => {
           },
           [
             h('img', {
-              alt: 'commentaire',
+              alt: intl.formatMessage({ id: 'doc.comment' }),
               width: 24,
               src: prefixUrl(`/assets/img/info.svg`, options.preview),
             }),
@@ -194,7 +194,7 @@ const ArticleHeader = ({ article, resources, options }) => {
         ]),
       ]),
   ])
-}
+})
 
 const ArticleBreadcrumb = ({ article, topics, options }) => {
   const topic = topics.find(x => x.id === article.topic)
@@ -210,51 +210,20 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
 }
 
 // french and english (optional)
-const ArticleSummaries = ({ article }) =>
+const ArticleSummaries = injectIntl(({ article, intl }) =>
   h('section.container.Summaries', [
-    // pills
-    !article.description_en
-      ? null
-      : h('ul.langs', { role: 'tablist' }, [
-          h('li.active', { role: 'presentation' }, [
-            h(
-              'a',
-              {
-                href: '#french',
-                role: 'tab',
-                'data-toggle': 'pill',
-                hrefLang: 'fr',
-              },
-              'Fr',
-            ),
-          ]),
-          h('li', { role: 'presentation' }, [
-            h(
-              'a',
-              {
-                href: '#english',
-                role: 'tab',
-                'data-toggle': 'pill',
-                hrefLang: 'en',
-              },
-              'En',
-            ),
-          ]),
-        ]),
-    // panes
     h('.tab-content', [
-      h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
-        h('h2.line', 'Résumé'),
-        h(Html, { whitelist: 'all' }, article.description_fr),
+      h('.tab-pane.active', { role: 'tabpanel', lang: intl.locale }, [
+        h('h2.line', h(T, { id: 'doc.summary' })),
+        h(
+          Html,
+          { whitelist: 'all' },
+          article[`description_${intl.locale.substring(0, 2)}`],
+        ),
       ]),
-      !article.description_en
-        ? null
-        : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
-            h('h2.line', 'Summary'),
-            h(Html, { whitelist: 'all' }, article.description_en),
-          ]),
     ]),
-  ])
+  ]),
+)
 
 const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   return article.nodes.map(n => {
@@ -290,7 +259,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
   if (!relateds || !relateds.length) return null
 
   return h('section.container.ArticleSeeAlso', [
-    h('h2', title || "Continuer dans l'Atlas"),
+    h('h2', title || h(T, { id: 'see-also-alt-title' })),
     h(
       'ul',
       relateds.map(r =>

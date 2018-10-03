@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -15,6 +16,7 @@ const {
   Quote,
   Footnotes,
   Lexicon,
+  exportLinks,
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
@@ -438,7 +440,7 @@ const getPrevNextArticles = (article, articles, topics) => {
   return { prev, next }
 }
 
-const ArticlePage = (
+const ArticlePage = injectIntl((
   {
     article,
     articles,
@@ -446,6 +448,7 @@ const ArticlePage = (
     definitions,
     resources,
     options,
+    intl,
   } /*: {
   article: Resource,
   articles: Resource[],
@@ -463,7 +466,11 @@ const ArticlePage = (
   const prevNext = getPrevNextArticles(article, articles, topics)
 
   return h('html', { lang: 'fr' }, [
-    h(Head, { title: stripTags(article.title), options }),
+    h(Head, {
+      title: stripTags(article.title),
+      links: exportLinks({ doc: article, intl, options }),
+      options,
+    }),
     h(Body, { altTitle: stripTags(article.title), topics, options }, [
       h(Article, {
         article,
@@ -477,7 +484,7 @@ const ArticlePage = (
       h(ArticlePrevNext, { prevNext, options }),
     ]),
   ])
-}
+})
 
 module.exports = ArticlePage
 module.exports.ArticleSeeAlso = ArticleSeeAlso

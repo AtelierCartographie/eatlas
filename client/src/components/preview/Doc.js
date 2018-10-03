@@ -135,10 +135,8 @@ exports.Keywords = (
   ])
 }
 
-exports.Quote = injectIntl((
-  { doc, intl, options } /*: { doc: Resource } */,
-) => {
-  const publication = intl.formatMessage({ id: 'doc.publisher' })
+exports.exportLinks = ({ doc, intl, options }) => {
+  const publisher = intl.formatMessage({ id: 'doc.publisher' })
   const year = new Date(
     doc.visiblePublishedAt || doc.publishedAt || Date.now(),
   ).getFullYear()
@@ -149,23 +147,50 @@ exports.Quote = injectIntl((
   author={${doc.author}},
   url={${url}},
   year={${year}},
-  publisher={${publication}}
+  publisher={${publisher}}
 }`
   const endnote = `%0 Book
 %T ${stripTags(doc.title)}
 %A ${doc.author}
 %U ${url}
 %D ${year}
-%I ${publication}`
+%I ${publisher}`
 
   const refman = `TY  - BOOK
 T1  - ${doc.title}
 A1  - ${doc.author}
 UR  - ${url}
 Y1  - ${year}
-PB  - ${publication}`
+PB  - ${publisher}`
 
-  return h('section.container.Quote', [
+  // TODO: where should export links be available? Ref #128
+  return [
+    {
+      href: `data:application/x-bibtex;name=${encodeURIComponent(
+        doc.title,
+      )}.bibtex,${encodeURIComponent(bibtex)}`,
+      title: `${doc.title}.bibtex`,
+      type: 'application/x-bibtex',
+    },
+    {
+      href: `data:application/x-endnote-refer;name=${encodeURIComponent(
+        doc.title,
+      )}.enw,${encodeURIComponent(endnote)}`,
+      title: `${doc.title}.enw`,
+      type: 'application/x-endnote-refer',
+    },
+    {
+      href: `data:application/x-research-info-systems;name=${encodeURIComponent(
+        doc.title,
+      )}.ris,${encodeURIComponent(refman)}`,
+      title: `${doc.title}.ris`,
+      type: 'application/x-research-info-systems',
+    },
+  ]
+}
+
+exports.Quote = injectIntl(({ doc, intl, options } /*: { doc: Resource } */) =>
+  h('section.container.Quote', [
     h('h2', h(T, { id: 'doc.quote-title' })),
     h('blockquote', [
       h('p', [
@@ -174,7 +199,13 @@ PB  - ${publication}`
           { component: 'span' },
           intl.formatMessage(
             { id: 'doc.quote-text' },
-            { title: doc.title, publisher: publication, year },
+            {
+              title: doc.title,
+              publisher: intl.formatMessage({ id: 'doc.publisher' }),
+              year: new Date(
+                doc.visiblePublishedAt || doc.publishedAt || Date.now(),
+              ).getFullYear(),
+            },
           ),
         ),
         ' ',
@@ -184,45 +215,11 @@ PB  - ${publication}`
         ),
         h('span', ', URL:'),
         h('br'),
-        h('span.articleUrl', url),
+        h('span.articleUrl', getResourcePageUrl(doc, options)),
       ]),
     ]),
-    // TODO: where should export links be available? Ref #128
-    false &&
-      h('ul.exports', [
-        h('li', [
-          h(
-            'a',
-            {
-              download: 'citation.bibtex',
-              href: `data:,${encodeURIComponent(bibtex)}`,
-            },
-            ['BibTex'],
-          ),
-        ]),
-        h('li', [
-          h(
-            'a',
-            {
-              download: 'citation.enw',
-              href: `data:,${encodeURIComponent(endnote)}`,
-            },
-            ['EndNote'],
-          ),
-        ]),
-        h('li', [
-          h(
-            'a',
-            {
-              download: 'citation.ris',
-              href: `data:,${encodeURIComponent(refman)}`,
-            },
-            ['RefMan'],
-          ),
-        ]),
-      ]),
-  ])
-})
+  ]),
+)
 
 // also called simply 'Notes' or 'Références'
 exports.Footnotes = (

@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -15,6 +16,7 @@ const {
   Quote,
   Footnotes,
   Lexicon,
+  exportLinks,
 } = require('./Doc')
 const Head = require('./Head')
 const Body = require('./Body')
@@ -93,13 +95,14 @@ const Focus = props =>
     }),
   ])
 
-const FocusPage = (
+const FocusPage = injectIntl((
   {
     focus,
     topics,
     definitions,
     resources,
     options,
+    intl,
   } /*: {
   focus: Resource,
   topics: Topic[],
@@ -113,7 +116,11 @@ const FocusPage = (
       id: 0,
     }
     return h('html', { lang: 'fr' }, [
-      h(Head, { title: stripTags(focus.title), options }),
+      h(Head, {
+        title: stripTags(focus.title),
+        links: exportLinks({ doc: focus, intl, options }),
+        options,
+      }),
       h(
         Body,
         {
@@ -135,6 +142,6 @@ const FocusPage = (
       ),
     ])
   }
-}
+})
 
 module.exports = FocusPage

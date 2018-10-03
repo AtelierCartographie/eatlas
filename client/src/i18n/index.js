@@ -1,19 +1,19 @@
-import { addLocaleData } from 'react-intl'
-import timeago from 'timeago.js'
+const { addLocaleData } = require('react-intl')
+const timeago = require('timeago.js')
 
-import enData from 'react-intl/locale-data/en'
-import frData from 'react-intl/locale-data/fr'
+const enData = require('react-intl/locale-data/en')
+const frData = require('react-intl/locale-data/fr')
 
-import enTime from 'timeago.js/locales/en'
-import frTime from 'timeago.js/locales/fr'
+const enTime = require('timeago.js/locales/en')
+const frTime = require('timeago.js/locales/fr')
 
-import en from './en.json'
-import fr from './fr.json'
+const flat = require('flat')
+
+module.exports.en = flat(require('./en'))
+module.exports.fr = flat(require('./fr'))
 
 addLocaleData(enData)
 addLocaleData(frData)
 
 timeago.register('en', enTime)
 timeago.register('fr', frTime)
-
-export { en, fr }

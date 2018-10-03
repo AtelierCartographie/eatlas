@@ -80,18 +80,18 @@ class ResourceEdit extends Component<Props, State> {
     const { resource, id, loading, shouldLoad } = this.props
 
     if (loading || shouldLoad) {
-      return { id: 'resource-edit-loading', values: { id } }
+      return { id: 'bo.resource-edit-loading', values: { id } }
     }
 
     if (!resource) {
-      return { id: 'resource-not-found', values: { id } }
+      return { id: 'bo.resource-not-found', values: { id } }
     }
 
     return {
-      id: 'resource-edit',
+      id: 'bo.resource-edit',
       values: {
         id: resource.id,
-        type: this.props.intl.formatMessage({ id: 'type-' + resource.type }),
+        type: this.props.intl.formatMessage({ id: 'bo.type-' + resource.type }),
       },
     }
   }
@@ -106,7 +106,7 @@ class ResourceEdit extends Component<Props, State> {
     if (!resource) {
       return (
         <Link to="/resources">
-          <T id="resources" />
+          <T id="bo.resources" />
         </Link>
       )
     }
@@ -203,7 +203,10 @@ class ResourceEdit extends Component<Props, State> {
           <h2 className="subtitle" onClick={this.toggleOpenDetails}>
             <IconButton icon={openDetails ? 'caret-down' : 'caret-right'} />
             <label>
-              <T id="lexicon-description" values={{ nb: definitions.length }} />
+              <T
+                id="bo.lexicon-description"
+                values={{ nb: definitions.length }}
+              />
             </label>
           </h2>
           {openDetails && renderList()}
@@ -244,7 +247,7 @@ class ResourceEdit extends Component<Props, State> {
 
           <div>
             <Icon icon="share" />
-            <T id="share-preview" />{' '}
+            <T id="bo.share-preview" />{' '}
             <a href={this.getPreviewUrl()}>{this.getPreviewUrl()}</a>
           </div>
         </div>

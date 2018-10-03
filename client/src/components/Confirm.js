@@ -21,21 +21,21 @@ class Confirm extends Component<Props> {
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">
-              <T id="delete" /> {model ? model.name : ''}
+              <T id="bo.delete" /> {model ? model.name : ''}
             </p>
             <button className="delete" aria-label="close" onClick={onClose} />
           </header>
           <section className="modal-card-body">
-            {model ? <T id="confirm-delete" values={model} /> : null}
+            {model ? <T id="bo.confirm-delete" values={model} /> : null}
           </section>
           <footer className="modal-card-foot">
             <button className="button is-success" onClick={onConfirm}>
-              <T id="delete" />
+              <T id="bo.delete" />
             </button>
             <button
               className={cx('button', { 'is-loading': removing })}
               onClick={onClose}>
-              <T id="cancel" />
+              <T id="bo.cancel" />
             </button>
           </footer>
         </div>

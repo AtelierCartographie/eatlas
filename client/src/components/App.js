@@ -37,7 +37,7 @@ const NavLink = ({
     className="navbar-item"
     exact={exact}
     to={to}>
-    <T id={label || 'label'} />
+    <T id={`bo.${label}` || 'bo.label'} />
   </NavLinko>
 )
 

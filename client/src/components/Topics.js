@@ -93,7 +93,7 @@ class Topics extends Component<Props, State> {
         <div className="level-left">
           <div className="level-item">
             <h1 className="title">
-              <T id="topics" />
+              <T id="bo.topics" />
             </h1>
           </div>
         </div>
@@ -128,18 +128,18 @@ class Topics extends Component<Props, State> {
         <thead>
           <tr>
             <th className="fit">
-              <T id="resource-id" />
+              <T id="bo.resource-id" />
             </th>
             <th>
-              <T id="name" />
+              <T id="bo.name" />
             </th>
             <th>
-              <T id="resource" />
+              <T id="bo.resource" />
             </th>
             {SHOWN_TYPES.map(type => (
               <th className="fit" key={type}>
                 <Icon icon={TYPE_ICON[type]} />
-                <T id={'type-' + type} />
+                <T id={'bo.type-' + type} />
               </th>
             ))}
             <th className="fit" />

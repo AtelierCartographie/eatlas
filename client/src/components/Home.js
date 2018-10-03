@@ -7,7 +7,7 @@ class Home extends Component<{}> {
   render() {
     return (
       <div className="Home">
-        <h1 className="title"><T id="home" /></h1>
+        <h1 className="title"><T id="bo.home" /></h1>
       </div>
     )
   }

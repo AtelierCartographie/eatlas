@@ -21,7 +21,7 @@ class IconButton extends Component<Props> {
         style={label ? { marginLeft: '.5em' } : null}
       />
     ) : null
-    const $label = label ? <T id={label} /> : null
+    const $label = label ? <T id={`bo.${label}`} /> : null
 
     return (
       <Fragment>

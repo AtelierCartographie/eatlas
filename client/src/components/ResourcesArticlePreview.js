@@ -38,7 +38,7 @@ class ResourcesPreviewArticle extends Component<Props> {
         <Icon icon="warning" className="has-text-danger" />
         <span>
           {this.props.intl.formatMessage(
-            { id: 'article-errors' },
+            { id: 'bo.article-errors' },
             { nb: errors.length },
           )}
         </span>

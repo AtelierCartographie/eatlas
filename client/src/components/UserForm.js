@@ -71,7 +71,7 @@ class UserForm extends Component<Props, State> {
     }
 
     this.props.saveUser(this.state.user).then(() => {
-      toast.success(<T id="toast-user-saved" />)
+      toast.success(<T id="bo.toast-user-saved" />)
       this.props.redirect('/users')
     })
   }
@@ -87,7 +87,7 @@ class UserForm extends Component<Props, State> {
           {loggedUserId === userId && (
             <span>
               {' ('}
-              <T id="myself" />
+              <T id="bo.myself" />
               {')'}
             </span>
           )}
@@ -99,7 +99,7 @@ class UserForm extends Component<Props, State> {
           <form onSubmit={this.handleSubmit}>
             <div className="field">
               <label className="label">
-                <T id="name" />
+                <T id="bo.name" />
               </label>
               <div className="control has-icons-left">
                 <input
@@ -161,7 +161,7 @@ class UserForm extends Component<Props, State> {
               </div>
               <div className="control">
                 <Link className="button is-danger is-outlined" to="/users">
-                  <T id="cancel" />
+                  <T id="bo.cancel" />
                 </Link>
               </div>
             </div>

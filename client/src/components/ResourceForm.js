@@ -141,7 +141,7 @@ const renderField = ({
     <div className="field is-horizontal" key={key || labelId}>
       <div className="field-label is-normal">
         <label className={cx('label', { 'has-text-grey-light': !mandatory })}>
-          <T id={labelId} values={labelValues} />
+          <T id={`bo.${labelId}`} values={labelValues} />
           {mandatory ? <Icon icon="asterisk" /> : null}
         </label>
       </div>
@@ -244,7 +244,7 @@ class ResourceForm extends Component<Props, State> {
     return (
       <div className="notification is-danger">
         <strong>
-          <T id="error" />:
+          <T id="bo.error" />:
         </strong>
         {message}
       </div>
@@ -401,7 +401,7 @@ class ResourceForm extends Component<Props, State> {
         (this.props.resource && this.props.resource.type),
       onChange: this.onChangeAttr('type', true),
       mandatory: true,
-      options: this.buildSelectOptions(this.state.types, 'type-', true),
+      options: this.buildSelectOptions(this.state.types, 'bo.type-', true),
     })
 
     const idField = this.getAttrField('id', {
@@ -436,7 +436,7 @@ class ResourceForm extends Component<Props, State> {
           return {
             disabled: true,
             disabledReason: this.props.intl.formatMessage({
-              id: 'cannot-delete-linked-resource',
+              id: 'bo.cannot-delete-linked-resource',
             }),
           }
         }
@@ -451,7 +451,7 @@ class ResourceForm extends Component<Props, State> {
         this.getAttrField('status', {
           mandatory: true,
           readOnly: resource.type === 'definition',
-          options: this.buildSelectOptions(RESOURCE_STATUSES, 'status-').map(
+          options: this.buildSelectOptions(RESOURCE_STATUSES, 'bo.status-').map(
             o =>
               Object.assign(o, {
                 buttonStyle: STATUS_STYLE[o.value],
@@ -606,7 +606,7 @@ class ResourceForm extends Component<Props, State> {
         type: 'date',
         help: (
           <T
-            id="resource-visiblePublishedAt-help"
+            id="bo.resource-visiblePublishedAt-help"
             values={{
               publishedAt: new Date(
                 resource.publishedAt || Date.now(),
@@ -761,7 +761,7 @@ class ResourceForm extends Component<Props, State> {
           )}
         />
       ),
-      help: <T id="resource-uris-help" />,
+      help: <T id="bo.resource-uris-help" />,
     }
   }
 
@@ -795,7 +795,7 @@ class ResourceForm extends Component<Props, State> {
           {keys.length > 0 && (
             <Fragment>
               <p className="help">
-                <T id="resource-image-help" />
+                <T id="bo.resource-image-help" />
               </p>
               <div className="columns thumbnails">
                 {keys.map(key => {
@@ -849,7 +849,9 @@ class ResourceForm extends Component<Props, State> {
       docs.forEach(doc => {
         const match = doc.name.match(re)
         if (!match)
-          return toast.error(<T id="error-parsing-image-name" values={doc} />)
+          return toast.error(
+            <T id="bo.error-parsing-image-name" values={doc} />,
+          )
 
         const [, size = supportedSizes[0], density = '1x'] = match
         this.onPick(`${key}-${size}-${density}`)([doc], accessToken)
@@ -1033,12 +1035,12 @@ class ResourceForm extends Component<Props, State> {
           ...resource,
           title:
             resource.title ||
-            this.props.intl.formatMessage({ id: 'lexicon-title' }),
+            this.props.intl.formatMessage({ id: 'bo.lexicon-title' }),
           language: resource.language || this.props.locale,
           description_fr:
             resource.description_fr ||
             this.props.intl.formatMessage(
-              { id: 'lexicon-description' },
+              { id: 'bo.lexicon-description' },
               { nb: parsed.definitions.length },
             ),
           description_en: '',
@@ -1111,7 +1113,7 @@ class ResourceForm extends Component<Props, State> {
             disabled={!this.isSaveable()}>
             <Icon icon="check" />
             <span>
-              <T id="save-changes" />
+              <T id="bo.save-changes" />
             </span>
           </button>
         </div>
@@ -1163,7 +1165,7 @@ class ResourceForm extends Component<Props, State> {
           saving: false,
           removedDocs: [],
         })
-        toast.success(<T id="toast-resource-saved" />)
+        toast.success(<T id="bo.toast-resource-saved" />)
       })
       .catch(error => this.setState({ error, saving: false }))
   }

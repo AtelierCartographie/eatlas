@@ -55,7 +55,7 @@ class Users extends Component<Props, State> {
           <div className="level-left">
             <div className="level-item">
               <h1 className="title">
-                <T id="users" />
+                <T id="bo.users" />
               </h1>
             </div>
           </div>
@@ -74,7 +74,7 @@ class Users extends Component<Props, State> {
             <thead>
               <tr>
                 <th>
-                  <T id="name" />
+                  <T id="bo.name" />
                 </th>
                 <th>email</th>
                 <th className="fit">role</th>
@@ -121,7 +121,10 @@ class Users extends Component<Props, State> {
   }
 }
 
-export default connect(({ users }: AppState) => ({ users }), {
-  getUsers,
-  deleteUser,
-})(Users)
+export default connect(
+  ({ users }: AppState) => ({ users }),
+  {
+    getUsers,
+    deleteUser,
+  },
+)(Users)

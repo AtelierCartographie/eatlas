@@ -46,13 +46,13 @@ class _ResourceField extends Component<RProps> {
         <div className="field">
           <label className="label has-text-danger">
             <Icon icon="warning" />
-            <T id="article-resource-not-found" values={node} />
+            <T id="bo.article-resource-not-found" values={node} />
           </label>
           <div className="control">
             {node.id} {node.text}
           </div>
           <Link to={'/resources/new/?' + node.id}>
-            <T id="article-related-create" values={{ title: node.id }} />
+            <T id="bo.article-related-create" values={{ title: node.id }} />
           </Link>
         </div>
       )
@@ -65,12 +65,15 @@ class _ResourceField extends Component<RProps> {
         <div className="field">
           <label className="label has-text-danger">
             <Icon icon="warning" />
-            <T id="article-resource-unpublished" values={node} />
+            <T id="bo.article-resource-unpublished" values={node} />
           </label>
           <div className="control">{preview}</div>
           <div className="control">
             <Link to={`/resources/${resource.id}/edit`}>
-              <T id="article-related-publish" values={{ title: resource.id }} />
+              <T
+                id="bo.article-related-publish"
+                values={{ title: resource.id }}
+              />
             </Link>
           </div>
         </div>
@@ -80,12 +83,12 @@ class _ResourceField extends Component<RProps> {
     return (
       <div className="field">
         <label className="label">
-          <T id="article-resource" values={node} />
+          <T id="bo.article-resource" values={node} />
         </label>
         <div className="control">{preview}</div>
         <div className="control">
           <Link to={`/resources/${resource.id}/edit`}>
-            <T id="article-related-edit" values={resource} />
+            <T id="bo.article-related-edit" values={resource} />
           </Link>
         </div>
       </div>
@@ -118,7 +121,7 @@ class _ParagraphField extends Component<PProps> {
       return (
         <div className="field">
           <label className="label">
-            <T id="article-content-paragraph" />
+            <T id="bo.article-content-paragraph" />
           </label>
           {control}
         </div>
@@ -128,7 +131,7 @@ class _ParagraphField extends Component<PProps> {
     return (
       <div className="field">
         <label className="label">
-          <T id="article-content-paragraph" />
+          <T id="bo.article-content-paragraph" />
         </label>
         <div className="columns">
           <div className="column">{control}</div>
@@ -136,7 +139,7 @@ class _ParagraphField extends Component<PProps> {
             {!node.links.length ? null : (
               <div>
                 <label className="label">
-                  <T id="article-content-links" />
+                  <T id="bo.article-content-links" />
                 </label>
                 <ul>
                   {node.links.map(l => (
@@ -150,7 +153,7 @@ class _ParagraphField extends Component<PProps> {
             {!node.lexicon.length ? null : (
               <div>
                 <label className="label">
-                  <T id="article-content-lexicon" />
+                  <T id="bo.article-content-lexicon" />
                 </label>
                 <ul>{node.lexicon.map(this.renderDefinition)}</ul>
               </div>
@@ -283,7 +286,7 @@ class ArticleForm extends Component<Props, State> {
     return (
       <div className="field" key={k}>
         <label className="label">
-          <T id="article-content-header" />
+          <T id="bo.article-content-header" />
         </label>
         <div className="control">
           <span className="input">{node.text}</span>
@@ -356,8 +359,8 @@ class ArticleForm extends Component<Props, State> {
                 <T
                   id={
                     exists
-                      ? 'article-related-publish'
-                      : 'article-related-create'
+                      ? 'bo.article-related-publish'
+                      : 'bo.article-related-create'
                   }
                   values={{ title: node.text }}
                 />
@@ -393,19 +396,19 @@ class ArticleForm extends Component<Props, State> {
     return (
       <Fragment>
         <h2 className="subtitle is-4">
-          <T id="article-missing-definitions" values={{ nb: dts.length }} />
+          <T id="bo.article-missing-definitions" values={{ nb: dts.length }} />
         </h2>
         <p>
-          <T id="article-upload-lexicon-1" />{' '}
+          <T id="bo.article-upload-lexicon-1" />{' '}
           <Link
             to={
               this.state.missingLexicon
                 ? '/resources/new/definition'
                 : '/resources/' + LEXICON_ID + '/edit'
             }>
-            <T id="article-upload-lexicon-2" />
+            <T id="bo.article-upload-lexicon-2" />
           </Link>{' '}
-          <T id="article-upload-lexicon-3" />
+          <T id="bo.article-upload-lexicon-3" />
         </p>
         <ul>
           {dts.map(dt => (
@@ -426,7 +429,7 @@ class ArticleForm extends Component<Props, State> {
     return (
       <div className="field" key={k}>
         <label className="label">
-          <T id="article-content-footnotes" />
+          <T id="bo.article-content-footnotes" />
         </label>
         <div className="control">
           <ul>
@@ -513,11 +516,11 @@ class ArticleForm extends Component<Props, State> {
     return (
       <div className="ArticleForm">
         {this.renderMissingResources(
-          `${this.props.article.type}-missing-resources`,
+          `bo.${this.props.article.type}-missing-resources`,
           this.state.missingResources,
         )}
         {this.renderMissingResources(
-          `${this.props.article.type}-missing-related`,
+          `bo.${this.props.article.type}-missing-related`,
           // $FlowFixMe: TODO polyfill
           Object.values(this.state.missingRelated),
         )}
@@ -528,7 +531,7 @@ class ArticleForm extends Component<Props, State> {
           <IconButton
             icon={this.state.expanded ? 'caret-down' : 'caret-right'}
           />{' '}
-          <T id="article-more-details" />
+          <T id="bo.article-more-details" />
         </h2>
         {this.renderMoreDetails(this.state.expanded)}
       </div>
@@ -542,13 +545,13 @@ class ArticleForm extends Component<Props, State> {
     const out = (
       <Fragment>
         <h3 className="subtitle is-4">
-          <T id="article-content-metas" />
+          <T id="bo.article-content-metas" />
         </h3>
         {article.metas && article.metas.map(this.renderMeta)}
 
         <hr />
         <h3 className="subtitle is-4">
-          <T id="article-content-content" />
+          <T id="bo.article-content-content" />
         </h3>
         {article.nodes &&
           article.nodes.map((node, k) => {

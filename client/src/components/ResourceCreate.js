@@ -21,7 +21,7 @@ class ResourceCreate extends Component<Props> {
     return (
       <div className="ResourceCreate">
         <h1 className="title">
-          <T id="resource-create" />
+          <T id="bo.resource-create" />
         </h1>
         <ResourceForm
           mode="create"

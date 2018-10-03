@@ -133,7 +133,10 @@ export const renderPreview = (resource: Resource) => {
   if (resource.type === 'definition' && resource.definitions) {
     return (
       <span className="preview">
-        <T id="preview-lexicon" values={{ nb: resource.definitions.length }} />
+        <T
+          id="bo.preview-lexicon"
+          values={{ nb: resource.definitions.length }}
+        />
       </span>
     )
   }
@@ -283,7 +286,7 @@ class Resources extends Component<Props, State> {
               isActive={() => item.type === this.props.filters.type}
               to={this.getMenuTo({ type: item.type })}>
               <Icon size="small" icon={item.icon} />
-              <T id={`type-${item.type || 'all'}`} />
+              <T id={`bo.type-${item.type || 'all'}`} />
               {this.renderMenuCountSuffix('type', item.type)}
             </NavLink>
           </li>
@@ -301,7 +304,7 @@ class Resources extends Component<Props, State> {
             isActive={() => !this.props.filters.status}
             to={this.getMenuTo({ status: null })}>
             <span className="button is-small is-rounded" />
-            <T id="type-all" />
+            <T id="bo.type-all" />
             {this.renderMenuCountSuffix('status', '')}
           </NavLink>
         </li>
@@ -312,7 +315,7 @@ class Resources extends Component<Props, State> {
               isActive={() => s === this.props.filters.status}
               to={this.getMenuTo({ status: s })}>
               {this.renderStatusIcon(s)}
-              <T id={`status-${s}`} />
+              <T id={`bo.status-${s}`} />
               {this.renderMenuCountSuffix('status', s)}
             </NavLink>
           </li>
@@ -330,7 +333,7 @@ class Resources extends Component<Props, State> {
             isActive={() => !this.props.filters.topic}
             to={this.getMenuTo({ topic: null })}>
             <span className="button is-small is-rounded" />
-            <T id="type-all" />
+            <T id="bo.type-all" />
             {this.renderMenuCountSuffix('topic', '')}
           </NavLink>
         </li>
@@ -357,7 +360,7 @@ class Resources extends Component<Props, State> {
           'is-' + STATUS_STYLE[status],
         )}
         title={this.props.intl.formatMessage({
-          id: 'status-' + (status || 'null'),
+          id: 'bo.status-' + (status || 'null'),
         })}
       />
     )
@@ -405,7 +408,7 @@ class Resources extends Component<Props, State> {
               <Link
                 className="button is-primary"
                 to={`/resources/${resource.id}/edit`}
-                title={this.props.intl.formatMessage({ id: 'edit' })}>
+                title={this.props.intl.formatMessage({ id: 'bo.edit' })}>
                 <IconButton icon="pencil" />
               </Link>
             </div>
@@ -423,9 +426,9 @@ class Resources extends Component<Props, State> {
                 }
                 title={
                   deletable
-                    ? this.props.intl.formatMessage({ id: 'delete' })
+                    ? this.props.intl.formatMessage({ id: 'bo.delete' })
                     : this.props.intl.formatMessage({
-                        id: 'cannot-delete-linked-resource',
+                        id: 'bo.cannot-delete-linked-resource',
                       })
                 }
                 disabled={!deletable}>
@@ -441,7 +444,7 @@ class Resources extends Component<Props, State> {
                     'is-loading': this.state.restoring === resource,
                   })}
                   onClick={() => this.restore(resource)}
-                  title={this.props.intl.formatMessage({ id: 'restore' })}>
+                  title={this.props.intl.formatMessage({ id: 'bo.restore' })}>
                   <IconButton icon="history" />
                 </button>
               </div>
@@ -481,7 +484,7 @@ class Resources extends Component<Props, State> {
     if (field === 'preview') {
       return (
         <th>
-          <T id="preview" />
+          <T id="bo.preview" />
         </th>
       )
     }
@@ -489,7 +492,7 @@ class Resources extends Component<Props, State> {
     // Sortable fields
     return (
       <th onClick={this.toggleSort(field)}>
-        <T id={'resource-' + field} />
+        <T id={'bo.resource-' + field} />
         {this.renderSortIndicator(field)}
       </th>
     )
@@ -582,7 +585,7 @@ class Resources extends Component<Props, State> {
         <div className="level-item">
           <h1 className="title">
             <NavLink to="/resources">
-              <T id="resources" />
+              <T id="bo.resources" />
             </NavLink>
           </h1>
         </div>
@@ -684,12 +687,12 @@ class Resources extends Component<Props, State> {
           <nav className="pagination" aria-label="pagination">
             {pageLink(
               current - 1,
-              <T id="pagination-previous" />,
+              <T id="bo.pagination-previous" />,
               'pagination-previous',
             )}
             {pageLink(
               current + 1,
-              <T id="pagination-next" />,
+              <T id="bo.pagination-next" />,
               'pagination-next',
             )}
             <ul className="pagination-list">{pages.map(pageItem)}</ul>
@@ -702,7 +705,7 @@ class Resources extends Component<Props, State> {
               value={this.props.pagination.count}>
               {PAGINATION_COUNTS.map(count => (
                 <option key={count} value={count}>
-                  <T id="pagination-count" values={{ count }} />
+                  <T id="bo.pagination-count" values={{ count }} />
                 </option>
               ))}
             </select>
@@ -717,23 +720,23 @@ class Resources extends Component<Props, State> {
       <aside className="menu">
         <p className="menu-item">
           <input
-            placeholder={this.props.intl.formatMessage({ id: 'search' })}
+            placeholder={this.props.intl.formatMessage({ id: 'bo.search' })}
             defaultValue={this.props.search}
             onChange={this.onChangeSearch}
           />
         </p>
         <p className="menu-label">
-          <T id="resource-type" />
+          <T id="bo.resource-type" />
         </p>
         {this.renderTypeMenu(typeItems)}
 
         <p className="menu-label">
-          <T id="resource-status" />
+          <T id="bo.resource-status" />
         </p>
         {this.renderStatusMenu()}
 
         <p className="menu-label">
-          <T id="resource-topic" />
+          <T id="bo.resource-topic" />
         </p>
         {this.renderTopicMenu()}
       </aside>

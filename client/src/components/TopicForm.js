@@ -94,7 +94,7 @@ class TopicForm extends Component<Props, State> {
 
     this.props.saveTopic(this.state.topic, this.props.topicId).then(
       () => {
-        toast.success(<T id="toast-topic-saved" />)
+        toast.success(<T id="bo.toast-topic-saved" />)
         this.props.redirect('/topics')
       },
       error => {
@@ -107,7 +107,7 @@ class TopicForm extends Component<Props, State> {
     return (
       <div className="notification is-danger">
         <strong>
-          <T id="error" />:
+          <T id="bo.error" />:
         </strong>
         {message}
       </div>
@@ -131,7 +131,7 @@ class TopicForm extends Component<Props, State> {
               : null}
             <div className="field">
               <label className="label">
-                <T id="resource-id" />
+                <T id="bo.resource-id" />
               </label>
               <div className="control">
                 <input
@@ -149,7 +149,7 @@ class TopicForm extends Component<Props, State> {
 
             <div className="field">
               <label className="label">
-                <T id="name" />
+                <T id="bo.name" />
               </label>
               <div className="control">
                 <input
@@ -167,7 +167,7 @@ class TopicForm extends Component<Props, State> {
             {topicId != null && (
               <div className="field">
                 <label className="label">
-                  <T id="resource" /> id
+                  <T id="bo.resource" /> id
                 </label>
                 <div className="control">
                   <input
@@ -184,11 +184,13 @@ class TopicForm extends Component<Props, State> {
             {['fr', 'en'].map(lang => (
               <div className="field" key={lang}>
                 <label className="label">
-                  <T id="resource-description" values={{ lang }} />
+                  <T id="bo.resource-description" values={{ lang }} />
                 </label>
                 <div className="control">
                   <Editor
-                    onChange={({ target }) => this.handleChangeDescription(lang, target.value)}
+                    onChange={({ target }) =>
+                      this.handleChangeDescription(lang, target.value)
+                    }
                     value={topic[`description_${lang}`] || ''}
                   />
                 </div>
@@ -203,7 +205,7 @@ class TopicForm extends Component<Props, State> {
               </div>
               <div className="control">
                 <Link className="button is-danger is-outlined" to="/topics">
-                  <T id="cancel" />
+                  <T id="bo.cancel" />
                 </Link>
               </div>
             </div>

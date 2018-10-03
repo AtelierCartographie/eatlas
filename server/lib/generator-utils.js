@@ -69,6 +69,9 @@ exports.populatePageUrl = (
   topics,
   { preview = false } = {},
 ) => resource => {
+  if (!resource) {
+    return null
+  }
   if (Array.isArray(resource)) {
     return resource.map(exports.populatePageUrl(key, topics, { preview }))
   }

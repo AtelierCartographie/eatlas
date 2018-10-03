@@ -1,15 +1,17 @@
 // @flow
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const { prefixUrl } = require('./layout')
 const SearchToggle = require('./SearchBar')
 const { SideMenuToggle } = require('./SideMenu')
 
-module.exports = (
+module.exports = injectIntl((
   {
     logoColor,
     options,
     altTitle,
+    intl,
   } /*: {
   logoColor: 'black' | 'white',
   options: FrontOptions,
@@ -26,7 +28,7 @@ module.exports = (
         },
         [
           h('img', {
-            alt: "Page d'accueil",
+            alt: intl.formatMessage({ id: 'fo.homepage' }),
             src: prefixUrl(
               `/assets/img/logo-eatlas-${logoColor}.svg`,
               options.preview,
@@ -45,7 +47,7 @@ module.exports = (
             },
             [
               h('img.if-scrolled', {
-                alt: "Page d'accueil",
+                alt: intl.formatMessage({ id: 'fo.homepage' }),
                 src: prefixUrl(
                   `/assets/img/logo-eatlas-black.svg`,
                   options.preview,
@@ -56,4 +58,5 @@ module.exports = (
     ]),
     h(SideMenuToggle, { logoColor, options }),
     h(SearchToggle, { logoColor, options }),
-  ])
+  ]),
+)

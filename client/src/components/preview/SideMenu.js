@@ -1,6 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T } = require('react-intl')
 const {
   resourcesTypes,
   aPropos,
@@ -56,14 +57,14 @@ exports.SideMenu = (
               ? `${options.apiUrl || ''}/preview`
               : prefixUrl('/'),
           },
-          `Espace mondial : l'Atlas`,
+          h(T, { id: 'fo.title' }),
         ),
       ]),
-      h('h1.navmenu-title', 'Sommaire'),
+      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
       h(Topics, { topics, options }),
-      h('h1.navmenu-title', 'Ressources'),
+      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
       h(Resources, { options }),
-      h('h1.navmenu-title', 'À propos'),
+      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
       h(APropos, { options }),
     ],
   )

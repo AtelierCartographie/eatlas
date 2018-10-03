@@ -55,6 +55,8 @@ const TopicHeader = ({ topic, resources, options }) => {
           h(TopicVideo, { title: topic.name, url: resource.mediaUrl }),
         ])
         break
+      default:
+        resourceComponent = null
     }
   }
 
@@ -82,6 +84,7 @@ const TopicHeader = ({ topic, resources, options }) => {
   )
 }
 
+// TODO update this part with i18n (see ArticlePage)
 const TopicDescriptions = ({ topic }) =>
   !topic.description_fr && !topic.description_en
     ? null
@@ -118,13 +121,13 @@ const TopicDescriptions = ({ topic }) =>
         // panes
         h('.tab-content', [
           h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
-            h('h2.line', 'Résumé'),
+            h('h2.line', {}, h(T, { id: 'doc.summary' })),
             h(Html, { whitelist: 'all' }, topic.description_fr),
           ]),
           !topic.description_en
             ? null
             : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
-                h('h2.line', 'Summary'),
+                h('h2.line', 'Summary'), // TODO i18N (see above)
                 h(Html, { whitelist: 'all' }, topic.description_en),
               ]),
         ]),
@@ -157,7 +160,10 @@ const ArticleList = ({ articles, options }) => {
                 {
                   href: getResourcePageUrl(a.focus, options),
                 },
-                [h('.FocusIcon', 'Focus'), a.focus.title],
+                [
+                  h('.FocusIcon', {}, h(T, { id: 'doc.type.focus' })),
+                  a.focus.title,
+                ],
               ),
             ]),
           ]),

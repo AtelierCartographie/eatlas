@@ -59,23 +59,25 @@ const ResourceVideo = ({ resource }) => {
 
 const ResourceDescription = ({ resource }) => {
   return h('.container.ResourceDescription', [
-    h('h2', 'Commentaire'),
+    h('h2', {}, h(T, { id: 'doc.comment' })),
     h(Html, { whitelist: 'all' }, resource.description_fr),
   ])
 }
 
 const ResourceCopyright = ({ resource }) =>
-  h(Html, { component: '.container.ResourceCopyright' }, resource.copyright)
+  !resource.copyright
+    ? null
+    : h(Html, { component: '.container.ResourceCopyright' }, resource.copyright)
 
 const ResourceTranscript = ({ resource }) =>
   !resource.transcript
     ? null
     : h('.container.ResourceTranscript', [
-        h('h2', 'Transcription'),
+        h('h2', {}, h(T, { id: 'doc.transcription' })),
         h(Html, {}, resource.transcript),
       ])
 
-const ResourceImageDownload = ({ resource, options }) => {
+const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
   const large =
     resource.imageStats['large-3x'] ||
     resource.imageStats['large-2x'] ||
@@ -89,37 +91,43 @@ const ResourceImageDownload = ({ resource, options }) => {
     resource.imageStats['small-2x'] ||
     resource.imageStats['small-1x']
   return h('.container.ResourceDownload', [
-    h('h2', 'Téléchargement'),
-    h('.warning', [
-      'Pour toute utilisation, merci de consulter les ',
-      h('a', { href: globalPageUrl('legals')(options) }, 'mentions légales'),
-      '.',
-    ]),
+    h('h2', {}, h(T, { id: 'doc.download' })),
+    h(
+      '.warning',
+      h(
+        Html,
+        { whitelist: 'all' },
+        intl.formatHTMLMessage(
+          { id: 'doc.download-warning' },
+          { href: globalPageUrl('legals')(options) },
+        ),
+      ),
+    ),
     h('.download-blocks', [
       large
         ? ResourceImageDownloadBlock({
             resource,
-            title: 'version détaillée',
+            title: intl.formatMessage({ id: 'doc.download-size.large' }),
             stats: large,
           })
         : null,
       medium
         ? ResourceImageDownloadBlock({
             resource,
-            title: 'version simplifiée',
+            title: intl.formatMessage({ id: 'doc.download-size.medium' }),
             stats: medium,
           })
         : null,
       small
         ? ResourceImageDownloadBlock({
             resource,
-            title: 'version très simplifiée',
+            title: intl.formatMessage({ id: 'doc.download-size.small' }),
             stats: small,
           })
         : null,
     ]),
   ])
-}
+})
 
 const ResourceImageDownloadBlock = ({
   resource,
@@ -131,7 +139,7 @@ const ResourceImageDownloadBlock = ({
     h('.download-info', [
       h('strong', title),
       h('a', { href: url, download: `${resource.id} - ${title}.${type}` }, [
-        h('span.link', 'télécharger'),
+        h('span.link', {}, h(T, { id: 'doc.do-download' })),
         h('span.info', ` (${type} - ${humanSize})`),
       ]),
     ]),
@@ -147,7 +155,9 @@ const ResourceLexicon = ({ definitions }) =>
           h('dd', [
             h('.gradient-expand', [
               h('.masked', dd),
-              h('.read-more', [h('span', 'Lire la definition complète')]),
+              h('.read-more', [
+                h('span', {}, h(T, { id: 'doc.read-full-definition' })),
+              ]),
             ]),
           ]),
         ]),
@@ -161,20 +171,16 @@ const ResourceSource = ({ resource }) => {
   ])
 }
 
-const Resource = ({ resource, topics, options }) => {
+const Resource = injectIntl(({ resource, topics, options, intl }) => {
   let children
-  // TODO proper i18n for FO
-  let displayedType = resource.type
   switch (resource.type) {
     case 'definition':
-      displayedType = 'Définition'
       children = [
         h(ResourceLexicon, { definitions: resource.definitions }),
         h(ResourceDescription, { resource }),
       ]
       break
     case 'map':
-      displayedType = 'Cartes et graphiques'
       children = [
         h(ResourceMap, { resource, options }),
         h(ResourceSource, { resource, options }),
@@ -185,12 +191,11 @@ const Resource = ({ resource, topics, options }) => {
           article: resource,
           topics,
           options,
-          title: 'Article ou focus lié',
+          title: intl.formatMessage({ id: 'doc.related-article-or-focus' }),
         }),
       ]
       break
     case 'image':
-      displayedType = 'Photos'
       children = [
         h(ResourceImage, { resource, options }),
         h(ResourceSource, { resource, options }),
@@ -201,12 +206,11 @@ const Resource = ({ resource, topics, options }) => {
           article: resource,
           topics,
           options,
-          title: 'Article ou focus lié',
+          title: intl.formatMessage({ id: 'doc.related-article-or-focus' }),
         }),
       ]
       break
     case 'sound':
-      displayedType = 'Sons'
       children = [
         h(ResourceSound, { resource, options }),
         h(ResourceCopyright, { resource, options }),
@@ -215,7 +219,6 @@ const Resource = ({ resource, topics, options }) => {
       ]
       break
     case 'video':
-      displayedType = 'Vidéos'
       children = [
         h(ResourceVideo, { resource, options }),
         h(ResourceCopyright, { resource, options }),
@@ -228,13 +231,13 @@ const Resource = ({ resource, topics, options }) => {
   }
   return h('article.ResourcePage', [
     h('header.container.ResourceHeader', [
-      h('.PageTitle', 'Ressources'),
-      h('.ResourceType', displayedType),
+      h('.PageTitle', {}, h(T, { id: 'doc.resource-page-title' })),
+      h('.ResourceType', h(T, { id: `doc.type-plural.${resource.type}` })),
       h(Html, { component: 'h1.ResourceTitle' }, resource.title),
     ]),
     ...children,
   ])
-}
+})
 
 const ResourcePage = injectIntl((
   {

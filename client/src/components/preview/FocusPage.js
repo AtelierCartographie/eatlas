@@ -50,7 +50,7 @@ const FocusBackToArticle = ({ focus, options }) =>
 const FocusHeader = ({ focus }) =>
   h('header.FocusHeader', [
     h('.container.FocusHeaderInfo', [
-      h('.FocusIcon', {}, h(T, { id: 'fo.type-focus' })),
+      h('.FocusIcon', {}, h(T, { id: 'doc.type.focus' })),
       h(Html, { component: 'h1.FocusTitle' }, focus.title),
       h(PublishedAt, { doc: focus }),
     ]),

@@ -1,5 +1,18 @@
 {
   "title": "Espace mondial : l'Atlas",
-  "type-focus": "Focus",
-  "close": "Fermer"
+  "close": "Fermer",
+  "nav-summary": "Sommaire",
+  "nav-resources": "Ressources",
+  "nav-about": "À propos",
+  "search-placeholder": "Rechercher dans l'atlas",
+  "homepage": "Page d’accueil",
+  "lexicon-title-prefix": "Ressources > ",
+  "lexicon": "Lexique",
+  "page-not-found": "Page introuvable",
+  "back-home": "Retour à la page d’accueil",
+  "page-not-found-intro":
+    "La page que vous avez demandéz n’existe pas, ou n’existe plus.",
+  "page-not-found-link-html":
+    "Vous pouvez signaler le lien brisé via <a href=\"{href}\">notre formulaire de contact</a>.",
+  "sitemap": "Plan du site"
 }

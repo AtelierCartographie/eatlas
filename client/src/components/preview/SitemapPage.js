@@ -32,7 +32,10 @@ const ul = urls => {
 }
 
 const Content = ({ urls, options }) =>
-  h('article.container.SitemapPage', [h('h1', 'Plan du site'), ul(urls)])
+  h('article.container.SitemapPage', [
+    h('h1', {}, h(T, { id: 'fo.sitemap' })),
+    ul(urls),
+  ])
 
 const SitemapPage = injectIntl((
   {
@@ -48,7 +51,7 @@ const SitemapPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: 'Plan du site', options }),
+    h(Head, { title: info.formatMessage({ id: 'fo.sitemap' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { urls, options }),
     ]),

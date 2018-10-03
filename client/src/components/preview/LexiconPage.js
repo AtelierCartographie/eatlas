@@ -57,8 +57,8 @@ const Content = ({ definitions, options }) => {
     )
   return h('article.LexiconPage', [
     h('h1.SearchPageTitle.container', [
-      'Ressources > ',
-      h('span.SearchPageTitleType', 'Lexique'),
+      h(T, { id: 'fo.lexicon-title-prefix' }),
+      h('span.SearchPageTitleType', h(T, { id: 'fo.lexicon' })),
     ]),
     h('section.SearchResults.container', [
       h('.search-results-success', [
@@ -107,7 +107,7 @@ const SearchPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: 'Lexique', options }),
+    h(Head, { title: intl.formatMessage({ id: 'fo.lexicon' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { definitions, options }),
     ]),

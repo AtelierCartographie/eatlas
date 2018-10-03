@@ -1,6 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T } = require('react-intl')
 const {
   resourcesTypes,
   aPropos,
@@ -51,15 +52,15 @@ module.exports = (
   h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.FooterRow', [
       h('.FooterColTopics', [
-        h('h2', 'Sommaire'),
+        h('h2', {}, h(T, { id: 'fo.nav-summary' })),
         h(Topics, { topics, options }),
       ]),
       h('.FooterColResources', [
-        h('h2', 'Ressources'),
+        h('h2', {}, h(T, { id: 'fo.nav-resources' })),
         h(FooterUl, { links: resourcesTypes, options }),
       ]),
       h('.FooterColAPropos', [
-        h('h2', 'À propos'),
+        h('h2', {}, h(T, { id: 'fo.nav-about' })),
         h(FooterUl, { links: aPropos, options }),
       ]),
       h('.FooterColLogo', [h(FooterLogo, { options })]),

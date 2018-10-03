@@ -1,6 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T } = require('react-intl')
 
 const { getResourcePageUrl } = require('./layout')
 const { getMediaUrl, stripTags } = require('../../universal-utils')
@@ -11,7 +12,7 @@ const EmbeddedResource = ({ resource, options }) => {
   const infoLink = h(
     'a',
     { href: getResourcePageUrl(resource, options) },
-    'Info & téléchargement',
+    h(T, { id: 'doc.embedded-download-title' }),
   )
 
   switch (resource.type) {
@@ -85,7 +86,7 @@ const ArticleResourceComment = ({ resource }) => {
   if (!description) return null
   return h('.ArticleResourceComment.container', [
     h('.gradient-expand', {}, [
-      h('strong.comment-title', 'Commentaire'),
+      h('strong.comment-title', {}, h(T, { id: 'doc.comment' })),
       h(Html, { component: 'p' }, description),
       h('.read-more', ['▼']),
     ]),

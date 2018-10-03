@@ -12,20 +12,24 @@ moment.locale('fr')
 const { prefixUrl, globalPageUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
+const Html = require('./Html')
 
-const Content = ({ options }) => {
+const Content = injectIntl(({ options, intl }) => {
   return h('article.container.NotFoundPage', [
-    h('h1', 'Page non trouvée'),
-    h('p', 'La page que vous avez demandéz n’existe pas, ou n’existe plus.'),
-    h('p', [
-      'Vous pouvez signaler le lien brisé via ',
+    h('h1', {}, h(T, { id: 'fo.page-not-found' })),
+    h('p', {}, h(T, { id: 'fo.page-not-found-intro' })),
+    h(
+      'p',
+      {},
       h(
-        'a',
-        { href: globalPageUrl('about', null, 'contact')(options) },
-        'notre formulaire de contact',
+        Html,
+        { whitelist: 'all' },
+        intl.formatHTMLMessage(
+          { id: 'fo.page-not-found-link-html' },
+          { href: globalPageUrl('about', null, 'contact')(options) },
+        ),
       ),
-      '.',
-    ]),
+    ),
     h('p.back-home', [
       h(
         'a.button.btn',
@@ -35,11 +39,11 @@ const Content = ({ options }) => {
             : prefixUrl('/'),
           role: 'link',
         },
-        'Retour à la page d’accueil',
+        h(T, { id: 'fo.back-home' }),
       ),
     ]),
   ])
-}
+})
 
 const NotFoundPage = injectIntl((
   { topics, options, intl } /*: {
@@ -48,7 +52,10 @@ const NotFoundPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: 'Page introuvable', options }),
+    h(Head, {
+      title: intl.formatMessage({ id: 'fo.page-not-found' }),
+      options,
+    }),
     h(Body, { topics, options, logoColor: 'black' }, [h(Content, { options })]),
   ]),
 )

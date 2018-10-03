@@ -5,6 +5,7 @@
 const { getSearchUrl, globalPageUrl } = require('./layout')
 const { getDefinition, slugify, stripTags } = require('../../universal-utils')
 const { Fragment } = require('react')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const h = require('react-hyperscript')
 const moment = require('moment')
 moment.locale('fr')
@@ -34,16 +35,21 @@ const padText = (text, markup, idx) => {
   return text
 }
 
-exports.PublishedAt = ({ doc } /*: { doc: Resource } */) => {
+exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
   const date = doc.visiblePublishedAt || doc.publishedAt
   if (!date) {
-    return h('.PublishedAt', 'Non publié')
+    return h('.PublishedAt', h(T, { id: 'article.unpublished' }))
   }
   return h('.PublishedAt', [
-    'Publié le ',
-    h('time', { dateTime: date }, moment(date).format('D MMMM YYYY')),
+    h(T, { id: 'doc.published-at' }),
+    ' ',
+    h(
+      'time',
+      { dateTime: date },
+      moment(date).format(intl.formatMessage({ id: 'doc.header-date-format' })),
+    ),
   ])
-}
+})
 
 // used by Paragraphs and Footnotes/References
 const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>

@@ -5,11 +5,13 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const Html = require('./Html')
 const { prefixUrl } = require('./layout')
 const { slugify } = require('../../universal-utils')
 
@@ -18,7 +20,7 @@ const avatarUrl = member =>
 
 const toId = lastname => slugify(lastname)
 
-const TeamMemberModal = ({ member, options }) => {
+const TeamMemberModal = injectIntl(({ member, options, intl }) => {
   return h(
     `#${toId(member.lastname)}.modal.fade`,
     { tabIndex: -1, role: 'dialog', 'aria-labelledby': 'modal' },
@@ -33,7 +35,7 @@ const TeamMemberModal = ({ member, options }) => {
                 {
                   type: 'button',
                   'data-dismiss': 'modal',
-                  'aria-label': 'Close',
+                  'aria-label': intl.formatMessage({ id: 'fo.close' }),
                 },
                 [h('span', { 'aria-hidden': true }, '×')],
               ),
@@ -48,13 +50,13 @@ const TeamMemberModal = ({ member, options }) => {
               ]),
               h('.col-md-8', [
                 h('h2', `${member.firstname} ${member.lastname}`),
-                h('h3', member.title),
-                h('p', member.bio),
+                h('h3', {}, h(T, { id: `about.${member.key}-title` })),
+                h('p', {}, h(T, { id: `about.${member.key}-bio` })),
                 h('div.TeamMemberLinks', [
                   Boolean(member.page) &&
-                    h('a', { href: member.pageURL }, member.page),
+                    h('a', { href: member.pageURL || '' }, member.page),
                   Boolean(member.social) &&
-                    h('a', { href: member.socialURL }, member.social),
+                    h('a', { href: member.socialURL || '' }, member.social),
                 ]),
               ]),
             ]),
@@ -63,7 +65,7 @@ const TeamMemberModal = ({ member, options }) => {
       ]),
     ],
   )
-}
+})
 
 const TeamMember = ({ member, options }) => {
   return h('li.col-sm-2.col-xs-6.TeamMember', [
@@ -89,13 +91,12 @@ const TeamMember = ({ member, options }) => {
   ])
 }
 
-const Team = ({ options }) => {
+const Team = ({ options, intl }) => {
   const authors = [
     {
       firstname: 'Delphine',
       lastname: 'Allès',
-      title: 'Professeure des universités en science politique',
-      bio: `Professeure de Science politique, Delphine Allès dirige la filière Relations internationales de l’Institut national des langues et civilisations orientales (INALCO). Ses recherches portent sur le rôle de la religion dans l’espace mondial et les approches extra-occidentales de l’international.`,
+      key: 'delphine-alles',
       pageURL: 'http://u-pec.academia.edu/DelphineAlles',
       page: 'Academia',
       socialURL: 'https://twitter.com/DelphineAlles',
@@ -104,52 +105,29 @@ const Team = ({ options }) => {
     {
       firstname: 'Mélanie',
       lastname: 'Albaret',
-      title: 'Maîtresse de conférences en sience politique',
-      bio: `Docteure en science politique (relations internationales), Mélanie Albaret est maîtresse de conférences à l'Université Clermont Auvergne. Ses recherches portent sur les organisations internationales (notamment l'ONU) et sur le multilatéralisme.`,
-      pageURL: '',
-      page: '',
-      socialURL: '',
-      social: '',
+      key: 'melanie-albaret',
     },
     {
       firstname: 'Philippe',
       lastname: 'Copinschi',
-      title: 'Enseignant, consultant',
-      bio: `Philippe Copinschi est docteur en science politique (relations internationales) de Sciences Po Paris. Il enseigne à la Paris School of International Affairs (PSIA) de Sciences Po Paris et travaille comme consultant indépendant dans le domaine de l’énergie, en particulier en Afrique.`,
-      pageURL: '',
-      page: '',
-      socialURL: '',
-      social: '',
+      key: 'philippe-copinschi',
     },
     {
       firstname: 'Marie-Françoise',
       lastname: 'Durand',
-      title: 'Professeure agrégée de géographie',
-      bio: `Professeure agrégée de géographie à Sciences Po de 1989 à 2015, Marie-Françoise Durand a créé l'Atelier de cartographie, coordonné le cours Espace mondial, la production de plusieurs MOOCs et les 6 éditions de l'Atlas de la mondialisation `,
-      pageURL: '',
-      page: '',
-      socialURL: '',
-      social: '',
+      key: 'mf-durand',
     },
     {
       firstname: 'Lucile',
       lastname: 'Maertens',
-      title: 'Maître-assistante en relations internationales',
-      bio: `Docteure en science politique, Lucile Maertens est maître-assistante en relations internationales à l'Université de Lausanne (IEPHI) et chercheuse associée à Sciences Po/CERI. Ses recherches portent sur l'action des organisations internationales dans le domaine de l'environnement et de la sécurité.`,
+      key: 'lucile-maertens',
       pageURL: 'https://unil.academia.edu/LucileMaertens',
       page: 'Academia',
-      socialURL: '',
-      social: '',
     },
     {
       firstname: 'Delphine',
       lastname: 'Placidi-Frot',
-      title: 'Professeure des universités en science politique',
-      bio: `Professeure de science politique, Delphine Placidi-Frot codirige les M2 Diplomatie et négociations stratégiques et Gouvernance de projets de développement durable au Sud de l'Université Paris-Saclay. Ses recherches portent sur la politique extérieure et les organisations multilatérales (notamment onusiennes).`,
-      pageURL: '',
-      page: '',
-      socialURL: '',
-      social: '',
+      key: 'delphine-placidi-frot',
     },
   ]
 
@@ -157,8 +135,7 @@ const Team = ({ options }) => {
     {
       firstname: 'Thomas',
       lastname: 'Ansart',
-      title: 'cartographie, data visualisation, R',
-      bio: `Entrée par la cartographie à Sciences Po en 2008, Thomas Ansart jongle depuis entre les créations de data visualisations, la conception d'outils, le design de site web et le suivi de projets. Avec un soupcon de lignes de code toujours plus important.`,
+      key: 'thomas-ansart',
       pageURL: 'https://thomasansart.info',
       page: 'https://thomasansart.info',
       socialURL: 'https://twitter.com/ThomasAnsart',
@@ -167,19 +144,15 @@ const Team = ({ options }) => {
     {
       firstname: 'Benoît',
       lastname: 'Martin',
-      title: 'Géographe-cartographe et doctorant en science politique',
-      bio: `Cartographe à Sciences Po depuis 2006, ses recherches portent sur la production des statistiques internationales – sa thèse de Doctorat explore le cas de l’UNODC, sur la drogue et le crime – et notamment les enjeux politiques qui entourent les activités d’expertise des organisations internationales.`,
+      key: 'benoit-martin',
       pageURL:
         'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
       page: 'Atelier de cartographie',
-      socialURL: '',
-      social: '',
     },
     {
       firstname: 'Patrice',
       lastname: 'Mitrano',
-      title: 'Géographe-cartographe',
-      bio: `Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement "viz". Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012.`,
+      key: 'patrice-mitrano',
       pageURL:
         'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
       page: 'Atelier de cartographie',
@@ -189,20 +162,12 @@ const Team = ({ options }) => {
     {
       firstname: 'Anouk',
       lastname: 'Pettes',
-      title: 'Géographe-cartographe',
-      bio: '',
-      pageURL: '',
-      page: '',
-      socialURL: '',
-      social: '',
+      key: 'anouk-pettes',
     },
     {
       firstname: 'Antoine',
       lastname: 'Rio',
-      title: 'Géographe-cartographe',
-      bio: `Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014.`,
-      pageURL: '',
-      page: '',
+      key: 'antoine-rio',
       socialURL: 'https://twitter.com/antoinerio',
       social: '@antoinerio',
     },
@@ -210,58 +175,58 @@ const Team = ({ options }) => {
 
   return h('section.AboutTeam#team', [
     h('.container', [
-      h('h2', "L'équipe"),
-      h('h3', 'Les textes'),
+      h('h2', {}, h(T, { id: 'about.the-team' })),
+      h('h3', {}, h(T, { id: 'about.the-texts' })),
       h(
         'ul',
         authors.map((member, key) => h(TeamMember, { key, member, options })),
       ),
-      h('h3', 'Les visualisations (Sciences Po - Atelier de cartographie)'),
+      h('h3', {}, h(T, { id: 'about.the-vizualisations' })),
       h(
         'ul',
-        cartographers.map((member, key) =>
-          h(TeamMember, { key, member, options }),
+        cartographers.map(member =>
+          h(TeamMember, { key: member.key, member, options }),
         ),
       ),
-      authors.map((member, key) =>
-        h(TeamMemberModal, { key, member, options }),
+      authors.map(member =>
+        h(TeamMemberModal, { key: member.key, member, options }),
       ),
-      cartographers.map((member, key) =>
-        h(TeamMemberModal, { key, member, options }),
+      cartographers.map(member =>
+        h(TeamMemberModal, { key: member.key, member, options }),
       ),
-      h('h3', 'Le projet'),
+      h('h3', {}, h(T, { id: 'about.the-project' })),
       h('p', [
-        'Delphine Lereculeur et Anne L’Hôte (conduite de projet, Sciences Po DRIS).',
+        h(T, { id: 'about.project.0' }),
         h('br'),
-        'ByteClub (développement).',
+        h(T, { id: 'about.project.1' }),
         h('br'),
-        'Les Presses de Sciences Po (editing et déclinaison papier).',
+        h(T, { id: 'about.project.2' }),
       ]),
     ]),
   ])
 }
 
-const About = ({ options }) => {
+const About = injectIntl(({ options, intl }) => {
   return h('article.AboutPage', [
     h('header.AboutHeader', [
-      h('.container', [h('h1.AboutTitle', 'À propos')]),
+      h('.container', [h('h1.AboutTitle', {}, h(T, { id: 'about.title' }))]),
     ]),
     h('section.AboutProject#project', [
       h('.container', [
-        h('h2', [
-          'Qu’est-ce que ',
-          h('em', 'Espace mondial : l’Atlas ?'),
-        ]),
+        h(
+          'h2',
+          {},
+          h(Html, {}, intl.formatHTMLMessage({ id: 'about.info-title-html' })),
+        ),
         h('.row.vcenter', [
-          h(
-            'ul.col-sm-8.AboutInfo', [
-              h('li', '// La volonté d’un accès libre et gratuit'),
-              h('li', '// Le prolongement d’un cours phare de Sciences Po'),
-              h('li', '// Un projet rassemblant une équipe d’auteurs et de cartographes'),
-              h('li', '// Des contenus scientifiques à jour abordant les grands enjeux actuels'),
-              h('li', '// Des formats s’adaptant à tous les supports, notamment mobiles'),
-              h('li', '// De multiples formes de lecture : linéaire classique, thématique à la manière d’un manuel ou par type de média'),
-              h('li', '// Le pari d’une déclinaison papier sous la forme d’un beau livre aux Presses de Sciences Po'),
+          h('ul.col-sm-8.AboutInfo', [
+            h('li', {}, h(T, { id: 'about.info.0' })),
+            h('li', {}, h(T, { id: 'about.info.1' })),
+            h('li', {}, h(T, { id: 'about.info.2' })),
+            h('li', {}, h(T, { id: 'about.info.3' })),
+            h('li', {}, h(T, { id: 'about.info.4' })),
+            h('li', {}, h(T, { id: 'about.info.5' })),
+            h('li', {}, h(T, { id: 'about.info.6' })),
           ]),
           h('a.col-sm-4.logo', [
             h('img', {
@@ -275,11 +240,9 @@ const About = ({ options }) => {
     h(Team, { options }),
     h('section.AboutContact#contact', [
       h('.container', [
-        h('h2', 'Nous contacter'),
+        h('h2', {}, h(T, { id: 'about.contact-title' })),
         h('.row.vcenter', [
-          h('.col-sm-8', [
-            'Entrer en contact avec les rédacteurs et les cartographes',
-          ]),
+          h('.col-sm-8', {}, h(T, { id: 'about.contact-intro' })),
           h('.col-sm-4', [
             h(
               'a.button.btn',
@@ -288,7 +251,7 @@ const About = ({ options }) => {
                 target: '_blank',
                 role: 'button',
               },
-              'Nous contacter',
+              h(T, { id: 'about.contact-button' }),
             ),
           ]),
         ]),
@@ -296,14 +259,17 @@ const About = ({ options }) => {
     ]),
     h('section.AboutBook#book', [
       h('.container', [
-        h('h2', 'Le livre'),
+        h('h2', {}, h(T, { id: 'about.the-book' })),
         h('.row', [
           h('.col-sm-6', [
             h(
-              'p', [
-              h('em', 'Espace mondial : l’Atlas'),
-              ' est aussi un beau livre publié aux Presses de Sciences Po.',
-            ]),
+              'p',
+              h(
+                Html,
+                {},
+                intl.formatHTMLMessage({ id: 'about.book-intro-html' }),
+              ),
+            ),
             h(
               'a.button.btn',
               {
@@ -312,7 +278,7 @@ const About = ({ options }) => {
                 target: '_blank',
                 role: 'button',
               },
-              'Acheter le livre',
+              h(T, { id: 'about.book-button' }),
             ),
           ]),
           h('.col-sm-6', [
@@ -325,24 +291,26 @@ const About = ({ options }) => {
       ]),
     ]),
   ])
-}
+})
 
-const AboutPage = (
+const AboutPage = injectIntl((
   {
     topics,
     articles,
     options,
+    intl,
   } /*: {
   topics: Topic[],
   articles: Resource[],
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
-    h(Head, { title: 'À propos', options }),
+  h('html', { lang: intl.lang }, [
+    h(Head, { title: intl.formatMessage({ id: 'about.title' }), options }),
     h(Body, { topics, options, logoColor: 'white' }, [
       h(About, { topics, articles, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = AboutPage

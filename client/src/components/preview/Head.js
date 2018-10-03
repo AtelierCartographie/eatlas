@@ -52,8 +52,8 @@ module.exports = injectIntl((
       href: `${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`,
     }),
     ...links.map(
-      ({ href, title, type, rel = 'alternate', hreflang = intl.locale }) =>
-        h('link', { rel, href, title, hreflang, type }),
+      ({ href, title, type, rel = 'alternate', lang = intl.locale }) =>
+        h('link', { rel, href, title, hrefLang: lang, type }),
     ),
     ...(options.analytics && options.analytics.google
       ? googleAnalyticsScript(h, options.analytics.google)

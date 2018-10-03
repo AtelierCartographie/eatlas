@@ -50,7 +50,7 @@ const FocusBackToArticle = ({ focus, options }) =>
 const FocusHeader = ({ focus }) =>
   h('header.FocusHeader', [
     h('.container.FocusHeaderInfo', [
-      h('.FocusIcon', h(T, { id: 'fo.type-focus' })),
+      h('.FocusIcon', {}, h(T, { id: 'fo.type-focus' })),
       h(Html, { component: 'h1.FocusTitle' }, focus.title),
       h(PublishedAt, { doc: focus }),
     ]),
@@ -115,7 +115,7 @@ const FocusPage = injectIntl((
     const lexiconId = {
       id: 0,
     }
-    return h('html', { lang: 'fr' }, [
+    return h('html', { lang: intl.lang }, [
       h(Head, {
         title: stripTags(focus.title),
         links: exportLinks({ doc: focus, intl, options }),

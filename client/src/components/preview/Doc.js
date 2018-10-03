@@ -38,7 +38,7 @@ const padText = (text, markup, idx) => {
 exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
   const date = doc.visiblePublishedAt || doc.publishedAt
   if (!date) {
-    return h('.PublishedAt', h(T, { id: 'article.unpublished' }))
+    return h('.PublishedAt', {}, h(T, { id: 'article.unpublished' }))
   }
   return h('.PublishedAt', [
     h(T, { id: 'doc.published-at' }),
@@ -117,7 +117,7 @@ exports.Keywords = (
   if (!keywords || !keywords.length) return null
 
   return h('section.container.Keywords', [
-    h('h2', h(T, { id: 'doc.keywords' })),
+    h('h2', {}, h(T, { id: 'doc.keywords' })),
     h(
       'ul',
       keywords.map((kw, i) =>
@@ -191,7 +191,7 @@ PB  - ${publisher}`
 
 exports.Quote = injectIntl(({ doc, intl, options } /*: { doc: Resource } */) =>
   h('section.container.Quote', [
-    h('h2', h(T, { id: 'doc.quote-title' })),
+    h('h2', {}, h(T, { id: 'doc.quote-title' })),
     h('blockquote', [
       h('p', [
         h(
@@ -235,7 +235,7 @@ exports.Footnotes = (
     return null
 
   return h('section.container.Footnotes', [
-    h('h2', h(T, { id: 'doc.references' })),
+    h('h2', {}, h(T, { id: 'doc.references' })),
     h('.gradient-expand', [
       footnotes &&
         Boolean(footnotes.length) &&

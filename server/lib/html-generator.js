@@ -4,7 +4,7 @@
 const React = require('react')
 const { renderToStaticMarkup } = require('react-dom/server')
 const h = require('react-hyperscript')
-const { IntlProvider } = require('react-intl')
+const { IntlProvider, injectIntl } = require('react-intl')
 const messages = require('../../client/src/i18n')
 
 // Tools to grab data required by components
@@ -84,7 +84,12 @@ const wrap = (element, locale = 'fr-FR') => {
       messages: messages[lang],
       textComponent: React.Fragment,
     },
-    element,
+    h(
+      injectIntl(({ intl }) => {
+        intl.lang = lang
+        return element
+      }),
+    ),
   )
   const html = renderToStaticMarkup(wrapped)
   return `<!DOCTYPE html>${html}`

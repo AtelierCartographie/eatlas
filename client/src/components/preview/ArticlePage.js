@@ -210,16 +210,13 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
 }
 
 // french and english (optional)
+// TODO remettre le switch summary
 const ArticleSummaries = injectIntl(({ article, intl }) =>
   h('section.container.Summaries', [
     h('.tab-content', [
       h('.tab-pane.active', { role: 'tabpanel', lang: intl.locale }, [
-        h('h2.line', h(T, { id: 'doc.summary' })),
-        h(
-          Html,
-          { whitelist: 'all' },
-          article[`description_${intl.locale.substring(0, 2)}`],
-        ),
+        h('h2.line', {}, h(T, { id: 'doc.summary' })),
+        h(Html, { whitelist: 'all' }, article[`description_${intl.lang}`]),
       ]),
     ]),
   ]),
@@ -259,7 +256,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
   if (!relateds || !relateds.length) return null
 
   return h('section.container.ArticleSeeAlso', [
-    h('h2', title || h(T, { id: 'see-also-alt-title' })),
+    h('h2', {}, title || h(T, { id: 'see-also-alt-title' })),
     h(
       'ul',
       relateds.map(r =>
@@ -434,7 +431,7 @@ const ArticlePage = injectIntl((
 
   const prevNext = getPrevNextArticles(article, articles, topics)
 
-  return h('html', { lang: 'fr' }, [
+  return h('html', { lang: intl.lang }, [
     h(Head, {
       title: stripTags(article.title),
       links: exportLinks({ doc: article, intl, options }),

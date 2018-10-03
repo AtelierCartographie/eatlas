@@ -495,7 +495,7 @@ class ResourceForm extends Component<Props, State> {
           mandatory: true,
           options: this.buildSelectOptions(
             ['center', 'top', 'bottom'],
-            'position-',
+            'bo.position-',
             false,
           ),
         }),

@@ -330,7 +330,7 @@ class ArticleForm extends Component<Props, State> {
     const isFocus = this.props.article.type === 'focus'
     const isMandatory = !isFocus // Focus are not mandatory, to avoid circular dependency
     if (this.props.onNotPublishable && isMandatory) {
-      this.props.onNotPublishable('article-error-missing-resource')
+      this.props.onNotPublishable('bo.article-error-missing-resource')
     }
   }
 

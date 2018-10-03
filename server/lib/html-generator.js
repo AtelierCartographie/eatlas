@@ -3,6 +3,9 @@
 // React dependencies for HTML generation
 const React = require('react')
 const { renderToStaticMarkup } = require('react-dom/server')
+const h = require('react-hyperscript')
+const { IntlProvider } = require('react-intl')
+const messages = require('../../client/src/i18n')
 
 // Tools to grab data required by components
 const {
@@ -71,7 +74,21 @@ const GENERATORS = {
   notFound: 'generate404HTML',
 }
 
-const wrap = element => `<!DOCTYPE html>${renderToStaticMarkup(element)}`
+const wrap = (element, locale = 'fr-FR') => {
+  const lang = locale.substring(0, 2)
+  const wrapped = h(
+    IntlProvider,
+    {
+      key: locale,
+      locale,
+      messages: messages[lang],
+      textComponent: React.Fragment,
+    },
+    element,
+  )
+  const html = renderToStaticMarkup(wrapped)
+  return `<!DOCTYPE html>${html}`
+}
 
 const menuProps = async (
   { topics = null, articles = null } = {},

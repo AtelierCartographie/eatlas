@@ -66,6 +66,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hyperscript": "^3.1.0",
+    "react-intl": "^2.7.0",
     "request-promise-native": "^1.0.5",
     "sitemap": "^1.13.0",
     "user-home": "^2.0.0"

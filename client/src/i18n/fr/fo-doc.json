@@ -1,4 +1,9 @@
 {
   "published-at": "Publié le",
-  "header-date-format": "D MMMM YYYY"
+  "date-format": "D MMMM YYYY",
+  "keywords": "Mots-clés",
+  "publisher": "Espace mondial l'Atlas",
+  "quote-title": "Citation",
+  "quote-text": "« {title} » {publisher}, {year}, [en ligne], consulté le",
+  "references": "Références"
 }

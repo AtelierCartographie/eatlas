@@ -2,7 +2,7 @@
 
 // components shared by ArticlePage and FocusPage
 
-const { getSearchUrl, globalPageUrl } = require('./layout')
+const { getSearchUrl, globalPageUrl, getResourcePageUrl } = require('./layout')
 const { getDefinition, slugify, stripTags } = require('../../universal-utils')
 const { Fragment } = require('react')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
@@ -46,7 +46,7 @@ exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
     h(
       'time',
       { dateTime: date },
-      moment(date).format(intl.formatMessage({ id: 'doc.header-date-format' })),
+      moment(date).format(intl.formatMessage({ id: 'doc.date-format' })),
     ),
   ])
 })
@@ -117,7 +117,7 @@ exports.Keywords = (
   if (!keywords || !keywords.length) return null
 
   return h('section.container.Keywords', [
-    h('h2', 'Mots-clés'),
+    h('h2', h(T, { id: 'doc.keywords' })),
     h(
       'ul',
       keywords.map((kw, i) =>
@@ -135,45 +135,53 @@ exports.Keywords = (
   ])
 }
 
-exports.Quote = ({ doc } /*: { doc: Resource } */) => {
-  // TODO conf?
-  const publication = `Espace mondial l'Atlas`
+exports.Quote = injectIntl((
+  { doc, intl, options } /*: { doc: Resource } */,
+) => {
+  const publication = intl.formatMessage({ id: 'doc.publisher' })
   const year = new Date(
     doc.visiblePublishedAt || doc.publishedAt || Date.now(),
   ).getFullYear()
-  const url = ''
+  const url = getResourcePageUrl(doc, options)
 
   const bibtex = `@book{eAtlas,
   title={${stripTags(doc.title)}},
   author={${doc.author}},
-  url={TODO},
+  url={${url}},
   year={${year}},
   publisher={${publication}}
 }`
   const endnote = `%0 Book
 %T ${stripTags(doc.title)}
 %A ${doc.author}
-%U TODO
+%U ${url}
 %D ${year}
 %I ${publication}`
 
   const refman = `TY  - BOOK
 T1  - ${doc.title}
 A1  - ${doc.author}
-UR  - TODO
+UR  - ${url}
 Y1  - ${year}
 PB  - ${publication}`
 
   return h('section.container.Quote', [
-    h('h2', 'Citation'),
+    h('h2', h(T, { id: 'doc.quote-title' })),
     h('blockquote', [
       h('p', [
         h(
           Html,
           { component: 'span' },
-          `"${doc.title}", ${publication}, ${year}, [en ligne], consulté le `,
+          intl.formatMessage(
+            { id: 'doc.quote-text' },
+            { title: doc.title, publisher: publication, year },
+          ),
         ),
-        h('span.consultedAt', moment().format('D MMMM YYYY')),
+        ' ',
+        h(
+          'span.consultedAt',
+          moment().format(intl.formatMessage({ id: 'doc.date-format' })),
+        ),
         h('span', ', URL:'),
         h('br'),
         h('span.articleUrl', url),
@@ -214,7 +222,7 @@ PB  - ${publication}`
         ]),
       ]),
   ])
-}
+})
 
 // also called simply 'Notes' or 'Références'
 exports.Footnotes = (
@@ -230,7 +238,7 @@ exports.Footnotes = (
     return null
 
   return h('section.container.Footnotes', [
-    h('h2', 'Références'),
+    h('h2', h(T, { id: 'doc.references' })),
     h('.gradient-expand', [
       footnotes &&
         Boolean(footnotes.length) &&

@@ -76,7 +76,9 @@ const getSearchUrl = (exports.getSearchUrl = (
 ) => {
   const url = preview
     ? `${apiUrl || ''}/preview/search`
-    : process.env['REACT_APP_PAGE_URL_search'] || '#ERROR_SEARCH_URL'
+    : process.env['REACT_APP_PAGE_URL_search']
+      ? `${publicUrl}/${process.env['REACT_APP_PAGE_URL_search']}`
+      : '#ERROR_SEARCH_URL'
   // Single-level query string (nested objects not supported in search URL)
   const append = (q, k, v) => {
     const prefix = q === '' ? '?' : '&'
@@ -95,7 +97,7 @@ const getSearchUrl = (exports.getSearchUrl = (
       return q
     }
   }, '')
-  return `${publicUrl}/${url}${qs}`
+  return `${url}${qs}`
 })
 
 exports.resourcesTypes = footerResourcesConfig.map(

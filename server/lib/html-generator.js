@@ -226,6 +226,16 @@ exports.generateResourceHTML = async (
   if (resource.type === 'map' || resource.type === 'image') {
     await populateImageStats(resource, { preview })
     await populateImageRelatedResources(resource)
+    populatePageUrl(null, props.topics, { preview: false })(
+      resource.relatedResources,
+    )
+    await Promise.all(
+      resource.relatedResources.map(async r => {
+        if (r.type === 'article') {
+          r.imageHeader = await getImageHeader(r)
+        }
+      }),
+    )
   }
   return wrap(
     React.createElement(ResourcePage, {

@@ -25,7 +25,7 @@ const {
   articleHeaderImageUrl,
   prefixUrl,
 } = require('./layout')
-const { stripTags } = require('../../universal-utils')
+const { stripTags, TYPES } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 
@@ -40,23 +40,23 @@ const ArticleHeader = ({ article, resources, options }) => {
   const imageHeaderUrlL3 =
     imageHeader && getImageUrl(imageHeader, 'large', '3x', options)
   const imageHeaderUrlM1 =
-      imageHeader && getImageUrl(imageHeader, 'medium', '1x', options)
+    imageHeader && getImageUrl(imageHeader, 'medium', '1x', options)
   const imageHeaderUrlM2 =
-      imageHeader && getImageUrl(imageHeader, 'medium', '2x', options)
+    imageHeader && getImageUrl(imageHeader, 'medium', '2x', options)
   const imageHeaderUrlM3 =
-      imageHeader && getImageUrl(imageHeader, 'medium', '3x', options)
+    imageHeader && getImageUrl(imageHeader, 'medium', '3x', options)
   const imageHeaderUrlS1 =
-      imageHeader && getImageUrl(imageHeader, 'small', '1x', options)
+    imageHeader && getImageUrl(imageHeader, 'small', '1x', options)
   const imageHeaderUrlS2 =
-      imageHeader && getImageUrl(imageHeader, 'small', '2x', options)
+    imageHeader && getImageUrl(imageHeader, 'small', '2x', options)
   const imageHeaderUrlS3 =
-      imageHeader && getImageUrl(imageHeader, 'small', '3x', options)
+    imageHeader && getImageUrl(imageHeader, 'small', '3x', options)
 
   const style = imageHeaderUrlS1
-      ? {
-          backgroundImage: `url(${imageHeaderUrlS1})`,
-        }
-      : {}
+    ? {
+        backgroundImage: `url(${imageHeaderUrlS1})`,
+      }
+    : {}
 
   return h('header.ArticleHeader', [
     h(
@@ -299,12 +299,14 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
               href: getResourcePageUrl(r, options),
             },
             [
-              h('img', {
-                alt: '',
-                style: {
-                  backgroundImage: articleHeaderImageUrl(r, options),
-                },
-              }),
+              r.imageHeader
+                ? h('.img', {
+                    title: stripTags(r.title),
+                    style: {
+                      backgroundImage: articleHeaderImageUrl(r, options),
+                    },
+                  })
+                : h('.img', {}, TYPES[r.type]),
               h('div', [
                 h(
                   '.ArticleSeeAlsoTopic',

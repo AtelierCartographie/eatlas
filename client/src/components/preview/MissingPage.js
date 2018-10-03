@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -17,18 +18,22 @@ const Content = ({ topics, articles, options }) =>
     h('p', 'HTML generator not implemented yet?'),
   ])
 
-const MissingPage = ({
-  topics,
-  articles,
-  options,
-} /*: {
+const MissingPage = injectIntl((
+  {
+    topics,
+    articles,
+    options,
+    intl,
+  } /*: {
   topics: Topic[],
   articles: Resource[],
   options: FrontOptions,
-} */) =>
-  h('html', { lang: 'fr' }, [
+} */,
+) =>
+  h('html', { lang: intl.lang }, [
     h(Head, { title: 'Missing page', options }),
     h(Body, { topics, options }, [h(Content, { topics, articles, options })]),
-  ])
+  ]),
+)
 
 module.exports = MissingPage

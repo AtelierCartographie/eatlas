@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -22,12 +23,21 @@ const Body = require('./Body')
 const Home = ({ topics, options }) => {
   return h('article.HomePage', [
     h('.HomeVideo', {}, [
-      h('video', { autoPlay: true, muted: true, loop: true, poster: prefixUrl('/assets/viz-home-bg-poster.jpg', options.preview) }, [
-        h('source', {
-          type: 'video/mp4',
-          src: prefixUrl('/assets/viz-home-bg-720p.mp4', options.preview),
-        }),
-      ]),
+      h(
+        'video',
+        {
+          autoPlay: true,
+          muted: true,
+          loop: true,
+          poster: prefixUrl('/assets/viz-home-bg-poster.jpg', options.preview),
+        },
+        [
+          h('source', {
+            type: 'video/mp4',
+            src: prefixUrl('/assets/viz-home-bg-720p.mp4', options.preview),
+          }),
+        ],
+      ),
     ]),
     h('header.container.HomeHeader', [
       h('h1.HomeTitle', 'Un atlas pour comprendre'),
@@ -109,8 +119,7 @@ const Home = ({ topics, options }) => {
         h('h2.text-right', 'À propos'),
         h('.row.vcenter', [
           h('.col-sm-8.col-sm-push-4.text-right', [
-            h(
-              'p', [
+            h('p', [
               'Aventure collective et prolongement d’un cours phare de Sciences Po, ',
               h('em', 'Espace mondial : l’Atlas'),
               ' offre un accès libre et gratuit à des contenus scientifiques sur les grandes problématiques de notre temps.',
@@ -157,10 +166,9 @@ const Home = ({ topics, options }) => {
         h('.row', [
           h('.col-sm-6.col-sm-push-6.text-right', [
             h('h2.text-right', 'Le livre'),
-            h(
-              'p', [
-                h('em', 'Espace mondial : l’Atlas'),
-                ' est aussi un beau livre publié aux Presses de Sciences Po.',
+            h('p', [
+              h('em', 'Espace mondial : l’Atlas'),
+              ' est aussi un beau livre publié aux Presses de Sciences Po.',
             ]),
             h(
               'a.more',
@@ -192,21 +200,23 @@ const Home = ({ topics, options }) => {
   ])
 }
 
-const HomePage = (
+const HomePage = injectIntl((
   {
     topics,
     options,
+    intl,
   } /*: {
   topics: Topic[],
   articles: Resource[],
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
+  h('html', { lang: intl.lang }, [
     h(Head, { title: 'Accueil', options }),
     h(Body, { topics, options, logoColor: 'white' }, [
       h(Home, { topics, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = HomePage

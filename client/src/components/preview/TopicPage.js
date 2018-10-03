@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -83,52 +84,51 @@ const TopicHeader = ({ topic, resources, options }) => {
 
 const TopicDescriptions = ({ topic }) =>
   !topic.description_fr && !topic.description_en
-  ? null
-  : h(
-    'section.container.Summaries', [
-    // pills
-    !topic.description_en
-      ? null
-      : h('ul.langs', { role: 'tablist' }, [
-          h('li.active', { role: 'presentation' }, [
-            h(
-              'a',
-              {
-                href: '#french',
-                role: 'tab',
-                'data-toggle': 'pill',
-                hrefLang: 'fr',
-              },
-              'Fr',
-            ),
+    ? null
+    : h('section.container.Summaries', [
+        // pills
+        !topic.description_en
+          ? null
+          : h('ul.langs', { role: 'tablist' }, [
+              h('li.active', { role: 'presentation' }, [
+                h(
+                  'a',
+                  {
+                    href: '#french',
+                    role: 'tab',
+                    'data-toggle': 'pill',
+                    hrefLang: 'fr',
+                  },
+                  'Fr',
+                ),
+              ]),
+              h('li', { role: 'presentation' }, [
+                h(
+                  'a',
+                  {
+                    href: '#english',
+                    role: 'tab',
+                    'data-toggle': 'pill',
+                    hrefLang: 'en',
+                  },
+                  'En',
+                ),
+              ]),
+            ]),
+        // panes
+        h('.tab-content', [
+          h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
+            h('h2.line', 'Résumé'),
+            h(Html, { whitelist: 'all' }, topic.description_fr),
           ]),
-          h('li', { role: 'presentation' }, [
-            h(
-              'a',
-              {
-                href: '#english',
-                role: 'tab',
-                'data-toggle': 'pill',
-                hrefLang: 'en',
-              },
-              'En',
-            ),
-          ]),
+          !topic.description_en
+            ? null
+            : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
+                h('h2.line', 'Summary'),
+                h(Html, { whitelist: 'all' }, topic.description_en),
+              ]),
         ]),
-    // panes
-    h('.tab-content', [
-      h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
-        h('h2.line', 'Résumé'),
-        h(Html, { whitelist: 'all' }, topic.description_fr),
-      ]),
-      !topic.description_en
-        ? null
-        : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
-            h('h2.line', 'Summary'),
-            h(Html, { whitelist: 'all' }, topic.description_en),
-          ]),
-    ]),
-  ])
+      ])
 
 const ArticleList = ({ articles, options }) => {
   if (!articles || !articles.length) return null
@@ -177,13 +177,14 @@ const Topic = ({ topic, topics, articles, resources, options }) =>
     }),
   ])
 
-const TopicPage = (
+const TopicPage = injectIntl((
   {
     topic,
     topics,
     articles,
     resources,
     options,
+    intl,
   } /*: {
   topic: Topic,
   topics: Topic[],
@@ -192,11 +193,12 @@ const TopicPage = (
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
+  h('html', { lang: intl.lang }, [
     h(Head, { title: topic.name, options }),
     h(Body, { altTitle: `${topic.id}. ${topic.name}`, topics, options }, [
       h(Topic, { topic, topics, articles, resources, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = TopicPage

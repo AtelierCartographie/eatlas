@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -292,13 +293,14 @@ const Search = ({ topics, types, locales, keywords, options }) =>
     ]),
   ])
 
-const SearchPage = (
+const SearchPage = injectIntl((
   {
     topics,
     types,
     keywords,
     locales,
     options,
+    intl,
   } /*: {
   topics: Topic[],
   types: ?(string[]),
@@ -307,11 +309,12 @@ const SearchPage = (
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
+  h('html', { lang: intl.lang }, [
     h(Head, { title: 'Recherche', options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Search, { topics, types, locales, keywords, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = SearchPage

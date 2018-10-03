@@ -7,18 +7,20 @@ const TopBar = require('./TopBar')
 const { SideMenu } = require('./SideMenu')
 const Footer = require('./Footer')
 
-module.exports = ({
-  topics,
-  logoColor,
-  altTitle,
-  options,
-  children,
-} /*: {
+module.exports = (
+  {
+    topics,
+    logoColor,
+    altTitle,
+    options,
+    children,
+  } /*: {
   topics: Topic[],
   logoColor: 'black' | 'white',
   options: FrontOptions,
   children: any,
-} */) =>
+} */,
+) =>
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
     h(TopBar, { altTitle, logoColor: logoColor || 'white', options }),

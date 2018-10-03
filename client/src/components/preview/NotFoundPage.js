@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -40,15 +41,16 @@ const Content = ({ options }) => {
   ])
 }
 
-const NotFoundPage = (
-  { topics, options } /*: {
+const NotFoundPage = injectIntl((
+  { topics, options, intl } /*: {
   topics: Topic[],
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
+  h('html', { lang: intl.lang }, [
     h(Head, { title: 'Page introuvable', options }),
     h(Body, { topics, options, logoColor: 'black' }, [h(Content, { options })]),
-  ])
+  ]),
+)
 
 module.exports = NotFoundPage

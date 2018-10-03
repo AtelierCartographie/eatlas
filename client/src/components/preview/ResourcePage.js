@@ -6,6 +6,7 @@
 
 const { Fragment } = require('react')
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -235,11 +236,12 @@ const Resource = ({ resource, topics, options }) => {
   ])
 }
 
-const ResourcePage = (
+const ResourcePage = injectIntl((
   {
     resource,
     topics,
     options,
+    intl,
   } /*: {
   resource: Resource,
   topics: Topic[],
@@ -247,11 +249,12 @@ const ResourcePage = (
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
+  h('html', { lang: intl.lang }, [
     h(Head, { title: stripTags(resource.title), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Resource, { resource, topics, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = ResourcePage

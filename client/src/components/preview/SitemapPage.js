@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -33,11 +34,12 @@ const ul = urls => {
 const Content = ({ urls, options }) =>
   h('article.container.SitemapPage', [h('h1', 'Plan du site'), ul(urls)])
 
-const SitemapPage = (
+const SitemapPage = injectIntl((
   {
     urls,
     topics,
     options,
+    intl,
   } /*: {
   // type Link = { url: string, title: string, info: string?, children: Link[] }
   urls: Link[],
@@ -45,11 +47,12 @@ const SitemapPage = (
   options: FrontOptions,
 } */,
 ) =>
-  h('html', { lang: 'fr' }, [
+  h('html', { lang: intl.lang }, [
     h(Head, { title: 'Plan du site', options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { urls, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = SitemapPage

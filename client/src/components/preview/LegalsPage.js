@@ -5,6 +5,7 @@
 // - hyperscript instead of JSX
 
 const h = require('react-hyperscript')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const moment = require('moment')
 moment.locale('fr')
 
@@ -69,20 +70,24 @@ Par conséquent, aucune de ces informations ne peut être reproduite, modifiée,
   ])
 }
 
-const AboutUsLegalsPage = ({
-  topics,
-  articles,
-  options,
-} /*: {
+const AboutUsLegalsPage = injectIntl((
+  {
+    topics,
+    articles,
+    options,
+    intl,
+  } /*: {
   topics: Topic[],
   articles: Resource[],
   options: FrontOptions,
-} */) =>
-  h('html', { lang: 'fr' }, [
+} */,
+) =>
+  h('html', { lang: intl.lang }, [
     h(Head, { title: 'Mentions légales', options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { topics, articles, options }),
     ]),
-  ])
+  ]),
+)
 
 module.exports = AboutUsLegalsPage

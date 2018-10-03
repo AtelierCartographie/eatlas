@@ -1,4 +1,4 @@
-@import "var";
+@import 'var';
 
 html {
   // everything should be expressed in rem
@@ -97,7 +97,7 @@ ul.navmenu-nav a {
     position: fixed;
     top: 0;
     background-color: white;
-    box-shadow: 0 4px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.06);
     border-bottom: 1px solid #ccc;
     transition: background-color 0.2s;
     .if-not-scrolled {
@@ -125,7 +125,7 @@ ul.navmenu-nav a {
   .search-field {
     min-width: 0px;
     display: none;
-    transition: min-width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+    transition: min-width 0.4s cubic-bezier(0, 0.795, 0, 1);
 
     &:focus {
       min-width: 250px;
@@ -141,7 +141,8 @@ ul.navmenu-nav a {
   }
 }
 
-.navbar-toggle, .search-toggle-button {
+.navbar-toggle,
+.search-toggle-button {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0);
   border: none;
@@ -272,7 +273,6 @@ button,
   }
 }
 
-
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
   // force showing the toggle
@@ -288,7 +288,6 @@ button,
 }
 
 @import 'EmbeddedResource';
-@import 'TopMenu';
 @import 'Footer';
 @import 'Doc';
 @import 'Page';

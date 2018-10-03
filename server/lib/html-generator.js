@@ -52,7 +52,6 @@ const HomePage = require(`${PREVIEW_DIR}/HomePage`)
 const SearchPage = require(`${PREVIEW_DIR}/SearchPage`)
 const AboutPage = require(`${PREVIEW_DIR}/AboutPage`)
 const LegalsPage = require(`${PREVIEW_DIR}/LegalsPage`)
-const MissingPage = require(`${PREVIEW_DIR}/MissingPage`)
 const NotFoundPage = require(`${PREVIEW_DIR}/NotFoundPage`)
 const SitemapPage = require(`${PREVIEW_DIR}/SitemapPage`)
 const LexiconPage = require(`${PREVIEW_DIR}/LexiconPage`)
@@ -322,16 +321,6 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
   )
 }
 
-const generateMissingHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
-  return wrap(
-    React.createElement(MissingPage, {
-      ...props,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
-    }),
-  )
-}
-
 exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
   props = await menuProps(props, { preview })
   return wrap(
@@ -341,9 +330,6 @@ exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
     }),
   )
 }
-
-// TODO link google form instead #133
-exports.generateContactHTML = generateMissingHTML
 
 exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
   props = await menuProps(props, { preview })

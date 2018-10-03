@@ -300,13 +300,13 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
             },
             [
               r.imageHeader
-                ? h('.img', {
+                ? h('.imgSeeAlso', {
                     title: stripTags(r.title),
                     style: {
                       backgroundImage: articleHeaderImageUrl(r, options),
                     },
                   })
-                : h('.img', {}, TYPES[r.type]),
+                : h('.imgSeeAlso', {}, TYPES[r.type]),
               h('div', [
                 h(
                   '.ArticleSeeAlsoTopic',

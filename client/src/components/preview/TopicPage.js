@@ -13,6 +13,7 @@ const Head = require('./Head')
 const Body = require('./Body')
 const Html = require('./Html')
 const { PublishedAt } = require('./Doc')
+const Summaries = require('./Summaries')
 
 const {
   getImageUrl,
@@ -84,55 +85,6 @@ const TopicHeader = ({ topic, resources, options }) => {
   )
 }
 
-// TODO update this part with i18n (see ArticlePage)
-const TopicDescriptions = ({ topic }) =>
-  !topic.description_fr && !topic.description_en
-    ? null
-    : h('section.container.Summaries', [
-        // pills
-        !topic.description_en
-          ? null
-          : h('ul.langs', { role: 'tablist' }, [
-              h('li.active', { role: 'presentation' }, [
-                h(
-                  'a',
-                  {
-                    href: '#french',
-                    role: 'tab',
-                    'data-toggle': 'pill',
-                    hrefLang: 'fr',
-                  },
-                  'Fr',
-                ),
-              ]),
-              h('li', { role: 'presentation' }, [
-                h(
-                  'a',
-                  {
-                    href: '#english',
-                    role: 'tab',
-                    'data-toggle': 'pill',
-                    hrefLang: 'en',
-                  },
-                  'En',
-                ),
-              ]),
-            ]),
-        // panes
-        h('.tab-content', [
-          h('.tab-pane.active#french', { role: 'tabpanel', lang: 'fr' }, [
-            h('h2.line', {}, h(T, { id: 'doc.summary' })),
-            h(Html, { whitelist: 'all' }, topic.description_fr),
-          ]),
-          !topic.description_en
-            ? null
-            : h('.tab-pane#english', { role: 'tabpanel', lang: 'en' }, [
-                h('h2.line', 'Summary'), // TODO i18N (see above)
-                h(Html, { whitelist: 'all' }, topic.description_en),
-              ]),
-        ]),
-      ])
-
 const ArticleList = ({ articles, options }) => {
   if (!articles || !articles.length) return null
   return h(
@@ -175,7 +127,7 @@ const ArticleList = ({ articles, options }) => {
 const Topic = ({ topic, topics, articles, resources, options }) =>
   h('article.TopicPage', [
     h(TopicHeader, { topic, resources, options }),
-    h(TopicDescriptions, { topic }),
+    h(Summaries, { doc: topic }),
     h(ArticleList, {
       articles: articles.filter(a => a.topic === topic.id),
       topics,

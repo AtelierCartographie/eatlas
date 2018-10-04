@@ -30,6 +30,7 @@ const {
 const { stripTags, TYPES } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
+const Summaries = require('./Summaries')
 
 // subcomponents
 
@@ -209,19 +210,6 @@ const ArticleBreadcrumb = ({ article, topics, options }) => {
   ])
 }
 
-// french and english (optional)
-// TODO remettre le switch summary
-const ArticleSummaries = injectIntl(({ article, intl }) =>
-  h('section.container.Summaries', [
-    h('.tab-content', [
-      h('.tab-pane.active', { role: 'tabpanel', lang: intl.locale }, [
-        h('h2.line', {}, h(T, { id: 'doc.summary' })),
-        h(Html, { whitelist: 'all' }, article[`description_${intl.lang}`]),
-      ]),
-    ]),
-  ]),
-)
-
 const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
   return article.nodes.map(n => {
     switch (n.type) {
@@ -305,7 +293,7 @@ const Article = props =>
   h('article.article.ArticlePage', [
     h(ArticleHeader, props),
     h(ArticleBreadcrumb, props),
-    h(ArticleSummaries, props),
+    h(Summaries, { doc: props.article }),
     h(ArticleNodes, props),
     h(ArticlePrevNextInline, props),
     h(ArticleFooter, props),

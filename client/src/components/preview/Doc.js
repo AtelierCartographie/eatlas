@@ -278,30 +278,40 @@ exports.Lexicon = (
           node.lexicon && node.lexicon.length ? acc.concat(node.lexicon) : acc,
         [],
       )
-      .map((dt, k) =>
-        h('.collapse.container', { key: k, id: `lexicon-${k + 1}` }, [
+      .map((dt, k) => {
+        const found = getDefinition(dt, definitions, true)
+        return { dt, k, found }
+      })
+      .map(({ dt, k, found }) => {
+        const href = globalPageUrl(
+          'definition',
+          null,
+          slugify(found ? found.dt : dt),
+        )(options)
+        return h('.collapse.container', { key: k, id: `lexicon-${k + 1}` }, [
           h('dl', [
             h('dt', [
-              h(
-                'a',
-                {
-                  href: globalPageUrl('definition', null, slugify(dt))(options),
-                },
-                dt,
-              ),
+              found && found.dt !== dt
+                ? // Alias
+                  h('a', { href }, [
+                    dt,
+                    h('span.root-definition', ` > ${found.dt}`),
+                  ])
+                : // Real definition
+                  h('a', { href }, dt),
             ]),
             h(
               'dd',
               {},
               exports.linkInternalDefinitions(
-                getDefinition(dt, definitions, true),
+                found,
                 definitions,
                 globalPageUrl('definition')(options),
               ),
             ),
           ]),
-        ]),
-      ),
+        ])
+      }),
   )
 
 const marker = `£¨§ø£`

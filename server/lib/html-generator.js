@@ -23,11 +23,7 @@ const {
   populateImageRelatedResources,
   getAllUrls,
 } = require('./generator-utils')
-const {
-  CLIENT_TYPES,
-  LOCALES,
-  getMetaList,
-} = require('../../client/src/universal-utils')
+const { LOCALES, getMetaList } = require('../../client/src/universal-utils')
 
 // Inject client-side env variables before requiring components, we don't "require" from there
 const config = require('config')
@@ -313,7 +309,16 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
   return wrap(
     React.createElement(SearchPage, {
       ...props,
-      types: CLIENT_TYPES,
+      types: {
+        article: 'doc.type-plural.article',
+        focus: 'doc.type-plural.focus',
+        image: 'doc.type-plural.image',
+        map: 'doc.type-plural.map',
+        sound: 'doc.type-plural.sound',
+        video: 'doc.type-plural.video',
+        'single-definition': 'doc.type-plural.definition',
+        reference: 'doc.type-plural.reference',
+      },
       keywords: sortedKeywords,
       locales: LOCALES,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },

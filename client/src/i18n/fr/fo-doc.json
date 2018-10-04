@@ -11,6 +11,7 @@
   "type-plural": {
     "article": "Articles",
     "definition": "Lexique",
+    "single-definition": "Lexique",
     "focus": "Focus",
     "image": "Photos",
     "map": "Cartes et graphiques",

@@ -126,8 +126,8 @@ ${paginationTemplate(t)}
   <% } else { %>
     <div class="row search-result">
   <% } %>
-    <% if (!ui.hideSearchResultsType) { %>
-      <div class="search-result-type"><%= hit.typeLabel %></div>
+    <% if (!ui.hideSearchResultsType && window.TYPE_LABEL[hit.type]) { %>
+      <div class="search-result-type"><%= window.TYPE_LABEL[hit.type] %></div>
     <% } %>
     <% if (hit.preview) { %>
       <div class="search-result-preview col-sm-3">
@@ -259,7 +259,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
             key: 'input',
             value: type,
           }),
-          h('span', { key: 'label' }, types[type]),
+          h('span', { key: 'label' }, intl.formatMessage({ id: types[type] })),
         ]),
         true,
       ),
@@ -362,7 +362,16 @@ const SearchPage = injectIntl((
           }),
           definition: intl.formatMessage({ id: 'doc.type-plural.definition' }),
           reference: intl.formatMessage({ id: 'doc.type-plural.reference' }),
-        })}`,
+        })};
+        window.TYPE_LABEL=${JSON.stringify(
+          Object.keys(types).reduce(
+            (dict, type) =>
+              Object.assign(dict, {
+                [type]: intl.formatMessage({ id: types[type] }),
+              }),
+            {},
+          ),
+        )};`,
       ),
     ]),
   ]),

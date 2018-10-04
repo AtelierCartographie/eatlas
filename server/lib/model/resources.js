@@ -1,10 +1,8 @@
 'use strict'
 
 const { fullResource, validate } = require('../schemas')
-const { TYPES } = require('../../../client/src/universal-utils')
 const { merge } = require('lodash')
 const { cleanFields } = require('../clean-fields')
-const objectDiff = require('../object-difference')
 
 const {
   search,
@@ -20,7 +18,11 @@ const {
 exports.search = search
 exports.findById = findById
 
-exports.DEFAULT_LIST_QUERY = { terms: { type: Object.keys(TYPES) } }
+exports.DEFAULT_LIST_QUERY = {
+  terms: {
+    type: ['article', 'focus', 'image', 'map', 'sound', 'video', 'definition'],
+  },
+}
 exports.list = (options = { query: exports.DEFAULT_LIST_QUERY }) =>
   find(options)
 

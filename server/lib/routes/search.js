@@ -6,11 +6,7 @@ const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
 const { populatePageUrl, populateThumbnailUrl } = require('../generator-utils')
-const {
-  TYPES,
-  CLIENT_TYPES,
-  stripTags,
-} = require('../../../client/src/universal-utils')
+const { stripTags } = require('../../../client/src/universal-utils')
 const { cleanString } = require('../clean-fields')
 
 const sortField = 'publishedAt'
@@ -242,7 +238,6 @@ const formatResultHit = resource => ({
   title: stripTags(resource.title),
   subtitle: stripTags(resource.subtitle),
   type: resource.type,
-  typeLabel: CLIENT_TYPES[resource.type] || TYPES[resource.type],
   url:
     resource.type === 'reference' ? resource.description_fr : resource.pageUrl,
   preview: resource.thumbnailUrl

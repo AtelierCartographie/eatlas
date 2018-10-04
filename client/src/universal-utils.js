@@ -149,29 +149,3 @@ exports.getResourcePagePreviewUrl = (
   resource /*: Resource */,
   apiUrl /*: ?string */ = process.env.REACT_APP_API_SERVER,
 ) => `${apiUrl || ''}/preview/resources/${resource.id}`
-
-// Common types (back/front)
-exports.TYPES = {
-  article: 'Article',
-  focus: 'Focus',
-  image: 'Photos',
-  map: 'Cartes et graphiques',
-  sound: 'Audio',
-  video: 'Vidéos',
-  definition: 'Lexique',
-}
-
-// Types that should appear on front side only: virtual type to now show in admin page
-const types = (exports.CLIENT_TYPES = Object.assign({}, exports.TYPES, {
-  'single-definition': 'Lexique',
-  reference: 'Références',
-}))
-delete types.definition // Client only sees virtual 'single-definition' type
-
-// { resourcesSlug, searchTypes, label }[]
-exports.footerResourcesConfig = [
-  { slug: 'maps-diagrams', types: ['map'], label: types.map },
-  { slug: 'photos-videos', types: ['image'], label: `${types.image}` },
-  { slug: 'focus', types: ['focus'], label: types.focus },
-  { slug: 'lexique', page: ['definition'], label: types['single-definition'] },
-]

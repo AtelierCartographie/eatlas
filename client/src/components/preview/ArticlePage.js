@@ -27,7 +27,7 @@ const {
   articleHeaderImageUrl,
   prefixUrl,
 } = require('./layout')
-const { stripTags, TYPES } = require('../../universal-utils')
+const { stripTags } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const Summaries = require('./Summaries')
@@ -262,7 +262,11 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
                       backgroundImage: articleHeaderImageUrl(r, options),
                     },
                   })
-                : h('.imgSeeAlso', {}, TYPES[r.type]),
+                : h(
+                    '.imgSeeAlso',
+                    {},
+                    h(T, { id: `doc.type-plural.${r.type}` }),
+                  ),
               h('div', [
                 h(
                   '.ArticleSeeAlsoTopic',

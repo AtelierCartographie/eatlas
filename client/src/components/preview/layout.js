@@ -3,7 +3,6 @@
 
 const {
   getMediaUrl,
-  footerResourcesConfig,
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
 } = require('../../universal-utils')
@@ -100,30 +99,41 @@ const getSearchUrl = (exports.getSearchUrl = (
   return `${url}${qs}`
 })
 
-exports.resourcesTypes = footerResourcesConfig.map(
-  ({ types, label, page }) => ({
-    text: label,
-    url: page
-      ? globalPageUrl(...page)
-      : options => getSearchUrl({ types }, options),
-  }),
-)
+// { resourcesSlug, searchTypes, label }[]
+exports.resourcesTypes = [
+  {
+    text: 'doc.type-plural.map',
+    url: options => getSearchUrl({ types: ['map'] }, options),
+  },
+  {
+    text: 'doc.type-plural.image',
+    url: options => getSearchUrl({ types: ['image'] }, options),
+  },
+  {
+    text: 'doc.type-plural.focus',
+    url: options => getSearchUrl({ types: ['focus'] }, options),
+  },
+  {
+    text: 'doc.type-plural.definition',
+    url: globalPageUrl('definition'),
+  },
+]
 
 exports.aPropos = [
   {
-    text: 'Le projet',
+    text: 'about.the-project',
     url: globalPageUrl('about', null, 'project'),
   },
   {
-    text: "L'équipe",
+    text: 'about.the-team',
     url: globalPageUrl('about', null, 'team'),
   },
   {
-    text: 'Nous contacter',
+    text: 'about.contact-title',
     url: globalPageUrl('about', null, 'contact'),
   },
   {
-    text: 'Mentions légales',
+    text: 'legals.title',
     url: globalPageUrl('legals'),
   },
 ]

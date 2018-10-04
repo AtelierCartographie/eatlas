@@ -85,23 +85,41 @@ La configuration du serveur se trouve dans le fichier `config/default.json`. Tou
   "publicPath": "$clientPath/public/generated",
   "mediaSubPath": "media", // Sous-dossier dans lequel sont placés les média
   "mediaFileName": "$type-$id-$name.$ext", // Format des nom de fichier média
-  // URLs des différentes pages du front-end
+  // URLs des différentes pages du front-end (en fonction de la langue)
   "pageUrls": {
-    "index": "index.html",
-    "search": "recherche.html",
-    "notFound": "not-found.html",
-    "about": "a-propos.html",
-    "legals": "mentions-legales.html",
-    "sitemap": "plan-du-site.html",
-    "topic": "rubrique-$topicSlug.html",
-    "definition": "lexique.html",
-    "article": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-    "focus": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-    "image": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-    "map": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-    "sound": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
-    "video": "rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
-  }
+    "fr": {
+      "index": "fr/index.html",
+      "search": "fr/recherche.html",
+      "notFound": "fr/introuvable.html",
+      "about": "fr/a-propos.html",
+      "legals": "fr/mentions-legales.html",
+      "sitemap": "fr/plan-du-site.html",
+      "topic": "fr/rubrique-$topicSlug.html",
+      "definition": "fr/lexique.html",
+      "article": "fr/rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "focus": "fr/rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "image": "fr/rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "map": "fr/rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "sound": "fr/rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "video": "fr/rubrique-$topicSlug/$typeLabel-$id-$resourceSlug.html"
+    },
+    "en": {
+      "index": "en/index.html",
+      "search": "en/search.html",
+      "notFound": "en/not-found.html",
+      "about": "en/about.html",
+      "legals": "en/legals.html",
+      "sitemap": "en/sitemap.html",
+      "topic": "en/topic-$topicSlug.html",
+      "definition": "en/lexicon.html",
+      "article": "en/topic-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "focus": "en/topic-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "image": "en/topic-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "map": "en/topic-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "sound": "en/topic-$topicSlug/$typeLabel-$id-$resourceSlug.html",
+      "video": "en/topic-$topicSlug/$typeLabel-$id-$resourceSlug.html"
+    }
+  },
 
   /****************************
    * Paramètres du backoffice *

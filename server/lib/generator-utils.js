@@ -70,7 +70,7 @@ exports.populatePageUrl = (
   if (Array.isArray(resource)) {
     return resource.map(exports.populatePageUrl(key, topics, { preview, lang }))
   }
-  if (!config.pageUrls[key || resource.type]) {
+  if (!config.pageUrls[lang][key || resource.type]) {
     return resource
   }
   if (!resource.pageUrl) {

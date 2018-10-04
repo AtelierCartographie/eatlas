@@ -39,7 +39,9 @@ exports.pagePath = (key, resource, topics, params = {}) => {
     ...params,
     ...(resource || {}),
   }
-  return exports.publicPath(getConf('pageUrls.' + key, locals))
+  return exports.publicPath(
+    getConf(`pageUrls.${params.lang || 'fr'}.${key}`, locals),
+  )
 }
 
 exports.publicPath = filePath =>

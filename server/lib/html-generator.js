@@ -34,8 +34,11 @@ const apiUrl = config.apiUrl
 const publicUrl = config.publicUrl
 
 // Inject client-side env variables allowing generation of URLs
-for (let key in config.pageUrls) {
-  process.env['REACT_APP_PAGE_URL_' + key] = config.pageUrls[key]
+for (let lang in config.pageUrls) {
+  for (let key in config.pageUrls[lang]) {
+    process.env[`REACT_APP_PAGE_URL_${lang}_${key}`] =
+      config.pageUrls[lang][key]
+  }
 }
 
 // Now all env variables are available just like if it was built for client side

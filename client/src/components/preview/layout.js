@@ -50,7 +50,8 @@ const globalPageUrl = (exports.globalPageUrl = (
   slug /*: string? */,
   hash /*: string? */,
 ) => ({
-  preview /*: boolean */,
+  preview = false,
+  lang = 'fr',
   apiUrl = process.env.REACT_APP_API_SERVER,
   publicUrl = process.env.REACT_APP_FRONT_URL,
 }) => {
@@ -59,8 +60,8 @@ const globalPageUrl = (exports.globalPageUrl = (
       ? `${apiUrl || ''}/preview/${key}#${hash}`
       : `${apiUrl || ''}/preview/${key}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
-  const urlTemplate = process.env['REACT_APP_PAGE_URL_' + key] || ''
-  if (!urlTemplate) return '#ERROR_UNKNOWN_GLOBAL_URL_' + key
+  const urlTemplate = process.env[`REACT_APP_PAGE_URL_${lang}_${key}`] || ''
+  if (!urlTemplate) return `#ERROR_UNKNOWN_GLOBAL_URL_${lang}_${key}`
   const url = slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
   return hash ? `${publicUrl}/${url}#${hash}` : `${publicUrl}/${url}`
 })
@@ -69,14 +70,15 @@ const getSearchUrl = (exports.getSearchUrl = (
   params,
   {
     preview = false,
+    lang = 'fr',
     apiUrl = process.env.REACT_APP_API_SERVER,
     publicUrl = process.env.REACT_APP_FRONT_URL,
   } /*: FrontOptions */,
 ) => {
   const url = preview
     ? `${apiUrl || ''}/preview/search`
-    : process.env['REACT_APP_PAGE_URL_search']
-      ? `${publicUrl}/${process.env['REACT_APP_PAGE_URL_search']}`
+    : process.env[`REACT_APP_PAGE_URL_${lang}_search`]
+      ? `${publicUrl}/${process.env[`REACT_APP_PAGE_URL_${lang}_search`]}`
       : '#ERROR_SEARCH_URL'
   // Single-level query string (nested objects not supported in search URL)
   const append = (q, k, v) => {

@@ -1,1 +1,18 @@
-{}
+{
+  "title": "Un atlas pour comprendre",
+  "subtitle": "l’espace mondial contemporain",
+  "topics-intro":
+    "Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Étudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.",
+  "resources-intro-html":
+    "<em>Espace mondial : l’Atlas</em> est aussi un moteur de recherche donnant accès à plus de 200 <a href=\"{mapsUrl}\">cartes et graphiques</a> qui enrichissent les articles et les focus, à des <a href=\"{imagesUrl}\">photos</a> commentées ou à un <a href=\"{lexiconUrl}\">lexique</a> regroupant les notions clés.",
+  "about-intro-html":
+    "Aventure collective et prolongement d’un cours phare de Sciences Po, <em>Espace mondial : l’Atlas</em> offre un accès libre et gratuit à des contenus scientifiques sur les grandes problématiques de notre temps.",
+  "read-more-label": "En savoir plus",
+  "text-people":
+    "Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens et Delphine Placidi-Frot",
+  "the-vizualisations": "Les visualisations",
+  "vizualisation-people":
+    "Sciences Po - Atelier de cartographie : Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio",
+  "book-intro-html":
+    "<em>Espace mondial : l’Atlas</em> est aussi un beau livre publié aux Presses de Sciences Po."
+}

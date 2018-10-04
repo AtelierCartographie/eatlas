@@ -17,10 +17,11 @@ const {
 } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
+const Html = require('./Html')
 
 // subcomponents
 
-const Home = ({ topics, options }) => {
+const Home = ({ topics, options, intl }) => {
   return h('article.HomePage', [
     h('.HomeVideo', {}, [
       h(
@@ -40,11 +41,11 @@ const Home = ({ topics, options }) => {
       ),
     ]),
     h('header.container.HomeHeader', [
-      h('h1.HomeTitle', 'Un atlas pour comprendre'),
-      h('h1.HomeTitle.HomeTitleTyped', "l'espace mondial contemporain"),
+      h('h1.HomeTitle', {}, h(T, { id: 'home.title' })),
+      h('h1.HomeTitle.HomeTitleTyped', {}, h(T, { id: 'home.subtitle' })),
       h('div', [
         h('input.search-field', {
-          placeholder: "Rechercher dans l'atlas",
+          placeholder: intl.formatMessage({ id: 'fo.search-placeholder' }),
           'data-search-page-url': getSearchUrl({}, options),
         }),
         h('button', [
@@ -57,11 +58,8 @@ const Home = ({ topics, options }) => {
     ]),
     h('section.HomeTopics', [
       h('.container', [
-        h(
-          'p',
-          'Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Étudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.',
-        ),
-        h('h2', 'Sommaire'),
+        h('p', {}, h(T, { id: 'home.topics-intro' })),
+        h('h2', {}, h(T, { id: 'fo.nav-summary' })),
         h('.row.gutter', [
           h('.col-xs-6.col-md-4', [
             h(
@@ -88,26 +86,22 @@ const Home = ({ topics, options }) => {
     ]),
     h('section.HomeResources', [
       h('.container', [
-        h('h2', 'Ressources'),
+        h('h2', {}, h(T, { id: 'fo.nav-resources' })),
         h('.row', [
           h('.col-sm-8', [
             h('p', [
-              h('em', 'Espace mondial : l’Atlas'),
-              ' est aussi un moteur de recherche donnant accès à plus de 200 ',
               h(
-                'a',
-                { href: getSearchUrl({ types: ['map'] }, options) },
-                'cartes et graphiques',
+                Html,
+                { whitelist: 'all' },
+                intl.formatHTMLMessage(
+                  { id: 'home.resources-intro-html' },
+                  {
+                    mapsUrl: getSearchUrl({ types: ['map'] }, options),
+                    imagesUrl: getSearchUrl({ types: ['image'] }, options),
+                    lexiconUrl: globalPageUrl('definition')(options),
+                  },
+                ),
               ),
-              ' qui enrichissent les articles et les focus, à des ',
-              h(
-                'a',
-                { href: getSearchUrl({ types: ['image'] }, options) },
-                'photos',
-              ),
-              ' commentées ou à un ',
-              h('a', { href: globalPageUrl('definition')(options) }, 'lexique'),
-              ' regroupant les notions clés.',
             ]),
           ]),
           h('.col-sm-4'),
@@ -116,20 +110,22 @@ const Home = ({ topics, options }) => {
     ]),
     h('section.HomeProject', [
       h('.container', [
-        h('h2.text-right', 'À propos'),
+        h('h2.text-right', {}, h(T, { id: 'fo.nav-about' })),
         h('.row.vcenter', [
           h('.col-sm-8.col-sm-push-4.text-right', [
             h('p', [
-              'Aventure collective et prolongement d’un cours phare de Sciences Po, ',
-              h('em', 'Espace mondial : l’Atlas'),
-              ' offre un accès libre et gratuit à des contenus scientifiques sur les grandes problématiques de notre temps.',
+              h(
+                Html,
+                { whitelist: 'all' },
+                intl.formatHTMLMessage({ id: 'home.about-intro-html' }),
+              ),
             ]),
             h(
               'a.more',
               {
                 href: globalPageUrl('about', null, 'project')(options),
               },
-              'En savoir plus >',
+              [h(T, { id: 'home.read-more-label' }), ' >'],
             ),
           ]),
           h('.col-sm-4..col-sm-pull-8.logo', [
@@ -143,37 +139,33 @@ const Home = ({ topics, options }) => {
     ]),
     h('section.HomeTeam', [
       h('.container', [
-        h('h2', "L'équipe"),
-        h('h3', 'Les textes'),
-        h(
-          'p',
-          'Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens et Delphine Placidi-Frot',
-        ),
-        h('h3', 'Les visualisations'),
-        h(
-          'p',
-          'Sciences Po - Atelier de cartographie : Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio',
-        ),
-        h(
-          'a.more',
-          { href: globalPageUrl('about', null, 'team')(options) },
-          'En savoir plus >',
-        ),
+        h('h2', {}, h(T, { id: 'about.the-team' })),
+        h('h3', {}, h(T, { id: 'about.the-texts' })),
+        h('p', {}, h(T, { id: 'home.text-people' })),
+        h('h3', {}, h(T, { id: 'home.the-vizualisations' })),
+        h('p', {}, h(T, { id: 'home.vizualisation-people' })),
+        h('a.more', { href: globalPageUrl('about', null, 'team')(options) }, [
+          h(T, { id: 'home.read-more-label' }),
+          ' >',
+        ]),
       ]),
     ]),
     h('section.HomeBook', [
       h('.container', [
         h('.row', [
           h('.col-sm-6.col-sm-push-6.text-right', [
-            h('h2.text-right', 'Le livre'),
+            h('h2.text-right', {}, h(T, { id: 'about.the-book' })),
             h('p', [
-              h('em', 'Espace mondial : l’Atlas'),
-              ' est aussi un beau livre publié aux Presses de Sciences Po.',
+              h(
+                Html,
+                { whitelist: 'all' },
+                intl.formatHTMLMessage({ id: 'home.book-intro-html' }),
+              ),
             ]),
             h(
               'a.more',
               { href: globalPageUrl('about', null, 'book')(options) },
-              'En savoir plus >',
+              [h(T, { id: 'home.read-more-label' }), ' >'],
             ),
             h('div', [
               h(
@@ -184,7 +176,7 @@ const Home = ({ topics, options }) => {
                   target: '_blank',
                   role: 'button',
                 },
-                'Acheter le livre',
+                h(T, { id: 'about.book-button' }),
               ),
             ]),
           ]),
@@ -212,9 +204,9 @@ const HomePage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: 'Accueil', options }),
+    h(Head, { title: intl.formatMessage({ id: 'home.title' }), options }),
     h(Body, { topics, options, logoColor: 'white' }, [
-      h(Home, { topics, options }),
+      h(Home, { topics, options, intl }),
     ]),
   ]),
 )

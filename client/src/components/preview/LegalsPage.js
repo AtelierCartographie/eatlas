@@ -11,62 +11,50 @@ moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const Html = require('./Html')
 
-const Content = () => {
+const Content = ({ intl }) => {
   return h('article.container.AboutUsLegalsPage', [
-    h('h1', 'Mentions légales'),
+    h('h1', {}, h(T, { id: 'legals.title' })),
 
-    h('h2', 'Le contenu de ce site internet est fourni par'),
-    h('p', [
-      'Sciences Po',
+    h('h2', {}, h(T, { id: 'legals.who-title' })),
+    h('p', {}, [
+      h(T, { id: 'legals.who-name' }),
       h('br'),
-      '27 rue Saint-Guillaume',
+      h(T, { id: 'legals.who-addr-1' }),
       h('br'),
-      '75337 Paris Cedex 07',
+      h(T, { id: 'legals.who-addr-2' }),
       h('br'),
-      'Tel. : 01 45 49 50 50',
+      h(T, { id: 'legals.who-tel' }),
       h('br'),
-      'Fax. : 01 42 22 31 26',
+      h(T, { id: 'legals.who-fax' }),
       h('br'),
-      'webmestre@sciencespo.fr',
+      h(T, { id: 'legals.who-mail' }),
     ]),
 
-    h('h2', 'Directeur de la publication'),
-    h('p', 'Frédéric Mion, President of Sciences Po'),
+    h('h2', {}, h(T, { id: 'legals.director-title' })),
+    h('p', {}, h(T, { id: 'legals.director-text' })),
 
-    h('h2', 'Hébergement'),
+    h('h2', {}, h(T, { id: 'legals.hosting-title' })),
     h('p', [
-      `Ce site internet est hébergé par la Fondation Nationale des Sciences Politiques (FNSP)`,
+      h(T, { id: 'legals.hosting-intro' }),
       h('br'),
-      `Sciences Po - Direction des Systèmes d'Information`,
+      h(T, { id: 'legals.hosting-name' }),
       h('br'),
-      `APE Code: 803Z`,
+      h(T, { id: 'legals.hosting-ape' }),
       h('br'),
-      `27, rue saint Guillaume`,
+      h(T, { id: 'legals.hosting-addr-1' }),
       h('br'),
-      `75337 Paris cedex 07`,
+      h(T, { id: 'legals.hosting-addr-2' }),
     ]),
 
-    h('h2', 'Propriété Industrielle et Intellectuelle'),
-    h(
-      'p',
-      `Toutes les informations reproduites dans ce site web (textes, photos, logos...) sont protégées par des droits de propriété intellectuelle détenus par Sciences Po ou par ses partenaires.
-Par conséquent, aucune de ces informations ne peut être reproduite, modifiée, rediffusée, traduite, exploitée commercialement ou réutilisée de quelque manière que ce soit sans l'accord préalable et écrit de Sciences Po.`,
-    ),
-    h(
-      'p',
-      `Le titre, la conception, la forme du site Sciences Po mais aussi son contenu tels que les actualités, descriptions, illustrations et images originales et leur organisation, ainsi que toute compilation de logiciels, code source fondamental et autres éléments contenus sur le site Sciences Po sont la propriété de Sciences Po.`,
-    ),
+    h('h2', {}, h(T, { id: 'legals.ip-title' })),
+    h('p', {}, h(T, { id: 'legals.ip-protection' })),
+    h('p', {}, h(T, { id: 'legals.ip-property' })),
 
-    h('h2', 'Les liens hypertextes'),
-    h(
-      'p',
-      `Nos pages web proposent également des liens vers d'autres sites pour lesquels nous ne sommes responsables ni de leur intégral respect aux normes d'ordre public et bonnes mœurs, d'une part, ni de leur politique de protection des données personnelles ou d'utilisation qui en seraient faites, d'autre part.`,
-    ),
-    h(
-      'p',
-      `En accédant à un autre site, par l'intermédiaire d'un lien hypertexte, vous acceptez que cet accès s'effectue à vos risques et périls. En conséquence, tout préjudice direct ou indirect résultant de votre accès à un autre site relié par un lien hypertexte ne peut engager la responsabilité de Sciences Po.`,
-    ),
+    h('h2', {}, h(T, { id: 'legals.links' })),
+    h('p', {}, h(T, { id: 'legals.links-disclaimer' })),
+    h('p', {}, h(T, { id: 'legals.links-agreement' })),
   ])
 }
 
@@ -83,9 +71,9 @@ const AboutUsLegalsPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: 'Mentions légales', options }),
+    h(Head, { title: intl.formatMessage({ id: 'legals.title' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
-      h(Content, { topics, articles, options }),
+      h(Content, { topics, articles, options, intl }),
     ]),
   ]),
 )

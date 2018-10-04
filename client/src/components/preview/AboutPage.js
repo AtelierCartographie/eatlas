@@ -252,7 +252,7 @@ const About = injectIntl(({ options, intl }) => {
           h('.col-sm-6', [
             h(
               Html,
-              { whitelist: 'all' },
+              { whitelist: 'all', component: 'p' },
               intl.formatMessage({ id: 'about.book-intro-html' }),
             ),
             h(

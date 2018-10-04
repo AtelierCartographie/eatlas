@@ -51,7 +51,7 @@ const SitemapPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: info.formatMessage({ id: 'fo.sitemap' }), options }),
+    h(Head, { title: intl.formatMessage({ id: 'fo.sitemap' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { urls, options }),
     ]),

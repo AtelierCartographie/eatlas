@@ -58,7 +58,7 @@ const Content = ({ definitions, options }) => {
   return h('article.LexiconPage', [
     h('h1.SearchPageTitle.container', [
       h(T, { id: 'fo.lexicon-title-prefix' }),
-      h('span.SearchPageTitleType', h(T, { id: 'fo.lexicon' })),
+      h('span.SearchPageTitleType', {}, h(T, { id: 'fo.lexicon' })),
     ]),
     h('section.SearchResults.container', [
       h('.search-results-success', [

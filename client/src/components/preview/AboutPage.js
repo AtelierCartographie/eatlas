@@ -80,12 +80,10 @@ const TeamMember = ({ member, options }) => {
           src: prefixUrl(avatarUrl(member), options.preview),
           alt: `${member.firstname} ${member.lastname}`,
         }),
-        [
-          h('div', [
-            h('.TeamMemberName', member.firstname),
-            h('.TeamMemberName', member.lastname),
-          ]),
-        ],
+        h('div', [
+          h('.TeamMemberName', member.firstname),
+          h('.TeamMemberName', member.lastname),
+        ]),
       ],
     ),
   ])
@@ -263,8 +261,9 @@ const About = injectIntl(({ options, intl }) => {
         h('.row', [
           h('.col-sm-6', [
             h(
-              'p',
-              h(Html, {}, intl.formatMessage({ id: 'about.book-intro-html' })),
+              Html,
+              { component: 'p' },
+              intl.formatMessage({ id: 'about.book-intro-html' }),
             ),
             h(
               'a.button.btn',

@@ -80,9 +80,15 @@ const writeSitemapXml = async urls => {
 }
 
 exports.rebuildAllHTML = async () => {
-  const topics = populatePageUrl('topic', null)(await Topics.list())
-  topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
-  const resources = populatePageUrl(null, topics)(await Resources.list())
+  const topics = populatePageUrl('topic', null)(
+    await Topics.list({ sort: { id: 'desc' } }),
+  )
+  const resources = populatePageUrl(null, topics)(
+    await Resources.list({
+      query: Resources.DEFAULT_LIST_QUERY,
+      sort: { id: 'asc' },
+    }),
+  )
   const publishedResources = resources.filter(
     ({ status, type }) => status === 'published' && type !== 'definition',
   )

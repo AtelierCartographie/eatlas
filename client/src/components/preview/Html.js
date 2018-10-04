@@ -10,7 +10,9 @@ const Html = props => {
     props.children === null
       ? null
       : whitelist === 'all'
-        ? ensureHTML(String(props.children))
+        ? props.noP
+          ? String(props.children)
+          : ensureHTML(String(props.children))
         : stripTags(String(props.children), whitelist)
   if (content === null) {
     return null
@@ -22,6 +24,7 @@ const Html = props => {
   delete newProps.component
   delete newProps.children
   delete newProps.whitelist
+  delete newProps.noP
   newProps.dangerouslySetInnerHTML = { __html: content }
 
   return h(component, newProps)

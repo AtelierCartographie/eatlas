@@ -45,7 +45,7 @@ const Home = ({ topics, options, intl }) => {
       h('h1.HomeTitle.HomeTitleTyped', {}, h(T, { id: 'home.subtitle' })),
       h('div', [
         h('input.search-field', {
-          placeholder: intl.formatMessage({ id: 'fo.search-placeholder' }),
+          placeholder: intl.formatMessage({ id: 'fo.search.placeholder' }),
           'data-search-page-url': getSearchUrl({}, options),
         }),
         h('button', [
@@ -89,20 +89,18 @@ const Home = ({ topics, options, intl }) => {
         h('h2', {}, h(T, { id: 'fo.nav-resources' })),
         h('.row', [
           h('.col-sm-8', [
-            h('p', [
-              h(
-                Html,
-                { whitelist: 'all' },
-                intl.formatHTMLMessage(
-                  { id: 'home.resources-intro-html' },
-                  {
-                    mapsUrl: getSearchUrl({ types: ['map'] }, options),
-                    imagesUrl: getSearchUrl({ types: ['image'] }, options),
-                    lexiconUrl: globalPageUrl('definition')(options),
-                  },
-                ),
+            h(
+              Html,
+              { whitelist: 'all' },
+              intl.formatMessage(
+                { id: 'home.resources-intro-html' },
+                {
+                  mapsUrl: getSearchUrl({ types: ['map'] }, options),
+                  imagesUrl: getSearchUrl({ types: ['image'] }, options),
+                  lexiconUrl: globalPageUrl('definition')(options),
+                },
               ),
-            ]),
+            ),
           ]),
           h('.col-sm-4'),
         ]),
@@ -113,13 +111,11 @@ const Home = ({ topics, options, intl }) => {
         h('h2.text-right', {}, h(T, { id: 'fo.nav-about' })),
         h('.row.vcenter', [
           h('.col-sm-8.col-sm-push-4.text-right', [
-            h('p', [
-              h(
-                Html,
-                { whitelist: 'all' },
-                intl.formatHTMLMessage({ id: 'home.about-intro-html' }),
-              ),
-            ]),
+            h(
+              Html,
+              { whitelist: 'all' },
+              intl.formatMessage({ id: 'home.about-intro-html' }),
+            ),
             h(
               'a.more',
               {
@@ -155,13 +151,11 @@ const Home = ({ topics, options, intl }) => {
         h('.row', [
           h('.col-sm-6.col-sm-push-6.text-right', [
             h('h2.text-right', {}, h(T, { id: 'about.the-book' })),
-            h('p', [
-              h(
-                Html,
-                { whitelist: 'all' },
-                intl.formatHTMLMessage({ id: 'home.book-intro-html' }),
-              ),
-            ]),
+            h(
+              Html,
+              { whitelist: 'all' },
+              intl.formatMessage({ id: 'home.book-intro-html' }),
+            ),
             h(
               'a.more',
               { href: globalPageUrl('about', null, 'book')(options) },

@@ -7,7 +7,7 @@ const { prefixUrl, getSearchUrl } = require('./layout')
 module.exports = injectIntl(({ logoColor, options, intl }) =>
   h('div.search-toggle', {}, [
     h('input.search-field', {
-      placeholder: intl.formatMessage({ id: 'fo.search-placeholder' }),
+      placeholder: intl.formatMessage({ id: 'fo.search.placeholder' }),
       'data-search-page-url': getSearchUrl({}, options),
     }),
     h('button.search-toggle-button', { type: 'button' }, [

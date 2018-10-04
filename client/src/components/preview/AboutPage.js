@@ -216,7 +216,7 @@ const About = injectIntl(({ options, intl }) => {
         h(
           'h2',
           {},
-          h(Html, {}, intl.formatHTMLMessage({ id: 'about.info-title-html' })),
+          h(Html, {}, intl.formatMessage({ id: 'about.info-title-html' })),
         ),
         h('.row.vcenter', [
           h('ul.col-sm-8.AboutInfo', [
@@ -264,11 +264,7 @@ const About = injectIntl(({ options, intl }) => {
           h('.col-sm-6', [
             h(
               'p',
-              h(
-                Html,
-                {},
-                intl.formatHTMLMessage({ id: 'about.book-intro-html' }),
-              ),
+              h(Html, {}, intl.formatMessage({ id: 'about.book-intro-html' })),
             ),
             h(
               'a.button.btn',

@@ -31,7 +31,7 @@ results = {
 }
 */
 
-const hitTextTemplate = `
+const hitTextTemplate = () => `
   <strong class="search-result-title"><%= hit.title %></strong>
   <% if (hit.subtitle) { %>
     <span class="search-result-subtitle"><%= hit.subtitle %></span>
@@ -46,22 +46,39 @@ const hitTextTemplate = `
   <% } %>
 `
 
-const hitPreviewTemplate = `
+const hitPreviewTemplate = () => `
   <img src="<%= hit.preview.url %>" alt="">
 `
 
-const paginationTemplate = `
+const countResultsTemplate = t => `
+<% if (results.count === 0) {
+  %>${t('nb-results-none', { count: 0 })}<%
+} else if (results.count === 1) {
+  %>${t('nb-results-one', { count: 1 })}<%
+} else if (results.count > 1) {
+  %>${t('nb-results-many', { count: '<%= results.count %>' })}<%
+} %>`
+
+const paginationTemplate = t => `
 <div class="row search-page container">
   <% if (results.start > 1) { %>
-    <a href="#prev" class="btn search-results-prev" title="Résultats précédent">&lt;&lt;</a>
+    <a href="#prev" class="btn search-results-prev" title="${t(
+      'page-previous',
+    )}">&lt;&lt;</a>
   <% } %>
   <% if (results.start > 1 || results.end < results.count) { %>
-    <%= results.start %> - <%= results.end %> sur <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
+    ${t('page-nav', {
+      start: '<%= results.start %>',
+      end: '<%= results.end %>',
+      'nb-results': countResultsTemplate(t),
+    })}
   <% } else { %>
-    <%= results.count %> résultat<%= results.count > 1 ? 's' : '' %>
+    ${countResultsTemplate(t)}
   <% } %>
   <% if (results.end < results.count) { %>
-    <a href="#prev" class="btn search-results-next" title="Résultats suivant">&gt;&gt;</a>
+    <a href="#prev" class="btn search-results-next" title="${t(
+      'page-next',
+    )}">&gt;&gt;</a>
   <% } %>
 </div>
 <div class="row search-page-a-z container">
@@ -101,8 +118,8 @@ const paginationTemplate = `
 </div>
 `
 
-const resultsTemplate = () => `
-${paginationTemplate}
+const resultsTemplate = t => `
+${paginationTemplate(t)}
 <% _.forEach(results.hits, function (hit) { %>
   <% if (hit.url) { %>
     <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
@@ -114,14 +131,14 @@ ${paginationTemplate}
     <% } %>
     <% if (hit.preview) { %>
       <div class="search-result-preview col-sm-3">
-        ${hitPreviewTemplate}
+        ${hitPreviewTemplate(t)}
       </div>
       <div class="search-result-text col-sm-9">
-        ${hitTextTemplate}
+        ${hitTextTemplate(t)}
       </div>
     <% } else { %>
       <div class="search-result-text col-sm-12">
-        ${hitTextTemplate}
+        ${hitTextTemplate(t)}
       </div>
     <% } %>
   <% if (hit.url) { %>
@@ -153,7 +170,7 @@ const filtersToggle = (title, inputs, hidden = false) => {
 
 // sub-components
 
-const SearchFilters = ({ topics, types, locales, keywords }) =>
+const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
   h('.btn-group.search-filters-container', [
     h(
       'button.btn.btn-default.dropdown-toggle',
@@ -166,9 +183,9 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       ['Filtrer', h('span.SearchFiltersCount'), h('span.caret')],
     ),
     h('.search-filters.dropdown-menu', [
-      h('h1.search-filters-title', 'Affiner la recherche'),
+      h('h1.search-filters-title', {}, h(T, { id: 'fo.search.filters-title' })),
       ...filtersToggle(
-        'Rubriques',
+        intl.formatMessage({ id: 'fo.search.filter-topic' }),
         topics.map(topic => [
           h('label', { key: topic.id }, [
             h('input', {
@@ -181,16 +198,20 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           ]),
         ]),
       ),
-      ...filtersToggle('Mots-clés', [
+      ...filtersToggle(intl.formatMessage({ id: 'fo.search.filter-keyword' }), [
         h(
           'select.keywords',
           { multiple: true, size: 5, name: 'keywords[]' },
           keywords.map(value => h('option', { value, key: value }, value)),
         ),
       ]),
-      ...filtersToggle('Date de publication', [
+      ...filtersToggle(intl.formatMessage({ id: 'fo.search.filter-date' }), [
         [
-          h('span', { key: 'label' }, 'Avant…'),
+          h(
+            'span',
+            { key: 'label' },
+            intl.formatMessage({ id: 'fo.search.filter-date-before' }),
+          ),
           h('input', {
             type: 'number',
             name: 'date-max',
@@ -199,7 +220,11 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
           }),
         ],
         [
-          h('span', { key: 'label' }, 'Après…'),
+          h(
+            'span',
+            { key: 'label' },
+            intl.formatMessage({ id: 'fo.search.filter-date-after' }),
+          ),
           h('input', {
             type: 'number',
             name: 'date-min',
@@ -226,7 +251,7 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       // TODO removed this filter - #133
       // Note we keep it in DOM to keep 'resource' pages
       ...filtersToggle(
-        'Type',
+        intl.formatMessage({ id: 'fo.search.filter-type' }),
         Object.keys(types).map(type => [
           h('input', {
             type: 'checkbox',
@@ -244,14 +269,14 @@ const SearchFilters = ({ topics, types, locales, keywords }) =>
       h(
         '.search-filters-warning-types',
         { style: { display: 'none' } },
-        'Note : la recherche ne permet pas de combiner les références, définitions, et autres types',
+        intl.formatMessage({ id: 'fo.search.filter-type-warning' }),
       ),
       // Reset button - #133
       h('input.reset-filters', { type: 'reset' }),
     ]),
   ])
 
-const Search = ({ topics, types, locales, keywords, options }) =>
+const Search = ({ topics, types, locales, keywords, options, intl }) =>
   h('article.SearchPage', [
     h('section.container.SearchForm', [
       h(
@@ -261,7 +286,10 @@ const Search = ({ topics, types, locales, keywords, options }) =>
         },
         [
           h('.search-input', [
-            h('input', { name: 'q', placeholder: "Rechercher dans l'atlas" }),
+            h('input', {
+              name: 'q',
+              placeholder: intl.formatMessage({ id: 'fo.search.placeholder' }),
+            }),
             h('button', [
               h('img', {
                 alt: '',
@@ -269,13 +297,13 @@ const Search = ({ topics, types, locales, keywords, options }) =>
               }),
             ]),
           ]),
-          h(SearchFilters, { topics, types, locales, keywords }),
+          h(SearchFilters, { topics, types, locales, keywords, intl }),
         ],
       ),
     ]),
     // will be populated later
     h('h1.SearchPageTitle.container', [
-      'Ressources > ',
+      `${intl.formatMessage({ id: 'fo.nav-resources' })} > `,
       h('span.SearchPageTitleType'),
     ]),
     h(
@@ -284,8 +312,11 @@ const Search = ({ topics, types, locales, keywords, options }) =>
         component: 'script.results-template',
         type: 'text/html',
         whitelist: 'all',
+        noP: true,
       },
-      resultsTemplate(),
+      resultsTemplate((id, values = {}) =>
+        intl.formatMessage({ id: `fo.search.${id}` }, values),
+      ),
     ),
     h('section.SearchResults.container', {}, [
       h('strong.search-results-error'),
@@ -310,9 +341,29 @@ const SearchPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: 'Recherche', options }),
+    h(Head, { title: intl.formatMessage({ id: 'fo.search.title' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
-      h(Search, { topics, types, locales, keywords, options }),
+      h(Search, { topics, types, locales, keywords, options, intl }),
+      h(
+        Html,
+        {
+          component: 'script',
+          whitelist: 'all',
+          noP: true,
+        },
+        `window.SEARCH_PAGE_TITLE=${JSON.stringify({
+          article: intl.formatMessage({ id: 'doc.type-plural.article' }),
+          focus: intl.formatMessage({ id: 'doc.type-plural.focus' }),
+          map: intl.formatMessage({ id: 'doc.type-plural.map' }),
+          image: intl.formatMessage({ id: 'doc.type-plural.image+video' }),
+          video: intl.formatMessage({ id: 'doc.type-plural.image+video' }),
+          'single-definition': intl.formatMessage({
+            id: 'doc.type-plural.definition',
+          }),
+          definition: intl.formatMessage({ id: 'doc.type-plural.definition' }),
+          reference: intl.formatMessage({ id: 'doc.type-plural.reference' }),
+        })}`,
+      ),
     ]),
   ]),
 )

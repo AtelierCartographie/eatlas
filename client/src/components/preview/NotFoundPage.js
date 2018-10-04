@@ -19,15 +19,11 @@ const Content = injectIntl(({ options, intl }) => {
     h('h1', {}, h(T, { id: 'fo.page-not-found' })),
     h('p', {}, h(T, { id: 'fo.page-not-found-intro' })),
     h(
-      'p',
-      {},
-      h(
-        Html,
-        { whitelist: 'all' },
-        intl.formatHTMLMessage(
-          { id: 'fo.page-not-found-link-html' },
-          { href: globalPageUrl('about', null, 'contact')(options) },
-        ),
+      Html,
+      { whitelist: 'all' },
+      intl.formatHTMLMessage(
+        { id: 'fo.page-not-found-link-html' },
+        { href: globalPageUrl('about', null, 'contact')(options) },
       ),
     ),
     h('p.back-home', [

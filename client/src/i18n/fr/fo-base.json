@@ -1,10 +1,10 @@
 {
+  "test-html": "Test avec du {html} dedans",
   "title": "Espace mondial : l'Atlas",
   "close": "Fermer",
   "nav-summary": "Sommaire",
   "nav-resources": "Ressources",
   "nav-about": "À propos",
-  "search-placeholder": "Rechercher dans l’atlas",
   "homepage": "Page d’accueil",
   "lexicon-title-prefix": "Ressources > ",
   "lexicon": "Lexique",
@@ -14,5 +14,24 @@
     "La page que vous avez demandéz n’existe pas, ou n’existe plus.",
   "page-not-found-link-html":
     "Vous pouvez signaler le lien brisé via <a href=\"{href}\">notre formulaire de contact</a>.",
-  "sitemap": "Plan du site"
+  "sitemap": "Plan du site",
+  "search": {
+    "title": "Rechercher",
+    "placeholder": "Rechercher dans l’atlas",
+    "filters-title": "Affiner la recherche",
+    "filter-topic": "Rubriques",
+    "filter-keyword": "Mots-clés",
+    "filter-date": "Date de publication",
+    "filter-date-before": "Avant… ",
+    "filter-date-after": "Après… ",
+    "filter-type": "Type",
+    "filter-type-warning":
+      "Note : la recherche ne permet pas de combiner les références, définitions, et autres types",
+    "page-previous": "Résultats précédent",
+    "page-next": "Résultats suivants",
+    "page-nav": "{start} - {end} sur {nb-results}",
+    "nb-results-none": "aucun résultat",
+    "nb-results-one": "1 résultat",
+    "nb-results-many": "{count} résultats"
+  }
 }

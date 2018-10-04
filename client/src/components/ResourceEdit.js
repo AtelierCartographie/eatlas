@@ -87,6 +87,8 @@ class ResourceEdit extends Component<Props, State> {
       return { id: 'bo.resource-not-found', values: { id } }
     }
 
+    window.ri = this.props.intl
+
     return {
       id: 'bo.resource-edit',
       values: {

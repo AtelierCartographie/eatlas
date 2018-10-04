@@ -60,7 +60,7 @@ const ResourceVideo = ({ resource }) => {
 const ResourceDescription = ({ resource }) => {
   return h('.container.ResourceDescription', [
     h('h2', {}, h(T, { id: 'doc.comment' })),
-    h(Html, { whitelist: 'all' }, resource.description_fr),
+    h(Html, { whitelist: 'all', noP: true }, resource.description_fr),
   ])
 }
 
@@ -96,7 +96,7 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
       '.warning',
       h(
         Html,
-        { whitelist: 'all' },
+        { whitelist: 'all', noP: true },
         intl.formatHTMLMessage(
           { id: 'doc.download-warning' },
           { href: globalPageUrl('legals')(options) },

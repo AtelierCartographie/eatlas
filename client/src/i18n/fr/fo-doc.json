@@ -15,7 +15,9 @@
     "image": "Photos",
     "map": "Cartes et graphiques",
     "sound": "Sons",
-    "video": "Vidéos"
+    "video": "Vidéos",
+    "reference": "Références",
+    "image+video": "Photos et vidéos"
   },
   "summary-lang": {
     "fr": "Fr",

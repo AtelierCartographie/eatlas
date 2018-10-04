@@ -64,17 +64,13 @@
     const setFiltersCount = count =>
       $('.SearchFiltersCount').text(count ? `(${count})` : '')
 
-    // TODO brittle solution
-    // TODO i18n
     const updatePageTitle = () => {
       const searchParams = new URLSearchParams(window.location.search)
       searchParams.forEach((value, key) => {
         if (key !== 'types[]') return
-        if (value === 'map') return setTitle('cartes et graphiques')
-        if (value === 'image' || value === 'video')
-          return setTitle('photos et vidéos')
-        if (value === 'single-definition') return setTitle('lexique')
-        if (value === 'reference') return setTitle('références')
+        if (window.SEARCH_PAGE_TITLE[value]) {
+          return setTitle(window.SEARCH_PAGE_TITLE[value])
+        }
       })
     }
     // for links coming from the Footer

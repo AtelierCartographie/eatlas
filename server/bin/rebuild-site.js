@@ -11,17 +11,7 @@ const main = async () => {
   await rebuildAssets()
 
   logger.info('2. Rebuild all HTML contents')
-  let report = {}
-
-  logger.info('2.a. French')
-  report = await rebuildAllHTML('fr')
-  if (report.errored) {
-    logger.error(report.details)
-    throw new Error('Errors occured')
-  }
-
-  logger.info('2.b. English')
-  report = await rebuildAllHTML('en')
+  const report = await rebuildAllHTML()
   if (report.errored) {
     logger.error(report.details)
     throw new Error('Errors occured')

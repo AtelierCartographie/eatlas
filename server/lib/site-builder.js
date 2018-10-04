@@ -79,7 +79,7 @@ const writeSitemapXml = async urls => {
   return await writeFileLogged(file, xml)
 }
 
-exports.rebuildAllHTML = async (lang = 'fr') => {
+const rebuildLangHTML = async lang => {
   const options = { preview: false, lang }
   const topics = populatePageUrl('topic', null, options)(await Topics.list())
   topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
@@ -132,20 +132,32 @@ exports.rebuildAllHTML = async (lang = 'fr') => {
     [],
   )
 
+  // report
+  return {
+    details,
+    errored: details.some(({ error }) => error !== null),
+  }
+}
+
+exports.rebuildAllHTML = async () => {
+  const reportFr = await rebuildLangHTML('fr')
+  const reportEn = await rebuildLangHTML('en')
+
+  const report = {
+    errored: reportFr.errored || reportEn.errored,
+    details: reportFr.details.concat(reportEn.details),
+  }
+
   // SEO
   await writeSitemapXml(
-    details
+    report.details
       .map(({ error, write, noop }) => (error ? null : write || noop))
       .filter(url => url !== null)
       .map(url => pathToUrl(url, false)),
   )
   await writeRobotsTxt()
 
-  // report
-  return {
-    details,
-    errored: details.some(({ error }) => error !== null),
-  }
+  return report
 }
 
 const compileJS = promisify(babel.transformFile)

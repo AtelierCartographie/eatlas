@@ -79,41 +79,49 @@ const writeSitemapXml = async urls => {
   return await writeFileLogged(file, xml)
 }
 
-exports.rebuildAllHTML = async () => {
-  const topics = populatePageUrl('topic', null)(await Topics.list())
+exports.rebuildAllHTML = async (lang = 'fr') => {
+  const options = { preview: false, lang }
+  const topics = populatePageUrl('topic', null, options)(await Topics.list())
   topics.sort((t1, t2) => Number(t1.id) - Number(t2.id))
-  const resources = populatePageUrl(null, topics)(await Resources.list())
+  const resources = populatePageUrl(null, topics, options)(
+    await Resources.list(),
+  )
   const publishedResources = resources.filter(
-    ({ status, type }) => status === 'published' && type !== 'definition',
+    ({ language, status, type }) =>
+      lang === language && status === 'published' && type !== 'definition',
   )
   const unpublishedResources = resources.filter(
-    ({ status, type }) => status !== 'published' && type !== 'definition',
+    ({ language, status, type }) =>
+      lang === language && status !== 'published' && type !== 'definition',
   )
   const articles = publishedResources.filter(({ type }) => type === 'article')
+  const params = { lang }
 
   const resultss = await Promise.all([
     // Unpublished pages
     Promise.all(
       unpublishedResources.map(resource =>
-        removePage(resource.type, resource, topics),
+        removePage(resource.type, resource, topics, params),
       ),
     ),
     // Global pages
-    writePage('index', null, topics, articles),
-    writePage('search', null, topics, articles),
-    writePage('about', null, topics, articles),
-    writePage('legals', null, topics, articles),
-    writePage('sitemap', null, topics, articles),
-    writePage('notFound', null, topics, articles),
-    writePage('definition', null, topics, articles),
+    writePage('index', null, topics, articles, params),
+    writePage('search', null, topics, articles, params),
+    writePage('about', null, topics, articles, params),
+    writePage('legals', null, topics, articles, params),
+    writePage('sitemap', null, topics, articles, params),
+    writePage('notFound', null, topics, articles, params),
+    writePage('definition', null, topics, articles, params),
     // Topic pages
     Promise.all(
-      topics.map(topic => writePage('topic', topic, topics, articles)),
+      ([] || topics).map(topic =>
+        writePage('topic', topic, topics, articles, params),
+      ),
     ),
     // Resource pages
     Promise.all(
       publishedResources.map(resource =>
-        writePage(resource.type, resource, topics, articles),
+        writePage(resource.type, resource, topics, articles, params),
       ),
     ),
   ])

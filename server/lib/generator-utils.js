@@ -15,12 +15,7 @@ const {
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
 } = require('../../client/src/universal-utils')
-const {
-  pathToUrl,
-  pagePath,
-  resourceMediaPath,
-  getTypeLabel,
-} = require('./resource-path')
+const { pathToUrl, pagePath, resourceMediaPath } = require('./resource-path')
 const {
   getResourcePageUrl,
   getTopicPageUrl,
@@ -67,13 +62,13 @@ exports.populateFocus = async (article, resources) => {
 exports.populatePageUrl = (
   key,
   topics,
-  { preview = false } = {},
+  { preview = false, lang = 'fr' } = {},
 ) => resource => {
   if (!resource) {
     return null
   }
   if (Array.isArray(resource)) {
-    return resource.map(exports.populatePageUrl(key, topics, { preview }))
+    return resource.map(exports.populatePageUrl(key, topics, { preview, lang }))
   }
   if (!config.pageUrls[key || resource.type]) {
     return resource
@@ -81,7 +76,7 @@ exports.populatePageUrl = (
   if (!resource.pageUrl) {
     resource.pageUrl = preview
       ? getResourcePagePreviewUrl(resource, apiUrl)
-      : pathToUrl(pagePath(key || resource.type, resource, topics))
+      : pathToUrl(pagePath(key || resource.type, resource, topics, { lang }))
   }
   return resource
 }
@@ -329,23 +324,23 @@ exports.getAllUrls = async options => {
         : getResourcePageUrl(resource, options)
       : globalPageUrl(key, null, hash)(options)
     children = children.map(args => getPageDescription(...args))
-    return { url, title, info, children }
+    return { url, title, info, children, i18nTitle: !resource }
   }
   const addPage = (title, key, options) => {
     urls.push(getPageDescription(title, key, options))
   }
   // Global pages
-  addPage('Accueil', 'index')
-  addPage('Recherche', 'search')
-  addPage('À propos', 'about', {
+  addPage('fo.homepage', 'index')
+  addPage('fo.search.title', 'search')
+  addPage('about.title', 'about', {
     children: [
-      ['Le projet', 'about', { hash: 'project' }],
-      ['L’équipe', 'about', { hash: 'team' }],
-      ['Nous contacter', 'about', { hash: 'contact' }],
-      ['Le livre', 'about', { hash: 'book' }],
+      ['about.the-project', 'about', { hash: 'project' }],
+      ['about.the-team', 'about', { hash: 'team' }],
+      ['about.contact-title', 'about', { hash: 'contact' }],
+      ['about.the-book', 'about', { hash: 'book' }],
     ],
   })
-  addPage('Mentions légales', 'legals')
+  addPage('legals.title', 'legals')
   // Topics & resources
   for (const topic of topics) {
     const resources = await exports.getTopicResources(topic, !options.preview)
@@ -354,13 +349,13 @@ exports.getAllUrls = async options => {
       r.type,
       {
         resource: r,
-        info: `(${getTypeLabel(r)})`,
+        info: `fo.type-label.${r.type}`,
       },
     ])
     addPage(topic.name, 'topic', {
       resource: topic,
       children,
-      info: '(rubrique)',
+      info: 'fo.type-label.topic',
     })
   }
   return urls

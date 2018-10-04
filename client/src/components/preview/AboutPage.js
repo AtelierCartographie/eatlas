@@ -27,19 +27,6 @@ const TeamMemberModal = injectIntl(({ member, options, intl }) => {
     [
       h('.modal-dialog.modal-lg', { role: 'document' }, [
         h('.modal-content', {}, [
-          // TODO styling on top right without padding
-          false &&
-            h('.modal-header', [
-              h(
-                'button.close',
-                {
-                  type: 'button',
-                  'data-dismiss': 'modal',
-                  'aria-label': intl.formatMessage({ id: 'fo.close' }),
-                },
-                [h('span', { 'aria-hidden': true }, '×')],
-              ),
-            ]),
           h('.modal-body', [
             h('.row.vcenter', [
               h('.col-md-4', [
@@ -80,12 +67,10 @@ const TeamMember = ({ member, options }) => {
           src: prefixUrl(avatarUrl(member), options.preview),
           alt: `${member.firstname} ${member.lastname}`,
         }),
-        [
-          h('div', [
-            h('.TeamMemberName', member.firstname),
-            h('.TeamMemberName', member.lastname),
-          ]),
-        ],
+        h('div', [
+          h('.TeamMemberName', member.firstname),
+          h('.TeamMemberName', member.lastname),
+        ]),
       ],
     ),
   ])
@@ -179,15 +164,18 @@ const Team = ({ options, intl }) => {
       h('h3', {}, h(T, { id: 'about.the-texts' })),
       h(
         'ul',
-        authors.map((member, key) => h(TeamMember, { key, member, options })),
-      ),
-      h('h3', {}, h(T, { id: 'about.the-vizualisations' })),
-      h(
-        'ul',
-        cartographers.map(member =>
+        authors.map(member =>
           h(TeamMember, { key: member.key, member, options }),
         ),
       ),
+      h('h3', {}, h(T, { id: 'about.the-vizualisations' })),
+      null &&
+        h(
+          'ul',
+          cartographers.map(member =>
+            h(TeamMember, { key: member.key, member, options }),
+          ),
+        ),
       authors.map(member =>
         h(TeamMemberModal, { key: member.key, member, options }),
       ),
@@ -263,8 +251,9 @@ const About = injectIntl(({ options, intl }) => {
         h('.row', [
           h('.col-sm-6', [
             h(
-              'p',
-              h(Html, {}, intl.formatMessage({ id: 'about.book-intro-html' })),
+              Html,
+              { whitelist: 'all' },
+              intl.formatMessage({ id: 'about.book-intro-html' }),
             ),
             h(
               'a.button.btn',

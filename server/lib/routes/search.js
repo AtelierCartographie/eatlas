@@ -196,7 +196,12 @@ const search = ({ preview = false } = {}) => async (req, res) => {
       end: from + result.hits.hits.length,
       count: result.hits.total,
       hits: resultResources
-        .map(populatePageUrl(null, topics, { preview }))
+        .map(
+          populatePageUrl(null, topics, {
+            preview,
+            lang: req.query.lang || 'fr',
+          }),
+        )
         .map(populateThumbnailUrl(thumbnailResources, { preview }))
         .map(formatResultHit),
     })

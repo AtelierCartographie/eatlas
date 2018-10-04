@@ -14,7 +14,6 @@
     "La page que vous avez demandéz n’existe pas, ou n’existe plus.",
   "page-not-found-link-html":
     "Vous pouvez signaler le lien brisé via <a href=\"{href}\">notre formulaire de contact</a>.",
-  "sitemap": "Plan du site",
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",
@@ -33,5 +32,19 @@
     "nb-results-none": "aucun résultat",
     "nb-results-one": "1 résultat",
     "nb-results-many": "{count} résultats"
+  },
+  "sitemap": {
+    "title": "Plan du site",
+    "info": "({info})"
+  },
+  "type-label": {
+    "article": "article",
+    "definition": "définition",
+    "focus": "focus",
+    "image": "photo",
+    "map": "carte",
+    "sound": "son",
+    "video": "vidéo",
+    "topic": "rubrique"
   }
 }

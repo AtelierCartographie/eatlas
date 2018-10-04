@@ -13,28 +13,42 @@ const Head = require('./Head')
 const Body = require('./Body')
 const { stripTags } = require('../../universal-utils')
 
-const ul = urls => {
+const ul = (urls, intl) => {
   if (!urls || urls.length === 0) {
     return null
   }
 
   return h(
     'ul',
-    urls.map(({ title, info, url, children }) =>
+    urls.map(({ title, info, url, children, i18nTitle }) =>
       h('li', { key: title }, [
-        h('a', { href: url }, [h('span.title', stripTags(title))]),
+        h('a', { href: url }, [
+          h(
+            'span.title',
+            i18nTitle ? intl.formatMessage({ id: title }) : stripTags(title),
+          ),
+        ]),
         ' ',
-        info ? h('span.info', info) : null,
-        ul(children),
+        info
+          ? h(
+              'span.info',
+              {},
+              intl.formatMessage(
+                { id: 'fo.sitemap.info' },
+                { info: intl.formatMessage({ id: info }) },
+              ),
+            )
+          : null,
+        ul(children, intl),
       ]),
     ),
   )
 }
 
-const Content = ({ urls, options }) =>
+const Content = ({ urls, options, intl }) =>
   h('article.container.SitemapPage', [
-    h('h1', {}, h(T, { id: 'fo.sitemap' })),
-    ul(urls),
+    h('h1', {}, h(T, { id: 'fo.sitemap.title' })),
+    ul(urls, intl),
   ])
 
 const SitemapPage = injectIntl((
@@ -51,9 +65,9 @@ const SitemapPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: info.formatMessage({ id: 'fo.sitemap' }), options }),
+    h(Head, { title: intl.formatMessage({ id: 'fo.sitemap.title' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
-      h(Content, { urls, options }),
+      h(Content, { urls, options, intl }),
     ]),
   ]),
 )

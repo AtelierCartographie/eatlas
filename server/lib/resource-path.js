@@ -5,18 +5,11 @@ const getConf = require('./dynamic-config-variable')
 const { slugify } = require('../../client/src/universal-utils')
 const debug = require('debug')('eatlas:path')
 const { accessSync } = require('fs')
+const getTypeLabel = require('./i18n-type-labels')
 
 const root = path.join(__dirname, '..')
 const pubDir = path.resolve(root, getConf('publicPath'))
 const upDir = path.resolve(root, getConf('uploadPath', {}))
-
-const getTypeLabel = (exports.getTypeLabel = ({ type }) =>
-  ({
-    definition: 'définition',
-    map: 'carte',
-    sound: 'audio',
-    image: 'photo',
-  }[type] || type))
 
 const getTopicSlug = (resource, topics) => {
   const topic = resource.topic
@@ -35,7 +28,7 @@ const getResourceSlug = resource =>
 // Public path to HTML page
 exports.pagePath = (key, resource, topics, params = {}) => {
   const locals = {
-    typeLabel: resource ? getTypeLabel(resource) : key,
+    typeLabel: resource ? getTypeLabel(resource.type, params.lang) : key,
     topicSlug: resource
       ? // No topic can be found for definitions
         key === 'definition'

@@ -93,14 +93,11 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
   return h('.container.ResourceDownload', [
     h('h2', {}, h(T, { id: 'doc.download' })),
     h(
-      '.warning',
-      h(
-        Html,
-        { whitelist: 'all', noP: true },
-        intl.formatHTMLMessage(
-          { id: 'doc.download-warning' },
-          { href: globalPageUrl('legals')(options) },
-        ),
+      Html,
+      { whitelist: 'all', noP: true, component: '.warning' },
+      intl.formatHTMLMessage(
+        { id: 'doc.download-warning' },
+        { href: globalPageUrl('legals')(options) },
       ),
     ),
     h('.download-blocks', [
@@ -232,7 +229,7 @@ const Resource = injectIntl(({ resource, topics, options, intl }) => {
   return h('article.ResourcePage', [
     h('header.container.ResourceHeader', [
       h('.PageTitle', {}, h(T, { id: 'doc.resource-page-title' })),
-      h('.ResourceType', h(T, { id: `doc.type-plural.${resource.type}` })),
+      h('.ResourceType', {}, h(T, { id: `doc.type-plural.${resource.type}` })),
       h(Html, { component: 'h1.ResourceTitle' }, resource.title),
     ]),
     ...children,

@@ -69,8 +69,13 @@ const GENERATORS = {
   notFound: 'generate404HTML',
 }
 
-const wrap = (element, locale = 'fr-FR') => {
-  const lang = locale.substring(0, 2)
+const LOCALE_FROM_LANG = {
+  fr: 'fr-FR',
+  en: 'en-GB',
+}
+
+const wrap = (element, lang) => {
+  const locale = LOCALE_FROM_LANG[lang] || lang
   const wrapped = h(
     IntlProvider,
     {
@@ -92,12 +97,12 @@ const wrap = (element, locale = 'fr-FR') => {
 
 const menuProps = async (
   { topics = null, articles = null } = {},
-  { preview = false } = {},
+  { preview = false, lang } = {},
 ) => {
-  topics = populatePageUrl('topic', topics, { preview })(
+  topics = populatePageUrl('topic', topics, { preview, lang })(
     topics || (await getTopics()),
   )
-  articles = populatePageUrl(null, topics, { preview })(
+  articles = populatePageUrl(null, topics, { preview, lang })(
     articles || (await getArticles()),
   )
   return { topics, articles }
@@ -134,10 +139,10 @@ exports.generateHTML = async (
 
 exports.generateArticleHTML = async (
   resource,
-  { preview = false } = {},
+  { preview = false, lang = 'fr' } = {},
   props = {},
 ) => {
-  props = await menuProps(props, { preview })
+  props = await menuProps(props, { preview, lang })
   const article = flattenMetas(resource)
   const definitions = await getDefinitions()
   let resources = await getArticleResources(resource, !preview)
@@ -165,26 +170,30 @@ exports.generateArticleHTML = async (
   return wrap(
     React.createElement(ArticlePage, {
       ...props,
-      article: populatePageUrl(null, props.topics, { preview })(article),
-      definitions: populatePageUrl('definition', props.topics, { preview })(
-        definitions,
+      article: populatePageUrl(null, props.topics, { preview, lang })(article),
+      definitions: populatePageUrl('definition', props.topics, {
+        preview,
+        lang,
+      })(definitions),
+      resources: populatePageUrl(null, props.topics, { preview, lang })(
+        resources,
       ),
-      resources: populatePageUrl(null, props.topics, { preview })(resources),
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
 exports.generateFocusHTML = async (
   resource,
-  { preview = false } = {},
+  { preview = false, lang = 'fr' } = {},
   props = {},
 ) => {
-  props = await menuProps(props, { preview })
+  props = await menuProps(props, { preview, lang })
   let focus = flattenMetas(resource)
   // to create the "go back to article" link
   focus.relatedArticleId = focus.relatedArticle
-  focus.relatedArticle = populatePageUrl(null, props.topics, { preview })(
+  focus.relatedArticle = populatePageUrl(null, props.topics, { preview, lang })(
     await getResource(focus.relatedArticleId),
   )
   const definitions = await getDefinitions()
@@ -193,23 +202,27 @@ exports.generateFocusHTML = async (
   return wrap(
     React.createElement(FocusPage, {
       ...props,
-      focus: populatePageUrl(null, props.topics, { preview })(focus),
-      definitions: populatePageUrl('definition', props.topics, { preview })(
-        definitions,
+      focus: populatePageUrl(null, props.topics, { preview, lang })(focus),
+      definitions: populatePageUrl('definition', props.topics, {
+        preview,
+        lang,
+      })(definitions),
+      resources: populatePageUrl(null, props.topics, { preview, lang })(
+        resources,
       ),
-      resources: populatePageUrl(null, props.topics, { preview })(resources),
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
 exports.generateTopicHTML = async (
   topic,
-  { preview = false } = {},
+  { preview = false, lang = 'fr' } = {},
   props = {},
 ) => {
-  props = await menuProps(props, { preview })
-  const resources = populatePageUrl(null, props.topics, { preview })(
+  props = await menuProps(props, { preview, lang })
+  const resources = populatePageUrl(null, props.topics, { preview, lang })(
     await getTopicResources(topic),
   )
   // Enhanced articles for data list in topic page
@@ -226,24 +239,25 @@ exports.generateTopicHTML = async (
   return wrap(
     React.createElement(TopicPage, {
       ...props,
-      topic: populatePageUrl('topic', null, { preview })(topic),
+      topic: populatePageUrl('topic', null, { preview, lang })(topic),
       articles: props.articles,
       resources,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
 exports.generateResourceHTML = async (
   resource,
-  { preview = false } = {},
+  { preview = false, lang = 'fr' } = {},
   props = {},
 ) => {
-  props = await menuProps(props, { preview })
+  props = await menuProps(props, { preview, lang })
   if (resource.type === 'map' || resource.type === 'image') {
     await populateImageStats(resource, { preview })
     await populateImageRelatedResources(resource)
-    populatePageUrl(null, props.topics, { preview: false })(
+    populatePageUrl(null, props.topics, { preview, lang })(
       resource.relatedResources,
     )
     await Promise.all(
@@ -257,14 +271,20 @@ exports.generateResourceHTML = async (
   return wrap(
     React.createElement(ResourcePage, {
       ...props,
-      resource: populatePageUrl(null, props.topics, { preview })(resource),
+      resource: populatePageUrl(null, props.topics, { preview, lang })(
+        resource,
+      ),
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
-exports.generateLexiconHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generateLexiconHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   const lexicon = await getResource('LEXIC')
   return wrap(
     React.createElement(LexiconPage, {
@@ -272,21 +292,29 @@ exports.generateLexiconHTML = async ({ preview = false } = {}, props = {}) => {
       definitions: lexicon.definitions,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
-exports.generateHomeHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generateHomeHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   return wrap(
     React.createElement(HomePage, {
       ...props,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
-exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generateSearchHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   const keywordsWithOccurrences = props.articles
     // Article[] => string[]
     .reduce(
@@ -323,31 +351,43 @@ exports.generateSearchHTML = async ({ preview = false } = {}, props = {}) => {
       locales: LOCALES,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
-exports.generateAboutHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generateAboutHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   return wrap(
     React.createElement(AboutPage, {
       ...props,
       options: { preview, analytics: config.analytics, apiUrl },
     }),
+    lang,
   )
 }
 
-exports.generateLegalsHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generateLegalsHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   return wrap(
     React.createElement(LegalsPage, {
       ...props,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
-exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generateSitemapHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   const urls = await getAllUrls({ preview, apiUrl, publicUrl })
   return wrap(
     React.createElement(SitemapPage, {
@@ -355,15 +395,20 @@ exports.generateSitemapHTML = async ({ preview = false } = {}, props = {}) => {
       ...props,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }
 
-exports.generate404HTML = async ({ preview = false } = {}, props = {}) => {
-  props = await menuProps(props, { preview })
+exports.generate404HTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
   return wrap(
     React.createElement(NotFoundPage, {
       ...props,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
+    lang,
   )
 }

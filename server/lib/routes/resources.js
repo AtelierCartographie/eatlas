@@ -246,7 +246,11 @@ exports.urls = async (req, res, next) => {
     let urls = []
     // HTML page
     urls.push(
-      pathToUrl(await pagePath(resource.type, resource, await Topics.list())),
+      pathToUrl(
+        await pagePath(resource.type, resource, await Topics.list(), {
+          lang: resource.language,
+        }),
+      ),
     )
     // Other URLs (media)
     switch (resource.type) {

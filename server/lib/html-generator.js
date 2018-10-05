@@ -77,8 +77,11 @@ const LOCALE_FROM_LANG = {
   en: 'en-GB',
 }
 
-const wrap = (element, lang) => {
+const wrap = (element, lang, otherUrl) => {
   const locale = LOCALE_FROM_LANG[lang] || lang
+  // Build "urls" object for translated versions of the page
+  const otherLang = lang === 'fr' ? 'en' : 'fr'
+  const urls = { [otherLang]: otherUrl }
   const wrapped = h(
     IntlProvider,
     {
@@ -90,6 +93,7 @@ const wrap = (element, lang) => {
     h(
       injectIntl(({ intl }) => {
         intl.lang = lang
+        intl.urls = urls
         return element
       }),
     ),

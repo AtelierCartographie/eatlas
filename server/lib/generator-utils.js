@@ -358,7 +358,7 @@ exports.getAllUrls = async options => {
   return urls
 }
 
-exports.getOtherLangUrl = async ({ page, resource, preview, lang }) => {
+exports.getOtherLangUrl = async ({ page, resource, topic, preview, lang }) => {
   const otherLang = (resource ? resource.language : lang) === 'fr' ? 'en' : 'fr'
   if (resource) {
     // Resource page: find translated resource using ID convention
@@ -377,6 +377,9 @@ exports.getOtherLangUrl = async ({ page, resource, preview, lang }) => {
       return null
     }
     return getResourcePageUrl(otherResource, { preview })
+  }
+  if (topic) {
+    return getTopicPageUrl(topic, { preview, apiUrl, lang: otherLang })
   }
   if (page) {
     // Global page

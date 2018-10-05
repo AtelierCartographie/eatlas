@@ -250,15 +250,18 @@ exports.generateTopicHTML = async (
       }),
   )
 
+  populatePageUrl('topic', null, { preview, lang })(topic)
+
   return wrap(
     React.createElement(TopicPage, {
       ...props,
-      topic: populatePageUrl('topic', null, { preview, lang })(topic),
+      topic,
       articles: props.articles,
       resources,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    await getOtherLangUrl({ topic, preview, lang }),
   )
 }
 

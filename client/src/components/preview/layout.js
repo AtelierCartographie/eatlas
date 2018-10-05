@@ -39,10 +39,11 @@ exports.getTopicPageUrl = (
   {
     preview = false,
     apiUrl = process.env.REACT_APP_API_SERVER,
+    lang = 'fr',
   } /*: FrontOptions */ = {},
 ) =>
   preview
-    ? `${apiUrl || ''}/preview/topics/${topic.id}`
+    ? `${apiUrl || ''}/preview/topics/${topic.id}?lang=${lang}`
     : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
 
 const globalPageUrl = (exports.globalPageUrl = (

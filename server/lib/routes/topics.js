@@ -59,10 +59,11 @@ exports.remove = (req, res) =>
 
 exports.preview = async (req, res, next) => {
   try {
+    const options = { preview: true, lang: req.query.lang || 'fr' }
     if (!req.foundTopic) {
-      return res.send(await generate404HTML({ preview: true }))
+      return res.send(await generate404HTML(options))
     }
-    const html = await generateTopicHTML(req.foundTopic, { preview: true })
+    const html = await generateTopicHTML(req.foundTopic, options)
     res.send(html)
   } catch (err) {
     next(err)

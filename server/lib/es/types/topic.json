@@ -6,6 +6,9 @@
     "name": {
       "type": "text"
     },
+    "name_en": {
+      "type": "text"
+    },
     "resourceId": {
       "type": "text"
     },

@@ -131,7 +131,7 @@ class Topics extends Component<Props, State> {
               <T id="bo.resource-id" />
             </th>
             <th>
-              <T id="bo.name" />
+              <T id="bo.name" values={{ lang: 'fr/en' }} />
             </th>
             <th>
               <T id="bo.resource" />
@@ -149,7 +149,9 @@ class Topics extends Component<Props, State> {
           {orderedTopics.map(t => (
             <tr key={t.id}>
               <td>{t.id}</td>
-              <td>{t.name}</td>
+              <td>
+                {t.name} / {t.name_en}
+              </td>
               <td>
                 {t.resourceId && (
                   <Link to={`/resources/${t.resourceId}/edit`}>

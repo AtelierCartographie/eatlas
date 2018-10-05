@@ -46,7 +46,7 @@
   "lexicon-description": "Full lexicon ({nb} definitions)",
   "lexicon-title": "Lexicon",
   "myself": "myself",
-  "name": "name",
+  "name": "name ({lang})",
   "nb-definitions": "nb definitions",
   "pagination-count": "{count} per page",
   "pagination-next": "Next",

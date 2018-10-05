@@ -42,7 +42,8 @@ exports.fullTopic = {
     .min(0)
     .max(999)
     .required(),
-  name,
+  name: name.required(),
+  name_en: name.required(),
   // https://github.com/hapijs/joi/issues/482
   resourceId: Joi.string().allow(''),
   description_fr: Joi.string().allow(''),

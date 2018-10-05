@@ -149,7 +149,7 @@ class TopicForm extends Component<Props, State> {
 
             <div className="field">
               <label className="label">
-                <T id="bo.name" />
+                <T id="bo.name" values={{ lang: 'fr' }} />
               </label>
               <div className="control">
                 <input
@@ -158,6 +158,23 @@ class TopicForm extends Component<Props, State> {
                   type="text"
                   placeholder="name"
                   value={topic.name}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="label">
+                <T id="bo.name" values={{ lang: 'en' }} />
+              </label>
+              <div className="control">
+                <input
+                  className="input"
+                  name="name_en"
+                  type="text"
+                  placeholder="name_en"
+                  value={topic.name_en}
                   onChange={this.handleChange}
                   required
                 />

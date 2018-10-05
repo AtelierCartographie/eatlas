@@ -1,10 +1,11 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { FormattedMessage: T, injectIntl } = require('react-intl')
+const { injectIntl } = require('react-intl')
 const { prefixUrl } = require('./layout')
 const SearchToggle = require('./SearchBar')
 const { SideMenuToggle } = require('./SideMenu')
+const LangSelector = require('./LangSelector')
 
 module.exports = injectIntl((
   {
@@ -57,6 +58,7 @@ module.exports = injectIntl((
           ),
     ]),
     h(SideMenuToggle, { logoColor, options }),
+    h(LangSelector, { options }),
     h(SearchToggle, { logoColor, options }),
   ]),
 )

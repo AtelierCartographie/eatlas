@@ -1,0 +1,29 @@
+.LangSelector {
+  padding: 0;
+  margin: 0;
+  margin-left: 60px;
+
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+
+    font-size: 25px;
+    line-height: 50px;
+    color: white;
+    margin-right: 10px;
+
+    &.other {
+      opacity: 0.5;
+      font-weight: normal;
+    }
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    &.current {
+      font-weight: bold;
+    }
+  }
+}

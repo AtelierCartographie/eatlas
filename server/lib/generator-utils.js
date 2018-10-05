@@ -358,8 +358,26 @@ exports.getAllUrls = async options => {
   return urls
 }
 
-exports.getOtherLangUrl = ({ page, preview, lang }) => {
-  const otherLang = lang === 'fr' ? 'en' : 'fr'
+exports.getOtherLangUrl = async ({ page, resource, preview, lang }) => {
+  const otherLang = (resource ? resource.language : lang) === 'fr' ? 'en' : 'fr'
+  if (resource) {
+    // Resource page: find translated resource using ID convention
+    // XXXX-EN → XXXX-FR or XXXX)
+    // XXXX-FR → XXXX-EN
+    // XXXX    → XXXX-EN
+    const idPrefix = resource.id.replace(/-(EN|FR)$/i, '')
+    let otherResource = await Resources.findById(
+      `${idPrefix}-${otherLang.toUpperCase()}`,
+    )
+    if (!otherResource && otherLang === 'fr') {
+      // Look for unprefixed resource as default language = 'fr'
+      otherResource = await Resources.findById(idPrefix)
+    }
+    if (!otherResource) {
+      return null
+    }
+    return getResourcePageUrl(otherResource, { preview })
+  }
   if (page) {
     // Global page
     return globalPageUrl(page, null, null)({

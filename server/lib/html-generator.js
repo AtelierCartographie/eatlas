@@ -175,10 +175,12 @@ exports.generateArticleHTML = async (
       }),
   )
 
+  populatePageUrl(null, props.topics, { preview, lang })(article)
+
   return wrap(
     React.createElement(ArticlePage, {
       ...props,
-      article: populatePageUrl(null, props.topics, { preview, lang })(article),
+      article,
       definitions: populatePageUrl('definition', props.topics, {
         preview,
         lang,
@@ -189,6 +191,7 @@ exports.generateArticleHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    await getOtherLangUrl({ resource: article, preview }),
   )
 }
 
@@ -207,10 +210,12 @@ exports.generateFocusHTML = async (
   const definitions = await getDefinitions()
   const resources = await getArticleResources(resource, !preview)
 
+  populatePageUrl(null, props.topics, { preview, lang })(focus)
+
   return wrap(
     React.createElement(FocusPage, {
       ...props,
-      focus: populatePageUrl(null, props.topics, { preview, lang })(focus),
+      focus,
       definitions: populatePageUrl('definition', props.topics, {
         preview,
         lang,
@@ -221,6 +226,7 @@ exports.generateFocusHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    await getOtherLangUrl({ resource: focus, preview }),
   )
 }
 
@@ -276,15 +282,17 @@ exports.generateResourceHTML = async (
       }),
     )
   }
+
+  populatePageUrl(null, props.topics, { preview, lang })(resource)
+
   return wrap(
     React.createElement(ResourcePage, {
       ...props,
-      resource: populatePageUrl(null, props.topics, { preview, lang })(
-        resource,
-      ),
+      resource,
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    await getOtherLangUrl({ resource, preview }),
   )
 }
 
@@ -301,7 +309,7 @@ exports.generateLexiconHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'definition', preview, lang }),
+    await getOtherLangUrl({ page: 'definition', preview, lang }),
   )
 }
 
@@ -316,7 +324,7 @@ exports.generateHomeHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'index', preview, lang }),
+    await getOtherLangUrl({ page: 'index', preview, lang }),
   )
 }
 
@@ -362,7 +370,7 @@ exports.generateSearchHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'search', preview, lang }),
+    await getOtherLangUrl({ page: 'search', preview, lang }),
   )
 }
 
@@ -377,7 +385,7 @@ exports.generateAboutHTML = async (
       options: { preview, analytics: config.analytics, apiUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'about', preview, lang }),
+    await getOtherLangUrl({ page: 'about', preview, lang }),
   )
 }
 
@@ -392,7 +400,7 @@ exports.generateLegalsHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'legals', preview, lang }),
+    await getOtherLangUrl({ page: 'legals', preview, lang }),
   )
 }
 
@@ -409,7 +417,7 @@ exports.generateSitemapHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'sitemap', preview, lang }),
+    await getOtherLangUrl({ page: 'sitemap', preview, lang }),
   )
 }
 
@@ -424,6 +432,6 @@ exports.generate404HTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
-    getOtherLangUrl({ page: 'notFound', preview, lang }),
+    await getOtherLangUrl({ page: 'notFound', preview, lang }),
   )
 }

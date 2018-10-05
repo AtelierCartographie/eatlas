@@ -1,0 +1,22 @@
+{
+  "summary-lang": {
+    "fr": "Fr",
+    "en": "En"
+  },
+  "summary-title": {
+    "fr": "Résumé",
+    "en": "Summary"
+  },
+  "lang-selector-label": {
+    "fr": "🇫🇷",
+    "en": "🇬🇧"
+  },
+  "none-lang-link-title": {
+    "fr": "Il n’y a pas de version française disponible pour cette page",
+    "en": "There is no English version available for this page"
+  },
+  "switch-to-lang": {
+    "fr": "Consulter la version française de cette page",
+    "en": "View English version of this page"
+  }
+}

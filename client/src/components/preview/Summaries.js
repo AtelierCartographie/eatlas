@@ -29,7 +29,7 @@ module.exports = injectIntl(({ doc, intl }) => {
               hrefLang: mainDescription.lang,
             },
             intl.formatMessage({
-              id: `doc.summary-lang.${mainDescription.lang}`,
+              id: `common.summary-lang.${mainDescription.lang}`,
             }),
           ),
         ]),
@@ -43,7 +43,7 @@ module.exports = injectIntl(({ doc, intl }) => {
               hrefLang: otherDescription.lang,
             },
             intl.formatMessage({
-              id: `doc.summary-lang.${otherDescription.lang}`,
+              id: `common.summary-lang.${otherDescription.lang}`,
             }),
           ),
         ]),
@@ -56,7 +56,7 @@ module.exports = injectIntl(({ doc, intl }) => {
           h(
             'h2.line',
             intl.formatMessage({
-              id: `doc.summary-title.${mainDescription.lang}`,
+              id: `common.summary-title.${mainDescription.lang}`,
             }),
           ),
           h(Html, { whitelist: 'all' }, mainDescription.text),
@@ -70,7 +70,7 @@ module.exports = injectIntl(({ doc, intl }) => {
             h(
               'h2.line',
               intl.formatMessage({
-                id: `doc.summary-title.${otherDescription.lang}`,
+                id: `common.summary-title.${otherDescription.lang}`,
               }),
             ),
             h(Html, { whitelist: 'all' }, otherDescription.text),

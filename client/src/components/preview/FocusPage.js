@@ -111,37 +111,35 @@ const FocusPage = injectIntl((
   options: FrontOptions,
 } */,
 ) => {
-  {
-    const lexiconId = {
-      id: 0,
-    }
-    return h('html', { lang: intl.lang }, [
-      h(Head, {
-        title: stripTags(focus.title),
-        links: exportLinks({ doc: focus, intl, options }),
-        options,
-      }),
-      h(
-        Body,
-        {
-          altTitle: stripTags(focus.title),
-          topics,
-          options,
-          logoColor: 'black',
-        },
-        [
-          h(Focus, {
-            focus,
-            topics,
-            definitions,
-            resources,
-            lexiconId,
-            options,
-          }),
-        ],
-      ),
-    ])
+  const lexiconId = {
+    id: 0,
   }
+  return h('html', { lang: intl.lang }, [
+    h(Head, {
+      title: stripTags(focus.title),
+      links: exportLinks({ doc: focus, intl, options }),
+      options,
+    }),
+    h(
+      Body,
+      {
+        altTitle: stripTags(focus.title),
+        topics,
+        options,
+        logoColor: 'black',
+      },
+      [
+        h(Focus, {
+          focus,
+          topics,
+          definitions,
+          resources,
+          lexiconId,
+          options,
+        }),
+      ],
+    ),
+  ])
 })
 
 module.exports = FocusPage

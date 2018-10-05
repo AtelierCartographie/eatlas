@@ -103,6 +103,13 @@ const wrap = (element, lang, otherUrl) => {
   return `<!DOCTYPE html>${html}`
 }
 
+const buildOptions = opts => ({
+  analytics: config.analytics,
+  apiUrl,
+  publicUrl,
+  ...opts,
+})
+
 const menuProps = async (
   { topics = null, articles = null } = {},
   { preview = false, lang } = {},
@@ -188,7 +195,7 @@ exports.generateArticleHTML = async (
       resources: populatePageUrl(null, props.topics, { preview, lang })(
         resources,
       ),
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ resource: article, preview }),
@@ -223,7 +230,7 @@ exports.generateFocusHTML = async (
       resources: populatePageUrl(null, props.topics, { preview, lang })(
         resources,
       ),
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ resource: focus, preview }),
@@ -258,7 +265,7 @@ exports.generateTopicHTML = async (
       topic,
       articles: props.articles,
       resources,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ topic, preview, lang }),
@@ -292,7 +299,7 @@ exports.generateResourceHTML = async (
     React.createElement(ResourcePage, {
       ...props,
       resource,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ resource, preview }),
@@ -309,7 +316,7 @@ exports.generateLexiconHTML = async (
     React.createElement(LexiconPage, {
       ...props,
       definitions: lexicon.definitions,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'definition', preview, lang }),
@@ -324,7 +331,7 @@ exports.generateHomeHTML = async (
   return wrap(
     React.createElement(HomePage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'index', preview, lang }),
@@ -370,7 +377,7 @@ exports.generateSearchHTML = async (
       },
       keywords: sortedKeywords,
       locales: LOCALES,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'search', preview, lang }),
@@ -385,7 +392,7 @@ exports.generateAboutHTML = async (
   return wrap(
     React.createElement(AboutPage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'about', preview, lang }),
@@ -400,7 +407,7 @@ exports.generateLegalsHTML = async (
   return wrap(
     React.createElement(LegalsPage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'legals', preview, lang }),
@@ -417,7 +424,7 @@ exports.generateSitemapHTML = async (
     React.createElement(SitemapPage, {
       urls,
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'sitemap', preview, lang }),
@@ -432,7 +439,7 @@ exports.generate404HTML = async (
   return wrap(
     React.createElement(NotFoundPage, {
       ...props,
-      options: { preview, analytics: config.analytics, apiUrl, publicUrl },
+      options: buildOptions({ preview, lang }),
     }),
     lang,
     await getOtherLangUrl({ page: 'notFound', preview, lang }),

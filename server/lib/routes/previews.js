@@ -10,9 +10,9 @@ exports.resource = async (req, res, next) => {
     if (!req.foundResource) {
       return res.send(await generate404HTML(options))
     }
-    options.lang = resource.language
     const resource = req.foundResource
     const key = resource.type
+    options.lang = resource.language
     res.send(await generateHTML(key, resource, options, {}, 'notFound'))
   } catch (err) {
     next(err)

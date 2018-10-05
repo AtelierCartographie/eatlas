@@ -244,7 +244,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
   if (!relateds || !relateds.length) return null
 
   return h('section.container.ArticleSeeAlso', [
-    h('h2', {}, title || h(T, { id: 'see-also-alt-title' })),
+    h('h2', {}, title || h(T, { id: 'doc.see-also-alt-title' })),
     h(
       'ul',
       relateds.map(r =>

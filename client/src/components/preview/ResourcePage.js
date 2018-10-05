@@ -162,11 +162,12 @@ const ResourceLexicon = ({ definitions }) =>
     ),
   ])
 
-const ResourceSource = ({ resource }) => {
-  return h('.container.ResourceSource', [
-    h(Html, { component: 'span.source-content' }, resource.source),
-  ])
-}
+const ResourceSource = ({ resource }) =>
+  !resource.source
+    ? null
+    : h('.container.ResourceSource', [
+        h(Html, { component: 'span.source-content' }, resource.source),
+      ])
 
 const Resource = injectIntl(({ resource, topics, options, intl }) => {
   let children

@@ -1,1 +1,55 @@
-{}
+{
+  "type": {
+    "article": "🇬🇧Article",
+    "definition": "🇬🇧Lexique",
+    "focus": "🇬🇧Focus",
+    "image": "🇬🇧Photo",
+    "map": "🇬🇧Carte ou graphique",
+    "sound": "🇬🇧Son",
+    "video": "🇬🇧Vidéo"
+  },
+  "type-plural": {
+    "article": "🇬🇧Articles",
+    "definition": "🇬🇧Lexique",
+    "single-definition": "🇬🇧Lexique",
+    "focus": "🇬🇧Focus",
+    "image": "🇬🇧Photos",
+    "map": "🇬🇧Cartes et graphiques",
+    "sound": "🇬🇧Sons",
+    "video": "🇬🇧Vidéos",
+    "reference": "🇬🇧Références",
+    "image+video": "🇬🇧Photos et vidéos"
+  },
+  "summary-lang": {
+    "fr": "🇬🇧Fr",
+    "en": "🇬🇧En"
+  },
+  "summary-title": {
+    "fr": "🇬🇧Résumé",
+    "en": "🇬🇧Summary"
+  },
+  "related-article-or-focus": "🇬🇧Article ou focus lié",
+  "published-at": "🇬🇧Publié le",
+  "date-format": "🇬🇧D MMMM YYYY",
+  "keywords": "🇬🇧Mots-clés",
+  "publisher": "🇬🇧Espace mondial l'Atlas",
+  "quote-title": "🇬🇧Citation",
+  "quote-text": "🇬🇧« {title} » {publisher}, {year}, [en ligne], consulté le",
+  "references": "🇬🇧Références",
+  "comment": "🇬🇧Commentaire",
+  "summary": "🇬🇧Résumé",
+  "see-also-alt-title": "🇬🇧Continuer dans l’Atlas",
+  "embedded-download-title": "🇬🇧Info & téléchargement",
+  "resource-page-title": "🇬🇧Ressources",
+  "transcription": "🇬🇧Transcription",
+  "download": "🇬🇧Téléchargement",
+  "download-warning":
+    "🇬🇧Pour toute utilisation, merci de consulter les <a href=\"{href}\">mentions légales</a>.",
+  "download-size": {
+    "large": "🇬🇧version détaillée",
+    "medium": "🇬🇧version simplifiée",
+    "small": "🇬🇧version très simplifiée"
+  },
+  "do-download": "🇬🇧télécharger",
+  "read-full-definition": "🇬🇧Lire la definition complète"
+}

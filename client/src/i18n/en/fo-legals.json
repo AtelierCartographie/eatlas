@@ -1,1 +1,29 @@
-{}
+{
+  "title": "🇬🇧Mentions légales",
+  "who-title": "🇬🇧Le contenu de ce site internet est fourni par",
+  "who-name": "🇬🇧Sciences Po",
+  "who-addr-1": "🇬🇧27 rue Saint-Guillaume",
+  "who-addr-2": "🇬🇧75337 Paris Cedex 07",
+  "who-tel": "🇬🇧Tel. : 01 45 49 50 50",
+  "who-fax": "🇬🇧Fax. : 01 42 22 31 26",
+  "who-mail": "🇬🇧webmestre@sciencespo.fr",
+  "director-title": "🇬🇧Directeur de la publication",
+  "director-text": "🇬🇧Frédéric Mion, President of Sciences Po",
+  "hosting-title": "🇬🇧Hébergement",
+  "hosting-intro":
+    "🇬🇧Ce site internet est hébergé par la Fondation Nationale des Sciences Politiques (FNSP)",
+  "hosting-name": "🇬🇧Sciences Po - Direction des Systèmes d'Information",
+  "hosting-ape": "🇬🇧APE Code: 803Z",
+  "hosting-addr-1": "🇬🇧27 rue Saint-Guillaume",
+  "hosting-addr-2": "🇬🇧75337 Paris Cedex 07",
+  "ip-title": "🇬🇧Propriété Industrielle et Intellectuelle",
+  "ip-protection":
+    "🇬🇧Toutes les informations reproduites dans ce site web (textes, photos, logos...) sont protégées par des droits de propriété intellectuelle détenus par Sciences Po ou par ses partenaires. Par conséquent, aucune de ces informations ne peut être reproduite, modifiée, rediffusée, traduite, exploitée commercialement ou réutilisée de quelque manière que ce soit sans l'accord préalable et écrit de Sciences Po.",
+  "ip-property":
+    "🇬🇧Le titre, la conception, la forme du site Sciences Po mais aussi son contenu tels que les actualités, descriptions, illustrations et images originales et leur organisation, ainsi que toute compilation de logiciels, code source fondamental et autres éléments contenus sur le site Sciences Po sont la propriété de Sciences Po.",
+  "links": "🇬🇧Les liens hypertextes",
+  "links-disclaimer":
+    "🇬🇧Nos pages web proposent également des liens vers d'autres sites pour lesquels nous ne sommes responsables ni de leur intégral respect aux normes d'ordre public et bonnes mœurs, d'une part, ni de leur politique de protection des données personnelles ou d'utilisation qui en seraient faites, d'autre part.",
+  "links-agreement":
+    "🇬🇧En accédant à un autre site, par l'intermédiaire d'un lien hypertexte, vous acceptez que cet accès s'effectue à vos risques et périls. En conséquence, tout préjudice direct ou indirect résultant de votre accès à un autre site relié par un lien hypertexte ne peut engager la responsabilité de Sciences Po."
+}

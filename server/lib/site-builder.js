@@ -81,7 +81,7 @@ const writeSitemapXml = async urls => {
 
 exports.rebuildAllHTML = async () => {
   const topics = populatePageUrl('topic', null)(
-    await Topics.list({ sort: { id: 'desc' } }),
+    await Topics.list({ sort: { id: 'asc' } }),
   )
   const resources = populatePageUrl(null, topics)(
     await Resources.list({

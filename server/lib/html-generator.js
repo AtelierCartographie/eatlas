@@ -22,6 +22,7 @@ const {
   populateImageStats,
   populateImageRelatedResources,
   getAllUrls,
+  getOtherLangUrl,
 } = require('./generator-utils')
 const { LOCALES, getMetaList } = require('../../client/src/universal-utils')
 
@@ -300,6 +301,7 @@ exports.generateLexiconHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'definition', preview, lang }),
   )
 }
 
@@ -314,6 +316,7 @@ exports.generateHomeHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'index', preview, lang }),
   )
 }
 
@@ -359,6 +362,7 @@ exports.generateSearchHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'search', preview, lang }),
   )
 }
 
@@ -373,6 +377,7 @@ exports.generateAboutHTML = async (
       options: { preview, analytics: config.analytics, apiUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'about', preview, lang }),
   )
 }
 
@@ -387,6 +392,7 @@ exports.generateLegalsHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'legals', preview, lang }),
   )
 }
 
@@ -403,6 +409,7 @@ exports.generateSitemapHTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'sitemap', preview, lang }),
   )
 }
 
@@ -417,5 +424,6 @@ exports.generate404HTML = async (
       options: { preview, analytics: config.analytics, apiUrl, publicUrl },
     }),
     lang,
+    getOtherLangUrl({ page: 'notFound', preview, lang }),
   )
 }

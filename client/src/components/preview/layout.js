@@ -57,8 +57,8 @@ const globalPageUrl = (exports.globalPageUrl = (
 }) => {
   if (preview)
     return hash
-      ? `${apiUrl || ''}/preview/${key}#${hash}`
-      : `${apiUrl || ''}/preview/${key}`
+      ? `${apiUrl || ''}/preview/${key}?lang=${lang}#${hash}`
+      : `${apiUrl || ''}/preview/${key}?lang=${lang}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env[`REACT_APP_PAGE_URL_${lang}_${key}`] || ''
   if (!urlTemplate) return `#ERROR_UNKNOWN_GLOBAL_URL_${lang}_${key}`

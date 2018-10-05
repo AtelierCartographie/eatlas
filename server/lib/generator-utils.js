@@ -357,3 +357,16 @@ exports.getAllUrls = async options => {
   }
   return urls
 }
+
+exports.getOtherLangUrl = ({ page, preview, lang }) => {
+  const otherLang = lang === 'fr' ? 'en' : 'fr'
+  if (page) {
+    // Global page
+    return globalPageUrl(page, null, null)({
+      preview,
+      lang: otherLang,
+      apiUrl,
+      publicUrl: config.publicUrl,
+    })
+  }
+}

@@ -34,7 +34,7 @@ const TopicVideo = ({ title, url }) => {
   })
 }
 
-const TopicHeader = ({ topic, resources, options }) => {
+const TopicHeader = ({ topic, title, resources, options }) => {
   const resource = resources.find(
     r =>
       r.id === topic.resourceId &&
@@ -53,7 +53,7 @@ const TopicHeader = ({ topic, resources, options }) => {
         break
       case 'video':
         resourceComponent = h('div', [
-          h(TopicVideo, { title: topic.name, url: resource.mediaUrl }),
+          h(TopicVideo, { title, url: resource.mediaUrl }),
         ])
         break
       default:
@@ -77,7 +77,7 @@ const TopicHeader = ({ topic, resources, options }) => {
       h('.container', [
         h('h1', [
           h('.TopicId', topic.id !== '0' && topic.id),
-          h('.TopicName', topic.name),
+          h('.TopicName', title),
         ]),
         resourceComponent,
       ]),
@@ -124,9 +124,9 @@ const ArticleList = ({ articles, options }) => {
   )
 }
 
-const Topic = ({ topic, topics, articles, resources, options }) =>
+const Topic = ({ topic, title, topics, articles, resources, options }) =>
   h('article.TopicPage', [
-    h(TopicHeader, { topic, resources, options }),
+    h(TopicHeader, { topic, title, resources, options }),
     h(Summaries, { doc: topic }),
     h(ArticleList, {
       articles: articles.filter(a => a.topic === topic.id),
@@ -150,13 +150,15 @@ const TopicPage = injectIntl((
   resources: Resource[],
   options: FrontOptions,
 } */,
-) =>
-  h('html', { lang: intl.lang }, [
-    h(Head, { title: topic.name, options }),
-    h(Body, { altTitle: `${topic.id}. ${topic.name}`, topics, options }, [
-      h(Topic, { topic, topics, articles, resources, options }),
+) => {
+  const lang = intl.lang
+  const title = lang === 'fr' ? topic.name : topic[`name_${lang}`]
+  return h('html', { lang }, [
+    h(Head, { title, options }),
+    h(Body, { altTitle: `${topic.id}. ${title}`, topics, options }, [
+      h(Topic, { topic, title, topics, articles, resources, options }),
     ]),
-  ]),
-)
+  ])
+})
 
 module.exports = TopicPage

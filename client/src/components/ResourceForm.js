@@ -28,7 +28,11 @@ import {
   getResourceUrls,
 } from '../api'
 import ObjectDebug from './ObjectDebug'
-import { canUnpublish, guessResourceType } from '../utils'
+import {
+  canUnpublish,
+  guessResourceType,
+  guessResourceLanguage,
+} from '../utils'
 import AsyncData from './AsyncData'
 import Editor from './WysiwygEditor'
 
@@ -229,6 +233,9 @@ class ResourceForm extends Component<Props, State> {
       const type: ?ResourceType = guessResourceType(resource)
       // $FlowFixMe We allow empty type temporarily
       resource.type = type || ''
+    }
+    if (resource && !resource.langauge) {
+      resource.language = guessResourceLanguage(resource)
     }
     return { types, resource }
   }
@@ -1013,7 +1020,10 @@ class ResourceForm extends Component<Props, State> {
         },
         null,
       )
-      resource.language = foundSummary ? foundSummary.lang : ''
+      resource.language =
+        guessResourceLanguage(resource) ||
+        (foundSummary ? foundSummary.lang : '')
+      console.log(guessResourceLanguage(resource), resource.language)
       resource.description_fr = getMetaText('summary-fr') || ''
       resource.description_en = getMetaText('summary-en') || ''
       return { parsed, resource }
@@ -1068,7 +1078,7 @@ class ResourceForm extends Component<Props, State> {
   }
 
   guessResourceId(doc: GoogleDoc) {
-    return doc.name.replace(/[-\s.].*$/, '')
+    return doc.name.replace(/^([^-\s]+(?:-(?:EN|FR))?)[-\s.].*$/i, '$1')
   }
 
   unselectFile = (docKey: string) => e => {

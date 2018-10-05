@@ -111,3 +111,12 @@ export const guessResourceType = (resource: Resource): ?ResourceType => {
 
   return TYPE_FROM_LETTER[match[1]]
 }
+
+export const guessResourceLanguage = (resource: Resource): ?Locale => {
+  if (!resource.id) return null
+
+  const match = resource.id.match(/^[0-9CPVASF]+-(FR|EN)/i)
+  if (!match) return null
+
+  return match[1].toLowerCase()
+}

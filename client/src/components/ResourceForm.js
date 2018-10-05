@@ -1023,7 +1023,6 @@ class ResourceForm extends Component<Props, State> {
       resource.language =
         guessResourceLanguage(resource) ||
         (foundSummary ? foundSummary.lang : '')
-      console.log(guessResourceLanguage(resource), resource.language)
       resource.description_fr = getMetaText('summary-fr') || ''
       resource.description_en = getMetaText('summary-en') || ''
       return { parsed, resource }

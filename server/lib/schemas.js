@@ -96,7 +96,9 @@ const resourceTitlePosition = Joi.string().valid(['center', 'top', 'bottom'])
 
 const transcript = Joi.string().when('type', {
   is: Joi.valid(['sound', 'video']),
-  then: Joi.allow('').allow(null).optional(),
+  then: Joi.allow('')
+    .allow(null)
+    .optional(),
   otherwise: Joi.forbidden(),
 })
 
@@ -114,7 +116,9 @@ exports.resource = {
     then: Joi.required(),
     otherwise: Joi.forbidden(),
   }),
-  subtitle: Joi.string().allow(null).optional(),
+  subtitle: Joi.string()
+    .allow(null)
+    .optional(),
   topic: Joi.string().when('type', {
     is: Joi.valid(['definition']),
     then: Joi.allow(null).optional(),
@@ -123,17 +127,25 @@ exports.resource = {
   language: language.required(),
   description_fr: Joi.string()
     .allow('')
-    .allow(null).optional(),
+    .allow(null)
+    .optional(),
   description_en: Joi.string()
     .allow('')
-    .allow(null).optional(),
+    .allow(null)
+    .optional(),
   transcript,
-  copyright: Joi.string().allow(null).optional(),
+  copyright: Joi.string()
+    .allow(null)
+    .optional(),
   mediaUrl: resourceMediaUrl.allow(null).optional(),
   visiblePublishedAt: Joi.date()
     .timestamp()
-    .allow(null).optional(),
-  source: Joi.string().allow('').allow(null).optional(),
+    .allow(null)
+    .optional(),
+  source: Joi.string()
+    .allow('')
+    .allow(null)
+    .optional(),
 }
 
 exports.uploadFromGoogleDrive = {
@@ -190,8 +202,12 @@ const node = Joi.object().keys({
 const definition = Joi.object().keys({
   dt: Joi.string().required(),
   dd: Joi.string().required(),
-  aliases: Joi.array().items(Joi.string()).default([]),
-  lexicon: Joi.array().items(Joi.string()).default([]),
+  aliases: Joi.array()
+    .items(Joi.string())
+    .default([]),
+  lexicon: Joi.array()
+    .items(Joi.string())
+    .default([]),
 })
 
 const densities = Joi.object().keys({
@@ -245,10 +261,12 @@ exports.fullResource = {
   language: language.required(),
   description_fr: Joi.string()
     .allow('')
-    .allow(null).optional(),
+    .allow(null)
+    .optional(),
   description_en: Joi.string()
     .allow('')
-    .allow(null).optional(),
+    .allow(null)
+    .optional(),
   transcript,
   copyright: Joi.string().when('type', {
     is: Joi.valid(['definition', 'map', 'image', 'video', 'sound']),
@@ -295,8 +313,12 @@ exports.fullResource = {
   }),
   visiblePublishedAt: Joi.date()
     .timestamp()
-    .allow(null).optional(),
-  source: Joi.string().allow('').allow(null).optional(),
+    .allow(null)
+    .optional(),
+  source: Joi.string()
+    .allow('')
+    .allow(null)
+    .optional(),
 
   // track changes
   updatedBy: exports.email,
@@ -305,8 +327,10 @@ exports.fullResource = {
     .required(),
   updatedAt: Joi.date()
     .timestamp()
-    .allow(null).optional(),
+    .allow(null)
+    .optional(),
   publishedAt: Joi.date()
     .timestamp()
-    .allow(null).optional(),
+    .allow(null)
+    .optional(),
 }

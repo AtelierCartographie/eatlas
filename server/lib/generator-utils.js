@@ -227,11 +227,8 @@ const getThumbnailUrl = (resources, { preview }) => resource => {
       const imageHeader = resources.find(({ id }) => id === imageHeaderId)
       return getThumbnailUrl(resources, { preview })(imageHeader)
     }
-    case 'focus': {
-      const relatedArticleId = getMetaText(resource, 'related-article')
-      const relatedArticle = resources.find(({ id }) => id === relatedArticleId)
-      return getThumbnailUrl(resources, { preview })(relatedArticle)
-    }
+    case 'focus': // No thumbnail for focus (see #163)
+      return null
     case 'sound': // TODO generic audio thumbnail?
     case 'video': // TODO video thumbnail?
     default:

@@ -2,10 +2,11 @@
 
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage as T, injectIntl } from 'react-intl'
+import { Link } from 'react-router-dom'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
-import { slugify } from '../universal-utils'
+import { slugify, stripTags } from '../universal-utils'
 
 import './ResourceForm.css'
 
@@ -630,6 +631,7 @@ class ResourceForm extends Component<Props, State> {
         ),
         onChange: this.onChangeLanguage,
       }),
+      this.props.mode === 'edit' && this.getTranslationsField(resource),
       this.getAttrField('description_fr', {
         labelId: 'resource-description',
         key: 'resource-description-fr',
@@ -847,6 +849,48 @@ class ResourceForm extends Component<Props, State> {
         />
       ),
       help: <T id="bo.resource-uris-help" />,
+    }
+  }
+
+  getTranslationsField(resource): FieldParams | null {
+    if (!this.props.resources.fetched) return null
+    if (!resource.id) return null
+
+    // TODO build from constant LOCALES
+    const idPrefix = resource.id.replace(/-(EN|FR)+$/, '')
+    const translations = LOCALES.filter(lang => lang !== resource.language).map(
+      lang => {
+        const fullId = `${idPrefix}-${lang.toUpperCase()}`
+        // Accept fallback to simple ID without suffix when it's FR
+        const found =
+          this.props.resources.list.find(r => r.id === fullId) ||
+          (lang === 'fr'
+            ? this.props.resources.list.find(r => r.id === idPrefix)
+            : null)
+        return { lang, found, id: found ? found.id : fullId }
+      },
+    )
+    //: { list: Resource[], fetched: boolean },
+    return {
+      labelId: 'resource-translations',
+      input: (
+        <ul>
+          {translations.map(({ lang, found, id }) => (
+            <li key={lang}>
+              <T id={`common.lang-selector-label.${lang}`} />{' '}
+              {found ? (
+                <Link to={`/resources/${id}/edit`}>
+                  {stripTags(found.title)}
+                </Link>
+              ) : (
+                <Link to={`/resources/new/?${id}`}>
+                  <T id="bo.article-related-create" values={{ title: id }} />
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      ),
     }
   }
 

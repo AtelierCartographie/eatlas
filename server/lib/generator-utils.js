@@ -298,6 +298,7 @@ exports.getTopics = async () =>
   (await Topics.list()).sort((a, b) => a.id > b.id)
 
 exports.getResource = async id => {
+  if (!id) return null
   const found = await Resources.findById(id)
   // TODO use LEXICON_ID_PREFIX constant (requires 'constants.js' being universal)
   if (!found && id.match(/^LEXIC-/)) {

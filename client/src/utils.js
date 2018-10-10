@@ -116,7 +116,7 @@ export const guessResourceLanguage = (resource: Resource): ?Locale => {
   if (!resource.id) return null
 
   // TODO build from constants LEXICON_ID_PREFIX and LOCALES
-  const match = resource.id.match(/^(?:[0-9CPVASF]|LEXIC)+-(FR|EN)$/i)
+  const match = resource.id.match(/^(?:[0-9CPVASF]|LEXIC)+-(EN|FR)$/i)
   if (!match) return null
 
   return match[1].toLowerCase()

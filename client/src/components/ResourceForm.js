@@ -842,6 +842,7 @@ class ResourceForm extends Component<Props, State> {
       labelId: 'resource-uris',
       input: (
         <AsyncData
+          key={resource.id}
           promise={getResourceUrls(resource.id)}
           render={links => (
             <ul>

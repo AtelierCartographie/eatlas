@@ -38,6 +38,12 @@ import {
 import AsyncData from './AsyncData'
 import Editor from './WysiwygEditor'
 
+const RE_ID_LANG_SUFFIX = new RegExp(`-(${LOCALES.join('|')})$`, 'i')
+const RE_RESOURCE_ID = new RegExp(
+  `^([^-\\s]+(?:-(?:${LOCALES.join('|')}))?)[-\\s.].*$`,
+  'i',
+)
+
 const API_SERVER = process.env.REACT_APP_API_SERVER || ''
 
 export type SaveCallback = (
@@ -856,8 +862,7 @@ class ResourceForm extends Component<Props, State> {
     if (!this.props.resources.fetched) return null
     if (!resource.id) return null
 
-    // TODO build from constant LOCALES
-    const idPrefix = resource.id.replace(/-(EN|FR)+$/, '')
+    const idPrefix = resource.id.replace(RE_ID_LANG_SUFFIX, '')
     const translations = LOCALES.filter(lang => lang !== resource.language).map(
       lang => {
         const fullId = `${idPrefix}-${lang.toUpperCase()}`
@@ -1212,7 +1217,7 @@ class ResourceForm extends Component<Props, State> {
   }
 
   guessResourceId(doc: GoogleDoc) {
-    return doc.name.replace(/^([^-\s]+(?:-(?:EN|FR))?)[-\s.].*$/i, '$1')
+    return doc.name.replace(RE_RESOURCE_ID, '$1')
   }
 
   unselectFile = (docKey: string) => e => {

@@ -1,6 +1,6 @@
 //@flow
 
-import { TYPE_FROM_LETTER } from './constants'
+import { TYPE_FROM_LETTER, LEXICON_ID_PREFIX, LOCALES } from './constants'
 import { getResourceIds } from './universal-utils'
 
 export { getDefinition, parseRelated } from './universal-utils'
@@ -112,11 +112,14 @@ export const guessResourceType = (resource: Resource): ?ResourceType => {
   return TYPE_FROM_LETTER[match[1]]
 }
 
+const RE_ID_LANG = new RegExp(
+  `^(?:[0-9CPVASF]|${LEXICON_ID_PREFIX})+-(${LOCALES.join('|')})$`,
+  'i',
+)
 export const guessResourceLanguage = (resource: Resource): ?Locale => {
   if (!resource.id) return null
 
-  // TODO build from constants LEXICON_ID_PREFIX and LOCALES
-  const match = resource.id.match(/^(?:[0-9CPVASF]|LEXIC)+-(EN|FR)$/i)
+  const match = resource.id.match(RE_ID_LANG)
   if (!match) return null
 
   return match[1].toLowerCase()

@@ -14,6 +14,7 @@ const {
   getMediaUrl,
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
+  LOCALES,
 } = require('../../client/src/universal-utils')
 const { pathToUrl, pagePath, resourceMediaPath } = require('./resource-path')
 const {
@@ -21,6 +22,11 @@ const {
   getTopicPageUrl,
   globalPageUrl,
 } = require('../../client/src/components/preview/layout')
+
+const RE_ID_LANG_SUFFIX = new RegExp(
+  `-(${Object.keys(LOCALES).join('|')})$`,
+  'i',
+)
 
 const apiUrl = config.apiUrl
 const publicMediaUrl =
@@ -369,7 +375,7 @@ exports.getOtherLangUrl = async ({ page, resource, topic, preview, lang }) => {
     // XXXX-EN → XXXX-FR or XXXX)
     // XXXX-FR → XXXX-EN
     // XXXX    → XXXX-EN
-    const idPrefix = resource.id.replace(/-(EN|FR)$/i, '')
+    const idPrefix = resource.id.replace(RE_ID_LANG_SUFFIX, '')
     let otherResource = await Resources.findById(
       `${idPrefix}-${otherLang.toUpperCase()}`,
     )

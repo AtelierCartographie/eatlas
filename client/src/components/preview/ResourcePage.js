@@ -7,8 +7,6 @@
 const { Fragment } = require('react')
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
-const moment = require('moment')
-moment.locale('fr')
 
 const { globalPageUrl } = require('./layout')
 const { stripTags } = require('../../universal-utils')

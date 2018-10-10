@@ -8,7 +8,6 @@ const { Fragment } = require('react')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 const h = require('react-hyperscript')
 const moment = require('moment')
-moment.locale('fr')
 
 const Html = require('./Html')
 
@@ -46,7 +45,9 @@ exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
     h(
       'time',
       { dateTime: date },
-      moment(date).format(intl.formatMessage({ id: 'doc.date-format' })),
+      moment(date)
+        .locale(intl.lang)
+        .format(intl.formatMessage({ id: 'doc.date-format' })),
     ),
   ])
 })
@@ -211,7 +212,9 @@ exports.Quote = injectIntl(({ doc, intl, options } /*: { doc: Resource } */) =>
         ' ',
         h(
           'span.consultedAt',
-          moment().format(intl.formatMessage({ id: 'doc.date-format' })),
+          moment()
+            .locale(intl.lang)
+            .format(intl.formatMessage({ id: 'doc.date-format' })),
         ),
         h('span', ', URL:'),
         h('br'),

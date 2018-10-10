@@ -3,8 +3,6 @@
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 const removeDiacritics = require('diacritics').remove
-const moment = require('moment')
-moment.locale('fr')
 
 const { slugify } = require('../../universal-utils')
 const { linkInternalDefinitions } = require('./Doc')

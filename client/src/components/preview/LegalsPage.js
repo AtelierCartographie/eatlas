@@ -6,12 +6,9 @@
 
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
-const moment = require('moment')
-moment.locale('fr')
 
 const Head = require('./Head')
 const Body = require('./Body')
-const Html = require('./Html')
 
 const Content = ({ intl }) => {
   return h('article.container.AboutUsLegalsPage', [

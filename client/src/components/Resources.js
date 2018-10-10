@@ -420,7 +420,7 @@ class Resources extends Component<Props, State> {
                     this.state.removeResource === resource,
                 })}
                 onClick={() =>
-                  resource.status === 'deleted' || resource.id === LEXICON_ID
+                  resource.status === 'deleted' || resource.id === `${LEXICON_ID}-FR`
                     ? this.askHardRemove(resource)
                     : this.softRemove(resource)
                 }

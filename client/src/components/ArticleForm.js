@@ -197,7 +197,7 @@ class _ParagraphField extends Component<PProps> {
 }
 
 const ParagraphField = connect(({ resources }, { node }) => {
-  const lexicon = resources.list.find(r => r.id === LEXICON_ID)
+  const lexicon = resources.list.find(r => r.id === `${LEXICON_ID}-FR`)
   return { definitions: lexicon ? lexicon.definitions : null }
 })(_ParagraphField)
 
@@ -404,7 +404,7 @@ class ArticleForm extends Component<Props, State> {
             to={
               this.state.missingLexicon
                 ? '/resources/new/definition'
-                : '/resources/' + LEXICON_ID + '/edit'
+                : '/resources/' + `${LEXICON_ID}-FR` + '/edit'
             }>
             <T id="bo.article-upload-lexicon-2" />
           </Link>{' '}

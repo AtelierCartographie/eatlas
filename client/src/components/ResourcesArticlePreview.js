@@ -72,7 +72,7 @@ class ResourcesPreviewArticle extends Component<Props> {
       }
     }
 
-    const lexicon = this.props.resources.find(r => r.id === LEXICON_ID)
+    const lexicon = this.props.resources.find(r => r.id === `${LEXICON_ID}-FR`)
     const checkDefinition = dt => {
       let dd
       if (lexicon) {

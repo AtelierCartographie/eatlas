@@ -227,14 +227,14 @@ class ResourceForm extends Component<Props, State> {
     let resource: ?Resource = Object.assign({}, props.resource)
     // Special case: lexicon id is hardcoded
     if (resource && resource.type === 'definition') {
-      resource.id = LEXICON_ID
+      resource.id = `${LEXICON_ID}-FR`
     }
     if (resource && !types.includes(resource.type)) {
       const type: ?ResourceType = guessResourceType(resource)
       // $FlowFixMe We allow empty type temporarily
       resource.type = type || ''
     }
-    if (resource && !resource.langauge) {
+    if (resource && !resource.language) {
       resource.language = guessResourceLanguage(resource)
     }
     return { types, resource }
@@ -1098,7 +1098,7 @@ class ResourceForm extends Component<Props, State> {
     const value = e.target.value // beware recycled synthetic events
     const additional =
       attr === 'type' && value === 'definition'
-        ? { id: LEXICON_ID } // Special case: hardcoded id for lexicon
+        ? { id: `${LEXICON_ID}-FR` } // Special case: hardcoded id for lexicon
         : {}
     this.setState(state => ({
       error: null,

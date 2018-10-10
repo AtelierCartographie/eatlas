@@ -2,6 +2,7 @@
 
 const slugify = require('slugify')
 slugify.extend({
+  '’': '-',
   "'": '-',
   '"': '-',
 })

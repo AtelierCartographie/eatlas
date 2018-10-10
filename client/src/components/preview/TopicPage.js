@@ -85,7 +85,7 @@ const TopicHeader = ({ topic, title, resources, options }) => {
   )
 }
 
-const ArticleList = ({ articles, options }) => {
+const ArticleList = ({ articles, options, lang }) => {
   if (!articles || !articles.length) return null
   return h(
     'ul.container.ArticleList',
@@ -101,7 +101,11 @@ const ArticleList = ({ articles, options }) => {
           h('.ArticleListInfo', [
             h(Html, { component: '.ArticleListTitle' }, a.title),
             h(PublishedAt, { doc: a }),
-            h(Html, { component: '.ArticleListSummary' }, a.summaries.fr),
+            h(
+              Html,
+              { component: '.ArticleListSummary' },
+              a.summaries[lang] || a.summaries[a.language],
+            ),
           ]),
         ]),
         a.focus &&
@@ -124,7 +128,7 @@ const ArticleList = ({ articles, options }) => {
   )
 }
 
-const Topic = ({ topic, title, topics, articles, resources, options }) =>
+const Topic = ({ topic, title, topics, articles, resources, options, lang }) =>
   h('article.TopicPage', [
     h(TopicHeader, { topic, title, resources, options }),
     h(Summaries, { doc: topic }),
@@ -132,6 +136,7 @@ const Topic = ({ topic, title, topics, articles, resources, options }) =>
       articles: articles.filter(a => a.topic === topic.id),
       topics,
       options,
+      lang,
     }),
   ])
 

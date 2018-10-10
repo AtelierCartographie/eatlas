@@ -118,7 +118,7 @@ const menuProps = async (
     topics || (await getTopics()),
   )
   articles = populatePageUrl(null, topics, { preview, lang })(
-    articles || (await getArticles()),
+    articles || (await getArticles(lang)),
   )
   return { topics, articles }
 }

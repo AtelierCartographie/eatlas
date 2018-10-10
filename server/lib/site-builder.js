@@ -97,7 +97,10 @@ const rebuildLangHTML = async lang => {
     ({ language, status, type }) =>
       lang === language && status !== 'published' && type !== 'definition',
   )
-  const articles = publishedResources.filter(({ type }) => type === 'article')
+  const allArticles = publishedResources.filter(
+    ({ type }) => type === 'article',
+  )
+  const localeArticles = allArticles.filter(({ language }) => language === lang)
   const params = { lang }
 
   const resultss = await Promise.all([
@@ -108,23 +111,23 @@ const rebuildLangHTML = async lang => {
       ),
     ),
     // Global pages
-    writePage('index', null, topics, articles, params),
-    writePage('search', null, topics, articles, params),
-    writePage('about', null, topics, articles, params),
-    writePage('legals', null, topics, articles, params),
-    writePage('sitemap', null, topics, articles, params),
-    writePage('notFound', null, topics, articles, params),
-    writePage('definition', null, topics, articles, params),
+    writePage('index', null, topics, localeArticles, params),
+    writePage('search', null, topics, localeArticles, params),
+    writePage('about', null, topics, localeArticles, params),
+    writePage('legals', null, topics, localeArticles, params),
+    writePage('sitemap', null, topics, localeArticles, params),
+    writePage('notFound', null, topics, localeArticles, params),
+    writePage('definition', null, topics, localeArticles, params),
     // Topic pages
     Promise.all(
       ([] || topics).map(topic =>
-        writePage('topic', topic, topics, articles, params),
+        writePage('topic', topic, topics, localeArticles, params),
       ),
     ),
     // Resource pages
     Promise.all(
       publishedResources.map(resource =>
-        writePage(resource.type, resource, topics, articles, params),
+        writePage(resource.type, resource, topics, localeArticles, params),
       ),
     ),
   ])

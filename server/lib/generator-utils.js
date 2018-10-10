@@ -279,8 +279,12 @@ exports.getArticleResources = async (article, excludeUnpublished = false) => {
   return Resources.list({ query: { constant_score: { filter } } })
 }
 
-const getTypeResources = async (type, sort = null) => {
-  const body = { query: { term: { type } } }
+const getTypeResources = async (type, sort = null, lang = null) => {
+  const must = [{ term: { type } }]
+  if (lang) {
+    must.push({ term: { language: lang } })
+  }
+  const body = { query: { constant_score: { filter: { bool: { must } } } } }
   if (sort) {
     body.sort = sort
   }
@@ -288,17 +292,15 @@ const getTypeResources = async (type, sort = null) => {
 }
 
 exports.getDefinitions = async (lang = null) => {
-  const lexicons = await getTypeResources('definition')
-  return lexicons
-    .filter(r => lang === null || r.language === lang)
-    .reduce(
-      (definitions, lexicon) => definitions.concat(lexicon.definitions),
-      [],
-    )
+  const lexicons = await getTypeResources('definition', null, lang)
+  return lexicons.reduce(
+    (definitions, lexicon) => definitions.concat(lexicon.definitions),
+    [],
+  )
 }
 
-exports.getArticles = async () =>
-  await getTypeResources('article', { id: 'asc' })
+exports.getArticles = async lang =>
+  await getTypeResources('article', { id: 'asc' }, lang)
 
 exports.getTopics = async () =>
   (await Topics.list()).sort((a, b) => a.id > b.id)

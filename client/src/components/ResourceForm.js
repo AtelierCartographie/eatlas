@@ -430,7 +430,14 @@ class ResourceForm extends Component<Props, State> {
         )
       }
     } else if (rich) {
-      input = <Editor {...props} {...editorOptions} rows={rows} />
+      input = (
+        <Editor
+          {...props}
+          {...editorOptions}
+          rows={rows}
+          key={this.state.resource.id}
+        />
+      )
     } else if (rows > 1) {
       input = <textarea className="textarea" {...props} rows={rows} />
     } else {

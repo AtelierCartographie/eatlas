@@ -1,6 +1,10 @@
 //@flow
 
 const slugify = require('slugify')
+slugify.extend({
+  "'": '-',
+  '"': '-',
+})
 
 // Utils used server-side or client-side, marked as "universal"
 // They're all aliased in "utils" for client-side

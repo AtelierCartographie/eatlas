@@ -144,6 +144,7 @@ class ResourceEdit extends Component<Props, State> {
       <Fragment>
         <hr />
         <ArticleForm
+          key={article.id}
           article={article}
           onNotPublishable={reason =>
             this.setState(state => ({

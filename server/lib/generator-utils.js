@@ -370,7 +370,14 @@ exports.getAllUrls = async options => {
   return urls
 }
 
-exports.getOtherLangUrl = async ({ page, resource, topic, preview, lang }) => {
+exports.getOtherLangUrl = async ({
+  page,
+  resource,
+  topic,
+  topics,
+  preview,
+  lang,
+}) => {
   const otherLang = (resource ? resource.language : lang) === 'fr' ? 'en' : 'fr'
   if (resource) {
     // Resource page: find translated resource using ID convention
@@ -388,10 +395,22 @@ exports.getOtherLangUrl = async ({ page, resource, topic, preview, lang }) => {
     if (!otherResource) {
       return null
     }
-    return getResourcePageUrl(otherResource, { preview })
+    // Clone resource before computing pageUrl, to avoid conflict with pre-computed one
+    let localeResource = Object.assign({}, otherResource)
+    delete localeResource.pageUrl
+    exports.populatePageUrl(null, topics, { preview, lang: otherLang })(
+      localeResource,
+    )
+    return getResourcePageUrl(localeResource, { preview })
   }
   if (topic) {
-    return getTopicPageUrl(topic, { preview, apiUrl, lang: otherLang })
+    // Clone resource before computing pageUrl, to avoid conflict with pre-computed one
+    let localeTopic = Object.assign({}, topic)
+    delete localeTopic.pageUrl
+    exports.populatePageUrl('topic', topics, { preview, lang: otherLang })(
+      localeTopic,
+    )
+    return getTopicPageUrl(localeTopic, { preview, apiUrl, lang: otherLang })
   }
   if (page) {
     // Global page

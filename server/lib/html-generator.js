@@ -198,7 +198,7 @@ exports.generateArticleHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ resource: article, preview }),
+    await getOtherLangUrl({ resource: article, topics: props.topics, preview }),
   )
 }
 
@@ -233,7 +233,7 @@ exports.generateFocusHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ resource: focus, preview }),
+    await getOtherLangUrl({ resource: focus, topics: props.topics, preview }),
   )
 }
 
@@ -269,7 +269,7 @@ exports.generateTopicHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ topic, preview, lang }),
+    await getOtherLangUrl({ topic, topics: props.topics, preview, lang }),
   )
 }
 
@@ -303,7 +303,7 @@ exports.generateResourceHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ resource, preview }),
+    await getOtherLangUrl({ resource, topics: props.topics, preview }),
   )
 }
 
@@ -321,7 +321,12 @@ exports.generateLexiconHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'definition', preview, lang }),
+    await getOtherLangUrl({
+      page: 'definition',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }
 
@@ -336,7 +341,12 @@ exports.generateHomeHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'index', preview, lang }),
+    await getOtherLangUrl({
+      page: 'index',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }
 
@@ -382,7 +392,12 @@ exports.generateSearchHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'search', preview, lang }),
+    await getOtherLangUrl({
+      page: 'search',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }
 
@@ -397,7 +412,12 @@ exports.generateAboutHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'about', preview, lang }),
+    await getOtherLangUrl({
+      page: 'about',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }
 
@@ -412,7 +432,12 @@ exports.generateLegalsHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'legals', preview, lang }),
+    await getOtherLangUrl({
+      page: 'legals',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }
 
@@ -429,7 +454,12 @@ exports.generateSitemapHTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'sitemap', preview, lang }),
+    await getOtherLangUrl({
+      page: 'sitemap',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }
 
@@ -444,6 +474,11 @@ exports.generate404HTML = async (
       options: buildOptions({ preview, lang }),
     }),
     lang,
-    await getOtherLangUrl({ page: 'notFound', preview, lang }),
+    await getOtherLangUrl({
+      page: 'notFound',
+      topics: props.topics,
+      preview,
+      lang,
+    }),
   )
 }

@@ -159,6 +159,17 @@
           window.history.pushState({ search: true }, window.title, qs)
         }
       }
+      // Update URLs of language switcher
+      $('.LangSelector .other').each(function() {
+        let originalUrl = this.getAttribute('data-original-href')
+        if (!originalUrl) {
+          originalUrl = this.href
+          this.setAttribute('data-original-href', originalUrl)
+        }
+        if (originalUrl) {
+          this.href = originalUrl + (originalUrl.match(/\?/) ? '&' : '?') + data
+        }
+      })
       // Run query
       $.post($form.attr('data-api-url') || '/search', data).then(
         results => showSearchResults(results, formData),

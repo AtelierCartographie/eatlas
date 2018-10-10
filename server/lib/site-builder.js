@@ -120,7 +120,7 @@ const rebuildLangHTML = async lang => {
     writePage('definition', null, topics, localeArticles, params),
     // Topic pages
     Promise.all(
-      ([] || topics).map(topic =>
+      topics.map(topic =>
         writePage('topic', topic, topics, localeArticles, params),
       ),
     ),

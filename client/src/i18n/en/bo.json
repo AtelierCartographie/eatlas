@@ -119,5 +119,9 @@
   "upload": "upload",
   "users": "users",
   "validate": "validate",
-  "view-lexicon-content": "Detailed content of lexicon ({nb} definitions)"
+  "view-lexicon-content": "Detailed content of lexicon ({nb} definitions)",
+  "warning-id-add-language-suffix":
+    "Language has automatically been added as a suffix to real ID",
+  "warning-inconsistent-id-language":
+    "Language and ID’s suffix are inconsistent: ID’s suffix used instead of declared language"
 }

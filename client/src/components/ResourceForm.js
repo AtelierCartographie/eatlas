@@ -1023,6 +1023,19 @@ class ResourceForm extends Component<Props, State> {
       resource.language =
         guessResourceLanguage(resource) ||
         (foundSummary ? foundSummary.lang : '')
+
+      // Match id suffix and language
+      const langFromId = guessResourceLanguage(resource)
+      if (!langFromId) {
+        // Add id suffix
+        resource.id += `-${resource.language.toUpperCase()}`
+        toast.info(<T id="bo.warning-id-add-language-suffix" values={doc} />)
+      } else if (langFromId !== resource.language) {
+        // Incompatible information between ID and language: ID wins
+        resource.language = langFromId
+        toast.error(<T id="bo.warning-inconsistent-id-language" values={doc} />)
+      }
+
       resource.description_fr = getMetaText('summary-fr') || ''
       resource.description_en = getMetaText('summary-en') || ''
       return { parsed, resource }

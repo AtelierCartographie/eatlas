@@ -119,5 +119,9 @@
   "upload": "envoi",
   "users": "utilisateurs",
   "validate": "valider",
-  "view-lexicon-content": "Contenu détaillé du lexique ({nb} définitions)"
+  "view-lexicon-content": "Contenu détaillé du lexique ({nb} définitions)",
+  "warning-id-add-language-suffix":
+    "La langue a automatiquement été ajoutée en suffixe de l’identifiant réel",
+  "warning-inconsistent-id-language":
+    "La langue et l’identifiant ne sont pas cohérents : le suffixe d’identifiant sera utilisé à la place de la langue déclarée"
 }

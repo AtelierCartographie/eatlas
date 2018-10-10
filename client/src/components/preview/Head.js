@@ -56,7 +56,7 @@ module.exports = injectIntl((
         h('link', { rel, href, title, hrefLang: lang, type }),
     ),
     ...Object.keys(intl.urls).map(lang =>
-      h('link', { rel: 'alternate', href: intl.urls[lang], hreflang: lang }),
+      h('link', { rel: 'alternate', href: intl.urls[lang], hrefLang: lang }),
     ),
     ...(options.analytics && options.analytics.google
       ? googleAnalyticsScript(h, options.analytics.google)

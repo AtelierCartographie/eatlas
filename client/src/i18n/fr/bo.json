@@ -36,8 +36,12 @@
   "disconnection": "déconnexion",
   "edit": "modifier",
   "error": "Erreur",
+  "error-existing-resource":
+    "Action invalide : une ressource existe déjà avec cet identifiant, éditez l’existant ou téléversez le lexique d’une nouvelle langue",
   "error-invalid-resource-type":
     "Type de ressource inconnu pour le fichier \"{name}\" ({mimeType}). Merci de sélectionner un autre fichier.",
+  "error-no-missing-lexicon":
+    "Action invalide : tous les lexiques ont été téléversés ! Merci d’éditer l’existant.",
   "error-parsing-image-name": "Erreur dans le nom de l’image : « {name} »",
   "home": "accueil",
   "hide-preview": "masquer la prévisualisation",

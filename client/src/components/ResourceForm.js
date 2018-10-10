@@ -18,6 +18,7 @@ import {
   LOCALES,
   STATUS_STYLE,
   LEXICON_ID,
+  LEXICON_ID_PREFIX,
 } from '../constants'
 import { getTopics, replaceResource, fetchResources } from '../actions'
 import Spinner from './Spinner'
@@ -225,18 +226,82 @@ class ResourceForm extends Component<Props, State> {
       }
     }
     let resource: ?Resource = Object.assign({}, props.resource)
-    // Special case: lexicon id is hardcoded
-    if (resource && resource.type === 'definition') {
-      resource.id = LEXICON_ID('fr')
+
+    // Special case: creating a lexicon
+    if (
+      resource &&
+      resource.type === 'definition' &&
+      this.props.mode === 'create'
+    ) {
+      let guessedLanguage = null
+      // Invalid id? Remove
+      if (resource.id) {
+        guessedLanguage = guessResourceLanguage(resource)
+        const validSyntax =
+          resource.id.indexOf(LEXICON_ID_PREFIX) === 0 &&
+          guessedLanguage !== null
+        const consistentLanguage =
+          !resource.language || guessedLanguage === resource.language
+        console.log({
+          validSyntax,
+          consistentLanguage,
+          guessedLanguage,
+          resource: JSON.parse(JSON.stringify(resource)),
+        })
+        if (!validSyntax || !consistentLanguage) {
+          delete resource.id
+        }
+      }
+      // Build id from language…
+      if (!resource.id && resource.language) {
+        resource.id = LEXICON_ID(resource.language)
+      }
+      // …or guess language from ID
+      if (!resource.language && resource.id) {
+        resource.language = guessResourceLanguage(resource)
+      }
+      // At this point we MUST have consistent id and language (or both empty)
+      const existingLexicons = props.resources.list.filter(
+        r => r.type === 'definition',
+      )
+      const missingLangs = LOCALES.filter(
+        lang => !existingLexicons.some(r => r.language === lang),
+      )
+      if (missingLangs.length === 0) {
+        toast.error(<T id="error-no-missing-lexicon" />)
+      } else if (!resource.id && !resource.language) {
+        // Use first found missing lexicon
+        resource.language = missingLangs[0]
+        resource.id = LEXICON_ID(resource.language)
+      }
     }
+
+    // Check for existing id when provided (can happen when reloading a page)
+    if (
+      resource &&
+      resource.id &&
+      props.resources.list.find(r => r.id === resource.id)
+    ) {
+      toast.error(<T id="error-existing-resource" />)
+      if (resource.type === 'definition') {
+        resource.id = LEXICON_ID(resource.language)
+      } else {
+        delete resource.id
+      }
+    }
+
+    // Invalid resource type? Guess
     if (resource && !types.includes(resource.type)) {
       const type: ?ResourceType = guessResourceType(resource)
       // $FlowFixMe We allow empty type temporarily
       resource.type = type || ''
     }
+
+    // Guess language from ID (suffix)
     if (resource && !resource.language) {
       resource.language = guessResourceLanguage(resource)
     }
+
     return { types, resource }
   }
 
@@ -547,10 +612,22 @@ class ResourceForm extends Component<Props, State> {
           Boolean(isArticle && this.state.parsed && this.state.parsed.language),
         loading: this.state.parsing,
         options: this.buildSelectOptions(
-          LOCALES,
+          this.state.resource.type === 'definition'
+            ? // Lexicon: only allow not already uploaded languages
+              this.props.resources.fetched
+              ? LOCALES.filter(
+                  lang =>
+                    !this.props.resources.list.some(
+                      r => r.type === 'definition' && r.language === lang,
+                    ),
+                )
+              : [] // Unable to decide? no choice
+            : LOCALES,
           null,
-          this.props.mode === 'create',
+          this.props.mode === 'create' &&
+            this.state.resource.type !== 'definition',
         ),
+        onChange: this.onChangeLanguage,
       }),
       this.getAttrField('description_fr', {
         labelId: 'resource-description',
@@ -725,7 +802,7 @@ class ResourceForm extends Component<Props, State> {
           [this.getDocField(resource, 'sound', { mandatory: true })],
           { subtitle: true, copyright: true, transcript: true },
         )
-      // Note: article is read-only, you have to re-upload
+      // Note: lexicon is read-only, you have to re-upload
       case 'definition':
         return buildFields(
           [
@@ -1103,19 +1180,27 @@ class ResourceForm extends Component<Props, State> {
     }))
   }
 
-  // Cache generated callbacks to avoid useless re-renders
+  onChangeLanguage = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.onChangeAttr('language')(e)
+    if (this.state.resource.type === 'definition') {
+      this.setState(state => ({
+        resource: {
+          ...state.resource,
+          id: LEXICON_ID(state.resource.language),
+        },
+      }))
+    }
+  }
+
+  // TODO cache generated callbacks to avoid useless re-renders?
   onChangeAttr = (attr: string, clearDocs: boolean = false) => (
     e: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     e.preventDefault()
     const value = e.target.value // beware recycled synthetic events
-    const additional =
-      attr === 'type' && value === 'definition'
-        ? { id: `${LEXICON_ID}-FR` } // Special case: hardcoded id for lexicon
-        : {}
     this.setState(state => ({
       error: null,
-      resource: { ...state.resource, [attr]: value, ...additional },
+      resource: { ...state.resource, [attr]: value },
       docs: clearDocs ? {} : state.docs,
       removedDocs: clearDocs ? [] : state.removedDocs,
     }))
@@ -1242,7 +1327,7 @@ class ResourceForm extends Component<Props, State> {
   docsFromResource(resource: ?Resource): GoogleDocs {
     const docs: { [x: string]: any } = {}
 
-    if (!resource || !resource.id) return docs
+    if (!resource || !resource.id || this.props.mode === 'create') return docs
 
     if (resource.type === 'image' || resource.type === 'map') {
       const images = resource.images

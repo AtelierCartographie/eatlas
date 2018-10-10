@@ -11,15 +11,16 @@ const root = path.join(__dirname, '..')
 const pubDir = path.resolve(root, getConf('publicPath'))
 const upDir = path.resolve(root, getConf('uploadPath', {}))
 
-const getTopicSlug = (resource, topics) => {
+const getTopicSlug = (resource, topics, lang = 'fr') => {
   const topic = resource.topic
     ? topics.find(({ id }) => String(id) === String(resource.topic))
     : resource
-  if (!topic || !topic.name) {
+  const name = lang === 'fr' ? topic.name : topic[`name_${lang}`]
+  if (!topic || !name) {
     debug({ resource, topics })
     throw new Error('Topic not found')
   }
-  return slugify(topic.name)
+  return slugify(name)
 }
 
 const getResourceSlug = resource =>
@@ -33,7 +34,7 @@ exports.pagePath = (key, resource, topics, params = {}) => {
       ? // No topic can be found for definitions
         key === 'definition'
         ? ''
-        : getTopicSlug(resource, topics)
+        : getTopicSlug(resource, topics, params.lang)
       : '',
     resourceSlug: resource ? getResourceSlug(resource) : '',
     ...params,

@@ -38,7 +38,9 @@ const APropos = ({ options }) =>
   h(
     'ul.nav.navmenu-nav',
     aPropos.map((r, i) =>
-      h('li', { key: i }, h('a', { href: r.url(options) }, r.text)),
+      h('li', { key: i }, [
+        h('a', { href: r.url(options) }, h(T, { id: r.text })),
+      ]),
     ),
   )
 

@@ -245,10 +245,11 @@ exports.generateTopicHTML = async (
   props = await menuProps(props, { preview, lang })
   const resources = populatePageUrl(null, props.topics, { preview, lang })(
     await getTopicResources(topic),
-  )
+  ).filter(r => r.language === lang)
   // Enhanced articles for data list in topic page
   props.articles = await Promise.all(
     (props.articles || resources.filter(r => r.type === 'article'))
+      .filter(r => r.language === lang)
       .map(flattenMetas)
       .map(async a => {
         a.imageHeader = await getImageHeader(a)

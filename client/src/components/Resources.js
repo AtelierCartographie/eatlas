@@ -14,11 +14,11 @@ import { deleteResource, updateResource } from '../api'
 import {
   STATUS_STYLE,
   RESOURCE_STATUSES,
-  LEXICON_ID,
   DEFAULT_PAGINATION_COUNT,
   PAGINATION_COUNTS,
   RESOURCE_TYPES,
   TYPE_ICON,
+  LEXICON_ID_PREFIX,
 } from '../constants'
 import { paginationItems, updateLocation, canUnpublish } from '../utils'
 import { stripTags } from '../universal-utils'
@@ -420,7 +420,8 @@ class Resources extends Component<Props, State> {
                     this.state.removeResource === resource,
                 })}
                 onClick={() =>
-                  resource.status === 'deleted' || resource.id === `${LEXICON_ID}-FR`
+                  resource.status === 'deleted' ||
+                  resource.id.indexOf(LEXICON_ID_PREFIX) === 0
                     ? this.askHardRemove(resource)
                     : this.softRemove(resource)
                 }

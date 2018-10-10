@@ -227,7 +227,7 @@ class ResourceForm extends Component<Props, State> {
     let resource: ?Resource = Object.assign({}, props.resource)
     // Special case: lexicon id is hardcoded
     if (resource && resource.type === 'definition') {
-      resource.id = `${LEXICON_ID}-FR`
+      resource.id = LEXICON_ID('fr')
     }
     if (resource && !types.includes(resource.type)) {
       const type: ?ResourceType = guessResourceType(resource)

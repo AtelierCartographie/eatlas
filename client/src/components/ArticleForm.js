@@ -196,8 +196,8 @@ class _ParagraphField extends Component<PProps> {
   }
 }
 
-const ParagraphField = connect(({ resources }, { node }) => {
-  const lexicon = resources.list.find(r => r.id === `${LEXICON_ID}-FR`)
+const ParagraphField = connect(({ resources }, { node, language }) => {
+  const lexicon = resources.list.find(r => r.id === `${LEXICON_ID(language)}`)
   return { definitions: lexicon ? lexicon.definitions : null }
 })(_ParagraphField)
 
@@ -298,6 +298,7 @@ class ArticleForm extends Component<Props, State> {
   renderParagraph(node: ArticleNode, k: number) {
     return (
       <ParagraphField
+        language={this.props.article.language}
         onIsMissing={this.onIsMissingDefinition}
         node={node}
         key={k}
@@ -403,8 +404,10 @@ class ArticleForm extends Component<Props, State> {
           <Link
             to={
               this.state.missingLexicon
-                ? '/resources/new/definition'
-                : '/resources/' + `${LEXICON_ID}-FR` + '/edit'
+                ? `/resources/new/definition?${LEXICON_ID(
+                    this.props.article.language,
+                  )}`
+                : `/resources/${LEXICON_ID(this.props.article.language)}/edit`
             }>
             <T id="bo.article-upload-lexicon-2" />
           </Link>{' '}

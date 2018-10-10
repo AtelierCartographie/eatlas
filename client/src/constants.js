@@ -68,7 +68,9 @@ export const MIME_TYPES: { [ResourceType]: string[] } = {
   video: ['video/x-msvideo', 'video/mpeg'],
 }
 
-export const LEXICON_ID: string = 'LEXIC'
+export const LEXICON_ID_PREFIX: string = 'LEXIC'
+export const LEXICON_ID = (language: string): string =>
+  `${LEXICON_ID_PREFIX}-${(language || 'fr').toUpperCase()}`
 
 export const DEFAULT_PAGINATION_COUNT =
   Number(process.env.REACT_APP_PAGINATION_COUNT) || 10

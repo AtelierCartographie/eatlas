@@ -159,7 +159,7 @@ exports.generateArticleHTML = async (
 ) => {
   props = await menuProps(props, { preview, lang })
   const article = flattenMetas(resource)
-  const definitions = await getDefinitions()
+  const definitions = await getDefinitions(lang)
   let resources = await getArticleResources(resource, !preview)
 
   // need to retrieve imageHeader for "related" articles in footer since they're transitives deps
@@ -214,7 +214,7 @@ exports.generateFocusHTML = async (
   focus.relatedArticle = populatePageUrl(null, props.topics, { preview, lang })(
     await getResource(focus.relatedArticleId),
   )
-  const definitions = await getDefinitions()
+  const definitions = await getDefinitions(lang)
   const resources = await getArticleResources(resource, !preview)
 
   populatePageUrl(null, props.topics, { preview, lang })(focus)
@@ -311,11 +311,12 @@ exports.generateLexiconHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
-  const lexicon = await getResource('LEXIC')
+  // TODO use LEXICON_ID constant (requires 'constants.js' being universal)
+  const lexicon = await getResource(`LEXIC-${lang.toUpperCase()}`)
   return wrap(
     React.createElement(LexiconPage, {
       ...props,
-      definitions: lexicon.definitions,
+      definitions: lexicon ? lexicon.definitions : { definitions: [] },
       options: buildOptions({ preview, lang }),
     }),
     lang,

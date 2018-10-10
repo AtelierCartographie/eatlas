@@ -281,12 +281,14 @@ const getTypeResources = async (type, sort = null) => {
   return await Resources.list(body)
 }
 
-exports.getDefinitions = async () => {
+exports.getDefinitions = async (lang = null) => {
   const lexicons = await getTypeResources('definition')
-  return lexicons.reduce(
-    (definitions, lexicon) => definitions.concat(lexicon.definitions),
-    [],
-  )
+  return lexicons
+    .filter(r => lang === null || r.language === lang)
+    .reduce(
+      (definitions, lexicon) => definitions.concat(lexicon.definitions),
+      [],
+    )
 }
 
 exports.getArticles = async () =>
@@ -297,7 +299,8 @@ exports.getTopics = async () =>
 
 exports.getResource = async id => {
   const found = await Resources.findById(id)
-  if (!found && id === 'LEXIC') {
+  // TODO use LEXICON_ID_PREFIX constant (requires 'constants.js' being universal)
+  if (!found && id.match(/^LEXIC-/)) {
     // No lexicon uploaded: just go with a fake one with no definitions
     return { definitions: [] }
   }

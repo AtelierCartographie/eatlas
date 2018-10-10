@@ -278,6 +278,7 @@ class ResourceForm extends Component<Props, State> {
 
     // Check for existing id when provided (can happen when reloading a page)
     if (
+      props.mode === 'create' &&
       resource &&
       resource.id &&
       props.resources.list.find(r => r.id === resource.id)

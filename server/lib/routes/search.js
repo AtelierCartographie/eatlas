@@ -6,7 +6,7 @@ const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
 const { populatePageUrl, populateThumbnailUrl } = require('../generator-utils')
-const { stripTags } = require('../../../client/src/universal-utils')
+const { stripTags, LOCALES } = require('../../../client/src/universal-utils')
 const { cleanString } = require('../clean-fields')
 
 const sortField = 'publishedAt'
@@ -53,6 +53,14 @@ const search = ({ preview = false } = {}) => async (req, res) => {
 
     // Exclude Lexicon because we can't handle definitions properly
     push(must, { bool: { must_not: term('id', 'LEXIC') } }, 0)
+    Object.keys(LOCALES).forEach(lang =>
+      // TODO use LEXICON_ID constant (requires constants.js being universal)
+      push(
+        must,
+        { bool: { must_not: term('id', `LEXIC-${lang.toUpperCase()}`) } },
+        0,
+      ),
+    )
 
     // Resource types?
     if (input.types) {

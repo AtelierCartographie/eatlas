@@ -9,6 +9,7 @@ module.exports = injectIntl((
     title,
     options,
     links = [],
+    styles = [],
     intl,
   } /*: { title: string, options: Object } */,
 ) =>
@@ -47,10 +48,7 @@ module.exports = injectIntl((
       href:
         'https://fonts.googleapis.com/css?family=Gentium+Basic:400,400i,700,700i',
     }),
-    h('link', {
-      rel: 'stylesheet',
-      href: `${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`,
-    }),
+    ...styles.map(href => h('link', { rel: 'stylesheet', href })),
     ...links.map(
       ({ href, title, type, rel = 'alternate', lang = intl.locale }) =>
         h('link', { rel, href, title, hrefLang: lang, type }),

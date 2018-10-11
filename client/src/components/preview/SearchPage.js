@@ -354,7 +354,11 @@ const SearchPage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: intl.formatMessage({ id: 'fo.search.title' }), options }),
+    h(Head, {
+      title: intl.formatMessage({ id: 'fo.search.title' }),
+      options,
+      styles: [`${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`],
+    }),
     h(
       Body,
       {

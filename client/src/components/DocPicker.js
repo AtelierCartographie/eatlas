@@ -38,6 +38,7 @@ type Props = {
   showPickerAfterUpload?: boolean,
   locale?: Locale,
   multiple?: boolean,
+  search?: string,
 }
 
 type PickerData = {
@@ -123,6 +124,9 @@ class DocPicker extends Component<Props, State> {
           //docsView.setIncludeFolders(true)
           if (this.props.mimeTypes) {
             docsView.setMimeTypes(this.props.mimeTypes.join(','))
+          }
+          if (this.props.search) {
+            docsView.setQuery(this.props.search)
           }
 
           const uploadView = new google.picker.DocsUploadView()

@@ -238,6 +238,12 @@ La configuration du serveur se trouve dans le fichier `config/default.json`. Tou
     }
   },
 
+  /***************************
+   * Options du front-office *
+   ***************************/
+
+  // Cacher le sélecteur de langue dans les pages générées
+  "hideLangSelector": false
 }
 ```
 

@@ -917,6 +917,7 @@ class ResourceForm extends Component<Props, State> {
       input: (
         <Fragment>
           <DocPicker
+            search={this.state.resource && this.state.resource.id}
             locale={this.props.locale}
             label="select-images"
             onPick={this.onPickResponsiveImage(
@@ -1039,6 +1040,7 @@ class ResourceForm extends Component<Props, State> {
     } else {
       opts.input = (
         <DocPicker
+          search={this.state.resource && this.state.resource.id}
           locale={this.props.locale}
           label="select-file"
           onPick={onPick}

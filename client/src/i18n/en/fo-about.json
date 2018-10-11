@@ -1,65 +1,64 @@
 {
-  "title": "🇬🇧À propos",
-  "the-team": "🇬🇧L’équipe",
-  "the-texts": "🇬🇧Les textes",
+  "title": "About",
+  "the-team": "The team",
+  "the-texts": "The texts",
   "the-vizualisations":
-    "🇬🇧Les visualisations (Sciences Po - Atelier de cartographie)",
-  "the-project": "🇬🇧Le projet",
+    "The vizualisations (Sciences Po - Atelier de cartographie)",
+  "the-project": "The project",
   "project": [
-    "🇬🇧Delphine Lereculeur et Anne L’Hôte (conduite de projet, Sciences Po DRIS).",
-    "🇬🇧ByteClub - Bruno Héridet et Nicolas Chambrier (développement).",
-    "🇬🇧Les Presses de Sciences Po (editing et déclinaison papier)."
+    "Delphine Lereculeur and Anne L’Hôte (project leading, Sciences Po DRIS).",
+    "ByteClub - Bruno Héridet and Nicolas Chambrier (development).",
+    "Les Presses de Sciences Po (editing and paper version)."
   ],
-  "info-title-html": "🇬🇧Qu’est-ce que <em>Espace mondial : l’Atlas</em> ?",
+  "info-title-html": "What is <em>Espace mondial : l’Atlas</em> ?",
   "info": [
-    "🇬🇧// La volonté d’un accès libre et gratuit",
-    "🇬🇧// Le prolongement d’un cours phare de Sciences Po",
-    "🇬🇧// Un projet rassemblant une équipe d’auteurs et de cartographes",
-    "🇬🇧// Des contenus scientifiques à jour abordant les grands enjeux actuels",
-    "🇬🇧// Des formats s’adaptant à tous les supports, notamment mobiles",
-    "🇬🇧// De multiples formes de lecture : linéaire classique, thématique à la manière d’un manuel ou par type de média",
-    "🇬🇧// Le pari d’une déclinaison papier sous la forme d’un beau livre aux Presses de Sciences Po"
+    "// Willing for free and open access",
+    "// The extension of a flagship race at Sciences Po",
+    "// A project bringing together a team of writers and cartographers",
+    "// Up-to-date scientific content addressing current major issues",
+    "// formats adapting to all media, including mobile",
+    "// Multiple forms of reading: classical linear, thematic in the manner of a manual or by type of media",
+    "// The bet of a paper declination in the form of a beautiful book at the Presses de Sciences Po"
   ],
-  "contact-title": "🇬🇧Nous contacter",
-  "contact-intro":
-    "🇬🇧Entrer en contact avec les rédacteurs et les cartographes",
-  "contact-button": "🇬🇧Nous contacter",
-  "the-book": "🇬🇧Le livre",
+  "contact-title": "Contact us",
+  "contact-intro": "Get in touch with the editors and cartographers",
+  "contact-button": "Contact us",
+  "the-book": "The book",
   "book-intro-html":
-    "🇬🇧<em>Espace mondial : l’Atlas</em> est aussi un beau livre publié aux Presses de Sciences Po.",
-  "book-button": "🇬🇧Acheter le livre",
-  "delphine-alles-title": "🇬🇧Professeure des universités en science politique",
+    "<em>Espace mondial : l’Atlas</em> is also a beautiful book published by Presses de Sciences Po.",
+  "book-button": "Buy the book",
+  "delphine-alles-title": "Professor of Universities in Political Science",
   "delphine-alles-bio":
-    "🇬🇧Professeure de Science politique, Delphine Allès dirige la filière Relations internationales de l’Institut national des langues et civilisations orientales (INALCO). Ses recherches portent sur le rôle de la religion dans l’espace mondial et les approches extra-occidentales de l’international.",
-  "melanie-albaret-title": "🇬🇧Maîtresse de conférences en sience politique",
+    "Professor of Political Science, Delphine Allès directs the International Relations Department of the National Institute of Oriental Languages ​​and Civilizations (INALCO), whose research focuses on the role of religion in the global space and the non-Western approaches to international.",
+  "melanie-albaret-title": "Mistress of conferences in political experience",
   "melanie-albaret-bio":
-    "🇬🇧Docteure en science politique (relations internationales), Mélanie Albaret est maîtresse de conférences à l'Université Clermont Auvergne. Ses recherches portent sur les organisations internationales (notamment l'ONU) et sur le multilatéralisme.",
-  "philippe-copinschi-title": "🇬🇧Enseignant, consultant",
+    "PhD in political science (international relations), Mélanie Albaret is a lecturer at Clermont Auvergne University, where her research focuses on international organizations (notably the UN) and multilateralism.",
+  "philippe-copinschi-title": "Teacher, consultant",
   "philippe-copinschi-bio":
-    "🇬🇧Philippe Copinschi est docteur en science politique (relations internationales) de Sciences Po Paris. Il enseigne à la Paris School of International Affairs (PSIA) de Sciences Po Paris et travaille comme consultant indépendant dans le domaine de l’énergie, en particulier en Afrique.",
-  "mf-durand-title": "🇬🇧Professeure agrégée de géographie",
+    "Philippe Copinschi holds a Ph.D. in political science (international relations) from Sciences Po Paris and teaches at the Paris School of International Affairs (PSIA) at Sciences Po Paris and works as an independent consultant in the field of energy, particularly in Africa.",
+  "mf-durand-title": "Associate Professor of Geography",
   "mf-durand-bio":
-    "🇬🇧Professeure agrégée de géographie à Sciences Po de 1989 à 2015, Marie-Françoise Durand a créé l'Atelier de cartographie, coordonné le cours Espace mondial, la production de plusieurs MOOCs et les 6 éditions de l'Atlas de la mondialisation ",
-  "lucile-maertens-title": "🇬🇧Maître-assistante en relations internationales",
+    "Associate Professor of Geography at Sciences Po from 1989 to 2015, Marie-Françoise Durand created the Cartography Workshop, coordinated the course World Space, the production of several MOOCs and the 6 editions of l'Atelier de mondialisation",
+  "lucile-maertens-title": "Master-Assistant in International Relations",
   "lucile-maertens-bio":
-    "🇬🇧Docteure en science politique, Lucile Maertens est maître-assistante en relations internationales à l'Université de Lausanne (IEPHI) et chercheuse associée à Sciences Po/CERI. Ses recherches portent sur l'action des organisations internationales dans le domaine de l'environnement et de la sécurité.",
+    "Lucine Maertens is a lecturer in political science at the University of Lausanne (IEPHI) and an associate researcher at Sciences Po / CERI, and her research focuses on the work of international organizations in the field of the environment and security.",
   "delphine-placidi-frot-title":
-    "🇬🇧Professeure des universités en science politique",
+    "Professor of Universities in Political Science",
   "delphine-placidi-frot-bio":
-    "🇬🇧Professeure de science politique, Delphine Placidi-Frot codirige les M2 Diplomatie et négociations stratégiques et Gouvernance de projets de développement durable au Sud de l'Université Paris-Saclay. Ses recherches portent sur la politique extérieure et les organisations multilatérales (notamment onusiennes).",
-  "thomas-ansart-title": "🇬🇧cartographie, data visualisation, R",
+    "Professor of Political Science, Delphine Placidi-Frot is co-director of the M2 Diplomacy and Strategic Negotiations and Governance of Sustainable Development Projects in the South of Paris-Saclay University, where her research focuses on foreign policy and multilateral organizations (particularly UN organizations).",
+  "thomas-ansart-title": "cartography, data visualization, R",
   "thomas-ansart-bio":
-    "🇬🇧Entrée par la cartographie à Sciences Po en 2008, Thomas Ansart jongle depuis entre les créations de data visualisations, la conception d'outils, le design de site web et le suivi de projets. Avec un soupcon de lignes de code toujours plus important.",
+    "Coming to cartography at Sciences Po in 2008, Thomas Ansart has since juggled between data visualization creations, tool design, website design and project tracking, with a growing number of lines of code.",
   "benoit-martin-title":
-    "🇬🇧Géographe-cartographe et doctorant en science politique",
+    "Geographer-Cartographer and Doctoral Student in Political Science",
   "benoit-martin-bio":
-    "🇬🇧Cartographe à Sciences Po depuis 2006, ses recherches portent sur la production des statistiques internationales – sa thèse de Doctorat explore le cas de l’UNODC, sur la drogue et le crime – et notamment les enjeux politiques qui entourent les activités d’expertise des organisations internationales.",
-  "patrice-mitrano-title": "🇬🇧Géographe-cartographe",
+    "A Cartographer at Sciences Po since 2006, his research focuses on the production of international statistics - his doctoral dissertation explores the case of UNODC, on drugs and crime - and in particular the political issues surrounding the activities of International organisations.",
+  "patrice-mitrano-title": "Geographer-cartographer",
   "patrice-mitrano-bio":
-    "🇬🇧Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement « viz ». Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012.",
-  "anouk-pettes-title": "🇬🇧Géographe-cartographe",
-  "anouk-pettes-bio": "🇬🇧 ",
-  "antoine-rio-title": "🇬🇧Géographe-cartographe",
+    "Patrice Mitrano has been involved in the life of the Cartography Workshop since 1998. He designs and makes maps, of course, but also all kinds of other images that we would quickly call “viz”. The accompaniment of the establishment of the Department of Islamic Arts at the Louvre in 2012.",
+  "anouk-pettes-title": "Geographer-cartographer",
+  "anouk-pettes-bio": " ",
+  "antoine-rio-title": "Geographer-cartographer",
   "antoine-rio-bio":
-    "🇬🇧Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014."
+    "A geographer by training and specialized in geographic information systems, Antoine Rio has notably expanded to include data processing and visualization since his arrival at l'Atelier de cartographie Sciences Po in 2014."
 }

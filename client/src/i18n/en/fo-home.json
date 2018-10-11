@@ -1,18 +1,18 @@
 {
-  "title": "🇬🇧Un atlas pour comprendre",
-  "subtitle": "🇬🇧l’espace mondial contemporain",
+  "title": "An atlas to understand",
+  "subtitle": "the contemporary world space",
   "topics-intro":
-    "🇬🇧Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Étudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.",
+    "Looking at the world as a mobile and fluid space, emancipating itself from the idea of an international scene orchestrated by the States alone and the notions of enemy, border and exclusive identities. Study how globalization processes shape public policy and social behavior. Show how all actors - public or private, individual or collective, political, economic and social, local, national, regional or global - interact, exchange, cooperate or clash. To represent the interdependencies and entanglements of our stories, as well as the disorders and dysfunctions of a complex and unequal world. This is the ambition of this atlas which tackles these issues in a transdisciplinary way by crossing the approaches of geographers and political scientists specializing in international relations.",
   "resources-intro-html":
-    "🇬🇧<em>Espace mondial : l’Atlas</em> est aussi un moteur de recherche donnant accès à plus de 200 <a href=\"{mapsUrl}\">cartes et graphiques</a> qui enrichissent les articles et les focus, à des <a href=\"{imagesUrl}\">photos</a> commentées ou à un <a href=\"{lexiconUrl}\">lexique</a> regroupant les notions clés.",
+    "<em>Global space: the Atlas</em> is also a search engine giving access to more than 200 <a href=\"{mapsUrl}\">maps and graphs</a> that enrich articles and focus, to <a href=\"{imagesUrl}\">commented photos</a> or a <a href=\"{lexiconUrl}\">glossary</a> grouping key concepts.",
   "about-intro-html":
-    "🇬🇧Aventure collective et prolongement d’un cours phare de Sciences Po, <em>Espace mondial : l’Atlas</em> offre un accès libre et gratuit à des contenus scientifiques sur les grandes problématiques de notre temps.",
-  "read-more-label": "🇬🇧En savoir plus",
+    "Collective adventure and extension of a flagship course of Sciences Po, <em>Global space: the Atlas</ em> offers free and free access to scientific content on major issues of our time.",
+  "read-more-label": "Read more",
   "text-people":
-    "🇬🇧Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens et Delphine Placidi-Frot",
-  "the-vizualisations": "🇬🇧Les visualisations",
+    "Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens, and Delphine Placidi-Frot",
+  "the-vizualisations": "Vizualisations",
   "vizualisation-people":
-    "🇬🇧Sciences Po - Atelier de cartographie : Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio",
+    "Sciences Po - Atelier de cartographie: Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes, and Antoine Rio",
   "book-intro-html":
-    "🇬🇧<em>Espace mondial : l’Atlas</em> est aussi un beau livre publié aux Presses de Sciences Po."
+    "<em>Global space: the Atlas</em> is also a beautiful book published by Presses de Sciences Po."
 }

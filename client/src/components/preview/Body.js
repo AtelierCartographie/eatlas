@@ -43,7 +43,7 @@ module.exports = (
       src: prefixUrl('/assets/js/lodash.custom.min.js', options.preview),
     }),
     h('script', {
-      src: `${CDN}/twitter-bootstrap/3.3.7/js/bootstrap.min.js`,
+      src: prefixUrl('/assets/js/bootstrap.custom.min.js', options.preview),
     }),
     h('script', {
       src: `${CDN}/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js`,

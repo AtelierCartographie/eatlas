@@ -27,7 +27,7 @@ module.exports = injectIntl((
     }),
     h('link', {
       rel: 'stylesheet',
-      href: `${CDN}/twitter-bootstrap/3.3.7/css/bootstrap.min.css`,
+      href: prefixUrl('/assets/css/bootstrap.min.css', options.preview),
     }),
     h('link', {
       rel: 'stylesheet',

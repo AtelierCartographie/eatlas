@@ -39,8 +39,8 @@
   "error-parsing-image-name":
     "Invalid image name: “{name}”.\\nExpected format: id-size@density.extension",
   "flag-html": {
-    "fr": "français",
-    "en": "english"
+    "fr": "🇫🇷",
+    "en": "🇬🇧"
   },
   "home": "home",
   "hide-preview": "hide preview",

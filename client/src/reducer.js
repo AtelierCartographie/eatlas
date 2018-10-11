@@ -1,10 +1,9 @@
 //@flow
-
-import browserLocale from 'browser-locale'
+import userLang from './user-lang'
 
 const initialState: AppState = {
   // FIXME call it 'lang' instead?
-  locale: browserLocale().substring(0, 2),
+  locale: userLang(),
   users: {
     loading: false, // loading users list
     saving: false, // adding/updating a user

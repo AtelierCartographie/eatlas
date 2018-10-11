@@ -22,6 +22,7 @@ import UserForm from './UserForm'
 import Users from './Users'
 import { userLogout } from '../actions'
 import gitVersion from '../git-version'
+import { saveLocale } from '../user-lang'
 
 const NavLink = ({
   to,
@@ -39,6 +40,19 @@ const NavLink = ({
     to={to}>
     <T id={`bo.${label}` || 'bo.label'} />
   </NavLinko>
+)
+
+const LangButton = ({ lang }) => (
+  <a
+    className="navbar-item"
+    href=""
+    onClick={e => {
+      e.preventDefault()
+      saveLocale(lang)
+      document.location.reload(true)
+    }}>
+    <T id={`bo.flag-html.${lang}`} />
+  </a>
 )
 
 type Props = {
@@ -139,6 +153,8 @@ class App extends Component<Props, State> {
             </div>
           )}
           <div className="navbar-end">
+            <LangButton lang="fr" />
+            <LangButton lang="en" />
             <div className="navbar-item">version: {gitVersion}</div>
             {this.renderUserBox()}
           </div>

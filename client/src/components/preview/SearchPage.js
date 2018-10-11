@@ -131,7 +131,7 @@ const paginationTemplate = t => `
 
 const resultsTemplate = (t, lang) => `
 ${paginationTemplate(t)}
-<% _.forEach(results.hits, function (hit) { %>
+<% for (var i=0;i<results.hits.length;i++) { var hit=results.hits[i]; %>
   <% if (hit.url) { %>
     <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
   <% } else { %>
@@ -157,7 +157,7 @@ ${paginationTemplate(t)}
   <% } else { %>
     </div>
   <% } %>
-<% }) %>
+<% } %>
 `
 
 const filtersToggle = (title, inputs, hidden = false) => {

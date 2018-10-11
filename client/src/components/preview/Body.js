@@ -39,7 +39,7 @@ module.exports = (
       src: `${CDN}/jquery/3.3.1/jquery.slim.min.js`,
     }),
     h('script', {
-      src: `${CDN}/lodash.js/4.17.5/lodash.min.js`,
+      src: prefixUrl('/assets/js/lodash.custom.min.js', options.preview),
     }),
     h('script', {
       src: `${CDN}/twitter-bootstrap/3.3.7/js/bootstrap.min.js`,

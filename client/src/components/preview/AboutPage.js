@@ -167,13 +167,12 @@ const Team = ({ options, intl }) => {
         ),
       ),
       h('h3', {}, h(T, { id: 'about.the-vizualisations' })),
-      null &&
-        h(
-          'ul',
-          cartographers.map(member =>
-            h(TeamMember, { key: member.key, member, options }),
-          ),
+      h(
+        'ul',
+        cartographers.map(member =>
+          h(TeamMember, { key: member.key, member, options }),
         ),
+      ),
       authors.map(member =>
         h(TeamMemberModal, { key: member.key, member, options }),
       ),

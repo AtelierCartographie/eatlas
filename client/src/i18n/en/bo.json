@@ -36,7 +36,8 @@
   "disconnection": "logout",
   "edit": "modify",
   "error": "Error",
-  "error-parsing-image-name": "Invalid image name: “{name}”.\\nExpected format: id-size@density.extension",
+  "error-parsing-image-name":
+    "Invalid image name: “{name}”.\\nExpected format: id-size@density.extension",
   "flag-html": {
     "fr": "français",
     "en": "english"
@@ -79,6 +80,7 @@
   "resource-titlePosition": "Title position",
   "resource-topic": "Topic",
   "resource-transcript": "Transcription",
+  "resource-translations": "Translation(s)",
   "resource-type": "Type",
   "resource-updatedBy": "Depositor",
   "resource-uris": "Public URL (s)",

@@ -1,5 +1,5 @@
 ;($ => {
-  /* globals $, _ */
+  /* globals _ */
   $(document).on('click', () => $('.collapse').collapse('hide'))
   const [y, m, d] = new Date()
     .toISOString()

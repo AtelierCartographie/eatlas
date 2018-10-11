@@ -36,7 +36,7 @@ module.exports = (
       src: prefixUrl('/assets/js/fitie.js', options.preview),
     }),
     h('script', {
-      src: `${CDN}/jquery/3.3.1/jquery.min.js`,
+      src: `${CDN}/jquery/3.3.1/jquery.slim.min.js`,
     }),
     h('script', {
       src: `${CDN}/lodash.js/4.17.5/lodash.min.js`,

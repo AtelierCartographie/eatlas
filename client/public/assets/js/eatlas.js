@@ -171,10 +171,24 @@
         }
       })
       // Run query
-      $.post($form.attr('data-api-url') || '/search', data).then(
-        results => showSearchResults(results, formData),
-        showSearchError,
-      )
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', $form.attr('data-api-url') || '/search', true)
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          try {
+            const json = JSON.parse(xhr.responseText)
+            if (xhr.status === 200) {
+              showSearchResults(json, formData)
+            } else {
+              showSearchError(json)
+            }
+          } catch (err) {
+            showSearchError({ message: xhr.responseText })
+          }
+        }
+      }
+      xhr.send(data)
     }, 100)
 
     // Handle browser's back/forward

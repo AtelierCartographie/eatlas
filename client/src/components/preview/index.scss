@@ -86,6 +86,7 @@ ul.navmenu-nav a {
 #topbar {
   height: 48px;
   margin-top: -2px;
+  z-index: 2000;
 
   .if-not-scrolled {
     display: block;

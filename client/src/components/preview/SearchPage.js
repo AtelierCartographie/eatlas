@@ -7,7 +7,7 @@
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 
-const { prefixUrl } = require('./layout')
+const { CDN, prefixUrl } = require('./layout')
 const { LOCALES } = require('../../universal-utils')
 const Head = require('./Head')
 const Body = require('./Body')
@@ -355,27 +355,37 @@ const SearchPage = injectIntl((
 ) =>
   h('html', { lang: intl.lang }, [
     h(Head, { title: intl.formatMessage({ id: 'fo.search.title' }), options }),
-    h(Body, { topics, options, logoColor: 'black' }, [
-      h(Search, { topics, types, locales, keywords, options, intl }),
-      h(
-        Html,
-        {
-          component: 'script',
-          whitelist: 'all',
-          noP: true,
-        },
-        `window.SEARCH_PAGE_TITLE=${JSON.stringify({
-          article: intl.formatMessage({ id: 'doc.type-plural.article' }),
-          focus: intl.formatMessage({ id: 'doc.type-plural.focus' }),
-          map: intl.formatMessage({ id: 'doc.type-plural.map' }),
-          image: intl.formatMessage({ id: 'doc.type-plural.image+video' }),
-          video: intl.formatMessage({ id: 'doc.type-plural.image+video' }),
-          'single-definition': intl.formatMessage({
-            id: 'doc.type-plural.definition',
-          }),
-          definition: intl.formatMessage({ id: 'doc.type-plural.definition' }),
-          reference: intl.formatMessage({ id: 'doc.type-plural.reference' }),
-        })};
+    h(
+      Body,
+      {
+        topics,
+        options,
+        logoColor: 'black',
+        scripts: [`${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`],
+      },
+      [
+        h(Search, { topics, types, locales, keywords, options, intl }),
+        h(
+          Html,
+          {
+            component: 'script',
+            whitelist: 'all',
+            noP: true,
+          },
+          `window.SEARCH_PAGE_TITLE=${JSON.stringify({
+            article: intl.formatMessage({ id: 'doc.type-plural.article' }),
+            focus: intl.formatMessage({ id: 'doc.type-plural.focus' }),
+            map: intl.formatMessage({ id: 'doc.type-plural.map' }),
+            image: intl.formatMessage({ id: 'doc.type-plural.image+video' }),
+            video: intl.formatMessage({ id: 'doc.type-plural.image+video' }),
+            'single-definition': intl.formatMessage({
+              id: 'doc.type-plural.definition',
+            }),
+            definition: intl.formatMessage({
+              id: 'doc.type-plural.definition',
+            }),
+            reference: intl.formatMessage({ id: 'doc.type-plural.reference' }),
+          })};
         window.TYPE_LABEL=${JSON.stringify(
           Object.keys(types).reduce(
             (dict, type) =>
@@ -385,8 +395,9 @@ const SearchPage = injectIntl((
             {},
           ),
         )};`,
-      ),
-    ]),
+        ),
+      ],
+    ),
   ]),
 )
 

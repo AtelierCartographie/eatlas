@@ -14,6 +14,7 @@ module.exports = (
     altTitle,
     options,
     children,
+    scripts,
   } /*: {
   topics: Topic[],
   logoColor: 'black' | 'white',
@@ -50,9 +51,7 @@ module.exports = (
     h('script', {
       src: `${CDN}/picturefill/3.0.3/picturefill.min.js`,
     }),
-    h('script', {
-      src: `${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`,
-    }),
+    ...(scripts || []).map(src => h('script', { src })),
     h('script', {
       src: prefixUrl('/assets/js/eatlas.es5.js', options.preview),
     }),

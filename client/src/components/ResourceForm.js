@@ -270,7 +270,7 @@ class ResourceForm extends Component<Props, State> {
         lang => !existingLexicons.some(r => r.language === lang),
       )
       if (missingLangs.length === 0) {
-        toast.error(<T id="error-no-missing-lexicon" />)
+        // TODO warning?
       } else if (!resource.id && !resource.language) {
         // Use first found missing lexicon
         resource.language = missingLangs[0]
@@ -285,7 +285,6 @@ class ResourceForm extends Component<Props, State> {
       resource.id &&
       props.resources.list.find(r => r.id === resource.id)
     ) {
-      toast.error(<T id="error-existing-resource" />)
       if (resource.type === 'definition') {
         resource.id = LEXICON_ID(resource.language)
       } else {

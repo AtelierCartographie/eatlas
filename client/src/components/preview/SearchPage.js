@@ -8,6 +8,7 @@ const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 
 const { prefixUrl } = require('./layout')
+const { LOCALES } = require('../../universal-utils')
 const Head = require('./Head')
 const Body = require('./Body')
 const Html = require('./Html')
@@ -29,8 +30,20 @@ results = {
 }
 */
 
-const hitTextTemplate = () => `
+const hitTextTemplate = (t, lang) => `
   <strong class="search-result-title"><%= hit.title %></strong>
+  <% if (hit.language && hit.language !== ${JSON.stringify(lang)}) { %>
+    ${Object.keys(LOCALES)
+      .map(
+        l =>
+          `<% if (hit.language === ${JSON.stringify(l)}) { %>${t(
+            `common.search-lang-indicator-html.${l}`,
+            {},
+            '',
+          )}<% } %>`,
+      )
+      .join('')}
+  <% } %>
   <% if (hit.subtitle) { %>
     <span class="search-result-subtitle"><%= hit.subtitle %></span>
   <% } %>
@@ -116,7 +129,7 @@ const paginationTemplate = t => `
 </div>
 `
 
-const resultsTemplate = t => `
+const resultsTemplate = (t, lang) => `
 ${paginationTemplate(t)}
 <% _.forEach(results.hits, function (hit) { %>
   <% if (hit.url) { %>
@@ -132,11 +145,11 @@ ${paginationTemplate(t)}
         ${hitPreviewTemplate(t)}
       </div>
       <div class="search-result-text col-sm-9">
-        ${hitTextTemplate(t)}
+        ${hitTextTemplate(t, lang)}
       </div>
     <% } else { %>
       <div class="search-result-text col-sm-12">
-        ${hitTextTemplate(t)}
+        ${hitTextTemplate(t, lang)}
       </div>
     <% } %>
   <% if (hit.url) { %>
@@ -312,8 +325,10 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
         whitelist: 'all',
         noP: true,
       },
-      resultsTemplate((id, values = {}) =>
-        intl.formatMessage({ id: `fo.search.${id}` }, values),
+      resultsTemplate(
+        (id, values = {}, prefix = 'fo.search.') =>
+          intl.formatMessage({ id: `${prefix}${id}` }, values),
+        intl.lang,
       ),
     ),
     h('section.SearchResults.container', {}, [

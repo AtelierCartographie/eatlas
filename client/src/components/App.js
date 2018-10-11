@@ -51,7 +51,7 @@ const LangButton = ({ lang }) => (
       saveLocale(lang)
       document.location.reload(true)
     }}>
-    <T id={`bo.flag-html.${lang}`} />
+    <T id={`common.flag-html.${lang}`} />
   </a>
 )
 

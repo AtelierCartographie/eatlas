@@ -251,6 +251,7 @@ const formatResultHit = resource => ({
   title: stripTags(resource.title),
   subtitle: stripTags(resource.subtitle),
   type: resource.type,
+  language: resource.language,
   url:
     resource.type === 'reference' ? resource.description_fr : resource.pageUrl,
   preview: resource.thumbnailUrl

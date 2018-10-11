@@ -19,6 +19,7 @@ import {
   RESOURCE_TYPES,
   TYPE_ICON,
   LEXICON_ID_PREFIX,
+  LOCALES,
 } from '../constants'
 import { paginationItems, updateLocation, canUnpublish } from '../utils'
 import { stripTags } from '../universal-utils'
@@ -29,6 +30,7 @@ import Icon from './Icon'
 import Confirm from './Confirm'
 import ResourcesPreviewArticle from './ResourcesArticlePreview'
 import VimeoIframe from './VimeoIframe'
+import Flag from './Flag'
 
 import type { ContextRouter } from 'react-router'
 
@@ -44,6 +46,7 @@ type FiltersProps = {
   type: ResourceType | '',
   status: string,
   topic: string,
+  language: Locale | '',
 }
 
 type SortProps = {
@@ -264,6 +267,8 @@ class Resources extends Component<Props, State> {
       type: field === 'type' ? String(value) : this.props.filters.type,
       status: field === 'status' ? String(value) : this.props.filters.status,
       topic: field === 'topic' ? String(value) : this.props.filters.topic,
+      language:
+        field === 'language' ? String(value) : this.props.filters.language,
     }
     // $FlowFixMe: I know I'm not passing props but just partial filter (no sort intel either)
     const list = applyFilters(
@@ -288,6 +293,33 @@ class Resources extends Component<Props, State> {
               <Icon size="small" icon={item.icon} />
               <T id={`bo.type-${item.type || 'all'}`} />
               {this.renderMenuCountSuffix('type', item.type)}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  renderLangMenu() {
+    return (
+      <ul className="menu-list type-menu">
+        <li key="all">
+          <NavLink
+            activeClassName="active"
+            isActive={() => !this.props.filters.language}
+            to={this.getMenuTo({ language: null })}>
+            <T id="bo.type-all" />
+            {this.renderMenuCountSuffix('language', '')}
+          </NavLink>
+        </li>
+        {LOCALES.map(lang => (
+          <li key={lang}>
+            <NavLink
+              activeClassName="active"
+              isActive={() => lang === this.props.filters.language}
+              to={this.getMenuTo({ language: lang })}>
+              <Flag lang={lang} />
+              {this.renderMenuCountSuffix('language', lang)}
             </NavLink>
           </li>
         ))}
@@ -549,6 +581,8 @@ class Resources extends Component<Props, State> {
       }
       case 'title':
         return <span>{stripTags(resource.title)}</span>
+      case 'language':
+        return <Flag lang={resource.language} />
       default:
         return resource[field]
     }
@@ -732,6 +766,11 @@ class Resources extends Component<Props, State> {
         {this.renderTypeMenu(typeItems)}
 
         <p className="menu-label">
+          <T id="bo.resource-language" />
+        </p>
+        {this.renderLangMenu()}
+
+        <p className="menu-label">
           <T id="bo.resource-status" />
         </p>
         {this.renderStatusMenu()}
@@ -851,7 +890,7 @@ const resourceMatchSearch = (resource: Resource, lcWords: string[]) => {
 
 const applyFilters = (
   list: Resource[],
-  { type, status, topic }: FiltersProps,
+  { type, status, topic, language }: FiltersProps,
   sort: ?SortProps,
   search: ?string,
 ) => {
@@ -859,6 +898,7 @@ const applyFilters = (
     .filter(r => !status || r.status === status)
     .filter(r => !topic || r.topic === topic)
     .filter(r => !type || r.type === type)
+    .filter(r => !language || r.language === language)
     .filter(
       r => !search || resourceMatchSearch(r, search.toLowerCase().split(/\s+/)),
     )
@@ -887,6 +927,7 @@ export default withRouter(
         type: _type,
         status: searchParams.get('status'),
         topic: searchParams.get('topic'),
+        language: searchParams.get('language'),
       }
       const sort: SortProps = {
         by: searchParams.get('sort') || 'status',

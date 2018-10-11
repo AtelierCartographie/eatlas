@@ -12,7 +12,6 @@ import './ResourceForm.css'
 
 import DocPicker from './DocPicker'
 import Icon from './Icon'
-import Html from './preview/Html'
 import {
   RESOURCE_TYPES,
   MIME_TYPES,
@@ -38,6 +37,7 @@ import {
 } from '../utils'
 import AsyncData from './AsyncData'
 import Editor from './WysiwygEditor'
+import Flag from './Flag'
 
 const RE_ID_LANG_SUFFIX = new RegExp(`-(${LOCALES.join('|')})$`, 'i')
 const RE_RESOURCE_ID = new RegExp(
@@ -250,12 +250,6 @@ class ResourceForm extends Component<Props, State> {
           guessedLanguage !== null
         const consistentLanguage =
           !resource.language || guessedLanguage === resource.language
-        console.log({
-          validSyntax,
-          consistentLanguage,
-          guessedLanguage,
-          resource: JSON.parse(JSON.stringify(resource)),
-        })
         if (!validSyntax || !consistentLanguage) {
           delete resource.id
         }
@@ -891,9 +885,7 @@ class ResourceForm extends Component<Props, State> {
         <ul>
           {translations.map(({ lang, found, id }) => (
             <li key={lang}>
-              <Html whitelist="all" noP={true} component="span">
-                {this.props.intl.formatMessage({ id: `bo.flag-html.${lang}` })}{' '}
-              </Html>
+              <Flag lang={lang} />
               {found ? (
                 <Link to={`/resources/${id}/edit`}>
                   {stripTags(found.title)}

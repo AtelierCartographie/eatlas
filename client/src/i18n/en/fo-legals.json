@@ -1,29 +1,29 @@
 {
   "title": "Legal notice",
-  "who-title": "Content of this website is provided by",
+  "who-title": "The contents of this site were supplied by",
   "who-name": "Sciences Po",
   "who-addr-1": "27 rue Saint-Guillaume",
   "who-addr-2": "75337 Paris Cedex 07",
   "who-tel": "Tel. : 01 45 49 50 50",
   "who-fax": "Fax. : 01 42 22 31 26",
   "who-mail": "webmestre@sciencespo.fr",
-  "director-title": "Publication Director",
+  "director-title": "Publisher",
   "director-text": "Frédéric Mion, President of Sciences Po",
   "hosting-title": "Hosting",
   "hosting-intro":
-    "This website is hosted by the National Foundation for Political Science (FNSP)",
+    "This website is hosted by Fondation Nationale des Sciences Politiques  (FNSP)",
   "hosting-name": "Sciences Po - Direction des Systèmes d'Information",
   "hosting-ape": "APE Code: 803Z",
   "hosting-addr-1": "27 rue Saint-Guillaume",
   "hosting-addr-2": "75337 Paris Cedex 07",
   "ip-title": "Industrial and Intellectual Property",
   "ip-protection":
-    "All information reproduced in this website (texts, photos, logos ...) are protected by intellectual property rights held by Sciences Po or its partners. Therefore, none of this information may be reproduced, modified, reposted, translated, commercially exploited or reused in any way whatsoever without the prior written consent of Sciences Po.",
+    "All information on this web site (text, photos, logos...) is protected by the copyrights held by Sciences Po or their partners. Therefore, the information may not be reproduced, modified, republished, re-aired, translated, distributed or reused in any manner, without the written consent of Sciences Po.",
   "ip-property":
-    "The title, the design, the form of the Sciences Po site but also its content such as news, descriptions, illustrations and original images and their organization, as well as any compilation of software, basic source code and other elements contained on the Sciences Po website are the property of Sciences Po.",
-  "links": "Hypertext links",
+    "The Sciences Po site’s title, concept and form, as well as its content, such as news, descriptions, illustrations and original images and their organisation, and any software compilation, source code and other elements contained on the Sciences Po site are the property of Sciences Po.",
+  "links": "Hypertext Links",
   "links-disclaimer":
-    "Our web pages also provide links to other sites for which we are not responsible for their full compliance with public order and morality standards, on the one hand, or their personal data protection policy or on the other hand. use made of it, on the other hand.",
+    "Our pages also contain links to other sites for which we are in no manner responsible, neither regarding their adhesion to public order or good conduct, on the one hand, nor regarding their personal data privacy policies and use, on the other.",
   "links-agreement":
-    "By accessing another site, via a hypertext link, you agree that this access is at your own risk. Consequently, any direct or indirect prejudice resulting from your access to another site connected by a hypertext link can not engage the responsibility of Sciences Po."
+    "By accessing an outside site, through a hypertext link, you accept that this access is carried out at your own risk. Therefore, Sciences Po will in no way be held responsible for any direct or indirect damages resulting from your access to an outside site through a hypertext link."
 }

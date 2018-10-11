@@ -159,5 +159,7 @@
   "analytics": {
     "// google": "Google Analytics tracker code, e.g. UA-XXXXX-Y",
     "google": "UA-2835049-27"
-  }
+  },
+
+  "hideLangSelector": true
 }

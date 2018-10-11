@@ -107,6 +107,7 @@ const buildOptions = opts => ({
   analytics: config.analytics,
   apiUrl,
   publicUrl,
+  hideLangSelector: config.hideLangSelector,
   ...opts,
 })
 

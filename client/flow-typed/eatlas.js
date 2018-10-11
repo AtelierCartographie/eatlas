@@ -168,4 +168,5 @@ declare type FrontOptions = {
   analytics: string,
   apiUrl: string,
   publicUrl: string,
+  hideLangSelector?: boolean,
 }

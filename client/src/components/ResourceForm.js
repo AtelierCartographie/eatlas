@@ -12,6 +12,7 @@ import './ResourceForm.css'
 
 import DocPicker from './DocPicker'
 import Icon from './Icon'
+import Html from './preview/Html'
 import {
   RESOURCE_TYPES,
   MIME_TYPES,
@@ -890,7 +891,9 @@ class ResourceForm extends Component<Props, State> {
         <ul>
           {translations.map(({ lang, found, id }) => (
             <li key={lang}>
-              <T id={`common.lang-selector-label.${lang}`} />{' '}
+              <Html whitelist="all" noP={true} component="span">
+                {this.props.intl.formatMessage({ id: `bo.flag-html.${lang}` })}{' '}
+              </Html>
               {found ? (
                 <Link to={`/resources/${id}/edit`}>
                   {stripTags(found.title)}

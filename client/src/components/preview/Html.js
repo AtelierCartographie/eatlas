@@ -6,14 +6,23 @@ const Html = props => {
   // Default = only keep inline formatting
   const whitelist = props.whitelist || ['em', 'i', 'strong', 'b', 'a']
 
+  const childContent = props.children
+    ? typeof props.children === 'string'
+      ? props.children
+      : props.children.join
+        ? props.children.join('')
+        : String(props.children)
+    : null
+
   const content =
-    props.children === null
+    childContent === null
       ? null
       : whitelist === 'all'
         ? props.noP
-          ? String(props.children)
-          : ensureHTML(String(props.children))
-        : stripTags(String(props.children), whitelist)
+          ? childContent
+          : ensureHTML(String(childContent))
+        : stripTags(String(childContent), whitelist)
+
   if (content === null) {
     return null
   }

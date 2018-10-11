@@ -1,7 +1,8 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { FormattedMessage: T, injectIntl } = require('react-intl')
+const { injectIntl } = require('react-intl')
+const Html = require('./Html')
 
 module.exports = injectIntl(({ options, intl }) =>
   h('.LangSelector', [
@@ -25,7 +26,11 @@ const LangLink = ({ intl, lang, url }) => {
       href: url,
       title: intl.formatMessage({ id: `common.switch-to-lang.${lang}` }),
     },
-    h(T, { id: `common.lang-selector-label.${lang}` }),
+    h(
+      Html,
+      { whitelist: 'all', noP: true, component: 'span' },
+      intl.formatMessage({ id: `common.lang-selector-label-html.${lang}` }),
+    ),
   )
 }
 
@@ -36,7 +41,11 @@ const CurrentLangLink = ({ lang, intl }) =>
       href: '',
       title: intl.formatMessage({ id: 'fo.current-lang-link-title' }),
     },
-    h(T, { id: `common.lang-selector-label.${lang}` }),
+    h(
+      Html,
+      { whitelist: 'all', noP: true, component: 'span' },
+      intl.formatMessage({ id: `common.lang-selector-label-html.${lang}` }),
+    ),
   )
 
 const DisabledLangLink = ({ lang, intl }) =>
@@ -46,5 +55,9 @@ const DisabledLangLink = ({ lang, intl }) =>
       href: '',
       title: intl.formatMessage({ id: `common.none-lang-link-title.${lang}` }),
     },
-    h(T, { id: `common.lang-selector-label.${lang}` }),
+    h(
+      Html,
+      { whitelist: 'all', noP: true, component: 'span' },
+      intl.formatMessage({ id: `common.lang-selector-label-html.${lang}` }),
+    ),
   )

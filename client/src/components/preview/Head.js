@@ -14,7 +14,7 @@ const renderSocialMetas = (
     description && { property: 'og:description', content: description },
     image && { property: 'og:image', content: image },
     url && { property: 'og:url', content: url },
-    image && { property: 'twitter:card', content: image },
+    { property: 'twitter:card', content: 'summary_large_image' },
   ]
     // Remove empty props
     .filter(p => !!p)

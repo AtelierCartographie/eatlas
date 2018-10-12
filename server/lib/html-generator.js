@@ -22,7 +22,7 @@ const {
   populateImageStats,
   populateImageRelatedResources,
   getAllUrls,
-  getOtherLangUrl,
+  getUrl,
 } = require('./generator-utils')
 const { LOCALES, getMetaList } = require('../../client/src/universal-utils')
 
@@ -78,11 +78,29 @@ const LOCALE_FROM_LANG = {
   en: 'en-GB',
 }
 
-const wrap = (element, lang, otherUrl) => {
+const render = async (
+  Component,
+  props,
+  { resource, topic, page, preview, lang },
+) => {
   const locale = LOCALE_FROM_LANG[lang] || lang
+
   // Build "urls" object for translated versions of the page
+  // Will be injected into "intl" object as it's for internationalization purpose
   const otherLang = lang === 'fr' ? 'en' : 'fr'
+  const otherUrl = await getUrl({
+    page,
+    resource,
+    topic,
+    topics: props.topics,
+    preview,
+    lang: otherLang,
+  })
   const urls = { [otherLang]: otherUrl }
+
+  // Build common options
+  props.options = buildOptions({ preview, lang })
+
   const wrapped = h(
     IntlProvider,
     {
@@ -185,8 +203,9 @@ exports.generateArticleHTML = async (
 
   populatePageUrl(null, props.topics, { preview, lang })(article)
 
-  return wrap(
-    React.createElement(ArticlePage, {
+  return render(
+    ArticlePage,
+    {
       ...props,
       article,
       definitions: populatePageUrl('definition', props.topics, {
@@ -196,10 +215,8 @@ exports.generateArticleHTML = async (
       resources: populatePageUrl(null, props.topics, { preview, lang })(
         resources,
       ),
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({ resource: article, topics: props.topics, preview }),
+    },
+    { resource: article, preview, lang },
   )
 }
 
@@ -220,8 +237,9 @@ exports.generateFocusHTML = async (
 
   populatePageUrl(null, props.topics, { preview, lang })(focus)
 
-  return wrap(
-    React.createElement(FocusPage, {
+  return render(
+    FocusPage,
+    {
       ...props,
       focus,
       definitions: populatePageUrl('definition', props.topics, {
@@ -231,10 +249,8 @@ exports.generateFocusHTML = async (
       resources: populatePageUrl(null, props.topics, { preview, lang })(
         resources,
       ),
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({ resource: focus, topics: props.topics, preview }),
+    },
+    { resource: focus, preview, lang },
   )
 }
 
@@ -261,16 +277,15 @@ exports.generateTopicHTML = async (
 
   populatePageUrl('topic', null, { preview, lang })(topic)
 
-  return wrap(
-    React.createElement(TopicPage, {
+  return render(
+    TopicPage,
+    {
       ...props,
       topic,
       articles: props.articles,
       resources,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({ topic, topics: props.topics, preview, lang }),
+    },
+    { topic, preview, lang },
   )
 }
 
@@ -297,14 +312,13 @@ exports.generateResourceHTML = async (
 
   populatePageUrl(null, props.topics, { preview, lang })(resource)
 
-  return wrap(
-    React.createElement(ResourcePage, {
+  return render(
+    ResourcePage,
+    {
       ...props,
       resource,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({ resource, topics: props.topics, preview }),
+    },
+    { resource, preview, lang },
   )
 }
 
@@ -313,21 +327,17 @@ exports.generateLexiconHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
+
   // TODO use LEXICON_ID constant (requires 'constants.js' being universal)
   const lexicon = await getResource(`LEXIC-${lang.toUpperCase()}`)
-  return wrap(
-    React.createElement(LexiconPage, {
+
+  return render(
+    LexiconPage,
+    {
       ...props,
       definitions: lexicon ? lexicon.definitions : { definitions: [] },
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'definition',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
+    },
+    { page: 'definition', preview, lang },
   )
 }
 
@@ -336,19 +346,7 @@ exports.generateHomeHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
-  return wrap(
-    React.createElement(HomePage, {
-      ...props,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'index',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
-  )
+  return render(HomePage, props, { page: 'index', preview, lang })
 }
 
 exports.generateSearchHTML = async (
@@ -375,8 +373,9 @@ exports.generateSearchHTML = async (
     .sort(
       (kw1, kw2) => keywordsWithOccurrences[kw2] - keywordsWithOccurrences[kw1],
     )
-  return wrap(
-    React.createElement(SearchPage, {
+  return render(
+    SearchPage,
+    {
       ...props,
       types: {
         article: 'doc.type-plural.article',
@@ -390,15 +389,8 @@ exports.generateSearchHTML = async (
       },
       keywords: sortedKeywords,
       locales: LOCALES,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'search',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
+    },
+    { page: 'search', preview, lang },
   )
 }
 
@@ -407,19 +399,7 @@ exports.generateAboutHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
-  return wrap(
-    React.createElement(AboutPage, {
-      ...props,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'about',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
-  )
+  return render(AboutPage, props, { page: 'about', preview, lang })
 }
 
 exports.generateLegalsHTML = async (
@@ -427,19 +407,7 @@ exports.generateLegalsHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
-  return wrap(
-    React.createElement(LegalsPage, {
-      ...props,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'legals',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
-  )
+  return render(LegalsPage, props, { page: 'legals', preview, lang })
 }
 
 exports.generateSitemapHTML = async (
@@ -448,19 +416,13 @@ exports.generateSitemapHTML = async (
 ) => {
   props = await menuProps(props, { preview, lang })
   const urls = await getAllUrls({ preview, apiUrl, publicUrl })
-  return wrap(
-    React.createElement(SitemapPage, {
+  return render(
+    SitemapPage,
+    {
       urls,
       ...props,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'sitemap',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
+    },
+    { page: 'sitemap', preview, lang },
   )
 }
 
@@ -469,17 +431,5 @@ exports.generate404HTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
-  return wrap(
-    React.createElement(NotFoundPage, {
-      ...props,
-      options: buildOptions({ preview, lang }),
-    }),
-    lang,
-    await getOtherLangUrl({
-      page: 'notFound',
-      topics: props.topics,
-      preview,
-      lang,
-    }),
-  )
+  return render(NotFoundPage, props, { page: 'notFound', preview, lang })
 }

@@ -12,7 +12,10 @@ const renderSocialMetas = (
   preview,
 ) =>
   [
-    title && { property: 'og:title', content: title || defaultTitle },
+    (title || defaultTitle) && {
+      property: 'og:title',
+      content: title || defaultTitle,
+    },
     description && { property: 'og:description', content: description },
     image && { property: 'og:image', content: image },
     url && { property: 'og:url', content: url },

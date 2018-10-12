@@ -21,7 +21,12 @@ const getSmallestImageUrl = (resource, preview) => {
 const getResourceSocialMetaImage = (resource, resources, preview) => {
   switch (resource.type) {
     case 'focus':
-      return getResourceSocialMetaImage(resource.relatedArticle)
+      if (!resource.relatedArticle) return ''
+      return getResourceSocialMetaImage(
+        resource.relatedArticle,
+        resources,
+        preview,
+      )
     case 'article':
       return getSmallestImageUrl(
         resources.find(r => r.id === resource.imageHeader),

@@ -29,6 +29,7 @@ const { stripTags } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const Summaries = require('./Summaries')
+const { LangLink } = require('./LangSelector')
 
 // subcomponents
 
@@ -195,15 +196,24 @@ const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
   ])
 })
 
-const ArticleBreadcrumb = ({ article, topics, options }) => {
+const ArticleBreadcrumb = ({ article, topics, options, intl }) => {
   const topic = topics.find(x => x.id === article.topic)
+  const otherLang = intl.lang === 'fr' ? 'en' : 'fr'
+  const otherUrl = intl.urls[otherLang]
   return h('section.ArticleBreadcrumb', [
     h('.container', [
       h(
-        'a',
+        'a.TopicLink',
         { href: getTopicPageUrl(topic, options) },
         topic ? `${topic.id}. ${topic.name}` : article.topic,
       ),
+      otherUrl &&
+        h(LangLink, {
+          intl,
+          lang: otherLang,
+          url: otherUrl,
+          label: `common.article-version-lang.${otherLang}`,
+        }),
     ]),
   ])
 }
@@ -436,6 +446,7 @@ const ArticlePage = injectIntl((
         resources,
         lexiconId,
         options,
+        intl,
       }),
       h(ArticlePrevNext, { prevNext, options }),
     ]),

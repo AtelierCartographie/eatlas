@@ -26,5 +26,9 @@
   "switch-to-lang": {
     "fr": "Consulter la version française de cette page",
     "en": "View English version of this page"
+  },
+  "article-version-lang": {
+    "fr": "version française",
+    "en": "english version"
   }
 }

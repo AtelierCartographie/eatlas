@@ -12,27 +12,22 @@ const renderSocialMetas = (
   preview,
 ) =>
   [
-    title && {
-      property: 'og:title',
-      content: stripTags(title || defaultTitle).trim(),
-    },
-    description && {
-      property: 'og:description',
-      content: stripTags(description).trim(),
-    },
+    title && { property: 'og:title', content: title || defaultTitle },
+    description && { property: 'og:description', content: description },
     image && { property: 'og:image', content: image },
     url && { property: 'og:url', content: url },
     { property: 'twitter:card', content: 'summary_large_image' },
   ]
     // Remove empty props
     .filter(p => !!p)
-    // Translate i18n keys
-    .map(
-      p =>
-        typeof p.content === 'object'
-          ? { ...p, content: intl.formatMessage(p.content) }
-          : p,
-    )
+    // Convert content (i18n, trim, stripTags…)
+    .map(p => {
+      if (typeof p.content === 'object') {
+        p.content = intl.formatMessage(p.content)
+      }
+      p.content = stripTags(String(p.content)).trim()
+      return p
+    })
     // Absolutize URLs
     .map(p => {
       if (

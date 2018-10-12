@@ -1,6 +1,7 @@
 // @flow
 const h = require('react-hyperscript')
 const { CDN, prefixUrl } = require('./layout')
+const { stripTags } = require('../../universal-utils')
 const googleAnalyticsScript = require('./google-analytics-script')
 const { injectIntl } = require('react-intl')
 
@@ -11,8 +12,14 @@ const renderSocialMetas = (
   preview,
 ) =>
   [
-    title && { property: 'og:title', content: title || defaultTitle },
-    description && { property: 'og:description', content: description },
+    title && {
+      property: 'og:title',
+      content: stripTags(title || defaultTitle).trim(),
+    },
+    description && {
+      property: 'og:description',
+      content: stripTags(description).trim(),
+    },
     image && { property: 'og:image', content: image },
     url && { property: 'og:url', content: url },
     { property: 'twitter:card', content: 'summary_large_image' },

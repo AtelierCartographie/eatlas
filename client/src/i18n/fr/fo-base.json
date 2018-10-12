@@ -64,6 +64,7 @@
     "about": "/assets/img/page-image/about.png",
     "legals": "/assets/img/page-image/legals.png",
     "sitemap": "/assets/img/page-image/sitemap.png",
-    "notFound": "/assets/img/page-image/notFound.png"
+    "notFound": "/assets/img/page-image/notFound.png",
+    "topic": "/assets/img/page-image/topic.png"
   }
 }

@@ -45,5 +45,15 @@
     "video": "video",
     "topic": "topic"
   },
-  "current-lang-link-title": "Current page is already in English"
+  "current-lang-link-title": "Current page is already in English",
+  "page-description": {
+    "index": "Global space: the Atlas ‑ Home page",
+    "definition": "Global space: the Atlas ‑ All definitions",
+    "search":
+      "Global space: the Atlas ‑ Search for articles, focus, pictures, videos, sounds, maps et graphics",
+    "about": "Global space: the Atlas ‑ About the project and the teams",
+    "legals": "Global space: the Atlas ‑ Legal notice",
+    "sitemap": "Global space: the Atlas ‑ All pages of the website",
+    "notFound": "Global space: the Atlas ‑ Page not found"
+  }
 }

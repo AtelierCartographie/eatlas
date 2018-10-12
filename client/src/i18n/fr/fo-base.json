@@ -46,5 +46,15 @@
     "video": "vidéo",
     "topic": "rubrique"
   },
-  "current-lang-link-title": "La page courante est déjà en français"
+  "current-lang-link-title": "La page courante est déjà en français",
+  "page-description": {
+    "index": "Espace mondial : l’Atlas ‑ Page d’accueil",
+    "definition": "Espace mondial : l’Atlas ‑ Toutes les définitions",
+    "search":
+      "Espace mondial : l’Atlas ‑ Recherche d’articles, focus, photos, vidéos, sons, cartes et graphiques",
+    "about": "Espace mondial : l’Atlas ‑ À propos du projet et des équipes",
+    "legals": "Espace mondial : l’Atlas ‑ Mentions légales",
+    "sitemap": "Espace mondial : l’Atlas ‑ Toutes les pages du site",
+    "notFound": "Espace mondial : l’Atlas ‑ Page non trouvée"
+  }
 }

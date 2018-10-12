@@ -5,6 +5,7 @@ const googleAnalyticsScript = require('./google-analytics-script')
 const { injectIntl } = require('react-intl')
 
 const renderSocialMetas = (
+  intl,
   defaultTitle,
   { title = '', description = '', url = '', image = '' } = {},
 ) =>
@@ -15,7 +16,16 @@ const renderSocialMetas = (
     url && { property: 'og:url', content: url },
     image && { property: 'twitter:card', content: image },
   ]
+    // Remove empty props
     .filter(p => !!p)
+    // Translate i18n keys
+    .map(
+      p =>
+        typeof p.content === 'object'
+          ? { ...p, content: intl.formatMessage(p.content) }
+          : p,
+    )
+    // Render elements
     .map(p => h('meta', p))
 
 module.exports = injectIntl((
@@ -40,7 +50,7 @@ module.exports = injectIntl((
       href: prefixUrl('/assets/img/favicon.ico'),
       type: 'image/x-icon',
     }),
-    ...renderSocialMetas(title, options.socialMetas),
+    ...renderSocialMetas(intl, title, options.socialMetas),
     h('link', {
       rel: 'stylesheet',
       href: prefixUrl('/assets/css/bootstrap.min.css', options.preview),

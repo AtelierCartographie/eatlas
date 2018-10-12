@@ -145,7 +145,7 @@ const buildTopicSocialMetas = (topic, lang) => ({
   image: '', // TODO
 })
 const buildPageSocialMetas = (page, lang) => ({
-  description: '', // TODO
+  description: { id: `fo.page-description.${page}` },
   image: '', // TODO
 })
 const buildSocialMetas = async ({

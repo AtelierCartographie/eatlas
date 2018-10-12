@@ -8,6 +8,7 @@ const renderSocialMetas = (
   intl,
   defaultTitle,
   { title = '', description = '', url = '', image = '' } = {},
+  preview,
 ) =>
   [
     title && { property: 'og:title', content: title || defaultTitle },
@@ -25,6 +26,16 @@ const renderSocialMetas = (
           ? { ...p, content: intl.formatMessage(p.content) }
           : p,
     )
+    // Absolutize URLs
+    .map(p => {
+      if (
+        (p.property === 'og:url' || p.property === 'og:image') &&
+        !p.content.match(/:\/\//)
+      ) {
+        p.content = prefixUrl(p.content, preview)
+      }
+      return p
+    })
     // Render elements
     .map(p => h('meta', p))
 
@@ -50,7 +61,7 @@ module.exports = injectIntl((
       href: prefixUrl('/assets/img/favicon.ico'),
       type: 'image/x-icon',
     }),
-    ...renderSocialMetas(intl, title, options.socialMetas),
+    ...renderSocialMetas(intl, title, options.socialMetas, options.preview),
     h('link', {
       rel: 'stylesheet',
       href: prefixUrl('/assets/css/bootstrap.min.css', options.preview),

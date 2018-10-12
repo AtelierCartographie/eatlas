@@ -56,5 +56,14 @@
     "legals": "Espace mondial : l’Atlas ‑ Mentions légales",
     "sitemap": "Espace mondial : l’Atlas ‑ Toutes les pages du site",
     "notFound": "Espace mondial : l’Atlas ‑ Page non trouvée"
+  },
+  "page-image": {
+    "index": "/assets/img/page-image/index.png",
+    "definition": "/assets/img/page-image/definition.png",
+    "search": "/assets/img/page-image/search.png",
+    "about": "/assets/img/page-image/about.png",
+    "legals": "/assets/img/page-image/legals.png",
+    "sitemap": "/assets/img/page-image/sitemap.png",
+    "notFound": "/assets/img/page-image/notFound.png"
   }
 }

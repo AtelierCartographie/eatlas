@@ -55,5 +55,14 @@
     "legals": "Global space: the Atlas ‑ Legal notice",
     "sitemap": "Global space: the Atlas ‑ All pages of the website",
     "notFound": "Global space: the Atlas ‑ Page not found"
+  },
+  "page-image": {
+    "index": "/assets/img/page-image/index.png",
+    "definition": "/assets/img/page-image/definition.png",
+    "search": "/assets/img/page-image/search.png",
+    "about": "/assets/img/page-image/about.png",
+    "legals": "/assets/img/page-image/legals.png",
+    "sitemap": "/assets/img/page-image/sitemap.png",
+    "notFound": "/assets/img/page-image/notFound.png"
   }
 }

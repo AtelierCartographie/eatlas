@@ -15,6 +15,7 @@ const {
   getMediaPreviewUrl,
   getResourcePagePreviewUrl,
   LOCALES,
+  topicName,
 } = require('../../client/src/universal-utils')
 const { pathToUrl, pagePath, resourceMediaPath } = require('./resource-path')
 const {
@@ -353,7 +354,7 @@ exports.getAllUrls = async options => {
         info: `fo.type-label.${r.type}`,
       },
     ])
-    addPage(topic.name, 'topic', {
+    addPage(topicName(topic, options.lang), 'topic', {
       resource: topic,
       children,
       info: 'fo.type-label.topic',

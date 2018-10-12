@@ -19,7 +19,7 @@ const {
   prefixUrl,
   articleHeaderImageUrl,
 } = require('./layout')
-const { stripTags } = require('../../universal-utils')
+const { stripTags, topicName } = require('../../universal-utils')
 
 const TopicVideo = ({ title, url }) => {
   if (!url) return null
@@ -155,7 +155,7 @@ const TopicPage = injectIntl((
 } */,
 ) => {
   const lang = intl.lang
-  const title = lang === 'fr' ? topic.name : topic[`name_${lang}`]
+  const title = topicName(topic, lang)
   return h('html', { lang }, [
     h(Head, { title, options }),
     h(Body, { altTitle: `${topic.id}. ${title}`, topics, options }, [

@@ -8,7 +8,7 @@ const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 
 const { CDN, prefixUrl } = require('./layout')
-const { LOCALES } = require('../../universal-utils')
+const { LOCALES, topicName } = require('../../universal-utils')
 const Head = require('./Head')
 const Body = require('./Body')
 const Html = require('./Html')
@@ -205,7 +205,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
               key: 'input',
               value: topic.id,
             }),
-            topic.name,
+            topicName(topic, intl.lang),
           ]),
         ]),
       ),

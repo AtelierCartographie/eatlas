@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
-import { slugify, stripTags } from '../universal-utils'
+import { slugify, stripTags, topicName } from '../universal-utils'
 
 import './ResourceForm.css'
 
@@ -607,9 +607,9 @@ class ResourceForm extends Component<Props, State> {
             ? [{ label: '', value: null }]
             : []
           ).concat(
-            this.props.topics.list.map(({ name, id }) => ({
-              label: `${id} - ${name}`,
-              value: id,
+            this.props.topics.list.map(topic => ({
+              label: `${topic.id} - ${topicName(topic, this.props.locale)}`,
+              value: topic.id,
             })),
           ),
         }),

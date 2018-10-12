@@ -13,6 +13,8 @@ import { getTopic, saveTopic } from './../actions'
 import IconButton from './IconButton'
 import Spinner from './Spinner'
 import Editor from './WysiwygEditor'
+import { topicName } from '../universal-utils'
+import { LOCALES } from '../constants'
 
 import type { ContextRouter } from 'react-router'
 
@@ -21,6 +23,7 @@ type Props = {
   saving: boolean,
   topic: Topic,
   topicId: string, // From router
+  lang: Locale,
   // actions
   getTopic: typeof getTopic,
   saveTopic: typeof saveTopic,
@@ -120,7 +123,10 @@ class TopicForm extends Component<Props, State> {
 
     return (
       <div className="TopicForm">
-        <h1 className="title">Topic {topic ? topic.name : ''}</h1>
+        <h1 className="title">
+          <T id="bo.resource-topic" />{' '}
+          {topic ? topicName(topic, this.props.locale) : ''}
+        </h1>
         {saving && <Spinner />}
         {loading || !topic ? (
           <Spinner />
@@ -147,39 +153,23 @@ class TopicForm extends Component<Props, State> {
               </div>
             </div>
 
-            <div className="field">
-              <label className="label">
-                <T id="bo.name" values={{ lang: 'fr' }} />
-              </label>
-              <div className="control">
-                <input
-                  className="input"
-                  name="name"
-                  type="text"
-                  placeholder="name"
-                  value={topic.name}
-                  onChange={this.handleChange}
-                  required
-                />
+            {LOCALES.map(lang => (
+              <div key={lang} className="field">
+                <label className="label">
+                  <T id="bo.name" values={{ lang }} />
+                </label>
+                <div className="control">
+                  <input
+                    className="input"
+                    name={lang === 'fr' ? 'name' : `name_${lang}`}
+                    type="text"
+                    value={topicName(topic, lang)}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
               </div>
-            </div>
-
-            <div className="field">
-              <label className="label">
-                <T id="bo.name" values={{ lang: 'en' }} />
-              </label>
-              <div className="control">
-                <input
-                  className="input"
-                  name="name_en"
-                  type="text"
-                  placeholder="name_en"
-                  value={topic.name_en}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-            </div>
+            ))}
 
             {topicId != null && (
               <div className="field">
@@ -235,7 +225,7 @@ class TopicForm extends Component<Props, State> {
 
 export default withRouter(
   connect(
-    ({ topics }: AppState, { match, history }: ContextRouter) => {
+    ({ topics, locale }: AppState, { match, history }: ContextRouter) => {
       const { id } = match.params
       const redirect = history.push.bind(history)
       return {
@@ -244,6 +234,7 @@ export default withRouter(
         topic: topics.list.find(t => t.id === id) || null,
         topicId: id === 'new' ? null : id,
         redirect,
+        locale,
       }
     },
     { getTopic, saveTopic },

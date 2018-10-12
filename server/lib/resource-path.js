@@ -2,7 +2,7 @@
 
 const path = require('path')
 const getConf = require('./dynamic-config-variable')
-const { slugify } = require('../../client/src/universal-utils')
+const { slugify, topicName } = require('../../client/src/universal-utils')
 const debug = require('debug')('eatlas:path')
 const { accessSync } = require('fs')
 const getTypeLabel = require('./i18n-type-labels')
@@ -15,7 +15,7 @@ const getTopicSlug = (resource, topics, lang = 'fr') => {
   const topic = resource.topic
     ? topics.find(({ id }) => String(id) === String(resource.topic))
     : resource
-  const name = lang === 'fr' ? topic.name : topic[`name_${lang}`]
+  const name = topicName(topic, lang)
   if (!topic || !name) {
     debug({ resource, topics })
     throw new Error('Topic not found')

@@ -428,7 +428,7 @@ exports.generateSitemapHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
-  const urls = await getAllUrls({ preview, apiUrl, publicUrl })
+  const urls = await getAllUrls({ preview, apiUrl, publicUrl, lang })
   return render(
     SitemapPage,
     {

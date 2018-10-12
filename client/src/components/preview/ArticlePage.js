@@ -25,7 +25,7 @@ const {
   articleHeaderImageUrl,
   prefixUrl,
 } = require('./layout')
-const { stripTags } = require('../../universal-utils')
+const { stripTags, topicName } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const Summaries = require('./Summaries')
@@ -205,7 +205,7 @@ const ArticleBreadcrumb = ({ article, topics, options, intl }) => {
       h(
         'a.TopicLink',
         { href: getTopicPageUrl(topic, options) },
-        topic ? `${topic.id}. ${topic.name}` : article.topic,
+        topic ? `${topic.id}. ${topicName(topic, intl.lang)}` : article.topic,
       ),
       otherUrl &&
         h(LangLink, {

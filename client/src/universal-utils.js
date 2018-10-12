@@ -154,3 +154,6 @@ exports.getResourcePagePreviewUrl = (
   resource /*: Resource */,
   apiUrl /*: ?string */ = process.env.REACT_APP_API_SERVER,
 ) => `${apiUrl || ''}/preview/resources/${resource.id}`
+
+exports.topicName = (topic, lang) =>
+  lang === 'fr' ? topic.name : topic[`name_${lang}`]

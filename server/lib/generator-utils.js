@@ -175,7 +175,7 @@ const getImageStats = async (resource, found, { preview = false } = {}) => {
   }
 }
 
-const smallestImageKey = images => {
+const smallestImageKey = (exports.smallestImageKey = images => {
   if (images) {
     for (let size of ['small', 'medium', 'large']) {
       if (images[size]) {
@@ -188,15 +188,7 @@ const smallestImageKey = images => {
     }
   }
   return null
-}
-
-exports.smallestImage = images => {
-  const found = smallestImageKey(images)
-  if (!found) {
-    return null
-  }
-  return images[found.size][found.density]
-}
+})
 
 const getThumbnailUrl = (resources, { preview }) => resource => {
   if (!resource) {

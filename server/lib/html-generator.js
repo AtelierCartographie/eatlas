@@ -24,8 +24,8 @@ const {
   getAllUrls,
   getUrl,
 } = require('./generator-utils')
+const buildSocialMetas = require('./social-metas')
 const { LOCALES, getMetaList } = require('../../client/src/universal-utils')
-const { getImageUrl } = require('../../client/src/components/preview/layout')
 
 // Inject client-side env variables before requiring components, we don't "require" from there
 const config = require('config')
@@ -82,7 +82,7 @@ const LOCALE_FROM_LANG = {
 const render = async (
   Component,
   props,
-  { resource, topic, page, preview, lang, params },
+  { resource, topic, page, preview, lang },
 ) => {
   const locale = LOCALE_FROM_LANG[lang] || lang
 
@@ -109,7 +109,7 @@ const render = async (
     topics: props.topics,
     preview,
     lang,
-    params,
+    props,
   })
 
   const wrapped = h(
@@ -133,52 +133,6 @@ const render = async (
 
   return `<!DOCTYPE html>${html}`
 }
-
-const buildResourceSocialMetas = (resource, lang) => ({
-  description:
-    resource[`description_${lang}`] ||
-    resource[`description_${lang === 'fr' ? 'en' : 'fr'}`],
-  image: '', // TODO
-})
-const buildTopicSocialMetas = (
-  topic,
-  lang,
-  { params: { resources }, preview },
-) => {
-  const resource = resources.find(
-    r => r.id === topic.resourceId && (r.status === 'published' || preview),
-  )
-  const image = (resource &&
-    resource.type === 'image' &&
-    getImageUrl(resource, 'large', '1x', { preview })) || {
-    id: 'fo.page-image.topic',
-  }
-  const description =
-    topic[`description_${lang}`] ||
-    topic[`description_${lang === 'fr' ? 'en' : 'fr'}`]
-  return { description, image }
-}
-const buildPageSocialMetas = page => ({
-  description: { id: `fo.page-description.${page}` },
-  image: { id: `fo.page-image.${page}` },
-})
-const buildSocialMetas = async ({
-  resource,
-  page,
-  topic,
-  lang,
-  topics,
-  preview,
-  params,
-}) =>
-  Object.assign(
-    resource
-      ? buildResourceSocialMetas(resource, lang, { params, preview })
-      : topic
-        ? buildTopicSocialMetas(topic, lang, { params, preview })
-        : buildPageSocialMetas(page, lang, { params, preview }),
-    { url: await getUrl({ page, resource, topic, topics, preview, lang }) },
-  )
 
 const buildOptions = opts => ({
   analytics: config.analytics,
@@ -344,7 +298,7 @@ exports.generateTopicHTML = async (
       articles: props.articles,
       resources,
     },
-    { topic, preview, lang, params: { resources } },
+    { topic, preview, lang },
   )
 }
 

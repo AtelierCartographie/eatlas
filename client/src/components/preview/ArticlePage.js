@@ -357,7 +357,7 @@ const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
           }),
           h('div', [
             h('.ArticlePrevNextTopicInline', prev.topicName),
-            h('.ArticlePrevNextTitleInline', prev.title),
+            h('.ArticlePrevNextTitleInline', stripTags(prev.title)),
           ]),
         ]),
       ]),
@@ -366,7 +366,7 @@ const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
         h('a.ArticleNextInline', { href: getResourcePageUrl(next, options) }, [
           h('div', [
             h('.ArticlePrevNextTopicInline', next.topicName),
-            h('.ArticlePrevNextTitleInline', next.title),
+            h('.ArticlePrevNextTitleInline', stripTags(next.title)),
           ]),
           h('img', {
             alt: '',

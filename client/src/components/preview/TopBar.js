@@ -5,7 +5,6 @@ const { injectIntl } = require('react-intl')
 const { prefixUrl } = require('./layout')
 const SearchToggle = require('./SearchBar')
 const { SideMenuToggle } = require('./SideMenu')
-const LangSelector = require('./LangSelector')
 
 module.exports = injectIntl((
   {
@@ -58,7 +57,6 @@ module.exports = injectIntl((
           ),
     ]),
     h(SideMenuToggle, { logoColor, options }),
-    options.hideLangSelector ? null : h(LangSelector, { options }),
     h(SearchToggle, { logoColor, options }),
   ]),
 )

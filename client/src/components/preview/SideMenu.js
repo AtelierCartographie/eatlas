@@ -8,6 +8,7 @@ const {
   getTopicPageUrl,
   prefixUrl,
 } = require('./layout')
+const LangSelector = require('./LangSelector')
 
 const Topics = ({ topics, options }) =>
   h(
@@ -66,6 +67,7 @@ exports.SideMenu = (
           h(T, { id: 'fo.title' }),
         ),
       ]),
+      options.hideLangSelector ? null : h(LangSelector, { options }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
       h(Topics, { topics, options }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),

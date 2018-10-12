@@ -36,5 +36,9 @@
 	"publishFileCommand": "PUBLISH_FILE_COMMAND",
 	"clientPath": "CLIENT_PATH",
 	"uploadPath": "UPLOAD_PATH",
-	"mediaSubPath": "REACT_APP_MEDIA_SUBPATH"
+	"mediaSubPath": "REACT_APP_MEDIA_SUBPATH",
+    "hideLangSelector": {
+        "__name": "HIDE_LANG_SELECTOR",
+        "__format": "json"
+    }
 }

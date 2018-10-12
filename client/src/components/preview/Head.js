@@ -4,6 +4,20 @@ const { CDN, prefixUrl } = require('./layout')
 const googleAnalyticsScript = require('./google-analytics-script')
 const { injectIntl } = require('react-intl')
 
+const renderSocialMetas = (
+  defaultTitle,
+  { title = '', description = '', url = '', image = '' } = {},
+) =>
+  [
+    title && { property: 'og:title', content: title || defaultTitle },
+    description && { property: 'og:description', content: description },
+    image && { property: 'og:image', content: image },
+    url && { property: 'og:url', content: url },
+    image && { property: 'twitter:card', content: image },
+  ]
+    .filter(p => !!p)
+    .map(p => h('meta', p))
+
 module.exports = injectIntl((
   {
     title,
@@ -11,7 +25,7 @@ module.exports = injectIntl((
     links = [],
     styles = [],
     intl,
-  } /*: { title: string, options: Object } */,
+  } /*: { title: string, options: Object, socialMetas?: SocialMetas } */,
 ) =>
   h('head', [
     h('meta', { charSet: 'utf-8' }),
@@ -26,6 +40,7 @@ module.exports = injectIntl((
       href: prefixUrl('/assets/img/favicon.ico'),
       type: 'image/x-icon',
     }),
+    ...renderSocialMetas(title, options.socialMetas),
     h('link', {
       rel: 'stylesheet',
       href: prefixUrl('/assets/css/bootstrap.min.css', options.preview),

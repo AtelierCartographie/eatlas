@@ -163,10 +163,18 @@ declare type GoogleApi = {
   },
 }
 
+declare type SocialMetas = {
+  title?: string,
+  description?: string,
+  image?: string,
+  url?: string,
+}
+
 declare type FrontOptions = {
   preview: boolean,
   analytics: string,
   apiUrl: string,
   publicUrl: string,
   hideLangSelector?: boolean,
+  socialMetas?: SocialMetas,
 }

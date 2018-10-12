@@ -98,8 +98,17 @@ const render = async (
   })
   const urls = { [otherLang]: otherUrl }
 
-  // Build common options
+  // Build common options and social networks metas
+  // All injected as "option" prop for easy access (see type FrontOptions)
   props.options = buildOptions({ preview, lang })
+  props.options.socialMetas = await buildSocialMetas({
+    resource,
+    topic,
+    page,
+    topics: props.topics,
+    preview,
+    lang,
+  })
 
   const wrapped = h(
     IntlProvider,
@@ -113,13 +122,48 @@ const render = async (
       injectIntl(({ intl }) => {
         intl.lang = lang
         intl.urls = urls
-        return element
+        return React.createElement(Component, props)
       }),
     ),
   )
+
   const html = renderToStaticMarkup(wrapped)
+
   return `<!DOCTYPE html>${html}`
 }
+
+const buildResourceSocialMetas = (resource, lang) => ({
+  description:
+    resource[`description_${lang}`] ||
+    resource[`description_${lang === 'fr' ? 'en' : 'fr'}`],
+  image: '', // TODO
+})
+const buildTopicSocialMetas = (topic, lang) => ({
+  description:
+    topic[`description_${lang}`] ||
+    topic[`description_${lang === 'fr' ? 'en' : 'fr'}`],
+  image: '', // TODO
+})
+const buildPageSocialMetas = (page, lang) => ({
+  description: '', // TODO
+  image: '', // TODO
+})
+const buildSocialMetas = async ({
+  resource,
+  page,
+  topic,
+  lang,
+  topics,
+  preview,
+}) =>
+  Object.assign(
+    resource
+      ? buildResourceSocialMetas(resource, lang)
+      : topic
+        ? buildTopicSocialMetas(topic, lang)
+        : buildPageSocialMetas(page, lang),
+    { url: await getUrl({ page, resource, topic, topics, preview, lang }) },
+  )
 
 const buildOptions = opts => ({
   analytics: config.analytics,

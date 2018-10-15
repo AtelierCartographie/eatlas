@@ -37,6 +37,8 @@
   "download": "Téléchargement",
   "download-warning":
     "Pour toute utilisation, merci de consulter les <a href=\"{href}\">mentions légales</a>.",
+  "download-warning-map":
+    "Vous êtes libre de partager l’oeuvre par tous moyens et sous tous formats à condition de créditer l’oeuvre, de ne pas la modifier et de ne pas la commercialiser. Pour tout autre usage, merci de <a href=\"{href}\" target=\"_blank\">nous contacter</a>.",
   "download-size": {
     "large": "version détaillée",
     "medium": "version simplifiée",

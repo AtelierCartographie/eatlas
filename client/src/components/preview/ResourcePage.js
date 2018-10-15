@@ -90,14 +90,23 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
     resource.imageStats['small-1x']
   return h('.container.ResourceDownload', [
     h('h2', {}, h(T, { id: 'doc.download' })),
-    h(
-      Html,
-      { whitelist: 'all', noP: true, component: '.warning' },
-      intl.formatHTMLMessage(
-        { id: 'doc.download-warning' },
-        { href: globalPageUrl('legals')(options) },
+    resource.type == 'map'
+      ? h(
+        Html,
+        { whitelist: 'all', noP: true, component: '.warning' },
+        intl.formatHTMLMessage(
+          { id: 'doc.download-warning-map' },
+          { href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2' },
+        ),
+      )
+      : h(
+        Html,
+        { whitelist: 'all', noP: true, component: '.warning' },
+        intl.formatHTMLMessage(
+          { id: 'doc.download-warning' },
+          { href: globalPageUrl('legals')(options) },
+        ),
       ),
-    ),
     h('.download-blocks', [
       large
         ? ResourceImageDownloadBlock({

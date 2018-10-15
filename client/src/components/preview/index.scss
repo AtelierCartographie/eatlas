@@ -86,7 +86,7 @@ ul.navmenu-nav a {
 #topbar {
   height: 48px;
   margin-top: -2px;
-  z-index: 2000;
+  z-index: 10;
 
   .if-not-scrolled {
     display: block;
@@ -195,6 +195,7 @@ ul.navmenu-nav a {
 .navmenu {
   padding: 0 0 40px 12px;
   font-size: 1.58rem;
+  z-index: 20;
 
   .close-button {
     color: #000;

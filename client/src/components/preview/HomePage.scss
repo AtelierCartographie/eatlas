@@ -3,6 +3,10 @@
 .HomePage {
   overflow: hidden;
 
+  .text-right{
+    text-align: right;
+  }
+
   .HomeVideo {
     position: absolute;
     z-index: -1;

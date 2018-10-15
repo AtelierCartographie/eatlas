@@ -37,6 +37,7 @@ h3,
 h4,
 h5 {
   font-weight: 700;
+  margin-bottom: 10px;
 }
 
 /* video */
@@ -49,6 +50,10 @@ h3 {
   line-height: inherit;
   margin-top: inherit;
   margin-bottom: 0.417em;
+}
+
+p {
+  margin: 0 0 10px;
 }
 
 .container {
@@ -167,11 +172,11 @@ ul.navmenu-nav a {
 
 .navbar-brand {
   position: absolute;
-  padding-top: 7px;
+  padding-top: 9px;
   left: 50%;
   display: block;
   text-align: center;
-  width: 280px;
+  width: 220px;
   font-family: Fira sans, sans-serif;
   font-size: 1.8rem;
   color: #000;
@@ -185,7 +190,7 @@ ul.navmenu-nav a {
 }
 
 .navbar > .container .navbar-brand {
-  margin-left: -140px;
+  margin-left: -110px;
 }
 
 .offcanvas.in {
@@ -250,12 +255,13 @@ ul.navmenu-nav a {
 
 button,
 .button {
+  display: inline-block;
   background-color: $color-breadcrumb;
   border: 0;
   border-radius: $gap;
   color: $color-white;
   font-size: 1.8rem;
-  margin: $gap $gap 0 0;
+  margin: $gap 0 0 0;
   padding: $gap;
   transition: color 0.1s ease-in, background 0.1s ease-in;
 
@@ -263,6 +269,7 @@ button,
   &:hover {
     background-color: $color-yellow;
     color: $color-breadcrumb;
+    text-decoration: none;
   }
 
   &.tour {

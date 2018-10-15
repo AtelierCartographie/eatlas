@@ -24,14 +24,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/byteclubfr/eatlas.git"
+    "url": "git+https://github.com/AtelierCartographie/eatlas"
   },
   "author": "Nicolas Chambrier <naholyr@gmail.com> (http://naholyr.fr/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/byteclubfr/eatlas/issues"
+    "url": "https://github.com/AtelierCartographie/eatlas/issues"
   },
-  "homepage": "https://github.com/byteclubfr/eatlas#readme",
+  "homepage": "https://github.com/AtelierCartographie/eatlas#readme",
   "dependencies": {
     "npm-run-all": "^4.1.2"
   },

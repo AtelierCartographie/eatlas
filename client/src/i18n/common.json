@@ -12,12 +12,12 @@
     "en": "english"
   },
   "flag-html": {
-    "fr": "français",
-    "en": "english"
+    "fr": "🇫🇷",
+    "en": "🇬🇧"
   },
   "search-lang-indicator-html": {
-    "fr": "français",
-    "en": "english"
+    "fr": "(français)",
+    "en": "(english)"
   },
   "none-lang-link-title": {
     "fr": "Il n’y a pas de version française disponible pour cette page",

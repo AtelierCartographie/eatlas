@@ -48,23 +48,23 @@
   },
   "current-lang-link-title": "La page courante est déjà en français",
   "page-description": {
-    "index": "Espace mondial : l’Atlas ‑ Page d’accueil",
-    "definition": "Espace mondial : l’Atlas ‑ Toutes les définitions",
+    "index": "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "definition": "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 240 définitions portant sur les grands enjeux actuels",
     "search":
-      "Espace mondial : l’Atlas ‑ Recherche d’articles, focus, photos, vidéos, sons, cartes et graphiques",
-    "about": "Espace mondial : l’Atlas ‑ À propos du projet et des équipes",
-    "legals": "Espace mondial : l’Atlas ‑ Mentions légales",
-    "sitemap": "Espace mondial : l’Atlas ‑ Toutes les pages du site",
-    "notFound": "Espace mondial : l’Atlas ‑ Page non trouvée"
+      "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "about": "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "legals": "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "sitemap": "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "notFound": "Atlas en libre accès made in Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels"
   },
   "page-image": {
-    "index": "/assets/img/page-image/index.png",
-    "definition": "/assets/img/page-image/definition.png",
-    "search": "/assets/img/page-image/search.png",
-    "about": "/assets/img/page-image/about.png",
-    "legals": "/assets/img/page-image/legals.png",
-    "sitemap": "/assets/img/page-image/sitemap.png",
-    "notFound": "/assets/img/page-image/notFound.png",
-    "topic": "/assets/img/page-image/topic.png"
+    "index": "/assets/img/page-image/social.png",
+    "definition": "/assets/img/page-image/social.png",
+    "search": "/assets/img/page-image/social.png",
+    "about": "/assets/img/page-image/social.png",
+    "legals": "/assets/img/page-image/social.png",
+    "sitemap": "/assets/img/page-image/social.png",
+    "notFound": "/assets/img/page-image/social.png",
+    "topic": "/assets/img/page-image/social.png"
   }
 }

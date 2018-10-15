@@ -196,7 +196,7 @@ const HomePage = injectIntl((
 } */,
 ) =>
   h('html', { lang: intl.lang }, [
-    h(Head, { title: intl.formatMessage({ id: 'home.title' }), options }),
+    h(Head, { title: intl.formatMessage({ id: 'home.title-meta' }), options }),
     h(Body, { topics, options, logoColor: 'white' }, [
       h(Home, { topics, options, intl }),
     ]),

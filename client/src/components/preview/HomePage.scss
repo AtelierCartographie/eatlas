@@ -68,8 +68,13 @@
     }
   }
 
-  .HomeTeam {
-    background: $color-keyword;
+  .HomeTeam,
+  .HomeBook {
+    background: $color-footer;
+  }
+
+  .HomeContact {
+    background: $color-white;
   }
 
   .logo {
@@ -175,10 +180,138 @@
     }
   }
 
+  .HomeFeatures {
+    background: $color-keyword;
+
+    ul {
+      display: inline-block;
+      list-style: none;
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    img {
+      width: 120px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .FeaturesTitle {
+      text-align: center;
+    }
+  }
+
+  .HomeTeam {
+    ul {
+      // not well with small device (4 rows instead of 3)
+      display: inline-block;
+      // flex-direction: column;
+      list-style: none;
+      justify-content: space-between;
+      padding: 0;
+
+      // @include breakpoint(desktop) {
+      //   flex-direction: row;
+      // }
+    }
+
+    button {
+      background: transparent;
+      color: initial;
+      margin: 0;
+
+      img {
+        height: auto;
+        // marie-françoise
+        max-width: 110px;
+        // width: 100%;
+      }
+    }
+
+    .TeamMember {
+      align-items: center;
+      display: flex;
+      justify-content: start;
+      margin-bottom: $gap;
+
+      @include breakpoint(desktop) {
+        flex-direction: column;
+      }
+    }
+
+    .TeamMemberName {
+      @include breakpoint(desktop) {
+        text-align: center;
+        white-space: nowrap;
+      }
+    }
+
+    .avatar {
+      background: $color-keyword;
+      border-radius: 50%;
+      height: 96px;
+      margin: 0 $gap 0 0;
+      width: 96px;
+
+      @include breakpoint(desktop) {
+        margin: 0 auto $gap;
+      }
+    }
+
+    .modal {
+      img {
+        width: 50%;
+
+        @include breakpoint(desktop) {
+          width: 100%;
+        }
+      }
+
+      .TeamMemberLinks a {
+        margin-right: $gap;
+      }
+    }
+  }
+
+  section:target {
+    padding: 50px 0;
+  }
+
   .vcenter, .HomeTopics .vcenter {
     @include breakpoint(desktop) {
       display: flex;
       align-items: center;
     }
   }
+}
+
+// used by team members
+// vertical centering: https://stackoverflow.com/questions/18422223/bootstrap-3-modal-vertical-position-center#25160044
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.modal-backdrop {
+  background-color: $color-keyword;
 }

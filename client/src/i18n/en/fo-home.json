@@ -2,18 +2,63 @@
   "title-meta": "Home",
   "title": "An atlas to understand",
   "subtitle": "the contemporary world space",
-  "topics-intro":
-    "Looking at the world as a mobile and fluid space, emancipating itself from the idea of an international scene orchestrated by the States alone and the notions of enemy, border and exclusive identities. Study how globalization processes shape public policy and social behavior. Show how all actors - public or private, individual or collective, political, economic and social, local, national, regional or global - interact, exchange, cooperate or clash. To represent the interdependencies and entanglements of our stories, as well as the disorders and dysfunctions of a complex and unequal world. This is the ambition of this atlas which tackles these issues in a transdisciplinary way by crossing the approaches of geographers and political scientists specializing in international relations.",
-  "resources-intro-html":
-    "<em>Global space: the Atlas</em> is also a search engine giving access to more than 200 <a href=\"{mapsUrl}\">maps and graphs</a> that enrich articles and focus, to <a href=\"{imagesUrl}\">commented photos</a> or a <a href=\"{lexiconUrl}\">glossary</a> grouping key concepts.",
-  "about-intro-html":
-    "Collective adventure and extension of a flagship course of Sciences Po, <em>Global space: the Atlas</ em> offers free and free access to scientific content on major issues of our time.",
-  "read-more-label": "Read more",
-  "text-people":
-    "Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens, and Delphine Placidi-Frot",
-  "the-vizualisations": "Vizualisations",
-  "vizualisation-people":
-    "Sciences Po - Atelier de cartographie: Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes, and Antoine Rio",
+  "topics-title": "Access themes",
+  "the-team": "The team",
+  "the-texts": "The texts",
+  "the-vizualisations":
+    "The vizualisations (Sciences Po - Atelier de cartographie)",
+  "the-project": "The project",
+  "project": [
+    "Delphine Lereculeur and Anne L’Hôte (project leading, Sciences Po DRIS).",
+    "ByteClub - Bruno Héridet and Nicolas Chambrier (development).",
+    "Les Presses de Sciences Po (editing and paper version)."
+  ],
+  "contact-title": "Contact us",
+  "contact-intro": "Get in touch with the editors and cartographers",
+  "contact-button": "Contact us",
+  "the-book": "The book",
   "book-intro-html":
-    "<em>Global space: the Atlas</em> is also a beautiful book published by Presses de Sciences Po."
+    "<em>Espace mondial : l’Atlas</em> is also a beautiful book published by Presses de Sciences Po.",
+  "book-button": "Buy the book",
+  "delphine-alles-title": "Professor of Universities in Political Science",
+  "delphine-alles-bio":
+    "Professor of Political Science, Delphine Allès directs the International Relations Department of the National Institute of Oriental Languages ​​and Civilizations (INALCO), whose research focuses on the role of religion in the global space and the non-Western approaches to international.",
+  "melanie-albaret-title": "Mistress of conferences in political experience",
+  "melanie-albaret-bio":
+    "PhD in political science (international relations), Mélanie Albaret is a lecturer at Clermont Auvergne University, where her research focuses on international organizations (notably the UN) and multilateralism.",
+  "philippe-copinschi-title": "Teacher, consultant",
+  "philippe-copinschi-bio":
+    "Philippe Copinschi holds a Ph.D. in political science (international relations) from Sciences Po Paris and teaches at the Paris School of International Affairs (PSIA) at Sciences Po Paris and works as an independent consultant in the field of energy, particularly in Africa.",
+  "mf-durand-title": "Associate Professor of Geography",
+  "mf-durand-bio":
+    "Associate Professor of Geography at Sciences Po from 1989 to 2015, Marie-Françoise Durand created the Cartography Workshop, coordinated the course World Space, the production of several MOOCs and the 6 editions of l'Atelier de mondialisation",
+  "lucile-maertens-title": "Master-Assistant in International Relations",
+  "lucile-maertens-bio":
+    "Lucine Maertens is a lecturer in political science at the University of Lausanne (IEPHI) and an associate researcher at Sciences Po / CERI, and her research focuses on the work of international organizations in the field of the environment and security.",
+  "delphine-placidi-frot-title":
+    "Professor of Universities in Political Science",
+  "delphine-placidi-frot-bio":
+    "Professor of Political Science, Delphine Placidi-Frot is co-director of the M2 Diplomacy and Strategic Negotiations and Governance of Sustainable Development Projects in the South of Paris-Saclay University, where her research focuses on foreign policy and multilateral organizations (particularly UN organizations).",
+  "thomas-ansart-title": "cartography, data visualization, R",
+  "thomas-ansart-bio":
+    "Coming to cartography at Sciences Po in 2008, Thomas Ansart has since juggled between data visualization creations, tool design, website design and project tracking, with a growing number of lines of code.",
+  "benoit-martin-title":
+    "Geographer-Cartographer and Doctoral Student in Political Science",
+  "benoit-martin-bio":
+    "A Cartographer at Sciences Po since 2006, his research focuses on the production of international statistics - his doctoral dissertation explores the case of UNODC, on drugs and crime - and in particular the political issues surrounding the activities of International organisations.",
+  "patrice-mitrano-title": "Geographer-cartographer",
+  "patrice-mitrano-bio":
+    "Patrice Mitrano has been involved in the life of the Cartography Workshop since 1998. He designs and makes maps, of course, but also all kinds of other images that we would quickly call “viz”. The accompaniment of the establishment of the Department of Islamic Arts at the Louvre in 2012.",
+  "anouk-pettes-title": "Geographer-cartographer",
+  "anouk-pettes-bio": " ",
+  "antoine-rio-title": "Geographer-cartographer",
+  "antoine-rio-bio":
+    "A geographer by training and specialized in geographic information systems, Antoine Rio has notably expanded to include data processing and visualization since his arrival at l'Atelier de cartographie Sciences Po in 2014.",
+  "features": [
+    "More than 200 <b>visualizations</b>",
+    "Almost 300 <b>key concepts</b> explained",
+    "<b>Scientific</b> articles with references",
+    "<b>Mobile-friendly</b> visualizations",
+    "Topics in <b>Education Programs</b>"
+  ]
 }

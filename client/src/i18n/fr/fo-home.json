@@ -2,18 +2,63 @@
   "title-meta": "Accueil",
   "title": "Un atlas pour comprendre",
   "subtitle": "l’espace mondial contemporain",
-  "topics-intro":
-    "Regarder le monde comme un espace mobile et fluide en s’émancipant de l’idée d’une scène internationale orchestrée par les seuls États et les notions d’ennemi, de frontière et d’identités exclusives.  Étudier la façon dont les processus de mondialisation façonnent les politiques publiques et les comportements sociaux. Montrer comment tous les acteurs - publics ou privés, individuels ou collectifs, politiques, économiques et sociaux, locaux, nationaux, régionaux ou mondiaux- interagissent, échangent, coopèrent ou s’affrontent. Représenter les interdépendances et les enchevêtrements de nos histoires, autant que les désordres et les dysfonctionnements d’un monde complexe et inégal. Telle est l’ambition de cet atlas qui aborde ces enjeux de façon transdisciplinaire en croisant les approches de géographes et de politistes spécialistes des relations internationales.",
-  "resources-intro-html":
-    "<em>Espace mondial : l’Atlas</em> est aussi un moteur de recherche donnant accès à plus de 200 <a href=\"{mapsUrl}\">cartes et graphiques</a> qui enrichissent les articles et les focus, à des <a href=\"{imagesUrl}\">photos</a> commentées ou à un <a href=\"{lexiconUrl}\">lexique</a> regroupant les notions clés.",
-  "about-intro-html":
-    "Aventure collective et prolongement d’un cours phare de Sciences Po, <em>Espace mondial : l’Atlas</em> offre un accès libre et gratuit à des contenus scientifiques sur les grandes problématiques de notre temps.",
-  "read-more-label": "En savoir plus",
-  "text-people":
-    "Delphine Allès, Mélanie Albaret, Philippe Copinschi, Marie-Françoise Durand, Lucile Maertens et Delphine Placidi-Frot",
-  "the-vizualisations": "Les visualisations",
-  "vizualisation-people":
-    "Sciences Po - Atelier de cartographie : Thomas Ansart, Benoît Martin, Patrice Mitrano, Anouk Pettes et Antoine Rio",
+  "topics-title": "Accéder aux thèmes",
+  "the-team": "L’équipe",
+  "the-texts": "Les textes",
+  "the-vizualisations":
+    "Les visualisations (Sciences Po - Atelier de cartographie)",
+  "the-project": "Le projet",
+  "project": [
+    "Delphine Lereculeur et Anne L’Hôte (conduite de projet, Sciences Po DRIS).",
+    "ByteClub - Bruno Héridet et Nicolas Chambrier (développement).",
+    "Les Presses de Sciences Po (editing et déclinaison papier)."
+  ],
+  "contact-title": "Nous contacter",
+  "contact-intro": "Entrer en contact avec les rédacteurs et les cartographes",
+  "contact-button": "Nous contacter",
+  "the-book": "Le livre",
   "book-intro-html":
-    "<em>Espace mondial : l’Atlas</em> est aussi un beau livre publié aux Presses de Sciences Po."
+    "<em>Espace mondial : l’Atlas</em> est aussi un beau livre publié aux Presses de Sciences Po.",
+  "book-button": "Acheter le livre",
+  "delphine-alles-title": "Professeure des universités en science politique",
+  "delphine-alles-bio":
+    "Professeure de Science politique, Delphine Allès dirige la filière Relations internationales de l’Institut national des langues et civilisations orientales (INALCO). Ses recherches portent sur le rôle de la religion dans l’espace mondial et les approches extra-occidentales de l’international.",
+  "melanie-albaret-title": "Maîtresse de conférences en sience politique",
+  "melanie-albaret-bio":
+    "Docteure en science politique (relations internationales), Mélanie Albaret est maîtresse de conférences à l'Université Clermont Auvergne. Ses recherches portent sur les organisations internationales (notamment l'ONU) et sur le multilatéralisme.",
+  "philippe-copinschi-title": "Enseignant, consultant",
+  "philippe-copinschi-bio":
+    "Philippe Copinschi est docteur en science politique (relations internationales) de Sciences Po Paris. Il enseigne à la Paris School of International Affairs (PSIA) de Sciences Po Paris et travaille comme consultant indépendant dans le domaine de l’énergie, en particulier en Afrique.",
+  "mf-durand-title": "Professeure agrégée de géographie",
+  "mf-durand-bio":
+    "Professeure agrégée de géographie à Sciences Po de 1989 à 2015, Marie-Françoise Durand a créé l'Atelier de cartographie, coordonné le cours Espace mondial, la production de plusieurs MOOCs et les 6 éditions de l'Atlas de la mondialisation ",
+  "lucile-maertens-title": "Maître-assistante en relations internationales",
+  "lucile-maertens-bio":
+    "Docteure en science politique, Lucile Maertens est maître-assistante en relations internationales à l'Université de Lausanne (IEPHI) et chercheuse associée à Sciences Po/CERI. Ses recherches portent sur l'action des organisations internationales dans le domaine de l'environnement et de la sécurité.",
+  "delphine-placidi-frot-title":
+    "Professeure des universités en science politique",
+  "delphine-placidi-frot-bio":
+    "Professeure de science politique, Delphine Placidi-Frot codirige les M2 Diplomatie et négociations stratégiques et Gouvernance de projets de développement durable au Sud de l'Université Paris-Saclay. Ses recherches portent sur la politique extérieure et les organisations multilatérales (notamment onusiennes).",
+  "thomas-ansart-title": "cartographie, data visualisation, R",
+  "thomas-ansart-bio":
+    "Entrée par la cartographie à Sciences Po en 2008, Thomas Ansart jongle depuis entre les créations de data visualisations, la conception d'outils, le design de site web et le suivi de projets. Avec un soupcon de lignes de code toujours plus important.",
+  "benoit-martin-title":
+    "Géographe-cartographe et doctorant en science politique",
+  "benoit-martin-bio":
+    "Cartographe à Sciences Po depuis 2006, ses recherches portent sur la production des statistiques internationales – sa thèse de Doctorat explore le cas de l’UNODC, sur la drogue et le crime – et notamment les enjeux politiques qui entourent les activités d’expertise des organisations internationales.",
+  "patrice-mitrano-title": "Géographe-cartographe",
+  "patrice-mitrano-bio":
+    "Patrice Mitrano participe à la vie de l'Atelier de cartographie depuis 1998. Il y conçoit et réalise des cartes, bien sûr, mais aussi toutes sortes d'autres images qu'on nommerait rapidement « viz ». Un projet qui l'aura marqué ? L'accompagnement de la mise en place du département des Arts de l'Islam au Louvre en 2012.",
+  "anouk-pettes-title": "Géographe-cartographe",
+  "anouk-pettes-bio": " ",
+  "antoine-rio-title": "Géographe-cartographe",
+  "antoine-rio-bio":
+    "Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014.",
+  "features": [
+    "Plus de 200 <b>visualisations</b>",
+    "Près de 300 <b>notions-clés</b> expliqués",
+    "Des articles <b>scientifiques</b> avec des références",
+    "Des visualisations adaptés aux <b>mobiles</b>",
+    "Des thèmes aux programmes de <b>l'enseignement</b>"
+  ]
 }

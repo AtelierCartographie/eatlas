@@ -124,16 +124,12 @@ exports.resourcesTypes = [
 
 exports.aPropos = [
   {
-    text: 'about.the-project',
-    url: globalPageUrl('about', null, 'project'),
+    text: 'home.the-team',
+    url: globalPageUrl('index', null, 'team'),
   },
   {
-    text: 'about.the-team',
-    url: globalPageUrl('about', null, 'team'),
-  },
-  {
-    text: 'about.contact-title',
-    url: globalPageUrl('about', null, 'contact'),
+    text: 'home.contact-title',
+    url: globalPageUrl('index', null, 'contact'),
   },
   {
     text: 'legals.title',

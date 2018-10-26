@@ -136,13 +136,13 @@
   "cleanSearchFieldSuffix": "_clean",
 
   "// searchFuzziness": "https://www.elastic.co/guide/en/elasticsearch/guide/current/fuzziness.html",
-  "searchFuzziness": "AUTO",
+  "searchFuzziness": "1",
 
   "// searchSort": "Rules to compute score for specific ordering",
   "searchSort": {
     "// boostType": "Boost score depending on doc's type",
     "boostType": {
-      "single-definition": 20
+      "single-definition": 1
     },
     "// boostSearchField": "Boost applied to text searchFields listed above (not listed = 1)",
     "boostSearchField": {

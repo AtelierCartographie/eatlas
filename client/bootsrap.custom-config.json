@@ -390,9 +390,11 @@
     "close.less",
     "component-animations.less",
     "dropdowns.less",
-    "modals.less"
+    "modals.less",
+    "carousel.less"
   ],
   "js": [
+    "carousel.js",
     "modal.js",
     "collapse.js",
     "scrollspy.js",

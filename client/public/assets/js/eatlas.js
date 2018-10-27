@@ -8,6 +8,41 @@
   $('.consultedAt').text(`${d}/${m}/${y}`)
   $('.articleUrl').text(document.location)
 
+  // Initialize Slick Carousel
+  if ($.fn.slick) {
+    $(() =>
+      $('.carousel').slick({
+        // accessibility: true,
+        // adaptiveHeight: false,
+        // autoplay: false,
+        // autoplaySpeed: 3000,
+        // arrows: true,
+        prevArrow: '<div class="slick-prev">Previous</div>',
+        nextArrow: '<div class="slick-next">Next</div>',
+        centerMode: true,
+        centerPadding: '200px',
+        // cssEase: 'ease',
+        dots: true,
+        // draggable: true,
+        fade: false,
+        // infinite: true,
+        // initialSlide: 0,
+        // lazyLoad: 'ondemand',
+        // mobileFirst: false,
+        // responsive: null,
+        // rows: 1,
+        // slidesPerRow: 1,
+        // slide: '',
+        slidesToShow: 1,
+        // slidesToScroll: 1,
+        // speed: 300,
+        // swipe: true,
+        // variableWidth: false,
+        // zIndex: 1000,
+      }),
+    )
+  }
+
   const goToSearch = evt => {
     if (evt.which !== 13) return // enter
     const $this = $(evt.currentTarget)

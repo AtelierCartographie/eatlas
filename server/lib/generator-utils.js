@@ -176,11 +176,17 @@ const getImageStats = async (resource, found, { preview = false } = {}) => {
   }
 }
 
-const smallestImageKey = (exports.smallestImageKey = images => {
+const DEFAULT_SIZES = ['small', 'medium', 'large']
+const DEFAULT_DENSITIES = ['1x', '2x', '3x']
+
+const getFirstImageKey = (exports.getFirstImageKey = (
+  images,
+  { sizes = DEFAULT_SIZES, densities = DEFAULT_DENSITIES } = {},
+) => {
   if (images) {
-    for (let size of ['small', 'medium', 'large']) {
+    for (let size of sizes) {
       if (images[size]) {
-        for (let density of ['1x', '2x', '3x']) {
+        for (let density of densities) {
           if (images[size][density]) {
             return { size, density }
           }
@@ -198,7 +204,7 @@ const getThumbnailUrl = (resources, { preview }) => resource => {
   switch (resource.type) {
     case 'image':
     case 'map': {
-      const found = smallestImageKey(resource.images)
+      const found = getFirstImageKey(resource.images)
       if (!found) {
         return null
       }

@@ -1,4 +1,4 @@
-const { getUrl, smallestImageKey } = require('./generator-utils')
+const { getUrl, getFirstImageKey } = require('./generator-utils')
 const {
   getMediaPreviewUrl,
   getMediaUrl,
@@ -13,7 +13,7 @@ const getImageUrl = (resource, size, density, preview) =>
 
 const getSmallestImageUrl = (resource, preview) => {
   if (!resource) return ''
-  const found = smallestImageKey(resource.images)
+  const found = getFirstImageKey(resource.images)
   if (!found) return ''
   return getImageUrl(resource, found.size, found.density, preview)
 }

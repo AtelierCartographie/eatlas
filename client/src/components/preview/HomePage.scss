@@ -1,9 +1,9 @@
-@import "var";
+@import 'var';
 
 .HomePage {
   overflow: hidden;
 
-  .text-right{
+  .text-right {
     text-align: right;
   }
 
@@ -31,7 +31,7 @@
       font-weight: bold;
       line-height: 4rem;
       margin-top: 96px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 
       @include breakpoint(desktop) {
         font-size: 7rem;
@@ -46,7 +46,9 @@
     }
   }
 
-  .HomeTopics, .HomeAbout, .HomeBook {
+  .HomeTopics,
+  .HomeAbout,
+  .HomeBook {
     background: $color-white;
   }
 
@@ -139,43 +141,137 @@
   }
 
   .HomeTopics {
-    .gutter > [class*='col-'] {
-    padding-right:0;
-    }
+    padding-top: 0;
 
     .HomeTopic {
-      background: $color-breadcrumb;
-      border-radius: $gap;
-      color: $color-white;
-      display: block;
-      font-weight: bold;
-      height: 140px;
-      padding: $gap $gap2;
-      margin: $gap 0;
-      transition: color 0.1s ease-in, background 0.1s ease-in;
-
-      &:focus,
-      &:hover {
-        background: $color-yellow;
-        color: $color-breadcrumb;
-        text-decoration: none;
+      h2 {
+        line-height: 33px;
+        margin: 24px 0 8px 0;
+        padding: 0;
+        a {
+          text-decoration: none;
+          color: $color-breadcrumb;
+          font-family: 'Fira Sans', sans-serif;
+          font-size: 28px;
+          font-weight: bold;
+        }
       }
     }
 
-    .TopicNumber {
-      font-size: 3.3rem;
-      min-height: 3.3rem;
-
-      @include breakpoint(desktop) {
-        font-size: 3.8rem;
+    .TopicCarousel {
+      height: 144px;
+      .slick-arrow {
+        z-index: 2000;
+        width: 100px;
+        height: 100%;
+        &:before {
+          content: '';
+          display: block;
+          width: 2.5rem;
+          height: 2.5rem;
+          background-size: 2.5rem 2.5rem;
+          position: absolute;
+          top: 50%;
+          top: calc(50% - 10px);
+        }
       }
-    }
-    .TopicName {
-      font-size: 1.8rem;
-
-      @include breakpoint(desktop) {
-        font-size: 2.1rem;
-        line-height: 2.3rem;
+      .slick-prev {
+        left: 0;
+        &:before {
+          background-image: url(../assets/img/prev-article.svg);
+          left: 8px;
+        }
+        background-image: -webkit-linear-gradient(
+          left,
+          #fff 20%,
+          rgba(255, 255, 255, 0.0001) 100%
+        );
+        background-image: -o-linear-gradient(
+          left,
+          #fff 20%,
+          rgba(255, 255, 255, 0.0001) 100%
+        );
+        background-image: -webkit-gradient(
+          linear,
+          left top,
+          right top,
+          color-stop(20%, #fff),
+          to(rgba(255, 255, 255, 0.0001))
+        );
+        background-image: linear-gradient(
+          to right,
+          #fff 20%,
+          rgba(255, 255, 255, 0.0001) 100%
+        );
+      }
+      .slick-next {
+        right: 0;
+        &:before {
+          background-image: url(../assets/img/next-article.svg);
+          right: 8px;
+        }
+        background-image: -webkit-linear-gradient(
+          left,
+          rgba(255, 255, 255, 0.0001) 0,
+          #fff 80%
+        );
+        background-image: -o-linear-gradient(
+          left,
+          rgba(255, 255, 255, 0.0001) 0,
+          #fff 80%
+        );
+        background-image: -webkit-gradient(
+          linear,
+          left top,
+          right top,
+          color-stop(0, rgba(255, 255, 255, 0.0001)),
+          color-stop(80%, #fff),
+          to(#fff)
+        );
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.0001) 0,
+          #fff 80%
+        );
+      }
+      .slick-slide {
+        margin: 0 8px;
+      }
+      .carousel-item {
+        margin: 0;
+        padding: 0;
+        background: $color-footer;
+        height: 144px;
+        width: 342px;
+        overflow: hidden;
+        border: 2px solid #ccc;
+        position: relative;
+        a {
+          text-decoration: none;
+          display: block;
+          height: 100%;
+        }
+        .image {
+          display: block;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+        }
+        .caption {
+          display: block;
+          left: auto;
+          height: 100%;
+          text-align: center;
+          line-height: 144px; // vertical center
+          font-family: 'Fira Sans', sans-serif;
+          font-size: 24px;
+          font-weight: normal;
+          color: $color-text;
+        }
+        .image + .caption {
+          position: relative;
+          top: -144px;
+        }
       }
     }
   }
@@ -278,7 +374,8 @@
     padding: 50px 0;
   }
 
-  .vcenter, .HomeTopics .vcenter {
+  .vcenter,
+  .HomeTopics .vcenter {
     @include breakpoint(desktop) {
       display: flex;
       align-items: center;
@@ -297,7 +394,7 @@
   .modal:before {
     display: inline-block;
     vertical-align: middle;
-    content: " ";
+    content: ' ';
     height: 100%;
   }
 }

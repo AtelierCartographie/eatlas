@@ -23,6 +23,7 @@ const {
   populateImageRelatedResources,
   getAllUrls,
   getUrl,
+  getFirstImageKey,
 } = require('./generator-utils')
 const buildSocialMetas = require('./social-metas')
 const { LOCALES, getMetaList } = require('../../client/src/universal-utils')
@@ -359,6 +360,23 @@ exports.generateHomeHTML = async (
   props = {},
 ) => {
   props = await menuProps(props, { preview, lang })
+  await Promise.all(
+    props.articles.map(async article => {
+      const resources = await getArticleResources(article, !preview)
+      const maps = resources.filter(n => n.type === 'map')
+      const resource = maps.length > 0 && maps[0]
+      if (resource) {
+        // Get smallest, but highest density possible
+        const key = getFirstImageKey(resource.images, {
+          densities: ['3x', '2x', '1x'],
+        })
+        if (key) {
+          // { resource, size, density }
+          article.carouselImage = { resource, ...key }
+        }
+      }
+    }),
+  )
   return render(HomePage, props, { page: 'index', preview, lang })
 }
 

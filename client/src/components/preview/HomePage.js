@@ -229,21 +229,40 @@ const Team = ({ options, intl }) => {
   ])
 }
 
-const TopicCarousel = ({ topic, articles, options, intl }) =>
-  articles.length > 0 &&
-  h(
+const carouselSettings = nbArticles => (
+  slides,
+  centerPadding = '50px',
+  breakpoint = null,
+) => {
+  const settings = {
+    slidesToShow: Math.min(nbArticles, slides),
+    centerPadding,
+    initialSlide:
+      nbArticles > slides ? Math.floor(Math.random() * nbArticles) : 0, // Not enough articles: set to 0 or we'll have ugly offset
+    arrows: !!centerPadding,
+  }
+  return breakpoint ? { breakpoint, settings } : settings
+}
+
+const TopicCarousel = ({ topic, articles, options, intl }) => {
+  const settings = carouselSettings(articles.length)
+  if (articles.length === 0) {
+    return null
+  }
+  return h(
     `.TopicCarousel.carousel`,
     {
       'data-slick': JSON.stringify({
-        // TODO responsive config
-        // Handle proper display in case of not enough articles
-        slidesToShow: Math.min(4, articles.length),
-        // Randomize slide
-        initialSlide:
-          articles.length > 4
-            ? Math.floor(Math.random() * articles.length)
-            : // Not enough articles: set to 0 or we'll have ugly offset
-              0,
+        dots: true,
+        infinite: true,
+        centerMode: true,
+        ...settings(5, '100px'),
+        responsive: [
+          settings(4, '100px', 2000),
+          settings(3, '50px', 1800),
+          settings(2, '20px', 1200),
+          settings(1, null, 800),
+        ],
       }),
     },
     articles.map(a =>
@@ -274,6 +293,7 @@ const TopicCarousel = ({ topic, articles, options, intl }) =>
       ),
     ),
   )
+}
 
 const Topics = ({ topics, articles, options, intl }) =>
   h(

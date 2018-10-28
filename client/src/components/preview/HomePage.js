@@ -246,7 +246,13 @@ const carouselSettings = nbArticles => (
   return breakpoint ? { breakpoint, settings } : settings
 }
 
-const TopicCarousel = ({ topic, articles, options, intl }) => {
+const TopicCarousel = ({
+  topic,
+  articles,
+  options,
+  intl,
+  lazyLoading = true,
+}) => {
   const settings = carouselSettings(articles.length)
   if (articles.length === 0) {
     return null
@@ -278,16 +284,28 @@ const TopicCarousel = ({ topic, articles, options, intl }) => {
           },
           [
             a.carouselImage
-              ? h('.image', {
-                  style: {
-                    backgroundImage: `url(${getImageUrl(
-                      a.carouselImage.resource,
-                      a.carouselImage.size,
-                      a.carouselImage.density,
-                      options,
-                    )})`,
-                  },
-                })
+              ? h(
+                  '.image',
+                  lazyLoading
+                    ? {
+                        'data-lazy-background-image': getImageUrl(
+                          a.carouselImage.resource,
+                          a.carouselImage.size,
+                          a.carouselImage.density,
+                          options,
+                        ),
+                      }
+                    : {
+                        style: {
+                          backgroundImage: `url(${getImageUrl(
+                            a.carouselImage.resource,
+                            a.carouselImage.size,
+                            a.carouselImage.density,
+                            options,
+                          )})`,
+                        },
+                      },
+                )
               : null,
             h('.caption', stripTags(a.title)),
           ],

@@ -436,4 +436,12 @@
   &:not(.slick-initialized) .carousel-item:not(:first-child) {
     display: none;
   }
+
+  // Dots *in* the slides
+  &.slick-dotted.slick-slider {
+    margin-bottom: 0;
+    .slick-dots {
+      bottom: 0;
+    }
+  }
 }

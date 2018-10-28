@@ -238,7 +238,9 @@ const carouselSettings = nbArticles => (
     slidesToShow: Math.min(nbArticles, slides),
     centerPadding,
     initialSlide:
-      nbArticles > slides ? Math.floor(Math.random() * nbArticles) : 0, // Not enough articles: set to 0 or we'll have ugly offset
+      nbArticles > slides
+        ? Math.floor(Math.random() * (nbArticles - 1)) // Do not start with last slide as it breaks initial display
+        : 0, // Not enough articles: set to 0 or we'll have ugly offset
     arrows: !!centerPadding,
   }
   return breakpoint ? { breakpoint, settings } : settings

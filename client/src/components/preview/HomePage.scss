@@ -160,83 +160,6 @@
 
     .TopicCarousel {
       height: 144px;
-      .slick-arrow {
-        z-index: 2000;
-        width: 100px;
-        height: 100%;
-        &:before {
-          content: '';
-          display: block;
-          width: 2.5rem;
-          height: 2.5rem;
-          background-size: 2.5rem 2.5rem;
-          position: absolute;
-          top: 50%;
-          top: calc(50% - 10px);
-        }
-      }
-      .slick-prev {
-        left: 0;
-        &:before {
-          background-image: url(../assets/img/prev-article.svg);
-          left: 8px;
-        }
-        background-image: -webkit-linear-gradient(
-          left,
-          #fff 20%,
-          rgba(255, 255, 255, 0.0001) 100%
-        );
-        background-image: -o-linear-gradient(
-          left,
-          #fff 20%,
-          rgba(255, 255, 255, 0.0001) 100%
-        );
-        background-image: -webkit-gradient(
-          linear,
-          left top,
-          right top,
-          color-stop(20%, #fff),
-          to(rgba(255, 255, 255, 0.0001))
-        );
-        background-image: linear-gradient(
-          to right,
-          #fff 20%,
-          rgba(255, 255, 255, 0.0001) 100%
-        );
-      }
-      .slick-next {
-        right: 0;
-        &:before {
-          background-image: url(../assets/img/next-article.svg);
-          right: 8px;
-        }
-        background-image: -webkit-linear-gradient(
-          left,
-          rgba(255, 255, 255, 0.0001) 0,
-          #fff 80%
-        );
-        background-image: -o-linear-gradient(
-          left,
-          rgba(255, 255, 255, 0.0001) 0,
-          #fff 80%
-        );
-        background-image: -webkit-gradient(
-          linear,
-          left top,
-          right top,
-          color-stop(0, rgba(255, 255, 255, 0.0001)),
-          color-stop(80%, #fff),
-          to(#fff)
-        );
-        background-image: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 0.0001) 0,
-          #fff 80%
-        );
-      }
-      .slick-slide {
-        margin: 0 8px;
-      }
       .carousel-item {
         margin: 0;
         padding: 0;
@@ -244,40 +167,7 @@
         height: 144px;
         width: 342px;
         overflow: hidden;
-        border: 2px solid #ccc;
         position: relative;
-        a {
-          text-decoration: none;
-          display: block;
-          height: 100%;
-        }
-        .image {
-          display: block;
-          height: 100%;
-          background-size: cover;
-          background-position: center;
-          opacity: 0.6;
-          -webkit-filter: blur(6px);
-          -moz-filter: blur(6px);
-          -o-filter: blur(6px);
-          -ms-filter: blur(6px);
-          filter: blur(6px);
-        }
-        .caption {
-          display: block;
-          left: auto;
-          height: 100%;
-          text-align: center;
-          line-height: 144px; // vertical center
-          font-family: 'Fira Sans', sans-serif;
-          font-size: 24px;
-          font-weight: normal;
-          color: $color-text;
-        }
-        .image + .caption {
-          position: relative;
-          top: -144px;
-        }
       }
     }
   }
@@ -417,4 +307,133 @@
 
 .modal-backdrop {
   background-color: $color-keyword;
+}
+
+// Carousel global settings
+// Note: was under .TopicCarousel, put back there if it's not global style
+
+.carousel {
+  .slick-arrow {
+    z-index: 2000;
+    width: 100px;
+    height: 100%;
+    &:before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-size: 2.5rem 2.5rem;
+      position: absolute;
+      top: 50%;
+      top: calc(50% - 10px);
+    }
+  }
+
+  .slick-prev {
+    left: 0;
+    &:before {
+      background-image: url(../assets/img/prev-article.svg);
+      left: 8px;
+    }
+    background-image: -webkit-linear-gradient(
+      left,
+      #fff 20%,
+      rgba(255, 255, 255, 0.0001) 100%
+    );
+    background-image: -o-linear-gradient(
+      left,
+      #fff 20%,
+      rgba(255, 255, 255, 0.0001) 100%
+    );
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(20%, #fff),
+      to(rgba(255, 255, 255, 0.0001))
+    );
+    background-image: linear-gradient(
+      to right,
+      #fff 20%,
+      rgba(255, 255, 255, 0.0001) 100%
+    );
+  }
+
+  .slick-next {
+    right: 0;
+    &:before {
+      background-image: url(../assets/img/next-article.svg);
+      right: 8px;
+    }
+    background-image: -webkit-linear-gradient(
+      left,
+      rgba(255, 255, 255, 0.0001) 0,
+      #fff 80%
+    );
+    background-image: -o-linear-gradient(
+      left,
+      rgba(255, 255, 255, 0.0001) 0,
+      #fff 80%
+    );
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(0, rgba(255, 255, 255, 0.0001)),
+      color-stop(80%, #fff),
+      to(#fff)
+    );
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.0001) 0,
+      #fff 80%
+    );
+  }
+
+  .slick-slide {
+    margin: 0 8px;
+  }
+
+  .carousel-item {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    a {
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+    .image {
+      display: block;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.6;
+      -webkit-filter: blur(6px);
+      -moz-filter: blur(6px);
+      -o-filter: blur(6px);
+      -ms-filter: blur(6px);
+      filter: blur(6px);
+    }
+    .caption {
+      display: block;
+      left: auto;
+      height: 100%;
+      text-align: center;
+      line-height: 144px; // vertical center
+      font-family: 'Fira Sans', sans-serif;
+      font-size: 24px;
+      font-weight: normal;
+      color: $color-text;
+    }
+    .image + .caption {
+      position: relative;
+      top: -144px;
+    }
+  }
+
+  // Hidden until loaded
+  &:not(.slick-initialized) .carousel-item:not(:first-child) {
+    display: none;
+  }
 }

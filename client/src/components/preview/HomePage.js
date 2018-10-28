@@ -233,6 +233,7 @@ const carouselSettings = nbArticles => (
   slides,
   centerPadding = '50px',
   breakpoint = null,
+  additionalSettings = {},
 ) => {
   const settings = {
     slidesToShow: Math.min(nbArticles, slides),
@@ -241,7 +242,7 @@ const carouselSettings = nbArticles => (
       nbArticles > slides
         ? Math.floor(Math.random() * (nbArticles - 1)) // Do not start with last slide as it breaks initial display
         : 0, // Not enough articles: set to 0 or we'll have ugly offset
-    arrows: !!centerPadding,
+    ...additionalSettings,
   }
   return breakpoint ? { breakpoint, settings } : settings
 }
@@ -261,15 +262,16 @@ const TopicCarousel = ({
     `.TopicCarousel.carousel`,
     {
       'data-slick': JSON.stringify({
-        dots: true,
+        dots: false,
+        arrows: true,
         infinite: true,
         centerMode: true,
         ...settings(5, '100px'),
         responsive: [
           settings(4, '100px', 2000),
           settings(3, '50px', 1800),
-          settings(2, '20px', 1200),
-          settings(1, null, 800),
+          settings(2, '20px', 1200, { dots: true }),
+          settings(1, '', 800, { arrows: false, dots: true }),
         ],
       }),
     },

@@ -10,6 +10,18 @@
 
   // Initialize Slick Carousel
   if ($.fn.slick) {
+    const loadLazyImages = (slick, index = slick.currentSlide) => {
+      const start =
+        slick.$slides.length <= slick.options.slidesToShow
+          ? 0 // All visible, start at 0, no special case
+          : slick.options.centerMode // Center mode, we have negative indices
+            ? index - Math.floor(slick.options.slidesToShow / 2)
+            : index
+      for (let i = start; i < start + slick.options.slidesToShow; i++) {
+        const $slide = slick.$slides.filter(`[data-slick-index=${i}]`)
+        loadLazyImage($slide)
+      }
+    }
     const loadLazyImage = $slide => {
       const attr = 'data-lazy-background-image'
       const $image = $(`.image[${attr}]`, $slide)
@@ -20,12 +32,10 @@
     }
     $(() => {
       $('.carousel')
-        .on('beforeChange', (e, slick, prev, next) => {
-          loadLazyImage(slick.$slides[next])
-        })
-        .on('init', (e, slick) => {
-          loadLazyImage(slick.$slides[slick.currentSlide])
-        })
+        .on('afterChange', (e, slick, prev, next) =>
+          loadLazyImages(slick, next),
+        )
+        .on('init', (e, slick) => loadLazyImages(slick))
         .slick({
           // accessibility: true,
           // adaptiveHeight: false,

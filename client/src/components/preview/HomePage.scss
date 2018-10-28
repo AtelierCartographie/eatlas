@@ -256,6 +256,12 @@
           height: 100%;
           background-size: cover;
           background-position: center;
+          opacity: 0.6;
+          -webkit-filter: blur(6px);
+          -moz-filter: blur(6px);
+          -o-filter: blur(6px);
+          -ms-filter: blur(6px);
+          filter: blur(6px);
         }
         .caption {
           display: block;

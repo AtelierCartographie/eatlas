@@ -416,7 +416,8 @@ exports.generateSearchHTML = async (
         sound: 'doc.type-plural.sound',
         video: 'doc.type-plural.video',
         'single-definition': 'doc.type-plural.definition',
-        reference: 'doc.type-plural.reference',
+        // Excluded by #182
+        // reference: 'doc.type-plural.reference',
       },
       keywords: sortedKeywords,
       locales: LOCALES,

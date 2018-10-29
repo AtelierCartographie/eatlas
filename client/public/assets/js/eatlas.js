@@ -124,22 +124,18 @@
     const setFiltersCount = count =>
       $('.SearchFiltersCount').text(count ? `(${count})` : '')
 
-    const updatePageTitle = () => {
-      const searchParams = new URLSearchParams(window.location.search)
-      searchParams.forEach((value, key) => {
-        if (key !== 'types[]') return
-        if (window.SEARCH_PAGE_TITLE[value]) {
-          return setTitle(window.SEARCH_PAGE_TITLE[value])
-        }
-      })
+    const updatePageTitle = types => {
+      const titles = (types || [])
+        .map(t => window.SEARCH_PAGE_TITLE[t])
+        .filter(v => !!v)
+      setTitle(titles.length === 1 ? titles[0] : null)
     }
-    // for links coming from the Footer
-    updatePageTitle()
 
     // Pre-fill input from query string
     const valueSelector = v => `[value="${v}"]`
     const readFromUrl = () => {
       const searchParams = new URLSearchParams(window.location.search)
+      updatePageTitle(searchParams.getAll('types[]'))
       Array.from(searchParams.keys()).forEach(key => {
         const $input = $(`[name="${key}"]`, $form)
         if (!$input.length) {
@@ -219,6 +215,10 @@
           window.history.pushState({ search: true }, window.title, qs)
         }
       }
+      // Update title from filters
+      updatePageTitle(
+        formData.filter(p => p.name === 'types[]').map(p => p.value),
+      )
       // Update URLs of language switcher
       $('.LangSelector .other').each(function() {
         let originalUrl = this.getAttribute('data-original-href')

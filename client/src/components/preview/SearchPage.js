@@ -209,13 +209,15 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
           ]),
         ]),
       ),
+      /* Disabled filters: keywords (refs #182)
       ...filtersToggle(intl.formatMessage({ id: 'fo.search.filter-keyword' }), [
         h(
           'select.keywords',
           { multiple: true, size: 5, name: 'keywords[]' },
           keywords.map(value => h('option', { value, key: value }, value)),
         ),
-      ]),
+      ]),*/
+      /* Disabled filters: date (refs #182)
       ...filtersToggle(intl.formatMessage({ id: 'fo.search.filter-date' }), [
         [
           h(
@@ -243,7 +245,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
             placeholder: 2000,
           }),
         ],
-      ]),
+      ]),*/
       // TODO show this filters in the future - #133
       /*
       ...filtersToggle(
@@ -259,8 +261,8 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
         ]),
       ),
       */
-      // TODO removed this filter - #133
-      // Note we keep it in DOM to keep 'resource' pages
+      // Note we can't remove this one to keep 'resource' pages
+      // If you need to remove it, just hide it
       ...filtersToggle(
         intl.formatMessage({ id: 'fo.search.filter-type' }),
         Object.keys(types).map(type => [
@@ -272,7 +274,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
           }),
           h('span', { key: 'label' }, intl.formatMessage({ id: types[type] })),
         ]),
-        true,
+        false, // Removed by #133, but restored by #182
       ),
       // Hidden a-z filter
       h('input', { type: 'hidden', name: 'letter' }),
@@ -357,7 +359,8 @@ const SearchPage = injectIntl((
     h(Head, {
       title: intl.formatMessage({ id: 'fo.search.title' }),
       options,
-      styles: [`${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`],
+      // Not needed as 'keywords' filters have been removed (refs #182)
+      // styles: [`${CDN}/selectize.js/0.12.6/css/selectize.default.min.css`],
     }),
     h(
       Body,
@@ -365,7 +368,8 @@ const SearchPage = injectIntl((
         topics,
         options,
         logoColor: 'black',
-        scripts: [`${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`],
+        // Not needed as 'keywords' filters have been removed (refs #182)
+        // scripts: [`${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`],
       },
       [
         h(Search, { topics, types, locales, keywords, options, intl }),

@@ -18,7 +18,11 @@ const getTopicSlug = (resource, topics, lang = 'fr') => {
   const name = topicName(topic, lang)
   if (!topic || !name) {
     debug({ resource, topics })
-    throw new Error('Topic not found')
+    throw new Error(
+      topic
+        ? `Topic #${topic.id} invalid name for lang "${lang}"`
+        : 'Topic not found',
+    )
   }
   return slugify(name)
 }

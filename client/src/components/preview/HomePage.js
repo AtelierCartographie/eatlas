@@ -262,16 +262,14 @@ const TopicCarousel = ({
     `.TopicCarousel.carousel`,
     {
       'data-slick': JSON.stringify({
-        dots: false,
+        dots: true,
         arrows: true,
         infinite: true,
         centerMode: true,
-        ...settings(5, '100px'),
+        ...settings(2, '60px'),
         responsive: [
-          settings(4, '100px', 2000),
-          settings(3, '50px', 1800),
-          settings(2, '20px', 1200, { dots: true }),
-          settings(1, '', 800, { arrows: false, dots: true }),
+          settings(2, '40px', 768, { arrows: false }),
+          settings(1, '40px', 600, { arrows: false }),
         ],
       }),
     },
@@ -321,7 +319,7 @@ const Topics = ({ topics, articles, options, intl }) =>
   h(
     'section.HomeTopics',
     topics.slice(1).map(t =>
-      h('.HomeTopic', { key: t.id }, [
+      h('.HomeTopic.container', { key: t.id }, [
         h(
           'h2',
           {},

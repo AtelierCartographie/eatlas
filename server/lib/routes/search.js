@@ -51,25 +51,23 @@ const search = ({ preview = false } = {}) => async (req, res) => {
       )
     }
 
-    // Exclude Lexicon because we can't handle definitions properly
-    push(must, { bool: { must_not: term('id', 'LEXIC') } }, 0)
-    Object.keys(LOCALES).forEach(lang =>
-      // TODO use LEXICON_ID constant (requires constants.js being universal)
-      push(
-        must,
-        { bool: { must_not: term('id', `LEXIC-${lang.toUpperCase()}`) } },
-        0,
-      ),
-    )
-
     // Resource types?
-    if (input.types) {
-      push(
-        must,
-        term('type', input.types),
-        config.searchSort.scoreSpecial.type || 0,
-      )
-      // Specific to lexicon: filter by A-Z
+    const types = input.types || [
+      // Basic types
+      'article',
+      'focus',
+      'map',
+      'sound',
+      'image',
+      'video',
+      // Single definitions (instead of whole lexic)
+      'single-definition',
+      // Excluded: 'reference', 'definition'
+    ]
+    push(must, term('type', types), config.searchSort.scoreSpecial.type || 0)
+
+    // Specific to lexicon: filter by A-Z
+    if (input.letter) {
       push(must, { prefix: { 'title.keyword': input.letter } })
     }
 

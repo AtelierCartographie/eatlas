@@ -393,6 +393,7 @@ const SearchPage = injectIntl((
               id: 'doc.type-plural.definition',
             }),
             reference: intl.formatMessage({ id: 'doc.type-plural.reference' }),
+            all: intl.formatMessage({ id: 'doc.type-plural.all' }),
           })};
         window.TYPE_LABEL=${JSON.stringify(
           Object.keys(types).reduce(

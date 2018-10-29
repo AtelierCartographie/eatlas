@@ -128,7 +128,8 @@
       const titles = (types || [])
         .map(t => window.SEARCH_PAGE_TITLE[t])
         .filter(v => !!v)
-      setTitle(titles.length === 1 ? titles[0] : null)
+      if (!titles.length) titles.push(window.SEARCH_PAGE_TITLE.all)
+      return setTitle(titles.join(', '))
     }
 
     // Pre-fill input from query string

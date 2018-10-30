@@ -303,12 +303,12 @@
     })
 
     // Enable auto-complete for keywords
-    $('select.keywords').selectize({
-      create: false,
-      highlight: true,
-      dropdownParent: 'body',
-      //maxOptions: 5,
-    })
+    // $('select.keywords').selectize({
+    //   create: false,
+    //   highlight: true,
+    //   dropdownParent: 'body',
+    //   //maxOptions: 5,
+    // })
 
     // Lexicon additional filter
     $('.SearchPage').on('click', '.search-filter-a-z', e => {

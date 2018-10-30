@@ -368,7 +368,7 @@ exports.generateHomeHTML = async (
       if (resource) {
         // Get smallest, but highest density possible
         const key = getFirstImageKey(resource.images, {
-          densities: ['3x', '2x', '1x'],
+          densities: ['1x'],
         })
         if (key) {
           // { resource, size, density }

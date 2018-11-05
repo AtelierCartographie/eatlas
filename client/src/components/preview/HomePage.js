@@ -204,7 +204,8 @@ const Team = ({ options, intl }) => {
           h(TeamMember, { key: member.key, member, options }),
         ),
       ),
-      h('h3', {}, h(T, { id: 'home.the-vizualisations' })),
+      h('h3.viz', {}, h(T, { id: 'home.the-vizualisations' })),
+      h('h3', {}, h(T, { id: 'home.the-vizualisations-creator' })),
       h(
         'ul',
         cartographers.map(member =>

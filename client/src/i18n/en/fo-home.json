@@ -6,7 +6,9 @@
   "the-team": "The team",
   "the-texts": "The texts",
   "the-vizualisations":
-    "The vizualisations (Sciences Po - Atelier de cartographie)",
+    "The vizualisations",
+  "the-vizualisations-creator":
+    "(Sciences Po - Atelier de cartographie)",
   "the-project": "The project",
   "project": [
     "Delphine Lereculeur and Anne L’Hôte (project leading, Sciences Po DRIS).",

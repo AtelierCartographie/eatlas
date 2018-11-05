@@ -11,7 +11,7 @@ module.exports = injectIntl(({ doc, intl }) => {
     ? { lang: otherLang, text: otherText }
     : null
 
-  if (!mainDescription) {
+  if (!mainDescription || mainDescription.text.length < 10) {
     return null
   }
 

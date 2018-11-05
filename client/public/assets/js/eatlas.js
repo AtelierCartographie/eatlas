@@ -94,14 +94,13 @@
 
     $parent
       .css({
-        height: $parent.height(),
-        'max-height': 9999,
-      })
-      .animate({
+        'transition': '3s all ease',
         height: totalHeight,
+        'max-height': 9999,
+
       })
 
-    $(this).fadeOut()
+    $(this).css({'display': 'none'})
     return false
   })
 

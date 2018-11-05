@@ -266,11 +266,10 @@ const TopicCarousel = ({
         dots: true,
         arrows: true,
         infinite: true,
-        centerMode: true,
-        ...settings(2, '60px'),
+        ...settings(2, ''),
         responsive: [
           settings(2, '40px', 768, { arrows: false }),
-          settings(1, '40px', 600, { arrows: false }),
+          settings(1, '40px', 600, { arrows: false, centerMode: true }),
         ],
       }),
     },

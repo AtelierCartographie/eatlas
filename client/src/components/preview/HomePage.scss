@@ -150,7 +150,7 @@
     .HomeTopic {
       h2 {
         line-height: 3.3rem;
-        margin: 24px 0 8px 0;
+        margin: 40px 0 8px 0;
         padding: 0;
         a {
 					transition: 0.5s all ease;
@@ -175,7 +175,6 @@
       .carousel-item {
         margin: 0;
         padding: 0;
-        background: $color-footer;
         height: 144px;
         width: 342px;
         overflow: hidden;
@@ -346,61 +345,16 @@
     left: 0;
     &:before {
       background-image: url(../assets/img/prev-article.svg);
-      left: 8px;
+      left: -24px;
     }
-    background-image: -webkit-linear-gradient(
-      left,
-      #fff 20%,
-      rgba(255, 255, 255, 0.0001) 100%
-    );
-    background-image: -o-linear-gradient(
-      left,
-      #fff 20%,
-      rgba(255, 255, 255, 0.0001) 100%
-    );
-    background-image: -webkit-gradient(
-      linear,
-      left top,
-      right top,
-      color-stop(20%, #fff),
-      to(rgba(255, 255, 255, 0.0001))
-    );
-    background-image: linear-gradient(
-      to right,
-      #fff 20%,
-      rgba(255, 255, 255, 0.0001) 100%
-    );
   }
 
   .slick-next {
     right: 0;
     &:before {
       background-image: url(../assets/img/next-article.svg);
-      right: 8px;
+      right: -24px;
     }
-    background-image: -webkit-linear-gradient(
-      left,
-      rgba(255, 255, 255, 0.0001) 0,
-      #fff 80%
-    );
-    background-image: -o-linear-gradient(
-      left,
-      rgba(255, 255, 255, 0.0001) 0,
-      #fff 80%
-    );
-    background-image: -webkit-gradient(
-      linear,
-      left top,
-      right top,
-      color-stop(0, rgba(255, 255, 255, 0.0001)),
-      color-stop(80%, #fff),
-      to(#fff)
-    );
-    background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.0001) 0,
-      #fff 80%
-    );
   }
 
   .slick-slide {
@@ -410,33 +364,24 @@
 	.slick-current .carousel-item {
 		transition: 0.3s all ease;
 		.image {
-			-webkit-filter: blur(0px);
-			-moz-filter: blur(0px);
-			-o-filter: blur(0px);
-			-ms-filter: blur(0px);
-			filter: blur(0px);
+			background-color: rgba(255, 214, 83, .7);
+			background-blend-mode: multiply;
 		}
 		.caption {
-			background-color: rgba(255, 214, 83, .1);
-			color: $color-text;
-			text-shadow: gray 3px 3px 10px;
+			background-color: unset;
+			text-shadow: black 0px 0px 10px;
 		}
 
-		@include breakpoint(desktop) {
+		@media (min-width: 600px) {
 			.image {
-				-webkit-filter: blur(2px);
-				-moz-filter: blur(2px);
-				-o-filter: blur(2px);
-				-ms-filter: blur(2px);
-				filter: blur(2px);
+				background-color: unset;
+				background-blend-mode: normal;
 			}
 			.caption {
-				background-color: initial;
-				color: $color-breadcrumb;
+				background-color: rgba(94, 103, 118, .5);
 				text-shadow: none;
 			}
 		}
-
 	}
 
   .carousel-item {
@@ -449,45 +394,35 @@
       height: 100%;
     }
     .image {
-			transition: 0.5s all ease;
       display: block;
       height: 100%;
       background-size: cover;
       background-position: center;
-      opacity: 1;
-      -webkit-filter: blur(2px);
-      -moz-filter: blur(2px);
-      -o-filter: blur(2px);
-      -ms-filter: blur(2px);
-      filter: blur(2px);
     }
 		&:focus .image,
 		&:hover .image {
 			transition: 0.3s all ease;
-			-webkit-filter: blur(0px);
-			-moz-filter: blur(0px);
-			-o-filter: blur(0px);
-			-ms-filter: blur(0px);
-			filter: blur(0px);
+			background-color: rgba(255, 214, 83, .7);
+			background-blend-mode: multiply;
 		}
     .caption {
-			transition: 0.5s all ease;
       display: block;
       left: auto;
       height: 100%;
       text-align: center;
       line-height: 144px; // vertical center
-      font-family: 'Fira Sans', sans-serif;
+      font-family: $sans;
       font-size: 2.1rem;
-      font-weight: normal;
-      color: $color-breadcrumb;
+      font-weight: bold;
+      color: $color-white;
+			background-color: rgba(94, 103, 118, .5);
 
 			&:focus,
 			&:hover {
-				transition: 0.3s all ease;
-				background-color: rgba(255, 214, 83, .1);
-				color: $color-text;
-				text-shadow: gray 3px 3px 10px;
+				transition: 0.5s all ease;
+				background-color: unset;
+				color: $color-white;
+				text-shadow: black 0px 0px 10px;
 
 			}
     }
@@ -508,12 +443,12 @@
     margin-left: -20px;
     margin-right: -20px;
     .slick-dots {
-      bottom: 0;
+      bottom: -32px;
     }
 
     @include breakpoint(desktop) {
-      margin-left: -68px;
-      margin-right: -68px;
+      margin-left: -8px;
+      margin-right: -8px;
     }
   }
 }

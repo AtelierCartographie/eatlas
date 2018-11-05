@@ -253,7 +253,7 @@ const TopicCarousel = ({
   articles,
   options,
   intl,
-  lazyLoading = true,
+  lazyLoading = false,
 }) => {
   const settings = carouselSettings(articles.length)
   if (articles.length === 0) {

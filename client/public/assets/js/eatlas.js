@@ -36,6 +36,28 @@
           loadLazyImages(slick, next),
         )
         .on('init', (e, slick) => loadLazyImages(slick))
+        // Replace initialSlide = `RAND${min}-${max}`
+        .each(function() {
+          if (this.getAttribute('data-slick')) {
+            try {
+              const data = JSON.parse(this.getAttribute('data-slick'))
+              let match = null
+              if (
+                data.initialSlide &&
+                typeof data.initialSlide === 'string' &&
+                (match = data.initialSlide.match(/^RAND(\d+)-(\d+)$/))
+              ) {
+                const min = Number(match[1])
+                const max = Number(match[2])
+                data.initialSlide =
+                  min + Math.floor(Math.random() * (max - min))
+                this.setAttribute('data-slick', JSON.stringify(data))
+              }
+            } catch (err) {
+              window.console && window.console.error(err)
+            }
+          }
+        })
         .slick({
           // accessibility: true,
           // adaptiveHeight: false,
@@ -92,15 +114,13 @@
       totalHeight += $(this).outerHeight()
     })
 
-    $parent
-      .css({
-        'transition': '3s all ease',
-        height: totalHeight,
-        'max-height': 9999,
+    $parent.css({
+      transition: '3s all ease',
+      height: totalHeight,
+      'max-height': 9999,
+    })
 
-      })
-
-    $(this).css({'display': 'none'})
+    $(this).css({ display: 'none' })
     return false
   })
 

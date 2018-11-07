@@ -241,7 +241,9 @@ const carouselSettings = nbArticles => (
     centerPadding,
     initialSlide:
       nbArticles > slides
-        ? Math.floor(Math.random() * (nbArticles - 1)) // Do not start with last slide as it breaks initial display
+        ? // Use special value `RAND${min}-${max}` that will be dynamically replaced client-side
+          // If we call Math.random() here, the randomization will be done only once at generation-time
+          `RAND0-${nbArticles - 1}` // Do not start with last slide as it breaks initial display
         : 0, // Not enough articles: set to 0 or we'll have ugly offset
     ...additionalSettings,
   }

@@ -18,7 +18,7 @@
             ? index - Math.floor(slick.options.slidesToShow / 2)
             : index
       for (let i = start; i < start + slick.options.slidesToShow; i++) {
-        const $slide = slick.$slides.filter(`[data-slick-index=${i}]`)
+        const $slide = slick.$slides.eq(i % slick.$slides.length)
         loadLazyImage($slide)
       }
     }

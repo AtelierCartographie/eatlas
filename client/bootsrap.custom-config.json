@@ -394,6 +394,7 @@
   ],
   "js": [
     "modal.js",
+    "tab.js",
     "collapse.js",
     "scrollspy.js",
     "transition.js"

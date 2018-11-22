@@ -206,7 +206,6 @@ const Resource = injectIntl(({ resource, topics, options, intl }) => {
         h(ResourceSource, { resource, options }),
         h(ResourceCopyright, { resource, options }),
         h(ResourceDescription, { resource }),
-        h(ResourceImageDownload, { resource, options }),
         h(ArticleSeeAlso, {
           article: resource,
           topics,

@@ -38,7 +38,7 @@ const featuresList = injectIntl(({ features, options, intl }) => {
   ])
 })
 
-const featuresNum = ['0', '1', '2', '3', '4']
+const featuresNum = ['0', '1', '2']
 
 const Features = ({ options, intl }) => {
   return h('section.HomeFeatures#features', [
@@ -218,14 +218,6 @@ const Team = ({ options, intl }) => {
       cartographers.map(member =>
         h(TeamMemberModal, { key: member.key, member, options }),
       ),
-      h('h3', {}, h(T, { id: 'home.the-project' })),
-      h('p', [
-        h(T, { id: 'home.project.0' }),
-        h('br'),
-        h(T, { id: 'home.project.1' }),
-        h('br'),
-        h(T, { id: 'home.project.2' }),
-      ]),
     ]),
   ])
 }
@@ -376,6 +368,16 @@ const Home = ({ topics, articles, options, intl }) => {
     //   ]),
     // ]),
     h(Team, { options }),
+    h('section.HomeProject#project', [
+      h('.container', [
+        h('h2', {}, h(T, { id: 'home.the-project' })),
+        h('p', {}, h(T, { id: 'home.project' })),
+        h('img', {
+          alt: 'Sciences Po',
+          src: prefixUrl('/assets/img/sciences-po.svg', options),
+        }),
+      ]),
+    ]),
     h('section.HomeContact#contact', [
       h('.container', [
         h('h2', {}, h(T, { id: 'home.contact-title' })),

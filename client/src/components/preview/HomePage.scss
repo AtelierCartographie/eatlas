@@ -52,31 +52,23 @@
     background: $color-white;
   }
 
-  .HomeResources {
-    background: $color-footer;
-
-    a {
-      font-weight: bold;
-      color: $color-text;
-      background: $color-keyword;
-      border-radius: 5px;
-      padding: 3px 6px;
-
-      &:focus,
-      &:hover {
-        background: $color-yellow;
-        text-decoration: none;
-      }
-    }
-  }
-
   .HomeTeam,
   .HomeBook {
     background: $color-footer;
   }
 
+	.HomeProject {
+		background: $color-white;
+
+		img {
+			width: 270px;
+			margin: $gap2 0 0 0;
+		}
+	}
+
   .HomeContact {
     background: $color-white;
+		padding: 0 0 32px 0;
   }
 
   .logo {

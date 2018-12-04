@@ -6,15 +6,12 @@
   "the-team": "L’équipe",
   "the-texts": "Les textes",
   "the-vizualisations":
-    "Les visualisations",
+    "Les cartes et graphiques",
   "the-vizualisations-creator":
     "(Sciences Po - Atelier de cartographie)",
   "the-project": "Le projet",
-  "project": [
-    "Delphine Lereculeur et Anne L’Hôte (conduite de projet, Sciences Po DRIS).",
-    "ByteClub - Bruno Héridet et Nicolas Chambrier (développement).",
-    "Les Presses de Sciences Po (editing et déclinaison papier)."
-  ],
+  "project":
+    "Cet Atlas est le fruit d’une aventure collective au sein de Sciences Po, sur une idée originale et un financement de la Direction des ressources et de l’information scientifique (DRIS) au nom de laquelle Delphine Lereculeur a conduit le projet. Explorant des pistes de développement autour de la publication en open edition de contenus scientifiques multimédia à destination d'un public large, le choix s'est porté sur l'Atlas de la mondialisation, dont la dernière édition datait de 2013. D'autres acteurs de Sciences Po ont accompagné ce projet, parmi lesquels la Direction des Études et de la Scolarité (DES) et les Presses de Sciences Po.  La société ByteClub a réalisé les développements.",
   "contact-title": "Nous contacter",
   "contact-intro": "Entrer en contact avec les rédacteurs et les cartographes",
   "contact-button": "Nous contacter",
@@ -57,10 +54,8 @@
   "antoine-rio-bio":
     "Géographe de formation et spécialisé en systèmes d'information géographique, Antoine Rio s'est notamment élargit au traitement et à la visualisation de données depuis son arrivée à l'Atelier de cartographie de Sciences Po, en 2014.",
   "features": [
-    "Plus de 200 visualisations",
-    "Près de 300 notions-clés expliquées",
-    "Des articles scientifiques avec des références",
-    "Des visualisations adaptés aux mobiles",
-    "Des thèmes aux programmes de l'enseignement"
+    "Plus de 200 cartes et graphiques (téléchargeables)",
+    "Près de 230 notions et concepts expliqués",
+    "Plus de 80 articles et focus sur les questions d’actualité"
   ]
 }

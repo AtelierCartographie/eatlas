@@ -6,15 +6,12 @@
   "the-team": "The team",
   "the-texts": "The texts",
   "the-vizualisations":
-    "The vizualisations",
+    "Maps and graphics",
   "the-vizualisations-creator":
     "(Sciences Po - Atelier de cartographie)",
   "the-project": "The project",
-  "project": [
-    "Delphine Lereculeur and Anne L’Hôte (project leading, Sciences Po DRIS).",
-    "ByteClub - Bruno Héridet and Nicolas Chambrier (development).",
-    "Les Presses de Sciences Po (editing and paper version)."
-  ],
+  "project":
+    "Cet Atlas est le fruit d’une aventure collective au sein de Sciences Po, sur une idée originale et un financement de la Direction des ressources et de l’information scientifique (DRIS) au nom de laquelle Delphine Lereculeur a conduit le projet. Explorant des pistes de développement autour de la publication en open edition de contenus scientifiques multimédia à destination d'un public large, le choix s'est porté sur l'Atlas de la mondialisation, dont la dernière édition datait de 2013. D'autres acteurs de Sciences Po ont accompagné ce projet, parmi lesquels la Direction des Études et de la Scolarité (DES) et les Presses de Sciences Po.  La société ByteClub a réalisé les développements.",
   "contact-title": "Contact us",
   "contact-intro": "Get in touch with the editors and cartographers",
   "contact-button": "Contact us",
@@ -57,10 +54,8 @@
   "antoine-rio-bio":
     "A geographer by training and specialized in geographic information systems, Antoine Rio has notably expanded to include data processing and visualization since his arrival at l'Atelier de cartographie Sciences Po in 2014.",
   "features": [
-    "More than 200 visualizations",
-    "Almost 300 key concepts explained",
-    "Scientific articles with references",
-    "Mobile-friendly visualizations",
-    "Topics in Education Programs"
+    "More than 200 maps and graphics (downloadable)",
+    "Almost 230 key concepts explained",
+    "Scientific articles with references"
   ]
 }

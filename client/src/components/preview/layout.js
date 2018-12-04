@@ -128,6 +128,10 @@ exports.aPropos = [
     url: globalPageUrl('index', null, 'team'),
   },
   {
+    text: 'home.the-project',
+    url: globalPageUrl('index', null, 'project'),
+  },
+  {
     text: 'home.contact-title',
     url: globalPageUrl('index', null, 'contact'),
   },

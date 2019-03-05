@@ -31,9 +31,9 @@
   "checking-credentials": "Checking the identification ...",
   "confirm-delete":
     "Do you confirm removal of \"{name}\"? This operation can't be undone.",
-  "connection": "log-in",
+  "connection": "log in",
   "delete": "delete",
-  "disconnection": "logout",
+  "disconnection": "log out",
   "edit": "modify",
   "error": "Error",
   "error-parsing-image-name":
@@ -50,9 +50,9 @@
   "pagination-count": "{count} per page",
   "pagination-next": "Next",
   "pagination-previous": "Previous",
-  "position-bottom": "Low",
+  "position-bottom": "Bottom",
   "position-center": "Center",
-  "position-top": "High",
+  "position-top": "Top",
   "preview": "Preview",
   "preview-lexicon": "{nb} definitions",
   "publish": "publish",
@@ -62,7 +62,7 @@
   "resource-createdAt": "Creation date",
   "resource-description": "Description ({lang})",
   "resource-edit": "{type}: {id}",
-  "resource-edit-loading": "Loading the resource #{id} ...",
+  "resource-edit-loading": "Loading the resource #{id}...",
   "resource-id": "ID",
   "resource-image": "Image",
   "resource-image-help": "Click on an image to remove it",
@@ -101,7 +101,7 @@
   "status-submitted": "submitted (to be validated)",
   "status-validated": "validated",
   "submit": "submit",
-  "toast-resource-saved": "Resource saved successfully.",
+  "toast-resource-saved": "Resource saved successfully",
   "toast-topic-saved": "Topic saved",
   "toast-type-definition-singleton":
     "Only one glossary at a time: the backup will REPLACE the current definitions",
@@ -119,7 +119,7 @@
   "upload": "submit",
   "users": "users",
   "validate": "Confirm",
-  "view-lexicon-content": "Detailed content of the lexicon ({nb} definitions)",
+  "view-lexicon-content": "Detailed content of the glossary ({nb} definitions)",
   "warning-id-add-language-suffix":
     "The language has automatically been added as a suffix of the real ID",
   "warning-inconsistent-id-language":

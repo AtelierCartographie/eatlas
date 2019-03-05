@@ -1,8 +1,8 @@
 {
   "title-meta": "Home",
   "title": "An atlas to understand",
-  "subtitle": "the contemporary world space",
-  "topics-title": "Access themes",
+  "subtitle": "the issues facing the world today",
+  "topics-title": "Access parts",
   "the-team": "The team",
   "the-texts": "The texts",
   "the-vizualisations":
@@ -13,48 +13,48 @@
   "project":
     "Cet Atlas est le fruit d’une aventure collective au sein de Sciences Po, sur une idée originale et un financement de la Direction des ressources et de l’information scientifique (DRIS) au nom de laquelle Delphine Lereculeur a conduit le projet. Explorant des pistes de développement autour de la publication en open edition de contenus scientifiques multimédia à destination d'un public large, le choix s'est porté sur l'Atlas de la mondialisation, dont la dernière édition datait de 2013. D'autres acteurs de Sciences Po ont accompagné ce projet, parmi lesquels la Direction des Études et de la Scolarité (DES) et les Presses de Sciences Po.  La société ByteClub a réalisé les développements.",
   "contact-title": "Contact us",
-  "contact-intro": "Get in touch with the editors and cartographers",
+  "contact-intro": "Contact the authors and cartographers",
   "contact-button": "Contact us",
   "the-book": "The book",
   "book-intro-html":
-    "<em>Espace mondial : l’Atlas</em> is also a beautiful book published by Presses de Sciences Po.",
+    "<em>The World Atlas of Global Issues</em> is also a beautiful book published by the Presses de Sciences Po.",
   "book-button": "Buy the book",
-  "delphine-alles-title": "Professor of Universities in Political Science",
+  "delphine-alles-title": "Professor of Political Science",
   "delphine-alles-bio":
-    "Professor of Political Science, Delphine Allès directs the International Relations Department of the National Institute of Oriental Languages ​​and Civilizations (INALCO), whose research focuses on the role of religion in the global space and the non-Western approaches to international.",
-  "melanie-albaret-title": "Mistress of conferences in political experience",
+    "Delphine Allès is professor of Political Science. She is head of the International Relations Department at the National Institute of Oriental Languages and Civilizations (INALCO). Her research focuses on the role of religion in the global space and non-Western approaches to international relations.",
+  "melanie-albaret-title": "Lecturer in political science",
   "melanie-albaret-bio":
-    "PhD in political science (international relations), Mélanie Albaret is a lecturer at Clermont Auvergne University, where her research focuses on international organizations (notably the UN) and multilateralism.",
+    "Mélanie Albaret holds a PhD in political science (international relations). She is a lecturer at Clermont Auvergne University. Her research focuses on international organizations (particularly the UN) and multilateralism.",
   "philippe-copinschi-title": "Teacher, consultant",
   "philippe-copinschi-bio":
-    "Philippe Copinschi holds a Ph.D. in political science (international relations) from Sciences Po Paris and teaches at the Paris School of International Affairs (PSIA) at Sciences Po Paris and works as an independent consultant in the field of energy, particularly in Africa.",
-  "mf-durand-title": "Associate Professor of Geography",
+    "Philippe Copinschi holds a doctorate in political science (international relations) from Sciences Po Paris. He teaches at the Paris School of International Affairs (PSIA) at Sciences Po Paris and works as an independent consultant in the field of energy, particularly in Africa.",
+  "mf-durand-title": "Professor of Geography",
   "mf-durand-bio":
-    "Associate Professor of Geography at Sciences Po from 1989 to 2015, Marie-Françoise Durand created the Cartography Workshop, coordinated the course World Space, the production of several MOOCs and the 6 editions of l'Atelier de mondialisation",
-  "lucile-maertens-title": "Master-Assistant in International Relations",
+    "Marie-Françoise Durand, professor of Geography at Sciences Po from 1989 to 2015, created the Cartography Studio, coordinated the course World Space, the production of several MOOCs and the 6 editions of the Atlas of Globalization.",
+  "lucile-maertens-title": "Assistant professor in international relations",
   "lucile-maertens-bio":
-    "Lucine Maertens is a lecturer in political science at the University of Lausanne (IEPHI) and an associate researcher at Sciences Po / CERI, and her research focuses on the work of international organizations in the field of the environment and security.",
+    "Lucile Maertens holds a PhD in Political Science and is Assistant Professor in International Relations at the University of Lausanne (IEPHI) and Associate Researcher at Sciences Po / CERI. Her research focuses on the work of international organizations in the field of environment and security.",
   "delphine-placidi-frot-title":
-    "Professor of Universities in Political Science",
+    "Professor of Political Science",
   "delphine-placidi-frot-bio":
-    "Professor of Political Science, Delphine Placidi-Frot is co-director of the M2 Diplomacy and Strategic Negotiations and Governance of Sustainable Development Projects in the South of Paris-Saclay University, where her research focuses on foreign policy and multilateral organizations (particularly UN organizations).",
+    "Delphine Placidi-Frot, Professor of Political Science, co-leads the Master's curriculum in Diplomacy and Strategic Negotiations and Governance of Sustainable Development Projects in the Global South at Paris-Saclay University. Her research focuses on foreign policy and multilateral organizations (particularly UN organizations).",
   "thomas-ansart-title": "cartography, data visualization, R",
   "thomas-ansart-bio":
     "Coming to cartography at Sciences Po in 2008, Thomas Ansart has since juggled between data visualization creations, tool design, website design and project tracking, with a growing number of lines of code.",
   "benoit-martin-title":
-    "Geographer-Cartographer and Doctoral Student in Political Science",
+    "Geographer and Cartographer and Doctoral Student in Political Science",
   "benoit-martin-bio":
     "A Cartographer at Sciences Po since 2006, his research focuses on the production of international statistics - his doctoral dissertation explores the case of UNODC, on drugs and crime - and in particular the political issues surrounding the activities of International organisations.",
-  "patrice-mitrano-title": "Geographer-cartographer",
+  "patrice-mitrano-title": "Geographer and cartographer",
   "patrice-mitrano-bio":
     "Patrice Mitrano has been involved in the life of the Cartography Workshop since 1998. He designs and makes maps, of course, but also all kinds of other images that we would quickly call “viz”. The accompaniment of the establishment of the Department of Islamic Arts at the Louvre in 2012.",
-  "anouk-pettes-title": "Geographer-cartographer",
+  "anouk-pettes-title": "Geographer and cartographer",
   "anouk-pettes-bio": " ",
-  "antoine-rio-title": "Geographer-cartographer",
+  "antoine-rio-title": "Geographer and cartographer",
   "antoine-rio-bio":
-    "A geographer by training and specialized in geographic information systems, Antoine Rio has notably expanded to include data processing and visualization since his arrival at l'Atelier de cartographie Sciences Po in 2014.",
+    "Antoine Rio, a geographer by training and specialized in geographic information systems,  has in particular expanded to the processing and visualization of data since his arrival at the Sciences Po - Atelier de cartographie in 2014.",
   "features": [
-    "More than 200 maps and graphics (downloadable)",
+    "More than 200 maps and charts (downloadable)",
     "Almost 230 key concepts explained",
     "Scientific articles with references"
   ]

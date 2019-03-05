@@ -1,50 +1,50 @@
 {
   "type": {
     "article": "Article",
-    "definition": "Lexicone",
+    "definition": "Glossary",
     "focus": "Focus",
-    "image": "Picture",
-    "map": "Map or graphic",
+    "image": "Photo",
+    "map": "Map or chart",
     "sound": "Sound",
     "video": "Video"
   },
   "type-plural": {
     "article": "Articles",
-    "definition": "Lexicon",
-    "single-definition": "Lexicon",
+    "definition": "Glossary",
+    "single-definition": "Glossary",
     "focus": "Focus",
-    "image": "Pictures",
-    "map": "Maps and graphics",
+    "image": "Photos",
+    "map": "Maps and charts",
     "sound": "Sounds",
     "video": "Videos",
     "reference": "References",
-    "image+video": "Pictures and videos",
+    "image+video": "Photos and videos",
     "all": "All types"
   },
-  "related-article-or-focus": "Related article or focus",
+  "related-article-or-focus": "Related article or related focus",
   "published-at": "Published on",
-  "date-format": "MMM d, YYYY",
+  "date-format": "MMM D YYYY",
   "keywords": "Keywords",
-  "publisher": "Global space, the Atlas",
-  "quote-title": "Quote",
-  "quote-text": "« {title} » {publisher}, {year}, [online], consulted on",
+  "publisher": "World Atlas of GLobal Issues",
+  "quote-title": "To quote this article",
+  "quote-text": "\" {title} \" {publisher}, {year}, [online], accessed on",
   "references": "References",
   "comment": "Comment",
-  "summary": "Summary",
-  "see-also-alt-title": "See also in the Atlas",
+  "summary": "Abstract",
+  "see-also-alt-title": "Continue in the Atlas",
   "embedded-download-title": "Info & download",
   "resource-page-title": "Resources",
-  "transcription": "Transcript",
+  "transcription": "Transcription",
   "download": "Download",
   "download-warning":
-    "Before any use, please read <a href=\"{href}\">legal notice</a>.",
+    "Before using, please read <a href=\"{href}\">legal notice</a>.",
   "download-warning-map":
     "You are free to share the material in any medium or format under the following terms: give appropriate credit, do not use the material for commercial purposes and do not distribute remix or transform version of the material. For any other use, please <a href=\"{href}\" target=\"_blank\">contact us</a>.",
   "download-size": {
-    "large": "detailed version",
-    "medium": "simple version",
-    "small": "simpler version"
+    "large": "Detailed version",
+    "medium": "Simplified version",
+    "small": "Very simplified version"
   },
   "do-download": "download",
-  "read-full-definition": "Read full definition"
+  "read-full-definition": "Read the full definition"
 }

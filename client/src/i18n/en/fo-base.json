@@ -1,35 +1,35 @@
 {
   "title": "World Atlas of Global Issues",
   "close": "Close",
-  "nav-summary": "Summary",
+  "nav-summary": "Contents",
   "nav-resources": "Resources",
   "nav-about": "About",
   "homepage": "Home page",
   "lexicon-title-prefix": "Resources > ",
-  "lexicon": "Lexicon",
+  "lexicon": "Glossary",
   "page-not-found": "Page not found",
-  "back-home": "Back to home page",
-  "page-not-found-intro": "Requested page does not exist or has been removed.",
+  "back-home": "Back to Home",
+  "page-not-found-intro": "The page you requested does not exist, or no longer exists.",
   "page-not-found-link-html":
-    "You can report broken link using <a href=\"{href}\">our contact form</a>.",
+    "You can report a broken link using <a href=\"{href}\">our contact form</a>.",
   "search": {
     "title": "Search",
-    "placeholder": "Search in the Atlas",
-    "filters-title": "Refine search",
-    "filter-topic": "Topics",
+    "placeholder": "Search the atlas",
+    "filters-title": "Refine Search",
+    "filter-topic": "Parts",
     "filter-keyword": "Keywords",
-    "filter-date": "Publication date",
+    "filter-date": "Date of publication",
     "filter-date-before": "Before… ",
     "filter-date-after": "After… ",
     "filter-type": "Type",
     "filter-type-warning":
-      "Note: you cannot combine references, definitions, and other types",
+      "Note: search does not allow a combination of references, definitions, and other types",
     "page-previous": "Previous results",
     "page-next": "Next results",
     "page-nav": "{start} - {end} on {nb-results}",
-    "nb-results-none": "no result",
-    "nb-results-one": "1 result",
-    "nb-results-many": "{count} results"
+    "nb-results-none": "no occurence found",
+    "nb-results-one": "1 occurence found",
+    "nb-results-many": "{count} occurences found"
   },
   "sitemap": {
     "title": "Site map",
@@ -39,22 +39,22 @@
     "article": "article",
     "definition": "definition",
     "focus": "focus",
-    "image": "picture",
+    "image": "photo",
     "map": "map",
     "sound": "sound",
     "video": "video",
-    "topic": "topic"
+    "topic": "part"
   },
-  "current-lang-link-title": "Current page is already in English",
+  "current-lang-link-title": "The current page is already in English",
   "page-description": {
-    "index": "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 maps and graphics",
-    "definition": "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 definitions",
+    "index": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "definition": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 definitions",
     "search":
-      "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 maps and graphics",
-    "about": "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 maps and graphics",
-    "legals": "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 maps and graphics",
-    "sitemap": "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 maps and graphics",
-    "notFound": "Atlas in open acess made in Sciences Po. World Atlas of Global Issues regroup more than 200 maps and graphics"
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "about": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "legals": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "sitemap": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "notFound": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts"
   },
   "page-image": {
     "index": "/assets/img/page-image/social.png",

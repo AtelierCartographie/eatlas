@@ -1,4 +1,4 @@
-@import "var";
+@import 'var';
 
 .TopicPage {
   .TopicHeader {
@@ -11,6 +11,7 @@
     padding-bottom: $gap3;
 
     .TopicId {
+      display: block;
       font-size: 7rem;
       font-weight: bold;
       line-height: 7rem;
@@ -24,6 +25,7 @@
     }
 
     .TopicName {
+      display: block;
       font-size: 3.8rem;
       line-height: 4.1rem;
 
@@ -68,7 +70,7 @@
       }
     }
 
-    img {
+    .ArticleImage {
       background: #ccc;
       background-position: center;
       background-repeat: no-repeat;

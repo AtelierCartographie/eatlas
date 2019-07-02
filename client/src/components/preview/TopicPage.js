@@ -74,8 +74,8 @@ const TopicHeader = ({ topic, title, resources, options }) => {
     [
       h('.container', [
         h('h1', [
-          h('.TopicId', topic.id !== '0' && topic.id),
-          h('.TopicName', title),
+          h('span.TopicId', topic.id !== '0' && topic.id),
+          h('span.TopicName', title),
         ]),
         resourceComponent,
       ]),
@@ -90,8 +90,7 @@ const ArticleList = ({ articles, options, lang }) => {
     articles.map(a => {
       return h('li', [
         h('a', { href: getResourcePageUrl(a, options) }, [
-          h('img', {
-            alt: '',
+          h('.ArticleImage', {
             style: {
               backgroundImage: articleHeaderImageUrl(a, options),
             },

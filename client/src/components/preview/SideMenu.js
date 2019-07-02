@@ -51,31 +51,27 @@ exports.SideMenu = (
   options: Object,
 } */,
 ) =>
-  h(
-    'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
-    { role: 'navigation' },
-    [
-      h('a.close-button', '#', '⨯'),
-      h('h1.navmenu-title', [
-        h(
-          'a',
-          {
-            href: options.preview
-              ? `${options.apiUrl || ''}/preview`
-              : prefixUrl('/'),
-          },
-          h(T, { id: 'fo.title' }),
-        ),
-      ]),
-      options.hideLangSelector ? null : h(LangSelector, { options }),
-      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
-      h(Topics, { topics, options }),
-      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
-      h(Resources, { options }),
-      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
-      h(APropos, { options }),
-    ],
-  )
+  h('nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas', {}, [
+    h('a.close-button', '#', '⨯'),
+    h('h1.navmenu-title', [
+      h(
+        'a',
+        {
+          href: options.preview
+            ? `${options.apiUrl || ''}/preview`
+            : prefixUrl('/'),
+        },
+        h(T, { id: 'fo.title' }),
+      ),
+    ]),
+    options.hideLangSelector ? null : h(LangSelector, { options }),
+    h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
+    h(Topics, { topics, options }),
+    h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
+    h(Resources, { options }),
+    h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
+    h(APropos, { options }),
+  ])
 
 exports.SideMenuToggle = (
   {

@@ -123,7 +123,7 @@ class App extends Component<Props, State> {
 
   renderNav() {
     return (
-      <nav className="navbar is-fixed-top is-dark" aria-label="main navigation">
+      <nav className="navbar is-fixed-top is-dark" aria-label="main">
         <div className="navbar-brand">
           <button
             className={cx('button', 'navbar-burger', {

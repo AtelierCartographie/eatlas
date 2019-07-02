@@ -51,7 +51,7 @@ module.exports = (
   options: Object,
 } */,
 ) =>
-  h('footer.container.Footer', { role: 'contentinfo' }, [
+  h('footer.container.Footer', {}, [
     h('.FooterRow', [
       h('.FooterColTopics', [
         h('h2', {}, h(T, { id: 'fo.nav-summary' })),

@@ -18,11 +18,14 @@ const srcset = (image, size, options) => {
     }
     return null
   }
-  return [
+  const srcSet = [
     ...(image1 ? [image1] : []),
     ...(image2 ? [`${image2} 2x`] : []),
     ...(image3 ? [`${image3} 3x`] : []),
   ].join(', ')
+  return options.includeSrc
+    ? { src: image1 || image2 || image3, srcSet }
+    : { srcSet }
 }
 
 const Picture = ({
@@ -30,20 +33,31 @@ const Picture = ({
   options,
   main: { component, size, props },
   sources = [],
-}) =>
-  h('picture', [
+}) => {
+  const srcSet = srcset(resource, size, {
+    ...options,
+    fallback: true,
+    includeSrc: component === 'img',
+  })
+  return h('picture', [
     ...sources.map(({ size, minWidth }, key) => {
       const srcSet = srcset(resource, size, options)
-      if (!srcSet) return null
-      const more = minWidth ? { media: `(min-width: ${minWidth})` } : {}
-      return h('source', { key, srcSet, ...more })
+      if (!srcSet) {
+        return null
+      }
+      const more = {
+        media: minWidth ? `(min-width: ${minWidth})` : '(min-width: 0)',
+      }
+      return h('source', { key, ...srcSet, ...more })
     }),
     h(component, {
       ...props,
       key: 'maincomponent',
-      srcSet: srcset(resource, size, { ...options, fallback: true }),
+      ...(srcSet || {}),
+      ...(component === 'img' ? { alt: '' } : {}),
     }),
   ])
+}
 
 const defaultSources = [
   { size: 'large', minWidth: '700px' },

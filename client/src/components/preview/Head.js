@@ -92,10 +92,17 @@ module.exports = injectIntl((
     ...styles.map(href => h('link', { rel: 'stylesheet', href })),
     ...links.map(
       ({ href, title, type, rel = 'alternate', lang = intl.locale }) =>
-        h('link', { rel, href, title, hrefLang: lang, type }),
+        href ? h('link', { rel, href, title, hrefLang: lang, type }) : null,
     ),
-    ...Object.keys(intl.urls).map(lang =>
-      h('link', { rel: 'alternate', href: intl.urls[lang], hrefLang: lang }),
+    ...Object.keys(intl.urls).map(
+      lang =>
+        intl.urls[lang]
+          ? h('link', {
+              rel: 'alternate',
+              href: intl.urls[lang],
+              hrefLang: lang,
+            })
+          : null,
     ),
     ...(options.analytics && options.analytics.google
       ? googleAnalyticsScript(h, options.analytics.google)

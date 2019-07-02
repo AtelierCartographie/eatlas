@@ -44,7 +44,7 @@ exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
     ' ',
     h(
       'time',
-      { dateTime: date },
+      { dateTime: moment(date).format('YYYY-MM-DD') },
       moment(date)
         .locale(intl.lang)
         .format(intl.formatMessage({ id: 'doc.date-format' })),
@@ -167,21 +167,21 @@ PB  - ${publisher}`
   // TODO: where should export links be available? Ref #128
   return [
     {
-      href: `data:application/x-bibtex;name=${encodeURIComponent(
+      href: `data%3Aapplication/x-bibtex;name=${encodeURIComponent(
         doc.title,
       )}.bibtex,${encodeURIComponent(bibtex)}`,
       title: `${doc.title}.bibtex`,
       type: 'application/x-bibtex',
     },
     {
-      href: `data:application/x-endnote-refer;name=${encodeURIComponent(
+      href: `data%3Aapplication/x-endnote-refer;name=${encodeURIComponent(
         doc.title,
       )}.enw,${encodeURIComponent(endnote)}`,
       title: `${doc.title}.enw`,
       type: 'application/x-endnote-refer',
     },
     {
-      href: `data:application/x-research-info-systems;name=${encodeURIComponent(
+      href: `data%3Aapplication/x-research-info-systems;name=${encodeURIComponent(
         doc.title,
       )}.ris,${encodeURIComponent(refman)}`,
       title: `${doc.title}.ris`,

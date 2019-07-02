@@ -17,19 +17,23 @@ const EmbeddedResource = ({ resource, options }) => {
 
   switch (resource.type) {
     case 'image':
-      return h('figure', [
-        h(Html, { component: 'h2.figure-title.container' }, resource.title),
-        Picture.Responsive({ resource, options, mainSize: 'large' }),
-        h(FigCaption, { content: resource.copyright }),
+      return h('.Figure', [
+        h('figure', [
+          h(Html, { component: 'h2.figure-title.container' }, resource.title),
+          Picture.Responsive({ resource, options, mainSize: 'large' }),
+          h(FigCaption, { content: resource.copyright }),
+        ]),
         h('.ArticleResourceDownload.container', [infoLink]),
         h(ArticleResourceComment, { resource }),
       ])
 
     case 'map':
-      return h('figure', [
-        h(Html, { component: 'h2.figure-title.container' }, resource.title),
-        Picture.Responsive({ resource, options, mainSize: 'small' }),
-        h(FigCaption, { content: resource.source }),
+      return h('.Figure', [
+        h('figure', [
+          h(Html, { component: 'h2.figure-title.container' }, resource.title),
+          Picture.Responsive({ resource, options, mainSize: 'small' }),
+          h(FigCaption, { content: resource.source }),
+        ]),
         h('.ArticleResourceDownload.container', [infoLink]),
         h(ArticleResourceComment, { resource }),
       ])

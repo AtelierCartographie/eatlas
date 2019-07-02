@@ -52,7 +52,7 @@ exports.SideMenu = (
 } */,
 ) =>
   h('nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas', {}, [
-    h('a.close-button', '#', '⨯'),
+    h('a.close-button', { href: '#' }, '⨯'),
     h('h1.navmenu-title', [
       h(
         'a',

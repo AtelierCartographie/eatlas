@@ -26,7 +26,7 @@ module.exports = (
   h('body', { className: options.preview ? 'preview' : '' }, [
     h(TopBar, { altTitle, logoColor: logoColor || 'white', options }),
     h(SideMenu, { topics, options }),
-    h('main', { role: 'main' }, [children]),
+    h('main', {}, [children]),
     h(Footer, { topics, options }),
     h('script', {
       // Array.from, URLSearchParams, and other features required by eatlas.js

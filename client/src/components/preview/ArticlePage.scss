@@ -120,6 +120,10 @@
     }
     .LangLink {
       float: right;
+      .current,
+      .disabled {
+        pointer-events: none;
+      }
     }
   }
 

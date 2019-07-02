@@ -57,18 +57,18 @@
     background: $color-footer;
   }
 
-	.HomeProject {
-		background: $color-white;
+  .HomeProject {
+    background: $color-white;
 
-		img {
-			width: 270px;
-			margin: $gap2 0 0 0;
-		}
-	}
+    img {
+      width: 270px;
+      margin: $gap2 0 0 0;
+    }
+  }
 
   .HomeContact {
     background: $color-keyword;
-		padding: 0 0 32px 0;
+    padding: 0 0 32px 0;
   }
 
   .logo {
@@ -117,9 +117,9 @@
     margin-top: 0;
   }
 
-	h3.viz {
-		margin-bottom: 0;
-	}
+  h3.viz {
+    margin-bottom: 0;
+  }
 
   input {
     border: 1px solid $color-footer;
@@ -145,7 +145,7 @@
         margin: 40px 0 8px 0;
         padding: 0;
         a {
-					transition: 0.5s all ease;
+          transition: 0.5s all ease;
           text-decoration: none;
           color: $color-breadcrumb;
           font-family: 'Fira Sans', sans-serif;
@@ -155,8 +155,8 @@
           &:focus,
           &:hover {
             transition: 0.3s all ease;
-						border-bottom: 2px solid $color-yellow;
-						box-shadow: inset 0 -4px 0 $color-yellow;
+            border-bottom: 2px solid $color-yellow;
+            box-shadow: inset 0 -4px 0 $color-yellow;
           }
         }
       }
@@ -194,78 +194,6 @@
 
     .FeaturesTitle {
       text-align: center;
-    }
-  }
-
-  .HomeTeam {
-    ul {
-      // not well with small device (4 rows instead of 3)
-      display: inline-block;
-      // flex-direction: column;
-      list-style: none;
-      justify-content: space-between;
-      padding: 0;
-
-      // @include breakpoint(desktop) {
-      //   flex-direction: row;
-      // }
-    }
-
-    button {
-      background: transparent;
-      color: initial;
-      margin: 0;
-
-      img {
-        height: auto;
-        // marie-françoise
-        max-width: 110px;
-        // width: 100%;
-      }
-    }
-
-    .TeamMember {
-      align-items: center;
-      display: flex;
-      justify-content: start;
-      margin-bottom: $gap;
-
-      @include breakpoint(desktop) {
-        flex-direction: column;
-      }
-    }
-
-    .TeamMemberName {
-      @include breakpoint(desktop) {
-        text-align: center;
-        white-space: nowrap;
-      }
-    }
-
-    .avatar {
-      background: $color-keyword;
-      border-radius: 50%;
-      height: 96px;
-      margin: 0 $gap 0 0;
-      width: 96px;
-
-      @include breakpoint(desktop) {
-        margin: 0 auto $gap;
-      }
-    }
-
-    .modal {
-      img {
-        width: 50%;
-
-        @include breakpoint(desktop) {
-          width: 100%;
-        }
-      }
-
-      .TeamMemberLinks a {
-        margin-right: $gap;
-      }
     }
   }
 
@@ -353,28 +281,28 @@
     margin: 0 8px;
   }
 
-	.slick-current .carousel-item {
-		transition: 0.3s all ease;
-		.image {
-			background-color: rgba(255, 214, 83, .7);
-			background-blend-mode: multiply;
-		}
-		.caption {
-			background-color: unset;
-			text-shadow: black 0px 0px 10px;
-		}
+  .slick-current .carousel-item {
+    transition: 0.3s all ease;
+    .image {
+      background-color: rgba(255, 214, 83, 0.7);
+      background-blend-mode: multiply;
+    }
+    .caption {
+      background-color: unset;
+      text-shadow: black 0px 0px 10px;
+    }
 
-		@media (min-width: 600px) {
-			.image {
-				background-color: unset;
-				background-blend-mode: normal;
-			}
-			.caption {
-				background-color: rgba(94, 103, 118, .5);
-				text-shadow: none;
-			}
-		}
-	}
+    @media (min-width: 600px) {
+      .image {
+        background-color: unset;
+        background-blend-mode: normal;
+      }
+      .caption {
+        background-color: rgba(94, 103, 118, 0.5);
+        text-shadow: none;
+      }
+    }
+  }
 
   .carousel-item {
     margin: 0;
@@ -391,12 +319,12 @@
       background-size: cover;
       background-position: center;
     }
-		&:focus .image,
-		&:hover .image {
-			transition: 0.3s all ease;
-			background-color: rgba(255, 214, 83, .7);
-			background-blend-mode: multiply;
-		}
+    &:focus .image,
+    &:hover .image {
+      transition: 0.3s all ease;
+      background-color: rgba(255, 214, 83, 0.7);
+      background-blend-mode: multiply;
+    }
     .caption {
       display: block;
       left: auto;
@@ -407,16 +335,15 @@
       font-size: 2.1rem;
       font-weight: bold;
       color: $color-white;
-			background-color: rgba(94, 103, 118, .5);
+      background-color: rgba(94, 103, 118, 0.5);
 
-			&:focus,
-			&:hover {
-				transition: 0.5s all ease;
-				background-color: unset;
-				color: $color-white;
-				text-shadow: black 0px 0px 10px;
-
-			}
+      &:focus,
+      &:hover {
+        transition: 0.5s all ease;
+        background-color: unset;
+        color: $color-white;
+        text-shadow: black 0px 0px 10px;
+      }
     }
     .image + .caption {
       position: relative;

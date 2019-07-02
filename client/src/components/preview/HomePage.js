@@ -14,10 +14,11 @@ const {
   getImageUrl,
   getResourcePageUrl,
 } = require('./layout')
-const { slugify, topicName, stripTags } = require('../../universal-utils')
+const { topicName, stripTags } = require('../../universal-utils')
 const Head = require('./Head')
 const Body = require('./Body')
 const Html = require('./Html')
+const Team = require('./Team')
 
 // subcomponents
 const featuresUrl = features => `/assets/img/features/features-${features}.svg`
@@ -46,177 +47,6 @@ const Features = ({ options, intl }) => {
       h(
         'ul',
         featuresNum.map(features => h(featuresList, { features, options })),
-      ),
-    ]),
-  ])
-}
-
-const avatarUrl = member =>
-  `/assets/img/team/team-${toId(member.firstname)}_${toId(member.lastname)}.png`
-
-const toId = lastname => slugify(lastname)
-
-const TeamMemberModal = injectIntl(({ member, options, intl }) => {
-  return h(
-    `#${toId(member.lastname)}.modal.fade`,
-    { tabIndex: -1, role: 'dialog', 'aria-labelledby': 'modal' },
-    [
-      h('.modal-dialog.modal-lg', { role: 'document' }, [
-        h('.modal-content', {}, [
-          h('.modal-body', [
-            h('.row.vcenter', [
-              h('.col-md-4', [
-                h('img.center-block', {
-                  src: prefixUrl(avatarUrl(member), options.preview),
-                  alt: `${member.firstname} ${member.lastname}`,
-                }),
-              ]),
-              h('.col-md-8', [
-                h('h2', `${member.firstname} ${member.lastname}`),
-                h('h3', {}, h(T, { id: `home.${member.key}-title` })),
-                h('p', {}, h(T, { id: `home.${member.key}-bio` })),
-                h('div.TeamMemberLinks', [
-                  Boolean(member.page) &&
-                    h('a', { href: member.pageURL || '' }, member.page),
-                  Boolean(member.social) &&
-                    h('a', { href: member.socialURL || '' }, member.social),
-                ]),
-              ]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ],
-  )
-})
-
-const TeamMember = ({ member, options }) => {
-  return h('li.col-sm-2.col-xs-4.TeamMember', [
-    h(
-      'button',
-      {
-        'data-toggle': 'modal',
-        'data-target': `#${toId(member.lastname)}`,
-      },
-      [
-        h('img', {
-          src: prefixUrl(avatarUrl(member), options.preview),
-          alt: `${member.firstname} ${member.lastname}`,
-        }),
-        h('div', [
-          h('.TeamMemberName', member.firstname),
-          h('.TeamMemberName', member.lastname),
-        ]),
-      ],
-    ),
-  ])
-}
-
-const Team = ({ options, intl }) => {
-  const authors = [
-    {
-      firstname: 'Delphine',
-      lastname: 'Allès',
-      key: 'delphine-alles',
-      pageURL: 'http://u-pec.academia.edu/DelphineAlles',
-      page: 'Academia',
-      socialURL: 'https://twitter.com/DelphineAlles',
-      social: '@DelphineAlles',
-    },
-    {
-      firstname: 'Mélanie',
-      lastname: 'Albaret',
-      key: 'melanie-albaret',
-    },
-    {
-      firstname: 'Philippe',
-      lastname: 'Copinschi',
-      key: 'philippe-copinschi',
-    },
-    {
-      firstname: 'Marie-Françoise',
-      lastname: 'Durand',
-      key: 'mf-durand',
-    },
-    {
-      firstname: 'Lucile',
-      lastname: 'Maertens',
-      key: 'lucile-maertens',
-      pageURL: 'https://unil.academia.edu/LucileMaertens',
-      page: 'Academia',
-    },
-    {
-      firstname: 'Delphine',
-      lastname: 'Placidi-Frot',
-      key: 'delphine-placidi-frot',
-    },
-  ]
-
-  const cartographers = [
-    {
-      firstname: 'Thomas',
-      lastname: 'Ansart',
-      key: 'thomas-ansart',
-      pageURL: 'https://thomasansart.info',
-      page: 'https://thomasansart.info',
-      socialURL: 'https://twitter.com/ThomasAnsart',
-      social: '@ThomasAnsart',
-    },
-    {
-      firstname: 'Benoît',
-      lastname: 'Martin',
-      key: 'benoit-martin',
-      pageURL:
-        'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
-      page: 'Atelier de cartographie',
-    },
-    {
-      firstname: 'Patrice',
-      lastname: 'Mitrano',
-      key: 'patrice-mitrano',
-      pageURL:
-        'https://www.sciencespo.fr/cartographie/atelier-de-cartographie/',
-      page: 'Atelier de cartographie',
-      socialURL: 'https://twitter.com/MitranoP',
-      social: '@MitranoP',
-    },
-    {
-      firstname: 'Anouk',
-      lastname: 'Pettes',
-      key: 'anouk-pettes',
-    },
-    {
-      firstname: 'Antoine',
-      lastname: 'Rio',
-      key: 'antoine-rio',
-      socialURL: 'https://twitter.com/antoinerio',
-      social: '@antoinerio',
-    },
-  ]
-
-  return h('section.HomeTeam#team', [
-    h('.container', [
-      h('h2', {}, h(T, { id: 'home.the-team' })),
-      h('h3', {}, h(T, { id: 'home.the-texts' })),
-      h(
-        'ul',
-        authors.map(member =>
-          h(TeamMember, { key: member.key, member, options }),
-        ),
-      ),
-      h('h3.viz', {}, h(T, { id: 'home.the-vizualisations' })),
-      h('h3', {}, h(T, { id: 'home.the-vizualisations-creator' })),
-      h(
-        'ul',
-        cartographers.map(member =>
-          h(TeamMember, { key: member.key, member, options }),
-        ),
-      ),
-      authors.map(member =>
-        h(TeamMemberModal, { key: member.key, member, options }),
-      ),
-      cartographers.map(member =>
-        h(TeamMemberModal, { key: member.key, member, options }),
       ),
     ]),
   ])
@@ -367,7 +197,7 @@ const Home = ({ topics, articles, options, intl }) => {
     //     }),
     //   ]),
     // ]),
-    h(Team, { options }),
+    h(Team, { page: 'home', modalXsSize: 4, options }),
     h('section.HomeProject#project', [
       h('.container', [
         h('h2', {}, h(T, { id: 'home.the-project' })),

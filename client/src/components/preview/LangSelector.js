@@ -46,7 +46,7 @@ const CurrentLangLink = ({ lang, intl, label }) =>
   h(
     `a.LangLink.${lang}.current`,
     {
-      href: '',
+      href: '#',
       title: intl.formatMessage({ id: 'fo.current-lang-link-title' }),
     },
     h(
@@ -60,7 +60,7 @@ const DisabledLangLink = ({ lang, intl, label }) =>
   h(
     `a.LangLink.${lang}.disabled`,
     {
-      href: '',
+      href: '#',
       title: intl.formatMessage({ id: label }),
     },
     h(

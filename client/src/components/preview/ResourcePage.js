@@ -92,21 +92,21 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
     h('h2', {}, h(T, { id: 'doc.download' })),
     resource.type == 'map'
       ? h(
-        Html,
-        { whitelist: 'all', noP: true, component: '.warning' },
-        intl.formatHTMLMessage(
-          { id: 'doc.download-warning-map' },
-          { href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2' },
-        ),
-      )
+          Html,
+          { whitelist: 'all', noP: true, component: '.warning' },
+          intl.formatHTMLMessage(
+            { id: 'doc.download-warning-map' },
+            { href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2' },
+          ),
+        )
       : h(
-        Html,
-        { whitelist: 'all', noP: true, component: '.warning' },
-        intl.formatHTMLMessage(
-          { id: 'doc.download-warning' },
-          { href: globalPageUrl('legals')(options) },
+          Html,
+          { whitelist: 'all', noP: true, component: '.warning' },
+          intl.formatHTMLMessage(
+            { id: 'doc.download-warning' },
+            { href: globalPageUrl('legals')(options) },
+          ),
         ),
-      ),
     h('.download-blocks', [
       large
         ? ResourceImageDownloadBlock({
@@ -139,7 +139,10 @@ const ResourceImageDownloadBlock = ({
   stats: { type, humanSize, width, height, url },
 }) =>
   h('.download-block', [
-    h('img.download-preview', { src: url }),
+    h('img.download-preview', {
+      src: url,
+      alt: `Preview ${resource.id} - ${title}.${type}`,
+    }),
     h('.download-info', [
       h('strong', title),
       h('a', { href: url, download: `${resource.id} - ${title}.${type}` }, [

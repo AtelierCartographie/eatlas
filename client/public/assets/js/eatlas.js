@@ -365,6 +365,12 @@
     $(window).on('resize', repositionFiltersDropdown) // also reposition on resize as it may change
   }
 
+  // Handle open/close search filters
+  $('.search-filters-container .dropdown-toggle').on('click', e => {
+    e.preventDefault()
+    $('.search-filters-container .dropdown-menu').toggle()
+  })
+
   // Shared code between search page and definitions list
   if ($('.SearchPage, .LexiconPage').length) {
     // Expand/collapse definitions

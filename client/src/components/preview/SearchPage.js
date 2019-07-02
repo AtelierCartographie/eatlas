@@ -198,15 +198,13 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
       ...filtersToggle(
         intl.formatMessage({ id: 'fo.search.filter-topic' }),
         topics.map(topic => [
-          h('label', { key: topic.id }, [
-            h('input', {
-              type: 'checkbox',
-              name: 'topics[]',
-              key: 'input',
-              value: topic.id,
-            }),
-            topicName(topic, intl.lang),
-          ]),
+          h('input', {
+            type: 'checkbox',
+            name: 'topics[]',
+            key: 'input',
+            value: topic.id,
+          }),
+          topicName(topic, intl.lang),
         ]),
       ),
       /* Disabled filters: keywords (refs #182)

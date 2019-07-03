@@ -58,7 +58,7 @@ exports.SideMenu = injectIntl((
       'aria-label': intl.formatMessage({ id: 'doc.nav-title-sidebar' }),
     },
     [
-      h('a.close-button', { href: '#' }, '⨯'),
+      h('a.close-button', { href: '#', tabindex: 2 }, '⨯'),
       h('h1.navmenu-title', [
         h(
           'a',
@@ -94,6 +94,7 @@ exports.SideMenuToggle = (
     h(
       'button.navbar-toggle',
       {
+        tabindex: 1,
         type: 'button',
         'data-toggle': 'offcanvas',
         'data-target': '#navmenu',

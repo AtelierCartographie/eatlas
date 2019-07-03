@@ -1,7 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { FormattedMessage: T } = require('react-intl')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const {
   resourcesTypes,
   aPropos,
@@ -9,23 +9,31 @@ const {
   prefixUrl,
 } = require('./layout')
 
-const Topics = ({ topics, options }) =>
-  h('nav', [
-    h(
-      'ul',
-      topics.map(t =>
-        h('li', { key: t.id }, [
-          h(
-            'a',
-            {
-              href: getTopicPageUrl(t, options),
-            },
-            [t.id !== '0' && `${t.id}. `, t.name],
-          ),
-        ]),
+const Topics = injectIntl(({ topics, options, intl }) =>
+  h(
+    'nav',
+    {
+      role: 'navigation',
+      'aria-label': intl.formatMessage({ id: 'doc.nav-title-footer' }),
+    },
+    [
+      h(
+        'ul',
+        topics.map(t =>
+          h('li', { key: t.id }, [
+            h(
+              'a',
+              {
+                href: getTopicPageUrl(t, options),
+              },
+              [t.id !== '0' && `${t.id}. `, t.name],
+            ),
+          ]),
+        ),
       ),
-    ),
-  ])
+    ],
+  ),
+)
 
 const FooterLogo = ({ options } /*: { options: FrontOptions } */) =>
   h('a', [
@@ -51,7 +59,7 @@ module.exports = (
   options: Object,
 } */,
 ) =>
-  h('footer.container.Footer', {}, [
+  h('footer.container.Footer', { role: 'contentinfo' }, [
     h('.FooterRow', [
       h('.FooterColTopics', [
         h('h2', {}, h(T, { id: 'fo.nav-summary' })),

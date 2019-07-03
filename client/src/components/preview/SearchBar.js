@@ -5,7 +5,7 @@ const { injectIntl } = require('react-intl')
 const { prefixUrl, getSearchUrl } = require('./layout')
 
 module.exports = injectIntl(({ logoColor, options, intl }) =>
-  h('div.search-toggle', {}, [
+  h('form.search-toggle', { role: 'search' }, [
     h('input.search-field', {
       placeholder: intl.formatMessage({ id: 'fo.search.placeholder' }),
       'data-search-page-url': getSearchUrl({}, options),

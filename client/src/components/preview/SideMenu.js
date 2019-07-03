@@ -1,7 +1,7 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { FormattedMessage: T } = require('react-intl')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 const {
   resourcesTypes,
   aPropos,
@@ -45,33 +45,41 @@ const APropos = ({ options }) =>
     ),
   )
 
-exports.SideMenu = (
-  { topics, options } /*: {
+exports.SideMenu = injectIntl((
+  { topics, options, intl } /*: {
   topics: Topic[],
   options: Object,
 } */,
 ) =>
-  h('nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas', {}, [
-    h('a.close-button', { href: '#' }, '⨯'),
-    h('h1.navmenu-title', [
-      h(
-        'a',
-        {
-          href: options.preview
-            ? `${options.apiUrl || ''}/preview`
-            : prefixUrl('/'),
-        },
-        h(T, { id: 'fo.title' }),
-      ),
-    ]),
-    options.hideLangSelector ? null : h(LangSelector, { options }),
-    h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
-    h(Topics, { topics, options }),
-    h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
-    h(Resources, { options }),
-    h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
-    h(APropos, { options }),
-  ])
+  h(
+    'nav#navmenu.navmenu.navmenu-default.navmenu-fixed-left.offcanvas',
+    {
+      role: 'navigation',
+      'aria-label': intl.formatMessage({ id: 'doc.nav-title-sidebar' }),
+    },
+    [
+      h('a.close-button', { href: '#' }, '⨯'),
+      h('h1.navmenu-title', [
+        h(
+          'a',
+          {
+            href: options.preview
+              ? `${options.apiUrl || ''}/preview`
+              : prefixUrl('/'),
+          },
+          h(T, { id: 'fo.title' }),
+        ),
+      ]),
+      options.hideLangSelector ? null : h(LangSelector, { options }),
+      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
+      h(Topics, { topics, options }),
+      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
+      h(Resources, { options }),
+      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
+      h(APropos, { options }),
+    ],
+  ),
+)
 
 exports.SideMenuToggle = (
   {

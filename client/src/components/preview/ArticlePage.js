@@ -60,7 +60,7 @@ const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
       }
     : {}
 
-  return h('header.ArticleHeader', [
+  return h('header.ArticleHeader', { role: 'banner' }, [
     h(
       Html,
       { component: 'script' },
@@ -291,7 +291,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
 }
 
 const ArticleFooter = ({ article, topics, resources, options }) =>
-  h('footer.DocFooter', [
+  h('footer.DocFooter', { role: 'contentinfo' }, [
     h(Keywords, { keywords: article.keywords, options }),
     h(Quote, { doc: article, options }),
     h(Footnotes, {

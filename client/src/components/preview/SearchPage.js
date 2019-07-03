@@ -293,6 +293,7 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
       h(
         'form.search',
         {
+          role: 'search',
           'data-api-url': searchEndpoint(options),
         },
         [

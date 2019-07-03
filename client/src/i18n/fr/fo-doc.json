@@ -49,5 +49,8 @@
   "read-full-definition": "Lire la definition complète",
   "embedded-alt": "{title} (voir description ci-après)",
   "embedded-description-html":
-    "<strong>{title}</strong> (<em>description détaillée</em>) : {description}"
+    "<strong>{title}</strong> (<em>description détaillée</em>) : {description}",
+  "nav-title-footer": "menu pied de page",
+  "nav-title-sidebar": "menu principal",
+  "nav-title-topbar": "menu haut de page"
 }

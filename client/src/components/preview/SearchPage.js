@@ -45,7 +45,17 @@ const hitTextTemplate = (t, lang) => `
       <em class="search-result-aliases"><%= hit.extra.aliases.join(', ') %></em>
     <% } %>
     <% if (hit.extra && hit.extra.definition) { %>
-      <div class="search-result-definition"><%= hit.extra.definition %></div>
+      <div class="search-result-definition">
+        <p><%= hit.extra.definition %></p>
+      </div>
+      <button class="search-result-definition-toggler">
+        <span class="search-result-definition-toggler-label-expand">${t(
+          'show-more',
+        )}</span>
+        <span style="display:none" aria-hidden class="search-result-definition-toggler-label-collapse">${t(
+          'show-less',
+        )}</span>
+      </button>
     <% } %>
   <% } %>
 `

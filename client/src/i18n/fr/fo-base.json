@@ -31,7 +31,9 @@
     "page-nav": "{start} - {end} sur {nb-results}",
     "nb-results-none": "aucun résultat",
     "nb-results-one": "1 résultat",
-    "nb-results-many": "{count} résultats"
+    "nb-results-many": "{count} résultats",
+    "show-more": "Afficher plus",
+    "show-less": "Afficher moins"
   },
   "sitemap": {
     "title": "Plan du site",

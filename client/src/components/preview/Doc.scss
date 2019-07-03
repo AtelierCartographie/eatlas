@@ -167,7 +167,9 @@ a.LexiconLink {
       text-align: center;
       margin: 0;
       padding-top: 26px;
-      background-image: linear-gradient(to bottom, transparent, $color-footer);
+      background: linear-gradient(to bottom, transparent, $color-footer 60%);
+      color: #333;
+      font-weight: bold;
     }
   }
 }
@@ -185,14 +187,14 @@ a.LexiconLink {
     background-image: linear-gradient(
       to bottom,
       transparent,
-      $background-article
+      $background-article 60%
     );
   }
   .FocusPage & .gradient-expand .read-more {
     background-image: linear-gradient(
       to bottom,
       transparent,
-      $background-focus2
+      $background-focus2 60%
     );
   }
 }

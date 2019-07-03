@@ -31,7 +31,9 @@
     "page-nav": "{start} - {end} on {nb-results}",
     "nb-results-none": "no occurence found",
     "nb-results-one": "1 occurence found",
-    "nb-results-many": "{count} occurences found"
+    "nb-results-many": "{count} occurences found",
+    "show-more": "Show more",
+    "show-less": "Show less"
   },
   "sitemap": {
     "title": "Site map",

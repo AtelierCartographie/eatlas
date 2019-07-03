@@ -272,7 +272,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
                   })
                 : h(
                     '.imgSeeAlso',
-                    {},
+                    { 'aria-hidden': true },
                     h(T, { id: `doc.type-plural.${r.type}` }),
                   ),
               h('div', [

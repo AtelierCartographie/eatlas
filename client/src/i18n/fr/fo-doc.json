@@ -50,6 +50,8 @@
   "embedded-alt": "{title} (voir description ci-après)",
   "embedded-description-html":
     "<strong>{title}</strong> (<em>description détaillée</em>) : {description}",
+  "embedded-read-more": "Voir la description complète ▼",
+  "footnotes-read-more": "Voir plus ▼",
   "nav-title-footer": "menu pied de page",
   "nav-title-sidebar": "menu principal",
   "nav-title-topbar": "menu haut de page"

@@ -301,6 +301,20 @@ $color-blue: #4778d1;
         font-size: 1.7rem;
         line-height: 2.6rem;
       }
+
+      // expand/collapse toggler
+      & + .search-result-definition-toggler {
+        display: block;
+        width: 100%;
+        margin-top: -1em;
+        background: transparent;
+        color: #333;
+        font-weight: bold;
+        position: relative;
+        z-index: 9; // below topbar
+      }
+
+      // collapsed: bottom gradient
       &:before {
         content: '';
         width: 100%;
@@ -310,6 +324,7 @@ $color-blue: #4778d1;
         top: 0;
         background: linear-gradient(transparent 30px, white);
       }
+
       // expanded
       &.expanded {
         transition: max-height 1s ease-in-out;

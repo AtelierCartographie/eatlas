@@ -100,7 +100,9 @@ const Figure = ({ resource, options, intl, mainSize }) => {
                 { description, title: resource.title },
               ),
             ),
-            h('.read-more', ['▼']),
+            h('button.read-more', [
+              intl.formatMessage({ id: 'doc.embedded-read-more' }),
+            ]),
           ]),
         ])
       : null,

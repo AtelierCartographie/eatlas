@@ -225,10 +225,11 @@ exports.Quote = injectIntl(({ doc, intl, options } /*: { doc: Resource } */) =>
 )
 
 // also called simply 'Notes' or 'Références'
-exports.Footnotes = (
+exports.Footnotes = injectIntl((
   {
     references,
     footnotes,
+    intl,
   } /*: {
   references: Object[],
   footnotes: Object[],
@@ -257,10 +258,12 @@ exports.Footnotes = (
           'ol',
           references.map((r, k) => h('li', { key: k }, renderMarkup(r.markup))),
         ),
-      h('.read-more', ['▼']),
+      h('button.read-more', [
+        intl.formatMessage({ id: 'doc.footnotes-read-more' }),
+      ]),
     ]),
   ])
-}
+})
 
 exports.Lexicon = (
   {

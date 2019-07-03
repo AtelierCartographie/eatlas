@@ -162,7 +162,7 @@ const ResourceLexicon = ({ definitions }) =>
           h('dd', [
             h('.gradient-expand', [
               h('.masked', dd),
-              h('.read-more', [
+              h('button.read-more', [
                 h('span', {}, h(T, { id: 'doc.read-full-definition' })),
               ]),
             ]),

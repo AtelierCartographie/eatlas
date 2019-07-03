@@ -214,6 +214,7 @@
           }),
         )
         $('.SearchPage .SearchResults').attr('data-status', 'success')
+        showHideResultDefinitionTogglers()
         // only checkboxes for now
         setFiltersCount(formData.filter(fd => fd.name.endsWith('[]')).length)
         const letter = formData.filter(fd => fd.name === 'letter')
@@ -372,24 +373,66 @@
   })
 
   // Shared code between search page and definitions list
-  if ($('.SearchPage, .LexiconPage').length) {
-    // Expand/collapse definitions
-    $('.SearchPage, .LexiconPage').on(
-      'click',
-      '.search-result-definition a',
-      e => {
-        e.stopPropagation()
-      },
-    )
-    $('.SearchPage, .LexiconPage').on(
-      'click',
-      '.search-result-definition',
-      e => {
-        e.preventDefault()
-        $(e.currentTarget).toggleClass('expanded')
-      },
-    )
+
+  /* Structure:
+    <div class="search-result-definition">
+      <p><%= hit.extra.definition %></p>
+    </div>
+    <button class="search-result-definition-toggler">
+      <span class="search-result-definition-toggler-label-expand">show more</span>
+      <span style="display:none" aria-hidden class="search-result-definition-toggler-label-collapse">show less</span>
+    </button>
+  */
+
+  // Hide "show more / show less" togglers when content is small enough
+  const showHideResultDefinitionTogglers = () => {
+    $('.search-result-definition > p').each(function() {
+      const $p = $(this)
+      const $div = $p.parent()
+      if ($p.height() <= $div.height()) {
+        // No need to expand
+        $div
+          .addClass('expanded')
+          .parent()
+          .find('.search-result-definition-toggler')
+          .attr('aria-hidden', true)
+          .hide()
+      }
+    })
   }
+
+  // Handle click on "show more / show less" togglers
+  $('.SearchPage, .LexiconPage').on(
+    'click',
+    '.search-result-definition-toggler',
+    e => {
+      e.preventDefault()
+      const $toggler = $(e.currentTarget)
+      const $div = $toggler.prev()
+      const expanded = $div.hasClass('expanded')
+      if (expanded) {
+        $div.removeClass('expanded')
+        $toggler
+          .find('.search-result-definition-toggler-label-expand')
+          .removeAttr('aria-hidden')
+          .show()
+        $toggler
+          .find('.search-result-definition-toggler-label-collapse')
+          .attr('aria-hidden', true)
+          .hide()
+      } else {
+        $div.addClass('expanded')
+        $toggler
+          .find('.search-result-definition-toggler-label-expand')
+          .attr('aria-hidden', true)
+          .hide()
+        $toggler
+          .find('.search-result-definition-toggler-label-collapse')
+          .removeAttr('aria-hidden')
+          .show()
+      }
+    },
+  )
 
   // Top bar search field
   $('.search-toggle-button').on('click', e => {

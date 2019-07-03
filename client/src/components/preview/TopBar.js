@@ -11,6 +11,7 @@ module.exports = injectIntl((
     logoColor,
     options,
     altTitle,
+    linkContent,
     intl,
   } /*: {
   logoColor: 'black' | 'white',
@@ -62,6 +63,13 @@ module.exports = injectIntl((
               ],
             ),
       ]),
+      linkContent
+        ? h(
+            'a#link-to-content',
+            { href: linkContent, tabindex: 1 },
+            intl.formatMessage({ id: 'doc.nav-title-content' }),
+          )
+        : null,
       h(SideMenuToggle, { logoColor, options }),
       options.hideSearchToggle ? null : h(SearchToggle, { logoColor, options }),
     ],

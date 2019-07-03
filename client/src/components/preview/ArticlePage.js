@@ -200,7 +200,7 @@ const ArticleBreadcrumb = ({ article, topics, options, intl }) => {
   const topic = topics.find(x => x.id === article.topic)
   const otherLang = intl.lang === 'fr' ? 'en' : 'fr'
   const otherUrl = intl.urls[otherLang]
-  return h('section.ArticleBreadcrumb', [
+  return h('section.ArticleBreadcrumb#article-main-content', [
     h('.container', [
       h(
         'a.TopicLink',
@@ -435,19 +435,28 @@ const ArticlePage = injectIntl((
       links: exportLinks({ doc: article, intl, options }),
       options,
     }),
-    h(Body, { altTitle: stripTags(article.title), topics, options }, [
-      h(Article, {
-        article,
-        prevNext,
+    h(
+      Body,
+      {
+        altTitle: stripTags(article.title),
+        linkContent: '#article-main-content',
         topics,
-        definitions,
-        resources,
-        lexiconId,
         options,
-        intl,
-      }),
-      h(ArticlePrevNext, { prevNext, options }),
-    ]),
+      },
+      [
+        h(Article, {
+          article,
+          prevNext,
+          topics,
+          definitions,
+          resources,
+          lexiconId,
+          options,
+          intl,
+        }),
+        h(ArticlePrevNext, { prevNext, options }),
+      ],
+    ),
   ])
 })
 

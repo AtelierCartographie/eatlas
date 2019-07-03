@@ -141,7 +141,7 @@ const TopicCarousel = ({
 
 const Topics = ({ topics, articles, options, intl }) =>
   h(
-    'section.HomeTopics',
+    'section.HomeTopics#home-main-content',
     topics.slice(1).map(t =>
       h('.HomeTopic.container', { key: t.id }, [
         h(
@@ -285,6 +285,7 @@ const HomePage = injectIntl((
         options,
         logoColor: 'white',
         scripts: [`${CDN}/slick-carousel/1.9.0/slick.min.js`],
+        linkContent: '#home-main-content',
       },
       [h(Home, { topics, articles, options, intl })],
     ),

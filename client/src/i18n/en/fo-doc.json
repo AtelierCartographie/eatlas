@@ -54,5 +54,6 @@
   "footnotes-read-more": "Read more",
   "nav-title-footer": "page footer menu",
   "nav-title-sidebar": "main menu",
-  "nav-title-topbar": "page header menu"
+  "nav-title-topbar": "page header menu",
+  "nav-title-content": "main content"
 }

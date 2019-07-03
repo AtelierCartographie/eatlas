@@ -10,11 +10,12 @@ const Footer = require('./Footer')
 module.exports = (
   {
     topics,
-    logoColor,
+    logoColor = 'white',
     altTitle,
     options,
     children,
     scripts = [],
+    linkContent = '#main-content',
   } /*: {
   topics: Topic[],
   logoColor: 'black' | 'white',
@@ -24,9 +25,9 @@ module.exports = (
 ) =>
   // display preview ribbon in corner
   h('body', { className: options.preview ? 'preview' : '' }, [
-    h(TopBar, { altTitle, logoColor: logoColor || 'white', options }),
+    h(TopBar, { altTitle, logoColor, linkContent, options }),
     h(SideMenu, { topics, options }),
-    h('main', { role: 'main' }, [children]),
+    h('main#main-content', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {
       // Array.from, URLSearchParams, and other features required by eatlas.js

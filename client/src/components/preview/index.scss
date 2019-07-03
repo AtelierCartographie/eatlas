@@ -282,6 +282,20 @@ button,
   }
 }
 
+#link-to-content {
+  position: absolute;
+  top: 0;
+  left: -10000px;
+  background: white;
+  color: #333;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 0.5em;
+  &:focus {
+    left: 50px;
+  }
+}
+
 /* MEDIA QUERIES ---------------------------------------- */
 @media (min-width: 0) {
   // force showing the toggle

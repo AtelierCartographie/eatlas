@@ -2,7 +2,7 @@ const h = require('react-hyperscript')
 const { injectIntl } = require('react-intl')
 const Html = require('./Html')
 
-module.exports = injectIntl(({ doc, intl }) => {
+module.exports = injectIntl(({ doc, intl, id }) => {
   const mainText = doc[`description_${intl.lang}`]
   const mainDescription = mainText ? { lang: intl.lang, text: mainText } : null
   const otherLang = intl.lang === 'fr' ? 'en' : 'fr'
@@ -15,7 +15,7 @@ module.exports = injectIntl(({ doc, intl }) => {
     return null
   }
 
-  return h('section.container.Summaries', [
+  return h('section.container.Summaries' + (id ? '#' + id : ''), [
     // pills
     otherDescription &&
       h('ul.langs', { role: 'tablist' }, [

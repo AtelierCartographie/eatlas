@@ -128,7 +128,7 @@ const ArticleList = ({ articles, options, lang }) => {
 const Topic = ({ topic, title, topics, articles, resources, options, lang }) =>
   h('article.TopicPage', [
     h(TopicHeader, { topic, title, resources, options }),
-    h(Summaries, { doc: topic }),
+    h(Summaries, { id: 'topic-main-content', doc: topic }),
     h(ArticleList, {
       articles: articles.filter(a => a.topic === topic.id),
       topics,
@@ -157,9 +157,16 @@ const TopicPage = injectIntl((
   const title = topicName(topic, lang)
   return h('html', { lang }, [
     h(Head, { title, options }),
-    h(Body, { altTitle: `${topic.id}. ${title}`, topics, options }, [
-      h(Topic, { topic, title, topics, articles, resources, options }),
-    ]),
+    h(
+      Body,
+      {
+        altTitle: `${topic.id}. ${title}`,
+        topics,
+        options,
+        linkContent: '#topic-main-content',
+      },
+      [h(Topic, { topic, title, topics, articles, resources, options })],
+    ),
   ])
 })
 

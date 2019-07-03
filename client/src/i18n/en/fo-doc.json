@@ -50,8 +50,8 @@
   "embedded-alt": "{title} (read description below)",
   "embedded-description-html":
     "<strong>{title}</strong> (<em>detailed description</em>): {description}",
-  "embedded-read-more": "Read full description ▼",
-  "footnotes-read-more": "Read more ▼",
+  "embedded-read-more": "Read full description",
+  "footnotes-read-more": "Read more",
   "nav-title-footer": "page footer menu",
   "nav-title-sidebar": "main menu",
   "nav-title-topbar": "page header menu"

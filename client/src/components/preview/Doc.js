@@ -260,6 +260,7 @@ exports.Footnotes = injectIntl((
         ),
       h('button.read-more', [
         intl.formatMessage({ id: 'doc.footnotes-read-more' }),
+        h('span', { 'aria-hidden': true }, ' ▼'),
       ]),
     ]),
   ])

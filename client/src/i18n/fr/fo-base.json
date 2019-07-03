@@ -33,7 +33,8 @@
     "nb-results-one": "1 résultat",
     "nb-results-many": "{count} résultats",
     "show-more": "Afficher plus",
-    "show-less": "Afficher moins"
+    "show-less": "Afficher moins",
+    "pagination-label": "menu des résultats de recherche"
   },
   "sitemap": {
     "title": "Plan du site",

@@ -134,11 +134,20 @@ $color-blue: #4778d1;
       margin: $gap 0;
       padding: $gap;
 
+      // unstyle button
+      .search-filters-subtitle {
+        background: transparent;
+        color: $color-breadcrumb;
+        padding: 0;
+        margin: 0;
+      }
+
       &[data-filters-hidden='1'] {
         .toggle-collapse {
           display: none;
         }
         & + .search-filters-inputs {
+          display: none;
           max-height: 0;
           overflow: hidden;
           transition: max-height 0.2s ease-out;

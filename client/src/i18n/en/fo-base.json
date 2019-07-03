@@ -33,7 +33,8 @@
     "nb-results-one": "1 occurence found",
     "nb-results-many": "{count} occurences found",
     "show-more": "Show more",
-    "show-less": "Show less"
+    "show-less": "Show less",
+    "pagination-label": "search results menu"
   },
   "sitemap": {
     "title": "Site map",

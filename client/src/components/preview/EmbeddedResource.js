@@ -102,6 +102,7 @@ const Figure = ({ resource, options, intl, mainSize }) => {
             ),
             h('button.read-more', [
               intl.formatMessage({ id: 'doc.embedded-read-more' }),
+              h('span', { 'aria-hidden': true }, ' ▼'),
             ]),
           ]),
         ])

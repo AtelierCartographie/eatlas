@@ -74,11 +74,13 @@ const countResultsTemplate = t => `
 } %>`
 
 const paginationTemplate = t => `
-<div class="row search-page container">
+<nav class="row search-page container" role="navigation" aria-label="${t(
+  'pagination-label',
+)}">
   <% if (results.start > 1) { %>
     <a href="#prev" class="btn search-results-prev" title="${t(
       'page-previous',
-    )}">&lt;&lt;</a>
+    )}" aria-label="${t('page-previous')}">&lt;&lt;</a>
   <% } %>
   <% if (results.start > 1 || results.end < results.count) { %>
     ${t('page-nav', {
@@ -92,7 +94,7 @@ const paginationTemplate = t => `
   <% if (results.end < results.count) { %>
     <a href="#prev" class="btn search-results-next" title="${t(
       'page-next',
-    )}">&gt;&gt;</a>
+    )}" aria-label="${t('page-next')}">&gt;&gt;</a>
   <% } %>
 </div>
 <div class="row search-page-a-z container">
@@ -166,9 +168,9 @@ ${paginationTemplate(t)}
 const filtersToggle = (title, inputs, hidden = false) => {
   const children = [
     h('h2.search-filters-toggle', { 'data-filters-hidden': '1' }, [
-      h('span.search-filters-subtitle', title),
-      h('span.toggle-expand', '⌄'),
-      h('span.toggle-collapse', '⌃'),
+      h('button.search-filters-subtitle', title),
+      h('span.toggle-expand', { 'aria-hidden': true }, ' ▼'),
+      h('span.toggle-collapse', { 'aria-hidden': true }, ' ▲'),
     ]),
     h(
       '.search-filters-inputs',

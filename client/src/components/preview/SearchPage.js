@@ -364,7 +364,7 @@ const SearchPage = injectIntl((
       Body,
       {
         topics,
-        options,
+        options: { ...options, hideSearchToggle: true },
         logoColor: 'black',
         // Not needed as 'keywords' filters have been removed (refs #182)
         // scripts: [`${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`],

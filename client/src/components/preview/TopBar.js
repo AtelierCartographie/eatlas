@@ -57,6 +57,6 @@ module.exports = injectIntl((
           ),
     ]),
     h(SideMenuToggle, { logoColor, options }),
-    h(SearchToggle, { logoColor, options }),
+    options.hideSearchToggle ? null : h(SearchToggle, { logoColor, options }),
   ]),
 )

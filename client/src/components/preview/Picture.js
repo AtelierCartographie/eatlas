@@ -54,7 +54,6 @@ const Picture = ({
       ...props,
       key: 'maincomponent',
       ...(srcSet || {}),
-      ...(component === 'img' ? { alt: '' } : {}),
     }),
   ])
 }
@@ -70,6 +69,7 @@ const ResponsivePicture = ({
   options,
   mainSize,
   sources = defaultSources,
+  alt = '',
 }) =>
   Picture({
     resource,
@@ -79,6 +79,7 @@ const ResponsivePicture = ({
       size: mainSize,
       props: {
         className: 'img-responsive center-block',
+        alt,
       },
     },
     sources,

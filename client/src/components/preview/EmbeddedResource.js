@@ -1,42 +1,20 @@
 // @flow
 
 const h = require('react-hyperscript')
-const { FormattedMessage: T } = require('react-intl')
+const { FormattedMessage: T, injectIntl } = require('react-intl')
 
 const { getResourcePageUrl } = require('./layout')
 const { getMediaUrl, stripTags } = require('../../universal-utils')
 const Picture = require('./Picture')
 const Html = require('./Html')
 
-const EmbeddedResource = ({ resource, options }) => {
-  const infoLink = h(
-    'a',
-    { href: getResourcePageUrl(resource, options) },
-    h(T, { id: 'doc.embedded-download-title' }),
-  )
-
+const EmbeddedResource = injectIntl(({ resource, options, intl }) => {
   switch (resource.type) {
     case 'image':
-      return h('.Figure', [
-        h('figure', [
-          h(Html, { component: 'h2.figure-title.container' }, resource.title),
-          Picture.Responsive({ resource, options, mainSize: 'large' }),
-          h(FigCaption, { content: resource.copyright }),
-        ]),
-        h('.ArticleResourceDownload.container', [infoLink]),
-        h(ArticleResourceComment, { resource }),
-      ])
+      return h(Figure, { resource, options, intl, mainSize: 'large' })
 
     case 'map':
-      return h('.Figure', [
-        h('figure', [
-          h(Html, { component: 'h2.figure-title.container' }, resource.title),
-          Picture.Responsive({ resource, options, mainSize: 'small' }),
-          h(FigCaption, { content: resource.source }),
-        ]),
-        h('.ArticleResourceDownload.container', [infoLink]),
-        h(ArticleResourceComment, { resource }),
-      ])
+      return h(Figure, { resource, options, intl, mainSize: 'small' })
 
     case 'video': {
       const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
@@ -82,22 +60,51 @@ const EmbeddedResource = ({ resource, options }) => {
     default:
       return null
   }
-}
-
-const ArticleResourceComment = ({ resource }) => {
-  const description =
-    resource[`description_${resource.language}`] || resource.description_fr
-  if (!description) return null
-  return h('.ArticleResourceComment.container', [
-    h('.gradient-expand', {}, [
-      h('strong.comment-title', {}, h(T, { id: 'doc.comment' })),
-      h(Html, { component: 'p' }, description),
-      h('.read-more', ['▼']),
-    ]),
-  ])
-}
+})
 
 const FigCaption = ({ content }) =>
   content ? h(Html, { component: 'figcaption.container' }, content) : null
+
+const Figure = ({ resource, options, intl, mainSize }) => {
+  const infoLink = h(
+    'a',
+    { href: getResourcePageUrl(resource, options) },
+    h(T, { id: 'doc.embedded-download-title' }),
+  )
+  const description = resource[`description_${intl.lang}`]
+  return h('.Figure', [
+    h('figure', [
+      h(Html, { component: 'h2.figure-title.container' }, resource.title),
+      Picture.Responsive({
+        resource,
+        options,
+        mainSize: 'large',
+        alt: description
+          ? intl.formatMessage(
+              { id: 'doc.embedded-alt' },
+              { title: resource.title },
+            )
+          : '',
+      }),
+      h(FigCaption, { content: resource.copyright }),
+    ]),
+    h('.ArticleResourceDownload.container', [infoLink]),
+    description
+      ? h('.ArticleResourceComment.container', [
+          h('.gradient-expand', {}, [
+            h(
+              Html,
+              { component: 'p' },
+              intl.formatMessage(
+                { id: 'doc.embedded-description-html' },
+                { description, title: resource.title },
+              ),
+            ),
+            h('.read-more', ['▼']),
+          ]),
+        ])
+      : null,
+  ])
+}
 
 module.exports = EmbeddedResource

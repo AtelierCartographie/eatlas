@@ -46,5 +46,8 @@
     "small": "Very simplified version"
   },
   "do-download": "download",
-  "read-full-definition": "Read the full definition"
+  "read-full-definition": "Read the full definition",
+  "embedded-alt": "{title} (read description below)",
+  "embedded-description-html":
+    "<strong>{title}</strong> (<em>detailed description</em>): {description}"
 }

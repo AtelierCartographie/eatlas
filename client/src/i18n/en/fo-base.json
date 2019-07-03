@@ -9,12 +9,14 @@
   "lexicon": "Glossary",
   "page-not-found": "Page not found",
   "back-home": "Back to Home",
-  "page-not-found-intro": "The page you requested does not exist, or no longer exists.",
+  "page-not-found-intro":
+    "The page you requested does not exist, or no longer exists.",
   "page-not-found-link-html":
     "You can report a broken link using <a href=\"{href}\">our contact form</a>.",
   "search": {
     "title": "Search",
     "placeholder": "Search the atlas",
+    "label": "Search the atlas",
     "filters-title": "Refine Search",
     "filter-topic": "Parts",
     "filter-keyword": "Keywords",
@@ -47,14 +49,20 @@
   },
   "current-lang-link-title": "The current page is already in English",
   "page-description": {
-    "index": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
-    "definition": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 definitions",
+    "index":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "definition":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 definitions",
     "search":
       "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
-    "about": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
-    "legals": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
-    "sitemap": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
-    "notFound": "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts"
+    "about":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "legals":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "sitemap":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "notFound":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts"
   },
   "page-image": {
     "index": "/assets/img/page-image/social.png",

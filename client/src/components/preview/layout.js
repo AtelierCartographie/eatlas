@@ -155,3 +155,8 @@ exports.ensureHTML = (string, tag = 'p') => {
   }
   return string
 }
+
+exports.searchEndpoint = ({
+  preview = false,
+  apiUrl = process.env.REACT_APP_API_SERVER,
+} = {}) => (apiUrl || '') + (preview ? '/preview/_search' : '/search')

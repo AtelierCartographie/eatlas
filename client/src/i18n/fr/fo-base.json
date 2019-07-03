@@ -16,6 +16,7 @@
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",
+    "label": "Rechercher dans l’atlas",
     "filters-title": "Affiner la recherche",
     "filter-topic": "Rubriques",
     "filter-keyword": "Mots-clés",
@@ -48,14 +49,20 @@
   },
   "current-lang-link-title": "La page courante est déjà en français",
   "page-description": {
-    "index": "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
-    "definition": "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 240 définitions portant sur les grands enjeux actuels",
+    "index":
+      "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "definition":
+      "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 240 définitions portant sur les grands enjeux actuels",
     "search":
       "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
-    "about": "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
-    "legals": "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
-    "sitemap": "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
-    "notFound": "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels"
+    "about":
+      "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "legals":
+      "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "sitemap":
+      "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels",
+    "notFound":
+      "Un atlas en libre accès fait par Sciences Po. Espace mondial : l'Atlas regroupe plus de 200 cartes et graphiques portant sur les grands enjeux actuels"
   },
   "page-image": {
     "index": "/assets/img/page-image/social.png",

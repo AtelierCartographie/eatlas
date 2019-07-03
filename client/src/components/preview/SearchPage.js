@@ -7,18 +7,11 @@
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 
-const { CDN, prefixUrl } = require('./layout')
+const { prefixUrl, getSearchUrl, searchEndpoint } = require('./layout')
 const { LOCALES, topicName } = require('../../universal-utils')
 const Head = require('./Head')
 const Body = require('./Body')
 const Html = require('./Html')
-
-// helpers
-
-const searchEndpoint = ({
-  preview = false,
-  apiUrl = process.env.REACT_APP_API_SERVER,
-} = {}) => (apiUrl || '') + (preview ? '/preview/_search' : '/search')
 
 /* in the following lodash templates, the `results` and `formData` variable are
  set in /client/public/assets/js/eatlas.js:
@@ -294,6 +287,7 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
         'form.search',
         {
           role: 'search',
+          action: getSearchUrl({}, options),
           'data-api-url': searchEndpoint(options),
         },
         [
@@ -301,6 +295,7 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
             h('input', {
               name: 'q',
               placeholder: intl.formatMessage({ id: 'fo.search.placeholder' }),
+              'aria-label': intl.formatMessage({ id: 'fo.search.label' }),
             }),
             h('button', [
               h('img', {

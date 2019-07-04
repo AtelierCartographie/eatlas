@@ -267,6 +267,7 @@ button,
 
   &:focus,
   &:hover {
+    font-weight: bold;
     background-color: $color-yellow;
     color: $color-breadcrumb;
     text-decoration: none;

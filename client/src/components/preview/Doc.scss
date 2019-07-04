@@ -44,6 +44,7 @@ a.LexiconLink {
 
   &:focus,
   &:hover {
+    text-decoration: underline;
     color: white;
     background-color: #4778d1;
   }
@@ -98,6 +99,7 @@ a.LexiconLink {
 
     &:focus,
     &:hover {
+      text-decoration: underline;
       color: rgba(0, 0, 0, 0.8);
       background-color: #ffd754;
     }
@@ -146,6 +148,7 @@ a.LexiconLink {
 
     &:focus,
     &:hover {
+      text-decoration: underline;
       color: rgba(0, 0, 0, 0.8);
       background-color: #ffd754;
     }
@@ -221,11 +224,13 @@ a.LexiconLink {
     background: white;
   }
 
-  a,
-  a:focus,
-  a:hover {
+  a {
     color: inherit;
     text-decoration: none;
+  }
+  a:focus,
+  a:hover {
+    text-decoration: underline;
   }
 
   .number {

@@ -154,6 +154,7 @@
 
           &:focus,
           &:hover {
+            text-decoration: underline;
             transition: 0.3s all ease;
             border-bottom: 2px solid $color-yellow;
             box-shadow: inset 0 -4px 0 $color-yellow;

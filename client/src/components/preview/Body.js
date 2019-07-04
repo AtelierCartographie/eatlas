@@ -16,6 +16,7 @@ module.exports = (
     children,
     scripts = [],
     linkContent = '#main-content',
+    className = '',
   } /*: {
   topics: Topic[],
   logoColor: 'black' | 'white',
@@ -24,7 +25,7 @@ module.exports = (
 } */,
 ) =>
   // display preview ribbon in corner
-  h('body', { className: options.preview ? 'preview' : '' }, [
+  h('body', { className: `${className} ${options.preview ? 'preview' : ''}` }, [
     h(TopBar, { altTitle, logoColor, linkContent, options }),
     h(SideMenu, { topics, options }),
     h('main#main-content', { role: 'main' }, [children]),

@@ -2,7 +2,7 @@
 
 const h = require('react-hyperscript')
 const { injectIntl } = require('react-intl')
-const { prefixUrl } = require('./layout')
+const { prefixUrl, globalPageUrl } = require('./layout')
 const SearchToggle = require('./SearchBar')
 const { SideMenuToggle } = require('./SideMenu')
 
@@ -67,9 +67,15 @@ module.exports = injectIntl((
         ? h(
             'a#link-to-content',
             { href: linkContent, tabindex: 1 },
-            intl.formatMessage({ id: 'doc.nav-title-content' }),
+            intl.formatMessage({ id: 'doc.nav-title-goto-content' }),
           )
         : null,
+      h(
+        'a#link-to-sitemap',
+        { href: globalPageUrl('sitemap')(options), tabindex: 1 },
+        intl.formatMessage({ id: 'doc.nav-title-goto-sitemap' }),
+      ),
+      // h('a#link-to-menu', { href: '#???', tabindex: 1 }),
       h(SideMenuToggle, { logoColor, options }),
       options.hideSearchToggle ? null : h(SearchToggle, { logoColor, options }),
     ],

@@ -22,6 +22,7 @@ const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const { getResourcePageUrl } = require('./layout')
 const { stripTags } = require('../../universal-utils')
+const LinkToTop = require('./LinkToTop')
 
 // subcomponents
 
@@ -125,6 +126,7 @@ const FocusPage = injectIntl((
         topics,
         options,
         logoColor: 'black',
+        className: 'BodyFocus',
       },
       [
         h(Focus, {
@@ -135,6 +137,7 @@ const FocusPage = injectIntl((
           lexiconId,
           options,
         }),
+        h(LinkToTop),
       ],
     ),
   ])

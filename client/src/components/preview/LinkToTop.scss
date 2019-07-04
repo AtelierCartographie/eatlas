@@ -1,0 +1,29 @@
+@import 'var';
+
+// floating on right side
+.LinkToTop {
+  background-color: transparent;
+  color: black;
+  margin: 5px;
+  padding: 5px 10px;
+  position: fixed;
+  text-align: center;
+  text-decoration: none;
+  bottom: 1em;
+  right: 0;
+  z-index: 2;
+
+  // visually hide inner text
+  span {
+    display: none;
+  }
+
+  &:before {
+    background-image: url(../assets/img/back-top.svg);
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem;
+  }
+}

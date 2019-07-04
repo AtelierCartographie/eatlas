@@ -283,7 +283,9 @@ button,
   }
 }
 
-#link-to-content {
+#link-to-content,
+#link-to-sitemap,
+#link-to-menu {
   position: absolute;
   top: 0;
   left: -10000px;
@@ -318,6 +320,7 @@ button,
 @import 'Doc';
 @import 'Page';
 @import 'Team';
+@import 'LinkToTop';
 
 @import 'ArticlePage';
 @import 'FocusPage';

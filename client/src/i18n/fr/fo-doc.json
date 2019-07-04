@@ -56,5 +56,6 @@
   "nav-title-footer": "menu pied de page",
   "nav-title-sidebar": "menu principal",
   "nav-title-topbar": "menu haut de page",
-  "nav-title-content": "contenu principal"
+  "nav-title-goto-content": "aller au contenu",
+  "nav-title-goto-sitemap": "plan du site"
 }

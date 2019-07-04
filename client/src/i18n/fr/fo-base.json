@@ -14,6 +14,7 @@
   "page-not-found-link-html":
     "Vous pouvez signaler le lien brisé via <a href=\"{href}\">notre formulaire de contact</a>.",
   "link-new-window-title": "{title} (nouvelle fenêtre)",
+  "link-to-top": "retour en haut",
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",

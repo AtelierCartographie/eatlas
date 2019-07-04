@@ -30,6 +30,7 @@ const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const Summaries = require('./Summaries')
 const { LangLink } = require('./LangSelector')
+const LinkToTop = require('./LinkToTop')
 
 // subcomponents
 
@@ -442,6 +443,7 @@ const ArticlePage = injectIntl((
         linkContent: '#article-main-content',
         topics,
         options,
+        className: 'BodyArticle',
       },
       [
         h(Article, {
@@ -455,6 +457,7 @@ const ArticlePage = injectIntl((
           intl,
         }),
         h(ArticlePrevNext, { prevNext, options }),
+        h(LinkToTop, { href: '#article-main-content' }),
       ],
     ),
   ])

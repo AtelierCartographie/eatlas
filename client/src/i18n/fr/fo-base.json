@@ -14,6 +14,7 @@
   "page-not-found-link-html":
     "Vous pouvez signaler le lien brisé via <a href=\"{href}\">notre formulaire de contact</a>.",
   "link-new-window-title": "{title} (nouvelle fenêtre)",
+  "link-lexicon-title": "Voir la définition de « {text} »",
   "link-to-top": "retour en haut",
   "search": {
     "title": "Rechercher",

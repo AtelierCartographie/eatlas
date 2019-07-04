@@ -14,6 +14,7 @@
   "page-not-found-link-html":
     "You can report a broken link using <a href=\"{href}\">our contact form</a>.",
   "link-new-window-title": "{title} (new window)",
+  "link-lexicon-title": "See definition for “{text}”",
   "link-to-top": "back to top",
   "search": {
     "title": "Search",

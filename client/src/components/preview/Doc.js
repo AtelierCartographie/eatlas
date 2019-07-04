@@ -87,6 +87,10 @@ const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
             key: idx,
             href: `#lexicon-${++lexiconId.id}`,
             'data-toggle': 'collapse',
+            title: intl.formatMessage(
+              { id: 'fo.link-lexicon-title' },
+              { text: m.text },
+            ),
           },
           m.text,
         )

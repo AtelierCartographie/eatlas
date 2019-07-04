@@ -73,7 +73,7 @@ const Content = ({ definitions, options }) => {
         definitions.map(({ dt, dd, aliases, lexicon }) =>
           h('.row.search-result', { key: dt, id: slugify(dt) }, [
             h('.search-result-text.col-sm-12', [
-              h('.search-result-title', {}, [
+              h('strong.search-result-title', {}, [
                 h('a.definition-anchor', { name: firstLetterId(dt) }, ''),
                 dt,
               ]),

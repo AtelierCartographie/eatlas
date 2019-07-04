@@ -466,4 +466,26 @@
       $('body').removeClass('scrolled')
     }
   })
+
+  // Proper navigation when clicking on a definition in an article without style
+  // Note: this handler is run *after* bootstrap collapse plugin
+  let styledLexicon = true
+  $(document).on('click', '.LexiconLink[data-toggle="collapse"]', e => {
+    const $this = $(e.currentTarget)
+    const lexiconHeight = $('.Lexicon').height()
+    const collapsed = $this.attr('aria-expanded') !== 'true'
+    if (!collapsed) {
+      // Expanded: animation just started, if height is 0 then it means we have active styling
+      if (lexiconHeight > 10) {
+        // Otherwise, a non neglictible height means no style, which means we should go to definition
+        // instead of "expanding"
+        styledLexicon = false
+      }
+    } else {
+      // Collapsed: hard to tell by style if we need to activate, so we just rely on previously set flag
+    }
+    if (!styledLexicon) {
+      document.location.hash = $this.attr('href')
+    }
+  })
 })(window.jQuery)

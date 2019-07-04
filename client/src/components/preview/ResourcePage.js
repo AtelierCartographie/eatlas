@@ -109,21 +109,21 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
         ),
     h('.download-blocks', [
       large
-        ? ResourceImageDownloadBlock({
+        ? h(ResourceImageDownloadBlock, {
             resource,
             title: intl.formatMessage({ id: 'doc.download-size.large' }),
             stats: large,
           })
         : null,
       medium
-        ? ResourceImageDownloadBlock({
+        ? h(ResourceImageDownloadBlock, {
             resource,
             title: intl.formatMessage({ id: 'doc.download-size.medium' }),
             stats: medium,
           })
         : null,
       small
-        ? ResourceImageDownloadBlock({
+        ? h(ResourceImageDownloadBlock, {
             resource,
             title: intl.formatMessage({ id: 'doc.download-size.small' }),
             stats: small,
@@ -133,24 +133,33 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
   ])
 })
 
-const ResourceImageDownloadBlock = ({
-  resource,
-  title,
-  stats: { type, humanSize, width, height, url },
-}) =>
-  h('.download-block', [
-    h('img.download-preview', {
-      src: url,
-      alt: `Preview ${resource.id} - ${title}.${type}`,
-    }),
-    h('.download-info', [
-      h('strong', title),
-      h('a', { href: url, download: `${resource.id} - ${title}.${type}` }, [
-        h('span.link', {}, h(T, { id: 'doc.do-download' })),
-        h('span.info', ` (${type} - ${humanSize})`),
+const ResourceImageDownloadBlock = injectIntl(
+  ({ resource, title, stats: { type, humanSize, width, height, url }, intl }) =>
+    h('.download-block', [
+      h('img.download-preview', {
+        src: url,
+        alt: `Preview ${resource.id} - ${title}.${type}`,
+      }),
+      h('.download-info', [
+        h('strong', title),
+        h(
+          'a',
+          {
+            href: url,
+            download: `${resource.id} - ${title}.${type}`,
+            title: intl.formatMessage(
+              { id: 'doc.download-link-title' },
+              { type: type.toUpperCase(), size: humanSize },
+            ),
+          },
+          [
+            h('span.link', {}, h(T, { id: 'doc.do-download' })),
+            h('span.info', ` (${type.toUpperCase()} - ${humanSize})`),
+          ],
+        ),
       ]),
     ]),
-  ])
+)
 
 const ResourceLexicon = ({ definitions }) =>
   h('.container.ResourceLexicon', [

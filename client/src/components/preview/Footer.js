@@ -8,6 +8,7 @@ const {
   getTopicPageUrl,
   prefixUrl,
 } = require('./layout')
+const { topicName, stripTags } = require('../../universal-utils')
 
 const Topics = injectIntl(({ topics, options, intl }) =>
   h(
@@ -26,7 +27,7 @@ const Topics = injectIntl(({ topics, options, intl }) =>
               {
                 href: getTopicPageUrl(t, options),
               },
-              [t.id !== '0' && `${t.id}. `, t.name],
+              [t.id !== '0' && `${t.id}. ${topicName(t, intl.lang)}`],
             ),
           ]),
         ),
@@ -54,7 +55,7 @@ const FooterUl = ({ links, options }) =>
   )
 
 module.exports = (
-  { topics, options } /*: {
+  { topics, options, intl } /*: {
   topics: Topic[],
   options: Object,
 } */,
@@ -63,7 +64,7 @@ module.exports = (
     h('.FooterRow', [
       h('.FooterColTopics', [
         h('h2', {}, h(T, { id: 'fo.nav-summary' })),
-        h(Topics, { topics, options }),
+        h(Topics, { topics, options, intl }),
       ]),
       h('.FooterColResources', [
         h('h2', {}, h(T, { id: 'fo.nav-resources' })),

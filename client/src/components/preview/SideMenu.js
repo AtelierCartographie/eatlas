@@ -8,16 +8,16 @@ const {
   getTopicPageUrl,
   prefixUrl,
 } = require('./layout')
+const { topicName, stripTags } = require('../../universal-utils')
 const LangSelector = require('./LangSelector')
 
-const Topics = ({ topics, options }) =>
+const Topics = ({ topics, options, intl }) =>
   h(
     'ul.nav.navmenu-nav',
     topics.map((t, i) =>
       h('li', { key: t.id }, [
         h('a', { href: getTopicPageUrl(t, options) }, [
-          t.id !== '0' && `${t.id}. `,
-          t.name,
+          t.id !== '0' && `${t.id}. ${topicName(t, intl.lang)}`,
         ]),
       ]),
     ),
@@ -72,7 +72,7 @@ exports.SideMenu = injectIntl((
       ]),
       options.hideLangSelector ? null : h(LangSelector, { options }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
-      h(Topics, { topics, options }),
+      h(Topics, { topics, options, intl }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
       h(Resources, { options }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),

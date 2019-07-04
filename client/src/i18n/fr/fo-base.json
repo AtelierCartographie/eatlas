@@ -13,6 +13,7 @@
     "La page que vous avez demandéz n’existe pas, ou n’existe plus.",
   "page-not-found-link-html":
     "Vous pouvez signaler le lien brisé via <a href=\"{href}\">notre formulaire de contact</a>.",
+  "link-new-window-title": "{title} (nouvelle fenêtre)",
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",
@@ -34,7 +35,8 @@
     "nb-results-many": "{count} résultats",
     "show-more": "Afficher plus",
     "show-less": "Afficher moins",
-    "pagination-label": "menu des résultats de recherche"
+    "pagination-label": "menu des résultats de recherche",
+    "reference-title": "Référence externe"
   },
   "sitemap": {
     "title": "Plan du site",

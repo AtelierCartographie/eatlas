@@ -13,6 +13,7 @@
     "The page you requested does not exist, or no longer exists.",
   "page-not-found-link-html":
     "You can report a broken link using <a href=\"{href}\">our contact form</a>.",
+  "link-new-window-title": "{title} (new window)",
   "search": {
     "title": "Search",
     "placeholder": "Search the atlas",
@@ -34,7 +35,8 @@
     "nb-results-many": "{count} occurences found",
     "show-more": "Show more",
     "show-less": "Show less",
-    "pagination-label": "search results menu"
+    "pagination-label": "search results menu",
+    "reference-title": "External reference"
   },
   "sitemap": {
     "title": "Site map",

@@ -57,6 +57,10 @@ const About = injectIntl(({ options, intl }) => {
                 href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2',
                 target: '_blank',
                 role: 'button',
+                title: `${intl.formatMessage(
+                  { id: 'fo.link-new-window-title' },
+                  { title: intl.formatMessage({ id: 'about.contact-button' }) },
+                )}`,
               },
               h(T, { id: 'about.contact-button' }),
             ),
@@ -81,6 +85,10 @@ const About = injectIntl(({ options, intl }) => {
                   'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530',
                 target: '_blank',
                 role: 'button',
+                title: `${intl.formatMessage(
+                  { id: 'fo.link-new-window-title' },
+                  { title: intl.formatMessage({ id: 'about.book-button' }) },
+                )}`,
               },
               h(T, { id: 'about.book-button' }),
             ),

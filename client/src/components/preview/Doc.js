@@ -53,7 +53,7 @@ exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
 })
 
 // used by Paragraphs and Footnotes/References
-const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
+const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
   markup.map((m, idx) => {
     // see doc-parsers/article parseMarkup
     switch (m.type) {
@@ -68,7 +68,15 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
       case 'link':
         return h(
           'a.external',
-          { key: idx, href: m.url, target: '_blank' },
+          {
+            key: idx,
+            href: m.url,
+            target: '_blank',
+            title: `${intl.formatMessage(
+              { id: 'fo.link-new-window-title' },
+              { title: m.text },
+            )}`,
+          },
           m.text,
         )
 
@@ -97,8 +105,8 @@ const renderMarkup = (markup /*: Array<Object> */, lexiconId = {}) =>
     }
   })
 
-exports.Paragraph = (
-  { p, lexiconId } /*: {
+exports.Paragraph = injectIntl((
+  { p, lexiconId, intl } /*: {
   p: Object,
   lexiconId: { id: number },
 } */,
@@ -106,8 +114,8 @@ exports.Paragraph = (
   if (!p.markup)
     throw new Error('no markup found. This document needs to be reimported')
 
-  return h('p.container.DocParagraph', renderMarkup(p.markup, lexiconId))
-}
+  return h('p.container.DocParagraph', renderMarkup(p.markup, intl, lexiconId))
+})
 
 exports.Keywords = (
   { keywords, options } /*: {
@@ -248,7 +256,7 @@ exports.Footnotes = injectIntl((
           footnotes.map((n, k) =>
             h('li', { id: `footnote-${k + 1}`, key: k }, [
               h('a.back', { href: `#note-${k + 1}` }, '^'),
-              renderMarkup(n.markup),
+              renderMarkup(n.markup, intl),
             ]),
           ),
         ),
@@ -256,7 +264,9 @@ exports.Footnotes = injectIntl((
         Boolean(references.length) &&
         h(
           'ol',
-          references.map((r, k) => h('li', { key: k }, renderMarkup(r.markup))),
+          references.map((r, k) =>
+            h('li', { key: k }, renderMarkup(r.markup, intl)),
+          ),
         ),
       h('button.read-more', [
         intl.formatMessage({ id: 'doc.footnotes-read-more' }),

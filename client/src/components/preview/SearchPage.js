@@ -138,7 +138,13 @@ const resultsTemplate = (t, lang) => `
 ${paginationTemplate(t)}
 <% for (var i=0;i<results.hits.length;i++) { var hit=results.hits[i]; %>
   <% if (hit.url) { %>
-    <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') { %>target="_blank"<% } %>>
+    <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') {
+      %>target="_blank" title="${t(
+        'link-new-window-title',
+        { title: t('reference-title') },
+        'fo.',
+      )}"<%
+    } %>>
   <% } else { %>
     <div class="row search-result">
   <% } %>

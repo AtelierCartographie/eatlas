@@ -39,7 +39,7 @@
   "download-warning":
     "Before using, please read <a href=\"{href}\">legal notice</a>.",
   "download-warning-map":
-    "You are free to share the material in any medium or format under the following terms: give appropriate credit, do not use the material for commercial purposes and do not distribute remix or transform version of the material. For any other use, please <a href=\"{href}\" target=\"_blank\">contact us</a>.",
+    "You are free to share the material in any medium or format under the following terms: give appropriate credit, do not use the material for commercial purposes and do not distribute remix or transform version of the material. For any other use, please <a href=\"{href}\" target=\"_blank\" title=\"contact us (new window)\">contact us</a>.",
   "download-size": {
     "large": "Detailed version",
     "medium": "Simplified version",

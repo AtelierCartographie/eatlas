@@ -186,11 +186,11 @@ const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
           ],
         ),
         h('.collapse', { id: 'comment' }, [
-          h('div', {
-            dangerouslySetInnerHTML: {
-              __html: `${imageHeader.copyright} ${imageHeader.description_fr}`,
-            },
-          }),
+          h(
+            Html,
+            { whitelist: 'all' },
+            `${imageHeader.copyright} ${imageHeader.description_fr}`,
+          ),
         ]),
       ]),
   ])

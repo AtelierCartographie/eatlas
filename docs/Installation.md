@@ -28,15 +28,6 @@ Pour préparer un poste de développement, l'application doit tourner en local. 
    - Le navigateur principal sera ouvert sur l'URL du backoffice
    - Si tout fonctionne correctement, les modifications sur le serveur le redémarrent, et les modifications sur le client rechargent la page du navigateur
 
-Note : l'environnement de dév de React vide la console à chaque rebuild, ça peut être pénible pour suivre l'output du serveur. Si ça devient gênant, utiliser deux terminaux :
-
-```sh
-# Terminal 1 (client)
-yarn dev:client
-# Terminal 2 (serveur)
-yarn dev:server
-```
-
 Le site web front est généré au fur et à mesure de la création de rubriques et de la (dé)publication de ressources sur http://localhost:3000/generated (par défaut)
 
 ### Production

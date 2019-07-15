@@ -59,13 +59,17 @@
           }
         })
         .slick({
-          // accessibility: true,
+          accessibility: true,
           // adaptiveHeight: false,
           // autoplay: false,
           // autoplaySpeed: 3000,
           // arrows: true,
-          prevArrow: '<div class="slick-prev">Previous</div>',
-          nextArrow: '<div class="slick-next">Next</div>',
+          prevArrow: `<button role="button" class="slick-prev" title="${
+            window.CAROUSEL_PREVIOUS
+          }">${window.CAROUSEL_PREVIOUS}</button>`,
+          nextArrow: `<button role="button" class="slick-next" title="${
+            window.CAROUSEL_NEXT
+          }">${window.CAROUSEL_NEXT}</button>`,
           // centerMode: false,
           // centerPadding: '50px',
           // cssEase: 'ease',

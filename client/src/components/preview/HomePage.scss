@@ -282,6 +282,19 @@
     margin: 0 8px;
   }
 
+  // #a11y
+  .slick-next,
+  .slick-prev,
+  .slick-slide a {
+    outline: solid;
+    &:focus {
+      outline: solid;
+      transition: 0.3s all ease;
+      border-bottom: 2px solid $color-yellow;
+      box-shadow: inset 0 -4px 0 $color-yellow;
+    }
+  }
+
   .slick-current .carousel-item {
     transition: 0.3s all ease;
     .image {

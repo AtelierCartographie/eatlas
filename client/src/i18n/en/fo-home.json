@@ -5,10 +5,8 @@
   "topics-title": "Access parts",
   "the-team": "The team",
   "the-texts": "The texts",
-  "the-vizualisations":
-    "Maps and graphics",
-  "the-vizualisations-creator":
-    "(Sciences Po - Atelier de cartographie)",
+  "the-vizualisations": "Maps and graphics",
+  "the-vizualisations-creator": "(Sciences Po - Atelier de cartographie)",
   "the-project": "The project",
   "project":
     "Cet Atlas est le fruit d’une aventure collective au sein de Sciences Po, sur une idée originale et un financement de la Direction des ressources et de l’information scientifique (DRIS) au nom de laquelle Delphine Lereculeur a conduit le projet. Explorant des pistes de développement autour de la publication en open edition de contenus scientifiques multimédia à destination d'un public large, le choix s'est porté sur l'Atlas de la mondialisation, dont la dernière édition datait de 2013. D'autres acteurs de Sciences Po ont accompagné ce projet, parmi lesquels la Direction des Études et de la Scolarité (DES) et les Presses de Sciences Po.  La société ByteClub a réalisé les développements.",
@@ -34,8 +32,7 @@
   "lucile-maertens-title": "Assistant professor in international relations",
   "lucile-maertens-bio":
     "Lucile Maertens holds a PhD in Political Science and is Assistant Professor in International Relations at the University of Lausanne (IEPHI) and Associate Researcher at Sciences Po / CERI. Her research focuses on the work of international organizations in the field of environment and security.",
-  "delphine-placidi-frot-title":
-    "Professor of Political Science",
+  "delphine-placidi-frot-title": "Professor of Political Science",
   "delphine-placidi-frot-bio":
     "Delphine Placidi-Frot, Professor of Political Science, co-leads the Master's curriculum in Diplomacy and Strategic Negotiations and Governance of Sustainable Development Projects in the Global South at Paris-Saclay University. Her research focuses on foreign policy and multilateral organizations (particularly UN organizations).",
   "thomas-ansart-title": "cartography, data visualization, R",
@@ -57,5 +54,7 @@
     "More than 200 maps and charts (downloadable)",
     "Almost 230 key concepts explained",
     "Scientific articles with references"
-  ]
+  ],
+  "carousel-next": "Show next element (flick right)",
+  "carousel-previous": "Show previous element (flick left)"
 }

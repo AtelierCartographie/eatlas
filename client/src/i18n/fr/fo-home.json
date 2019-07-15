@@ -5,10 +5,8 @@
   "topics-title": "Accéder aux thèmes",
   "the-team": "L’équipe",
   "the-texts": "Les textes",
-  "the-vizualisations":
-    "Les cartes et graphiques",
-  "the-vizualisations-creator":
-    "(Sciences Po - Atelier de cartographie)",
+  "the-vizualisations": "Les cartes et graphiques",
+  "the-vizualisations-creator": "(Sciences Po - Atelier de cartographie)",
   "the-project": "Le projet",
   "project":
     "Cet Atlas est le fruit d’une aventure collective au sein de Sciences Po, sur une idée originale et un financement de la Direction des ressources et de l’information scientifique (DRIS) au nom de laquelle Delphine Lereculeur a conduit le projet. Explorant des pistes de développement autour de la publication en open edition de contenus scientifiques multimédia à destination d'un public large, le choix s'est porté sur l'Atlas de la mondialisation, dont la dernière édition datait de 2013. D'autres acteurs de Sciences Po ont accompagné ce projet, parmi lesquels la Direction des Études et de la Scolarité (DES) et les Presses de Sciences Po.  La société ByteClub a réalisé les développements.",
@@ -57,5 +55,7 @@
     "Plus de 200 cartes et graphiques (téléchargeables)",
     "Près de 230 notions et concepts expliqués",
     "Plus de 80 articles et focus sur les questions d’actualité"
-  ]
+  ],
+  "carousel-next": "Voir l’élément suivant (dérouler vers la droite)",
+  "carousel-previous": "Voir l’élément précédent (dérouler vers la gauche)"
 }

@@ -1,13 +1,15 @@
 // @flow
 
 const h = require('react-hyperscript')
+const { injectIntl } = require('react-intl')
 
 const { CDN, prefixUrl } = require('./layout')
 const TopBar = require('./TopBar')
 const { SideMenu } = require('./SideMenu')
 const Footer = require('./Footer')
+const Html = require('./Html')
 
-module.exports = (
+module.exports = injectIntl((
   {
     topics,
     logoColor = 'white',
@@ -17,6 +19,7 @@ module.exports = (
     scripts = [],
     linkContent = '#main-content',
     className = '',
+    intl,
   } /*: {
   topics: Topic[],
   logoColor: 'black' | 'white',
@@ -54,7 +57,17 @@ module.exports = (
       src: `${CDN}/picturefill/3.0.3/picturefill.min.js`,
     }),
     ...scripts.map(src => h('script', { src })),
+    h(
+      Html,
+      { component: 'script' },
+      `window.CAROUSEL_PREVIOUS="${intl.formatMessage({
+        id: 'home.carousel-previous',
+      })}"; window.CAROUSEL_NEXT="${intl.formatMessage({
+        id: 'home.carousel-next',
+      })}";`,
+    ),
     h('script', {
       src: prefixUrl('/assets/js/eatlas.es5.js', options.preview),
     }),
-  ])
+  ]),
+)

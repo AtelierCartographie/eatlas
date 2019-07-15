@@ -18,6 +18,15 @@ const TeamMemberModal = injectIntl(({ page, member, options, intl }) => {
       h('.modal-dialog.modal-lg', { role: 'document' }, [
         h('.modal-content', {}, [
           h('.modal-body', [
+            h(
+              'button.close',
+              {
+                'data-dismiss': 'modal',
+                role: 'button',
+                'aria-label': intl.formatMessage({ id: 'close' }),
+              },
+              '⨯',
+            ),
             h('.row.vcenter', [
               h('.col-md-4', [
                 h('img.center-block', {

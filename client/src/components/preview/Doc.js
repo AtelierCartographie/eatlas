@@ -322,10 +322,9 @@ exports.Lexicon = injectIntl((
                 found && found.dt !== dt
                   ? // Alias
                     h(
-                      'a',
+                      'a.lexicon-dialog-title',
                       {
                         href,
-                        className: 'lexicon-dialog-title',
                         role: 'button',
                         title: intl.formatMessage(
                           { id: 'doc.goto-lexicon-link-title' },
@@ -339,10 +338,9 @@ exports.Lexicon = injectIntl((
                     )
                   : // Real definition
                     h(
-                      'a',
+                      'a.lexicon-dialog-title',
                       {
                         href,
-                        className: 'lexicon-dialog-title',
                         role: 'button',
                         title: intl.formatMessage(
                           { id: 'doc.goto-lexicon-link-title' },
@@ -352,10 +350,9 @@ exports.Lexicon = injectIntl((
                       dt,
                     ),
                 h(
-                  'button',
+                  'button.close',
                   {
                     role: 'button',
-                    className: 'close',
                     'aria-label': intl.formatMessage({ id: 'close' }),
                   },
                   '⨯',

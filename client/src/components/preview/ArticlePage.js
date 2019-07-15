@@ -157,14 +157,10 @@ const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
       `,
     ),
     h('.ImageHeader', { style }),
-    h(
-      '.container.ArticleHeaderInfo',
-      { className: `title-position-${article.titlePosition}` },
-      [
-        h(Html, { component: 'h1.ArticleTitle' }, article.title),
-        h(PublishedAt, { doc: article }),
-      ],
-    ),
+    h(`.container.ArticleHeaderInfo.title-position-${article.titlePosition}`, [
+      h(Html, { component: 'h1.ArticleTitle' }, article.title),
+      h(PublishedAt, { doc: article }),
+    ]),
     imageHeader &&
       (imageHeader.copyright || imageHeader.description_fr) &&
       h('.container.imageHeaderInfo', [

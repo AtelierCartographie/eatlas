@@ -8,7 +8,7 @@ const {
   getTopicPageUrl,
   prefixUrl,
 } = require('./layout')
-const { topicName, stripTags } = require('../../universal-utils')
+const { topicName } = require('../../universal-utils')
 const LangSelector = require('./LangSelector')
 
 const Topics = ({ topics, options, intl }) =>
@@ -58,7 +58,7 @@ exports.SideMenu = injectIntl((
       'aria-label': intl.formatMessage({ id: 'doc.nav-title-sidebar' }),
     },
     [
-      h('a.close-button', { href: '#', tabindex: 2 }, '⨯'),
+      h('a.close-button', { href: '#' }, '⨯'),
       h('h1.navmenu-title', [
         h(
           'a',

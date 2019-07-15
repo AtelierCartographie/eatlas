@@ -25,9 +25,9 @@ module.exports = (
 } */,
 ) =>
   // display preview ribbon in corner
-  h('body', { className: `${className} ${options.preview ? 'preview' : ''}` }, [
-    h(TopBar, { altTitle, logoColor, linkContent, options }),
+  h(`body.${className}${options.preview ? '.preview' : ''}`, [
     h(SideMenu, { topics, options }),
+    h(TopBar, { altTitle, logoColor, linkContent, options }),
     h('main#main-content', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {

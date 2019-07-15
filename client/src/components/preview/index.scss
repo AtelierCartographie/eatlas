@@ -65,10 +65,20 @@ p {
   padding: 5px 5px;
 }
 
-ul.navmenu-nav,
-ul.navmenu-nav a {
-  font-weight: 400;
-  font-size: 1.6rem;
+.navmenu-default {
+  background-color: white;
+
+  .navmenu-nav>li>a {
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #5a5a5a;
+
+    &:hover,
+    &:focus {
+      font-weight: 700;
+      color: #5a5a5a;
+    }
+  }
 }
 
 // 2 navbars:

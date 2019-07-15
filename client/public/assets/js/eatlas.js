@@ -467,7 +467,7 @@
     }
   })
 
-  // Proper navigation when clicking on a definition in an article without style
+  // #a11y Proper navigation when clicking on a definition in an article without style
   // Note: this handler is run *after* bootstrap collapse plugin
   let styledLexicon = true
   $(document).on('click', '.LexiconLink[data-toggle="collapse"]', e => {
@@ -487,5 +487,31 @@
     if (!styledLexicon) {
       document.location.hash = $this.attr('href')
     }
+  })
+
+  // #a11y Adjust focus when working with lexicon definition dialog
+  // Open definition = focus to definition title in dialog
+  // Then press ESC = close
+  // Close = close dialog and focus to link that opened the dialog initially
+  $(document).on('click', '.LexiconLink:not([aria-expanded="true"])', e => {
+    const $this = $(e.currentTarget)
+    const $backNodeInArticle = $this
+    const $lexiconDialog = $($this.attr('href'))
+    $lexiconDialog
+      .find('a.lexicon-dialog-title')
+      .first()
+      .focus()
+    $lexiconDialog.find('a.lexicon-dialog-close').removeAttr('aria-hidden')
+    $lexiconDialog.one('hide.bs.collapse', e => {
+      $backNodeInArticle.focus()
+    })
+  })
+  $('.Lexicon > [role="dialog"]').on('keydown', e => {
+    if (e.key === 'Escape') {
+      $(e.currentTarget).collapse('hide')
+    }
+  })
+  $('.Lexicon > [role="dialog"]').on('click', '.close', e => {
+    $(e.currentTarget).collapse('hide')
   })
 })(window.jQuery)

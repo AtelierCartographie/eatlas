@@ -80,20 +80,23 @@ const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
           m.text,
         )
 
-      case 'lexicon':
+      case 'lexicon': {
+        const id = `lexicon-${++lexiconId.id}`
         return h(
           'a.LexiconLink',
           {
             key: idx,
-            href: `#lexicon-${++lexiconId.id}`,
+            href: `#${id}`,
             'data-toggle': 'collapse',
             title: intl.formatMessage(
               { id: 'fo.link-lexicon-title' },
               { text: m.text },
             ),
+            'aria-controls': id,
           },
           m.text,
         )
+      }
 
       case 'footnote':
         return h('sup', { key: idx }, [
@@ -280,11 +283,12 @@ exports.Footnotes = injectIntl((
   ])
 })
 
-exports.Lexicon = (
+exports.Lexicon = injectIntl((
   {
     nodes,
     definitions,
     options,
+    intl,
   } /*: {
   nodes: Object[],
   definitions: Object[],
@@ -309,31 +313,69 @@ exports.Lexicon = (
           null,
           slugify(found ? found.dt : dt),
         )(options)
-        return h('.collapse.container', { key: k, id: `lexicon-${k + 1}` }, [
-          h('dl', [
-            h('dt', [
-              found && found.dt !== dt
-                ? // Alias
-                  h('a', { href }, [
-                    dt,
-                    h('span.root-definition', ` > ${found.dt}`),
-                  ])
-                : // Real definition
-                  h('a', { href }, dt),
-            ]),
-            h(
-              'dd',
-              {},
-              exports.linkInternalDefinitions(
-                found,
-                definitions,
-                globalPageUrl('definition')(options),
+        return h(
+          '.collapse.container',
+          { key: k, id: `lexicon-${k + 1}`, role: 'dialog' },
+          [
+            h('dl', [
+              h('dt', [
+                found && found.dt !== dt
+                  ? // Alias
+                    h(
+                      'a',
+                      {
+                        href,
+                        className: 'lexicon-dialog-title',
+                        role: 'button',
+                        title: intl.formatMessage(
+                          { id: 'doc.goto-lexicon-link-title' },
+                          { title: dt },
+                        ),
+                      },
+                      [
+                        dt,
+                        h('span.root-definition-link-title', ` > ${found.dt}`),
+                      ],
+                    )
+                  : // Real definition
+                    h(
+                      'a',
+                      {
+                        href,
+                        className: 'lexicon-dialog-title',
+                        role: 'button',
+                        title: intl.formatMessage(
+                          { id: 'doc.goto-lexicon-link-title' },
+                          { title: dt },
+                        ),
+                      },
+                      dt,
+                    ),
+                h(
+                  'button',
+                  {
+                    role: 'button',
+                    className: 'close',
+                    'aria-label': intl.formatMessage({ id: 'close' }),
+                  },
+                  '⨯',
+                ),
+              ]),
+              h(
+                'dd',
+                {},
+                exports.linkInternalDefinitions(
+                  found,
+                  definitions,
+                  globalPageUrl('definition')(options),
+                ),
               ),
-            ),
-          ]),
-        ])
+            ]),
+          ],
+        )
       }),
-  )
+  ),
+)
 
 const marker = `£¨§ø£`
 exports.linkInternalDefinitions = (singleDefinition, definitions, url = '') => {

@@ -21,6 +21,8 @@
     "image+video": "Photos et vidéos",
     "all": "Tous types"
   },
+  "goto-lexicon-link-title":
+    "Aller à la page du lexique pour « {title} » (pressez « Echap » pour retourner à votre position précédente dans l’article)",
   "related-article-or-focus": "Article ou focus lié",
   "published-at": "Publié le",
   "date-format": "D MMMM YYYY",

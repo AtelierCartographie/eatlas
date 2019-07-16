@@ -353,7 +353,7 @@ exports.Lexicon = injectIntl((
                   'button.close',
                   {
                     role: 'button',
-                    'aria-label': intl.formatMessage({ id: 'close' }),
+                    'aria-label': intl.formatMessage({ id: 'fo.close' }),
                   },
                   '⨯',
                 ),

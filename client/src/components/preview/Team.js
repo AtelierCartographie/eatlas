@@ -23,7 +23,7 @@ const TeamMemberModal = injectIntl(({ page, member, options, intl }) => {
               {
                 'data-dismiss': 'modal',
                 role: 'button',
-                'aria-label': intl.formatMessage({ id: 'close' }),
+                'aria-label': intl.formatMessage({ id: 'fo.close' }),
               },
               '⨯',
             ),

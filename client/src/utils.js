@@ -124,3 +124,14 @@ export const guessResourceLanguage = (resource: Resource): ?Locale => {
 
   return match[1].toLowerCase()
 }
+
+export const canCreateLexicon = (
+  resources: Resource[],
+  locales: Locale[] = LOCALES,
+): ?(Locale[]) => {
+  const lexiconLangs = resources
+    .filter(r => r.type === 'definition')
+    .map(r => r.language)
+  const missingLangs = locales.filter(l => !lexiconLangs.includes(l))
+  return missingLangs.length ? missingLangs : null
+}

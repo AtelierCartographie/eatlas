@@ -21,7 +21,12 @@ import {
   LEXICON_ID_PREFIX,
   LOCALES,
 } from '../constants'
-import { paginationItems, updateLocation, canUnpublish } from '../utils'
+import {
+  paginationItems,
+  updateLocation,
+  canUnpublish,
+  canCreateLexicon,
+} from '../utils'
 import { stripTags } from '../universal-utils'
 
 import Spinner from './Spinner'
@@ -240,8 +245,7 @@ class Resources extends Component<Props, State> {
     if (this.props.filters.type === 'definition') {
       if (!this.props.resources.fetched || this.props.resources.loading)
         return false
-      if (this.props.resources.list.some(r => r.type === 'definition'))
-        return false
+      return canCreateLexicon(this.props.resources.list)
     }
     return true
   }

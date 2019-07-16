@@ -34,6 +34,7 @@ import {
   canUnpublish,
   guessResourceType,
   guessResourceLanguage,
+  canCreateLexicon,
 } from '../utils'
 import AsyncData from './AsyncData'
 import Editor from './WysiwygEditor'
@@ -224,10 +225,8 @@ class ResourceForm extends Component<Props, State> {
     if (props.resources) {
       const isLexiconEdited =
         props.resource && props.resource.type === 'definition'
-      const isFoundLexicon = props.resources.list.some(
-        resource => resource.type === 'definition',
-      )
-      if (isLexiconEdited || (props.mode === 'create' && !isFoundLexicon)) {
+      const allLexiconsFound = canCreateLexicon(props.resources.list)
+      if (isLexiconEdited || (props.mode === 'create' && !allLexiconsFound)) {
         types = RESOURCE_TYPES
       } else {
         types = RESOURCE_TYPES.filter(type => type !== 'definition')

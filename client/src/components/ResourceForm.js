@@ -1130,7 +1130,10 @@ class ResourceForm extends Component<Props, State> {
       }
       // $FlowFixMe: temporarily partial resource now, but it'll be filled later
       const resource: Resource = { ...(state.resource || {}) }
-      resource.id = getMetaText('id') || resource.id
+      resource.id =
+        this.props.mode === 'edit'
+          ? resource.id || getMetaText('id')
+          : getMetaText('id') || resource.id
       resource.title = getMetaText('title') || resource.title
       resource.titlePosition =
         getMetaText('titlePosition') || resource.titlePosition || 'center'
@@ -1150,7 +1153,14 @@ class ResourceForm extends Component<Props, State> {
         },
         null,
       )
+
+      // Guess language from various situations:
+      // edit = keep chosen language or use one from upload's content
+      // create = guess from forced id or
       resource.language =
+        (this.props.mode === 'edit'
+          ? resource.language
+          : guessResourceLanguage(this.props.resource)) ||
         guessResourceLanguage(resource) ||
         (foundSummary ? foundSummary.lang : '')
 

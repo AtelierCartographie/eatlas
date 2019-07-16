@@ -2,6 +2,7 @@ const { getUrl, getFirstImageKey } = require('./generator-utils')
 const {
   getMediaPreviewUrl,
   getMediaUrl,
+  findResource,
 } = require('../../client/src/universal-utils')
 
 const getImageUrl = (resource, size, density, preview) =>
@@ -29,7 +30,7 @@ const getResourceSocialMetaImage = (resource, resources, preview) => {
       )
     case 'article':
       return getSmallestImageUrl(
-        resources.find(r => r.id === resource.imageHeader),
+        findResource(resources, resource.imageHeader, resource.language),
         preview,
       )
     case 'map':
@@ -80,7 +81,7 @@ module.exports = async ({
     resource
       ? buildResourceSocialMetas(resource, lang, { props, preview })
       : topic
-        ? buildTopicSocialMetas(topic, lang, { props, preview })
-        : buildPageSocialMetas(page, lang, { props, preview }),
+      ? buildTopicSocialMetas(topic, lang, { props, preview })
+      : buildPageSocialMetas(page, lang, { props, preview }),
     { url: await getUrl({ page, resource, topic, topics, preview, lang }) },
   )

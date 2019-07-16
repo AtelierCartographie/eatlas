@@ -7,6 +7,7 @@ const cheerio = require('cheerio')
 const {
   META_CONVERSION,
   META_LIST_EXPECTED,
+  LOCALES,
 } = require('../../../client/src/universal-utils')
 
 // helpers
@@ -55,11 +56,23 @@ const parseLexicon = ($, el) =>
 
 const parseResource = text => {
   text = text.slice(1, -1)
-  const [id, ...rest] = text.split('-').map(s => s.trim())
+  const [id, ...rest] = text.split('-')
+  // Note: id can contain language as suffix, separated by a dash "-"
+  // so we can have actually [id, lang, rest] or [id, rest]
+  let fullText = ''
+  let fullId = ''
+  const localeId = (rest[0] || '').trimRight().toLowerCase()
+  if (LOCALES[localeId]) {
+    fullId = `${id.trim()}-${rest[0].trimRight().toUpperCase()}`
+    fullText = rest.slice(1).join('-')
+  } else {
+    fullId = id.trim()
+    fullText = rest.join('-')
+  }
   return {
     type: 'resource',
-    id,
-    text: rest.join(''),
+    id: fullId,
+    text: fullText,
   }
 }
 
@@ -192,19 +205,21 @@ const parseChild = $ => (i, el) => {
 }
 
 const extractMetas = nodes =>
-  nodes.filter(n => n.type === 'meta').map(m => {
-    const meta = {
-      type: getType(m.id),
-    }
-    if (m.text) meta.text = m.text
-    if (m.list) meta.list = m.list
-    if (META_LIST_EXPECTED.includes(meta.type) && !meta.list) {
-      throw new Error(
-        `La méta "${m.id}" attend une liste, mais un simple texte a été fourni`,
-      )
-    }
-    return meta
-  })
+  nodes
+    .filter(n => n.type === 'meta')
+    .map(m => {
+      const meta = {
+        type: getType(m.id),
+      }
+      if (m.text) meta.text = m.text
+      if (m.list) meta.list = m.list
+      if (META_LIST_EXPECTED.includes(meta.type) && !meta.list) {
+        throw new Error(
+          `La méta "${m.id}" attend une liste, mais un simple texte a été fourni`,
+        )
+      }
+      return meta
+    })
 
 module.exports = async buffer => {
   const { value } = await mammoth.convertToHtml({ buffer })

@@ -25,7 +25,7 @@ const {
   articleHeaderImageUrl,
   prefixUrl,
 } = require('./layout')
-const { stripTags, topicName } = require('../../universal-utils')
+const { stripTags, topicName, findResource } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const Summaries = require('./Summaries')
@@ -35,7 +35,11 @@ const LinkToTop = require('./LinkToTop')
 // subcomponents
 
 const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
-  const imageHeader = resources.find(r => r.id === article.imageHeader)
+  const imageHeader = findResource(
+    resources,
+    article.imageHeader,
+    article.language,
+  )
   const imageHeaderUrlL1 =
     imageHeader && getImageUrl(imageHeader, 'large', '1x', options)
   const imageHeaderUrlL2 =
@@ -223,7 +227,7 @@ const ArticleNodes = ({ article, resources, lexiconId, options, topics }) => {
       case 'p':
         return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {
-        const resource = resources.find(r => r.id === n.id)
+        const resource = findResource(resources, n.id, article.language)
         return !resource
           ? null
           : h(EmbeddedResource, { resource, options, key: n.id })
@@ -242,7 +246,7 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
     (article.related || [])
       .map(r => {
         const [articleId] = r.text.split(/\s*-\s*/)
-        return resources.find(r => r.id === articleId)
+        return findResource(resources, articleId, article.language)
       })
       .filter(a => !!a)
 

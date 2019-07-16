@@ -10,6 +10,7 @@ import { getDefinition, parseRelated } from '../utils'
 
 import Html from './preview/Html'
 import Icon from './Icon'
+import { findResource } from '../universal-utils'
 
 type Props = ContextIntl & {
   article: Resource,
@@ -58,7 +59,11 @@ class ResourcesPreviewArticle extends Component<Props> {
     // checkers
 
     const checkResource = id => {
-      const resource: ?Resource = this.props.resources.find(r => r.id === id)
+      const resource: ?Resource = findResource(
+        this.props.resources,
+        id,
+        this.props.article.language,
+      )
       if (!resource) {
         errors.push({
           what: id,

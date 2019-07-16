@@ -21,7 +21,7 @@ const Body = require('./Body')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const { getResourcePageUrl } = require('./layout')
-const { stripTags } = require('../../universal-utils')
+const { stripTags, findResource } = require('../../universal-utils')
 const LinkToTop = require('./LinkToTop')
 
 // subcomponents
@@ -63,7 +63,7 @@ const FocusNodes = ({ focus, lexiconId, resources, options }) => {
       case 'p':
         return h(Paragraph, { p: n, key: n.id, lexiconId })
       case 'resource': {
-        const resource = resources.find(r => r.id === n.id)
+        const resource = findResource(resources, n.id, focus.language)
         return !resource
           ? null
           : h(EmbeddedResource, { resource, options, key: n.id })

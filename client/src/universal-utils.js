@@ -82,7 +82,16 @@ exports.getResourceIds = (
       : getMetaList(article, 'related').map(
           ({ text }) => parseRelated(text).id,
         )),
-  ].filter(Boolean)
+  ]
+    .filter(Boolean)
+    .reduce((ids, id) => {
+      ids.push(id)
+      const fullId = exports.getFullId(id, article.language)
+      if (fullId !== id) {
+        ids.push(fullId)
+      }
+      return ids
+    }, [])
 
 // semantic agnostic
 exports.META_CONVERSION = {
@@ -157,3 +166,19 @@ exports.getResourcePagePreviewUrl = (
 
 exports.topicName = (topic, lang) =>
   lang === 'fr' ? topic.name : topic[`name_${lang}`]
+
+exports.sameBaseId = (fullId1, fullId2) => {
+  const [id1] = fullId1.split('-')
+  const [id2] = fullId2.split('-')
+  return id1 === id2
+}
+
+exports.findResource = (resources, id, language) =>
+  resources.find(
+    r => exports.sameBaseId(r.id, id) && (!language || r.language === language),
+  )
+
+exports.getFullId = (id, language = 'fr') => {
+  const [base] = id.split('-')
+  return `${base}-${language.toUpperCase()}`
+}

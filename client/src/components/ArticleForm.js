@@ -13,10 +13,12 @@ import { renderPreview } from './Resources'
 import { LEXICON_ID, META_CONVERSION } from '../constants'
 import { getDefinition, parseRelated } from '../utils'
 import { fetchResources } from '../actions'
+import { findResource, getFullId } from '../universal-utils'
 
 type RProps = {
   node: Object,
   resource: Object,
+  language: Locale,
   onIsMissing: (exists: boolean, published: boolean) => any,
 }
 
@@ -39,7 +41,7 @@ class _ResourceField extends Component<RProps> {
   }
 
   render() {
-    const { node, resource } = this.props
+    const { node, resource, language } = this.props
 
     if (!resource) {
       return (
@@ -51,8 +53,11 @@ class _ResourceField extends Component<RProps> {
           <div className="control">
             {node.id} {node.text}
           </div>
-          <Link to={'/resources/new/?' + node.id}>
-            <T id="bo.article-related-create" values={{ title: node.id }} />
+          <Link to={'/resources/new/?' + getFullId(node.id, language)}>
+            <T
+              id="bo.article-related-create"
+              values={{ title: getFullId(node.id, language) }}
+            />
           </Link>
         </div>
       )
@@ -96,8 +101,8 @@ class _ResourceField extends Component<RProps> {
   }
 }
 
-const ResourceField = connect(({ resources }, { node }) => ({
-  resource: resources.list.find(r => r.id === node.id),
+const ResourceField = connect(({ resources }, { node, language }) => ({
+  resource: findResource(resources.list, node.id, language),
 }))(_ResourceField)
 
 type PProps = {
@@ -266,7 +271,11 @@ class ArticleForm extends Component<Props, State> {
         if (string) {
           const { id, text } = parseRelated(string)
           if (id) {
-            const resource: ?Resource = resources.find(r => r.id === id)
+            const resource: ?Resource = findResource(
+              resources,
+              id,
+              article.language,
+            )
             if (!resource || resource.status !== 'published') {
               const node: ArticleNode = {
                 id,
@@ -311,6 +320,7 @@ class ArticleForm extends Component<Props, State> {
       <ResourceField
         onIsMissing={this.onIsMissingResource(node)}
         node={node}
+        language={this.props.article.language}
         key={k}
       />
     )
@@ -344,30 +354,46 @@ class ArticleForm extends Component<Props, State> {
           <T id={title} /> ({nodes.length})
         </h2>
         <ul>
-          {nodes.map(([node, exists]) => (
-            <li key={node.id}>
-              <label className="has-text-danger">
-                <Icon icon="warning" />
-                <strong className="has-text-danger">{node.id}</strong>
-              </label>
-              <Link
-                to={
-                  exists
-                    ? `/resources/${node.id}/edit`
-                    : `/resources/new/?${node.id}`
-                }>
-                {' '}
-                <T
-                  id={
-                    exists
-                      ? 'bo.article-related-publish'
-                      : 'bo.article-related-create'
-                  }
-                  values={{ title: node.text }}
-                />
-              </Link>
-            </li>
-          ))}
+          {nodes
+            .map(([node, exists]) => [
+              node,
+              exists
+                ? findResource(
+                    this.props.resources.list,
+                    node.id,
+                    this.props.article.language,
+                  )
+                : null,
+            ])
+            .map(([node, resource]) => (
+              <li key={node.id}>
+                <label className="has-text-danger">
+                  <Icon icon="warning" />
+                  <strong className="has-text-danger">
+                    {getFullId(node.id, this.props.article.language)}
+                  </strong>
+                </label>
+                <Link
+                  to={
+                    resource
+                      ? `/resources/${resource.id}/edit`
+                      : `/resources/new/?${getFullId(
+                          node.id,
+                          this.props.article.language,
+                        )}`
+                  }>
+                  {' '}
+                  <T
+                    id={
+                      resource
+                        ? 'bo.article-related-publish'
+                        : 'bo.article-related-create'
+                    }
+                    values={{ title: node.text }}
+                  />
+                </Link>
+              </li>
+            ))}
         </ul>
         <hr />
       </Fragment>

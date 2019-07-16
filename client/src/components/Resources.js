@@ -740,7 +740,10 @@ class Resources extends Component<Props, State> {
               value={this.props.pagination.count}>
               {PAGINATION_COUNTS.map(count => (
                 <option key={count} value={count}>
-                  <T id="bo.pagination-count" values={{ count }} />
+                  {this.props.intl.formatMessage(
+                    { id: 'bo.pagination-count' },
+                    { count },
+                  )}
                 </option>
               ))}
             </select>

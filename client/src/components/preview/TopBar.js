@@ -66,16 +66,16 @@ module.exports = injectIntl((
       linkContent
         ? h(
             'a#link-to-content',
-            { href: linkContent, tabindex: 1 },
+            { href: linkContent, tabIndex: 1 },
             intl.formatMessage({ id: 'doc.nav-title-goto-content' }),
           )
         : null,
       h(
         'a#link-to-sitemap',
-        { href: globalPageUrl('sitemap')(options), tabindex: 1 },
+        { href: globalPageUrl('sitemap')(options), tabIndex: 1 },
         intl.formatMessage({ id: 'doc.nav-title-goto-sitemap' }),
       ),
-      // h('a#link-to-menu', { href: '#???', tabindex: 1 }),
+      // h('a#link-to-menu', { href: '#???', tabIndex: 1 }),
       h(SideMenuToggle, { logoColor, options }),
       options.hideSearchToggle ? null : h(SearchToggle, { logoColor, options }),
     ],

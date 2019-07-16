@@ -94,7 +94,7 @@ exports.SideMenuToggle = (
     h(
       'button.navbar-toggle',
       {
-        tabindex: 1,
+        tabIndex: 1,
         type: 'button',
         'data-toggle': 'offcanvas',
         'data-target': '#navmenu',

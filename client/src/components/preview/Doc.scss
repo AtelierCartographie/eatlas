@@ -260,7 +260,7 @@ a.LexiconLink {
   font-family: $serif;
   max-height: 60%;
   position: fixed;
-  z-index: 1;
+  z-index: 3; // over .LinkToTop
   width: 100%;
 
   dl {

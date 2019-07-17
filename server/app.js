@@ -109,29 +109,17 @@ app.delete(
 app.get(
   '/preview/resources/:id',
   user.private(),
-  previews.ensureAssets(),
   resources.findResource(true),
   previews.resource,
 )
 app.get(
   '/preview/topics/:id',
   user.private(),
-  previews.ensureAssets(),
   topics.findTopic(true),
   topics.preview,
 )
-app.post(
-  '/preview/_search',
-  user.private(),
-  previews.ensureAssets(),
-  search.preview,
-)
-app.get(
-  '/preview/:page?',
-  user.private(),
-  previews.ensureAssets(),
-  previews.page,
-)
+app.post('/preview/_search', user.private(), search.preview)
+app.get('/preview/:page?', user.private(), previews.page)
 
 // Public search API
 app.post('/search', search.search)

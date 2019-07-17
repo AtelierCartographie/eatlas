@@ -6,7 +6,7 @@
   "main": "server/index.js",
   "scripts": {
     "dev": "run-p -l 'dev:*'",
-    "dev:client": "cd client && yarn start",
+    "dev:client": "cd client && yarn dev",
     "dev:server": "cd server && yarn dev",
     "dev:sass": "cd client && yarn sass",
     "test": "run-p test:*",

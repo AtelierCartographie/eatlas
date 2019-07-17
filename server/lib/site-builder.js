@@ -1,6 +1,6 @@
 'use strict'
 
-const { writeFile, ensureDir, unlink, exists, stat } = require('fs-extra')
+const { writeFile, ensureDir, unlink, exists } = require('fs-extra')
 const path = require('path')
 const { promisify } = require('util')
 const config = require('config')
@@ -11,7 +11,6 @@ const { topics: Topics, resources: Resources } = require('./model')
 const { pagePath, publicPath, pathToUrl } = require('./resource-path')
 const { populatePageUrl } = require('./generator-utils')
 const { generateHTML } = require('./html-generator')
-const babel = require('babel-core')
 
 const writeFileLogged = async (file, content) => {
   await ensureDir(path.dirname(file))
@@ -164,48 +163,4 @@ exports.rebuildAllHTML = async () => {
   await writeRobotsTxt()
 
   return report
-}
-
-const compileJS = promisify(babel.transformFile)
-
-const getMTime = async file => {
-  try {
-    const { mtime } = await stat(file)
-    return mtime
-  } catch (err) {
-    return 0
-  }
-}
-
-exports.rebuildAssets = async () => {
-  // Compile 'eatlas.js' into 'eatlas.es5.js'
-  const pubDir = path.join(__dirname, '..', '..', 'client', 'public') // FIXME should we read from config here?
-  const source = path.resolve(pubDir, path.join('assets', 'js', 'eatlas.js'))
-  const target = path.resolve(
-    pubDir,
-    path.join('assets', 'js', 'eatlas.es5.js'),
-  )
-  const [sourceMtime, targetMtime] = await Promise.all(
-    [source, target].map(getMTime),
-  )
-  if (targetMtime >= sourceMtime) {
-    // Skip rebuild: target is fresh
-    return
-  }
-  const options = {
-    presets: [
-      [
-        'env',
-        {
-          targets: {
-            browsers: ['last 2 versions', 'safari >= 7'],
-          },
-        },
-      ],
-    ],
-  }
-  const { code } = await compileJS(source, options)
-
-  await writeFile(target, code)
-  logger.info('WRITE OK', target)
 }

@@ -85,11 +85,10 @@ exports.getResourceIds = (
   ]
     .filter(Boolean)
     .reduce((ids, id) => {
-      ids.push(id)
+      const baseId = exports.getBaseId(id)
+      ids.push(baseId)
       const fullId = exports.getFullId(id, article.language)
-      if (fullId !== id) {
-        ids.push(fullId)
-      }
+      ids.push(fullId)
       return ids
     }, [])
 
@@ -167,18 +166,31 @@ exports.getResourcePagePreviewUrl = (
 exports.topicName = (topic, lang) =>
   lang === 'fr' ? topic.name : topic[`name_${lang}`]
 
-exports.sameBaseId = (fullId1, fullId2) => {
-  const [id1] = fullId1.split('-')
-  const [id2] = fullId2.split('-')
-  return id1 === id2
+exports.getBaseId = fullId => {
+  const [base] = fullId.split('-')
+  return base
 }
 
-exports.findResource = (resources, id, language) =>
-  resources.find(
-    r => exports.sameBaseId(r.id, id) && (!language || r.language === language),
-  )
+exports.findResource = (resources, id, language) => {
+  const [baseId, lang] = id.split('-')
+  language = language.toUpperCase()
+  if (lang && lang.toUpperCase() !== language) {
+    // Full ID provided: use its language
+    return exports.findResource(resources, baseId, lang)
+  }
+  return resources.find(r => {
+    const baseId2 = exports.getBaseId(r.id)
+    return (
+      baseId === baseId2 && (!language || r.language.toUpperCase() === language)
+    )
+  })
+}
 
-exports.getFullId = (id, language = 'fr') => {
-  const [base] = id.split('-')
+exports.getFullId = (id, language) => {
+  const [base, lang] = id.split('-')
+  if (lang) {
+    // Full ID provided
+    return id
+  }
   return `${base}-${language.toUpperCase()}`
 }

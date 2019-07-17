@@ -77,6 +77,10 @@ $color-blue: #4778d1;
     margin: $gap $gap 0 0;
     padding: $gap;
 
+    &:focus {
+      border: 1px solid $color-yellow;
+    }
+
     &.tour {
       background: $color-white;
       color: $color-breadcrumb;

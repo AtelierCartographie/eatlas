@@ -357,24 +357,34 @@
     // Wide-screen: filters container is always visible, fixed inside left margin
     // Detect this without trusting client width, but filters' actual positioning
     const repositionFiltersDropdown = () => {
+      // Cross-browser viewport width, see https://stackoverflow.com/a/11310353
+      const screenWidth =
+        window.innerWidth ||
+        (document.documentElement || document.body).clientWidth
       const $dropdown = $('.SearchPage .search-filters.dropdown-menu')
-      const $content = $('.SearchPage .SearchResults')
-      const maxLeft = $content.offset().left - $dropdown.width()
-      // If margin is wide enough, position dropdown right beside the content
-      // Otherwise, css should have gone back to standard/mobile display
-      if (maxLeft > 0) {
-        $dropdown.css({ left: `${maxLeft}px` })
+      if (screenWidth >= 732) {
+        // '@media (min-width: 732px)', see var.scss
+        const $content = $('.SearchPage .SearchResults')
+        const maxLeft = $content.offset().left - $dropdown.width()
+        // If margin is wide enough, position dropdown right beside the content
+        // Otherwise, css should have gone back to standard/mobile display
+        if (maxLeft > 0) {
+          $dropdown.css({ left: `${maxLeft}px` })
+        }
+      } else {
+        $dropdown.css({ left: '' })
       }
     }
     repositionFiltersDropdown()
     $(window).on('resize', repositionFiltersDropdown) // also reposition on resize as it may change
-  }
 
-  // Handle open/close search filters
-  $('.search-filters-container .dropdown-toggle').on('click', e => {
-    e.preventDefault()
-    $('.search-filters-container .dropdown-menu').toggle()
-  })
+    // Handle open/close search filters
+    $('.search-filters-container .dropdown-toggle').on('click', e => {
+      e.preventDefault()
+      $('.search-filters-container .dropdown-menu').toggle()
+      setTimeout(repositionFiltersDropdown, 50)
+    })
+  }
 
   // Shared code between search page and definitions list
 

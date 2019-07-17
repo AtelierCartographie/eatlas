@@ -255,8 +255,6 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
           }),
         ],
       ]),*/
-      // TODO show this filters in the future - #133
-      /*
       ...filtersToggle(
         'Langue',
         Object.keys(locales).map(locale => [
@@ -269,7 +267,6 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
           h('span', { key: 'label' }, locales[locale]),
         ]),
       ),
-      */
       // Note we can't remove this one to keep 'resource' pages
       // If you need to remove it, just hide it
       ...filtersToggle(

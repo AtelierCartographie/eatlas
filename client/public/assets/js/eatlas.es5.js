@@ -371,7 +371,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         // If margin is wide enough, position dropdown right beside the content
         // Otherwise, css should have gone back to standard/mobile display
         if (maxLeft > 0) {
-          $dropdown.css({ left: maxLeft + 'px' });
+          $dropdown.css({ left: maxLeft + 'px', display: '' });
         }
       } else {
         $dropdown.css({ left: '' });

@@ -95,7 +95,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   var goToSearch = function goToSearch(evt) {
     if (evt.which !== 13) return; // enter
     var $this = $(evt.currentTarget);
-    document.location = $this.data('search-page-url') + '?q=' + $this.val();
+    var location = $this.data('search-page-url') + '?q=' + $this.val();
+    if (window.SEARCH_DEFAULT_LANG) {
+      location += '&locales%5B%5D=' + window.SEARCH_DEFAULT_LANG;
+    }
+    document.location = location;
   };
   // Search inputs
   $('form.navmenu-form').on('submit', function (evt) {

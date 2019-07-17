@@ -13,6 +13,12 @@ module.exports = injectIntl(({ logoColor, options, intl }) =>
         placeholder: intl.formatMessage({ id: 'fo.search.placeholder' }),
         'aria-label': intl.formatMessage({ id: 'fo.search.label' }),
         'data-search-page-url': getSearchUrl({}, options),
+        name: 'q',
+      }),
+      h('input', {
+        type: 'hidden',
+        name: 'locales[]',
+        value: intl.lang,
       }),
       h('button.search-toggle-button', { type: 'button' }, [
         h('img.if-not-scrolled', {

@@ -64,7 +64,7 @@ module.exports = injectIntl((
         id: 'home.carousel-previous',
       })}"; window.CAROUSEL_NEXT="${intl.formatMessage({
         id: 'home.carousel-next',
-      })}";`,
+      })}"; window.SEARCH_DEFAULT_LANG="${intl.lang}";`,
     ),
     h('script', {
       src: prefixUrl('/assets/js/eatlas.es5.js', options.preview),

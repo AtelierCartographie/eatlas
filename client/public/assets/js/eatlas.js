@@ -97,7 +97,11 @@
   const goToSearch = evt => {
     if (evt.which !== 13) return // enter
     const $this = $(evt.currentTarget)
-    document.location = `${$this.data('search-page-url')}?q=${$this.val()}`
+    let location = `${$this.data('search-page-url')}?q=${$this.val()}`
+    if (window.SEARCH_DEFAULT_LANG) {
+      location += `&locales%5B%5D=${window.SEARCH_DEFAULT_LANG}`
+    }
+    document.location = location
   }
   // Search inputs
   $('form.navmenu-form').on('submit', evt => evt.preventDefault())

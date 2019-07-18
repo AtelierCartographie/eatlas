@@ -385,10 +385,10 @@ exports.getUrl = async ({ page, resource, topic, topics, preview, lang }) => {
       // Already the good resource
       otherResource = resource
     } else {
-      otherResource = await Resources.findById(otherId)
+      otherResource = await Resources.findById(otherId, !preview)
       if (!otherResource && lang === 'fr') {
         // Look for unprefixed resource as default language = 'fr'
-        otherResource = await Resources.findById(idPrefix)
+        otherResource = await Resources.findById(idPrefix, !preview)
       }
     }
     if (!otherResource) {

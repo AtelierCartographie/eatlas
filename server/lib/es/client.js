@@ -65,11 +65,16 @@ module.exports = type => {
   const findOne = body =>
     find(body, { size: 1 }).then(([result]) => result || null)
 
-  const findById = async id =>
+  const findById = async (id, requiresPublished = false) =>
     id
       ? client
           .get({ index: indices[type], type, id })
-          .then(hit => (hit.found ? formatHit(hit) : null))
+          .then(hit =>
+            hit.found &&
+            (!requiresPublished || hit._source.status === 'published')
+              ? formatHit(hit)
+              : null,
+          )
           .catch(err => (err.status === 404 ? null : Promise.reject(err)))
       : null
 

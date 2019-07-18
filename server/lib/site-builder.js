@@ -79,7 +79,7 @@ const writeSitemapXml = async urls => {
 }
 
 const rebuildLangHTML = async lang => {
-  const topics = populatePageUrl('topic', null)(
+  const topics = populatePageUrl('topic', null, { lang })(
     await Topics.list({ sort: { id: 'asc' } }),
   )
   const resources = populatePageUrl(null, topics)(

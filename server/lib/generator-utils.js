@@ -69,13 +69,16 @@ exports.populateFocus = async (article, resources) => {
 exports.populatePageUrl = (
   key,
   topics,
-  { preview = false, lang = 'fr' } = {},
+  { preview = false, lang } = {},
 ) => resource => {
   if (!resource) {
     return null
   }
   if (Array.isArray(resource)) {
     return resource.map(exports.populatePageUrl(key, topics, { preview, lang }))
+  }
+  if (resource && resource.language) {
+    lang = resource.language
   }
   if (!config.pageUrls[lang][key || resource.type]) {
     return resource

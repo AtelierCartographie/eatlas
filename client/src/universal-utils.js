@@ -172,6 +172,9 @@ exports.getBaseId = fullId => {
 }
 
 exports.findResource = (resources, id, language) => {
+  if (!id) {
+    return null
+  }
   const [baseId, lang] = id.split('-')
   language = language.toUpperCase()
   if (lang && lang.toUpperCase() !== language) {

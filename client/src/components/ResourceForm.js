@@ -225,8 +225,10 @@ class ResourceForm extends Component<Props, State> {
     if (props.resources) {
       const isLexiconEdited =
         props.resource && props.resource.type === 'definition'
-      const allLexiconsFound = canCreateLexicon(props.resources.list)
-      if (isLexiconEdited || (props.mode === 'create' && !allLexiconsFound)) {
+      if (
+        isLexiconEdited ||
+        (props.mode === 'create' && canCreateLexicon(props.resources.list))
+      ) {
         types = RESOURCE_TYPES
       } else {
         types = RESOURCE_TYPES.filter(type => type !== 'definition')

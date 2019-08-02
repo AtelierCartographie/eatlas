@@ -626,7 +626,7 @@ class ResourceForm extends Component<Props, State> {
               ? LOCALES.filter(
                   lang =>
                     !this.props.resources.list.some(
-                      r => r.type === 'definition' && r.language === lang,
+                      r => r.id !== this.state.resource.id && r.type === 'definition' && r.language === lang,
                     ),
                 )
               : [] // Unable to decide? no choice

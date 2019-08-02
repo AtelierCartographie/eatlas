@@ -481,7 +481,7 @@ class ResourceForm extends Component<Props, State> {
       value:
         this.getAttrValue('type') ||
         (this.props.resource && this.props.resource.type),
-      onChange: this.onChangeAttr('type', true),
+      onChange: this.onChangeType,
       mandatory: true,
       options: this.buildSelectOptions(this.state.types, 'bo.type-', true),
     })
@@ -622,20 +622,7 @@ class ResourceForm extends Component<Props, State> {
           Boolean(isArticle && this.state.parsed && this.state.parsed.language),
         loading: this.state.parsing,
         options: this.buildSelectOptions(
-          this.state.resource.type === 'definition'
-            ? // Lexicon: only allow not already uploaded languages
-              this.props.resources.fetched
-              ? LOCALES.filter(
-                  lang =>
-                    !this.props.resources.list.some(
-                      r =>
-                        r.id !== this.state.resource.id &&
-                        r.type === 'definition' &&
-                        r.language === lang,
-                    ),
-                )
-              : [] // Unable to decide? no choice
-            : LOCALES,
+          this.getAvailableLanguages(),
           null,
           this.props.mode === 'create' &&
             this.state.resource.type !== 'definition',
@@ -1074,10 +1061,11 @@ class ResourceForm extends Component<Props, State> {
       // Guess resource id
       if (state.resource && !state.resource.id) {
         const newResource = { ...state.resource }
-        newResource.id =
-          this.props.resource && this.props.resource.id
-            ? this.props.resource.id
-            : this.guessResourceId(doc)
+        newResource.id = newResource.id
+          ? newResource.id
+          : this.props.resource && this.props.resource.id
+          ? this.props.resource.id
+          : this.guessResourceId(doc)
         newState.resource = newResource
       }
       return newState
@@ -1248,16 +1236,45 @@ class ResourceForm extends Component<Props, State> {
     }))
   }
 
+  getAvailableLanguages = (state = this.state, props = this.props) =>
+    state.resource.type === 'definition'
+      ? // Lexicon: only allow not already uploaded languages
+        props.resources.fetched
+        ? LOCALES.filter(
+            lang =>
+              !props.resources.list.some(
+                r =>
+                  r.id !== state.resource.id &&
+                  r.type === 'definition' &&
+                  r.language === lang,
+              ),
+          )
+        : [] // Unable to decide? no choice
+      : LOCALES
+
   onChangeLanguage = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.onChangeAttr('language')(e)
-    if (this.state.resource.type === 'definition') {
-      this.setState(state => ({
-        resource: {
-          ...state.resource,
-          id: LEXICON_ID(state.resource.language),
-        },
-      }))
-    }
+    this.setState(state => {
+      if (state.resource.type === 'definition') {
+        return {
+          resource: {
+            ...state.resource,
+            id: LEXICON_ID(state.resource.language),
+          },
+        }
+      }
+    })
+  }
+
+  onChangeType = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.onChangeAttr('type')(e)
+    this.setState(state => {
+      if (state.resource.type === 'definition') {
+        const language = this.getAvailableLanguages(state)[0]
+        const id = LEXICON_ID(language)
+        return { resource: { ...state.resource, language, id } }
+      }
+    })
   }
 
   // TODO cache generated callbacks to avoid useless re-renders?

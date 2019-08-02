@@ -48,7 +48,7 @@ class UserForm extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps({ user }) {
+  UNSAFE_componentWillReceiveProps({ user }) {
     if (user && !this.state.user) {
       this.setState({ user })
     }

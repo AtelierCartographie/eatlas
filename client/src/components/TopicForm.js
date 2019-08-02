@@ -59,7 +59,7 @@ class TopicForm extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps({ topic }) {
+  UNSAFE_componentWillReceiveProps({ topic }) {
     if (topic && !this.state.topic) {
       this.setState({ topic })
     }

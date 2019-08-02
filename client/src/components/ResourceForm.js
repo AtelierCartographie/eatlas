@@ -306,7 +306,7 @@ class ResourceForm extends Component<Props, State> {
     return { types, resource }
   }
 
-  componentWillReceiveProps(props: Props) {
+  UNSAFE_componentWillReceiveProps(props: Props) {
     this.setState({
       docs: this.docsFromResource(props.resource),
       ...this.stateFromProps(props),
@@ -626,7 +626,10 @@ class ResourceForm extends Component<Props, State> {
               ? LOCALES.filter(
                   lang =>
                     !this.props.resources.list.some(
-                      r => r.id !== this.state.resource.id && r.type === 'definition' && r.language === lang,
+                      r =>
+                        r.id !== this.state.resource.id &&
+                        r.type === 'definition' &&
+                        r.language === lang,
                     ),
                 )
               : [] // Unable to decide? no choice

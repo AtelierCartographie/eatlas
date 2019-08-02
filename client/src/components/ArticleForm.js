@@ -34,7 +34,7 @@ class _ResourceField extends Component<RProps> {
     this.triggerIsMissing(this.props)
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props.resource !== this.props.resource) {
       this.triggerIsMissing(props)
     }
@@ -252,7 +252,7 @@ class ArticleForm extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(props: Props) {
+  UNSAFE_componentWillReceiveProps(props: Props) {
     this.setState({
       missingRelated: this.computeMissingRelated(
         props.article,

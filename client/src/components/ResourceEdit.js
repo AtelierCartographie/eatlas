@@ -53,7 +53,7 @@ class ResourceEdit extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // trigger during a article -> add/edit resource
     // without this reset, a validated resource cannot be published
     if (this.props.id !== nextProps.id) {

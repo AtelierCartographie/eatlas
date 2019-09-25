@@ -59,7 +59,7 @@
   "resource-copyright": "Copyright",
   "resource-create": "Ajout d'une ressource",
   "resource-createdAt": "Date création",
-  "resource-description": "Description ({lang})",
+  "resource-description": "Description",
   "resource-edit": "{type} : {id}",
   "resource-edit-loading": "Chargement de la ressource #{id}…",
   "resource-id": "Identifiant",

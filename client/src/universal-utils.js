@@ -1,5 +1,31 @@
 //@flow
 
+// semantic agnostic
+exports.META_CONVERSION = {
+  // nodes
+  h1: 'header',
+  // metas
+  auteur: 'author',
+  partie: 'topic',
+  identifiant: 'id',
+  'Mots-clés': 'keywords',
+  'Résumé-FR': 'summary-fr',
+  'Résumé-EN': 'summary-en',
+  "Continuer dans l'Atlas": 'related',
+  'Continuer dans l’Atlas': 'related', // different apostrophe
+  Références: 'references',
+  // focus only
+  'article-associé': 'related-article',
+  'Image header': 'image-header',
+}
+
+exports.META_LIST_EXPECTED = ['keywords', 'references', 'related']
+
+exports.LOCALES = {
+  fr: 'Français',
+  en: 'English',
+}
+
 const slugify = require('slugify')
 slugify.extend({
   '’': '-',
@@ -92,36 +118,9 @@ exports.getResourceIds = (
       return ids
     }, [])
 
-// semantic agnostic
-exports.META_CONVERSION = {
-  // nodes
-  h1: 'header',
-  // metas
-  auteur: 'author',
-  partie: 'topic',
-  identifiant: 'id',
-  'Mots-clés': 'keywords',
-  'Résumé-FR': 'summary-fr',
-  'Résumé-EN': 'summary-en',
-  "Continuer dans l'Atlas": 'related',
-  'Continuer dans l’Atlas': 'related', // different apostrophe
-  Références: 'references',
-  // focus only
-  'article-associé': 'related-article',
-  'Image header': 'image-header',
-}
-
-exports.META_LIST_EXPECTED = ['keywords', 'references', 'related']
-
-exports.LOCALES = {
-  fr: 'Français',
-  en: 'English',
-}
-
 exports.stripTags = (text /*: string */, whitelist /* string[] */ = []) =>
-  (text || '').replace(
-    /<\/?(.+?)(\s.+?)?>/g,
-    (orig, tag) => (whitelist.includes(tag) ? orig : ''),
+  (text || '').replace(/<\/?(.+?)(\s.+?)?>/g, (orig, tag) =>
+    whitelist.includes(tag) ? orig : '',
   )
 
 exports.slugify = (text /*: string */) =>

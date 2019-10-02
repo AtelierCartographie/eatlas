@@ -77,11 +77,19 @@ const getMetaText = (exports.getMetaText = (
   return found ? found.text : null
 })
 
+// Format: ID(-LANG)?(-DESCRIPTION| DESCRIPTION)?
+const TXT_RE_RELATED = `^\\s*(.*?)(?:\\s*-\\s*(${Object.keys(
+  exports.LOCALES,
+).join('|')}))?\\s*(?:-\\s*|\\s+)(.*?)\\s*$`
+const RE_RELATED = new RegExp(TXT_RE_RELATED, 'i')
 const parseRelated = (exports.parseRelated = (string /*: string */) => {
-  const match = string.match(/^\s*(.*?)\s*-\s*(.*?)\s*$/)
-  const id = match && match[1]
-  const text = match && match[2]
-  return { id, text }
+  const match = string.match(RE_RELATED)
+  const [, id, lang, text] = match || []
+  if (id && lang) {
+    return { id: `${id}-${lang}`, text }
+  } else {
+    return { id, text }
+  }
 })
 
 exports.getResourceIds = (
@@ -166,7 +174,7 @@ exports.topicName = (topic, lang) =>
   lang === 'fr' ? topic.name : topic[`name_${lang}`]
 
 exports.getBaseId = fullId => {
-  const [base] = fullId.split('-')
+  const [base] = fullId.split(/\s*-/)
   return base
 }
 
@@ -190,7 +198,7 @@ exports.findResource = (resources, id, language) => {
 
 exports.getFullId = (id, language) => {
   const [base, lang] = id.split('-')
-  if (lang) {
+  if (lang && lang.toLowerCase() in exports.LOCALES) {
     // Full ID provided
     return id
   }

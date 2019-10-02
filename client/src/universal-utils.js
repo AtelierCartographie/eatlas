@@ -78,9 +78,9 @@ const getMetaText = (exports.getMetaText = (
 })
 
 // Format: ID(-LANG)?(-DESCRIPTION| DESCRIPTION)?
-const TXT_RE_RELATED = `^\\s*(.*?)(?:\\s*-\\s*(${Object.keys(
+const TXT_RE_RELATED = `^\\s*([^\\s]+)(?:\\s*-\\s*(${Object.keys(
   exports.LOCALES,
-).join('|')}))?\\s*(?:-\\s*|\\s+)(.*?)\\s*$`
+).join('|')}))?\\s*(?:-\\s*|\\s+)?(.*?)?\\s*$`
 const RE_RELATED = new RegExp(TXT_RE_RELATED, 'i')
 const parseRelated = (exports.parseRelated = (string /*: string */) => {
   const match = string.match(RE_RELATED)

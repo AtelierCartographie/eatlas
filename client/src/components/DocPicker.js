@@ -147,6 +147,7 @@ class DocPicker extends Component<Props, State> {
           picker.build().setVisible(true)
         }}>
         <a
+          href="#!docpicker"
           className="button is-link is-outlined"
           onClick={() => this.setState(initialState)}>
           <IconButton

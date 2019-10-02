@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { FormattedMessage as T } from 'react-intl'
-import withRouter from 'react-router/withRouter'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
 import { addResourceFromGoogleDrive, addResource } from '../api'

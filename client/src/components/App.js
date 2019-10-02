@@ -10,6 +10,8 @@ import { withRouter } from 'react-router'
 import cx from 'classnames'
 import { toast, ToastContainer } from 'react-toastify'
 
+import 'react-toastify/dist/ReactToastify.css'
+
 import IconButton from './IconButton'
 import Login from './Login'
 import PrivateRoute from './PrivateRoute'
@@ -44,8 +46,8 @@ const NavLink = ({
 
 const LangButton = ({ lang }) => (
   <a
+    href={`#!lang-${lang}`}
     className="navbar-item"
-    href=""
     onClick={e => {
       e.preventDefault()
       saveLocale(lang)
@@ -114,7 +116,10 @@ class App extends Component<Props, State> {
         <div className="navbar-item">
           {name} ({role})
         </div>
-        <a className="navbar-item" onClick={this.props.userLogout}>
+        <a
+          href="#!logout"
+          className="navbar-item"
+          onClick={this.props.userLogout}>
           <IconButton label="disconnection" icon="sign-out" />
         </a>
       </Fragment>

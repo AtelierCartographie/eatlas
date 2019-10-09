@@ -29,7 +29,6 @@ const { stripTags, topicName, findResource } = require('../../universal-utils')
 const EmbeddedResource = require('./EmbeddedResource')
 const Html = require('./Html')
 const Summaries = require('./Summaries')
-const { LangLink } = require('./LangSelector')
 const LinkToTop = require('./LinkToTop')
 
 // subcomponents
@@ -208,13 +207,6 @@ const ArticleBreadcrumb = ({ article, topics, options, intl }) => {
         { href: getTopicPageUrl(topic, options) },
         topic ? `${topic.id}. ${topicName(topic, intl.lang)}` : article.topic,
       ),
-      otherUrl &&
-        h(LangLink, {
-          intl,
-          lang: otherLang,
-          url: otherUrl,
-          label: `common.article-version-lang.${otherLang}`,
-        }),
     ]),
   ])
 }

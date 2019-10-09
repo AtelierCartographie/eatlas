@@ -149,7 +149,10 @@ class DocPicker extends Component<Props, State> {
         <a
           href="#!docpicker"
           className="button is-link is-outlined"
-          onClick={() => this.setState(initialState)}>
+          onClick={e => {
+            e.preventDefault()
+            this.setState(initialState)
+          }}>
           <IconButton
             label={this.props.label || 'to-import'}
             icon={this.props.icon || 'upload'}

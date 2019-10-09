@@ -29,9 +29,7 @@ module.exports = injectIntl((
         h(
           'a.navbar-brand.if-not-scrolled',
           {
-            href: options.preview
-              ? `${options.apiUrl || ''}/preview`
-              : prefixUrl('/'),
+            href: globalPageUrl('index')(options),
           },
           [
             h('img', {
@@ -48,9 +46,7 @@ module.exports = injectIntl((
           : h(
               'a.navbar-brand.if-scrolled',
               {
-                href: options.preview
-                  ? `${options.apiUrl || ''}/preview`
-                  : prefixUrl('/'),
+                href: globalPageUrl('index')(options),
               },
               [
                 h('img.if-scrolled', {

@@ -28,9 +28,7 @@ const Content = injectIntl(({ options, intl }) => {
       h(
         'a.button.btn',
         {
-          href: options.preview
-            ? `${options.apiUrl || ''}/preview`
-            : prefixUrl('/'),
+          href: globalPageUrl('index')(options),
           role: 'link',
         },
         h(T, { id: 'fo.back-home' }),

@@ -7,6 +7,7 @@ const {
   aPropos,
   getTopicPageUrl,
   prefixUrl,
+  globalPageUrl,
 } = require('./layout')
 const { topicName } = require('../../universal-utils')
 const LangSelector = require('./LangSelector')
@@ -63,9 +64,7 @@ exports.SideMenu = injectIntl((
         h(
           'a',
           {
-            href: options.preview
-              ? `${options.apiUrl || ''}/preview`
-              : prefixUrl('/'),
+            href: globalPageUrl('index')(options),
           },
           h(T, { id: 'fo.title' }),
         ),

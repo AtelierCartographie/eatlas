@@ -75,7 +75,9 @@ module.exports = injectIntl((
       // h('a#link-to-menu', { href: '#???', tabIndex: 1 }),
       h(SideMenuToggle, { logoColor, options }),
       h('.tools', [
-        options.hideLangSelector ? null : h(LangSelector, { options }),
+        options.hideLangSelector
+          ? null
+          : h(LangSelector, { logoColor, options }),
         options.hideSearchToggle
           ? null
           : h(SearchToggle, { logoColor, options }),

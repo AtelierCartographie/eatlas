@@ -5,9 +5,9 @@ const { injectIntl } = require('react-intl')
 const Html = require('./Html')
 const { LOCALES } = require('../../universal-utils')
 
-module.exports = injectIntl(({ options, intl }) =>
+module.exports = injectIntl(({ options, intl, logoColor }) =>
   h(
-    '.LangSelector',
+    `.LangSelector${logoColor ? `.${logoColor}` : ''}`,
     Object.keys(LOCALES).map(lang =>
       h(LangLink, { intl, key: lang, lang, url: intl.urls[lang] }),
     ),

@@ -102,6 +102,8 @@
   "status-validated": "validated",
   "submit": "submit",
   "toast-resource-saved": "Resource saved successfully",
+  "toast-back-to-resource": "Back to “{title}”",
+  "toast-back-to-resources": "Back to list ({type})",
   "toast-topic-saved": "Topic saved",
   "toast-type-definition-singleton":
     "Only one glossary at a time: the backup will REPLACE the current definitions",

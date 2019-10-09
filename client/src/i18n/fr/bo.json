@@ -101,6 +101,8 @@
   "status-validated": "validé",
   "submit": "envoyer",
   "toast-resource-saved": "Ressource enregistrée",
+  "toast-back-to-resource": "Retour à « {title} »",
+  "toast-back-to-resources": "Retour à la liste ({type})",
   "toast-topic-saved": "Rubrique enregistrée",
   "toast-type-definition-singleton":
     "Un seul lexique à la fois : la sauvegarde REMPLACERA les définitions actuelles",

@@ -1357,7 +1357,36 @@ class ResourceForm extends Component<Props, State> {
           saving: false,
           removedDocs: [],
         })
-        toast.success(<T id="bo.toast-resource-saved" />)
+        toast.success(
+          <>
+            <T id="bo.toast-resource-saved" />
+            <ul>
+              <li>
+                <Link to={`/resources/${resource.id}/edit`}>
+                  <T
+                    id="bo.toast-back-to-resource"
+                    values={{ title: resource.title }}
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link to={`/resources/${resource.type}`}>
+                  <T
+                    id="bo.toast-back-to-resources"
+                    values={{
+                      type: this.props.intl.formatMessage({
+                        id: `doc.type-plural.${resource.type}`,
+                      }),
+                    }}
+                  />
+                </Link>
+              </li>
+            </ul>
+          </>,
+          {
+            duration: 7500,
+          },
+        )
       })
       .catch(error => this.setState({ error, saving: false }))
   }

@@ -9,6 +9,7 @@ const { linkInternalDefinitions } = require('./Doc')
 
 const Head = require('./Head')
 const Body = require('./Body')
+const LinkToTop = require('./LinkToTop')
 
 const az = [
   'A',
@@ -120,6 +121,7 @@ const SearchPage = injectIntl((
     h(Head, { title: intl.formatMessage({ id: 'fo.lexicon' }), options }),
     h(Body, { topics, options, logoColor: 'black' }, [
       h(Content, { definitions, options }),
+      h(LinkToTop, { href: '#main-content' }),
     ]),
   ]),
 )

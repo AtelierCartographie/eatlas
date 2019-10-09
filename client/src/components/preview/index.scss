@@ -21,6 +21,7 @@ body.preview::before {
   transform: rotate(45deg);
   width: 200px;
   z-index: 1;
+  opacity: 0.25; // so we can see topbar's tools
 }
 
 /* TYPO /!\ font-base = 10px ---------------------------------------- */
@@ -264,7 +265,7 @@ p {
 
 .navmenu-form {
   border: none;
-  padding: 6px 15px;
+  padding: 9px 9px 9px 0;
   margin: auto;
 
   // Search input embedded in SideMenu (refs #203)

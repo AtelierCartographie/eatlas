@@ -266,6 +266,14 @@ p {
   border: none;
   padding: 6px 15px;
   margin: auto;
+
+  // Search input embedded in SideMenu (refs #203)
+  .navmenu & {
+    padding: 0 12px 0 0; // 12px = left padding of SideMenu
+    input {
+      width: 100%;
+    }
+  }
 }
 
 // Buttons

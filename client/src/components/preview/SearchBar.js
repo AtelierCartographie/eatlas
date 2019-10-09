@@ -4,9 +4,9 @@ const h = require('react-hyperscript')
 const { injectIntl } = require('react-intl')
 const { prefixUrl, getSearchUrl } = require('./layout')
 
-module.exports = injectIntl(({ logoColor, options, intl }) =>
+module.exports = injectIntl(({ logoColor, open = false, options, intl }) =>
   h(
-    'form.search-toggle.navmenu-form',
+    `form${open ? '' : '.search-toggle'}.navmenu-form`,
     { role: 'search', action: getSearchUrl({}, options) },
     [
       h('input.search-field', {
@@ -20,19 +20,21 @@ module.exports = injectIntl(({ logoColor, options, intl }) =>
         name: 'locales[]',
         value: intl.lang,
       }),
-      h('button.search-toggle-button', { type: 'button' }, [
-        h('img.if-not-scrolled', {
-          alt: '',
-          src: prefixUrl(
-            `/assets/img/search-${logoColor}.svg`,
-            options.preview,
-          ),
-        }),
-        h('img.if-scrolled', {
-          alt: '',
-          src: prefixUrl('/assets/img/search-black.svg', options.preview),
-        }),
-      ]),
+      open
+        ? null
+        : h('button.search-toggle-button', { type: 'button' }, [
+            h('img.if-not-scrolled', {
+              alt: '',
+              src: prefixUrl(
+                `/assets/img/search-${logoColor}.svg`,
+                options.preview,
+              ),
+            }),
+            h('img.if-scrolled', {
+              alt: '',
+              src: prefixUrl('/assets/img/search-black.svg', options.preview),
+            }),
+          ]),
     ],
   ),
 )

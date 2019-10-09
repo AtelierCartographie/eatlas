@@ -63,7 +63,7 @@
     }
 
     .PublishedAt {
-      margin-top: $gap;
+      margin: $gap 30% 0 30%; // adds 30% left-right margin to force date line-break by limiting its space (refs #199)
       font-family: $serif;
       font-size: 1.45rem;
       font-style: italic;

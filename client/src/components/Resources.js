@@ -306,7 +306,7 @@ class Resources extends Component<Props, State> {
 
   renderLangMenu() {
     return (
-      <ul className="menu-list type-menu">
+      <ul className="menu-list lang-menu">
         <li key="all">
           <NavLink
             activeClassName="active"
@@ -368,7 +368,6 @@ class Resources extends Component<Props, State> {
             activeClassName="active"
             isActive={() => !this.props.filters.topic}
             to={this.getMenuTo({ topic: null })}>
-            <span className="button is-small is-rounded" />
             <T id="bo.type-all" />
             {this.renderMenuCountSuffix('topic', '')}
           </NavLink>
@@ -932,9 +931,9 @@ export default withRouter(
       const page = Math.max(1, Number(searchParams.get('page')))
       const filters: FiltersProps = {
         type: _type,
-        status: searchParams.get('status'),
-        topic: searchParams.get('topic'),
-        language: searchParams.get('language'),
+        status: searchParams.get('status') || '',
+        topic: searchParams.get('topic') || '',
+        language: searchParams.get('language') || '',
       }
       const sort: SortProps = {
         by: searchParams.get('sort') || 'status',

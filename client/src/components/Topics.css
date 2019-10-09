@@ -11,6 +11,9 @@
 .Topics td a.topic-count {
   font-weight: bold;
 }
+.Topics td a.topic-count-warning {
+  color: #c00;
+}
 
 .Topics td span.topic-count {
   color: #ccc;
@@ -19,4 +22,35 @@
 .Topics .preview {
   max-height: 50px;
   max-width: 100px;
+}
+
+.Topics .menu-list,
+.Topics table {
+  font-size: 0.8em;
+}
+
+.Topics .menu-list a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Topics .menu-list a.active {
+  background: #EEE;
+  font-weight: bold;
+}
+
+.Topics .menu-list span {
+  margin-right: 0.5em;
+}
+
+.Topics .menu-list .button {
+  font-size: 0.5em;
+  margin-right: 1em;
+}
+
+.Topics .menu-list img {
+  height: 16px;
+  margin-right: 0.5em;
+  vertical-align: center;
 }

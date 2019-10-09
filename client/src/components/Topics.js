@@ -6,13 +6,19 @@ import React, { Component } from 'react'
 import { FormattedMessage as T } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import cx from 'classnames'
+import { NavLink, withRouter } from 'react-router-dom'
 
 import { getTopics, deleteTopic, fetchResources } from './../actions'
 import IconButton from './IconButton'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Confirm from './Confirm'
-import { RESOURCE_TYPES, TYPE_ICON } from '../constants'
+import { RESOURCE_TYPES, TYPE_ICON, LOCALES } from '../constants'
+import Flag from './Flag'
+import { updateLocation } from '../utils'
+
+import type { ContextRouter } from 'react-router'
 
 const SHOWN_TYPES = RESOURCE_TYPES.filter(type => type !== 'definition')
 
@@ -35,6 +41,10 @@ type Props = {
 type State = {
   removeModel: ?Topic,
   removing: boolean,
+}
+
+type FiltersProps = {
+  language: Locale | '',
 }
 
 class Topics extends Component<Props, State> {
@@ -64,15 +74,28 @@ class Topics extends Component<Props, State> {
     const { resources } = this.props
     if (resources.loading) return <Spinner small />
 
-    const nb = resources.list.filter(
+    const topicResources = resources.list.filter(
       r => r.type === type && r.topic === topicId,
-    ).length
+    )
+    console.log(topicResources)
+    const nbFr = topicResources.filter(r => r.language === 'fr').length
+    const nbEn = topicResources.filter(r => r.language === 'en').length
 
-    if (nb === 0) return <span className="topic-count">0</span>
+    const label =
+      this.props.filters.language === 'fr'
+        ? nbFr
+        : this.props.filters.language === 'en'
+        ? nbEn
+        : `${nbFr} | ${nbEn}`
+
+    if (nbFr + nbEn === 0)
+      return <span className="topic-count topic-count-empty">{label}</span>
 
     return (
-      <Link className="topic-count" to={`/resources/${type}/?topic=${topicId}`}>
-        {nb}
+      <Link
+        className={cx('topic-count', { 'topic-count-warning': nbFr !== nbEn })}
+        to={`/resources/${type}/?topic=${topicId}`}>
+        {label}
       </Link>
     )
   }
@@ -131,7 +154,14 @@ class Topics extends Component<Props, State> {
               <T id="bo.resource-id" />
             </th>
             <th>
-              <T id="bo.name" values={{ lang: 'fr/en' }} />
+              <T
+                id="bo.name"
+                values={{
+                  lang: this.props.filters.language
+                    ? this.props.filters.language
+                    : 'fr | en',
+                }}
+              />
             </th>
             <th>
               <T id="bo.resource" />
@@ -150,7 +180,11 @@ class Topics extends Component<Props, State> {
             <tr key={t.id}>
               <td>{t.id}</td>
               <td>
-                {t.name} / {t.name_en}
+                {this.props.filters.language === 'fr'
+                  ? t.name
+                  : this.props.filters.language === 'en'
+                  ? t.name_en
+                  : `${t.name} | ${t.name_en}`}
               </td>
               <td>
                 {t.resourceId && (
@@ -192,6 +226,57 @@ class Topics extends Component<Props, State> {
     )
   }
 
+  getMenuTo(params: { status?: ?string, topic?: ?number, type?: string }) {
+    const pathname = '/topics'
+    const search = Object.assign({}, params, { type: null, page: null })
+    return updateLocation(this.props.history.location, { pathname, search })
+  }
+
+  renderLangMenu() {
+    return (
+      <ul className="menu-list lang-menu">
+        <li key="all">
+          <NavLink
+            activeClassName="active"
+            isActive={() => !this.props.filters.language}
+            to={this.getMenuTo({ language: null })}>
+            <T id="bo.type-all" />
+          </NavLink>
+        </li>
+        {LOCALES.map(lang => (
+          <li key={lang}>
+            <NavLink
+              activeClassName="active"
+              isActive={() => lang === this.props.filters.language}
+              to={this.getMenuTo({ language: lang })}>
+              <Flag lang={lang} />
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  renderFilters() {
+    return (
+      <aside className="menu">
+        <p className="menu-label">
+          <T id="bo.resource-language" />
+        </p>
+        {this.renderLangMenu()}
+      </aside>
+    )
+  }
+
+  renderContent() {
+    return (
+      <div className="columns">
+        <div className="column is-2">{this.renderFilters()}</div>
+        <div className="column is-10">{this.renderTable()}</div>
+      </div>
+    )
+  }
+
   render() {
     const { topics, resources } = this.props
     const loading = topics.loading || resources.loading
@@ -199,18 +284,30 @@ class Topics extends Component<Props, State> {
     return (
       <div className="Topics">
         {this.renderHeader()}
-        {loading ? <Spinner /> : this.renderTable()}
+        {loading ? <Spinner /> : this.renderContent()}
         {this.renderConfirm()}
       </div>
     )
   }
 }
 
-export default connect(
-  ({ topics, resources }: AppState) => ({ topics, resources }),
-  {
-    getTopics,
-    deleteTopic,
-    fetchResources,
-  },
-)(Topics)
+export default withRouter(
+  connect(
+    ({ topics, resources }: AppState, { match }: ContextRouter) => {
+      const { searchParams } = new URL(window.document.location)
+      const filters: FiltersProps = {
+        language: searchParams.get('language') || '',
+      }
+      return {
+        filters,
+        topics,
+        resources,
+      }
+    },
+    {
+      getTopics,
+      deleteTopic,
+      fetchResources,
+    },
+  )(Topics),
+)

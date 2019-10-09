@@ -3,11 +3,8 @@
 const mammoth = require('mammoth')
 const cheerio = require('cheerio')
 
-// helpers
-const getText = ($, el) =>
-  $(el)
-    .text()
-    .trim()
+// Helpers
+const { isLexiconElement, getText } = require('./helpers')
 
 const parseAliases = text => {
   const match = text.match(/^\s*\{alias\}\s*:?\s*(.+)\s*$/)
@@ -33,9 +30,7 @@ const parseAliases = text => {
 const parseInternalDefinitions = ($, el) =>
   $(el)
     .children()
-    .filter(
-      (i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000',
-    )
+    .filter((i, el) => isLexiconElement(el))
     // beware of cheerio and flatMap
     .map((i, el) => [getText($, el)])
     // in some weird documents, the "red range" include blanks and punctuation marks

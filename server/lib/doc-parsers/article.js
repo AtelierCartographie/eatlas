@@ -10,19 +10,15 @@ const {
   LOCALES,
 } = require('../../../client/src/universal-utils')
 
-// helpers
-
-const getText = ($, el) =>
-  $(el)
-    .text()
-    .trim()
+// Helpers
+const { isLexiconElement, getText } = require('./helpers')
 
 const getList = ($, el) =>
   $(el)
     .children()
     .map((i, el) => ({
-      text: getText($, el),
-      markup: parseMarkup($, el),
+      text: exports.getText($, el),
+      markup: exports.parseMarkup($, el),
     }))
     .get()
 
@@ -44,9 +40,7 @@ const parseLinks = ($, el) =>
 const parseLexicon = ($, el) =>
   $(el)
     .children()
-    .filter(
-      (i, el) => el.name === 'span' && el.attribs.style === 'color: #ff0000',
-    )
+    .filter((i, el) => isLexiconElement(el))
     // beware of cheerio and flatMap
     .map((i, el) => [getText($, el)])
     // in some weird documents, the "red range" include blanks and punctuation marks
@@ -154,7 +148,9 @@ const parseMarkup = ($, el) => {
         }
 
         case 'span':
-          if (el.attribs.style !== 'color: #ff0000') return false
+          if (!isLexiconElement(el)) {
+            return false
+          }
           return { type: 'lexicon', text }
 
         case 'a':

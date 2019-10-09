@@ -139,6 +139,9 @@ p {
 .search-toggle {
   #topbar & {
     display: inline-block;
+    @media(max-width: 600px) {
+      display: none; // hidden on mobile (search from sidemenu)
+    }
   }
 
   z-index: 2000;
@@ -209,6 +212,9 @@ p {
 
 .navbar > .container .navbar-brand {
   margin-left: -130px;
+  @media(max-width: 600px) {
+    margin-left: -110px; // a bit more to the right, as we hide #topbar .search-toggle
+  }
 }
 
 .offcanvas.in {

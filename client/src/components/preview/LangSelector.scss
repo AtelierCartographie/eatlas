@@ -2,6 +2,10 @@
   padding: 0;
   margin-top: 30px;
 
+  &.short-label a {
+    text-transform: uppercase;
+  }
+
   a {
     text-decoration: none;
     padding: 2px 5px;

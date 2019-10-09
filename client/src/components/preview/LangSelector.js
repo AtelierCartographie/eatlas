@@ -5,20 +5,32 @@ const { injectIntl } = require('react-intl')
 const Html = require('./Html')
 const { LOCALES } = require('../../universal-utils')
 
-module.exports = injectIntl(({ options, intl, logoColor }) =>
-  h(
-    `.LangSelector${logoColor ? `.${logoColor}` : ''}`,
-    Object.keys(LOCALES).map(lang =>
-      h(LangLink, { intl, key: lang, lang, url: intl.urls[lang] }),
+module.exports = injectIntl(
+  ({ options, intl, logoColor, shortLabel = false }) =>
+    h(
+      `.LangSelector${logoColor ? `.${logoColor}` : ''}${
+        shortLabel ? '.short-label' : ''
+      }`,
+      Object.keys(LOCALES).map(lang =>
+        h(LangLink, {
+          intl,
+          key: lang,
+          lang,
+          url: intl.urls[lang],
+          shortLabel,
+        }),
+      ),
     ),
-  ),
 )
 
 const LangLink = (module.exports.LangLink = ({
   intl,
   lang,
   url,
-  label = `common.lang-selector-label-html.${lang}`,
+  shortLabel,
+  label = shortLabel
+    ? `common.summary-lang.${lang}`
+    : `common.lang-selector-label-html.${lang}`,
 }) => {
   if (intl.lang === lang) {
     return h(CurrentLangLink, { intl, lang, label })
@@ -69,6 +81,6 @@ const DisabledLangLink = ({ lang, intl, label }) =>
     h(
       Html,
       { whitelist: 'all', noP: true, component: 'span' },
-      intl.formatMessage({ id: `common.lang-selector-label-html.${lang}` }),
+      intl.formatMessage({ id: label }),
     ),
   )

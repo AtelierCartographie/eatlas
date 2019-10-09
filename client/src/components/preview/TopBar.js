@@ -77,7 +77,7 @@ module.exports = injectIntl((
       h('.tools', [
         options.hideLangSelector
           ? null
-          : h(LangSelector, { logoColor, options }),
+          : h(LangSelector, { logoColor, options, shortLabel: true }),
         options.hideSearchToggle
           ? null
           : h(SearchToggle, { logoColor, options }),

@@ -23,20 +23,8 @@ results = {
 }
 */
 
-const hitTextTemplate = (t, lang) => `
+const hitTextTemplate = t => `
   <strong class="search-result-title"><%= hit.title %></strong>
-  <% if (hit.language && hit.language !== ${JSON.stringify(lang)}) { %>
-    ${Object.keys(LOCALES)
-      .map(
-        l =>
-          `<% if (hit.language === ${JSON.stringify(l)}) { %>${t(
-            `common.search-lang-indicator-html.${l}`,
-            {},
-            '',
-          )}<% } %>`,
-      )
-      .join('')}
-  <% } %>
   <% if (hit.subtitle) { %>
     <span class="search-result-subtitle"><%= hit.subtitle %></span>
   <% } %>

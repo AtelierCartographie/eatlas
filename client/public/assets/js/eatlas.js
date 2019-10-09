@@ -15,8 +15,8 @@
         slick.$slides.length <= slick.options.slidesToShow
           ? 0 // All visible, start at 0, no special case
           : slick.options.centerMode // Center mode, we have negative indices
-            ? index - Math.floor(slick.options.slidesToShow / 2)
-            : index
+          ? index - Math.floor(slick.options.slidesToShow / 2)
+          : index
       for (let i = start; i < start + slick.options.slidesToShow; i++) {
         const $slide = slick.$slides.eq(i % slick.$slides.length)
         loadLazyImage($slide)
@@ -64,12 +64,8 @@
           // autoplay: false,
           // autoplaySpeed: 3000,
           // arrows: true,
-          prevArrow: `<button role="button" class="slick-prev" title="${
-            window.CAROUSEL_PREVIOUS
-          }">${window.CAROUSEL_PREVIOUS}</button>`,
-          nextArrow: `<button role="button" class="slick-next" title="${
-            window.CAROUSEL_NEXT
-          }">${window.CAROUSEL_NEXT}</button>`,
+          prevArrow: `<button role="button" class="slick-prev" title="${window.CAROUSEL_PREVIOUS}">${window.CAROUSEL_PREVIOUS}</button>`,
+          nextArrow: `<button role="button" class="slick-next" title="${window.CAROUSEL_NEXT}">${window.CAROUSEL_NEXT}</button>`,
           // centerMode: false,
           // centerPadding: '50px',
           // cssEase: 'ease',
@@ -420,35 +416,48 @@
   }
 
   // Handle click on "show more / show less" togglers
+  const toggleSearchResultDefinition = $toggler => {
+    const $div = $toggler.prev()
+    const expanded = $div.hasClass('expanded')
+    if (expanded) {
+      $div.removeClass('expanded')
+      $toggler
+        .find('.search-result-definition-toggler-label-expand')
+        .removeAttr('aria-hidden')
+        .show()
+      $toggler
+        .find('.search-result-definition-toggler-label-collapse')
+        .attr('aria-hidden', true)
+        .hide()
+    } else {
+      $div.addClass('expanded')
+      $toggler
+        .find('.search-result-definition-toggler-label-expand')
+        .attr('aria-hidden', true)
+        .hide()
+      $toggler
+        .find('.search-result-definition-toggler-label-collapse')
+        .removeAttr('aria-hidden')
+        .show()
+    }
+  }
   $('.SearchPage, .LexiconPage').on(
     'click',
     '.search-result-definition-toggler',
     e => {
       e.preventDefault()
       const $toggler = $(e.currentTarget)
-      const $div = $toggler.prev()
-      const expanded = $div.hasClass('expanded')
-      if (expanded) {
-        $div.removeClass('expanded')
-        $toggler
-          .find('.search-result-definition-toggler-label-expand')
-          .removeAttr('aria-hidden')
-          .show()
-        $toggler
-          .find('.search-result-definition-toggler-label-collapse')
-          .attr('aria-hidden', true)
-          .hide()
-      } else {
-        $div.addClass('expanded')
-        $toggler
-          .find('.search-result-definition-toggler-label-expand')
-          .attr('aria-hidden', true)
-          .hide()
-        $toggler
-          .find('.search-result-definition-toggler-label-collapse')
-          .removeAttr('aria-hidden')
-          .show()
-      }
+      toggleSearchResultDefinition($toggler)
+    },
+  )
+  // Shortcut: expand on click (no collapse, so we don't block the text selection or add conditions for links)
+  $('.SearchPage, .LexiconPage').on(
+    'click',
+    '.search-result-definition:not(.expanded)',
+    e => {
+      e.preventDefault()
+      const $toggler = $(e.currentTarget).next()
+      toggleSearchResultDefinition($toggler)
     },
   )
 

@@ -7,7 +7,7 @@
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
 
-const { prefixUrl, globalPageUrl } = require('./layout')
+const { globalPageUrl } = require('./layout')
 const Head = require('./Head')
 const Body = require('./Body')
 const Html = require('./Html')

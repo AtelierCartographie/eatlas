@@ -84,6 +84,18 @@ const Content = ({ definitions, options }) => {
                 '.search-result-definition',
                 linkInternalDefinitions({ dd, lexicon }, definitions),
               ),
+              h('button.search-result-definition-toggler', [
+                h(
+                  'span.search-result-definition-toggler-label-expand',
+                  {},
+                  h(T, { id: 'fo.search.show-more' }),
+                ),
+                h(
+                  'span.search-result-definition-toggler-label-collapse',
+                  { style: { display: 'none', 'aria-hidden': true } },
+                  h(T, { id: 'fo.search.show-less' }),
+                ),
+              ]),
             ]),
           ]),
         ),

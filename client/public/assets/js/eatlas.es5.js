@@ -417,9 +417,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   };
 
   // Handle click on "show more / show less" togglers
-  $('.SearchPage, .LexiconPage').on('click', '.search-result-definition-toggler', function (e) {
-    e.preventDefault();
-    var $toggler = $(e.currentTarget);
+  var toggleSearchResultDefinition = function toggleSearchResultDefinition($toggler) {
     var $div = $toggler.prev();
     var expanded = $div.hasClass('expanded');
     if (expanded) {
@@ -431,6 +429,17 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       $toggler.find('.search-result-definition-toggler-label-expand').attr('aria-hidden', true).hide();
       $toggler.find('.search-result-definition-toggler-label-collapse').removeAttr('aria-hidden').show();
     }
+  };
+  $('.SearchPage, .LexiconPage').on('click', '.search-result-definition-toggler', function (e) {
+    e.preventDefault();
+    var $toggler = $(e.currentTarget);
+    toggleSearchResultDefinition($toggler);
+  });
+  // Shortcut: expand on click (no collapse, so we don't block the text selection or add conditions for links)
+  $('.SearchPage, .LexiconPage').on('click', '.search-result-definition:not(.expanded)', function (e) {
+    e.preventDefault();
+    var $toggler = $(e.currentTarget).next();
+    toggleSearchResultDefinition($toggler);
   });
 
   // Top bar search field

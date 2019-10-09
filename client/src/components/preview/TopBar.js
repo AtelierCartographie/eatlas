@@ -4,6 +4,7 @@ const h = require('react-hyperscript')
 const { injectIntl } = require('react-intl')
 const { prefixUrl, globalPageUrl } = require('./layout')
 const SearchToggle = require('./SearchBar')
+const LangSelector = require('./LangSelector')
 const { SideMenuToggle } = require('./SideMenu')
 
 module.exports = injectIntl((
@@ -73,7 +74,12 @@ module.exports = injectIntl((
       ),
       // h('a#link-to-menu', { href: '#???', tabIndex: 1 }),
       h(SideMenuToggle, { logoColor, options }),
-      options.hideSearchToggle ? null : h(SearchToggle, { logoColor, options }),
+      h('.tools', [
+        options.hideLangSelector ? null : h(LangSelector, { options }),
+        options.hideSearchToggle
+          ? null
+          : h(SearchToggle, { logoColor, options }),
+      ]),
     ],
   ),
 )

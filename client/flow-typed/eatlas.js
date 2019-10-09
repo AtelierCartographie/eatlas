@@ -178,4 +178,5 @@ declare type FrontOptions = {
   hideLangSelector?: boolean,
   socialMetas?: SocialMetas,
   hideSearchToggle?: boolean,
+  hideLangSelector?: boolean,
 }

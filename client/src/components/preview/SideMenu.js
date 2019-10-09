@@ -11,6 +11,7 @@ const {
 } = require('./layout')
 const { topicName } = require('../../universal-utils')
 const LangSelector = require('./LangSelector')
+const SearchToggle = require('./SearchBar')
 
 const Topics = ({ topics, options, intl }) =>
   h(
@@ -47,7 +48,12 @@ const APropos = ({ options }) =>
   )
 
 exports.SideMenu = injectIntl((
-  { topics, options, intl } /*: {
+  {
+    logoColor,
+    topics,
+    options,
+    intl,
+  } /*: {
   topics: Topic[],
   options: Object,
 } */,
@@ -70,6 +76,7 @@ exports.SideMenu = injectIntl((
         ),
       ]),
       options.hideLangSelector ? null : h(LangSelector, { options }),
+      options.hideSearchToggle ? null : h(SearchToggle, { logoColor, options }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
       h(Topics, { topics, options, intl }),
       h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),

@@ -123,6 +123,12 @@ p {
       display: block;
     }
   }
+
+  .tools {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 
 .SideMenuToggle {
@@ -130,9 +136,10 @@ p {
 }
 
 .search-toggle {
-  position: absolute;
-  right: 0;
-  top: 0;
+  #topbar & {
+    display: inline-block;
+  }
+
   z-index: 2000;
   padding: 12px;
   .search-toggle-button {

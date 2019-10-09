@@ -27,4 +27,26 @@
       outline: solid;
     }
   }
+
+  #topbar & {
+    vertical-align: top;
+    margin: 0;
+    padding: 6px 15px; // same as .navmenu-form
+    display: inline-block;
+    a {
+      margin: 0;
+    }
+    a.other, a.disabled {
+      color: #fff;
+      body.scrolled & {
+        color: #000;
+      }
+    }
+    a.other {
+      opacity: 1;
+    }
+    a.current {
+      display: none;
+    }
+  }
 }

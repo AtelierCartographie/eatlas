@@ -28,7 +28,11 @@ const LangLink = (module.exports.LangLink = ({
     return h(DisabledLangLink, { intl, lang, label })
   }
 
-  return h(
+  return h(EnabledLangLink, { intl, lang, label, url })
+})
+
+const EnabledLangLink = ({ lang, intl, label, url }) =>
+  h(
     `a.LangLink.${lang}.other`,
     {
       href: url,
@@ -40,7 +44,6 @@ const LangLink = (module.exports.LangLink = ({
       intl.formatMessage({ id: label }),
     ),
   )
-})
 
 const CurrentLangLink = ({ lang, intl, label }) =>
   h(
@@ -61,7 +64,7 @@ const DisabledLangLink = ({ lang, intl, label }) =>
     `a.LangLink.${lang}.disabled`,
     {
       href: '#',
-      title: intl.formatMessage({ id: label }),
+      title: intl.formatMessage({ id: `common.none-lang-link-title.${lang}` }),
     },
     h(
       Html,

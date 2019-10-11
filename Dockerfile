@@ -10,14 +10,16 @@ ENV NODE_ENV production
 
 ENV NODE_CONFIG_DIR /eatlas/config/
 
-COPY server/package.json server/yarn.lock /eatlas/server/
+COPY package.json /eatlas/
+COPY server/package.json /eatlas/server/
 COPY client/ /eatlas/client/
 
 RUN apk add --no-cache su-exec git
 
-RUN cd /eatlas/server && yarn install --frozen-lockfile --no-cache --production && yarn git-version \
-    && cd /eatlas/client && yarn install --frozen-lockfile --no-cache --production=false \
-    && rm -fr /usr/local/share/.cache/*
+
+RUN cd /eatlas && yarn install --no-cache --production --ignore-scripts \
+    && cd /eatlas/server && yarn install --no-cache --production && yarn git-version \
+    && cd /eatlas/client && yarn install --no-cache --production=false 
 
 COPY config/ /eatlas/config/
 COPY server/ /eatlas/server/

@@ -17,8 +17,8 @@ const getList = ($, el) =>
   $(el)
     .children()
     .map((i, el) => ({
-      text: exports.getText($, el),
-      markup: exports.parseMarkup($, el),
+      text: getText($, el),
+      markup: parseMarkup($, el),
     }))
     .get()
 

@@ -52,7 +52,7 @@
   "read-full-definition": "Lire la definition complète",
   "embedded-alt": "{title} (voir description ci-après)",
   "embedded-description-html":
-    "<strong>{title}</strong> (<em>description détaillée</em>) : {description}",
+    "{title} (description détaillée) : {description}",
   "embedded-read-more": "Voir la description complète",
   "footnotes-read-more": "Voir plus",
   "nav-title-footer": "menu pied de page",

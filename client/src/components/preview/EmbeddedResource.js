@@ -86,7 +86,7 @@ const Figure = ({ resource, options, intl, mainSize }) => {
             )
           : '',
       }),
-      h(FigCaption, { content: resource.copyright }),
+      h(FigCaption, { content: resource.source }),
     ]),
     h('.ArticleResourceDownload.container', [infoLink]),
     description

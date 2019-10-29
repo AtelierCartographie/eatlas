@@ -50,10 +50,10 @@
   "do-download": "télécharger",
   "download-link-title": "Lien de téléchargement, {type}, {size}",
   "read-full-definition": "Lire la definition complète",
-  "embedded-alt": "{title} (voir description ci-après)",
+  "embedded-alt": "{title} (voir commentaire ci-après)",
   "embedded-description-html":
-    "{title} (description détaillée) : {description}",
-  "embedded-read-more": "Voir la description complète",
+    "Commentaire : {description}",
+  "embedded-read-more": "Voir le commentaire complet",
   "footnotes-read-more": "Voir plus",
   "nav-title-footer": "menu pied de page",
   "nav-title-sidebar": "menu principal",

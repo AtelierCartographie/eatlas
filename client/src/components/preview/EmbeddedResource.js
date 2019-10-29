@@ -97,7 +97,7 @@ const Figure = ({ resource, options, intl, mainSize }) => {
               { component: 'p' },
               intl.formatMessage(
                 { id: 'doc.embedded-description-html' },
-                { description, title: resource.title },
+                { description },
               ),
             ),
             h('button.read-more', [

@@ -50,10 +50,10 @@
   "do-download": "download",
   "download-link-title": "Download link, {type}, {size}",
   "read-full-definition": "Read the full definition",
-  "embedded-alt": "{title} (read description below)",
+  "embedded-alt": "{title} (read comment below)",
   "embedded-description-html":
-    "<strong>{title}</strong> (<em>detailed description</em>): {description}",
-  "embedded-read-more": "Read full description",
+    "Comment: {description}",
+  "embedded-read-more": "Read full comment",
   "footnotes-read-more": "Read more",
   "nav-title-footer": "page footer menu",
   "nav-title-sidebar": "main menu",

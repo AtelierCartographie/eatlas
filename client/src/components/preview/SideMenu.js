@@ -19,7 +19,7 @@ const Topics = ({ topics, options, intl }) =>
     topics.map((t, i) =>
       h('li', { key: t.id }, [
         h('a', { href: getTopicPageUrl(t, options) }, [
-          t.id !== '0' && `${t.id}. ${topicName(t, intl.lang)}`,
+          `${t.id}. ${topicName(t, intl.lang)}`,
         ]),
       ]),
     ),

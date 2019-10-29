@@ -27,7 +27,7 @@ const Topics = injectIntl(({ topics, options, intl }) =>
               {
                 href: getTopicPageUrl(t, options),
               },
-              [t.id !== '0' && `${t.id}. ${topicName(t, intl.lang)}`],
+              [`${t.id}. ${topicName(t, intl.lang)}`],
             ),
           ]),
         ),

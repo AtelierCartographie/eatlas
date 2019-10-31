@@ -211,10 +211,7 @@ p {
 }
 
 .navbar > .container .navbar-brand {
-  margin-left: -130px;
-  @media(max-width: 600px) {
-    margin-left: -110px; // a bit more to the right, as we hide #topbar .search-toggle
-  }
+  margin-left: -110px;
 }
 
 .offcanvas.in {

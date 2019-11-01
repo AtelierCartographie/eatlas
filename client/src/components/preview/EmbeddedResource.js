@@ -11,10 +11,22 @@ const Html = require('./Html')
 const EmbeddedResource = injectIntl(({ resource, options, intl }) => {
   switch (resource.type) {
     case 'image':
-      return h(Figure, { resource, options, intl, mainSize: 'large' })
+      return h(Figure, {
+        resource,
+        options,
+        intl,
+        mainSize: 'large',
+        captionField: 'copyright',
+      })
 
     case 'map':
-      return h(Figure, { resource, options, intl, mainSize: 'small' })
+      return h(Figure, {
+        resource,
+        options,
+        intl,
+        mainSize: 'small',
+        captionField: 'source',
+      })
 
     case 'video': {
       const id = resource.mediaUrl.slice('https://vimeo.com/'.length)
@@ -65,7 +77,7 @@ const EmbeddedResource = injectIntl(({ resource, options, intl }) => {
 const FigCaption = ({ content }) =>
   content ? h(Html, { component: 'figcaption.container' }, content) : null
 
-const Figure = ({ resource, options, intl, mainSize }) => {
+const Figure = ({ resource, options, intl, mainSize, captionField }) => {
   const infoLink = h(
     'a',
     { href: getResourcePageUrl(resource, options) },
@@ -73,6 +85,7 @@ const Figure = ({ resource, options, intl, mainSize }) => {
   )
   const description = resource[`description_${intl.lang}`]
   const title = stripTags(resource.title)
+  const caption = resource[captionField] || null
   return h('.Figure', [
     h('figure', [
       h(Html, { component: 'h2.figure-title.container' }, resource.title),
@@ -87,7 +100,7 @@ const Figure = ({ resource, options, intl, mainSize }) => {
             )
           : '',
       }),
-      h(FigCaption, { content: resource.source }),
+      caption && h(FigCaption, { content: caption }),
     ]),
     h('.ArticleResourceDownload.container', [infoLink]),
     description

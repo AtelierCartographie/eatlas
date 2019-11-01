@@ -271,7 +271,10 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
               h('div', [
                 h(
                   '.ArticleSeeAlsoTopic',
-                  (topics.find(t => t.id === r.topic) || {}).name,
+                  topicName(
+                    topics.find(t => t.id === r.topic) || {},
+                    options.lang,
+                  ),
                 ),
                 h(Html, { component: '.ArticleSeeAlsoTitle' }, r.title),
               ]),
@@ -381,7 +384,7 @@ const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {
 }
 
 // use *all* the articles of the site
-const getPrevNextArticles = (article, articles, topics) => {
+const getPrevNextArticles = (article, articles, topics, lang) => {
   if (!articles || !articles.length) return {}
   const currentIndex = articles.findIndex(a => a.id === article.id)
   const prevIndex = currentIndex !== 0 ? currentIndex - 1 : null
@@ -391,8 +394,18 @@ const getPrevNextArticles = (article, articles, topics) => {
   const prev = prevIndex !== null && articles[prevIndex]
   const next = nextIndex !== null && articles[nextIndex]
 
-  if (prev) prev.topicName = (topics.find(t => t.id === prev.topic) || {}).name
-  if (next) next.topicName = (topics.find(t => t.id === next.topic) || {}).name
+  if (prev) {
+    prev.topicName = topicName(
+      topics.find(t => t.id === prev.topic) || {},
+      lang,
+    )
+  }
+  if (next) {
+    next.topicName = topicName(
+      topics.find(t => t.id === next.topic) || {},
+      lang,
+    )
+  }
 
   return { prev, next }
 }
@@ -420,7 +433,7 @@ const ArticlePage = injectIntl((
     id: 0,
   }
 
-  const prevNext = getPrevNextArticles(article, articles, topics)
+  const prevNext = getPrevNextArticles(article, articles, topics, options.lang)
 
   return h('html', { lang: intl.lang }, [
     h(Head, {

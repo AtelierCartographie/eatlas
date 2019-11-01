@@ -6,7 +6,7 @@ const logger = require('../logger')
 const debug = require('debug')('eatlas:search')
 const { inspect } = require('util')
 const { populatePageUrl, populateThumbnailUrl } = require('../generator-utils')
-const { stripTags, LOCALES } = require('../../../client/src/universal-utils')
+const { stripTags } = require('../../../client/src/universal-utils')
 const { cleanString } = require('../clean-fields')
 
 const sortField = 'publishedAt'

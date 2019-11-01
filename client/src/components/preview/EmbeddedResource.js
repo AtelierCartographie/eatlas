@@ -72,6 +72,7 @@ const Figure = ({ resource, options, intl, mainSize }) => {
     h(T, { id: 'doc.embedded-download-title' }),
   )
   const description = resource[`description_${intl.lang}`]
+  const title = stripTags(resource.title)
   return h('.Figure', [
     h('figure', [
       h(Html, { component: 'h2.figure-title.container' }, resource.title),
@@ -92,14 +93,13 @@ const Figure = ({ resource, options, intl, mainSize }) => {
     description
       ? h('.ArticleResourceComment.container', [
           h('.gradient-expand', {}, [
-            h(
-              Html,
-              { component: 'p' },
-              intl.formatMessage(
-                { id: 'doc.embedded-description-html' },
-                { description },
-              ),
-            ),
+            h(Html, { component: 'p' }, [
+              title,
+              intl.formatMessage({
+                id: 'doc.embedded-description-between-html',
+              }),
+              description,
+            ]),
             h('button.read-more', [
               intl.formatMessage({ id: 'doc.embedded-read-more' }),
               h('span', { 'aria-hidden': true }, ' ▼'),

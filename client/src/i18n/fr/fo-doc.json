@@ -21,8 +21,7 @@
     "image+video": "Photos et vidéos",
     "all": "Tous types"
   },
-  "goto-lexicon-link-title":
-    "Aller à la page du lexique pour « {title} » (pressez « Echap » pour retourner à votre position précédente dans l’article)",
+  "goto-lexicon-link-title": "Aller à la page du lexique pour « {title} » (pressez « Echap » pour retourner à votre position précédente dans l’article)",
   "related-article-or-focus": "Article ou focus lié",
   "published-at": "Publié le",
   "date-format": "D MMMM YYYY",
@@ -38,10 +37,8 @@
   "resource-page-title": "Ressources",
   "transcription": "Transcription",
   "download": "Téléchargement",
-  "download-warning":
-    "Pour toute utilisation, merci de consulter les <a href=\"{href}\">mentions légales</a>.",
-  "download-warning-map":
-    "Vous êtes libre de partager l’oeuvre par tous moyens et sous tous formats à condition de créditer l’oeuvre, de ne pas la modifier et de ne pas la commercialiser. Pour tout autre usage, merci de <a href=\"{href}\" target=\"_blank\" title=\"nous contacter (nouvelle fenêtre)\">nous contacter</a>.",
+  "download-warning": "Pour toute utilisation, merci de consulter les <a href=\"{href}\">mentions légales</a>.",
+  "download-warning-map": "Vous êtes libre de partager l’oeuvre par tous moyens et sous tous formats à condition de créditer l’oeuvre, de ne pas la modifier et de ne pas la commercialiser. Pour tout autre usage, merci de <a href=\"{href}\" target=\"_blank\" title=\"nous contacter (nouvelle fenêtre)\">nous contacter</a>.",
   "download-size": {
     "large": "version détaillée",
     "medium": "version simplifiée",
@@ -51,8 +48,7 @@
   "download-link-title": "Lien de téléchargement, {type}, {size}",
   "read-full-definition": "Lire la definition complète",
   "embedded-alt": "{title} (voir commentaire ci-après)",
-  "embedded-description-html":
-    "Commentaire : {description}",
+  "embedded-description-between-html": " (<em>description détaillée</em>) : ",
   "embedded-read-more": "Voir le commentaire complet",
   "footnotes-read-more": "Voir plus",
   "nav-title-footer": "menu pied de page",

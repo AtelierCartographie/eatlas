@@ -21,8 +21,7 @@
     "image+video": "Photos and videos",
     "all": "All types"
   },
-  "goto-lexicon-link-title":
-    "Go to lexicon page for “{title}” (press “Escape” to go back to previous position in article)",
+  "goto-lexicon-link-title": "Go to lexicon page for “{title}” (press “Escape” to go back to previous position in article)",
   "related-article-or-focus": "Related article or related focus",
   "published-at": "Published on",
   "date-format": "MMM D YYYY",
@@ -38,10 +37,8 @@
   "resource-page-title": "Resources",
   "transcription": "Transcription",
   "download": "Download",
-  "download-warning":
-    "Before using, please read <a href=\"{href}\">legal notice</a>.",
-  "download-warning-map":
-    "You are free to share the material in any medium or format under the following terms: give appropriate credit, do not use the material for commercial purposes and do not distribute remix or transform version of the material. For any other use, please <a href=\"{href}\" target=\"_blank\" title=\"contact us (new window)\">contact us</a>.",
+  "download-warning": "Before using, please read <a href=\"{href}\">legal notice</a>.",
+  "download-warning-map": "You are free to share the material in any medium or format under the following terms: give appropriate credit, do not use the material for commercial purposes and do not distribute remix or transform version of the material. For any other use, please <a href=\"{href}\" target=\"_blank\" title=\"contact us (new window)\">contact us</a>.",
   "download-size": {
     "large": "Detailed version",
     "medium": "Simplified version",
@@ -51,8 +48,7 @@
   "download-link-title": "Download link, {type}, {size}",
   "read-full-definition": "Read the full definition",
   "embedded-alt": "{title} (read comment below)",
-  "embedded-description-html":
-    "Comment: {description}",
+  "embedded-description-between-html": " (<em>comment</em>): ",
   "embedded-read-more": "Read full comment",
   "footnotes-read-more": "Read more",
   "nav-title-footer": "page footer menu",

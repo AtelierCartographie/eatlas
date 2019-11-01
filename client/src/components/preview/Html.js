@@ -20,18 +20,18 @@ const Html = injectIntl((
     ? typeof props.children === 'string'
       ? props.children
       : props.children.join
-        ? props.children.join('')
-        : String(props.children)
+      ? props.children.join('')
+      : String(props.children)
     : null
 
   let content =
     childContent === null
       ? null
       : whitelist === 'all'
-        ? props.noP
-          ? childContent
-          : ensureHTML(String(childContent))
-        : stripTags(String(childContent), whitelist)
+      ? props.noP
+        ? childContent
+        : ensureHTML(String(childContent))
+      : stripTags(String(childContent), whitelist)
 
   if (content === null) {
     return null
@@ -59,7 +59,7 @@ const Html = injectIntl((
 
 const RE_LINKS = /<a(.*?)>(.*?)<\/a>/gi
 const RE_TITLE = /\stitle=(?:(?:["'](.*?)["'])|(?:([^\s]+)))/
-const RE_TARGET = /\starget=["']?([^\s]+)["']?/
+const RE_TARGET = /\starget=["']?([^\s"']+)["']?/
 const RE_A = /<a/
 
 const handleLinks = (html, intl) => {

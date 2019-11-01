@@ -92,6 +92,10 @@ export const canUnpublish = (
   if (resource.status !== 'published') {
     return true
   }
+  // As of #210, an article or a focus can always be unpublished, relation betweens articles/focus are simplified
+  if (resource.type === 'article' || resource.type === 'focus') {
+    return true
+  }
   // Check if resource is used in a published article or focus
   const publishedArticles = resources.filter(
     r =>

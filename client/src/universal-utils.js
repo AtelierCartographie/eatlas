@@ -100,7 +100,8 @@ exports.getResourceIds = (
     // Image header: mandatory
     getMetaText(article, 'image-header'),
     // Related article of a focus: mandatory
-    getMetaText(article, 'related-article'),
+    // Note: as of #210, this relation is not mandatory anymore to simplify contribution
+    // getMetaText(article, 'related-article'),
     // Related resources: mandatory, except focus
     ...(article.nodes || [])
       .filter(node => node.type === 'resource')

@@ -107,7 +107,6 @@ const Figure = ({ resource, options, intl, mainSize, captionField }) => {
       ? h('.ArticleResourceComment.container', [
           h('.gradient-expand', {}, [
             h(Html, { component: 'p' }, [
-              title,
               intl.formatMessage({
                 id: 'doc.embedded-description-between-html',
               }),

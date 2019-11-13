@@ -2,7 +2,6 @@
     "emmet.syntaxProfiles": {
         "javascript": "jsx"
     },
-    "prettier.singleQuote": true,
     "flow.useNPMPackagedFlow": true,
     "flow.enabled": true,
     "javascript.validate.enable": false

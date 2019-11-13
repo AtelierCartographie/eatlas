@@ -31,7 +31,7 @@
       "Note : la recherche ne permet pas de combiner les références, définitions, et autres types",
     "page-previous": "Résultats précédent",
     "page-next": "Résultats suivants",
-    "page-nav": "{start} - {end} sur {nb-results}",
+    "page-nav": "{start} - {end} sur {nbResults}",
     "nb-results-none": "aucun résultat",
     "nb-results-one": "1 résultat",
     "nb-results-many": "{count} résultats",

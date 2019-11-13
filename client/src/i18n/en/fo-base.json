@@ -31,7 +31,7 @@
       "Note: search does not allow a combination of references, definitions, and other types",
     "page-previous": "Previous results",
     "page-next": "Next results",
-    "page-nav": "{start} - {end} on {nb-results}",
+    "page-nav": "{start} - {end} on {nbResults}",
     "nb-results-none": "no occurence found",
     "nb-results-one": "1 occurence found",
     "nb-results-many": "{count} occurences found",

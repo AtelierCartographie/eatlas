@@ -74,7 +74,7 @@ const paginationTemplate = t => `
     ${t('page-nav', {
       start: '<%= results.start %>',
       end: '<%= results.end %>',
-      'nb-results': countResultsTemplate(t),
+      nbResults: countResultsTemplate(t),
     })}
   <% } else { %>
     ${countResultsTemplate(t)}

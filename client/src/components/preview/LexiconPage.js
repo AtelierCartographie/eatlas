@@ -40,6 +40,11 @@ const az = [
   'Z',
 ]
 
+const sortDefinitions = definitions =>
+  definitions
+    .slice()
+    .sort((d1, d2) => (d1.dt > d2.dt ? +1 : d1.dt < d2.dt ? -1 : 0))
+
 const Content = ({ definitions, options }) => {
   let prevLetter = null
   const firstLetterId = dt => {
@@ -71,7 +76,7 @@ const Content = ({ definitions, options }) => {
             ),
           ),
         ),
-        definitions.map(({ dt, dd, aliases, lexicon }) =>
+        sortDefinitions(definitions).map(({ dt, dd, aliases, lexicon }) =>
           h('.row.search-result', { key: dt, id: slugify(dt) }, [
             h('.search-result-text.col-sm-12', [
               h('strong.search-result-title', {}, [

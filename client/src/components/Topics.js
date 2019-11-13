@@ -77,7 +77,6 @@ class Topics extends Component<Props, State> {
     const topicResources = resources.list.filter(
       r => r.type === type && r.topic === topicId,
     )
-    console.log(topicResources)
     const nbFr = topicResources.filter(r => r.language === 'fr').length
     const nbEn = topicResources.filter(r => r.language === 'en').length
 

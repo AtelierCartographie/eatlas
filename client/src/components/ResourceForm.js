@@ -1365,7 +1365,7 @@ class ResourceForm extends Component<Props, State> {
                 <Link to={`/resources/${resource.id}/edit`}>
                   <T
                     id="bo.toast-back-to-resource"
-                    values={{ title: resource.title }}
+                    values={{ title: stripTags(resource.title) }}
                   />
                 </Link>
               </li>

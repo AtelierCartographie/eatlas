@@ -83,7 +83,7 @@ const Figure = ({ resource, options, intl, mainSize, captionField }) => {
     { href: getResourcePageUrl(resource, options) },
     h(T, { id: 'doc.embedded-download-title' }),
   )
-  const description = resource[`description_${intl.lang}`]
+  const description = resource.description_fr
   const title = stripTags(resource.title)
   const caption = resource[captionField] || null
   return h('.Figure', [

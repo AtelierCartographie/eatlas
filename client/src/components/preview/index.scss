@@ -237,18 +237,18 @@ p {
     padding: 0;
   }
 
-  h1 {
+  h1, h2 {
     font-size: 2.1rem;
     margin: 40px 0 14px 0;
     padding: 0;
-    &:first-of-type {
-      margin-top: 60px;
-      font-size: 2.4rem;
-    }
     a {
       text-decoration: none;
       color: $color-text;
     }
+  }
+  h1:first-of-type {
+    margin-top: 60px;
+    font-size: 2.4rem;
   }
   ul {
     padding: 0;

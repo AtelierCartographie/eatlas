@@ -15,14 +15,16 @@ const SearchToggle = require('./SearchBar')
 
 const Topics = ({ topics, options, intl }) =>
   h(
-    'ul.nav.navmenu-nav',
-    topics.map((t, i) =>
-      h('li', { key: t.id }, [
-        h('a', { href: getTopicPageUrl(t, options) }, [
-          `${t.id}. ${topicName(t, intl.lang)}`,
+    'ol.nav.navmenu-nav',
+    topics
+      .sort((t1, t2) => t1.id - t2.id)
+      .map((t, i) =>
+        h('li', { key: t.id }, [
+          h('a', { href: getTopicPageUrl(t, options) }, [
+            `${t.id}. ${topicName(t, intl.lang)}`,
+          ]),
         ]),
-      ]),
-    ),
+      ),
   )
 
 const Resources = ({ options }) =>
@@ -87,11 +89,11 @@ exports.SideMenu = injectIntl((
       options.hideSearchToggle
         ? null
         : h(SearchToggle, { logoColor, open: true, options }),
-      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
+      h('h2.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
       h(Topics, { topics, options, intl }),
-      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
+      h('h2.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),
       h(Resources, { options }),
-      h('h1.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
+      h('h2.navmenu-title', {}, h(T, { id: 'fo.nav-about' })),
       h(APropos, { options }),
     ],
   ),

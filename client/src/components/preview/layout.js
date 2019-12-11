@@ -79,8 +79,8 @@ const getSearchUrl = (exports.getSearchUrl = (
   const url = preview
     ? `${apiUrl || ''}/preview/search`
     : process.env[`REACT_APP_PAGE_URL_${lang}_search`]
-      ? `${publicUrl}/${process.env[`REACT_APP_PAGE_URL_${lang}_search`]}`
-      : '#ERROR_SEARCH_URL'
+    ? `${publicUrl}/${process.env[`REACT_APP_PAGE_URL_${lang}_search`]}`
+    : '#ERROR_SEARCH_URL'
   // Single-level query string (nested objects not supported in search URL)
   const append = (q, k, v) => {
     const prefix = q === '' ? '?' : '&'
@@ -138,6 +138,10 @@ exports.aPropos = [
   {
     text: 'legals.title',
     url: globalPageUrl('legals'),
+  },
+  {
+    text: 'home.sitemap',
+    url: globalPageUrl('sitemap'),
   },
 ]
 

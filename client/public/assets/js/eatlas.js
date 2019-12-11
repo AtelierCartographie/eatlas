@@ -502,6 +502,19 @@
       })
     })
 
+  // Close menu on unfocus (kbd navigation)
+  let closeTimeout = null
+  $(document.body)
+    .on('focusout', '#navmenu', () => {
+      // unfocus a child element of #navmenu: but it can be to change focus
+      // to another child, so don't act immediately
+      closeTimeout = setTimeout(() => $('#navmenu').offcanvas('hide'), 50)
+    })
+    .on('focus', '#navmenu', () => {
+      // focus a child of #navmenu: cancel any pending close
+      clearTimeout(closeTimeout)
+    })
+
   // Top bar on scroll
   $(window).on('load resize scroll', e => {
     const scroll = $(window).scrollTop()

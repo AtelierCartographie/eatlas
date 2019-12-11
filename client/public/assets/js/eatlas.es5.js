@@ -472,6 +472,19 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     });
   });
 
+  // Close menu on unfocus (kbd navigation)
+  var closeTimeout = null;
+  $(document.body).on('focusout', '#navmenu', function () {
+    // unfocus a child element of #navmenu: but it can be to change focus
+    // to another child, so don't act immediately
+    closeTimeout = setTimeout(function () {
+      return $('#navmenu').offcanvas('hide');
+    }, 50);
+  }).on('focus', '#navmenu', function () {
+    // focus a child of #navmenu: cancel any pending close
+    clearTimeout(closeTimeout);
+  });
+
   // Top bar on scroll
   $(window).on('load resize scroll', function (e) {
     var scroll = $(window).scrollTop();

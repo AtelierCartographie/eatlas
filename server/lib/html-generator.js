@@ -6,6 +6,7 @@ const { renderToStaticMarkup } = require('react-dom/server')
 const h = require('react-hyperscript')
 const { IntlProvider, injectIntl } = require('react-intl')
 const messages = require('../../client/src/i18n')
+const { intlErrorHandler } = require('../../client/src/intl-error-handler')
 
 // Tools to grab data required by components
 const {
@@ -120,6 +121,7 @@ const render = async (
       locale,
       messages: messages[lang],
       textComponent: React.Fragment,
+      onError: intlErrorHandler,
     },
     h(
       injectIntl(({ intl }) => {

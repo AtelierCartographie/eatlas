@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 
 import ScrollTop from './ScrollTop'
 import App from './App'
+import { intlErrorHandler } from '../intl-error-handler'
 
 const basename =
   process.env.REACT_APP_ADMIN_BASENAME ||
@@ -27,7 +28,8 @@ const Root = ({ locale }: Props) => {
       key={locale}
       locale={locale}
       messages={messages[lang]}
-      textComponent={Fragment}>
+      textComponent={Fragment}
+      onError={intlErrorHandler}>
       <BrowserRouter basename={basename}>
         <ScrollTop>
           <App />

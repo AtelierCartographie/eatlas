@@ -29,10 +29,20 @@ exports.getImageUrl = (
 exports.getResourcePageUrl = (
   resource /*: Resource */,
   { preview = false } /*: FrontOptions */ = {},
-) =>
-  preview
-    ? getResourcePagePreviewUrl(resource)
-    : resource.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
+) => {
+  if (preview) {
+    return getResourcePagePreviewUrl(resource)
+  }
+  if (resource.pageUrl) {
+    return resource.pageUrl
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    throw new Error(`resource.pageUrl not defined for ${resource.id}`)
+  } else {
+    console.error('WARNING: INVALID RESOURCE PAGE URL', resource)
+    return `#ERROR_INVALID_RESOURCE_URL_${resource.id}`
+  }
+}
 
 exports.getTopicPageUrl = (
   topic /*: Topic */,
@@ -41,10 +51,25 @@ exports.getTopicPageUrl = (
     apiUrl = process.env.REACT_APP_API_SERVER,
     lang = 'fr',
   } /*: FrontOptions */ = {},
-) =>
-  preview
-    ? `${apiUrl || ''}/preview/topics/${topic.id}?lang=${lang}`
-    : topic.pageUrl || '#ERROR_UNKNOWN_URL' // TODO load from server?
+) => {
+  if (preview) {
+    return `${apiUrl || ''}/preview/topics/${topic.id}?lang=${lang}`
+  }
+  if (topic.pageUrl) {
+    return topic.pageUrl
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    throw new Error(
+      `topic.pageUrl not defined for ${topic.id} (lang = ${lang})`,
+    )
+  } else {
+    console.error('WARNING: INVALID TOPIC PAGE URL', {
+      topicId: topic.id,
+      lang,
+    })
+    return `#ERROR_INVALID_TOPIC_URL_${lang}_${topic.id}`
+  }
+}
 
 const globalPageUrl = (exports.globalPageUrl = (
   key /*: string */,
@@ -62,7 +87,14 @@ const globalPageUrl = (exports.globalPageUrl = (
       : `${apiUrl || ''}/preview/${key}?lang=${lang}`
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env[`REACT_APP_PAGE_URL_${lang}_${key}`] || ''
-  if (!urlTemplate) return `#ERROR_UNKNOWN_GLOBAL_URL_${lang}_${key}`
+  if (!urlTemplate) {
+    if (process.env.NODE_ENV !== 'production') {
+      throw new Error(`Global page URL not defined for ${key} (lang = ${lang})`)
+    } else {
+      console.error('WARNING: INVALID GLOBAL PAGE URL', { key, lang })
+      return `#ERROR_INVALID_TOPIC_URL_${lang}_${key}`
+    }
+  }
   const url = slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
   return hash ? `${publicUrl}/${url}#${hash}` : `${publicUrl}/${url}`
 })

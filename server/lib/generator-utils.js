@@ -331,8 +331,8 @@ exports.getAllUrls = async options => {
   ) => {
     const url = resource
       ? key === 'topic'
-        ? getTopicPageUrl(resource, options)
-        : getResourcePageUrl(resource, options)
+        ? _getTopicPageUrl(resource, topics, options)
+        : _getResourcePageUrl(resource, key, topics, options)
       : globalPageUrl(key, null, hash)(options)
     children = children.map(args => getPageDescription(...args))
     return { url, title, info, children, i18nTitle: !resource }
@@ -370,6 +370,24 @@ exports.getAllUrls = async options => {
     })
   }
   return urls
+}
+
+const _getTopicPageUrl = (topic, topics, options) => {
+  try {
+    return getTopicPageUrl(topic, options)
+  } catch (err) {
+    exports.populatePageUrl('topic', topics, options)(topic)
+    return topic.pageUrl
+  }
+}
+
+const _getResourcePageUrl = (resource, key, topics, options) => {
+  try {
+    return getResourcePageUrl(resource, options)
+  } catch (err) {
+    exports.populatePageUrl(key, topics, options)(resource)
+    return resource.pageUrl
+  }
 }
 
 exports.getUrl = async ({ page, resource, topic, topics, preview, lang }) => {

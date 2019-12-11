@@ -98,7 +98,7 @@ const Content = ({ definitions, options }) => {
                 ),
                 h(
                   'span.search-result-definition-toggler-label-collapse',
-                  { style: { display: 'none', 'aria-hidden': true } },
+                  { style: { display: 'none' }, 'aria-hidden': true },
                   h(T, { id: 'fo.search.show-less' }),
                 ),
               ]),

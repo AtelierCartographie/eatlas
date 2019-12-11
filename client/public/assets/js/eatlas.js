@@ -486,13 +486,17 @@
     .on('shown.bs.offcanvas	', () => {
       $('[data-target="#navmenu"][data-label-close]').each(function() {
         const $this = $(this)
-        $this.attr('aria-label', $this.attr('data-label-close'))
+        $this
+          .attr('aria-label', $this.attr('data-label-close'))
+          .attr('aria-expanded', 'true')
       })
     })
     .on('hidden.bs.offcanvas', () => {
       $('[data-target="#navmenu"][data-label-open]').each(function() {
         const $this = $(this)
-        $this.attr('aria-label', $this.attr('data-label-open'))
+        $this
+          .attr('aria-label', $this.attr('data-label-open'))
+          .attr('aria-expanded', 'false')
       })
     })
 

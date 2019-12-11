@@ -444,12 +444,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
   // Top bar search field
   $('.search-toggle-button').on('click', function (e) {
-    $(e.currentTarget).parent().addClass('expand');
-    $(e.currentTarget).parent().find('.search-field').focus();
+    $(e.currentTarget).attr('aria-expanded', 'true').attr('aria-hidden', 'true').parent().addClass('expand').find('.search-field').focus();
   });
   $('body').on('click', function (e) {
     if (!$(e.target).closest('.search-toggle.expand').length) {
       $('.search-toggle.expand').removeClass('expand');
+      $('.search-toggle-button').attr('aria-expanded', 'false').removeAttr('aria-hidden');
     }
   });
 

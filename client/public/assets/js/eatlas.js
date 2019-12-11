@@ -464,16 +464,19 @@
   // Top bar search field
   $('.search-toggle-button').on('click', e => {
     $(e.currentTarget)
+      .attr('aria-expanded', 'true')
+      .attr('aria-hidden', 'true')
       .parent()
       .addClass('expand')
-    $(e.currentTarget)
-      .parent()
       .find('.search-field')
       .focus()
   })
   $('body').on('click', e => {
     if (!$(e.target).closest('.search-toggle.expand').length) {
       $('.search-toggle.expand').removeClass('expand')
+      $('.search-toggle-button')
+        .attr('aria-expanded', 'false')
+        .removeAttr('aria-hidden')
     }
   })
 

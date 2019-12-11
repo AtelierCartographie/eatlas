@@ -65,7 +65,14 @@ exports.SideMenu = injectIntl((
       'aria-label': intl.formatMessage({ id: 'doc.nav-title-sidebar' }),
     },
     [
-      h('a.close-button', { href: '#' }, '⨯'),
+      h(
+        'a.close-button',
+        {
+          href: '#',
+          'aria-label': intl.formatMessage({ id: 'fo.menu-close' }),
+        },
+        '⨯',
+      ),
       h('h1.navmenu-title', [
         h(
           'a',
@@ -89,10 +96,11 @@ exports.SideMenu = injectIntl((
   ),
 )
 
-exports.SideMenuToggle = (
+exports.SideMenuToggle = injectIntl((
   {
     logoColor,
     options,
+    intl,
   } /*: {
   logoColor: 'black' | 'white',
   options: Object,
@@ -106,6 +114,9 @@ exports.SideMenuToggle = (
         type: 'button',
         'data-toggle': 'offcanvas',
         'data-target': '#navmenu',
+        'aria-label': intl.formatMessage({ id: 'fo.menu-open' }),
+        'data-label-close': intl.formatMessage({ id: 'fo.menu-close' }),
+        'data-label-open': intl.formatMessage({ id: 'fo.menu-open' }),
       },
       [
         h('img.if-not-scrolled', {
@@ -121,4 +132,5 @@ exports.SideMenuToggle = (
         }),
       ],
     ),
-  ])
+  ]),
+)

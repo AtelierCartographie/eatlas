@@ -482,6 +482,19 @@
     e.preventDefault()
     $('#navmenu').offcanvas('hide')
   })
+  $('#navmenu')
+    .on('shown.bs.offcanvas	', () => {
+      $('[data-target="#navmenu"][data-label-close]').each(function() {
+        const $this = $(this)
+        $this.attr('aria-label', $this.attr('data-label-close'))
+      })
+    })
+    .on('hidden.bs.offcanvas', () => {
+      $('[data-target="#navmenu"][data-label-open]').each(function() {
+        const $this = $(this)
+        $this.attr('aria-label', $this.attr('data-label-open'))
+      })
+    })
 
   // Top bar on scroll
   $(window).on('load resize scroll', e => {

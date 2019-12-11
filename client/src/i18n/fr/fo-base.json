@@ -16,6 +16,8 @@
   "link-new-window-title": "{title} (nouvelle fenêtre)",
   "link-lexicon-title": "Voir la définition de « {text} »",
   "link-to-top": "retour en haut",
+  "menu-close": "Fermer le menu",
+  "menu-open": "Ouvrir le menu",
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",

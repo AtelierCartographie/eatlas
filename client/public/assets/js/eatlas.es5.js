@@ -458,6 +458,17 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     e.preventDefault();
     $('#navmenu').offcanvas('hide');
   });
+  $('#navmenu').on('shown.bs.offcanvas	', function () {
+    $('[data-target="#navmenu"][data-label-close]').each(function () {
+      var $this = $(this);
+      $this.attr('aria-label', $this.attr('data-label-close'));
+    });
+  }).on('hidden.bs.offcanvas', function () {
+    $('[data-target="#navmenu"][data-label-open]').each(function () {
+      var $this = $(this);
+      $this.attr('aria-label', $this.attr('data-label-open'));
+    });
+  });
 
   // Top bar on scroll
   $(window).on('load resize scroll', function (e) {

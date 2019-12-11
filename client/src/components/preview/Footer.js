@@ -12,27 +12,18 @@ const { topicName, stripTags } = require('../../universal-utils')
 
 const Topics = injectIntl(({ topics, options, intl }) =>
   h(
-    'nav',
-    {
-      role: 'navigation',
-      'aria-label': intl.formatMessage({ id: 'doc.nav-title-footer' }),
-    },
-    [
-      h(
-        'ul',
-        topics.map(t =>
-          h('li', { key: t.id }, [
-            h(
-              'a',
-              {
-                href: getTopicPageUrl(t, options),
-              },
-              [`${t.id}. ${topicName(t, intl.lang)}`],
-            ),
-          ]),
+    'ul',
+    topics.map(t =>
+      h('li', { key: t.id }, [
+        h(
+          'a',
+          {
+            href: getTopicPageUrl(t, options),
+          },
+          [`${t.id}. ${topicName(t, intl.lang)}`],
         ),
-      ),
-    ],
+      ]),
+    ),
   ),
 )
 
@@ -61,7 +52,7 @@ module.exports = (
 } */,
 ) =>
   h('footer.container.Footer', { role: 'contentinfo' }, [
-    h('.FooterRow', [
+    h('nav.FooterRow', { role: 'navigation' }, [
       h('.FooterColTopics', [
         h('h2', {}, h(T, { id: 'fo.nav-summary' })),
         h(Topics, { topics, options, intl }),

@@ -29,14 +29,16 @@ module.exports = injectIntl((
 ) =>
   // display preview ribbon in corner
   h(`body.${className}${options.preview ? '.preview' : ''}`, [
-    h(SideMenu, {
-      topics,
-      options: {
-        ...options,
-        hideLangSelector: true, // never included in SideMenu anymore (refs #202)
-      },
-    }),
-    h(TopBar, { altTitle, logoColor, linkContent, options }),
+    h('header', { role: 'banner' }, [
+      h(SideMenu, {
+        topics,
+        options: {
+          ...options,
+          hideLangSelector: true, // never included in SideMenu anymore (refs #202)
+        },
+      }),
+      h(TopBar, { altTitle, logoColor, linkContent, options }),
+    ]),
     h('main#main-content', { role: 'main' }, [children]),
     h(Footer, { topics, options }),
     h('script', {

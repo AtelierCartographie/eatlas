@@ -462,11 +462,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     $('[data-target="#navmenu"][data-label-close]').each(function () {
       var $this = $(this);
       $this.attr('aria-label', $this.attr('data-label-close')).attr('aria-expanded', 'true');
+      $('#navmenu .close-button').attr('aria-expanded', 'true');
     });
   }).on('hidden.bs.offcanvas', function () {
     $('[data-target="#navmenu"][data-label-open]').each(function () {
       var $this = $(this);
       $this.attr('aria-label', $this.attr('data-label-open')).attr('aria-expanded', 'false');
+      $('#navmenu .close-button').attr('aria-expanded', 'false');
     });
   });
 

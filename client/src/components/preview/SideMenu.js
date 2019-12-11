@@ -66,9 +66,10 @@ exports.SideMenu = injectIntl((
     },
     [
       h(
-        'a.close-button',
+        'button.close-button',
         {
-          href: '#',
+          'aria-controls': 'navmenu',
+          'aria-expanded': 'false',
           'aria-label': intl.formatMessage({ id: 'fo.menu-close' }),
         },
         '⨯',

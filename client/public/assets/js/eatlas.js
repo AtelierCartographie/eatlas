@@ -489,6 +489,7 @@
         $this
           .attr('aria-label', $this.attr('data-label-close'))
           .attr('aria-expanded', 'true')
+        $('#navmenu .close-button').attr('aria-expanded', 'true')
       })
     })
     .on('hidden.bs.offcanvas', () => {
@@ -497,6 +498,7 @@
         $this
           .attr('aria-label', $this.attr('data-label-open'))
           .attr('aria-expanded', 'false')
+        $('#navmenu .close-button').attr('aria-expanded', 'false')
       })
     })
 

@@ -48,6 +48,7 @@ const EnabledLangLink = ({ lang, intl, label, url }) =>
     `a.LangLink.${lang}.other`,
     {
       href: url,
+      lang,
       title: intl.formatMessage({ id: `common.switch-to-lang.${lang}` }),
     },
     h(

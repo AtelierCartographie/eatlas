@@ -18,9 +18,9 @@ const ul = (urls, intl) => {
 
   return h(
     'ul',
-    urls.map(({ title, info, url, children, i18nTitle }) =>
+    urls.map(({ title, info, url, children, i18nTitle, lang }) =>
       h('li', { key: title }, [
-        h('a', { href: url }, [
+        h('a', { href: url, lang: lang === intl.lang ? undefined : lang }, [
           h(
             'span.title',
             i18nTitle ? intl.formatMessage({ id: title }) : stripTags(title),

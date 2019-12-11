@@ -335,7 +335,14 @@ exports.getAllUrls = async options => {
         : _getResourcePageUrl(resource, key, topics, options)
       : globalPageUrl(key, null, hash)(options)
     children = children.map(args => getPageDescription(...args))
-    return { url, title, info, children, i18nTitle: !resource }
+    return {
+      url,
+      title,
+      info,
+      children,
+      i18nTitle: !resource,
+      lang: resource && resource.language,
+    }
   }
   const addPage = (title, key, options) => {
     urls.push(getPageDescription(title, key, options))

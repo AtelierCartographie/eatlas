@@ -168,7 +168,7 @@ const Home = ({ topics, articles, options, intl }) => {
   return h('article.HomePage', [
     h('.HomeVideo', {}, [
       h(
-        'video',
+        'video#HomeVideo',
         {
           autoPlay: true,
           muted: true,
@@ -187,6 +187,27 @@ const Home = ({ topics, articles, options, intl }) => {
       h('h1.HomeTitle', {}, h(T, { id: 'home.title' })),
       h('h1.HomeTitle.HomeTitleTyped', {}, h(T, { id: 'home.subtitle' })),
     ]),
+    h(
+      'button.HomeVideoController.playing',
+      {
+        'aria-label': intl.formatMessage({ id: 'fo.pause-home-video' }),
+        title: intl.formatMessage({ id: 'fo.pause-home-video' }),
+        'data-label-pause': intl.formatMessage({ id: 'fo.pause-home-video' }),
+        'data-label-play': intl.formatMessage({ id: 'fo.play-home-video' }),
+        'aria-controls': 'HomeVideo',
+      },
+      [
+        h('img.iconPlay', {
+          'aria-hidden': 'true',
+          alt: '▶',
+          src: prefixUrl('/assets/img/play.svg', options.preview),
+        }),
+        h('img.iconPause', {
+          alt: '⏸',
+          src: prefixUrl('/assets/img/pause.svg', options.preview),
+        }),
+      ],
+    ),
     h(Topics, { topics, articles, options, intl }),
     h(Features, { options }),
     // h('section.HomeProject', [

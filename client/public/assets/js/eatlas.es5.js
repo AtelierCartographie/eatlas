@@ -540,4 +540,29 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   $('.Lexicon > [role="dialog"]').on('click', '.close', function (e) {
     $(e.currentTarget).collapse('hide');
   });
+
+  // Control HomeVideo
+  var $video = $('.HomeVideo video');
+  if ($video.length > 0) {
+    var video = $video.get(0);
+    $('.HomeVideo').on('mouseover', function () {
+      return $('.HomeVideoController').addClass('hover');
+    }).on('mouseout', function () {
+      return $('.HomeVideoController').removeClass('hover');
+    });
+    $('.HomeVideo, .HomeVideoController').on('click', function () {
+      return video.paused ? video.play() : video.pause();
+    });
+    $video.on('play', function () {
+      var $ctrl = $('.HomeVideoController');
+      $ctrl.removeClass('paused').addClass('playing').attr('title', $ctrl.attr('data-label-pause')).attr('aria-label', $ctrl.attr('data-label-pause'));
+      $ctrl.find('.iconPlay').removeAttr('aria-hidden');
+      $ctrl.find('.iconPause').attr('aria-hidden', 'true');
+    }).on('pause', function () {
+      var $ctrl = $('.HomeVideoController');
+      $ctrl.addClass('paused').removeClass('playing').attr('title', $ctrl.attr('data-label-play')).attr('aria-label', $ctrl.attr('data-label-play'));
+      $ctrl.find('.iconPlay').attr('aria-hidden', 'true');
+      $ctrl.find('.iconPause').removeAttr('aria-hidden');
+    });
+  }
 })(window.jQuery);

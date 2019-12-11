@@ -19,6 +19,8 @@
   "menu-close": "Fermer le menu",
   "menu-open": "Ouvrir le menu",
   "search-open": "Ouvrir le formulaire de recherche",
+  "pause-home-video": "Mettre en pause la vidéo",
+  "play-home-video": "Reprendre la lecture de la vidéo",
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",

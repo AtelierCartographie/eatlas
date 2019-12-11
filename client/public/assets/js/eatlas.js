@@ -576,4 +576,37 @@
   $('.Lexicon > [role="dialog"]').on('click', '.close', e => {
     $(e.currentTarget).collapse('hide')
   })
+
+  // Control HomeVideo
+  const $video = $('.HomeVideo video')
+  if ($video.length > 0) {
+    const video = $video.get(0)
+    $('.HomeVideo')
+      .on('mouseover', () => $('.HomeVideoController').addClass('hover'))
+      .on('mouseout', () => $('.HomeVideoController').removeClass('hover'))
+    $('.HomeVideo, .HomeVideoController').on('click', () =>
+      video.paused ? video.play() : video.pause(),
+    )
+    $video
+      .on('play', () => {
+        const $ctrl = $('.HomeVideoController')
+        $ctrl
+          .removeClass('paused')
+          .addClass('playing')
+          .attr('title', $ctrl.attr('data-label-pause'))
+          .attr('aria-label', $ctrl.attr('data-label-pause'))
+        $ctrl.find('.iconPlay').removeAttr('aria-hidden')
+        $ctrl.find('.iconPause').attr('aria-hidden', 'true')
+      })
+      .on('pause', () => {
+        const $ctrl = $('.HomeVideoController')
+        $ctrl
+          .addClass('paused')
+          .removeClass('playing')
+          .attr('title', $ctrl.attr('data-label-play'))
+          .attr('aria-label', $ctrl.attr('data-label-play'))
+        $ctrl.find('.iconPlay').attr('aria-hidden', 'true')
+        $ctrl.find('.iconPause').removeAttr('aria-hidden')
+      })
+  }
 })(window.jQuery)

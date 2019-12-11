@@ -19,6 +19,8 @@
   "menu-close": "Close menu",
   "menu-open": "Open menu",
   "search-open": "Open search form",
+  "pause-home-video": "Pause video",
+  "play-home-video": "Play video",
   "search": {
     "title": "Search",
     "placeholder": "Search the atlas",

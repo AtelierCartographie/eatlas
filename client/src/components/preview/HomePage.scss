@@ -45,6 +45,10 @@
     margin-bottom: 96px;
     padding-top: 48px;
 
+    // Ensure it goes above video layer
+    position: relative;
+    z-index: 2;
+
     .HomeTitle {
       color: $color-white;
       font-size: 4rem;
@@ -158,6 +162,10 @@
 
   .HomeTopics {
     padding-top: 0;
+
+    // Ensure it goes above video layer
+    position: relative;
+    z-index: 2;
 
     .HomeTopic {
       h2 {

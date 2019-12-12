@@ -27,7 +27,7 @@ const featuresList = injectIntl(({ features, options, intl }) => {
   return h('li.col-sm-4.col-xs-6.FeaturesList', [
     h('img', {
       src: prefixUrl(featuresUrl(features), options.preview),
-      alt: `features-picto`,
+      alt: '',
     }),
     h('div', [
       h(

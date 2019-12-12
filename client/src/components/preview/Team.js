@@ -31,7 +31,7 @@ const TeamMemberModal = injectIntl(({ page, member, options, intl }) => {
               h('.col-md-4', [
                 h('img.center-block', {
                   src: prefixUrl(avatarUrl(member), options.preview),
-                  alt: `${member.firstname} ${member.lastname}`,
+                  alt: '', // a11y: empty alt as firstname/lastname is already provided in text
                 }),
               ]),
               h('.col-md-8', [
@@ -64,7 +64,7 @@ const TeamMember = ({ xsSize = 4, member, options }) => {
       [
         h('img', {
           src: prefixUrl(avatarUrl(member), options.preview),
-          alt: `${member.firstname} ${member.lastname}`,
+          alt: '', // a11y: empty alt as firstname/lastname is already provided in text
         }),
         h('span', [
           h('span.TeamMemberName', member.firstname),

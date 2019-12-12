@@ -21,6 +21,7 @@
   "search-open": "Ouvrir le formulaire de recherche",
   "pause-home-video": "Mettre en pause la vidéo",
   "play-home-video": "Reprendre la lecture de la vidéo",
+  "warning-url-error": "L’adresse de ce lien est invalide : il s’agit d’une erreur technique indépendante de notre volonté. Merci de confirmer pour nous contacter (nouvelle fenêtre) en précisant le code d’erreur suivant dans votre message :\n\n{code}",
   "search": {
     "title": "Rechercher",
     "placeholder": "Rechercher dans l’atlas",

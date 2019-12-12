@@ -54,7 +54,7 @@ const About = injectIntl(({ options, intl }) => {
             h(
               'a.button.btn',
               {
-                href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2',
+                href: process.env.REACT_APP_CONTACT_URL,
                 target: '_blank',
                 role: 'button',
                 title: `${intl.formatMessage(

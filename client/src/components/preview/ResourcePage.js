@@ -96,7 +96,7 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
           { whitelist: 'all', noP: true, component: '.warning' },
           intl.formatHTMLMessage(
             { id: 'doc.download-warning-map' },
-            { href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2' },
+            { href: process.env.REACT_APP_CONTACT_URL },
           ),
         )
       : h(

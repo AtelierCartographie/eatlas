@@ -565,4 +565,15 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       $ctrl.find('.iconPause').removeAttr('aria-hidden');
     });
   }
+
+  // Intercept click on erroneous URL and show a warning
+  $(document.body).on('click', 'a', function (e) {
+    var href = e.currentTarget.getAttribute('href');
+    if (href && href.match(/^#ERROR_/)) {
+      if (confirm(window.WARNING_URL_ERROR.replace(/CODE/, href))) {
+        e.preventDefault();
+        window.open(window.CONTACT_URL, '_blank');
+      }
+    }
+  });
 })(window.jQuery);

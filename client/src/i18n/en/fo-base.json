@@ -21,6 +21,7 @@
   "search-open": "Open search form",
   "pause-home-video": "Pause video",
   "play-home-video": "Play video",
+  "warning-url-error": "This address is invalid: this is an unexpected error from our side. Please confirm to contact us (new window) including following error code in your message:\n\n{code}",
   "search": {
     "title": "Search",
     "placeholder": "Search the atlas",

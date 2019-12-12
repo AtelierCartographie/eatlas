@@ -68,11 +68,26 @@ module.exports = injectIntl((
     h(
       Html,
       { component: 'script' },
-      `window.CAROUSEL_PREVIOUS="${intl.formatMessage({
-        id: 'home.carousel-previous',
-      })}"; window.CAROUSEL_NEXT="${intl.formatMessage({
-        id: 'home.carousel-next',
-      })}"; window.SEARCH_DEFAULT_LANG="${intl.lang}";`,
+      `window.CAROUSEL_PREVIOUS=${JSON.stringify(
+        intl.formatMessage({
+          id: 'home.carousel-previous',
+        }),
+      )}; window.CAROUSEL_NEXT=${JSON.stringify(
+        intl.formatMessage({
+          id: 'home.carousel-next',
+        }),
+      )}; window.SEARCH_DEFAULT_LANG=${JSON.stringify(
+        intl.lang,
+      )}; window.WARNING_URL_ERROR=${JSON.stringify(
+        intl.formatMessage(
+          {
+            id: 'fo.warning-url-error',
+          },
+          { code: 'CODE' },
+        ),
+      )}; window.CONTACT_URL=${JSON.stringify(
+        process.env.REACT_APP_CONTACT_URL,
+      )};`,
     ),
     h('script', {
       src: prefixUrl('/assets/js/eatlas.es5.js', options.preview),

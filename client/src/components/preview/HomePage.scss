@@ -181,6 +181,19 @@
           }
         }
       }
+      // a11y: fixes unsufficient contrast
+      .carousel .slick-arrow:before {
+        opacity: 0.5;
+      }
+      .carousel .slick-arrow:hover:before {
+        opacity: 1.0;
+      }
+      .slick-dots li button:before {
+        opacity: 0.4;
+      }
+      .slick-dots li button:hover:before, .slick-dots li button:focus:before {
+        opacity: 1.0;
+      }
     }
 
     .TopicCarousel {

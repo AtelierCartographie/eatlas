@@ -12,7 +12,7 @@ const Body = require('./Body')
 
 const Content = ({ intl }) => {
   return h('article.container.AboutUsLegalsPage', [
-    h('h1', {}, h(T, { id: 'legals.title' })),
+    h('h1', { id: 'legals-main-content' }, h(T, { id: 'legals.title' })),
 
     h('h2', {}, h(T, { id: 'legals.who-title' })),
     h('p', {}, [
@@ -69,9 +69,16 @@ const AboutUsLegalsPage = injectIntl((
 ) =>
   h('html', { lang: intl.lang }, [
     h(Head, { title: intl.formatMessage({ id: 'legals.title' }), options }),
-    h(Body, { topics, options, logoColor: 'black' }, [
-      h(Content, { topics, articles, options, intl }),
-    ]),
+    h(
+      Body,
+      {
+        topics,
+        options,
+        logoColor: 'black',
+        linkContent: '#legals-main-content',
+      },
+      [h(Content, { topics, articles, options, intl })],
+    ),
   ]),
 )
 

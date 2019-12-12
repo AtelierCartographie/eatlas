@@ -312,7 +312,7 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
       ),
     ]),
     // will be populated later
-    h('h1.SearchPageTitle.container', [
+    h('h1.SearchPageTitle.container', { id: 'search-main-content' }, [
       `${intl.formatMessage({ id: 'fo.nav-resources' })} > `,
       h('span.SearchPageTitleType'),
     ]),
@@ -365,6 +365,7 @@ const SearchPage = injectIntl((
         topics,
         options: { ...options, hideSearchToggle: true },
         logoColor: 'black',
+        linkContent: '#search-main-content',
         // Not needed as 'keywords' filters have been removed (refs #182)
         // scripts: [`${CDN}/selectize.js/0.12.6/js/standalone/selectize.min.js`],
       },

@@ -249,7 +249,11 @@ const Resource = injectIntl(({ resource, topics, options, intl }) => {
     h('header.container.ResourceHeader', [
       h('.PageTitle', {}, h(T, { id: 'doc.resource-page-title' })),
       h('.ResourceType', {}, h(T, { id: `doc.type-plural.${resource.type}` })),
-      h(Html, { component: 'h1.ResourceTitle' }, resource.title),
+      h(
+        Html,
+        { component: 'h1.ResourceTitle', id: 'resource-main-content' },
+        resource.title,
+      ),
     ]),
     ...children,
   ])
@@ -270,9 +274,16 @@ const ResourcePage = injectIntl((
 ) =>
   h('html', { lang: intl.lang }, [
     h(Head, { title: stripTags(resource.title), options }),
-    h(Body, { topics, options, logoColor: 'black' }, [
-      h(Resource, { resource, topics, options }),
-    ]),
+    h(
+      Body,
+      {
+        topics,
+        options,
+        logoColor: 'black',
+        linkContent: '#resource-main-content',
+      },
+      [h(Resource, { resource, topics, options })],
+    ),
   ]),
 )
 

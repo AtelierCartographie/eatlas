@@ -239,7 +239,6 @@ const Home = ({ topics, articles, options, intl }) => {
             {
               href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2',
               target: '_blank',
-              role: 'button',
               title: `${intl.formatMessage(
                 { id: 'fo.link-new-window-title' },
                 { title: intl.formatMessage({ id: 'home.contact-button' }) },
@@ -267,7 +266,6 @@ const Home = ({ topics, articles, options, intl }) => {
                   href:
                     'http://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530',
                   target: '_blank',
-                  role: 'button',
                   title: `${intl.formatMessage(
                     { id: 'fo.link-new-window-title' },
                     { title: intl.formatMessage({ id: 'home.book-button' }) },

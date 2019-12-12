@@ -12,7 +12,7 @@ const { topicName, stripTags } = require('../../universal-utils')
 
 const Topics = injectIntl(({ topics, options, intl }) =>
   h(
-    'ul',
+    'ol',
     topics.map(t =>
       h('li', { key: t.id }, [
         h(
@@ -27,13 +27,23 @@ const Topics = injectIntl(({ topics, options, intl }) =>
   ),
 )
 
-const FooterLogo = ({ options } /*: { options: FrontOptions } */) =>
-  h('a', [
-    h('img', {
-      alt: 'Sciences Po',
-      src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
-    }),
-  ])
+const FooterLogo = injectIntl((
+  { options, intl } /*: { options: FrontOptions } */,
+) =>
+  h(
+    'a',
+    {
+      href: intl.formatMessage({ id: 'home.sciencespo-link-url' }),
+      title: intl.formatMessage({ id: 'home.sciencespo-link-title' }),
+    },
+    [
+      h('img', {
+        alt: '',
+        src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
+      }),
+    ],
+  ),
+)
 
 const FooterUl = ({ links, options }) =>
   h(

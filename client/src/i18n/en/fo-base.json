@@ -1,5 +1,6 @@
 {
   "title": "World Atlas of Global Issues",
+  "topbar-logo-title": "{title} (back to homepage)",
   "close": "Close",
   "nav-summary": "Contents",
   "nav-resources": "Resources",

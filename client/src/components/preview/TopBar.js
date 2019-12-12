@@ -34,11 +34,16 @@ module.exports = injectIntl((
           },
           [
             h('img', {
-              alt: `${intl.formatMessage({
-                id: 'fo.title',
-              })} (${intl.formatMessage({
-                id: 'fo.homepage',
-              })})`,
+              alt: intl.formatMessage(
+                {
+                  id: 'fo.topbar-logo-title',
+                },
+                {
+                  title: intl.formatMessage({
+                    id: 'fo.title',
+                  }),
+                },
+              ),
               src: prefixUrl(
                 `/assets/img/logo-eatlas-${logoColor}.svg`,
                 options.preview,
@@ -55,11 +60,16 @@ module.exports = injectIntl((
               },
               [
                 h('img.if-scrolled', {
-                  alt: `${intl.formatMessage({
-                    id: 'fo.title',
-                  })} (${intl.formatMessage({
-                    id: 'fo.homepage',
-                  })})`,
+                  alt: intl.formatMessage(
+                    {
+                      id: 'fo.topbar-logo-title',
+                    },
+                    {
+                      title: intl.formatMessage({
+                        id: 'fo.title',
+                      }),
+                    },
+                  ),
                   src: prefixUrl(
                     `/assets/img/logo-eatlas-black.svg`,
                     options.preview,

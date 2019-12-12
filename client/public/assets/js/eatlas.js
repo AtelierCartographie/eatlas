@@ -303,12 +303,73 @@
         const current = $this.attr('data-filters-hidden')
         const next = current === '1' ? '0' : '1'
         $this.attr('data-filters-hidden', next)
-        e.stopPropagation()
+        $this.attr('aria-expanded', next === '1' ? 'false' : 'true')
+        e.stopPropagation() // avoid upper click…
+        clearTimeout(closeFiltersTimeout) // … but this can break focus/focusout rule, so cancel it if applicable
+      },
+    )
+    // Handling aria-expanded
+    // Event "shown.bs.dropdown" should work, but for some reason it didn't
+    // Note: this could be generalized, but it's the first time I need this hack so for now I keep it unique
+    $('.SearchPage [data-toggle][aria-controls="search-filters-popup"]').on(
+      'click',
+      e => {
+        // Let time for the target to change state
+        setTimeout(
+          () =>
+            $(e.currentTarget).attr(
+              'aria-expanded',
+              $('#search-filters-popup').is(':visible') ? 'true' : 'false',
+            ),
+          100,
+        )
       },
     )
 
+    // Close filters on unfocus (kbd navigation)
+    let closeFiltersTimeout = null
+    $(document.body)
+      .on('focusout', '#search-filters-popup', () => {
+        // unfocus a child element of #search-filters-popup: but it can be to change focus
+        // to another child, so don't act immediately
+        closeFiltersTimeout = setTimeout(
+          () =>
+            $(
+              '.SearchPage [data-toggle][aria-controls="search-filters-popup"]',
+            ).trigger('click'),
+          50,
+        )
+      })
+      .on('focus click', '#search-filters-popup', () => {
+        // focus a child of #search-filters-popup: cancel any pending close
+        clearTimeout(closeFiltersTimeout)
+      })
+      .on('click', e => {
+        if (
+          $('#search-filters-popup').is(':visible') &&
+          // disabled in desktop mode when toggle button is not visible
+          $('[data-toggle][aria-controls="search-filters-popup"]').is(
+            ':visible',
+          )
+        ) {
+          const $this = $(e.target)
+          if (
+            $this.closest('[data-toggle][aria-controls="search-filters-popup"]')
+              .length === 0 &&
+            $this.closest('#search-filters-popup').length === 0
+          ) {
+            // hide
+            e.preventDefault()
+            $(
+              '.SearchPage [data-toggle][aria-controls="search-filters-popup"]',
+            ).trigger('click')
+          }
+        }
+      })
+
     $('.SearchPage .search-filters label').on('click', e => {
       e.stopPropagation()
+      clearTimeout(closeFiltersTimeout) // prevent focusout mess when stopping propagation
     })
 
     // Run initial search on load
@@ -486,7 +547,7 @@
     $('#navmenu').offcanvas('hide')
   })
   $('#navmenu')
-    .on('shown.bs.offcanvas	', () => {
+    .on('shown.bs.offcanvas', () => {
       $('[data-target="#navmenu"][data-label-close]').each(function() {
         const $this = $(this)
         $this
@@ -513,7 +574,7 @@
       // to another child, so don't act immediately
       closeTimeout = setTimeout(() => $('#navmenu').offcanvas('hide'), 50)
     })
-    .on('focus', '#navmenu', () => {
+    .on('focus click', '#navmenu', () => {
       // focus a child of #navmenu: cancel any pending close
       clearTimeout(closeTimeout)
     })

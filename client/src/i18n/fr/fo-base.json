@@ -28,6 +28,7 @@
     "placeholder": "Rechercher dans l’atlas",
     "label": "Rechercher dans l’atlas",
     "filters-title": "Affiner la recherche",
+    "hint-dynamic-update": "Les résultats seront dynamiquement mis à jour sans chargement de page",
     "filter-topic": "Rubriques",
     "filter-keyword": "Mots-clés",
     "filter-date": "Date de publication",

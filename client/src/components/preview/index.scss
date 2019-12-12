@@ -345,6 +345,13 @@ button,
   }
 }
 
+// A11Y
+// see http://www.accede-web.com/notices/html-css-javascript/6-images-icones/6-1-polices-icones-icon-fonts/
+.hors-ecran {
+  position: absolute;
+  left: -99999px;
+}
+
 @import 'slick-carousel';
 
 @import 'EmbeddedResource';

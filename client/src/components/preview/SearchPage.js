@@ -68,7 +68,9 @@ const paginationTemplate = t => `
   <% if (results.start > 1) { %>
     <a href="#prev" class="btn search-results-prev" title="${t(
       'page-previous',
-    )}" aria-label="${t('page-previous')}">&lt;&lt;</a>
+    )}" aria-label="${t('page-previous')} (${t('hint-dynamic-update')})">
+      <span aria-hidden="true">&lt;&lt;</span>
+    </a>
   <% } %>
   <% if (results.start > 1 || results.end < results.count) { %>
     ${t('page-nav', {
@@ -82,7 +84,9 @@ const paginationTemplate = t => `
   <% if (results.end < results.count) { %>
     <a href="#prev" class="btn search-results-next" title="${t(
       'page-next',
-    )}" aria-label="${t('page-next')}">&gt;&gt;</a>
+    )}" aria-label="${t('page-next')} (${t('hint-dynamic-update')})">
+      <span aria-hidden="true">&gt;&gt;</span>
+    </a>
   <% } %>
 </div>
 <div class="row search-page-a-z container">
@@ -126,13 +130,16 @@ const resultsTemplate = (t, lang) => `
 ${paginationTemplate(t)}
 <% for (var i=0;i<results.hits.length;i++) { var hit=results.hits[i]; %>
   <% if (hit.url) { %>
-    <a class="row search-result" href="<%= hit.url %>" <% if (hit.type === 'reference') {
-      %>target="_blank" title="${t(
+    <a
+      class="row search-result"
+      href="<%= hit.url %>"
+      <% if (hit.type === 'reference') { %>target="_blank" title="${t(
         'link-new-window-title',
         { title: t('reference-title') },
         'fo.',
-      )}"<%
-    } %>>
+      )}"<% } %>
+      <% if (hit.language !== "${lang}") { %>lang="<%= hit.language %>"<% } %>
+    >
   <% } else { %>
     <div class="row search-result">
   <% } %>
@@ -159,15 +166,25 @@ ${paginationTemplate(t)}
 <% } %>
 `
 
-const filtersToggle = (title, inputs, hidden = false) => {
+const filtersToggle = (key, title, inputs, hidden = false) => {
   const children = [
-    h('h2.search-filters-toggle', { 'data-filters-hidden': '1' }, [
-      h('button.search-filters-subtitle', title),
-      h('span.toggle-expand', { 'aria-hidden': true }, ' ▼'),
-      h('span.toggle-collapse', { 'aria-hidden': true }, ' ▲'),
-    ]),
+    h(
+      'h2.search-filters-toggle',
+      {
+        'data-filters-hidden': '1',
+        role: 'button',
+        'aria-controls': key,
+        'aria-expanded': 'false',
+      },
+      [
+        h('span.search-filters-subtitle', title),
+        h('span.toggle-expand', { 'aria-hidden': true }, ' ▼'),
+        h('span.toggle-collapse', { 'aria-hidden': true }, ' ▲'),
+      ],
+    ),
     h(
       '.search-filters-inputs',
+      { id: key },
       inputs.map((input, key) =>
         h('label.search-filters-input', { key }, input),
       ),
@@ -189,12 +206,25 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
         'data-toggle': 'dropdown',
         'aria-haspopup': 'true',
         'aria-expanded': 'false',
+        'aria-controls': 'search-filters-popup',
       },
-      ['Filtrer', h('span.SearchFiltersCount'), h('span.caret')],
+      [
+        'Filtrer',
+        h('span.SearchFiltersCount'),
+        h(
+          'span.hors-ecran',
+          {},
+          intl.formatMessage({
+            id: 'fo.search.hint-dynamic-update',
+          }),
+        ),
+        h('span.caret'),
+      ],
     ),
-    h('.search-filters.dropdown-menu', [
+    h('.search-filters.dropdown-menu', { id: 'search-filters-popup' }, [
       h('h1.search-filters-title', {}, h(T, { id: 'fo.search.filters-title' })),
       ...filtersToggle(
+        'filters-block-topic',
         intl.formatMessage({ id: 'fo.search.filter-topic' }),
         topics.map(topic => [
           h('input', {
@@ -206,8 +236,13 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
           topicName(topic, intl.lang),
         ]),
       ),
+      h(
+        'p.hors-ecran',
+        {},
+        intl.formatMessage({ id: 'fo.search.hint-dynamic-update' }),
+      ),
       /* Disabled filters: keywords (refs #182)
-      ...filtersToggle(intl.formatMessage({ id: 'fo.search.filter-keyword' }), [
+      ...filtersToggle('filters-block-keyword', intl.formatMessage({ id: 'fo.search.filter-keyword' }), [
         h(
           'select.keywords',
           { multiple: true, size: 5, name: 'keywords[]' },
@@ -215,7 +250,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
         ),
       ]),*/
       /* Disabled filters: date (refs #182)
-      ...filtersToggle(intl.formatMessage({ id: 'fo.search.filter-date' }), [
+      ...filtersToggle('filters-block-date', intl.formatMessage({ id: 'fo.search.filter-date' }), [
         [
           h(
             'span',
@@ -244,6 +279,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
         ],
       ]),*/
       ...filtersToggle(
+        'filters-block-lang',
         'Langue',
         Object.keys(locales).map(locale => [
           h('input', {
@@ -258,6 +294,7 @@ const SearchFilters = ({ topics, types, locales, keywords, intl }) =>
       // Note we can't remove this one to keep 'resource' pages
       // If you need to remove it, just hide it
       ...filtersToggle(
+        'filters-block-type',
         intl.formatMessage({ id: 'fo.search.filter-type' }),
         Object.keys(types).map(type => [
           h('input', {
@@ -330,7 +367,7 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
         intl.lang,
       ),
     ),
-    h('section.SearchResults.container', {}, [
+    h('section.SearchResults.container', { 'aria-live': 'polite' }, [
       h('strong.search-results-error'),
       h('.search-results-success'),
     ]),

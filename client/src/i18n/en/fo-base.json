@@ -28,6 +28,7 @@
     "placeholder": "Search the atlas",
     "label": "Search the atlas",
     "filters-title": "Refine Search",
+    "hint-dynamic-update": "Search results will be dynamically updated without loading page",
     "filter-topic": "Parts",
     "filter-keyword": "Keywords",
     "filter-date": "Date of publication",

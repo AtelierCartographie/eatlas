@@ -312,11 +312,47 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       var current = $this.attr('data-filters-hidden');
       var next = current === '1' ? '0' : '1';
       $this.attr('data-filters-hidden', next);
-      e.stopPropagation();
+      $this.attr('aria-expanded', next === '1' ? 'false' : 'true');
+      e.stopPropagation(); // avoid upper click…
+      clearTimeout(closeFiltersTimeout); // … but this can break focus/focusout rule, so cancel it if applicable
+    });
+    // Handling aria-expanded
+    // Event "shown.bs.dropdown" should work, but for some reason it didn't
+    // Note: this could be generalized, but it's the first time I need this hack so for now I keep it unique
+    $('.SearchPage [data-toggle][aria-controls="search-filters-popup"]').on('click', function (e) {
+      // Let time for the target to change state
+      setTimeout(function () {
+        return $(e.currentTarget).attr('aria-expanded', $('#search-filters-popup').is(':visible') ? 'true' : 'false');
+      }, 100);
+    });
+
+    // Close filters on unfocus (kbd navigation)
+    var closeFiltersTimeout = null;
+    $(document.body).on('focusout', '#search-filters-popup', function () {
+      // unfocus a child element of #search-filters-popup: but it can be to change focus
+      // to another child, so don't act immediately
+      closeFiltersTimeout = setTimeout(function () {
+        return $('.SearchPage [data-toggle][aria-controls="search-filters-popup"]').trigger('click');
+      }, 50);
+    }).on('focus click', '#search-filters-popup', function () {
+      // focus a child of #search-filters-popup: cancel any pending close
+      clearTimeout(closeFiltersTimeout);
+    }).on('click', function (e) {
+      if ($('#search-filters-popup').is(':visible') &&
+      // disabled in desktop mode when toggle button is not visible
+      $('[data-toggle][aria-controls="search-filters-popup"]').is(':visible')) {
+        var $this = $(e.target);
+        if ($this.closest('[data-toggle][aria-controls="search-filters-popup"]').length === 0 && $this.closest('#search-filters-popup').length === 0) {
+          // hide
+          e.preventDefault();
+          $('.SearchPage [data-toggle][aria-controls="search-filters-popup"]').trigger('click');
+        }
+      }
     });
 
     $('.SearchPage .search-filters label').on('click', function (e) {
       e.stopPropagation();
+      clearTimeout(closeFiltersTimeout); // prevent focusout mess when stopping propagation
     });
 
     // Run initial search on load
@@ -458,7 +494,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     e.preventDefault();
     $('#navmenu').offcanvas('hide');
   });
-  $('#navmenu').on('shown.bs.offcanvas	', function () {
+  $('#navmenu').on('shown.bs.offcanvas', function () {
     $('[data-target="#navmenu"][data-label-close]').each(function () {
       var $this = $(this);
       $this.attr('aria-label', $this.attr('data-label-close')).attr('aria-expanded', 'true');
@@ -480,7 +516,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     closeTimeout = setTimeout(function () {
       return $('#navmenu').offcanvas('hide');
     }, 50);
-  }).on('focus', '#navmenu', function () {
+  }).on('focus click', '#navmenu', function () {
     // focus a child of #navmenu: cancel any pending close
     clearTimeout(closeTimeout);
   });

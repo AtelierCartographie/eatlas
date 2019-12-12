@@ -96,7 +96,7 @@ const Figure = ({ resource, options, intl, mainSize, captionField }) => {
         alt: description
           ? intl.formatMessage(
               { id: 'doc.embedded-alt' },
-              { title: resource.title },
+              { title: stripTags(resource.title) },
             )
           : '',
       }),

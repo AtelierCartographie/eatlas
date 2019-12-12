@@ -37,7 +37,7 @@ const About = injectIntl(({ options, intl }) => {
           ]),
           h('a.col-sm-4.logo', [
             h('img', {
-              alt: 'Sciences Po',
+              alt: 'Sciences Po!',
               src: prefixUrl('/assets/img/sciences-po.svg', options.preview),
             }),
           ]),

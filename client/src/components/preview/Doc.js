@@ -74,7 +74,7 @@ const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
             target: '_blank',
             title: `${intl.formatMessage(
               { id: 'fo.link-new-window-title' },
-              { title: m.text },
+              { title: stripTags(m.text) },
             )}`,
           },
           m.text,
@@ -90,7 +90,7 @@ const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
             'data-toggle': 'collapse',
             title: intl.formatMessage(
               { id: 'fo.link-lexicon-title' },
-              { text: m.text },
+              { text: stripTags(m.text) },
             ),
             'aria-controls': id,
           },
@@ -185,21 +185,21 @@ PB  - ${publisher}`
       href: `data%3Aapplication/x-bibtex;name=${encodeURIComponent(
         doc.title,
       )}.bibtex,${encodeURIComponent(bibtex)}`,
-      title: `${doc.title}.bibtex`,
+      title: `${stripTags(doc.title)}.bibtex`,
       type: 'application/x-bibtex',
     },
     {
       href: `data%3Aapplication/x-endnote-refer;name=${encodeURIComponent(
         doc.title,
       )}.enw,${encodeURIComponent(endnote)}`,
-      title: `${doc.title}.enw`,
+      title: `${stripTags(doc.title)}.enw`,
       type: 'application/x-endnote-refer',
     },
     {
       href: `data%3Aapplication/x-research-info-systems;name=${encodeURIComponent(
         doc.title,
       )}.ris,${encodeURIComponent(refman)}`,
-      title: `${doc.title}.ris`,
+      title: `${stripTags(doc.title)}.ris`,
       type: 'application/x-research-info-systems',
     },
   ]
@@ -216,7 +216,7 @@ exports.Quote = injectIntl(({ doc, intl, options } /*: { doc: Resource } */) =>
           intl.formatMessage(
             { id: 'doc.quote-text' },
             {
-              title: doc.title,
+              title: stripTags(doc.title),
               publisher: intl.formatMessage({ id: 'doc.publisher' }),
               year: new Date(
                 doc.visiblePublishedAt || doc.publishedAt || Date.now(),

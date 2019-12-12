@@ -55,7 +55,7 @@
       font-weight: bold;
       line-height: 4rem;
       margin-top: 96px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
 
       @include breakpoint(desktop) {
         font-size: 7rem;
@@ -64,7 +64,7 @@
     }
 
     .HomeTitleTyped {
-      color: $color-yellow;
+      color: #fdc900;
       font-weight: normal;
       margin-top: 0;
     }

@@ -93,7 +93,7 @@ const Content = ({ definitions, options }) => {
               h('button.search-result-definition-toggler', [
                 h(
                   'span.search-result-definition-toggler-label-expand',
-                  {},
+                  { 'aria-hidden': true },
                   h(T, { id: 'fo.search.show-more' }),
                 ),
                 h(

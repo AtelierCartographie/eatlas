@@ -165,7 +165,9 @@ const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
       h(PublishedAt, { doc: article }),
     ]),
     imageHeader &&
-      (imageHeader.copyright || imageHeader.description_fr) &&
+      (imageHeader.title ||
+        imageHeader.copyright ||
+        imageHeader.description_fr) &&
       h('.container.imageHeaderInfo', [
         h(
           'a',
@@ -189,7 +191,7 @@ const ArticleHeader = injectIntl(({ article, resources, intl, options }) => {
           h(
             Html,
             { whitelist: 'all' },
-            `${imageHeader.copyright} ${imageHeader.description_fr}`,
+            `${imageHeader.title} ${imageHeader.copyright} ${imageHeader.description_fr}`,
           ),
         ]),
       ]),

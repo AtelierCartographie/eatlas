@@ -208,7 +208,8 @@ PB  - ${publisher}`
 exports.Quote = injectIntl(({ doc, intl, options } /*: { doc: Resource } */) =>
   h('section.container.Quote', [
     h('h2', {}, h(T, { id: 'doc.quote-title' })),
-    h('blockquote', [
+    // a11y: not using real blockquote tag as it's not semantically correct
+    h('div.blockquote', [
       h('p', [
         h(
           Html,
@@ -275,9 +276,9 @@ exports.Footnotes = injectIntl((
             h('li', { key: k }, renderMarkup(r.markup, intl)),
           ),
         ),
-      h('button.read-more', [
+      h('button.read-more', { 'aria-hidden': true }, [
         intl.formatMessage({ id: 'doc.footnotes-read-more' }),
-        h('span', { 'aria-hidden': true }, ' ▼'),
+        h('span', ' ▼'),
       ]),
     ]),
   ])

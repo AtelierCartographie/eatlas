@@ -88,5 +88,9 @@
     "sitemap": "/assets/img/page-image/social.png",
     "notFound": "/assets/img/page-image/social.png",
     "topic": "/assets/img/page-image/social.png"
+  },
+  "article": {
+    "next": "Next article: “{title}”",
+    "prev": "Previous article: “{title}”"
   }
 }

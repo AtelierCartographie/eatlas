@@ -313,23 +313,44 @@ const Article = props =>
   ])
 
 // floating buttons on each side of the screen
-const ArticlePrevNext = ({ prevNext: { prev, next }, options }) => {
-  return [
-    prev &&
-      h('a.ArticlePrev', { href: getResourcePageUrl(prev, options) }, [
-        h('span.ArticlePrevNextTopic', prev.topicName),
-        h(Html, { component: 'span.ArticlePrevNextTitle' }, prev.title),
-      ]),
-    next &&
-      h('a.ArticleNext', { href: getResourcePageUrl(next, options) }, [
-        h('span.ArticlePrevNextTopic', next.topicName),
-        h(Html, { component: 'span.ArticlePrevNextTitle' }, next.title),
-      ]),
-    // horrible pattern? yes? no? who knows?
-    h(
-      Html,
-      { component: 'script' },
-      `
+const ArticlePrevNext = injectIntl(
+  ({ prevNext: { prev, next }, options, intl }) => {
+    return [
+      prev &&
+        h(
+          'a.ArticlePrev',
+          {
+            title: intl.formatMessage(
+              { id: 'fo.article.prev' },
+              { title: prev.title },
+            ),
+            href: getResourcePageUrl(prev, options),
+          },
+          [
+            h('span.ArticlePrevNextTopic', prev.topicName),
+            h(Html, { component: 'span.ArticlePrevNextTitle' }, prev.title),
+          ],
+        ),
+      next &&
+        h(
+          'a.ArticleNext',
+          {
+            title: intl.formatMessage(
+              { id: 'fo.article.prev' },
+              { title: next.title },
+            ),
+            href: getResourcePageUrl(next, options),
+          },
+          [
+            h('span.ArticlePrevNextTopic', next.topicName),
+            h(Html, { component: 'span.ArticlePrevNextTitle' }, next.title),
+          ],
+        ),
+      // horrible pattern? yes? no? who knows?
+      h(
+        Html,
+        { component: 'script' },
+        `
 window.addEventListener('DOMContentLoaded', () => {
   if (!window.IntersectionObserver) return
   const toggle = (sel, bool) => {
@@ -345,9 +366,10 @@ window.addEventListener('DOMContentLoaded', () => {
   observer.observe(document.querySelector('.DocFooter'))
 })
 `,
-    ),
-  ]
-}
+      ),
+    ]
+  },
+)
 
 // these buttons appear just above the footer
 const ArticlePrevNextInline = ({ prevNext: { prev, next }, options }) => {

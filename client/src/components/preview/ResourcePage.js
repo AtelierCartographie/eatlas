@@ -171,7 +171,7 @@ const ResourceLexicon = ({ definitions }) =>
           h('dd', [
             h('.gradient-expand', [
               h('.masked', dd),
-              h('button.read-more', [
+              h('button.read-more', { 'aria-hidden': true }, [
                 h('span', {}, h(T, { id: 'doc.read-full-definition' })),
               ]),
             ]),

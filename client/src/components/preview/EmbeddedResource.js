@@ -112,9 +112,9 @@ const Figure = ({ resource, options, intl, mainSize, captionField }) => {
               }),
               description,
             ]),
-            h('button.read-more', [
+            h('button.read-more', { 'aria-hidden': true }, [
               intl.formatMessage({ id: 'doc.embedded-read-more' }),
-              h('span', { 'aria-hidden': true }, ' ▼'),
+              h('span', ' ▼'),
             ]),
           ]),
         ])

@@ -53,12 +53,20 @@ exports.PublishedAt = injectIntl(({ doc, intl } /*: { doc: Resource } */) => {
 })
 
 // used by Paragraphs and Footnotes/References
-const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
-  markup.map((m, idx) => {
+const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) => {
+  let linkLang = null
+  return markup.map((m, idx) => {
     // see doc-parsers/article parseMarkup
     switch (m.type) {
-      case 'text':
-        return h(Fragment, { key: idx }, padText(m.text, markup, idx))
+      case 'text': {
+        let text = m.text || ''
+        const matchLang = text.match(/^\s*\[(EN|FR)\]\s*/i)
+        if (matchLang) {
+          text = text.replace(matchLang[0], '')
+          linkLang = matchLang[1]
+        }
+        return h(Fragment, { key: idx }, padText(text, markup, idx))
+      }
 
       case 'em':
       case 'strong':
@@ -76,6 +84,7 @@ const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
               { id: 'fo.link-new-window-title' },
               { title: stripTags(m.text) },
             )}`,
+            lang: linkLang,
           },
           m.text,
         )
@@ -111,6 +120,7 @@ const renderMarkup = (markup /*: Array<Object> */, intl, lexiconId = {}) =>
         return null
     }
   })
+}
 
 exports.Paragraph = injectIntl((
   { p, lexiconId, intl } /*: {

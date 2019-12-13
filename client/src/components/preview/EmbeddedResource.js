@@ -93,12 +93,7 @@ const Figure = ({ resource, options, intl, mainSize, captionField }) => {
         resource,
         options,
         mainSize: 'large',
-        alt: description
-          ? intl.formatMessage(
-              { id: 'doc.embedded-alt' },
-              { title: stripTags(resource.title) },
-            )
-          : '',
+        alt: '',
       }),
       caption && h(FigCaption, { content: caption }),
     ]),

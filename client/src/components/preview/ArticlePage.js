@@ -258,7 +258,6 @@ const ArticleSeeAlso = ({ article, topics, resources, options, title }) => {
             [
               r.imageHeader
                 ? h('.imgSeeAlso', {
-                    title: stripTags(r.title),
                     style: {
                       backgroundImage: articleHeaderImageUrl(r, options),
                     },

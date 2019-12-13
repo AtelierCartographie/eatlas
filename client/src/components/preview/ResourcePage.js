@@ -134,11 +134,20 @@ const ResourceImageDownload = injectIntl(({ resource, options, intl }) => {
 })
 
 const ResourceImageDownloadBlock = injectIntl(
-  ({ resource, title, stats: { type, humanSize, width, height, url }, intl }) =>
-    h('.download-block', [
+  ({
+    resource,
+    title,
+    stats: { type, humanSize, width, height, url },
+    intl,
+  }) => {
+    // a11y: no stats for images (only for docs)
+    const showStats = !['png', 'jpeg', 'jpg', 'gif'].includes(
+      type.toLowerCase(),
+    )
+    return h('.download-block', [
       h('img.download-preview', {
         src: url,
-        alt: `Preview ${resource.id} - ${title}.${type}`,
+        alt: '',
       }),
       h('.download-info', [
         h('strong', title),
@@ -147,18 +156,23 @@ const ResourceImageDownloadBlock = injectIntl(
           {
             href: url,
             download: `${resource.id} - ${title}.${type}`,
-            title: intl.formatMessage(
-              { id: 'doc.download-link-title' },
-              { type: type.toUpperCase(), size: humanSize },
-            ),
+            title: showStats
+              ? intl.formatMessage(
+                  { id: 'doc.download-link-title' },
+                  { type: type.toUpperCase(), size: humanSize },
+                )
+              : null,
           },
           [
             h('span.link', {}, h(T, { id: 'doc.do-download' })),
-            h('span.info', ` (${type.toUpperCase()} - ${humanSize})`),
+            showStats
+              ? h('span.info', ` (${type.toUpperCase()} - ${humanSize})`)
+              : null,
           ],
         ),
       ]),
-    ]),
+    ])
+  },
 )
 
 const ResourceLexicon = ({ definitions }) =>

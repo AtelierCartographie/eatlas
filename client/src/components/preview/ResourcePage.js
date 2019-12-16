@@ -180,17 +180,7 @@ const ResourceLexicon = ({ definitions }) =>
     h(
       'dl',
       definitions.map(({ dt, dd }) =>
-        h(Fragment, { key: dt }, [
-          h('dt', dt),
-          h('dd', [
-            h('.gradient-expand', [
-              h('.masked', dd),
-              h('button.read-more', { 'aria-hidden': true }, [
-                h('span', {}, h(T, { id: 'doc.read-full-definition' })),
-              ]),
-            ]),
-          ]),
-        ]),
+        h(Fragment, { key: dt }, [h('dt', dt), h('dd', dd)]),
       ),
     ),
   ])

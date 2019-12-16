@@ -33,17 +33,9 @@ const hitTextTemplate = t => `
       <em class="search-result-aliases"><%= hit.extra.aliases.join(', ') %></em>
     <% } %>
     <% if (hit.extra && hit.extra.definition) { %>
-      <div class="search-result-definition">
+      <div class="search-result-definition expanded">
         <p><%= hit.extra.definition %></p>
       </div>
-      <button class="search-result-definition-toggler">
-        <span class="search-result-definition-toggler-label-expand">${t(
-          'show-more',
-        )}</span>
-        <span style="display:none" aria-hidden class="search-result-definition-toggler-label-collapse">${t(
-          'show-less',
-        )}</span>
-      </button>
     <% } %>
   <% } %>
 `
@@ -141,7 +133,10 @@ ${paginationTemplate(t)}
       <% if (hit.language !== "${lang}") { %>lang="<%= hit.language %>"<% } %>
     >
   <% } else { %>
-    <div class="row search-result">
+    <div
+      class="row search-result"
+      <% if (hit.language !== "${lang}") { %>lang="<%= hit.language %>"<% } %>
+    >
   <% } %>
     <% if (!ui.hideSearchResultsType && window.TYPE_LABEL[hit.type]) { %>
       <div class="search-result-type"><%= window.TYPE_LABEL[hit.type] %></div>

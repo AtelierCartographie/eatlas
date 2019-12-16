@@ -63,28 +63,6 @@
       font-family: $serif;
       margin-bottom: $gap3;
     }
-    .gradient-expand {
-      max-height: 90px;
-      overflow: hidden;
-      position: relative;
-
-      .read-more {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: right;
-        margin: 0;
-        padding-top: 26px;
-        background-image: linear-gradient(to bottom, transparent, $color-white);
-
-        span {
-          background: $color-white;
-          font-family: $sans;
-          padding: 5px;
-        }
-      }
-    }
   }
 
   .ResourceSource {

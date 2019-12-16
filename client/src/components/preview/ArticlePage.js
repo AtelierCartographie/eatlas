@@ -323,7 +323,7 @@ const ArticlePrevNext = injectIntl(
           {
             title: intl.formatMessage(
               { id: 'fo.article.prev' },
-              { title: prev.title },
+              { title: stripTags(prev.title) },
             ),
             href: getResourcePageUrl(prev, options),
           },
@@ -337,8 +337,8 @@ const ArticlePrevNext = injectIntl(
           'a.ArticleNext',
           {
             title: intl.formatMessage(
-              { id: 'fo.article.prev' },
-              { title: next.title },
+              { id: 'fo.article.next' },
+              { title: stripTags(next.title) },
             ),
             href: getResourcePageUrl(next, options),
           },

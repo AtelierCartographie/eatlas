@@ -107,29 +107,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   });
   $('#TopMenuPanel-search input, input.search-field, form.navmenu-form input').on('keypress', goToSearch);
 
-  // Read more arrow in Footnotes and embedded resources comment
-  $('.read-more').on('click', function () {
-    var totalHeight = 0;
-    var $parent = $(this).parent();
-
-    $parent.find('ol, p').each(function () {
-      totalHeight += $(this).outerHeight();
-    });
-
-    $parent.find('.masked').each(function () {
-      totalHeight += $(this).outerHeight();
-    });
-
-    $parent.css({
-      transition: '3s all ease',
-      height: totalHeight,
-      'max-height': 9999
-    });
-
-    $(this).css({ display: 'none' });
-    return false;
-  });
-
   // Search page
   if ($('.SearchPage').length) {
     var resultTpl = _.template($('.SearchPage .results-template').text());
@@ -469,12 +446,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
   $('.SearchPage, .LexiconPage').on('click', '.search-result-definition-toggler', function (e) {
     e.preventDefault();
     var $toggler = $(e.currentTarget);
-    toggleSearchResultDefinition($toggler);
-  });
-  // Shortcut: expand on click (no collapse, so we don't block the text selection or add conditions for links)
-  $('.SearchPage, .LexiconPage').on('click', '.search-result-definition:not(.expanded)', function (e) {
-    e.preventDefault();
-    var $toggler = $(e.currentTarget).next();
     toggleSearchResultDefinition($toggler);
   });
 

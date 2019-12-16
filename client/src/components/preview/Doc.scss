@@ -153,50 +153,12 @@ a.LexiconLink {
   }
 }
 
-.Footnotes,
-.ArticleResourceComment {
-  .gradient-expand {
-    max-height: 100px;
-    overflow: hidden;
-    position: relative;
-
-    .read-more {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      margin: 0;
-      padding-top: 26px;
-      background: linear-gradient(to bottom, transparent, $color-footer 60%);
-      color: #333;
-      font-weight: bold;
-    }
-  }
-}
 .ArticleResourceComment {
   margin-top: 0.5em;
-  .gradient-expand {
-    max-height: 70px;
-  }
   .comment-title {
     float: left;
     display: block;
     margin: 0 2em 1em 0;
-  }
-  .ArticlePage & .gradient-expand .read-more {
-    background-image: linear-gradient(
-      to bottom,
-      transparent,
-      $background-article 60%
-    );
-  }
-  .FocusPage & .gradient-expand .read-more {
-    background-image: linear-gradient(
-      to bottom,
-      transparent,
-      $background-focus2 60%
-    );
   }
 }
 

@@ -266,31 +266,25 @@ exports.Footnotes = injectIntl((
 
   return h('section.container.Footnotes', [
     h('h2', {}, h(T, { id: 'doc.references' })),
-    h('.gradient-expand', [
-      footnotes &&
-        Boolean(footnotes.length) &&
-        h(
-          'ol',
-          footnotes.map((n, k) =>
-            h('li', { id: `footnote-${k + 1}`, key: k }, [
-              h('a.back', { href: `#note-${k + 1}` }, '^'),
-              renderMarkup(n.markup, intl),
-            ]),
-          ),
+    footnotes &&
+      Boolean(footnotes.length) &&
+      h(
+        'ol',
+        footnotes.map((n, k) =>
+          h('li', { id: `footnote-${k + 1}`, key: k }, [
+            h('a.back', { href: `#note-${k + 1}` }, '^'),
+            renderMarkup(n.markup, intl),
+          ]),
         ),
-      references &&
-        Boolean(references.length) &&
-        h(
-          'ol',
-          references.map((r, k) =>
-            h('li', { key: k }, renderMarkup(r.markup, intl)),
-          ),
+      ),
+    references &&
+      Boolean(references.length) &&
+      h(
+        'ol',
+        references.map((r, k) =>
+          h('li', { key: k }, renderMarkup(r.markup, intl)),
         ),
-      h('button.read-more', { 'aria-hidden': true }, [
-        intl.formatMessage({ id: 'doc.footnotes-read-more' }),
-        h('span', ' ▼'),
-      ]),
-    ]),
+      ),
   ])
 })
 

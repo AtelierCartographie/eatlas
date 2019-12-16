@@ -100,17 +100,11 @@ const Figure = ({ resource, options, intl, mainSize, captionField }) => {
     h('.ArticleResourceDownload.container', [infoLink]),
     description
       ? h('.ArticleResourceComment.container', [
-          h('.gradient-expand', {}, [
-            h(Html, { component: 'p' }, [
-              intl.formatMessage({
-                id: 'doc.embedded-description-between-html',
-              }),
-              description,
-            ]),
-            h('button.read-more', { 'aria-hidden': true }, [
-              intl.formatMessage({ id: 'doc.embedded-read-more' }),
-              h('span', ' ▼'),
-            ]),
+          h(Html, { component: 'p' }, [
+            intl.formatMessage({
+              id: 'doc.embedded-description-between-html',
+            }),
+            description,
           ]),
         ])
       : null,

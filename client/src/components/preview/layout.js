@@ -36,12 +36,7 @@ exports.getResourcePageUrl = (
   if (resource.pageUrl) {
     return resource.pageUrl
   }
-  if (process.env.NODE_ENV !== 'production') {
-    throw new Error(`resource.pageUrl not defined for ${resource.id}`)
-  } else {
-    console.error('WARNING: INVALID RESOURCE PAGE URL', resource)
-    return `#ERROR_INVALID_RESOURCE_URL_${resource.id}`
-  }
+  throw new Error(`resource.pageUrl not defined for ${resource.id}`)
 }
 
 exports.getTopicPageUrl = (
@@ -58,17 +53,7 @@ exports.getTopicPageUrl = (
   if (topic.pageUrl) {
     return topic.pageUrl
   }
-  if (process.env.NODE_ENV !== 'production') {
-    throw new Error(
-      `topic.pageUrl not defined for ${topic.id} (lang = ${lang})`,
-    )
-  } else {
-    console.error('WARNING: INVALID TOPIC PAGE URL', {
-      topicId: topic.id,
-      lang,
-    })
-    return `#ERROR_INVALID_TOPIC_URL_${lang}_${topic.id}`
-  }
+  throw new Error(`topic.pageUrl not defined for ${topic.id} (lang = ${lang})`)
 }
 
 const globalPageUrl = (exports.globalPageUrl = (
@@ -88,12 +73,7 @@ const globalPageUrl = (exports.globalPageUrl = (
   // See 'pageUrls' config, each one is injected by server through 'REACT_APP_PAGE_URL_{key}'
   const urlTemplate = process.env[`REACT_APP_PAGE_URL_${lang}_${key}`] || ''
   if (!urlTemplate) {
-    if (process.env.NODE_ENV !== 'production') {
-      throw new Error(`Global page URL not defined for ${key} (lang = ${lang})`)
-    } else {
-      console.error('WARNING: INVALID GLOBAL PAGE URL', { key, lang })
-      return `#ERROR_INVALID_TOPIC_URL_${lang}_${key}`
-    }
+    throw new Error(`Global page URL not defined for ${key} (lang = ${lang})`)
   }
   const url = slug ? urlTemplate.replace(/\$resourcesSlug/g, slug) : urlTemplate
   return hash ? `${publicUrl}/${url}#${hash}` : `${publicUrl}/${url}`

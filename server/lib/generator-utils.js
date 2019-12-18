@@ -333,7 +333,7 @@ exports.getAllUrls = async options => {
       ? key === 'topic'
         ? _getTopicPageUrl(resource, topics, options)
         : _getResourcePageUrl(resource, key, topics, options)
-      : globalPageUrl(key, null, hash)(options)
+      : _getGlobalPageUrl(key, hash, options)
     children = children.map(args => getPageDescription(...args))
     return {
       url,
@@ -379,11 +379,33 @@ exports.getAllUrls = async options => {
   return urls
 }
 
+const _getGlobalPageUrl = (key, hash, options) => {
+  try {
+    return globalPageUrl(key, null, hash)(options)
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('WARNING: INVALID GLOBAL PAGE URL', {
+      key,
+      lang: options.lang,
+      err,
+    })
+    return `#ERROR_INVALID_TOPIC_URL_${options.lang}_${key}`
+  }
+}
+
 const _getTopicPageUrl = (topic, topics, options) => {
   try {
     return getTopicPageUrl(topic, options)
   } catch (err) {
     exports.populatePageUrl('topic', topics, options)(topic)
+    if (!topic.pageUrl) {
+      // eslint-disable-next-line no-console
+      console.error('WARNING: INVALID TOPIC PAGE URL', {
+        topicId: topic.id,
+        lang: options.lang,
+      })
+      return `#ERROR_INVALID_TOPIC_URL_${options.lang}_${topic.id}`
+    }
     return topic.pageUrl
   }
 }
@@ -393,6 +415,11 @@ const _getResourcePageUrl = (resource, key, topics, options) => {
     return getResourcePageUrl(resource, options)
   } catch (err) {
     exports.populatePageUrl(key, topics, options)(resource)
+    if (!resource.pageUrl) {
+      // eslint-disable-next-line no-console
+      console.error('WARNING: INVALID RESOURCE PAGE URL', resource)
+      return `#ERROR_INVALID_RESOURCE_URL_${resource.id}`
+    }
     return resource.pageUrl
   }
 }

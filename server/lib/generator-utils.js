@@ -359,6 +359,7 @@ exports.getAllUrls = async options => {
     ],
   })
   addPage('legals.title', 'legals')
+  addPage('a11y.title', 'a11y')
   // Topics & resources
   for (const topic of topics) {
     const resources = await exports.getTopicResources(topic, !options.preview)

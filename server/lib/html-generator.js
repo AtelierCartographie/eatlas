@@ -55,6 +55,7 @@ const HomePage = require(`${PREVIEW_DIR}/HomePage`)
 const SearchPage = require(`${PREVIEW_DIR}/SearchPage`)
 const AboutPage = require(`${PREVIEW_DIR}/AboutPage`)
 const LegalsPage = require(`${PREVIEW_DIR}/LegalsPage`)
+const A11yPage = require(`${PREVIEW_DIR}/A11yPage`)
 const NotFoundPage = require(`${PREVIEW_DIR}/NotFoundPage`)
 const SitemapPage = require(`${PREVIEW_DIR}/SitemapPage`)
 const LexiconPage = require(`${PREVIEW_DIR}/LexiconPage`)
@@ -64,6 +65,7 @@ const GENERATORS = {
   search: 'generateSearchHTML',
   about: 'generateAboutHTML',
   legals: 'generateLegalsHTML',
+  a11y: 'generateA11yHTML',
   sitemap: 'generateSitemapHTML',
   topic: 'generateTopicHTML',
   article: 'generateArticleHTML',
@@ -444,6 +446,14 @@ exports.generateLegalsHTML = async (
 ) => {
   props = await menuProps(props, { preview, lang })
   return render(LegalsPage, props, { page: 'legals', preview, lang })
+}
+
+exports.generateA11yHTML = async (
+  { preview = false, lang = 'fr' } = {},
+  props = {},
+) => {
+  props = await menuProps(props, { preview, lang })
+  return render(A11yPage, props, { page: 'a11y', preview, lang })
 }
 
 exports.generateSitemapHTML = async (

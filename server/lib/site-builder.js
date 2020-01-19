@@ -114,6 +114,7 @@ const rebuildLangHTML = async lang => {
     writePage('search', null, topics, localeArticles, params),
     writePage('about', null, topics, localeArticles, params),
     writePage('legals', null, topics, localeArticles, params),
+    writePage('a11y', null, topics, localeArticles, params),
     writePage('sitemap', null, topics, localeArticles, params),
     writePage('notFound', null, topics, localeArticles, params),
     writePage('definition', null, topics, localeArticles, params),

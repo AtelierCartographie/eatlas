@@ -74,6 +74,8 @@
       "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
     "legals":
       "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
+    "a11y":
+      "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
     "sitemap":
       "An open access atlas made by Sciences Po. World Atlas of Global Issues brings together more than 200 maps and charts",
     "notFound":
@@ -85,6 +87,7 @@
     "search": "/assets/img/page-image/social.png",
     "about": "/assets/img/page-image/social.png",
     "legals": "/assets/img/page-image/social.png",
+    "a11y": "/assets/img/page-image/social.png",
     "sitemap": "/assets/img/page-image/social.png",
     "notFound": "/assets/img/page-image/social.png",
     "topic": "/assets/img/page-image/social.png"

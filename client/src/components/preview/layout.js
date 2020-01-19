@@ -152,6 +152,10 @@ exports.aPropos = [
     url: globalPageUrl('legals'),
   },
   {
+    text: 'a11y.title',
+    url: globalPageUrl('a11y'),
+  },
+  {
     text: 'home.sitemap',
     url: globalPageUrl('sitemap'),
   },

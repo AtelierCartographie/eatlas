@@ -6,6 +6,7 @@
 
 const h = require('react-hyperscript')
 const { FormattedMessage: T, injectIntl } = require('react-intl')
+const { globalPageUrl } = require('./layout')
 
 const Head = require('./Head')
 const Body = require('./Body')
@@ -28,7 +29,43 @@ const intlList = (intl, prefix, baseParams = {}) => {
   return elements
 }
 
-const Content = ({ intl }) => {
+// Content served when we have (almost) no translations available
+const LightContent = ({ intl, options }) => {
+  return h('article.container.A11yPage', [
+    h('h1', { id: 'a11y-main-content' }, h(T, { id: 'a11y.title' })),
+
+    ...intlList(intl, 'a11y.light-content-intro').map(t => h('p', {}, t)),
+
+    h('h2', {}, h(T, { id: 'a11y.contact-title' })),
+    ...intlList(intl, 'a11y.contact-line').map(t =>
+      h(Html, { component: 'p' }, [t]),
+    ),
+
+    h(
+      'h2',
+      {},
+      h(
+        'a',
+        {
+          href: globalPageUrl('a11y')({
+            ...options,
+            lang: intl.formatMessage({ id: 'a11y.light-content-link-lang' }),
+          }),
+        },
+        h(T, { id: 'a11y.light-content-link-title' }),
+      ),
+    ),
+  ])
+}
+
+const Content = ({ intl, options }) => {
+  const useLightContent = !['no', 'a11y.use-light-content'].includes(
+    intl.formatMessage({ id: 'a11y.use-light-content' }),
+  )
+  if (useLightContent) {
+    return h(LightContent, { intl, options })
+  }
+
   return h('article.container.A11yPage', [
     h('h1', { id: 'a11y-main-content' }, h(T, { id: 'a11y.title' })),
 

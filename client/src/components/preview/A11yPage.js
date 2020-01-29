@@ -72,16 +72,6 @@ const Content = ({ intl }) => {
       ),
     ),
 
-    h('h2', {}, h(T, { id: 'a11y.who-title' })),
-    ...intlList(intl, 'a11y.who-line').map(t =>
-      h(Html, { component: 'p' }, [t]),
-    ),
-
-    h('h2', {}, h(T, { id: 'a11y.who-title' })),
-    ...intlList(intl, 'a11y.who-line').map(t =>
-      h(Html, { component: 'p' }, [t]),
-    ),
-
     h('h2', {}, h(T, { id: 'a11y.tier-title' })),
     ...intlList(intl, 'a11y.tier-line').map(t =>
       h(Html, { component: 'p' }, [t]),

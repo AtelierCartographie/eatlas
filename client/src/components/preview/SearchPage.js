@@ -334,7 +334,7 @@ const Search = ({ topics, types, locales, keywords, options, intl }) =>
             }),
             h('button', [
               h('img', {
-                alt: '',
+                alt: intl.formatMessage({ id: 'fo.search.label' }),
                 src: prefixUrl(`/assets/img/search-white.svg`, options.preview),
               }),
             ]),

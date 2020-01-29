@@ -13,7 +13,7 @@ const Html = require('./Html')
 
 const intlList = (intl, prefix, baseParams = {}) => {
   let elements = []
-  for (i = 1; `${prefix}${i}` in intl.messages; i++) {
+  for (let i = 1; `${prefix}${i}` in intl.messages; i++) {
     let params = { ...baseParams }
     if (`${prefix}${i}-link` in intl.messages) {
       const href = intl.formatMessage({ id: `${prefix}${i}-link` })

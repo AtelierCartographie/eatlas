@@ -128,7 +128,8 @@ const ArticleList = ({ articles, options, lang }) => {
 const Topic = ({ topic, title, topics, articles, resources, options, lang }) =>
   h('article.TopicPage', [
     h(TopicHeader, { topic, title, resources, options }),
-    h(Summaries, { id: 'topic-main-content', doc: topic }),
+    h('a#topic-main-content'),
+    h(Summaries, { doc: topic }),
     h(ArticleList, {
       articles: articles.filter(a => a.topic === topic.id),
       topics,

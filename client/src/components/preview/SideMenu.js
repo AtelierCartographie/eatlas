@@ -89,7 +89,12 @@ exports.SideMenu = injectIntl((
       options.hideLangSelector ? null : h(LangSelector, { logoColor, options }),
       options.hideSearchToggle
         ? null
-        : h(SearchToggle, { logoColor, open: true, options }),
+        : h(SearchToggle, {
+            logoColor,
+            open: true,
+            options,
+            id: 'sidemenu-search-form',
+          }),
       h('h2.navmenu-title', {}, h(T, { id: 'fo.nav-summary' })),
       h(Topics, { topics, options, intl }),
       h('h2.navmenu-title', {}, h(T, { id: 'fo.nav-resources' })),

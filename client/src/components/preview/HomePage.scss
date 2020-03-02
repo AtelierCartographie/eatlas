@@ -353,7 +353,7 @@
         background-blend-mode: normal;
       }
       .caption {
-        background-color: rgba(94, 103, 118, 0.5);
+        background-color: rgba(94, 103, 118, 0.73);
         text-shadow: none;
       }
     }
@@ -390,7 +390,7 @@
       font-size: 2.1rem;
       font-weight: bold;
       color: $color-white;
-      background-color: rgba(94, 103, 118, 0.5);
+      background-color: rgba(94, 103, 118, 0.73);
 
       &:focus,
       &:hover {

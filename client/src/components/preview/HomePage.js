@@ -237,7 +237,7 @@ const Home = ({ topics, articles, options, intl }) => {
           h(
             'a.button.btn',
             {
-              href: process.env.REACT_APP_CONTACT_URL,
+              href: 'https://goo.gl/forms/ei1BDbWq7CDQmwfL2',
               target: '_blank',
               title: `${intl.formatMessage(
                 { id: 'fo.link-new-window-title' },

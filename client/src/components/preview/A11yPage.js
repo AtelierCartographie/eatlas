@@ -109,6 +109,11 @@ const Content = ({ intl, options }) => {
       ),
     ),
 
+    h('h2', {}, h(T, { id: 'a11y.results-title' })),
+    ...intlList(intl, 'a11y.results-line').map(t =>
+      h(Html, { component: 'p' }, [t]),
+    ),
+
     h('h2', {}, h(T, { id: 'a11y.tier-title' })),
     ...intlList(intl, 'a11y.tier-line').map(t =>
       h(Html, { component: 'p' }, [t]),

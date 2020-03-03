@@ -46,13 +46,15 @@
   "pages-item12": "Mentions légales : {link}",
   "pages-item12-link": "https://espace-mondial-atlas.sciencespo.fr/fr/mentions-legales.html",
 
+  "results-title": "Résultats des tests",
+  "results-line1": "L'audit du site révèle une conformité globale au RGAA de 92% (102 critères, 48 critères validés, 4 non validés et 50 non applicables).",
+
   "tier-title": "Composants tiers dérogés",
   "tier-line1": "Aucun.",
 
   "improper-title": "Liste des critères non conformes",
-  "improper-item1": "Critère 3.3 [AA] Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé (hors cas particuliers) ?",
+  "improper-item1": "Critère 3.3 [AA] Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
   "improper-item2": "Critère 10.4 [AA] Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200%, au moins (hors cas particuliers) ?",
-  "improper-item3": "Critère 13.17 [A] Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
 
   "right-title": "Droit à la compensation",
   "right-line1": "Il est important de rappeler qu’en vertu de l’article 11 de la loi de février 2005 :",

@@ -1,8 +1,0 @@
-{
-    "emmet.syntaxProfiles": {
-        "javascript": "jsx"
-    },
-    "flow.useNPMPackagedFlow": true,
-    "flow.enabled": true,
-    "javascript.validate.enable": false
-}

@@ -5,3 +5,7 @@ dist/
 dist-prod/
 *.log
 .DS_Store
+
+# Dépendances et images WebP générées (node tools/convert-webp.mjs)
+node_modules/
+webp/

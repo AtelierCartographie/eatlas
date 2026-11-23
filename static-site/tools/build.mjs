@@ -293,6 +293,73 @@ const useHomepageBios = (html) => {
 const readJson = (f) => (existsSync(path.join(DATA, f)) ? JSON.parse(require('node:fs').readFileSync(path.join(DATA, f), 'utf8')) : {})
 const LINK_FIXES = { ...readJson('link-fixes.json'), ...readJson('link-fixes-manual.json') }
 
+// ---------------------------------------------------------------- images WebP
+// Affichage en WebP (webp/, produit par tools/convert-webp.mjs) ; les fichiers proposés
+// au téléchargement (<a download>) restent en JPEG d'origine, intacts.
+const WEBP_DIR = path.join(ROOT, 'webp')
+const isDisplayJpeg = (f) => /-(small|medium|large)-[123]x\.jpe?g$/.test(f) && !f.includes('-full-')
+const DOWNLOAD_RE = /<a\b[^>]*\sdownload="[^"]*"[^>]*>/g
+
+/** Fichiers de media/ cibles d'un lien de téléchargement, dans l'ensemble du site. */
+const downloadTargets = async () => {
+  const set = new Set()
+  const scan = async (dir) => {
+    for (const e of await fs.readdir(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name)
+      if (e.isDirectory()) {
+        if (e.name !== 'media' && e.name !== 'backoffice') await scan(p)
+      } else if (e.name.endsWith('.html')) {
+        for (const [tag] of (await fs.readFile(p, 'utf8')).matchAll(DOWNLOAD_RE)) {
+          const href = (tag.match(/\shref="[^"]*\/media\/([^"]+)"/) || [])[1]
+          if (href) set.add(safeDecode(href))
+        }
+      }
+    }
+  }
+  await scan(MIRROR)
+  return set
+}
+
+const buildMedia = async () => {
+  const src = path.join(MIRROR, 'media')
+  const dest = path.join(OUT, 'media')
+  if (!existsSync(src)) throw new Error('mirror/media/ absent : voir README (archive de la release)')
+  await fs.mkdir(dest, { recursive: true })
+  const downloads = await downloadTargets()
+  const copy = (from, to) => fs.copyFile(from, to, require('node:fs').constants.COPYFILE_FICLONE)
+  // 1. Toutes les images WebP (webp/). Permet aussi de reconstruire le site à partir de
+  //    son archive, où les JPEG d'affichage n'existent plus.
+  const webps = existsSync(WEBP_DIR) ? (await fs.readdir(WEBP_DIR)).filter((f) => f.endsWith('.webp')) : []
+  for (const w of webps) {
+    await copy(path.join(WEBP_DIR, w), path.join(dest, w))
+    count('images : affichage en WebP')
+  }
+  const webpSet = new Set(webps)
+  // 2. Fichiers d'origine : téléchargements (JPEG intacts), PNG ; JPEG d'affichage écartés
+  const missing = []
+  for (const f of await fs.readdir(src)) {
+    if (f.startsWith('.') || f.endsWith('.webp')) continue
+    if (isDisplayJpeg(f)) {
+      if (!webpSet.has(f.replace(/\.jpe?g$/, '.webp'))) missing.push(f)
+      if (!downloads.has(f)) continue
+      count('images : JPEG conservé pour téléchargement')
+    } else {
+      count(f.includes('-full-') ? 'images : cartes à télécharger (JPEG d’origine)' : 'images : autres (PNG…) inchangées')
+    }
+    await copy(path.join(src, f), path.join(dest, f))
+  }
+  if (missing.length) throw new Error(`${missing.length} images sans WebP : lancer node tools/convert-webp.mjs (ex. ${missing[0]})`)
+}
+
+/** Références aux images d'affichage -> .webp, sauf dans les liens de téléchargement. */
+const useWebp = (html) => {
+  const kept = []
+  html = html.replace(DOWNLOAD_RE, (m) => `\u0000${kept.push(m) - 1}\u0000`)
+  html = replaceCounted(html, 'images : références passées en WebP',
+    /(\/media\/[^"'\s(),]*-(?:small|medium|large)-[123]x)\.jpe?g/g, (_, p) => `${p}.webp`)
+  return html.replace(/\u0000(\d+)\u0000/g, (_, i) => kept[Number(i)])
+}
+
 // ---------------------------------------------------------------- SEO
 const escAttr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 const pageUrl = (rel) => `${SITE}/${rel.split('/').map((s) => encodeURIComponent(s).replace(/%28/g, '(').replace(/%29/g, ')')).join('/')}`
@@ -430,7 +497,13 @@ const pageText = (html) => {
 }
 
 const buildSearchIndex = async () => {
-  const S = require(path.join(STATIC_SRC, 'assets/js/static-search.js'))
+  // Fichier UMD destiné au navigateur : évalué ici comme un module CommonJS
+  // (le package.json est en "type": "module", require() le lirait comme de l'ESM)
+  const S = (() => {
+    const module = { exports: {} }
+    new Function('module', 'exports', require('node:fs').readFileSync(path.join(STATIC_SRC, 'assets/js/static-search.js'), 'utf8'))(module, module.exports)
+    return module.exports
+  })()
   const stopwordList = [
     ...JSON.parse(await fs.readFile(path.join(CONFIG_DIR, 'stopwords-fr.json'), 'utf8')),
     ...JSON.parse(await fs.readFile(path.join(CONFIG_DIR, 'stopwords-en.json'), 'utf8')),
@@ -461,7 +534,7 @@ const buildSearchIndex = async () => {
       language: hit.language,
       topic: topicOf.has(hit.url || `def:${hit.title}`) ? topicOf.get(hit.url || `def:${hit.title}`) : null,
       url: encodePath(filePath),
-      preview: hit.preview ? encodePath(toRootPath(hit.preview.url)) : null,
+      preview: hit.preview ? encodePath(toRootPath(hit.preview.url).replace(/(-(?:small|medium|large)-[123]x)\.jpe?g$/, '$1.webp')) : null,
       extra: hit.extra,
     })
     let body = ''
@@ -525,12 +598,17 @@ const walk = async (dir, base = '') => {
 if (!existsSync(MIRROR)) throw new Error('Dossier mirror/ absent : lancer d’abord node tools/crawl.mjs')
 log(`Build ${PROD ? 'PRODUCTION (GTM actif)' : 'local (sans mesure d’audience)'} -> ${path.relative(ROOT, OUT)}/`)
 await fs.rm(OUT, { recursive: true, force: true })
-// Copie rapide (clones APFS sur macOS, copie classique ailleurs)
-try {
-  execFileSync('cp', ['-Rc', MIRROR, OUT])
-} catch {
-  execFileSync('cp', ['-R', MIRROR, OUT])
+// Copie rapide (clones APFS sur macOS, copie classique ailleurs), sans media/ : traité à part
+await fs.mkdir(OUT, { recursive: true })
+for (const entry of await fs.readdir(MIRROR)) {
+  if (entry === 'media' || entry === 'backoffice') continue
+  try {
+    execFileSync('cp', ['-Rc', path.join(MIRROR, entry), OUT])
+  } catch {
+    execFileSync('cp', ['-R', path.join(MIRROR, entry), OUT])
+  }
 }
+await buildMedia()
 await fs.rm(path.join(OUT, 'backoffice'), { recursive: true, force: true })
 await fs.rm(path.join(OUT, '.DS_Store'), { force: true })
 // Librairies locales (remplacent cdnjs, Google Fonts et l'ancien Bootstrap 3.3.7)
@@ -543,6 +621,7 @@ for (const rel of htmlFiles) {
   const file = path.join(OUT, rel)
   let html = await fs.readFile(file, 'utf8')
   html = fixContent(html, rel)
+  html = useWebp(html)
   html = seo(html, rel)
   html = wireSearchPage(html, rel)
   html = rewriteLinks(html, rel)
@@ -564,6 +643,7 @@ const required = [
   'équipe : Academia L. Maertens (nouvelle adresse)', 'équipe : twitter.com -> x.com',
   'contact : goo.gl -> Google Forms', 'pages de recherche branchées sur l’index statique',
   ...VENDOR.map(([k]) => k), 'bios : coquilles corrigées', 'bios : page About EN alignée sur l’accueil',
+  'images : affichage en WebP', 'images : références passées en WebP',
   'SEO : meta description', 'SEO : canonical', 'SEO : hreflang complétés', 'SEO : liens de citation réparés',
 ]
 const missingFixes = required.filter((k) => !stats[k])

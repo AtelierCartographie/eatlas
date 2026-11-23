@@ -59,6 +59,8 @@ for (const f of html) {
   for (const m of body.matchAll(/\s(?:href|src|poster|action|data-search-page-url)="([^"]*)"/gi)) check(f, m[1])
   for (const m of body.matchAll(/\ssrcset="([^"]*)"/gi)) m[1].split(',').forEach((p) => check(f, p.trim().split(/\s+/)[0]))
   for (const m of body.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/gi)) check(f, m[1])
+  // Images d'affichage : WebP partout, JPEG seulement derrière un lien de téléchargement
+  if (/-(small|medium|large)-[123]x\.jpe?g/.test(body.replace(/<a\b[^>]*\sdownload="[^"]*"[^>]*>/g, ''))) forbidden.push(path.relative(ROOT, f) + ' (JPEG affiché)')
   // Scripts intégrés : aucune ressource ne doit encore venir du serveur d'origine
   for (const m of body.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) {
     if (/espace-mondial-atlas\.sciencespo\.fr\/(media|assets)\//.test(m[1])) forbidden.push(path.relative(ROOT, f) + ' (script)')

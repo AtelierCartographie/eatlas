@@ -9,7 +9,7 @@ aucun code exécuté côté serveur.
 
 > **Site prêt à déposer** : archive `eatlas-site-statique.zip` de la
 > [release `static-v1`](https://github.com/AtelierCartographie/eatlas/releases/tag/static-v1)
-> (1,4 Go, à décompresser à la racine de l'hébergement). Note pour l'hébergeur :
+> (≈ 1,1 Go, à décompresser à la racine de l'hébergement). Note pour l'hébergeur :
 > [HEBERGEMENT.md](HEBERGEMENT.md).
 
 ## Contenu du dossier `static-site/`
@@ -17,7 +17,7 @@ aucun code exécuté côté serveur.
 | Élément | Rôle |
 | --- | --- |
 | `tools/crawl.mjs` | Aspire le site en ligne vers `mirror/` (toutes les pages FR/EN, médias, CSS/JS). Part des 1 266 ressources publiées listées par l'API : aucune page orpheline oubliée. |
-| `mirror/` | Copie brute du site d'origine (référence, jamais modifiée), **sans** `mirror/media/` (1,3 Go d'images, hors git : voir ci-dessous). |
+| `mirror/` | Copie brute du site d'origine (référence, jamais modifiée), **sans** `mirror/media/` (1,4 Go de JPEG d'origine, hors git : voir [Images](#images)). |
 | `data/` | Métadonnées de recherche extraites de l'ancienne API (types, langues, rubriques, ordre). |
 | `static-src/assets/js/static-search.js` | Moteur de recherche côté navigateur qui remplace l'API Elasticsearch. |
 | `tools/build.mjs` | Construit le site statique à partir de `mirror/` (voir ci-dessous). |
@@ -25,6 +25,7 @@ aucun code exécuté côté serveur.
 | `tools/check-external.mjs` | Teste les 754 liens externes (sources des cartes et articles) -> `data/external-check.json`. |
 | `tools/resolve-dead-links.mjs` | Remplace les liens morts par leur archive Wayback Machine (2018) -> `data/link-fixes.json` ; corrections à la main dans `data/link-fixes-manual.json`, liens restés sans solution dans `data/link-unresolved.json`. |
 | `static-src/assets/vendor/` | jQuery 3.7.1, Bootstrap 3.4.1 (mêmes modules), jasny-bootstrap, slick, picturefill et polices Fira Sans / Gentium Basic (licence OFL), servis par le site lui-même. |
+| `tools/convert-webp.mjs` | Convertit les JPEG d'affichage en WebP dans `webp/` (hors git). |
 | `tools/serve.mjs` | Serveur local de test (statique pur, avec pages 404). |
 | `conf/nginx-eatlas.conf` | Configuration serveur proposée au pôle réseau. |
 | `dist-prod/`, `dist/` | Sorties du build (hors git) : site de production avec Google Tag Manager, et site de test sans mesure d'audience. |
@@ -32,24 +33,44 @@ aucun code exécuté côté serveur.
 
 ## Commandes
 
-Les médias ne sont pas versionnés. Pour reconstruire le site, récupérer d'abord les
-images depuis l'archive de la release (le build ne les modifie pas) :
+Les images ne sont pas versionnées (voir [Images](#images)). Pour reconstruire le site,
+les récupérer d'abord depuis la release `static-v1` :
+
+- **avec les originaux** (`eatlas-media-jpeg-originaux.zip`) : `unzip … -d mirror/`
+  (-> `mirror/media/`), puis `npm run webp` pour régénérer les WebP ;
+- **sans les originaux**, depuis l'archive du site :
+  ```bash
+  unzip eatlas-site-statique.zip 'media/*.webp' -d tmp && mkdir -p webp && mv tmp/media/*.webp webp/
+  unzip eatlas-site-statique.zip 'media/*' -x 'media/*.webp' -d mirror/
+  ```
+
+Depuis le dossier `static-site/` (Node ≥ 18) :
 
 ```bash
-unzip eatlas-site-statique.zip 'media/*' -d mirror/   # -> mirror/media/
+npm install                          # sharp (conversion WebP), seule dépendance
+node tools/crawl.mjs mirror          # aspiration du site d'origine — faite en novembre 2026, ne plus relancer
+npm run webp                         # 1. JPEG d'affichage -> webp/ (incrémental)
+npm run build                        # 2a. build de test -> dist/
+npm run build:prod                   # 2b. build de production -> dist-prod/
+npm run check                        # 3. contrôle des liens de dist-prod/
+npm run serve                        # 4. test local de dist/ : http://localhost:8080/
 ```
 
-Depuis le dossier `static-site/` :
+## Images
 
-```bash
-node tools/crawl.mjs mirror          # 1. aspiration du site d'origine — déjà faite (novembre 2026), ne plus relancer
-node tools/build.mjs                 # 2a. build de test -> dist/
-node tools/build.mjs --prod --out dist-prod   # 2b. build de production -> dist-prod/
-node tools/check-links.mjs dist-prod # 3. contrôle des liens
-node tools/serve.mjs 8080 dist       # 4. test local : http://localhost:8080/
-```
+Chaque image existe en 9 déclinaisons (small/medium/large × 1x/2x/3x, choisies par le
+navigateur selon l'écran) ; les cartes ont en plus des versions « full » à télécharger.
 
-Node ≥ 18, aucune dépendance npm.
+- **Affichage en WebP** (qualité 82) : −45 % de poids, sans différence visible sur les
+  cartes. Le WebP est lu par tous les navigateurs depuis 2020 et par les robots des
+  réseaux sociaux (images de partage), contrairement à l'AVIF.
+- **Téléchargements en JPEG d'origine** : les cartes « full » et les autres fichiers
+  proposés par un lien « télécharger » restent les JPEG de 2018, intacts. Le
+  téléchargement reste un simple lien, sans conversion ni JavaScript.
+- PNG inchangés (le WebP sans perte n'y gagne que 6 %).
+- Bilan : images 1,43 Go -> 1,07 Go (−25 %) ; −47 % sur les images effectivement affichées
+  aux visiteurs. Les 458 déclinaisons « 3x » proposées au téléchargement existent dans les
+  deux formats (WebP pour l'affichage, JPEG pour le téléchargement).
 
 ## Ce que fait le build
 

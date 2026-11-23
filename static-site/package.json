@@ -1,0 +1,16 @@
+{
+  "name": "eatlas-static-site",
+  "private": true,
+  "description": "Version statique d'Espace mondial l'atlas : outils de build",
+  "type": "module",
+  "scripts": {
+    "webp": "node tools/convert-webp.mjs",
+    "build": "node tools/build.mjs",
+    "build:prod": "node tools/build.mjs --prod --out dist-prod",
+    "check": "node tools/check-links.mjs dist-prod",
+    "serve": "node tools/serve.mjs 8080 dist"
+  },
+  "devDependencies": {
+    "sharp": "0.35.5"
+  }
+}

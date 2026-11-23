@@ -16,7 +16,8 @@ simple espace de fichiers statiques (SFTP), comme pour le site de l'Atelier de c
 
 ## Ce dont nous avons besoin
 
-1. **Un espace SFTP** d'environ **1,5 Go** (5 177 fichiers, dont 4 100 images JPEG).
+1. **Un espace SFTP** d'environ **1,2 Go** (5 635 fichiers : 3 700 images WebP pour l'affichage,
+   880 JPEG proposés au téléchargement, 216 PNG).
 2. Le domaine **espace-mondial-atlas.sciencespo.fr** (HTTPS) pointé vers la racine de cet
    espace : les adresses actuelles de toutes les pages sont conservées à l'identique.
 3. Si possible, les règles nginx de [`conf/nginx-eatlas.conf`](conf/nginx-eatlas.conf) :

@@ -1,0 +1,7 @@
+# Médias (1,3 Go) : hors git, fournis en archive dans la release GitHub
+mirror/media
+# Sorties du build
+dist/
+dist-prod/
+*.log
+.DS_Store

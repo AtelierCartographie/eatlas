@@ -1,5 +1,11 @@
 # eatlas
 
+> **Branche `static-site`** : depuis novembre 2026, le site est figé en version statique,
+> sans backoffice ni serveur Node/Elasticsearch. Méthode, scripts et documentation dans
+> [`static-site/`](./static-site/README.md) ; site prêt à déposer dans la
+> [release `static-v1`](https://github.com/AtelierCartographie/eatlas/releases/tag/static-v1).
+> Le reste de ce dépôt (backoffice, générateur) n'est plus utilisé.
+
 **Note :** toutes les commandes indiquées dans ce document sont prévues pour être exécutées depuis la racine du projet, sauf mention contraire (sous la forme `cd server && …`).
 
 ## Dépendances

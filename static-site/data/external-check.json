@@ -1,0 +1,3772 @@
+{
+ "https://www.sciencespo.fr/": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/",
+  "pages": 365
+ },
+ "https://graduateinstitute.academia.edu/LucileMaertens": {
+  "status": 403,
+  "final": "https://graduateinstitute.academia.edu/LucileMaertens",
+  "pages": 4
+ },
+ "https://www.sciencespo.fr/cartographie/fr": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/cartographie/fr",
+  "pages": 2
+ },
+ "https://thomasansart.info": {
+  "status": 200,
+  "final": "https://thomasansart.info/",
+  "pages": 4
+ },
+ "https://references.modernisation.gouv.fr/referentiel/criteres.html": {
+  "status": 0,
+  "error": "ERR_SSL_TLSV1_UNRECOGNIZED_NAME",
+  "pages": 1
+ },
+ "https://www.defenseurdesdroits.fr/fr/le-defenseur-des-droits-en-langue-des-signes-francaise": {
+  "status": 200,
+  "final": "https://www.defenseurdesdroits.fr/le-defenseur-des-droits-en-langue-des-signes-francaise-182",
+  "pages": 1
+ },
+ "https://www.defenseurdesdroits.fr/fr/saisir/delegues": {
+  "status": 200,
+  "final": "https://www.defenseurdesdroits.fr/carte-des-delegues",
+  "pages": 1
+ },
+ "http://www.ilo.org": {
+  "status": 200,
+  "final": "https://www.ilo.org/",
+  "pages": 8
+ },
+ "https://x.com/ThomasAnsart": {
+  "status": 200,
+  "final": "https://x.com/ThomasAnsart",
+  "pages": 4
+ },
+ "https://x.com/antoinerio": {
+  "status": 200,
+  "final": "https://x.com/antoinerio",
+  "pages": 4
+ },
+ "https://x.com/MitranoP": {
+  "status": 200,
+  "final": "https://x.com/MitranoP",
+  "pages": 4
+ },
+ "https://www.issa.int/fr/the-issa": {
+  "status": 403,
+  "final": "https://www.issa.int/fr/the-issa",
+  "pages": 1
+ },
+ "https://www.issa.int/html/10/fr/index.html": {
+  "status": 403,
+  "final": "https://www.issa.int/html/10/fr/index.html",
+  "pages": 2
+ },
+ "http://www.hcch.net": {
+  "status": 200,
+  "final": "https://www.hcch.net/",
+  "pages": 2
+ },
+ "https://formulaire.defenseurdesdroits.fr/code/afficher.php?ETAPE=accueil_2016": {
+  "status": 200,
+  "final": "https://formulaire.defenseurdesdroits.fr/formulaire_saisine/?ETAPE=accueil_2016",
+  "pages": 1
+ },
+ "http://www.ohchr.org/FR/ProfessionalInterest/Pages/CMW.aspx": {
+  "status": 403,
+  "final": "https://www.ohchr.org/FR/ProfessionalInterest/Pages/CMW.aspx",
+  "pages": 1
+ },
+ "http://www.ilo.org/": {
+  "status": 200,
+  "final": "https://www.ilo.org/",
+  "pages": 2
+ },
+ "http://www.ilo.org/wcmsp5/groups/public/---dgreports/---dcomm/---publ/documents/publication/wcms_605074.pdf": {
+  "status": 200,
+  "final": "https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/@publ/documents/publication/wcms_605074.pdf",
+  "pages": 1
+ },
+ "http://www.college-de-france.fr/": {
+  "status": 200,
+  "final": "https://www.college-de-france.fr/fr",
+  "pages": 2
+ },
+ "https://treaties.un.org": {
+  "status": 200,
+  "final": "https://treaties.un.org/",
+  "pages": 8
+ },
+ "http://www.ilo.org/global/about-the-ilo/history/lang--fr/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/fr/propos-de-loit/histoire-de-loit",
+  "pages": 1
+ },
+ "http://www.ilo.org/wcmsp5/groups/public/@dgreports/@dcomm/@publ/documents/publication/wcms_176520.pdf": {
+  "status": 200,
+  "final": "https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/@publ/documents/publication/wcms_176520.pdf",
+  "pages": 2
+ },
+ "http://www.amnesty.org": {
+  "status": 200,
+  "final": "https://www.amnesty.org/en/",
+  "pages": 2
+ },
+ "https://ihej.org/programmes/justice-penale-internationale/les-nouveaux-horizons-de-la-competence-universelle/": {
+  "status": 401,
+  "final": "https://ihej.org/programmes/justice-penale-internationale/les-nouveaux-horizons-de-la-competence-universelle/",
+  "pages": 2
+ },
+ "http://www.deathpenaltyinfo.org": {
+  "status": 200,
+  "final": "https://deathpenaltyinfo.org/",
+  "pages": 2
+ },
+ "http://cns.miis.edu/nam/index.php/meeting": {
+  "status": 200,
+  "final": "http://cns.miis.edu/nam/index.php/meeting",
+  "pages": 2
+ },
+ "http://www.oas.org/en/sla/dil/private_international_law.asp": {
+  "status": 403,
+  "final": "http://www.oas.org/en/sla/dil/private_international_law.asp",
+  "pages": 2
+ },
+ "http://www.ilo.org/global/publications/books/WCMS_626831/lang--fr/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/publications/women-and-men-informal-economy-statistical-picture-third-edition",
+  "pages": 1
+ },
+ "http://www.wto.org": {
+  "status": 200,
+  "final": "https://www.wto.org/",
+  "pages": 3
+ },
+ "http://www.g77.org": {
+  "status": 200,
+  "final": "http://www.g77.org/",
+  "pages": 2
+ },
+ "http://www.tas-cas.org": {
+  "status": 200,
+  "final": "https://www.tas-cas.org/",
+  "pages": 2
+ },
+ "https://www.hcch.net/fr/about": {
+  "status": 200,
+  "final": "https://www.hcch.net/fr/about",
+  "pages": 1
+ },
+ "https://iccwbo.org/resources-for-business/incoterms-rules/incoterms-rules-2010/": {
+  "status": 200,
+  "final": "https://iccwbo.org/news-publications/icc-rules-guidelines/incoterms-rules-2010/",
+  "pages": 2
+ },
+ "http://www.philodroit.be/IMG/pdf/comment_penser_le_droit_global_2011.pdf": {
+  "status": 403,
+  "final": "https://www.philodroit.be/IMG/pdf/comment_penser_le_droit_global_2011.pdf",
+  "pages": 2
+ },
+ "http://www.un.org/fr/documents/view_doc.asp?symbol=A/RES/60/1": {
+  "status": 403,
+  "final": "https://www.un.org/fr/documents/view_doc.asp?symbol=A/RES/60/1",
+  "pages": 1
+ },
+ "http://www.unhcr.org/fr-fr/4aae621e11f": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr-fr/4aae621e11f",
+  "pages": 4
+ },
+ "https://docs.google.com/forms/d/e/1FAIpQLSdXV0kIyFtNLNn0y93HArh26sX3lVIAmLdxo0P4fhO8ZfHrVA/viewform": {
+  "status": 200,
+  "final": "https://docs.google.com/forms/d/e/1FAIpQLSdXV0kIyFtNLNn0y93HArh26sX3lVIAmLdxo0P4fhO8ZfHrVA/viewform",
+  "pages": 2
+ },
+ "http://www.g20.org": {
+  "status": 200,
+  "final": "https://g20.org/",
+  "pages": 4
+ },
+ "http://www.un.org/fr/documents/view_doc.asp?symbol=A/RES/46/182": {
+  "status": 403,
+  "final": "https://www.un.org/fr/documents/view_doc.asp?symbol=A/RES/46/182",
+  "pages": 1
+ },
+ "https://www.flickr.com/photos/un_photo/30057906318/in/album-72157614476504440/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/un_photo/30057906318/in/album-72157614476504440/",
+  "pages": 2
+ },
+ "http://www.un.org": {
+  "status": 200,
+  "final": "https://www.un.org/",
+  "pages": 16
+ },
+ "http://www.duihua.org": {
+  "status": 200,
+  "final": "https://duihua.org/",
+  "pages": 2
+ },
+ "http://www.msf.org/": {
+  "status": 200,
+  "final": "https://www.msf.org/",
+  "pages": 2
+ },
+ "https://www.caritas.org/qui-sommes-nous/?lang=fr": {
+  "status": 520,
+  "final": "https://www.caritas.org/qui-sommes-nous/?lang=fr",
+  "pages": 1
+ },
+ "https://www.msf.fr/histoire-sommaire-book-page/1971-creation-medecins-sans-frontieres": {
+  "status": 200,
+  "final": "https://www.msf.fr/decouvrir-msf/notre-histoire",
+  "pages": 1
+ },
+ "http://www.unocha.org/": {
+  "status": 202,
+  "final": "http://www.unocha.org/",
+  "pages": 2
+ },
+ "https://www.transparency.org/files/content/tool/Pacte_dIntegrite_Brochure_FR.pdf": {
+  "status": 404,
+  "final": "https://www.transparency.org/en/files/content/tool/Pacte-dIntegrite-Brochure-FR.pdf",
+  "pages": 1
+ },
+ "https://www.icrc.org/": {
+  "status": 200,
+  "final": "https://www.icrc.org/en",
+  "pages": 2
+ },
+ "http://stat.wto.org": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "http://www.secours-islamique.org": {
+  "status": 200,
+  "final": "https://sif.org/",
+  "pages": 2
+ },
+ "http://www.soschretiensdorient.fr/qui-sommes-nous/": {
+  "status": 404,
+  "final": "http://www.soschretiensdorient.fr/qui-sommes-nous/",
+  "pages": 2
+ },
+ "http://www.un.org/en/peacekeeping/resources/statistics/factsheet.shtml": {
+  "status": 404,
+  "final": "https://www.un.org/en/peacekeeping/resources/statistics/factsheet.shtml",
+  "pages": 1
+ },
+ "https://fts.unocha.org": {
+  "status": 406,
+  "final": "https://fts.unocha.org/",
+  "pages": 2
+ },
+ "https://www.icij.org/investigations/panama-papers/": {
+  "status": 200,
+  "final": "https://www.icij.org/investigations/panama-papers/",
+  "pages": 2
+ },
+ "http://unfccc.int": {
+  "status": 200,
+  "final": "https://unfccc.int/",
+  "pages": 2
+ },
+ "https://offshoreleaks.icij.org/": {
+  "status": 200,
+  "final": "https://offshoreleaks.icij.org/",
+  "pages": 2
+ },
+ "http://www.financialsecrecyindex.com": {
+  "status": 200,
+  "final": "https://fsi.taxjustice.net/",
+  "pages": 2
+ },
+ "https://www.secours-islamique.org/index.php/qui-sommes-nous/25-ans-d-actions.html": {
+  "status": 404,
+  "final": "https://sif.org/index.php/qui-sommes-nous/25-ans-d-actions.html",
+  "pages": 1
+ },
+ "https://www.msf.fr/actualite/dossiers/attaque-sur-hopital-kunduz-en-afghanistan": {
+  "status": 200,
+  "final": "https://www.msf.fr/decouvrir-msf/nos-operations/afghanistan-soins-de-traumatologie-a-kunduz",
+  "pages": 1
+ },
+ "http://www.unep.org": {
+  "status": 403,
+  "final": "https://www.unep.org/",
+  "pages": 2
+ },
+ "http://stat.wto.org/Home/WSDBHome.aspx?Language=": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://www.icrc.org/fr/document/le-cicr-150-ans-daction-humanitaire": {
+  "status": 200,
+  "final": "https://www.icrc.org/fr/document/le-cicr-150-ans-daction-humanitaire",
+  "pages": 1
+ },
+ "https://mymun.com": {
+  "status": 200,
+  "final": "https://mymun.com/",
+  "pages": 2
+ },
+ "https://www.wto.org/french/res_f/booksp_f/world_trade_report17_f.pdf": {
+  "status": 200,
+  "final": "https://www.wto.org/french/res_f/booksp_f/world_trade_report17_f.pdf",
+  "pages": 1
+ },
+ "http://www.lloydslist.com": {
+  "status": 200,
+  "final": "https://www.lloydslist.com/",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:G20_Turkey_Leaders_Summit_-_Working_Dinner_(22634210727).jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:G20_Turkey_Leaders_Summit_-_Working_Dinner_(22634210727).jpg",
+  "pages": 2
+ },
+ "https://barakacity.com/qui-sommes-nous/notre-histoire/": {
+  "status": 200,
+  "final": "https://caladiumgroup.com/brochure/",
+  "pages": 2
+ },
+ "http://www.un.org/esa/forests": {
+  "status": 200,
+  "final": "https://forests.desa.un.org/",
+  "pages": 2
+ },
+ "http://csonet.org/index.php?menu=128": {
+  "status": 403,
+  "final": "https://csonet.org/?menu=128",
+  "pages": 3
+ },
+ "https://www.wto.org/french/docs_f/legal_f/havana_f.pdf": {
+  "status": 200,
+  "final": "https://www.wto.org/french/docs_f/legal_f/havana_f.pdf",
+  "pages": 2
+ },
+ "https://www.cairn.info/dictionnaire-du-commerce-equitable--9782759217939.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/dictionnaire-du-commerce-equitable--9782759217939.htm",
+  "pages": 2
+ },
+ "https://comtrade.un.org/": {
+  "status": 200,
+  "final": "https://comtrade.un.org/fr/",
+  "pages": 2
+ },
+ "https://www.wto.org/english/res_e/booksp_e/dispu_settl_1995_2017_e.pdf": {
+  "status": 200,
+  "final": "https://www.wto.org/english/res_e/booksp_e/dispu_settl_1995_2017_e.pdf",
+  "pages": 2
+ },
+ "https://www.wto.org/english/res_e/statis_e/wts_e.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/english/res_e/statis_e/wts_e.htm",
+  "pages": 2
+ },
+ "https://www.wto.org/french/thewto_f/minist_f/minist_f.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/french/thewto_f/minist_f/minist_f.htm",
+  "pages": 1
+ },
+ "https://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530": {
+  "status": 200,
+  "final": "https://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100830530",
+  "pages": 4
+ },
+ "https://www.wto.org/french/res_f/booksp_f/world_trade_report16_f.pdf": {
+  "status": 200,
+  "final": "https://www.wto.org/french/res_f/booksp_f/world_trade_report16_f.pdf",
+  "pages": 1
+ },
+ "https://www.pexels.com/photo/white-water-boat-753331/": {
+  "status": 403,
+  "final": "https://www.pexels.com/photo/white-water-boat-753331/",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/hague-holland-june-3-women-srebrenica-79356910?src=b47da-YEtSQVDIEBQSdtIw-2-9": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/hague-holland-june-3-women-srebrenica-79356910?src=b47da-YEtSQVDIEBQSdtIw-2-9",
+  "pages": 2
+ },
+ "https://wsf2018.org/fr/": {
+  "status": 403,
+  "final": "https://wsf2018.org/fr/",
+  "pages": 1
+ },
+ "https://ethique-sur-etiquette.org/": {
+  "status": 200,
+  "final": "https://ethique-sur-etiquette.org/",
+  "pages": 2
+ },
+ "https://www.zerowastefrance.org/fr": {
+  "status": 200,
+  "final": "https://www.zerowastefrance.org/fr",
+  "pages": 1
+ },
+ "https://unstats.un.org/unsd/trade/taskforce/": {
+  "status": 200,
+  "final": "https://unstats.un.org/unsd/trade/taskforce/",
+  "pages": 2
+ },
+ "https://www.fairtrade.net/": {
+  "status": 200,
+  "final": "https://www.fairtrade.net/maxhavelaarfrance-fr.html",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/dgcomsoc/7467932714/in/photolist-cnV7dA-9BdRA5-dHRKTH-qFSJeD-9zCtsz-fu8XNx-dHyHft-qbi6PF-dHz8iX-25FFHuR-274n1zE-pVhD8J-dpQwSJ-9zChSP-dHyMDt-a4hxAB-dHEHVd-fhjoZ9-fMT2tt-dHERyu-dHyKUZ-JVisb7-k8PCNA-pgDGeu-dHzkM6-dHyQM8-dHEySj-RMBEM7-pgEpN8-dHEuJE-qrysQt-a3szev-f8ds9R-dHEvEY-fNxtq-dxYe1S-6WCPrJ-6M5C6E-dHEzGY-dHExUN-6WyMUB-dHyGnH-dHyPek-dHzoNT-dHEQuC-jGZvqv-6WyMtB-8G9aMx-9zCmA4-8G9bq8": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/dgcomsoc/7467932714/in/photolist-cnV7dA-9BdRA5-dHRKTH-qFSJeD-9zCtsz-fu8XNx-dHyHft-qbi6PF-dHz8iX-25FFHuR-274n1zE-pVhD8J-dpQwSJ-9zChSP-dHyMDt-a4hxAB-dHEHVd-fhjoZ9-fMT2tt-dHERyu-dHyKUZ-JVisb7-k8PCNA-pgDGeu-dHzkM6-dHyQM8-dHEySj-RMBEM7-pgEpN8-dHEuJE-qrysQt-a3szev-f8ds9R-dHEvEY-fNxtq-dxYe1S-6WCPrJ-6M5C6E-dHEzGY-dHExUN-6WyMUB-dHyGnH-dHyPek-dHzoNT-dHEQuC-jGZvqv-6WyMtB-8G9aMx-9zCmA4-8G9bq8",
+  "pages": 2
+ },
+ "http://www.ccr-zkr.org/10000000-fr.html": {
+  "status": 404,
+  "final": "https://www.ccr-zkr.org/10000000-fr.html",
+  "pages": 1
+ },
+ "http://www.un.org/esa/ffd/ffd3/index.html": {
+  "status": 200,
+  "final": "https://www.un.org/esa/ffd/ffd3/index.html",
+  "pages": 2
+ },
+ "https://www.bipm.org/fr/worldwide-metrology/metre-convention/": {
+  "status": 200,
+  "final": "https://www.bipm.org/fr/metre-convention",
+  "pages": 1
+ },
+ "http://www.ilo.org/global/about-the-ilo/how-the-ilo-works/lang--fr/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/fr/propos-de-loit/le-fonctionnement-de-loit",
+  "pages": 1
+ },
+ "http://www.fao.org/world-banana-forum/fr/": {
+  "status": 200,
+  "final": "https://www.fao.org/world-banana-forum/fr/",
+  "pages": 1
+ },
+ "http://www.unglobalcompact.org": {
+  "status": 200,
+  "final": "https://unglobalcompact.org/",
+  "pages": 2
+ },
+ "https://social.un.org/ageing-working-group/": {
+  "status": 200,
+  "final": "https://social.desa.un.org/issues/ageing/oewga",
+  "pages": 2
+ },
+ "http://mjp.univ-perp.fr/traites/sdn1919.htm": {
+  "status": 200,
+  "final": "https://mjp.univ-perp.fr/traites/sdn1919.htm",
+  "pages": 1
+ },
+ "http://www.stoptb.org": {
+  "status": 0,
+  "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE",
+  "pages": 2
+ },
+ "http://www.amisdelaterre.org/IMG/pdf/lettre_ouverte_de_soutien_a_la_reparation.pdf": {
+  "status": 404,
+  "final": "https://www.amisdelaterre.org/IMG/pdf/lettre_ouverte_de_soutien_a_la_reparation.pdf",
+  "pages": 2
+ },
+ "https://cerf.un.org/": {
+  "status": 406,
+  "final": "https://cerf.un.org/",
+  "pages": 2
+ },
+ "https://www.unglobalcompact.org/": {
+  "status": 200,
+  "final": "https://unglobalcompact.org/",
+  "pages": 2
+ },
+ "http://measurinworth.com": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=533/533390&key=465&query=Hunanitar%20aid&lang=&sf=date": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=533/533390&key=465&query=Hunanitar%20aid&lang=&sf=date",
+  "pages": 2
+ },
+ "https://www.unocha.org/": {
+  "status": 406,
+  "final": "https://www.unocha.org/",
+  "pages": 2
+ },
+ "https://interagencystandingcommittee.org/iasc-transformative-agenda": {
+  "status": 406,
+  "final": "https://interagencystandingcommittee.org/iasc-transformative-agenda",
+  "pages": 2
+ },
+ "https://interagencystandingcommittee.org/grand-bargain-hosted-iasc": {
+  "status": 406,
+  "final": "https://interagencystandingcommittee.org/grand-bargain-hosted-iasc",
+  "pages": 2
+ },
+ "https://interagencystandingcommittee.org/": {
+  "status": 406,
+  "final": "https://interagencystandingcommittee.org/",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/ungc/9366222438/in/photolist-fgEkBL-cyaLsY-JB65Dj-c2WZ8j-fgEkz3-cyaZtC-4cP27P-aBkK3A-9H6K1v-6Mf86c-7Xkzdo-9ngVG6-6Mjk8h-a63NSK-6Mf85c-4cP23H-aHuEjK-4cP1Qi-jW65iA-aENZfH-jW3JF4-6Mf87H-aFa6pA-7XhktV-fgEkBb-7Xkzn5-cybA9A-cyaZQy-aF59P4-cyb3CS-9scNAb-73skzX-WCpwJn-aF6R8m-fgEmeo-cyby5L-cyaBz9-9ngWdk-cyaWZm-aEPDcX-d6YKQh-jW1wTi-fgq6bT-cybpGh-oNQJVJ-cybrdy-fgq75e-cyaXJY-7Wnvgm-bT9wc6": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/ungc/9366222438/in/photolist-fgEkBL-cyaLsY-JB65Dj-c2WZ8j-fgEkz3-cyaZtC-4cP27P-aBkK3A-9H6K1v-6Mf86c-7Xkzdo-9ngVG6-6Mjk8h-a63NSK-6Mf85c-4cP23H-aHuEjK-4cP1Qi-jW65iA-aENZfH-jW3JF4-6Mf87H-aFa6pA-7XhktV-fgEkBb-7Xkzn5-cybA9A-cyaZQy-aF59P4-cyb3CS-9scNAb-73skzX-WCpwJn-aF6R8m-fgEmeo-cyby5L-cyaBz9-9ngWdk-cyaWZm-aEPDcX-d6YKQh-jW1wTi-fgq6bT-cybpGh-oNQJVJ-cybrdy-fgq75e-cyaXJY-7Wnvgm-bT9wc6",
+  "pages": 2
+ },
+ "http://www.europarl.europa.eu/atyourservice/fr/displayFtu.html?ftuId=FTU_2.6.14.html": {
+  "status": 404,
+  "final": "https://www.europarl.europa.eu/atyourservice/fr/displayFtu.html?ftuId=FTU_2.6.14.html",
+  "pages": 1
+ },
+ "https://www.humanitarianresponse.info/en/about-clusters/what-is-the-cluster-approach": {
+  "status": 406,
+  "final": "https://response.reliefweb.int/about",
+  "pages": 2
+ },
+ "http://finance.blog.lemonde.fr/author/finance/": {
+  "status": 200,
+  "final": "https://www.lemonde.fr/idees/",
+  "pages": 2
+ },
+ "https://unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf": {
+  "status": 200,
+  "final": "https://unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf",
+  "pages": 4
+ },
+ "https://www.unenvironment.org/fr": {
+  "status": 403,
+  "final": "https://www.unep.org/fr",
+  "pages": 3
+ },
+ "https://www.flickr.com/photos/iloasiapacific/6913899345/in/photolist-bwXxp8-bwXy3D-qjbxUs-qvjMhM-E29E9K-AUmv5k-bwWKz8-ihpsJg-odNaNY-9aiRni-cBtyq9-ZotS6a-bwXtKT-dg43VJ-bwXwFF-8VyMMq-bwXytD-fyYsHN-bwXR7X-bwY6rV-fyJ91a-fyYv1w-uK2Hmu-CSFieC-ovhM5Q-E6ZoQ2-eKcbtG-fyYxvu-fyJf26-fyYyuw-bpXTwp-fyJdq6-bpXJyr-cBtwL7-bpXTwz-bpXJyg-bpXJyp-njUha2-DhNwf8-Dhva7w-E4MN4o-Efezs2-EcUCjW-Dhvcny-Eddzrq-EcUCnm-2aigdYm-sG75Jy-2boWiMR-2boWirv": {
+  "status": 403,
+  "final": "https://www.flickr.com/photos/iloasiapacific/6913899345/in/photolist-bwXxp8-bwXy3D-qjbxUs-qvjMhM-E29E9K-AUmv5k-bwWKz8-ihpsJg-odNaNY-9aiRni-cBtyq9-ZotS6a-bwXtKT-dg43VJ-bwXwFF-8VyMMq-bwXytD-fyYsHN-bwXR7X-bwY6rV-fyJ91a-fyYv1w-uK2Hmu-CSFieC-ovhM5Q-E6ZoQ2-eKcbtG-fyYxvu-fyJf26-fyYyuw-bpXTwp-fyJdq6-bpXJyr-cBtwL7-bpXTwz-bpXJyg-bpXJyp-njUha2-DhNwf8-Dhva7w-E4MN4o-Efezs2-EcUCjW-Dhvcny-Eddzrq-EcUCnm-2aigdYm-sG75Jy-2boWiMR-2boWirv",
+  "pages": 2
+ },
+ "http://sites.ina.fr/images-de-crises/": {
+  "status": 200,
+  "final": "https://sites.ina.fr/images-de-crises/",
+  "pages": 4
+ },
+ "https://www.unccd.int/": {
+  "status": 200,
+  "final": "https://www.unccd.int/",
+  "pages": 3
+ },
+ "http://www.un-documents.net/wced-ocf.htm": {
+  "status": 200,
+  "final": "http://www.un-documents.net/wced-ocf.htm",
+  "pages": 2
+ },
+ "http://web.unep.org/environmentassembly/fr/propos-de-lassembl%C3%A9e-des-nations-unies-pour-lenvironnement": {
+  "status": 404,
+  "final": "http://web.unep.org/environmentassembly/fr/propos-de-lassembl%C3%A9e-des-nations-unies-pour-lenvironnement",
+  "pages": 1
+ },
+ "http://www.un-documents.net/agenda21.htm": {
+  "status": 200,
+  "final": "http://www.un-documents.net/agenda21.htm",
+  "pages": 2
+ },
+ "https://www.annualreviews.org/doi/abs/10.1146/annurev-environ-100809-125346": {
+  "status": 403,
+  "final": "https://www.annualreviews.org/doi/abs/10.1146/annurev-environ-100809-125346",
+  "pages": 2
+ },
+ "http://journals.sagepub.com/doi/abs/10.1177/1070496511436278": {
+  "status": 403,
+  "final": "https://journals.sagepub.com/doi/abs/10.1177/1070496511436278",
+  "pages": 2
+ },
+ "https://oceanconference.un.org/": {
+  "status": 200,
+  "final": "https://www.un.org/en/conferences/ocean2022",
+  "pages": 2
+ },
+ "https://www.ecolex.org/": {
+  "status": 200,
+  "final": "https://www.ecolex.org/",
+  "pages": 2
+ },
+ "https://www.mitpressjournals.org/doi/10.1162/GLEP_a_00180": {
+  "status": 403,
+  "final": "https://direct.mit.edu/glep/article/13/3/1/14621/Introduction-The-Institutional-Fragmentation-of",
+  "pages": 2
+ },
+ "http://www.cop21paris.org/": {
+  "status": 200,
+  "final": "https://www.cop21paris.org/",
+  "pages": 4
+ },
+ "https://www.mitpressjournals.org/doi/abs/10.1162/glep.2010.10.1.30": {
+  "status": 403,
+  "final": "https://direct.mit.edu/glep/article/10/1/30/14453/UNEP-in-Global-Environmental-Governance-Design",
+  "pages": 2
+ },
+ "https://www.mitpressjournals.org/doi/abs/10.1162/glep.2008.8.1.14?journalCode=glep": {
+  "status": 403,
+  "final": "https://direct.mit.edu/glep/article/8/1/14/14434/The-Architecture-of-Global-Environmental",
+  "pages": 2
+ },
+ "https://www.bis.org/bcbs/index.htm?m=3%7C14": {
+  "status": 200,
+  "final": "https://www.bis.org/committees/bcbs/overview",
+  "pages": 2
+ },
+ "https://www.cairn.info/histoire-de-l-immigration--9782707135858.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/histoire-de-l-immigration--9782707135858.htm",
+  "pages": 2
+ },
+ "https://missingmigrants.iom.int": {
+  "status": 200,
+  "final": "https://missingmigrants.iom.int/",
+  "pages": 4
+ },
+ "https://www.cairn.info/revue-d-histoire-moderne-et-contemporaine-2005-5-page-30.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-d-histoire-moderne-et-contemporaine-2005-5-page-30.htm",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/un_photo/5737272258/in/album-72157626263145325/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/un_photo/5737272258/in/album-72157626263145325/",
+  "pages": 2
+ },
+ "http://www.insee.fr": {
+  "status": 200,
+  "final": "https://www.insee.fr/fr/accueil",
+  "pages": 2
+ },
+ "http://www.histoire-immigration.fr/ressources/histoire-de-l-immigration/le-film-deux-siecles-d-histoire-de-l-immigration-en-france": {
+  "status": 200,
+  "final": "https://www.histoire-immigration.fr/comprendre-les-migrations/la-france-et-ses-migrations-du-17e-siecle-a-nos-jours",
+  "pages": 2
+ },
+ "http://journals.openedition.org/remi/8236": {
+  "status": 200,
+  "final": "https://journals.openedition.org/remi/8236",
+  "pages": 2
+ },
+ "https://sustainabledevelopment.un.org/rio20.html": {
+  "status": 200,
+  "final": "https://sdgs.un.org/",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/western-union-mobile-atm-pattaya-thailand-607723385?src=l5M5yNYUl8oGXBbhFDPDEw-1-32": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/western-union-mobile-atm-pattaya-thailand-607723385?src=l5M5yNYUl8oGXBbhFDPDEw-1-32",
+  "pages": 2
+ },
+ "http://www.brookings.edu": {
+  "status": 200,
+  "final": "https://www.brookings.edu/",
+  "pages": 2
+ },
+ "https://www.libertyellisfoundation.org/ellis-island-history": {
+  "status": 200,
+  "final": "https://www.statueofliberty.org/ellis-island/",
+  "pages": 2
+ },
+ "http://www.unhcr.org/fr-fr/histoire-du-hcr.html": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr-fr/histoire-du-hcr.html",
+  "pages": 1
+ },
+ "https://www.wdl.org/fr/item/11575/": {
+  "status": 403,
+  "final": "https://www.loc.gov/collections/world-digital-library/about-this-collection/",
+  "pages": 2
+ },
+ "https://www.cambridge.org/core/books/prevention-principle-in-international-environmental-law/93851A7B5838CACCEE5896252BF2D5B1": {
+  "status": 200,
+  "final": "https://www.cambridge.org/core/books/prevention-principle-in-international-environmental-law/93851A7B5838CACCEE5896252BF2D5B1",
+  "pages": 2
+ },
+ "https://missingmigrants.iom.int/": {
+  "status": 200,
+  "final": "https://missingmigrants.iom.int/",
+  "pages": 3
+ },
+ "http://ghsl.jrc.ec.europa.eu": {
+  "status": 200,
+  "final": "https://human-settlement.emergency.copernicus.eu/",
+  "pages": 2
+ },
+ "https://www.iom.int/fr/propos-de-loim": {
+  "status": 404,
+  "final": "https://www.iom.int/fr/propos-de-loim",
+  "pages": 2
+ },
+ "https://libertyellisfoundation.org/about-passenger-search,%20https://www.youtube.com/watch?v=%200YaqSr4qQ44": {
+  "status": 404,
+  "final": "https://www.statueofliberty.org/404/",
+  "pages": 2
+ },
+ "https://together.un.org/fr": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 1
+ },
+ "https://refugeesmigrants.un.org/fr/pacte-mondial-pour-les-migrations": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 3
+ },
+ "http://www.unhcr.org/statistics/unhcrstats/5943e8a34/global-trends-forced-displacement-2016.html": {
+  "status": 403,
+  "final": "https://www.unhcr.org/statistics/unhcrstats/5943e8a34/global-trends-forced-displacement-2016.html",
+  "pages": 2
+ },
+ "http://www.sosmediterranee.fr/": {
+  "status": 200,
+  "final": "https://sosmediterranee.fr/",
+  "pages": 2
+ },
+ "http://www.unhcr.org/fr/58947dc14.pdf": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr/58947dc14.pdf",
+  "pages": 2
+ },
+ "https://frontex.europa.eu/operations/types-of-operations/": {
+  "status": 404,
+  "final": "https://www.frontex.europa.eu/operations/types-of-operations/",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/puissance/content/part3/l-onu-entre-puissance-et-multilateralisme": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/puissance/content/part3/l-onu-entre-puissance-et-multilateralisme",
+  "pages": 2
+ },
+ "https://publications.iom.int/system/files/smuggling_report.pdf": {
+  "status": 404,
+  "final": "https://publications.iom.int/system/files/smuggling_report.pdf",
+  "pages": 2
+ },
+ "http://migration.iom.int/docs/Migrant_Vulnerability_to_Human_Trafficking_and_Exploitation_ExecSummary_November_2017.pdf": {
+  "status": 404,
+  "final": "https://dtm.iom.int/docs/Migrant_Vulnerability_to_Human_Trafficking_and_Exploitation_ExecSummary_November_2017.pdf",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/pathanamthitta-india-aug-17people-watch-rescue-1163480746?src=oftL6isRRzYMab2cZauWnQ-1-21": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/pathanamthitta-india-aug-17people-watch-rescue-1163480746?src=oftL6isRRzYMab2cZauWnQ-1-21",
+  "pages": 2
+ },
+ "http://www.nobelprize.org": {
+  "status": 200,
+  "final": "https://www.nobelprize.org/",
+  "pages": 2
+ },
+ "https://www.iom.int/wmr/world-migration-report-2018": {
+  "status": 200,
+  "final": "https://publications.iom.int/books/world-migration-report-2018",
+  "pages": 2
+ },
+ "https://data.worldbank.org": {
+  "status": 403,
+  "final": "https://data.worldbank.org/",
+  "pages": 9
+ },
+ "https://missingmigrants.iom.int/about": {
+  "status": 404,
+  "final": "https://missingmigrants.iom.int/about",
+  "pages": 2
+ },
+ "https://www.college-de-france.fr/site/francois-heran/inaugural-lecture-2018-04-05-18h00.htm": {
+  "status": 200,
+  "final": "https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/migrations-et-societes/migrations-et-societes",
+  "pages": 2
+ },
+ "https://www.college-de-france.fr/site/francois-heran/course-2018-2019.htm": {
+  "status": 200,
+  "final": "https://www.college-de-france.fr/fr/agenda/cours/pourquoi-migrer",
+  "pages": 2
+ },
+ "https://www.iom.int/fr/migration-de-main-doeuvre": {
+  "status": 200,
+  "final": "https://www.iom.int/fr/migration-de-main-doeuvre",
+  "pages": 2
+ },
+ "http://www.internal-displacement.org": {
+  "status": 200,
+  "final": "https://www.internal-displacement.org/",
+  "pages": 6
+ },
+ "http://www.unhcr.org/fr-fr/protection/migration/4b62aef29/migrations-internationales-developpement-rapport-secretaire-general.html?query=protection%20des%20travailleurs%20migrants": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr-fr/protection/migration/4b62aef29/migrations-internationales-developpement-rapport-secretaire-general.html?query=protection%20des%20travailleurs%20migrants",
+  "pages": 2
+ },
+ "http://www.ilo.org/global/topics/labour-migration/fair-migration-agenda/lang--fr/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/fr/programme-de-migration-equitable",
+  "pages": 2
+ },
+ "http://www.worldbank.org/en/research/brief/migration-and-remittances": {
+  "status": 200,
+  "final": "https://www.worldbank.org/en/research/brief/migration-and-remittances",
+  "pages": 2
+ },
+ "http://www.unhcr.org/fr/convention-1951-relative-statut-refugies.html": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr/convention-1951-relative-statut-refugies.html",
+  "pages": 2
+ },
+ "http://www.unodc.org/unodc/fr/human-trafficking/index.html?ref=menuside": {
+  "status": 200,
+  "final": "https://www.unodc.org/unodc/fr/human-trafficking/index.html?ref=menuside",
+  "pages": 2
+ },
+ "http://www.unhcr.org/fr-fr/591ae6f84.pdf#zoom=95": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr-fr/591ae6f84.pdf",
+  "pages": 1
+ },
+ "https://www.shutterstock.com/fr/image-photo/lesvos-island-greece-29-october-2015-519491944?src=9kBSe1NW2PS9RkIVcI8S4g-1-2": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/lesvos-island-greece-29-october-2015-519491944?src=9kBSe1NW2PS9RkIVcI8S4g-1-2",
+  "pages": 2
+ },
+ "http://www.unhcr.org": {
+  "status": 403,
+  "final": "https://www.unhcr.org/",
+  "pages": 2
+ },
+ "http://www.banquemondiale.org/fr/topic/migrationremittancesdiasporaissues/overview": {
+  "status": 200,
+  "final": "https://www.banquemondiale.org/ext/fr/development-topics",
+  "pages": 2
+ },
+ "http://www.un-documents.net/gpid.htm": {
+  "status": 200,
+  "final": "http://www.un-documents.net/gpid.htm",
+  "pages": 2
+ },
+ "https://www.un.org/development/desa/fr/news/population/contribution_of_migrants_to_sdgs.html": {
+  "status": 500,
+  "final": "https://www.un.org/development/desa/fr/news/population/contribution_of_migrants_to_sdgs.html",
+  "pages": 2
+ },
+ "http://www.internal-displacement.org/": {
+  "status": 200,
+  "final": "https://www.internal-displacement.org/",
+  "pages": 2
+ },
+ "https://www.unocha.org/sites/unocha/files/dms/Documents/OCHA%20on%20Message_Cluster%20Approach_vFR.pdf": {
+  "status": 406,
+  "final": "https://www.unocha.org/sites/unocha/files/dms/Documents/OCHA%20on%20Message_Cluster%20Approach_vFR.pdf",
+  "pages": 1
+ },
+ "http://documents.banquemondiale.org/curated/fr/931361467993181398/pdf/97081-WP-PUBLIC-Box391470B-Migrants-Remittances-France-PUBLIC.pdf": {
+  "status": 404,
+  "final": "https://documents1.worldbank.org/curated/fr/931361467993181398/pdf/97081-WP-PUBLIC-Box391470B-Migrants-Remittances-France-PUBLIC.pdf",
+  "pages": 2
+ },
+ "https://au.int/sites/default/files/treaties/7796-sl-african_union_convention_for_the_protection_and_assistance_of_internally.pdf": {
+  "status": 404,
+  "final": "https://au.int/sites/default/files/treaties/7796-sl-african_union_convention_for_the_protection_and_assistance_of_internally.pdf",
+  "pages": 2
+ },
+ "https://au.int/sites/default/files/treaties/7796-treaty-0039_-_kampala_convention_african_union_convention_for_the_protection_and_assistance_of_internally_displaced_persons_in_africa_f.pdf": {
+  "status": 404,
+  "final": "https://au.int/sites/default/files/treaties/7796-treaty-0039_-_kampala_convention_african_union_convention_for_the_protection_and_assistance_of_internally_displaced_persons_in_africa_f.pdf",
+  "pages": 2
+ },
+ "http://www.unhcr.org/fr-fr/publications/fundraising/58209199f/appel-global-2016-2017-hcr-lengagement-aupres-deplaces-internes.html": {
+  "status": 403,
+  "final": "https://www.unhcr.org/fr-fr/publications/fundraising/58209199f/appel-global-2016-2017-hcr-lengagement-aupres-deplaces-internes.html",
+  "pages": 2
+ },
+ "http://www.internal-displacement.org/assets/publications/2017/20171113-idmc-intro-cross-border-thematic-series.pdf": {
+  "status": 404,
+  "final": "https://www.internal-displacement.org/assets/publications/2017/20171113-idmc-intro-cross-border-thematic-series.pdf",
+  "pages": 2
+ },
+ "http://www.ohchr.org/Documents/ProfessionalInterest/cmw.pdf": {
+  "status": 200,
+  "final": "https://www.ohchr.org/sites/default/files/Documents/ProfessionalInterest/cmw.pdf",
+  "pages": 2
+ },
+ "http://www.internal-displacement.org/assets/publications/2017/20171214-idmc-afghanistan-case-study.pdf": {
+  "status": 404,
+  "final": "https://www.internal-displacement.org/assets/publications/2017/20171214-idmc-afghanistan-case-study.pdf",
+  "pages": 2
+ },
+ "http://books.openedition.org/editionsmsh/9225?lang=fr": {
+  "status": 200,
+  "final": "https://books.openedition.org/editionsmsh/9225?lang=fr",
+  "pages": 2
+ },
+ "http://www.internal-displacement.org/assets/publications/2010/2010-making-the-kampala-convention-work-thematic-fr.pdf": {
+  "status": 404,
+  "final": "https://www.internal-displacement.org/assets/publications/2010/2010-making-the-kampala-convention-work-thematic-fr.pdf",
+  "pages": 2
+ },
+ "http://www.unstats.un.org": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://www.iom.int/sites/default/files/press_release/file/170829_IDP_Framework_LowRes.pdf": {
+  "status": 200,
+  "final": "https://www.iom.int/sites/g/files/tmzbdl486/files/press_release/file/170829_IDP_Framework_LowRes.pdf",
+  "pages": 2
+ },
+ "http://www.c40.org/researches/mckinsey-center-for-business-and-environment": {
+  "status": 403,
+  "final": "http://www.c40.org/researches/mckinsey-center-for-business-and-environment",
+  "pages": 2
+ },
+ "https://publications.iadb.org/handle/11319/8596": {
+  "status": 403,
+  "final": "https://publications.iadb.org/handle/11319/8596",
+  "pages": 2
+ },
+ "http://www.cittaslow.org/": {
+  "status": 200,
+  "final": "https://www.cittaslow.org/",
+  "pages": 2
+ },
+ "https://www.cairn.info/revue-l-information-geographique-2011-1-page-37.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-l-information-geographique-2011-1-page-37.htm",
+  "pages": 2
+ },
+ "https://archive.org/details/lexmercatoriared00beaw": {
+  "status": 200,
+  "final": "https://archive.org/details/lexmercatoriared00beaw",
+  "pages": 2
+ },
+ "http://www.resourcepanel.org/reports/weight-cities": {
+  "status": 200,
+  "final": "https://www.resourcepanel.org/reports/weight-cities",
+  "pages": 2
+ },
+ "https://www.icrc.org/fr/document/personnes-deplacees-linterieur-de-leur-propre-pays-et-droit-international-humanitaire": {
+  "status": 200,
+  "final": "https://www.icrc.org/fr/document/personnes-deplacees-linterieur-de-leur-propre-pays-et-droit-international-humanitaire",
+  "pages": 1
+ },
+ "http://www.sosmediterranee.fr/journal-de-bord": {
+  "status": 200,
+  "final": "http://sosmediterranee.fr/journal-de-bord/",
+  "pages": 2
+ },
+ "http://www.environmentalmigration.iom.int/glossary": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://journals.openedition.org/conflits/18563": {
+  "status": 200,
+  "final": "https://journals.openedition.org/conflits/18563",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/environnement": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/environnement",
+  "pages": 4
+ },
+ "https://www.flickr.com/photos/un_photo/5436319025/in/album-72157626043692541/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/un_photo/5436319025/in/album-72157626043692541/",
+  "pages": 2
+ },
+ "https://www.sciencedirect.com/science/article/pii/S0959378011001403": {
+  "status": 403,
+  "final": "https://www.sciencedirect.com/science/article/pii/S0959378011001403",
+  "pages": 2
+ },
+ "https://www.cairn.info/revue-annales-de-geographie-2012-1-page-86.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-annales-de-geographie-2012-1-page-86.htm",
+  "pages": 2
+ },
+ "http://journals.sagepub.com/doi/abs/10.1177/0967010614552548": {
+  "status": 403,
+  "final": "https://journals.sagepub.com/doi/abs/10.1177/0967010614552548",
+  "pages": 2
+ },
+ "http://www.internal-displacement.org/internal-displacement/context-of-displacement/disasters-and-climate-change/": {
+  "status": 404,
+  "final": "https://www.internal-displacement.org/internal-displacement/context-of-displacement/disasters-and-climate-change/",
+  "pages": 2
+ },
+ "http://www.environmentalmigration.iom.int/": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://www.nanseninitiative.org/": {
+  "status": 0,
+  "error": "ERR_TLS_CERT_ALTNAME_INVALID",
+  "pages": 2
+ },
+ "https://www.iom.int/complex-nexus": {
+  "status": 200,
+  "final": "https://www.iom.int/climate-action",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:A_Brazilian_family_in_Rio_de_Janeiro_by_Jean-Baptiste_Debret_1839.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:A_Brazilian_family_in_Rio_de_Janeiro_by_Jean-Baptiste_Debret_1839.jpg",
+  "pages": 2
+ },
+ "https://www.gov.uk/government/publications/migration-and-global-environmental-change-future-challenges-and-opportunities": {
+  "status": 200,
+  "final": "https://www.gov.uk/government/publications/migration-and-global-environmental-change-future-challenges-and-opportunities",
+  "pages": 2
+ },
+ "https://openknowledge.worldbank.org/handle/10986/29461": {
+  "status": 200,
+  "final": "https://openknowledge.worldbank.org/handle/10986/29461",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/aerial-view-sao-paulo-night-time-164251094?src=vOlfgcWU9e4pl7tsOgr7ow-1-28": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/aerial-view-sao-paulo-night-time-164251094?src=vOlfgcWU9e4pl7tsOgr7ow-1-28",
+  "pages": 2
+ },
+ "https://openknowledge.worldbank.org/bitstream/handle/10986/22036/9781464808210.pdf": {
+  "status": 200,
+  "final": "https://openknowledge.worldbank.org/bitstream/handle/10986/22036/9781464808210.pdf",
+  "pages": 2
+ },
+ "http://journals.openedition.org/emam/518": {
+  "status": 200,
+  "final": "https://journals.openedition.org/emam/518",
+  "pages": 2
+ },
+ "https://publications.iom.int/bookstore/free/migration_and_environment.pdf": {
+  "status": 404,
+  "final": "https://publications.iom.int/bookstore/free/migration_and_environment.pdf",
+  "pages": 2
+ },
+ "https://www.msf.fr/actualite/dossiers/crise-humanitaire-nord-est-nigeria": {
+  "status": 200,
+  "final": "https://www.msf.fr/decryptages/nord-nigeria-survivre-aux-violences-de-l-armee-et-de-boko-haram",
+  "pages": 2
+ },
+ "http://www.scielo.org.mx/pdf/fi/v56n1/0185-013X-fi-56-01-00040.pdf": {
+  "status": 200,
+  "final": "https://www.scielo.org.mx/pdf/fi/v56n1/0185-013X-fi-56-01-00040.pdf",
+  "pages": 2
+ },
+ "http://ucdp.uu.se/": {
+  "status": 404,
+  "final": "http://ucdp.uu.se/",
+  "pages": 3
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=729/729180&key=239&query=Mali&lang=&sf=date": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=729/729180&key=239&query=Mali&lang=&sf=date",
+  "pages": 2
+ },
+ "https://disasterdisplacement.org": {
+  "status": 200,
+  "final": "https://disasterdisplacement.org/",
+  "pages": 1
+ },
+ "http://www.sipri.org": {
+  "status": 200,
+  "final": "https://www.sipri.org/",
+  "pages": 3
+ },
+ "https://esa.un.org/unpd/wpp/": {
+  "status": 200,
+  "final": "https://maintenance.un.org/",
+  "pages": 2
+ },
+ "https://esa.un.org": {
+  "status": 200,
+  "final": "https://maintenance.un.org/",
+  "pages": 4
+ },
+ "http://www.uavglobal.com": {
+  "status": 200,
+  "final": "http://www.uavglobal.com/",
+  "pages": 2
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=570/570222&key=147&query=peacekeeping%202013&lang=&sf": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=570/570222&key=147&query=peacekeeping%202013&lang=&sf",
+  "pages": 2
+ },
+ "http://journals.sagepub.com/toc/jpra/1/1": {
+  "status": 403,
+  "final": "https://journals.sagepub.com/toc/jpra/1/1",
+  "pages": 2
+ },
+ "https://www.af.mil/News/Photos.aspx?igphoto=2000461305": {
+  "status": 200,
+  "final": "https://www.af.mil/News/Photos.aspx?igphoto=2000461305",
+  "pages": 2
+ },
+ "https://peacekeeping.un.org/en": {
+  "status": 200,
+  "final": "https://peacekeeping.un.org/en",
+  "pages": 3
+ },
+ "http://journals.sagepub.com/toc/jpra/6/3": {
+  "status": 403,
+  "final": "https://journals.sagepub.com/toc/jpra/6/3",
+  "pages": 2
+ },
+ "https://www.sipri.org/": {
+  "status": 200,
+  "final": "https://www.sipri.org/",
+  "pages": 2
+ },
+ "http://www.banquemondiale.org": {
+  "status": 200,
+  "final": "https://www.banquemondiale.org/ext/fr/home",
+  "pages": 6
+ },
+ "http://banquemondiale.org/": {
+  "status": 200,
+  "final": "https://www.banquemondiale.org/ext/fr/home",
+  "pages": 2
+ },
+ "http://unesdoc.unesco.org/Ulis/cgi-bin/ulis.pl?catno=17295&set=50DF6AB9_3_36&gp=0&lin=1&ll=1": {
+  "status": 403,
+  "final": "http://unesdoc.unesco.org/Ulis/cgi-bin/ulis.pl?catno=17295&set=50DF6AB9_3_36&gp=0&lin=1&ll=1",
+  "pages": 2
+ },
+ "http://www.healthdata.org": {
+  "status": 200,
+  "final": "https://www.healthdata.org/",
+  "pages": 2
+ },
+ "https://www.prio.org/": {
+  "status": 200,
+  "final": "https://www.prio.org/",
+  "pages": 2
+ },
+ "https://www.jstor.org/stable/pdf/2265298.pdf": {
+  "status": 200,
+  "final": "https://www.jstor.org/stable/pdf/2265298.pdf",
+  "pages": 2
+ },
+ "http://www.unwomen.org": {
+  "status": 200,
+  "final": "https://www.unwomen.org/en",
+  "pages": 4
+ },
+ "http://www.un.org/fr/peacekeeping/documents/capstone_doctrine_fr.pdf": {
+  "status": 404,
+  "final": "https://www.un.org/fr/peacekeeping/documents/capstone_doctrine_fr.pdf",
+  "pages": 2
+ },
+ "http://www.un.org/disarmament": {
+  "status": 200,
+  "final": "https://disarmament.unoda.org/en",
+  "pages": 2
+ },
+ "http://www.un.org/en/peacekeeping": {
+  "status": 200,
+  "final": "https://peacekeeping.un.org/en/",
+  "pages": 3
+ },
+ "https://chicagounbound.uchicago.edu/uclf/vol1989/iss1/8/": {
+  "status": 200,
+  "final": "https://chicagounbound.uchicago.edu/uclf/vol1989/iss1/8/",
+  "pages": 2
+ },
+ "https://www.opcw.org/": {
+  "status": 200,
+  "final": "https://www.opcw.org/",
+  "pages": 2
+ },
+ "https://undocs.org/fr/A/RES/70/262": {
+  "status": 200,
+  "final": "https://docs.un.org/fr/A/RES/70/262",
+  "pages": 1
+ },
+ "https://www.admin.ch/opc/fr/classified-compilation/18990008/index.html": {
+  "status": 200,
+  "final": "https://www.fedlex.admin.ch/eli/cc/18/542_472_524/fr",
+  "pages": 1
+ },
+ "https://www.iaea.org/fr": {
+  "status": 403,
+  "final": "https://www.iaea.org/fr",
+  "pages": 1
+ },
+ "https://www.un.org/disarmament/wmd/bio/1925-geneva-protocol/": {
+  "status": 404,
+  "final": "https://disarmament.unoda.org/wmd/bio/1925-geneva-protocol/",
+  "pages": 2
+ },
+ "https://www.un.org/disarmament/wmd/sc1540/": {
+  "status": 200,
+  "final": "https://disarmament.unoda.org/en/our-work/weapons-mass-destruction/un-security-council-resolution-1540",
+  "pages": 2
+ },
+ "https://unoda-web.s3-accelerate.amazonaws.com/wp-content/uploads/assets/WMD/Nuclear/pdf/NPTFrench_Text.pdf": {
+  "status": 200,
+  "final": "https://unoda-web.s3-accelerate.amazonaws.com/wp-content/uploads/assets/WMD/Nuclear/pdf/NPTFrench_Text.pdf",
+  "pages": 1
+ },
+ "https://www.opcw.org/chemical-weapons-convention/": {
+  "status": 200,
+  "final": "https://www.opcw.org/chemical-weapons-convention",
+  "pages": 2
+ },
+ "http://www.un.org/disarmament/tpnw/index": {
+  "status": 404,
+  "final": "https://www.un.org/disarmament/tpnw/index",
+  "pages": 2
+ },
+ "https://www.apminebanconvention.org/fr/": {
+  "status": 404,
+  "final": "https://www.apminebanconvention.org/fr/",
+  "pages": 1
+ },
+ "http://www.icbl.org/en-gb/home.aspx": {
+  "status": 200,
+  "final": "https://icblcmc.org/",
+  "pages": 2
+ },
+ "http://www.smallarmssurvey.org": {
+  "status": 200,
+  "final": "http://www.smallarmssurvey.org/",
+  "pages": 2
+ },
+ "http://nisat.prio.org": {
+  "status": 200,
+  "final": "http://nisat.prio.org/",
+  "pages": 2
+ },
+ "http://www.smallarmssurvey.org/": {
+  "status": 200,
+  "final": "http://www.smallarmssurvey.org/",
+  "pages": 2
+ },
+ "http://disarmament.un.org/treaties/t/bwc": {
+  "status": 200,
+  "final": "https://treaties.unoda.org/t/bwc",
+  "pages": 2
+ },
+ "https://www.crisisgroup.org/crisiswatch": {
+  "status": 403,
+  "final": "https://www.crisisgroup.org/crisiswatch",
+  "pages": 2
+ },
+ "http://www.icanw.org/": {
+  "status": 200,
+  "final": "https://www.icanw.org/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/charter-united-nations/index.html": {
+  "status": 404,
+  "final": "https://www.un.org/fr/charter-united-nations/index.html",
+  "pages": 1
+ },
+ "https://hiik.de/konfliktbarometer": {
+  "status": 200,
+  "final": "https://hiik.de/konfliktbarometer/",
+  "pages": 2
+ },
+ "https://controlarms.org/control-arms/": {
+  "status": 404,
+  "final": "https://controlarms.org/control-arms/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/peacekeeping/operations/current.shtml": {
+  "status": 404,
+  "final": "https://www.un.org/fr/peacekeeping/operations/current.shtml",
+  "pages": 1
+ },
+ "https://www.un.org/disarmament/fr/sur-des-commerces-des-armes/": {
+  "status": 404,
+  "final": "https://disarmament.unoda.org/fr/sur-des-commerces-des-armes/",
+  "pages": 1
+ },
+ "https://he.palgrave.com/page/detail/The-United-Nations/%3FK=9780230208896": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "http://sk.sagepub.com/reference/intlpoliticalscience/n186.xml": {
+  "status": 0,
+  "error": "TypeError",
+  "pages": 2
+ },
+ "https://childsoldiersworldindex.org/hostilities": {
+  "status": 0,
+  "error": "UNABLE_TO_GET_ISSUER_CERT_LOCALLY",
+  "pages": 2
+ },
+ "http://www.un.org/en/peacekeeping/documents/newhorizon.pdf": {
+  "status": 404,
+  "final": "https://www.un.org/en/peacekeeping/documents/newhorizon.pdf",
+  "pages": 1
+ },
+ "http://www.tandfonline.com/doi/abs/10.1080/13533310903036384": {
+  "status": 403,
+  "final": "https://www.tandfonline.com/doi/abs/10.1080/13533310903036384",
+  "pages": 2
+ },
+ "https://www.tandfonline.com/doi/full/10.1080/13533312.2011.546089?src=recsys": {
+  "status": 403,
+  "final": "https://www.tandfonline.com/doi/full/10.1080/13533312.2011.546089?src=recsys",
+  "pages": 1
+ },
+ "https://www.tandfonline.com/doi/abs/10.1080/1353331042000228445?journalCode=finp20": {
+  "status": 403,
+  "final": "https://www.tandfonline.com/doi/abs/10.1080/1353331042000228445?journalCode=finp20",
+  "pages": 1
+ },
+ "https://www.tandfonline.com/doi/abs/10.1080/17502977.2012.655625": {
+  "status": 403,
+  "final": "https://www.tandfonline.com/doi/abs/10.1080/17502977.2012.655625",
+  "pages": 1
+ },
+ "https://peacekeeping.un.org/sites/default/files/pk_fact_sheet_dec_17.pdf": {
+  "status": 200,
+  "final": "https://peacekeeping.un.org/sites/default/files/pk_fact_sheet_dec_17.pdf",
+  "pages": 2
+ },
+ "http://www.tandfonline.com/doi/abs/10.1080/13533310500436524": {
+  "status": 403,
+  "final": "https://www.tandfonline.com/doi/abs/10.1080/13533310500436524",
+  "pages": 1
+ },
+ "http://www.un.org/en/peacekeeping/documents/High-Level-Independent-Panel.pdf": {
+  "status": 404,
+  "final": "https://www.un.org/en/peacekeeping/documents/High-Level-Independent-Panel.pdf",
+  "pages": 1
+ },
+ "http://www.un-documents.net/a47-277.htm": {
+  "status": 200,
+  "final": "http://www.un-documents.net/a47-277.htm",
+  "pages": 2
+ },
+ "http://ghsl.jrc.ec": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "http://www.iris-france.org/notes/de-la-vulnerabilite-au-weak-power-laction-politique-et-diplomatique-du-bangladesh-dans-la-lutte-contre-le-changement-climatique/": {
+  "status": 200,
+  "final": "https://www.iris-france.org/liste/?searchkeywords=&typearticle[]=notes",
+  "pages": 2
+ },
+ "https://www.icc-cpi.int/": {
+  "status": 200,
+  "final": "https://www.icc-cpi.int/",
+  "pages": 2
+ },
+ "http://www.fao.org/giews/country-analysis/external-assistance/fr/": {
+  "status": 200,
+  "final": "https://www.fao.org/giews/country-analysis/external-assistance/fr/",
+  "pages": 1
+ },
+ "https://journals.openedition.org/ethiquepublique/%0A%7B%7Dbody%7Bbackground:H3KAZDVD8IT13X0SNZH8%7D/..%2F1371": {
+  "status": 200,
+  "final": "https://journals.openedition.org/ethiquepublique/%0A%7B%7Dbody%7Bbackground:H3KAZDVD8IT13X0SNZH8%7D/..%2F1371",
+  "pages": 2
+ },
+ "http://www.fao.org/giews": {
+  "status": 200,
+  "final": "https://www.fao.org/giews",
+  "pages": 2
+ },
+ "http://www.providingforpeacekeeping.org": {
+  "status": 200,
+  "final": "https://www.providingforpeacekeeping.org/",
+  "pages": 1
+ },
+ "https://www.ipinst.org/program/providing-for-peacekeeping": {
+  "status": 404,
+  "final": "https://www.ipinst.org/program/providing-for-peacekeeping",
+  "pages": 1
+ },
+ "http://hdr.undp.org/sites/default/files/hdr_1994_fr_complet_nostats.pdf": {
+  "status": 403,
+  "final": "https://hdr.undp.org/sites/default/files/private/documents/hdr1994frcompletnostats.pdf",
+  "pages": 1
+ },
+ "https://www.flickr.com/photos/icanw/30376159986/in/photostream/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/icanw/30376159986/in/photostream/",
+  "pages": 2
+ },
+ "https://www.un.org/sustainabledevelopment/fr/objectifs-de-developpement-durable/": {
+  "status": 200,
+  "final": "https://www.un.org/sustainabledevelopment/fr/objectifs-de-developpement-durable/",
+  "pages": 1
+ },
+ "https://www.congress.gov/bill/107th-congress/house-bill/3162/": {
+  "status": 403,
+  "final": "https://www.congress.gov/bill/107th-congress/house-bill/3162/",
+  "pages": 2
+ },
+ "https://www.mitpressjournals.org/doi/10.1162/016228801753191141": {
+  "status": 403,
+  "final": "https://direct.mit.edu/isec/article/26/2/87/11706/Human-Security-Paradigm-Shift-or-Hot-Air",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:Female_soldiers_in_North_Korea_military_parade_(15452372509).jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:Female_soldiers_in_North_Korea_military_parade_(15452372509).jpg",
+  "pages": 2
+ },
+ "https://www.sciencespo.fr/ceri/fr/content/groupe-de-travail-et-dinformation-sur-le-terrorisme-et-le-contre-terrorisme": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/ceri/fr/404/",
+  "pages": 2
+ },
+ "http://www.hceres.fr": {
+  "status": 503,
+  "final": "https://www.hceres.fr/",
+  "pages": 2
+ },
+ "https://www.icrc.org/fr/guerre-et-droit/traites-et-droit-coutumier/conventions-de-geneve": {
+  "status": 200,
+  "final": "https://www.icrc.org/fr/guerre-et-droit/traites-et-droit-coutumier/conventions-de-geneve",
+  "pages": 1
+ },
+ "https://commons.wikimedia.org/wiki/File:Oklahomacitybombing-DF-ST-98-01356.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:Oklahomacitybombing-DF-ST-98-01356.jpg",
+  "pages": 2
+ },
+ "http://www.europarl.europa.eu": {
+  "status": 200,
+  "final": "https://www.europarl.europa.eu/",
+  "pages": 2
+ },
+ "https://www.start.umd.edu/gtd/": {
+  "status": 200,
+  "final": "https://www.start.umd.edu/data-tools/GTD",
+  "pages": 2
+ },
+ "http://www.start.umd.edu/gtd": {
+  "status": 200,
+  "final": "https://www.start.umd.edu/data-tools/GTD",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:County_Dublin_-_Famine_(Dublin)_-_20180824203248.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:County_Dublin_-_Famine_(Dublin)_-_20180824203248.jpg",
+  "pages": 2
+ },
+ "http://wid.world/": {
+  "status": 200,
+  "final": "https://wid.world/",
+  "pages": 2
+ },
+ "http://wid.world": {
+  "status": 200,
+  "final": "https://wid.world/",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/ep_jhu/21143441424/in/album-72157659115491626/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/ep_jhu/21143441424/in/album-72157659115491626/",
+  "pages": 2
+ },
+ "http://christopherhobson.net": {
+  "status": 401,
+  "final": "https://www.christopherhobson.net/",
+  "pages": 2
+ },
+ "http://www.imf.org/en/Publications/FM/Issues/2017/10/05/fiscal-monitor-october-2017": {
+  "status": 403,
+  "final": "http://www.imf.org/en/Publications/FM/Issues/2017/10/05/fiscal-monitor-october-2017",
+  "pages": 2
+ },
+ "http://www.forbes.com/billionaires": {
+  "status": 200,
+  "final": "https://www.forbes.com/consent/ketch/?toURL=https://www.forbes.com/billionaires",
+  "pages": 2
+ },
+ "https://www.cairn.info/revue-multitudes-2009-1-page-156.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-multitudes-2009-1-page-156.htm",
+  "pages": 2
+ },
+ "http://www.eiu.com": {
+  "status": 200,
+  "final": "https://www.eiu.com/n/",
+  "pages": 2
+ },
+ "https://www.credit-suisse.com/corporate/en/research/research-institute/global-wealth-report.html": {
+  "status": 200,
+  "final": "https://www.ubs.com/fr/fr.html",
+  "pages": 2
+ },
+ "http://wir2018.wid.world": {
+  "status": 200,
+  "final": "https://wir2018.wid.world/",
+  "pages": 1
+ },
+ "https://www.trumanlibrary.org/whistlestop/50yr_archive/inagural20jan1949.htm": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "http://www.un.org/french/millenaire/ares552f.htm": {
+  "status": 200,
+  "final": "https://www.un.org/french/millenaire/ares552f.htm",
+  "pages": 2
+ },
+ "http://www.systemicpeace.org": {
+  "status": 200,
+  "final": "https://www.systemicpeace.org/",
+  "pages": 2
+ },
+ "http://www.electionguide.org": {
+  "status": 200,
+  "final": "https://www.electionguide.org/",
+  "pages": 2
+ },
+ "http://hdr.undp.org": {
+  "status": 200,
+  "final": "https://hdr.undp.org/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/millenniumgoals": {
+  "status": 200,
+  "final": "https://www.un.org/fr/millenniumgoals/",
+  "pages": 2
+ },
+ "https://www.un.org/sustainabledevelopment/fr/": {
+  "status": 200,
+  "final": "https://www.un.org/sustainabledevelopment/fr/",
+  "pages": 1
+ },
+ "http://www.inegalites.fr": {
+  "status": 200,
+  "final": "https://www.inegalites.fr/",
+  "pages": 1
+ },
+ "http://worldhappiness.report/": {
+  "status": 200,
+  "final": "https://www.worldhappiness.report/",
+  "pages": 2
+ },
+ "http://worldhappiness.report": {
+  "status": 200,
+  "final": "https://www.worldhappiness.report/",
+  "pages": 2
+ },
+ "https://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100914300": {
+  "status": 200,
+  "final": "https://www.pressesdesciencespo.fr/fr/livre/?GCOI=27246100914300",
+  "pages": 1
+ },
+ "http://happyplanetindex.org/": {
+  "status": 200,
+  "final": "https://happyplanetindex.org/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/documents/view_doc.asp?symbol=A/54/2000": {
+  "status": 403,
+  "final": "https://www.un.org/fr/documents/view_doc.asp?symbol=A/54/2000",
+  "pages": 2
+ },
+ "https://sustainabledevelopment.un.org/post2015/transformingourworld": {
+  "status": 200,
+  "final": "https://sdgs.un.org/",
+  "pages": 1
+ },
+ "http://happyplanetindex.org": {
+  "status": 200,
+  "final": "https://happyplanetindex.org/",
+  "pages": 2
+ },
+ "https://www.oxfam.org/fr/rapports/une-economie-au-service-des-99": {
+  "status": 200,
+  "final": "https://www.oxfam.org/fr/publications/une-economie-au-service-des-99",
+  "pages": 2
+ },
+ "http://www.who.int/topics/primary_health_care/alma_ata_declaration/fr/": {
+  "status": 404,
+  "final": "https://www.who.int/topics/primary_health_care/alma_ata_declaration/fr/",
+  "pages": 2
+ },
+ "http://www.who.org": {
+  "status": 409,
+  "final": "http://www.who.org/",
+  "pages": 2
+ },
+ "https://www.unfpa.org/sites/default/files/event-pdf/icpd_fre.pdf": {
+  "status": 200,
+  "final": "https://www.unfpa.org/sites/default/files/event-pdf/icpd_fre.pdf",
+  "pages": 2
+ },
+ "http://www.who.int/mediacentre/news/releases/2017/dementia-immunization-refuguees/fr/": {
+  "status": 200,
+  "final": "https://www.who.int/fr/news-room/detail/29-05-2017-seventieth-world-health-assembly-update-29-may-2017",
+  "pages": 1
+ },
+ "http://www.footprintnetwork.org": {
+  "status": 200,
+  "final": "https://footprintnetwork.org/",
+  "pages": 4
+ },
+ "http://www.who.int/maternal_child_adolescent/documents/women-deliver-global-strategy/fr/": {
+  "status": 404,
+  "final": "https://www.who.int/maternal_child_adolescent/documents/women-deliver-global-strategy/fr/",
+  "pages": 2
+ },
+ "https://www.diplomatie.gouv.fr/sites/odyssee-developpement-durable/files/5/rapport_brundtland.pdf": {
+  "status": 403,
+  "final": "https://www.diplomatie.gouv.fr/sites/odyssee-developpement-durable/files/5/rapport_brundtland.pdf",
+  "pages": 2
+ },
+ "https://www.cairn.info/revue-population-2017-2-page-227.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-population-2017-2-page-227.htm",
+  "pages": 2
+ },
+ "http://www.who.int/mediacentre/news/releases/2018/environmental-health-collaboration/fr/": {
+  "status": 200,
+  "final": "https://www.who.int/fr/news-room/detail/10-01-2018-un-environment-and-who-agree-to-major-collaboration-on-environmental-health-risks",
+  "pages": 2
+ },
+ "https://www.unfpa.org/sites/default/files/pub-pdf/UNFPA_Annual_Report_2016-Millions_of_lives_transformed.pdf": {
+  "status": 200,
+  "final": "https://www.unfpa.org/sites/default/files/pub-pdf/UNFPA_Annual_Report_2016-Millions_of_lives_transformed.pdf",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/mdgovpics/14096383040/in/album-72157644860914891/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/mdgovpics/14096383040/in/album-72157644860914891/",
+  "pages": 2
+ },
+ "http://www.unfpa.org/sites/default/files/sowp/downloads/UNFPA_PUB_2017_FR_swop_Etat_de_la_population_mondiale.pdf": {
+  "status": 200,
+  "final": "https://www.unfpa.org/sites/default/files/sowp/downloads/UNFPA_PUB_2017_FR_swop_Etat_de_la_population_mondiale.pdf",
+  "pages": 2
+ },
+ "http://www.un.org/en/development/desa/population/publications/pdf/ageing/WPA2017_Highlights.pdf": {
+  "status": 404,
+  "final": "https://www.un.org/en/development/desa/population/publications/pdf/ageing/WPA2017_Highlights.pdf",
+  "pages": 2
+ },
+ "http://apps.who.int/iris/bitstream/10665/259203/1/9789242512366-fre.pdf": {
+  "status": 200,
+  "final": "https://iris.who.int/bitstream/10665/259203/1/9789242512366-fre.pdf",
+  "pages": 3
+ },
+ "http://www.inaglobal.fr": {
+  "status": 200,
+  "final": "https://larevuedesmedias.ina.fr/",
+  "pages": 2
+ },
+ "https://ilga.org": {
+  "status": 200,
+  "final": "https://ilga.org/",
+  "pages": 3
+ },
+ "https://esa.un.org/unpd/wpp/Publications/Files/PopFacts_2017-4_Population-Momentum.pdf": {
+  "status": 200,
+  "final": "https://maintenance.un.org/",
+  "pages": 2
+ },
+ "http://www.pewresearch.org": {
+  "status": 200,
+  "final": "https://www.pewresearch.org/",
+  "pages": 5
+ },
+ "http://www.pewforum.org": {
+  "status": 200,
+  "final": "https://www.pewresearch.org/topic/religion/",
+  "pages": 2
+ },
+ "https://esa.un.org/unpd/wpp/Publications/Files/PopFacts_2017-3_The-end-of-high-fertility.pdf": {
+  "status": 200,
+  "final": "https://maintenance.un.org/",
+  "pages": 2
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=616/616843&key=1&query=Gao%20Album:%20Malian%20School&lang=&sf=": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=616/616843&key=1&query=Gao%20Album:%20Malian%20School&lang=&sf=",
+  "pages": 2
+ },
+ "https://esa.un.org/unpd/wpp/Publications/Files/WPP2017_Volume-I_Comprehensive-Tables.pdf": {
+  "status": 200,
+  "final": "https://maintenance.un.org/",
+  "pages": 2
+ },
+ "http://archive.ipu.org": {
+  "status": 200,
+  "final": "http://archive.ipu.org/english/home.htm",
+  "pages": 2
+ },
+ "http://www.un.org/womenwatch/daw/cedaw/text/fconvention.htm": {
+  "status": 200,
+  "final": "https://www.un.org/womenwatch/daw/cedaw/text/fconvention.htm",
+  "pages": 4
+ },
+ "http://cf.cdn.unwto.org/sites/all/files/pdf/lgtb_report_compressed_0.pdf": {
+  "status": 530,
+  "final": "http://cf.cdn.unwto.org/sites/all/files/pdf/lgtb_report_compressed_0.pdf",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:UN-first-international-interfaith-conference.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:UN-first-international-interfaith-conference.jpg",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/ma3stro/2622561884/in/photolist-6AFP9X-6AFPxi-6AFJkg-6AFNYc-6AKSNJ-6AFFsv-6AKQ7L-6AKP6Q-6AKT6w-4ZKTMd-6AFLe8-6AKRKb-6AFJ4H-6AKRYf-4ZK1PA-4ZFdTi-4ZERkc-4ZF2iT-4ZKkX5-4ZJWB5-6A8s3K-J5yFU5-4ZKyys-4ZFgFF-4ZFNVF-4ZF3cB-4ZK327-4ZKjhd-4ZFtET-4ZJXXE-4ZF8Qn-4ZL5ru-4ZEDTX-4ZFJKk-4ZJYEu": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/ma3stro/2622561884/in/photolist-6AFP9X-6AFPxi-6AFJkg-6AFNYc-6AKSNJ-6AFFsv-6AKQ7L-6AKP6Q-6AKT6w-4ZKTMd-6AFLe8-6AKRKb-6AFJ4H-6AKRYf-4ZK1PA-4ZFdTi-4ZERkc-4ZF2iT-4ZKkX5-4ZJWB5-6A8s3K-J5yFU5-4ZKyys-4ZFgFF-4ZFNVF-4ZF3cB-4ZK327-4ZKjhd-4ZFtET-4ZJXXE-4ZF8Qn-4ZL5ru-4ZEDTX-4ZFJKk-4ZJYEu",
+  "pages": 2
+ },
+ "http://www.nafsa.org/losangeles": {
+  "status": 200,
+  "final": "https://www.nafsa.org/2027",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/65915914@N06/32342412905/in/album-72157675464693354/": {
+  "status": 404,
+  "final": "https://www.flickr.com/photos/65915914@N06/32342412905/in/album-72157675464693354/",
+  "pages": 2
+ },
+ "http://www.eaie.org/past-conferences.html": {
+  "status": 200,
+  "final": "https://www.eaie.org/events/past-conferences.html",
+  "pages": 2
+ },
+ "https://comtrade.un.org": {
+  "status": 200,
+  "final": "https://comtrade.un.org/fr/",
+  "pages": 2
+ },
+ "https://www.unicef.org/french/publications/files/UNICEF_SOWC_2016_French_LAST.pdf": {
+  "status": 404,
+  "final": "https://www.unicef.org/french/publications/files/UNICEF_SOWC_2016_French_LAST.pdf",
+  "pages": 2
+ },
+ "http://www.hceres.fr/Rapport-PSF": {
+  "status": 503,
+  "final": "https://www.hceres.fr/Rapport-PSF",
+  "pages": 2
+ },
+ "https://www.sciencespo.fr/enjeumondial/religion/intro": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/enjeumondial/religion/intro",
+  "pages": 2
+ },
+ "http://www.apaie2018.org": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "http://www.pharmexec.com/pharm-execs-top-50-companies-2017": {
+  "status": 200,
+  "final": "https://www.pharmexec.com/view/pharm-execs-top-50-companies-2017",
+  "pages": 2
+ },
+ "https://openknowledge.worldbank.org": {
+  "status": 200,
+  "final": "https://openknowledge.worldbank.org/",
+  "pages": 2
+ },
+ "http://data.uis.unesco.org": {
+  "status": 200,
+  "final": "https://databrowser.uis.unesco.org/",
+  "pages": 3
+ },
+ "http://www.thelancet.com/journals/langlo/article/PIIS2214-109X(18)30029-9/fulltext": {
+  "status": 403,
+  "final": "https://www.thelancet.com/journals/langlo/article/PIIS2214-109X(18)30029-9/fulltext",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/worldbank/20007346656/in/album-72157647274677718/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/worldbank/20007346656/in/album-72157647274677718/",
+  "pages": 2
+ },
+ "https://www.cia.gov/library/publications/the-world-factbook": {
+  "status": 200,
+  "final": "https://www.cia.gov/stories/story/spotlighting-the-world-factbook-as-we-bid-a-fond-farewell/",
+  "pages": 2
+ },
+ "http://www.un.org/sustainabledevelopment/fr/wp-content/uploads/sites/4/2016/10/Why_it_matters_Goal_3_French.pdf": {
+  "status": 200,
+  "final": "https://www.un.org/sustainabledevelopment/fr/wp-content/uploads/sites/4/2016/10/Why_it_matters_Goal_3_French.pdf",
+  "pages": 1
+ },
+ "http://www.who.int/mediacentre/news/releases/2017/unsafe-abortions-worldwide/fr/": {
+  "status": 200,
+  "final": "https://www.who.int/fr/news-room/detail/28-09-2017-worldwide-an-estimated-25-million-unsafe-abortions-occur-each-year",
+  "pages": 1
+ },
+ "http://www.submarinecablemap.com": {
+  "status": 200,
+  "final": "https://www.submarinecablemap.com/",
+  "pages": 2
+ },
+ "https://www.unfpa.org/data/dashboard/adolescent-youth": {
+  "status": 200,
+  "final": "https://www.unfpa.org/data/dashboard/adolescent-youth",
+  "pages": 2
+ },
+ "http://www.thearda.com": {
+  "status": 200,
+  "final": "https://www.thearda.com/",
+  "pages": 2
+ },
+ "https://www.unfpa.org/data/dashboard/midwifery": {
+  "status": 200,
+  "final": "https://www.unfpa.org/data/dashboard/midwifery",
+  "pages": 2
+ },
+ "http://www.un.org/fr/documents/view_doc.asp?symbol=S/RES/1325(2000)": {
+  "status": 403,
+  "final": "https://www.un.org/fr/documents/view_doc.asp?symbol=S/RES/1325(2000)",
+  "pages": 1
+ },
+ "https://www.icc-cpi.int/resource-library/Documents/RS-Fra.pdf": {
+  "status": 404,
+  "final": "https://www.icc-cpi.int/resource-library/Documents/RS-Fra.pdf",
+  "pages": 1
+ },
+ "https://www.guttmacher.org/state-policy/explore/overview-abortion-laws": {
+  "status": 200,
+  "final": "https://www.guttmacher.org/state-laws-and-policies-status",
+  "pages": 2
+ },
+ "https://www.icrc.org/fre/war-and-law/treaties-customary-law/geneva-conventions/overview-geneva-conventions.htm": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 1
+ },
+ "https://www.shutterstock.com/fr/image-photo/two-old-chinese-man-play-xiangqi-16668454?src=-MrExzW8mU6B9267krn71A-2-64": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/two-old-chinese-man-play-xiangqi-16668454?src=-MrExzW8mU6B9267krn71A-2-64",
+  "pages": 2
+ },
+ "http://www.root-servers.org": {
+  "status": 200,
+  "final": "https://root-servers.org/",
+  "pages": 2
+ },
+ "http://www.datacentermap.com": {
+  "status": 429,
+  "final": "https://www.datacentermap.com/",
+  "pages": 2
+ },
+ "http://apps.who.int/iris/bitstream/10665/78413/1/9789242548433_fre.pdf?ua=1": {
+  "status": 200,
+  "final": "https://iris.who.int/bitstream/10665/78413/1/9789242548433_fre.pdf?ua=1",
+  "pages": 1
+ },
+ "http://www.icty.org/fr/documents/statut-du-tribunal": {
+  "status": 200,
+  "final": "https://www.icty.org/fr/documents/statut-du-tribunal",
+  "pages": 1
+ },
+ "https://www.sciencedirect.com/science/article/pii/S0016718513000912": {
+  "status": 403,
+  "final": "https://www.sciencedirect.com/science/article/pii/S0016718513000912",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/dany13/10410462813/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/dany13/10410462813/",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/studiokanu/15465630910/": {
+  "status": 404,
+  "final": "https://www.flickr.com/photos/studiokanu/15465630910/",
+  "pages": 2
+ },
+ "http://www.booksandideas.net/The-Real-Story-of-Haiti-s-Forests.html": {
+  "status": 200,
+  "final": "https://booksandideas.net/The-Real-Story-of-Haiti-s-Forests.html",
+  "pages": 2
+ },
+ "https://www.youtube.com/watch?v=OeVr-S3WY6g": {
+  "status": 200,
+  "final": "https://www.youtube.com/watch?v=OeVr-S3WY6g",
+  "pages": 2
+ },
+ "http://www.pewforum.org/data": {
+  "status": 200,
+  "final": "https://www.pewresearch.org/datasets/",
+  "pages": 2
+ },
+ "https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1658en.pdf": {
+  "status": 429,
+  "final": "https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef1658en.pdf",
+  "pages": 2
+ },
+ "http://www.inaglobal.fr/chronologie-embed/6701": {
+  "status": 200,
+  "final": "https://larevuedesmedias.ina.fr/",
+  "pages": 2
+ },
+ "http://daccess-ods.un.org/access.nsf/Get?Open&DS=A/HRC/12/26/Add.2&Lang=S": {
+  "status": 404,
+  "final": "https://documents.un.org/access.nsf/get?Open&DS=A/HRC/12/26/Add.2&Lang=S",
+  "pages": 1
+ },
+ "https://www.itu.int/en/ITU-D/Statistics/Documents/publications/misr2017/MISR2017_Volume1.pdf": {
+  "status": 200,
+  "final": "https://www.itu.int/en/ITU-D/Statistics/Documents/publications/misr2017/MISR2017_Volume1.pdf",
+  "pages": 2
+ },
+ "https://www.icann.org/fr": {
+  "status": 200,
+  "final": "https://www.icann.org/fr",
+  "pages": 2
+ },
+ "http://sociologies.revues.org/3333": {
+  "status": 200,
+  "final": "https://sociologies.revues.org/3333",
+  "pages": 2
+ },
+ "https://www.itu.int": {
+  "status": 200,
+  "final": "https://www.itu.int/fr/Pages/default.aspx",
+  "pages": 3
+ },
+ "https://www.itu.int/en/ITU-D/Statistics/Documents/publications/misr2017/MISR2017_Volume2.pdf": {
+  "status": 200,
+  "final": "https://www.itu.int/en/ITU-D/Statistics/Documents/publications/misr2017/MISR2017_Volume2.pdf",
+  "pages": 2
+ },
+ "http://natcatservice.munichre.com": {
+  "status": 200,
+  "final": "https://www.munichre.com/en/solutions/for-industry-clients/natcatservice.html",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/coral-bleaching-occurs-when-sea-surface-669591832?src=uoeGTfSQ-0uXuvQkNM4AuA-1-0": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/coral-bleaching-occurs-when-sea-surface-669591832?src=uoeGTfSQ-0uXuvQkNM4AuA-1-0",
+  "pages": 2
+ },
+ "https://www.icann.org/en/system/files/files/annual-report-2017-en.pdf": {
+  "status": 200,
+  "final": "https://www.icann.org/en/system/files/files/annual-report-2017-en.pdf",
+  "pages": 2
+ },
+ "https://www.itu.int/fr/about/Pages/default.aspx": {
+  "status": 200,
+  "final": "https://www.itu.int/en/about/Pages/default.aspx",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/un_photo/15134287067/in/photolist-p4nbgV-Eubhm2-oZM3HL-4chkHW-p4m94T-5GDRQ9-nTFNTM-7oDrQn-9bi4Vh-8gWXwh-oZM588-oZM4gt-mwATSo-CEg51i-2b7FJ81-ph79ef-pgZdKx-dEcMZE-dkesMP-pgZdve-aKWt9n-MkuUvP-bUNpJQ-ayTwwK-4bPY4u-6AP9XW-aK1ZGn-UXo88S-BEqRxg-eLikTG-4wpkDA-8v9eTh-8vqBZo-2NvCsC-hK5KXw-dEcN5E-p7UxeZ-5ZUjBy-phgftV-VR7YA9-LdEZyz-fuvyKP-aK26oe-2Np4k6-mwz6aZ-NEfsiL-cmCrJb-2NsnCh-24kJGmj-2NvqH3/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/un_photo/15134287067/in/photolist-p4nbgV-Eubhm2-oZM3HL-4chkHW-p4m94T-5GDRQ9-nTFNTM-7oDrQn-9bi4Vh-8gWXwh-oZM588-oZM4gt-mwATSo-CEg51i-2b7FJ81-ph79ef-pgZdKx-dEcMZE-dkesMP-pgZdve-aKWt9n-MkuUvP-bUNpJQ-ayTwwK-4bPY4u-6AP9XW-aK1ZGn-UXo88S-BEqRxg-eLikTG-4wpkDA-8v9eTh-8vqBZo-2NvCsC-hK5KXw-dEcN5E-p7UxeZ-5ZUjBy-phgftV-VR7YA9-LdEZyz-fuvyKP-aK26oe-2Np4k6-mwz6aZ-NEfsiL-cmCrJb-2NsnCh-24kJGmj-2NvqH3/",
+  "pages": 2
+ },
+ "http://www.annualreport2016.bayer.com/": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://ccfd-terresolidaire.org/infos/souverainete/l-apres-coton-monsanto-5802": {
+  "status": 404,
+  "final": "https://ccfd-terresolidaire.org/infos/souverainete/l-apres-coton-monsanto-5802/",
+  "pages": 2
+ },
+ "http://www.isaaa.org": {
+  "status": 403,
+  "final": "http://www.isaaa.org/",
+  "pages": 2
+ },
+ "http://monographs.iarc.fr/ENG/Monographs/vol112/mono112.pdf": {
+  "status": 200,
+  "final": "https://publications.iarc.who.int/549",
+  "pages": 2
+ },
+ "http://www.editionsladecouverte.fr/catalogue/index-Le_Roundup_face____ses_juges-9782707198167.html": {
+  "status": 200,
+  "final": "https://www.editionsladecouverte.fr/le_round_up_face_a_ses_juges-9782707198167",
+  "pages": 2
+ },
+ "http://www.iucnredlist.org": {
+  "status": 403,
+  "final": "https://www.iucnredlist.org/",
+  "pages": 2
+ },
+ "http://fr.monsantotribunal.org/": {
+  "status": 200,
+  "final": "https://fr.monsantotribunal.org/",
+  "pages": 1
+ },
+ "http://www.iea.org": {
+  "status": 200,
+  "final": "https://www.iea.org/",
+  "pages": 2
+ },
+ "http://www.iaea.org/pris": {
+  "status": 403,
+  "final": "http://www.iaea.org/pris",
+  "pages": 2
+ },
+ "http://www.bp.com": {
+  "status": 200,
+  "final": "https://www.bp.com/",
+  "pages": 6
+ },
+ "https://www.un.org/sexualviolenceinconflict/fr/": {
+  "status": 200,
+  "final": "https://www.un.org/sexualviolenceinconflict/",
+  "pages": 1
+ },
+ "http://www.bp.com/": {
+  "status": 200,
+  "final": "https://www.bp.com/",
+  "pages": 4
+ },
+ "http://www.umweltbundesamt.de": {
+  "status": 200,
+  "final": "https://www.umweltbundesamt.de/",
+  "pages": 2
+ },
+ "https://thebulletin.org/global-nuclear-power-database": {
+  "status": 403,
+  "final": "https://thebulletin.org/global-nuclear-power-database",
+  "pages": 2
+ },
+ "https://public.wmo.int/en/bulletin/history-climate-activities": {
+  "status": 404,
+  "final": "https://public.wmo.int/en/bulletin/history-climate-activities",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/node/243": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/node/243",
+  "pages": 2
+ },
+ "https://climate.nasa.gov": {
+  "status": 200,
+  "final": "https://science.nasa.gov/climate-change/",
+  "pages": 2
+ },
+ "https://www.wmo.int/pages/index_fr.html": {
+  "status": 404,
+  "final": "https://wmo.int/pages/index_fr.html",
+  "pages": 1
+ },
+ "http://www.noaa.gov": {
+  "status": 200,
+  "final": "https://www.noaa.gov/",
+  "pages": 2
+ },
+ "https://doi.org/10.1111/1468-2346.12708": {
+  "status": 403,
+  "final": "https://academic.oup.com/ia/article-lookup/doi/10.1111/1468-2346.12708",
+  "pages": 2
+ },
+ "https://unfccc.int/fr": {
+  "status": 200,
+  "final": "https://unfccc.int/fr",
+  "pages": 1
+ },
+ "https://www.cairn.info/revue-internationale-et-strategique-2018-1-p-171.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-internationale-et-strategique-2018-1-p-171.htm",
+  "pages": 2
+ },
+ "https://www.cairn.info/revue-internationale-et-strategique-2018-1.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-internationale-et-strategique-2018-1.htm",
+  "pages": 2
+ },
+ "https://onlinelibrary.wiley.com/doi/abs/10.1002/wcc.391": {
+  "status": 403,
+  "final": "https://onlinelibrary.wiley.com/doi/abs/10.1002/wcc.391",
+  "pages": 1
+ },
+ "http://ecotope.org/anthromes/group/": {
+  "status": 200,
+  "final": "https://anthroecology.org/anthromes/",
+  "pages": 2
+ },
+ "https://www.jstor.org/stable/41622723": {
+  "status": 200,
+  "final": "https://www.jstor.org/stable/41622723",
+  "pages": 2
+ },
+ "https://www.informea.org": {
+  "status": 200,
+  "final": "https://www.informea.org/en",
+  "pages": 2
+ },
+ "http://cdiac.ess-dive.lbl.gov": {
+  "status": 200,
+  "final": "https://data.ess-dive.lbl.gov/portals/CDIAC",
+  "pages": 2
+ },
+ "http://www.gret.org/2017/07/cartographier-senegal-rue-apres-rue/": {
+  "status": 404,
+  "final": "https://gret.org/cartographier-senegal-rue-apres-rue/",
+  "pages": 4
+ },
+ "http://www.fao.org/plant-treaty": {
+  "status": 200,
+  "final": "https://www.fao.org/plant-treaty",
+  "pages": 2
+ },
+ "http://www.wri.org": {
+  "status": 200,
+  "final": "https://www.wri.org/",
+  "pages": 2
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=855/85552&key=159&query=haiti&lang=&sf": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=855/85552&key=159&query=haiti&lang=&sf",
+  "pages": 2
+ },
+ "http://www.fao.org/": {
+  "status": 200,
+  "final": "https://www.fao.org/home/en/",
+  "pages": 2
+ },
+ "http://www.remunicipalisation.org": {
+  "status": 200,
+  "final": "http://www.remunicipalisation.org/",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/argonne/12226606834/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/argonne/12226606834/",
+  "pages": 2
+ },
+ "https://www.mitpressjournals.org/doi/pdf/10.1162/GLEP_a_00361": {
+  "status": 200,
+  "final": "https://watermark02.silverchair.com/glep_a_00361.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAkUwggJBBgkqhkiG9w0BBwagggIyMIICLgIBADCCAicGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM199fDcZ4HVPbr9iWAgEQgIIB-CI2h4_yRqeraZwnHis3MAkYJCz2DbBRXVvn5QkzxpJKAszXLhJI7jmFH6WCfbKrs6fMagwXTnYlgclccwLF9quSFHabQ1EATpXJSZD_17vWbqvOcS0wl3m6uaxeE3vMs2mq0RExyQCmLt-4xRSd5pVo87F4uv0O3JDECD4FPMq73eAWALGDn-sbUjEPRbFVmmheECQ15N85ALqHT9eyZSqYFKs2k--zPqNPNjFwmekAjNfPpHCm3t2PgSj0xrB0V_LP6lw5CFqxZCWXvws0HxExRnAtBuLXTSURIVSy2fca6G4nGK8vgsWLQxFVgLlWgB4QyUEpDjcdpPHk0Toab9HHztkEIDSPJaoX43CJDhqN6678fhTZqytjHiV5FBtm1fS7XUcWf2sY72ofDkyRmex9O0tn7A8I2Ft2RtIRVo_NprWIbVkqRaY08Z5S8cm2vzlQw1SHad0HIrmlZiDW_bQFh7RSf47LWK5VOMsbPZucAC-cghjEurlANKwQfaCdfEV4SMk2S20ceAiG_VVR2hbBVRMIJtoXVaAwNZKMSRZzhghHKSROq7pZXGaXmgXnInieIpVd-RykEzeDp3LqZCifskX1MMzYYsEfY6cEZ146Z9QxZHoP8KOrbASGTwBxsksU_FGtjR-UFLv7GRU0oZoydlWJ6qmMLg",
+  "pages": 2
+ },
+ "http://comtrade.un.org": {
+  "status": 200,
+  "final": "https://comtrade.un.org/fr/",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/un_photo/5573791517/in/album-72157626262603365/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/un_photo/5573791517/in/album-72157626262603365/",
+  "pages": 2
+ },
+ "http://www.fao.org/3/a-br324f.pdf": {
+  "status": 200,
+  "final": "https://openknowledge.fao.org/server/api/core/bitstreams/233b4063-b47d-4fd2-b9da-fa910551d1ad/content",
+  "pages": 1
+ },
+ "http://journals.openedition.org/com/7274": {
+  "status": 200,
+  "final": "https://journals.openedition.org/com/7274",
+  "pages": 2
+ },
+ "http://landmatrix.org": {
+  "status": 200,
+  "final": "https://landmatrix.org/",
+  "pages": 2
+ },
+ "http://www.landmatrix.org/en/": {
+  "status": 404,
+  "final": "https://landmatrix.org/en/",
+  "pages": 2
+ },
+ "http://www.ifpri.org/publication/2017-global-food-policy-report": {
+  "status": 200,
+  "final": "http://www.ifpri.org/publication/2017-global-food-policy-report",
+  "pages": 2
+ },
+ "http://agriculture.gouv.fr/mondalim-2030-un-regard-prospectif-sur-la-mondialisation-des-systemes-alimentaires-analyse-ndeg-100": {
+  "status": 200,
+  "final": "https://agriculture.gouv.fr/mondalim-2030-un-regard-prospectif-sur-la-mondialisation-des-systemes-alimentaires-analyse-ndeg-100",
+  "pages": 2
+ },
+ "http://popstats.unhcr.org": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 4
+ },
+ "http://corporate.mcdonalds.com/corpmcd/about-us/around-the-world.html": {
+  "status": 404,
+  "final": "https://corporate.mcdonalds.com/corpmcd/about-us/around-the-world.html",
+  "pages": 2
+ },
+ "http://www.globalcarbonproject.org": {
+  "status": 200,
+  "final": "https://www.globalcarbonproject.org/",
+  "pages": 2
+ },
+ "http://www.ohchr.org/FR/Issues/ESCR/Pages/Water.aspx": {
+  "status": 403,
+  "final": "https://www.ohchr.org/FR/Issues/ESCR/Pages/Water.aspx",
+  "pages": 1
+ },
+ "http://www.unwater.org/water-facts/water-sanitation-and-hygiene/": {
+  "status": 403,
+  "final": "https://www.unwater.org/water-facts/water-sanitation-and-hygiene/",
+  "pages": 2
+ },
+ "https://www.globalnutritionreport.org/files/2017/11/Report_2017_French.pdf": {
+  "status": 0,
+  "error": "ERR_SSL_TLSV1_UNRECOGNIZED_NAME",
+  "pages": 1
+ },
+ "https://www.cnrs.fr/cw/dossiers/doseau/decouv/mondial/02_situation.htm": {
+  "status": 0,
+  "error": "ECONNRESET",
+  "pages": 2
+ },
+ "http://www.fao.org/3/a-I7695f.pdf,%20http://www.fao.org/state-of-food-security-nutrition/fr": {
+  "status": 200,
+  "final": "https://openknowledge.fao.org/",
+  "pages": 1
+ },
+ "http://www.fao.org/3/a-i6583e.pdf": {
+  "status": 200,
+  "final": "https://openknowledge.fao.org/server/api/core/bitstreams/2e90c833-8e84-46f2-a675-ea2d7afa4e24/content",
+  "pages": 2
+ },
+ "http://hdr.undp.org/sites/default/files/hdr_2006_fr_complet.pdf": {
+  "status": 403,
+  "final": "https://hdr.undp.org/sites/default/files/private/documents/rapport-sur-le-developpement-humain-2006-francais.rapport-sur-le-developpement-humain-2006-francais",
+  "pages": 1
+ },
+ "http://www.unesco.org/new/fr/natural-sciences/environment/water/wwap/wwdr/2018-nature-based-solutions/#c1655785": {
+  "status": 404,
+  "final": "https://www.unesco.org/new/fr/natural-sciences/environment/water/wwap/wwdr/2018-nature-based-solutions/",
+  "pages": 1
+ },
+ "https://blog.mondediplo.net/-Carnets-d-eau-": {
+  "status": 200,
+  "final": "https://blog.mondediplo.net/-Carnets-d-eau-",
+  "pages": 2
+ },
+ "http://www.fao.org/3/a-i4635f.pdf": {
+  "status": 200,
+  "final": "https://openknowledge.fao.org/server/api/core/bitstreams/330d74e9-e052-4f3f-ab28-87aaf68f8df9/content",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/21-july-2017-tilburg-holland-aerial-708858298": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/21-july-2017-tilburg-holland-aerial-708858298",
+  "pages": 2
+ },
+ "http://www.washdata.org": {
+  "status": 200,
+  "final": "https://washdata.org/",
+  "pages": 2
+ },
+ "http://www.unepdhi.org": {
+  "status": 200,
+  "final": "https://unepdhi.org/",
+  "pages": 2
+ },
+ "http://www.tni.org/sites/www.tni.org/files/download/heretostay-fr_0.pdf": {
+  "status": 404,
+  "final": "https://www.tni.org/sites/www.tni.org/files/download/heretostay-fr_0.pdf",
+  "pages": 1
+ },
+ "http://science.sciencemag.org/content/162/3859/1243.full": {
+  "status": 403,
+  "final": "https://science.sciencemag.org/content/162/3859/1243.full",
+  "pages": 2
+ },
+ "https://www.sciencedirect.com/science/article/pii/S0959378010000634": {
+  "status": 403,
+  "final": "https://www.sciencedirect.com/science/article/pii/S0959378010000634",
+  "pages": 2
+ },
+ "http://www.clocsas.org": {
+  "status": 200,
+  "final": "https://clocsas.org/",
+  "pages": 1
+ },
+ "http://ozone.unep.org/en/treaties-and-decisions/vienna-convention-protection-ozone-layer": {
+  "status": 404,
+  "final": "https://ozone.unep.org/en/treaties-and-decisions/vienna-convention-protection-ozone-layer",
+  "pages": 2
+ },
+ "http://ozone.unep.org/en/treaties-and-decisions/montreal-protocol-substances-deplete-ozone-layer": {
+  "status": 404,
+  "final": "https://ozone.unep.org/en/treaties-and-decisions/montreal-protocol-substances-deplete-ozone-layer",
+  "pages": 2
+ },
+ "https://www.footprintnetwork.org/": {
+  "status": 200,
+  "final": "https://footprintnetwork.org/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/events/desertification_decade/whynow.shtml": {
+  "status": 200,
+  "final": "https://www.un.org/fr/events/desertification_decade/whynow.shtml",
+  "pages": 1
+ },
+ "http://www.un.org/fr/events/desertification_decade/convention.shtml": {
+  "status": 200,
+  "final": "https://www.un.org/fr/events/desertification_decade/convention.shtml",
+  "pages": 1
+ },
+ "http://web.unep.org/geo/": {
+  "status": 404,
+  "final": "http://web.unep.org/geo/",
+  "pages": 2
+ },
+ "https://www.overshootday.org/newsroom/dates-jour-depassement-mondial/": {
+  "status": 200,
+  "final": "https://overshoot.footprintnetwork.org/newsroom/dates-jour-depassement-terre/",
+  "pages": 1
+ },
+ "http://www.fao.org/3/a-i4793e.pdf": {
+  "status": 200,
+  "final": "https://openknowledge.fao.org/server/api/core/bitstreams/29b8ae23-99f9-4a05-b796-9a35d02af29d/content",
+  "pages": 2
+ },
+ "http://www.fao.org/faostat": {
+  "status": 200,
+  "final": "https://www.fao.org/faostat/",
+  "pages": 2
+ },
+ "http://earthenginepartners.appspot.com/science-2013-global-forest": {
+  "status": 200,
+  "final": "http://earthenginepartners.appspot.com/science-2013-global-forest",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/environnement/part1/content/le-groupe-d-experts-intergouvernemental-sur-l-evolution-du-climat": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/environnement/part1/content/le-groupe-d-experts-intergouvernemental-sur-l-evolution-du-climat",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/environnement/content/part3/les-negociations-climatiques-vingt-ans-d-aveuglement": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/environnement/content/part3/les-negociations-climatiques-vingt-ans-d-aveuglement",
+  "pages": 2
+ },
+ "https://www.nature.com/news/environment-waste-production-must-peak-this-century-1.14032": {
+  "status": 200,
+  "final": "https://www.nature.com/articles/502615a",
+  "pages": 2
+ },
+ "http://i-peel.org/homepage/garbage/": {
+  "status": 200,
+  "final": "https://i-peel.org/homepage/garbage/",
+  "pages": 2
+ },
+ "https://www.clubofrome.org/report/the-limits-to-growth/": {
+  "status": 200,
+  "final": "https://www.clubofrome.org/publication/the-limits-to-growth/",
+  "pages": 2
+ },
+ "https://www.greenpeace.org.uk/what-we-do/oceans/plastics/": {
+  "status": 200,
+  "final": "https://www.greenpeace.org.uk/challenges/plastic-pollution/",
+  "pages": 2
+ },
+ "https://protectedplanet.net": {
+  "status": 200,
+  "final": "https://www.protectedplanet.net/en",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/environnement/content/part2/delimiter-les-biens-communs-planetaires?page=1": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/environnement/content/part2/delimiter-les-biens-communs-planetaires?page=1",
+  "pages": 2
+ },
+ "http://i-peel.org/": {
+  "status": 200,
+  "final": "https://i-peel.org/",
+  "pages": 2
+ },
+ "http://journals.sagepub.com/doi/abs/10.1177/0309132512437077?etoc=": {
+  "status": 403,
+  "final": "https://journals.sagepub.com/doi/abs/10.1177/0309132512437077?etoc=",
+  "pages": 2
+ },
+ "https://wwf.panda.org/lpr": {
+  "status": 200,
+  "final": "https://go.panda.org/",
+  "pages": 2
+ },
+ "http://www.mitpressjournals.org/doi/abs/10.1162/152638001570642?journalCode=glep": {
+  "status": 403,
+  "final": "https://direct.mit.edu/glep/article/1/1/77/14090/The-Changing-Nature-of-Global-Waste-Management-for",
+  "pages": 2
+ },
+ "http://www.fao.org/forest-resources-assessment/en/": {
+  "status": 200,
+  "final": "https://www.fao.org/forest-resources-assessment/en/",
+  "pages": 2
+ },
+ "http://www.tsp-data-portal.org/": {
+  "status": 200,
+  "final": "https://theshiftdataportal.org/",
+  "pages": 2
+ },
+ "https://fr.unhabitat.org/slum-almanac-2015-2016/": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 2
+ },
+ "http://www.nilebasin.org/": {
+  "status": 200,
+  "final": "https://nilebasin.org/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/sc/": {
+  "status": 200,
+  "final": "https://main.un.org/securitycouncil/fr",
+  "pages": 1
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=722/722555&key=0&query=#%20722555&lang=&sf=": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=722/722555&key=0&query=",
+  "pages": 2
+ },
+ "https://www.bp.com/content/dam/bp/en/corporate/pdf/energy-economics/statistical-review-2017/bp-statistical-review-of-world-energy-2017-full-report.pdf": {
+  "status": 404,
+  "final": "https://www.bp.com/content/dam/bp/en/corporate/pdf/energy-economics/statistical-review-2017/bp-statistical-review-of-world-energy-2017-full-report.pdf",
+  "pages": 2
+ },
+ "https://www.iea.org/weo/": {
+  "status": 404,
+  "final": "https://www.iea.org/weo/",
+  "pages": 2
+ },
+ "http://labos.ulg.ac.be/hugo/": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 2
+ },
+ "https://www.ucsusa.org/global-warming/solutions/stop-deforestation/drivers-of-deforestation.html": {
+  "status": 200,
+  "final": "https://www.ucs.org/resources/whats-driving-deforestation",
+  "pages": 2
+ },
+ "https://www.iswa.org/index.php?eID=tx_iswaknowledgebase_download&documentUid=2550": {
+  "status": 200,
+  "final": "https://www.iswa.org/?eID=tx_iswaknowledgebase_download&documentUid=2550",
+  "pages": 2
+ },
+ "http://www.iswa.org/knowledgebase/tfgfinal": {
+  "status": 404,
+  "final": "https://www.iswa.org/knowledgebase/tfgfinal",
+  "pages": 2
+ },
+ "https://www.ipbes.net/": {
+  "status": 200,
+  "final": "https://www.ipbes.net/",
+  "pages": 2
+ },
+ "https://www.worldwildlife.org/": {
+  "status": 403,
+  "final": "https://www.worldwildlife.org/",
+  "pages": 2
+ },
+ "http://web.unep.org/about/": {
+  "status": 404,
+  "final": "http://web.unep.org/about/",
+  "pages": 2
+ },
+ "https://www.iucn.org/": {
+  "status": 200,
+  "final": "https://iucn.org/",
+  "pages": 2
+ },
+ "https://fr.unesco.org/": {
+  "status": 200,
+  "final": "https://www.unesco.org/fr",
+  "pages": 1
+ },
+ "http://decrypterlenergie.org": {
+  "status": 200,
+  "final": "http://decrypterlenergie.org/",
+  "pages": 2
+ },
+ "http://encyclopedie-energie.org": {
+  "status": 200,
+  "final": "https://encyclopedie-energie.org/",
+  "pages": 2
+ },
+ "http://www.esango.un.org": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://gofossilfree.org/about-fossil-free/": {
+  "status": 200,
+  "final": "https://350.org/france/",
+  "pages": 2
+ },
+ "http://www.seuil.com/ouvrage/homo-detritus-baptiste-monsaingeon/9782021352603": {
+  "status": 200,
+  "final": "https://www.seuil.com/ouvrage/homo-detritus-baptiste-monsaingeon/9782021352603",
+  "pages": 2
+ },
+ "http://www.relbanks.com": {
+  "status": 200,
+  "final": "https://www.relbanks.com/",
+  "pages": 2
+ },
+ "https://www.iksr.org/fr/": {
+  "status": 200,
+  "final": "https://www.iksr.org/fr/",
+  "pages": 1
+ },
+ "http://www.gatesfoundation.org": {
+  "status": 200,
+  "final": "https://www.gatesfoundation.org/",
+  "pages": 2
+ },
+ "http://www.forbes.com/global2000/list": {
+  "status": 200,
+  "final": "https://www.forbes.com/consent/ketch/?toURL=https://www.forbes.com/global2000/list",
+  "pages": 2
+ },
+ "https://freedomhouse.org": {
+  "status": 200,
+  "final": "https://freedomhouse.org/",
+  "pages": 2
+ },
+ "http://www.ec.europa.eu": {
+  "status": 404,
+  "final": "http://www.ec.europa.eu/",
+  "pages": 2
+ },
+ "https://www.wto.org/french/tratop_f/trips_f/art27_3b_f.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/french/tratop_f/trips_f/art27_3b_f.htm",
+  "pages": 1
+ },
+ "https://whc.unesco.org/fr/apropos/": {
+  "status": 403,
+  "final": "https://whc.unesco.org/fr/apropos/",
+  "pages": 1
+ },
+ "http://www.energies-renouvelables.org": {
+  "status": 200,
+  "final": "https://energies-renouvelables.org/",
+  "pages": 2
+ },
+ "http://gallica.bnf.fr/accueil/?mode=desktop": {
+  "status": 403,
+  "final": "http://gallica.bnf.fr/accueil/?mode=desktop",
+  "pages": 2
+ },
+ "https://whc.unesco.org": {
+  "status": 403,
+  "final": "https://whc.unesco.org/",
+  "pages": 2
+ },
+ "https://whc.unesco.org/archive/convention-fr.pdf": {
+  "status": 200,
+  "final": "https://whc.unesco.org/archive/convention-fr.pdf",
+  "pages": 1
+ },
+ "http://uis.unesco.org/en/news/cinema-data-release": {
+  "status": 200,
+  "final": "https://www.uis.unesco.org/en",
+  "pages": 2
+ },
+ "https://ich.unesco.org": {
+  "status": 200,
+  "final": "https://ich.unesco.org/en/home",
+  "pages": 2
+ },
+ "http://www.swfinstitute.org": {
+  "status": 200,
+  "final": "https://www.swfinstitute.org/",
+  "pages": 2
+ },
+ "https://www.metopera.org/Season/Radio/?": {
+  "status": 200,
+  "final": "https://metopera.queue-it.net/?c=metopera&e=metoperawaitingroom&ver=javascript-4.4.4&cver=189&man=24%2F7%20Site%20Protection&enqueuetoken=eyJ0eXAiOiJRVDEiLCJlbmMiOiJBRVMyNTYiLCJpc3MiOjE3OTUxODY1MDczNzgsImV4cCI6MTc5NTE4Njc0NzM3OCwidGkiOiJlMjYzNzYyMS02ZmZkLTRjYjYtOGYwNC05YmM0ZmI1OTgwNWQiLCJjIjoibWV0b3BlcmEiLCJlIjoibWV0b3BlcmF3YWl0aW5ncm9vbSIsImlwIjoiODguMTM5LjUyLjEzMiJ9.YpuhHjoHYCA0Id2KXzEdzA.UpyyS7gbaP-JZAueqJUvRQO611LOe-7vbzKFaOSK2_Y&t=https%3A%2F%2Fwww.metopera.org%2FSeason%2FRadio%2F&kupver=cloudflare-4.4.3",
+  "pages": 2
+ },
+ "https://secure.avaaz.org/page/fr/": {
+  "status": 200,
+  "final": "https://secure.avaaz.org/fr/",
+  "pages": 1
+ },
+ "http://www.forbes.com": {
+  "status": 403,
+  "final": "http://www.forbes.com/",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:A_community_health_worker_conducting_a_survey_in_the_Korail_slum,_Bangladesh_(8630810827).jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:A_community_health_worker_conducting_a_survey_in_the_Korail_slum,_Bangladesh_(8630810827).jpg",
+  "pages": 2
+ },
+ "http://www.culture.gouv.fr/documentation/joconde/fr/pres.htm": {
+  "status": 404,
+  "final": "http://www2.culture.gouv.fr/documentation/joconde/fr/pres.htm",
+  "pages": 1
+ },
+ "https://www.mesopinions.com/fr": {
+  "status": 200,
+  "final": "https://www.mypetition.org/fr",
+  "pages": 1
+ },
+ "https://www.change.org/": {
+  "status": 200,
+  "final": "https://www.change.org/",
+  "pages": 2
+ },
+ "http://unctad.org": {
+  "status": 200,
+  "final": "https://unctad.org/",
+  "pages": 3
+ },
+ "https://www.regardscitoyens.org/quelles-garanties-pour-que-les-consultations-citoyennes-aient-des-finalites-democratiques/": {
+  "status": 200,
+  "final": "https://www.regardscitoyens.org/quelles-garanties-pour-que-les-consultations-citoyennes-aient-des-finalites-democratiques/",
+  "pages": 2
+ },
+ "https://opencorporates.com/viz/financial": {
+  "status": 404,
+  "final": "https://opencorporates.com/viz/financial",
+  "pages": 2
+ },
+ "http://www.ibge.gov.br": {
+  "status": 403,
+  "final": "http://www.ibge.gov.br/",
+  "pages": 2
+ },
+ "http://www.dhs.gov": {
+  "status": 200,
+  "final": "https://www.dhs.gov/",
+  "pages": 2
+ },
+ "http://www.world-exchanges.org": {
+  "status": 200,
+  "final": "https://www.world-exchanges.org/",
+  "pages": 2
+ },
+ "http://www.brac.net": {
+  "status": 200,
+  "final": "http://www.brac.net/",
+  "pages": 2
+ },
+ "http://ceriscope.sciences-po.fr/environnement/content/part1/la-tragedie-des-communaux": {
+  "status": 502,
+  "final": "https://ceriscope.sciences-po.fr/environnement/content/part1/la-tragedie-des-communaux",
+  "pages": 2
+ },
+ "http://openoil.net": {
+  "status": 200,
+  "final": "http://openoil.net/",
+  "pages": 2
+ },
+ "http://www.unpo.org/": {
+  "status": 403,
+  "final": "https://www.unpo.org/",
+  "pages": 2
+ },
+ "http://expositions.bnf.fr/marine/arret/11-6.htm": {
+  "status": 200,
+  "final": "https://essentiels.bnf.fr/fr/",
+  "pages": 2
+ },
+ "http://catalogue.sciencespo.fr/in/faces/browse.xhtml?query=Editeur%3A+%22%C3%89ditions+du+Croquant%22": {
+  "status": 200,
+  "final": "https://catalogue-bibliotheque.sciencespo.fr/nde/search?vid=33USPC_SPO%3ASPONDE",
+  "pages": 2
+ },
+ "https://www.cairn.info/revue-politique-etrangere-2011-1-page-71.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-politique-etrangere-2011-1-page-71.htm",
+  "pages": 2
+ },
+ "https://www.un.org/fr/peacekeeping/issues/ruleoflaw/ruleoflaw.shtml": {
+  "status": 404,
+  "final": "https://www.un.org/fr/peacekeeping/issues/ruleoflaw/ruleoflaw.shtml",
+  "pages": 2
+ },
+ "http://www.census.gov": {
+  "status": 200,
+  "final": "https://www.census.gov/",
+  "pages": 2
+ },
+ "https://www.youtube.com/watch?v=OrN_KGXRGKQ": {
+  "status": 200,
+  "final": "https://www.youtube.com/watch?v=OrN_KGXRGKQ",
+  "pages": 2
+ },
+ "http://catalogue.sciencespo.fr/ark:/46513/sc0001300092?mozQuirk=%D0%B6&posInPage=0&bookmark=325ed31d-06fd-472e-9d60-c8db03400ec3&queryid=6bb769d0-032b-4282-896d-290570c084ce": {
+  "status": 200,
+  "final": "https://catalogue-bibliotheque.sciencespo.fr/nde/search?vid=33USPC_SPO%3ASPONDE",
+  "pages": 2
+ },
+ "http://www.cairn.info/revue-gouvernement-et-action-publique-2013-1-page-139.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/revue-gouvernement-et-action-publique-2013-1-page-139.htm",
+  "pages": 2
+ },
+ "http://global.fundforpeace.org/": {
+  "status": 404,
+  "final": "http://global.fundforpeace.org/",
+  "pages": 2
+ },
+ "http://www.un.org/fr/decolonization/declaration.shtml": {
+  "status": 404,
+  "final": "https://www.un.org/fr/decolonization/declaration.shtml",
+  "pages": 2
+ },
+ "http://www.purprojet.com/fr/conservation-forestiere/": {
+  "status": 200,
+  "final": "https://pur.co/fr/interventions/conservation-forestiere/",
+  "pages": 1
+ },
+ "http://www.acihl.org": {
+  "status": 200,
+  "final": "https://acihl.org/",
+  "pages": 2
+ },
+ "http://www.imf.org": {
+  "status": 403,
+  "final": "https://www.imf.org/en/home",
+  "pages": 2
+ },
+ "http://www.brics.utoronto.ca/docs/170904-xiamen.html": {
+  "status": 200,
+  "final": "http://www.brics.utoronto.ca/docs/170904-xiamen.html",
+  "pages": 2
+ },
+ "http://eeas.europa.eu": {
+  "status": 200,
+  "final": "https://eeas.europa.eu/",
+  "pages": 2
+ },
+ "http://unesdoc.unesco.org/images/0012/001214/121489f.pdf": {
+  "status": 403,
+  "final": "http://unesdoc.unesco.org/ark:/48223/pf0000121489_fre",
+  "pages": 2
+ },
+ "https://viacampesina.org/fr/": {
+  "status": 200,
+  "final": "https://viacampesina.org/fr/",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/eu_echo/43312837842/in/album-72157698975221255/": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/eu_echo/43312837842/in/album-72157698975221255/",
+  "pages": 2
+ },
+ "http://www.securitycouncilreport.org": {
+  "status": 403,
+  "final": "http://www.securitycouncilreport.org/",
+  "pages": 2
+ },
+ "http://www.oic-oci.org/home": {
+  "status": 404,
+  "final": "https://www.oic-oci.org/fr/home",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:Tizi_Ouzou_Tasdawit.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:Tizi_Ouzou_Tasdawit.jpg",
+  "pages": 2
+ },
+ "http://www.afsp.info/archives/congres/congres2013/st/st45/st45visier.pdf": {
+  "status": 200,
+  "final": "http://www.afsp.info/archives/congres/congres2013/st/st45/st45visier.pdf",
+  "pages": 2
+ },
+ "http://www.afsp.info/archives/congres/congres2013/st/st45/st45klein.pdf": {
+  "status": 200,
+  "final": "http://www.afsp.info/archives/congres/congres2013/st/st45/st45klein.pdf",
+  "pages": 2
+ },
+ "http://www.electoralcommission.org.uk": {
+  "status": 403,
+  "final": "https://www.electoralcommission.org.uk/",
+  "pages": 2
+ },
+ "https://rni.unidadvictimas.gov.co/RUV": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://www.oic-oci.org/page/?p_id=116&p_ref=26&lan=fr": {
+  "status": 200,
+  "final": "https://www.oic-oci.org/fr",
+  "pages": 1
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=972/97289&key=4&query=legacy:y&lang=&so=0&sf=date": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=972/97289&key=4&query=legacy:y&lang=&so=0&sf=date",
+  "pages": 2
+ },
+ "http://www.hanban.org": {
+  "status": 418,
+  "final": "http://www.hanban.org/",
+  "pages": 2
+ },
+ "https://data.gov.uk": {
+  "status": 200,
+  "final": "https://www.data.gov.uk/",
+  "pages": 4
+ },
+ "http://www.viacampesina.org": {
+  "status": 200,
+  "final": "https://viacampesina.org/en/",
+  "pages": 2
+ },
+ "http://www.tanap.net/content/voc/organization/organization_intro.htm": {
+  "status": 404,
+  "final": "https://tanap.net/content/voc/organization/organization_intro.htm",
+  "pages": 2
+ },
+ "http://www.cpi.transparency.org": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 2
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=390/390827&key=0&query=390827&lang=&sf=": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=390/390827&key=0&query=390827&lang=&sf=",
+  "pages": 2
+ },
+ "https://uia.org": {
+  "status": 200,
+  "final": "https://uia.org/",
+  "pages": 2
+ },
+ "https://www.c-span.org/video/?443543-101/facebook-ceo-mark-zuckerberg-camera": {
+  "status": 202,
+  "final": "https://www.c-span.org/video/?443543-101/facebook-ceo-mark-zuckerberg-camera",
+  "pages": 2
+ },
+ "https://www.unmultimedia.org/photo/detail.jsp?id=504/504398&key=0&query=504398&lang=&sf=": {
+  "status": 404,
+  "final": "https://www.unmultimedia.org/photo/detail.jsp?id=504/504398&key=0&query=504398&lang=&sf=",
+  "pages": 2
+ },
+ "https://www.flickr.com/photos/worldeconomicforum/12121660545/in/photolist-jt9Fnk-7AyEpF-wCxTi-VDSvgu-qTsGV2-9dVit6-5WWAXj-qCkyqH-dYNWw2-25M2wNs-anVrtE-dYUJem-dPaGk8-dYULdL-235YcLQ-biuTDt-4oFMgU-jsGuSW-qAWEoZ-qSfSuJ-dPgGdj-dPwaeC-RxXq9d-4ifrKW-qTfPkv-dPDTpt-pXRr4Z-dYP16V-jujN99-S4UULA-dYP1Vz-qB2DYk-5YCXPr-dYP3fF-jsFy5E-qCiGGM-anSyJR-dYNW7n-9e1tRi-qCF93X-5WWBm1-anVog1-pWoM6U-jrgCv5-7znmXs-pXzXAo-jtXLzb-22mUSfD-CSnSs2-bjTKt6": {
+  "status": 200,
+  "final": "https://www.flickr.com/photos/worldeconomicforum/12121660545/in/photolist-jt9Fnk-7AyEpF-wCxTi-VDSvgu-qTsGV2-9dVit6-5WWAXj-qCkyqH-dYNWw2-25M2wNs-anVrtE-dYUJem-dPaGk8-dYULdL-235YcLQ-biuTDt-4oFMgU-jsGuSW-qAWEoZ-qSfSuJ-dPgGdj-dPwaeC-RxXq9d-4ifrKW-qTfPkv-dPDTpt-pXRr4Z-dYP16V-jujN99-S4UULA-dYP1Vz-qB2DYk-5YCXPr-dYP3fF-jsFy5E-qCiGGM-anSyJR-dYNW7n-9e1tRi-qCF93X-5WWBm1-anVog1-pWoM6U-jrgCv5-7znmXs-pXzXAo-jtXLzb-22mUSfD-CSnSs2-bjTKt6",
+  "pages": 2
+ },
+ "http://aiddata.org": {
+  "status": 200,
+  "final": "https://www.aiddata.org/",
+  "pages": 2
+ },
+ "http://www.icij.org": {
+  "status": 200,
+  "final": "https://www.icij.org/",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:Segundo_Paro_Internacional_de_Mujeres_-_8M_-_Santa_Fe_-_Argentina_-_Melina_Medrano_-_21.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:Segundo_Paro_Internacional_de_Mujeres_-_8M_-_Santa_Fe_-_Argentina_-_Melina_Medrano_-_21.jpg",
+  "pages": 2
+ },
+ "https://www.icij.org/investigations/luxembourg-leaks/": {
+  "status": 200,
+  "final": "https://www.icij.org/investigations/luxembourg-leaks/",
+  "pages": 2
+ },
+ "https://rsf.org/fr/methodologie-detaillee-du-classement-mondial-de-la-liberte-de-la-presse": {
+  "status": 403,
+  "final": "https://rsf.org/fr/methodologie-detaillee-du-classement-mondial-de-la-liberte-de-la-presse",
+  "pages": 1
+ },
+ "https://www.icij.org/investigations/swiss-leaks/": {
+  "status": 200,
+  "final": "https://www.icij.org/investigations/swiss-leaks/",
+  "pages": 2
+ },
+ "http://www.icij.org/investigations/paradise-papers/": {
+  "status": 200,
+  "final": "https://www.icij.org/investigations/paradise-papers/",
+  "pages": 2
+ },
+ "http://www.fmprc.gov.cn": {
+  "status": 200,
+  "final": "https://www.fmprc.gov.cn/",
+  "pages": 2
+ },
+ "https://rsf.org": {
+  "status": 200,
+  "final": "https://rsf.org/fr",
+  "pages": 2
+ },
+ "https://www.cairn.info/article.php?ID_ARTICLE=QDC_031_0493": {
+  "status": 403,
+  "final": "https://www.cairn.info/article.php?ID_ARTICLE=QDC_031_0493",
+  "pages": 2
+ },
+ "https://commons.wikimedia.org/wiki/File:Prime_Minister_Manmohan_Singh.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:Prime_Minister_Manmohan_Singh.jpg",
+  "pages": 2
+ },
+ "https://rsf.org/fr/classement-mondial-de-la-liberte-de-la-presse-2018-la-haine-du-journalisme-menace-les-democraties": {
+  "status": 404,
+  "final": "https://rsf.org/fr/classement-mondial-de-la-liberte-de-la-presse-2018-la-haine-du-journalisme-menace-les-democraties",
+  "pages": 2
+ },
+ "https://www.inaglobal.fr/presse/dossier/de-quoi-les-fake-news-sont-elles-le-symptome-9730": {
+  "status": 0,
+  "error": "UND_ERR_HEADERS_OVERFLOW",
+  "pages": 2
+ },
+ "https://rsf.org/fr/classement-mondial-de-la-liberte-de-la-presse-2017-le-grand-basculement": {
+  "status": 404,
+  "final": "https://rsf.org/fr/classement-mondial-de-la-liberte-de-la-presse-2017-le-grand-basculement",
+  "pages": 2
+ },
+ "https://panamapapers.icij.org/": {
+  "status": 200,
+  "final": "https://www.icij.org/investigations/panama-papers/",
+  "pages": 2
+ },
+ "https://fr.africacheck.org/a-propos/": {
+  "status": 403,
+  "final": "https://africacheck.org/fr/a-propos/",
+  "pages": 2
+ },
+ "http://www.longfinance.net": {
+  "status": 200,
+  "final": "https://www.longfinance.net/",
+  "pages": 2
+ },
+ "http://www.fao.org/cfs/fr/": {
+  "status": 200,
+  "final": "https://www.fao.org/cfs/fr/",
+  "pages": 2
+ },
+ "http://www.undp.org/content/undp/fr/home/sustainable-development-goals.html": {
+  "status": 200,
+  "final": "https://www.undp.org/fr/sustainable-development-goals",
+  "pages": 1
+ },
+ "https://www.ndb.int/": {
+  "status": 200,
+  "final": "https://www.ndb.int/",
+  "pages": 2
+ },
+ "https://www.touteleurope.eu/actualite/la-dette-publique-des-etats-de-l-union-europeenne.html": {
+  "status": 200,
+  "final": "https://www.touteleurope.eu/economie-et-social/dette-publique-ou-se-situe-la-france-par-rapport-aux-autres-pays-europeens/",
+  "pages": 2
+ },
+ "http://www.brac.net/": {
+  "status": 200,
+  "final": "http://www.brac.net/",
+  "pages": 2
+ },
+ "http://sites.ina.fr/images-de-crises/focus/chapitre/5/medias": {
+  "status": 200,
+  "final": "https://sites.ina.fr/images-de-crises/focus/chapitre/5/medias",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/thessaloniki-greece-august-28-2018-interview-1173177649?src=FkdOEgTn7Xli_pTDBGIUYw-1-22": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/thessaloniki-greece-august-28-2018-interview-1173177649?src=FkdOEgTn7Xli_pTDBGIUYw-1-22",
+  "pages": 2
+ },
+ "https://www.coordinationsud.org": {
+  "status": 403,
+  "final": "https://www.coordinationsud.org/",
+  "pages": 1
+ },
+ "https://www.inaglobal.fr/numerique/dossier/l-ia-dans-les-medias-y-est-deja-10097": {
+  "status": 0,
+  "error": "UND_ERR_HEADERS_OVERFLOW",
+  "pages": 2
+ },
+ "https://www.itu.int/fr/Pages/default.aspx": {
+  "status": 200,
+  "final": "https://www.itu.int/fr/Pages/default.aspx",
+  "pages": 1
+ },
+ "http://www.worldsoldestshare.com/": {
+  "status": 200,
+  "final": "https://www.worldsoldestshare.com/en",
+  "pages": 2
+ },
+ "http://www.banquemondiale.org/": {
+  "status": 200,
+  "final": "https://www.banquemondiale.org/ext/fr/home",
+  "pages": 1
+ },
+ "https://www.nato.int/nato-welcome/index_fr.html": {
+  "status": 404,
+  "final": "https://www.nato.int/nato-welcome/index_fr.html",
+  "pages": 1
+ },
+ "http://www.un.org/fr/index.html": {
+  "status": 200,
+  "final": "https://www.un.org/fr/",
+  "pages": 1
+ },
+ "http://www.imf.org/external/french/index.htm": {
+  "status": 200,
+  "final": "https://www.imf.org/external/french/index.htm",
+  "pages": 1
+ },
+ "http://web.unep.org/ozonaction/resources/national-ozone-unit-contacts": {
+  "status": 404,
+  "final": "http://web.unep.org/ozonaction/resources/national-ozone-unit-contacts",
+  "pages": 2
+ },
+ "https://www.gatesfoundation.org/fr/": {
+  "status": 200,
+  "final": "https://www.gatesfoundation.org/about/leadership/fran-berlioz-seux",
+  "pages": 2
+ },
+ "https://www.un.org/ecosoc/fr/home": {
+  "status": 200,
+  "final": "https://ecosoc.un.org/en",
+  "pages": 2
+ },
+ "http://www.revue-etudesinternationales.ulaval.ca/quand-linternational-passe-au-vert-l'appropriation-de-la-question-environnementale-par-les-organisations-internationales": {
+  "status": 0,
+  "error": "ECONNREFUSED",
+  "pages": 2
+ },
+ "https://lpeblog.org/2017/12/06/from-territorial-to-functional-sovereignty-the-case-of-amazon": {
+  "status": 200,
+  "final": "https://lpeproject.org/blog/from-territorial-to-functional-sovereignty-the-case-of-amazon/",
+  "pages": 2
+ },
+ "https://www.jstor.org/stable/27800681": {
+  "status": 200,
+  "final": "https://www.jstor.org/stable/27800681",
+  "pages": 2
+ },
+ "https://link.springer.com/article/10.1007/s11558-009-9055-8": {
+  "status": 200,
+  "final": "https://link.springer.com/article/10.1007/s11558-009-9055-8",
+  "pages": 2
+ },
+ "https://www.cairn.info/mobilite-humaine-et-environnement--9782759223312-p-107.htm": {
+  "status": 403,
+  "final": "https://www.cairn.info/mobilite-humaine-et-environnement--9782759223312-p-107.htm",
+  "pages": 2
+ },
+ "https://www.erudit.org/fr/revues/ei/2016-v47-n1-ei03024/": {
+  "status": 200,
+  "final": "https://www.erudit.org/fr/revues/ei/2016-v47-n1-ei03024/",
+  "pages": 2
+ },
+ "https://www.mitpressjournals.org/doi/abs/10.1162/1526380041748083": {
+  "status": 403,
+  "final": "https://direct.mit.edu/glep/article/4/3/1/14284/The-WTO-and-the-Environment-Its-Past-Record-is",
+  "pages": 2
+ },
+ "http://www.greeningtheblue.org/sites/default/files/Greening%20the%20Blue%20report%202017%20-%20Brochure%20(web%20-%20low%20res).pdf": {
+  "status": 525,
+  "final": "https://www.greeningtheblue.org/sites/default/files/Greening%20the%20Blue%20report%202017%20-%20Brochure%20(web%20-%20low%20res).pdf",
+  "pages": 2
+ },
+ "https://www.ipinst.org/wp-content/uploads/2018/04/1804_Greening-Peacekeeping.pdf": {
+  "status": 200,
+  "final": "https://www.ipinst.org/wp-content/uploads/2018/04/1804_Greening-Peacekeeping.pdf",
+  "pages": 2
+ },
+ "http://www.unodc.org/": {
+  "status": 200,
+  "final": "https://www.unodc.org/",
+  "pages": 2
+ },
+ "http://idpc.net/fr/idpc": {
+  "status": 404,
+  "final": "https://idpc.net/fr/idpc",
+  "pages": 1
+ },
+ "http://www.unodc.org/unodc/fr/drug-trafficking/west-and-central-africa.html": {
+  "status": 200,
+  "final": "https://www.unodc.org/unodc/fr/drug-trafficking/west-and-central-africa.html",
+  "pages": 1
+ },
+ "http://www.greeningtheblue.org": {
+  "status": 525,
+  "final": "https://www.greeningtheblue.org/",
+  "pages": 2
+ },
+ "http://www.upu.int/fr.html": {
+  "status": 200,
+  "final": "https://www.upu.int/fr/accueil",
+  "pages": 1
+ },
+ "http://www.unodc.org/unodc/fr/treaties/CTOC/": {
+  "status": 200,
+  "final": "https://www.unodc.org/unodc/fr/treaties/CTOC/",
+  "pages": 1
+ },
+ "http://pacifista.co/el-naya-la-ruta-oculta-de-la-cocaina/": {
+  "status": 404,
+  "final": "http://pacifista.co/el-naya-la-ruta-oculta-de-la-cocaina/",
+  "pages": 2
+ },
+ "https://www.unodc.org/documents/data-and-analysis/glotip/2016_Global_Report_on_Trafficking_in_Persons.pdf": {
+  "status": 200,
+  "final": "https://www.unodc.org/documents/data-and-analysis/glotip/2016_Global_Report_on_Trafficking_in_Persons.pdf",
+  "pages": 2
+ },
+ "http://www.emcdda.europa.eu/system/files/publications/4541/TDAT17001FRN.pdf": {
+  "status": 403,
+  "final": "http://www.emcdda.europa.eu/system/files/publications/4541/TDAT17001FRN.pdf",
+  "pages": 1
+ },
+ "http://www.ilo.org/wcmsp5/groups/public/@dgreports/@dcomm/documents/publication/wcms_575479.pdf": {
+  "status": 200,
+  "final": "https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/documents/publication/wcms_575479.pdf",
+  "pages": 2
+ },
+ "https://www.wto.org/french/thewto_f/countries_f/european_communities_f.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/french/thewto_f/countries_f/european_communities_f.htm",
+  "pages": 2
+ },
+ "http://www.oecd.org": {
+  "status": 403,
+  "final": "https://www.oecd.org/",
+  "pages": 2
+ },
+ "https://www.unodc.org/wdr2017/index.html": {
+  "status": 200,
+  "final": "https://www.unodc.org/wdr2017/index.html",
+  "pages": 2
+ },
+ "http://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:42008X0130(01)&from=FR": {
+  "status": 202,
+  "final": "https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:42008X0130(01)&from=FR",
+  "pages": 1
+ },
+ "http://www.undp.org": {
+  "status": 200,
+  "final": "https://www.undp.org/",
+  "pages": 2
+ },
+ "http://www.greeningtheblue.org/": {
+  "status": 525,
+  "final": "https://www.greeningtheblue.org/",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/greece-thessaloniki-june-28-2015-citizens-291462758": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/greece-thessaloniki-june-28-2015-citizens-291462758",
+  "pages": 2
+ },
+ "https://public.wmo.int/fr": {
+  "status": 200,
+  "final": "https://wmo.int/fr",
+  "pages": 1
+ },
+ "https://commons.wikimedia.org/wiki/File:La_masacre_de_San_Bartolom%C3%A9,_por_Fran%C3%A7ois_Dubois.jpg": {
+  "status": 200,
+  "final": "https://commons.wikimedia.org/wiki/File:La_masacre_de_San_Bartolom%C3%A9,_por_Fran%C3%A7ois_Dubois.jpg",
+  "pages": 2
+ },
+ "https://gallica.bnf.fr/ark:/12148/btv1b55002481n/f11.item": {
+  "status": 403,
+  "final": "https://gallica.bnf.fr/ark:/12148/btv1b55002481n/f11.item",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-photo/st-paul-mnusa-january-21-2016-563367793": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-photo/st-paul-mnusa-january-21-2016-563367793",
+  "pages": 2
+ },
+ "https://www.shutterstock.com/fr/image-illustration/planet-earth-detailed-relief-covered-complex-1112579363": {
+  "status": 403,
+  "final": "https://www.shutterstock.com/fr/image-illustration/planet-earth-detailed-relief-covered-complex-1112579363",
+  "pages": 2
+ },
+ "https://www.sciencespo.fr/cartographie/khartis": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/cartographie/fr/outils/khartis",
+  "pages": 2
+ },
+ "https://eeas.europa.eu/headquarters/headquarters-homepage_fr": {
+  "status": 200,
+  "final": "https://www.eeas.europa.eu/_en",
+  "pages": 1
+ },
+ "http://www.mar.umd.edu": {
+  "status": 200,
+  "final": "http://www.mar.umd.edu/",
+  "pages": 1
+ },
+ "https://www.sciencespo.fr/cartographie/en": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/cartographie/en",
+  "pages": 2
+ },
+ "https://www.sciencespo.fr/en": {
+  "status": 200,
+  "final": "https://www.sciencespo.fr/en/",
+  "pages": 365
+ },
+ "https://www.iksr.org/en/": {
+  "status": 200,
+  "final": "https://www.iksr.org/en/",
+  "pages": 1
+ },
+ "https://www.un.org/securitycouncil/": {
+  "status": 200,
+  "final": "https://main.un.org/securitycouncil/en",
+  "pages": 1
+ },
+ "https://www.nobelprize.org/nobel_prizes/peace/laureates/2012/presentation-speech.html": {
+  "status": 200,
+  "final": "https://www.nobelprize.org/prizes/peace/2012/ceremony-speech/",
+  "pages": 2
+ },
+ "https://www.wmo.int/pages/index_en.html": {
+  "status": 404,
+  "final": "https://wmo.int/pages/index_en.html",
+  "pages": 1
+ },
+ "https://unfccc.int/": {
+  "status": 200,
+  "final": "https://unfccc.int/",
+  "pages": 1
+ },
+ "https://en.monsantotribunal.org/": {
+  "status": 200,
+  "final": "https://en.monsantotribunal.org/",
+  "pages": 1
+ },
+ "https://www.unenvironment.org/": {
+  "status": 403,
+  "final": "https://www.unep.org/",
+  "pages": 3
+ },
+ "https://www.ohchr.org/EN/Issues/ESCR/Pages/Water.aspx": {
+  "status": 403,
+  "final": "https://www.ohchr.org/EN/Issues/ESCR/Pages/Water.aspx",
+  "pages": 1
+ },
+ "http://www.unesco.org/new/en/natural-sciences/environment/water/wwap/wwdr/2018-nature-based-solutions/": {
+  "status": 404,
+  "final": "https://www.unesco.org/new/en/natural-sciences/environment/water/wwap/wwdr/2018-nature-based-solutions/",
+  "pages": 1
+ },
+ "https://www.tni.org/en/publication/here-to-stay-water-remunicipalisation-as-a-global-trend": {
+  "status": 429,
+  "final": "https://www.tni.org/en/publication/here-to-stay-water-remunicipalisation-as-a-global-trend",
+  "pages": 1
+ },
+ "https://ec.europa.eu/info/policies/european-neighbourhood-policy_fr": {
+  "status": 404,
+  "final": "https://commission.europa.eu/policies/european-neighbourhood-policy_fr",
+  "pages": 2
+ },
+ "http://www.un.org/en/events/desertification_decade/whynow.shtml": {
+  "status": 200,
+  "final": "https://www.un.org/en/events/desertification_decade/whynow.shtml",
+  "pages": 1
+ },
+ "http://hdr.undp.org/sites/default/files/reports/267/hdr06-complete.pdf": {
+  "status": 403,
+  "final": "https://hdr.undp.org/sites/default/files/private/documents/human-development-report-2006-english.human-development-report-2006-english",
+  "pages": 1
+ },
+ "http://www.fao.org/state-of-food-security-nutrition/en/": {
+  "status": 200,
+  "final": "http://www.fao.org/interactive/state-of-food-security-nutrition/2021/en/",
+  "pages": 1
+ },
+ "https://en.unesco.org/": {
+  "status": 200,
+  "final": "https://www.unesco.org/en",
+  "pages": 1
+ },
+ "http://measuringworth.com": {
+  "status": 200,
+  "final": "https://measuringworth.com/",
+  "pages": 2
+ },
+ "http://www.clocsas.org/": {
+  "status": 200,
+  "final": "https://clocsas.org/",
+  "pages": 1
+ },
+ "http://www.defense.gouv.fr/content/download/367110/5335823/file/irsem_cdm_n%C2%B026_2015.pdf": {
+  "status": 404,
+  "final": "https://www.defense.gouv.fr/content/download/367110/5335823/file/irsem_cdm_n%C2%B026_2015.pdf",
+  "pages": 2
+ },
+ "http://www.fao.org/3/a-br324e.pdf": {
+  "status": 200,
+  "final": "https://openknowledge.fao.org/server/api/core/bitstreams/ed78d994-959f-4521-934f-6e01e028728b/content",
+  "pages": 1
+ },
+ "https://www.iaea.org/": {
+  "status": 403,
+  "final": "https://www.iaea.org/",
+  "pages": 1
+ },
+ "https://www.un.org/disarmament/wmd/nuclear/npt/text": {
+  "status": 404,
+  "final": "https://disarmament.unoda.org/wmd/nuclear/npt/text",
+  "pages": 1
+ },
+ "http://avalon.law.yale.edu/19th_century/dec99-02.asp": {
+  "status": 200,
+  "final": "https://avalon.law.yale.edu/19th_century/dec99-02.asp",
+  "pages": 1
+ },
+ "https://www.apminebanconvention.org/en/": {
+  "status": 200,
+  "final": "https://www.apminebanconvention.org/en/",
+  "pages": 1
+ },
+ "http://www.overshootday.org/newsroom/past-earth-overshoot-days/": {
+  "status": 200,
+  "final": "https://overshoot.footprintnetwork.org/newsroom/past-earth-overshoot-days/",
+  "pages": 1
+ },
+ "https://www.un.org/ruleoflaw/files/Capstone_Doctrine_ENG.pdf": {
+  "status": 404,
+  "final": "https://www.un.org/ruleoflaw/files/Capstone_Doctrine_ENG.pdf",
+  "pages": 2
+ },
+ "https://peacekeeping.un.org/en/where-we-operate": {
+  "status": 200,
+  "final": "https://peacekeeping.un.org/en/where-we-operate",
+  "pages": 1
+ },
+ "http://www.un.org/en/charter-united-nations/index.html": {
+  "status": 200,
+  "final": "https://www.un.org/en/about-us/un-charter",
+  "pages": 1
+ },
+ "https://www.icrc.org/en/war-and-law/treaties-customary-law/geneva-conventions": {
+  "status": 200,
+  "final": "https://www.icrc.org/en/law-and-policy/geneva-conventions-and-their-commentaries",
+  "pages": 1
+ },
+ "https://www.un.org/disarmament/convarms/att/": {
+  "status": 404,
+  "final": "https://disarmament.unoda.org/convarms/att/",
+  "pages": 1
+ },
+ "https://peacekeeping.un.org/sites/default/files/newhorizon_0.pdf": {
+  "status": 200,
+  "final": "https://peacekeeping.un.org/sites/default/files/newhorizon_0.pdf",
+  "pages": 1
+ },
+ "http://www.fao.org/giews/country-analysis/external-assistance/en/": {
+  "status": 200,
+  "final": "https://www.fao.org/giews/country-analysis/external-assistance/en/",
+  "pages": 1
+ },
+ "https://www.galtung-institut.de/wp-content/uploads/2016/06/galtung_1976_three_approaches_to_peace.pdf": {
+  "status": 200,
+  "final": "https://www.galtung-institut.de/wp-content/uploads/2016/06/galtung_1976_three_approaches_to_peace.pdf",
+  "pages": 1
+ },
+ "https://wsf2018.org/en/": {
+  "status": 403,
+  "final": "https://wsf2018.org/en/",
+  "pages": 1
+ },
+ "http://www.fao.org/world-banana-forum/en/": {
+  "status": 200,
+  "final": "https://www.fao.org/world-banana-forum/en/",
+  "pages": 1
+ },
+ "https://www.un.org/sustainabledevelopment/sustainable-development-goals/": {
+  "status": 200,
+  "final": "https://www.un.org/sustainabledevelopment/sustainable-development-goals/",
+  "pages": 1
+ },
+ "http://hdr.undp.org/sites/default/files/reports/255/hdr_1994_en_complete_nostats.pdf": {
+  "status": 403,
+  "final": "https://hdr.undp.org/sites/default/files/private/documents/hdr1994encompletenostats.pdf",
+  "pages": 1
+ },
+ "https://www.purprojet.com/forest-conservation/": {
+  "status": 404,
+  "final": "https://pur.co/interventions/forest-conservation/",
+  "pages": 1
+ },
+ "http://undocs.org/en/A/RES/70/262": {
+  "status": 200,
+  "final": "https://docs.un.org/en/A/RES/70/262",
+  "pages": 1
+ },
+ "http://www.un.org/fr/documents/view_doc.asp?symbol=A/RES/46/182&TYPE=&referer=/fr/&Lang=E": {
+  "status": 403,
+  "final": "https://www.un.org/fr/documents/view_doc.asp?symbol=A/RES/46/182&TYPE=&referer=/fr/&Lang=E",
+  "pages": 1
+ },
+ "https://www.un.org/en/development/desa/population/migration/generalassembly/docs/globalcompact/A_RES_60_1.pdf": {
+  "status": 404,
+  "final": "https://www.un.org/en/development/desa/population/migration/generalassembly/docs/globalcompact/A_RES_60_1.pdf",
+  "pages": 1
+ },
+ "https://www.caritas.org/who-we-are/": {
+  "status": 520,
+  "final": "https://www.caritas.org/who-we-are/",
+  "pages": 1
+ },
+ "https://peacekeeping.un.org/en/troop-and-police-contributors": {
+  "status": 200,
+  "final": "https://peacekeeping.un.org/en/troop-and-police-contributors",
+  "pages": 1
+ },
+ "https://www.zerowastefrance.org/en": {
+  "status": 200,
+  "final": "https://www.zerowastefrance.org/",
+  "pages": 1
+ },
+ "https://www.hcch.net/en/about/": {
+  "status": 200,
+  "final": "https://www.hcch.net/en/about/",
+  "pages": 1
+ },
+ "https://www.icrc.org/en/document/icrc-150-years-humanitarian-action": {
+  "status": 200,
+  "final": "https://www.icrc.org/en/document/icrc-150-years-humanitarian-action",
+  "pages": 1
+ },
+ "http://web.unep.org/environmentassembly/about-un-environment-assembly": {
+  "status": 404,
+  "final": "http://web.unep.org/environmentassembly/about-un-environment-assembly",
+  "pages": 1
+ },
+ "https://monsanto.com/app/uploads/2017/12/2017_Monsanto_Annual_Report.pdf": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 2
+ },
+ "https://www.secours-islamique.org/en/presentation.html": {
+  "status": 404,
+  "final": "https://sif.org/en/presentation.html",
+  "pages": 1
+ },
+ "http://www.europarl.europa.eu/factsheets/en/sheet/84/european-system-of-financial-supervision-esfs-": {
+  "status": 200,
+  "final": "https://www.europarl.europa.eu/factsheets/en/sheet/84/european-system-of-financial-supervision-esfs-",
+  "pages": 1
+ },
+ "https://www.issa.int/en/the-issa": {
+  "status": 403,
+  "final": "https://www.issa.int/en/the-issa",
+  "pages": 1
+ },
+ "https://www.msf.org/kunduz-hospital-attack": {
+  "status": 200,
+  "final": "https://www.msf.org/kunduz-hospital-attack",
+  "pages": 1
+ },
+ "https://www.ohchr.org/EN/ProfessionalInterest/Pages/CMW.aspx": {
+  "status": 403,
+  "final": "https://www.ohchr.org/EN/ProfessionalInterest/Pages/CMW.aspx",
+  "pages": 1
+ },
+ "https://www.ilo.org/wcmsp5/groups/public/---dgreports/---dcomm/---publ/documents/publication/wcms_605078.pdf": {
+  "status": 200,
+  "final": "https://www.ilo.org/sites/default/files/wcmsp5/groups/public/@dgreports/@dcomm/@publ/documents/publication/wcms_605078.pdf",
+  "pages": 1
+ },
+ "https://www.ccr-zkr.org/10000000-en.html": {
+  "status": 404,
+  "final": "https://www.ccr-zkr.org/10000000-en.html",
+  "pages": 1
+ },
+ "https://www.bipm.org/en/worldwide-metrology/metre-convention/": {
+  "status": 200,
+  "final": "https://www.bipm.org/en/metre-convention",
+  "pages": 1
+ },
+ "https://www.transparency.org/whatwedo/tools/integrity_pacts/5": {
+  "status": 200,
+  "final": "https://www.transparency.org/en/projects/integritypacts",
+  "pages": 1
+ },
+ "https://www.wto.org/english/res_e/booksp_e/world_trade_report17_e.pdf": {
+  "status": 200,
+  "final": "https://www.wto.org/english/res_e/booksp_e/world_trade_report17_e.pdf",
+  "pages": 1
+ },
+ "https://www.ilo.org/global/publications/books/WCMS_626831/lang--en/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/publications/women-and-men-informal-economy-statistical-picture-third-edition",
+  "pages": 1
+ },
+ "https://www.ilo.org/global/about-the-ilo/history/lang--en/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/about-ilo/history-ilo",
+  "pages": 1
+ },
+ "https://www.wto.org/english/docs_e/legal_e/havana_e.pdf": {
+  "status": 200,
+  "final": "https://www.wto.org/english/docs_e/legal_e/havana_e.pdf",
+  "pages": 1
+ },
+ "https://www.wto.org/english/res_e/publications_e/wtr17_e.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/english/res_e/publications_e/wtr17_e.htm",
+  "pages": 1
+ },
+ "https://www.wto.org/english/res_e/publications_e/wtr16_e.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/english/res_e/publications_e/wtr16_e.htm",
+  "pages": 1
+ },
+ "https://www.wto.org/english/thewto_e/minist_e/minist_e.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/english/thewto_e/minist_e/minist_e.htm",
+  "pages": 1
+ },
+ "http://avalon.law.yale.edu/20th_century/leagcov.asp": {
+  "status": 200,
+  "final": "https://avalon.law.yale.edu/20th_century/leagcov.asp",
+  "pages": 1
+ },
+ "http://wir2018.wid.world/": {
+  "status": 200,
+  "final": "https://wir2018.wid.world/",
+  "pages": 1
+ },
+ "http://www.monsanto.com": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 2
+ },
+ "https://www.ilo.org/global/about-the-ilo/how-the-ilo-works/lang--en/index.htm": {
+  "status": 200,
+  "final": "https://www.ilo.org/about-ilo/how-ilo-works",
+  "pages": 1
+ },
+ "http://www.icty.org/x/file/Legal%20Library/Statute/statute_sept09_en.pdf": {
+  "status": 200,
+  "final": "https://www.icty.org/x/file/Legal%20Library/Statute/statute_sept09_en.pdf",
+  "pages": 1
+ },
+ "https://globalnutritionreport.org/reports/global-nutrition-report-2018/": {
+  "status": 200,
+  "final": "https://globalnutritionreport.org/reports/global-nutrition-report-2018/",
+  "pages": 1
+ },
+ "https://www.icc-cpi.int/nr/rdonlyres/ea9aeff7-5752-4f84-be94-0a655eb30e16/0/rome_statute_english.pdf": {
+  "status": 200,
+  "final": "https://www.icc-cpi.int/sites/default/files/2024-05/Rome-Statute-eng.pdf",
+  "pages": 1
+ },
+ "https://www.who.int/en/news-room/detail/28-09-2017-worldwide-an-estimated-25-million-unsafe-abortions-occur-each-year": {
+  "status": 200,
+  "final": "https://www.who.int/en/news-room/detail/28-09-2017-worldwide-an-estimated-25-million-unsafe-abortions-occur-each-year",
+  "pages": 1
+ },
+ "https://www.unhcr.org/en-us/history-of-unhcr.html": {
+  "status": 403,
+  "final": "https://www.unhcr.org/us/history-of-unhcr.html",
+  "pages": 1
+ },
+ "https://refugeesmigrants.un.org/migration-compact": {
+  "status": 0,
+  "error": "ENOTFOUND",
+  "pages": 1
+ },
+ "https://www.un.org/sustainabledevelopment/health/": {
+  "status": 200,
+  "final": "https://www.un.org/sustainabledevelopment/health/",
+  "pages": 1
+ },
+ "https://www.unhcr.org/en-us/1951-refugee-convention.html": {
+  "status": 403,
+  "final": "https://www.unhcr.org/us/1951-refugee-convention.html",
+  "pages": 2
+ },
+ "http://www.inegalites.fr/": {
+  "status": 200,
+  "final": "https://www.inegalites.fr/",
+  "pages": 1
+ },
+ "https://www.unocha.org/node/3213": {
+  "status": 406,
+  "final": "https://www.unocha.org/node/3213",
+  "pages": 1
+ },
+ "https://documents-dds-ny.un.org/doc/UNDOC/GEN/N00/720/18/PDF/N0072018.pdf?OpenElement": {
+  "status": 200,
+  "final": "https://documents.un.org/doc/undoc/gen/n00/720/18/pdf/n0072018.pdf?OpenElement",
+  "pages": 1
+ },
+ "https://documents-dds-ny.un.org/doc/UNDOC/GEN/G09/152/77/PDF/G0915277.pdf?OpenElement": {
+  "status": 200,
+  "final": "https://documents.un.org/doc/undoc/gen/g09/152/77/pdf/g0915277.pdf?OpenElement",
+  "pages": 1
+ },
+ "http://www.unhcr.org/en/591ae6f84.pdf#zoom=95": {
+  "status": 403,
+  "final": "https://www.unhcr.org/en/591ae6f84.pdf",
+  "pages": 1
+ },
+ "http://apps.who.int/iris/bitstream/10665/78413/1/9789242548433_eng.pdf": {
+  "status": 200,
+  "final": "https://iris.who.int/bitstream/10665/78413/1/9789242548433_eng.pdf",
+  "pages": 1
+ },
+ "http://www.emcdda.europa.eu/system/files/publications/4541/TDAT17001ENN.pdf": {
+  "status": 403,
+  "final": "http://www.emcdda.europa.eu/system/files/publications/4541/TDAT17001ENN.pdf",
+  "pages": 1
+ },
+ "https://www.wto.org/english/tratop_e/trips_e/art27_3b_e.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/english/tratop_e/trips_e/art27_3b_e.htm",
+  "pages": 1
+ },
+ "https://idpc.net/en/?setlang=en": {
+  "status": 200,
+  "final": "https://idpc.net/en?setlang=en",
+  "pages": 1
+ },
+ "https://whc.unesco.org/en/about/": {
+  "status": 403,
+  "final": "https://whc.unesco.org/en/about/",
+  "pages": 1
+ },
+ "https://whc.unesco.org/archive/convention-en.pdf": {
+  "status": 200,
+  "final": "https://whc.unesco.org/archive/convention-en.pdf",
+  "pages": 1
+ },
+ "http://www2.culture.gouv.fr/documentation/joconde/fr/pres.htm": {
+  "status": 404,
+  "final": "http://www2.culture.gouv.fr/documentation/joconde/fr/pres.htm",
+  "pages": 1
+ },
+ "https://www.coordinationsud.org/": {
+  "status": 403,
+  "final": "https://www.coordinationsud.org/",
+  "pages": 1
+ },
+ "http://csonet.org/": {
+  "status": 403,
+  "final": "http://csonet.org/",
+  "pages": 1
+ },
+ "http://www.unodc.org/unodc/en/drug-trafficking/west-and-central-africa.html": {
+  "status": 200,
+  "final": "https://www.unodc.org/unodc/en/drug-trafficking/west-and-central-africa.html",
+  "pages": 1
+ },
+ "http://www.unodc.org/unodc/en/organized-crime/intro/UNTOC.html": {
+  "status": 200,
+  "final": "https://www.unodc.org/unodc/en/organized-crime/intro/UNTOC.html",
+  "pages": 1
+ },
+ "https://secure.avaaz.org/page/en": {
+  "status": 200,
+  "final": "https://secure.avaaz.org/en/",
+  "pages": 1
+ },
+ "https://rsf.org/en/detailed-methodology": {
+  "status": 403,
+  "final": "https://rsf.org/en/detailed-methodology",
+  "pages": 1
+ },
+ "https://unhabitat.org/slum-almanac-2015-2016/": {
+  "status": 200,
+  "final": "https://unhabitat.org/media/stories/slum-almanac-2015-2016",
+  "pages": 1
+ },
+ "https://www.mesopinions.com/en": {
+  "status": 200,
+  "final": "https://www.mypetition.org/en",
+  "pages": 1
+ },
+ "https://public.wmo.int/en": {
+  "status": 200,
+  "final": "https://wmo.int/",
+  "pages": 1
+ },
+ "https://disasterdisplacement.org/": {
+  "status": 200,
+  "final": "https://disasterdisplacement.org/",
+  "pages": 1
+ },
+ "https://www.worldbank.org/": {
+  "status": 200,
+  "final": "https://www.worldbank.org/ext/en/home",
+  "pages": 1
+ },
+ "http://www.mar.umd.edu/": {
+  "status": 200,
+  "final": "http://www.mar.umd.edu/",
+  "pages": 1
+ },
+ "https://www.imf.org/external/index.htm": {
+  "status": 200,
+  "final": "https://www.imf.org/external/index.htm",
+  "pages": 1
+ },
+ "https://www.wto.org/english/docs_e/legal_e/prewto_legal_e.htm": {
+  "status": 200,
+  "final": "https://www.wto.org/english/docs_e/legal_e/prewto_legal_e.htm",
+  "pages": 1
+ },
+ "http://www.un.org/en/index.html": {
+  "status": 200,
+  "final": "https://www.un.org/en/",
+  "pages": 1
+ },
+ "https://www.nato.int/nato-welcome/index.html": {
+  "status": 404,
+  "final": "https://www.nato.int/nato-welcome/index.html",
+  "pages": 1
+ },
+ "https://www.icrc.org/en/document/internally-displaced-persons-and-international-humanitarian-law-factsheet": {
+  "status": 200,
+  "final": "https://www.icrc.org/en/document/internally-displaced-persons-and-international-humanitarian-law-factsheet",
+  "pages": 1
+ },
+ "https://www.itu.int/en/Pages/default.aspx": {
+  "status": 200,
+  "final": "https://www.itu.int/en/Pages/default.aspx",
+  "pages": 1
+ },
+ "http://www.undp.org/content/undp/en/home.html": {
+  "status": 200,
+  "final": "https://www.undp.org/",
+  "pages": 1
+ },
+ "http://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S0185-013X2016000100082": {
+  "status": 200,
+  "final": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S0185-013X2016000100082",
+  "pages": 2
+ },
+ "https://www.oxfam.org/en/research/economy-99": {
+  "status": 200,
+  "final": "https://www.oxfam.org/en/research/economy-99",
+  "pages": 1
+ },
+ "http://www.undp.org/content/undp/fr/home.html": {
+  "status": 200,
+  "final": "https://www.undp.org/fr",
+  "pages": 1
+ },
+ "https://www.oic-oci.org/page/?p_id=52&p_ref=26&lan=en": {
+  "status": 200,
+  "final": "https://www.oic-oci.org/fr",
+  "pages": 1
+ },
+ "http://www.upu.int/en.html": {
+  "status": 200,
+  "final": "https://www.upu.int/fr/accueil",
+  "pages": 1
+ },
+ "http://www.undp.org/content/undp/en/home/sustainable-development-goals.html": {
+  "status": 200,
+  "final": "https://www.undp.org/sustainable-development-goals",
+  "pages": 1
+ },
+ "https://www.icrc.org/en/doc/war-and-law/treaties-customary-law/geneva-conventions/overview-geneva-conventions.htm": {
+  "status": 0,
+  "error": "UND_ERR_CONNECT_TIMEOUT",
+  "pages": 1
+ }
+}

@@ -1,0 +1,2124 @@
+@charset "UTF-8";
+html {
+  font-size: 62.5%; }
+
+body.preview::before {
+  background: #f00;
+  color: #fff;
+  content: 'preview';
+  display: block;
+  font-size: 3rem;
+  font-weight: bold;
+  position: fixed;
+  right: -50px;
+  text-align: center;
+  top: 25px;
+  transform: rotate(45deg);
+  width: 200px;
+  z-index: 1;
+  opacity: 0.25; }
+
+/* TYPO /!\ font-base = 10px ---------------------------------------- */
+body {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.8); }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+  margin-bottom: 10px; }
+
+/* video */
+iframe {
+  display: block; }
+
+p {
+  margin: 0 0 10px; }
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.dropdown-menu > li > a {
+  padding: 5px 5px; }
+
+.navmenu-default {
+  background-color: white; }
+  .navmenu-default .navmenu-nav > li > a {
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #5a5a5a; }
+    .navmenu-default .navmenu-nav > li > a:hover, .navmenu-default .navmenu-nav > li > a:focus {
+      font-weight: 700;
+      color: #5a5a5a; }
+
+.navbar {
+  margin-bottom: 0px;
+  border: 0px;
+  max-height: 48px; }
+
+.navbar-logo {
+  position: absolute;
+  top: 0;
+  min-height: 48px;
+  width: 100%; }
+
+#topbar {
+  height: 48px;
+  margin-top: -2px;
+  z-index: 10; }
+  #topbar .if-not-scrolled {
+    display: block; }
+  #topbar .if-scrolled {
+    display: none; }
+  body.scrolled #topbar {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.2s; }
+    body.scrolled #topbar .if-not-scrolled {
+      display: none; }
+    body.scrolled #topbar .if-scrolled {
+      display: block; }
+  #topbar .tools {
+    position: absolute;
+    right: 0;
+    top: 0; }
+
+.SideMenuToggle {
+  position: absolute; }
+
+.search-toggle {
+  z-index: 2000;
+  padding: 12px; }
+  #topbar .search-toggle {
+    display: inline-block; }
+    @media (max-width: 600px) {
+      #topbar .search-toggle {
+        display: none; } }
+  .search-toggle .search-toggle-button {
+    margin-top: 0; }
+  .search-toggle .search-field {
+    min-width: 0px;
+    display: none;
+    transition: min-width 0.4s cubic-bezier(0, 0.795, 0, 1); }
+    .search-toggle .search-field:focus {
+      min-width: 250px; }
+  .search-toggle.expand .search-field {
+    display: inline-block; }
+  .search-toggle.expand .search-toggle-button {
+    display: none; }
+
+.navbar-toggle,
+.search-toggle-button {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  border-radius: 0;
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-top: 9px;
+  margin-left: 9px;
+  padding: 3px; }
+  .navbar-toggle:hover, .navbar-toggle:focus,
+  .search-toggle-button:hover,
+  .search-toggle-button:focus {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #919191; }
+
+.navbar-brand {
+  position: absolute;
+  padding-top: 9px;
+  left: 50%;
+  display: block;
+  text-align: center;
+  width: 220px;
+  font-family: Fira sans, sans-serif;
+  font-size: 1.8rem;
+  color: #000; }
+  .navbar-brand.if-scrolled {
+    line-height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+
+.navbar > .container .navbar-brand {
+  margin-left: -110px; }
+
+.offcanvas.in {
+  box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.1); }
+
+.navmenu {
+  padding: 0 0 40px 12px;
+  font-size: 1.58rem;
+  z-index: 20; }
+  .navmenu .close-button {
+    color: #000;
+    text-decoration: none;
+    font-size: 4rem;
+    line-height: 21px;
+    font-weight: bold;
+    position: absolute;
+    top: 12px;
+    cursor: pointer;
+    background-color: transparent;
+    margin: 0;
+    padding: 0; }
+  .navmenu h1, .navmenu h2 {
+    font-size: 2.1rem;
+    margin: 40px 0 14px 0;
+    padding: 0; }
+    .navmenu h1 a, .navmenu h2 a {
+      text-decoration: none;
+      color: black; }
+  .navmenu h1:first-of-type {
+    margin-top: 60px;
+    font-size: 2.4rem; }
+  .navmenu ul {
+    padding: 0;
+    margin: 0; }
+    .navmenu ul li {
+      padding: 0;
+      margin: 0; }
+      .navmenu ul li a {
+        padding: 12px 0 0 12px; }
+      .navmenu ul li:first-child a {
+        padding-top: 0; }
+      .navmenu ul li:last-child a {
+        padding-bottom: 0; }
+
+.navmenu-form {
+  border: none;
+  padding: 9px 9px 9px 0;
+  margin: auto; }
+  .navmenu .navmenu-form {
+    padding: 0 12px 0 0; }
+    .navmenu .navmenu-form input {
+      width: 100%; }
+
+button,
+.button {
+  display: inline-block;
+  background-color: #5e6776;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.8rem;
+  margin: 8px 0 0 0;
+  padding: 8px;
+  transition: color 0.1s ease-in, background 0.1s ease-in; }
+  button:focus, button:hover,
+  .button:focus,
+  .button:hover {
+    font-weight: bold;
+    background-color: #ffd653;
+    color: #5e6776;
+    text-decoration: none; }
+  button.tour,
+  .button.tour {
+    background: white;
+    color: #5e6776; }
+  button img,
+  .button img {
+    height: 24px; }
+
+#link-to-content,
+#link-to-sitemap,
+#link-to-menu {
+  position: absolute;
+  top: 0;
+  left: -10000px;
+  background: white;
+  color: #333;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 0.5em; }
+  #link-to-content:focus,
+  #link-to-sitemap:focus,
+  #link-to-menu:focus {
+    left: 50px; }
+
+/* MEDIA QUERIES ---------------------------------------- */
+@media (min-width: 0) {
+  .navbar-toggle {
+    display: block; } }
+
+@media (min-width: 755px) {
+  .container {
+    max-width: 740px; } }
+
+.hors-ecran {
+  position: absolute;
+  left: -99999px; }
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  display: block;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+  background: transparent; }
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+  color: transparent;
+  outline: none;
+  background: transparent; }
+
+.slick-prev:hover:before,
+.slick-prev:focus:before,
+.slick-next:hover:before,
+.slick-next:focus:before {
+  opacity: 1; }
+
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before {
+  opacity: 0.25; }
+
+/* Dots */
+.slick-dotted.slick-slider {
+  margin-bottom: 30px; }
+
+.slick-dots {
+  position: absolute;
+  bottom: -25px;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center; }
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+  cursor: pointer; }
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent; }
+
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+  outline: none; }
+
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+  opacity: 1; }
+
+.slick-dots li button:before {
+  font-size: 20px;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  content: '●';
+  text-align: center;
+  opacity: 0.25;
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: black; }
+
+.ArticlePage .Figure,
+.FocusPage .Figure {
+  margin-bottom: 3.2em; }
+  .ArticlePage .Figure figure picture,
+  .FocusPage .Figure figure picture {
+    display: block;
+    text-align: center; }
+  .ArticlePage .Figure figure figcaption,
+  .FocusPage .Figure figure figcaption {
+    font-size: 1.45rem;
+    line-height: 1.9rem; }
+    @media (min-width: 732px) {
+      .ArticlePage .Figure figure figcaption,
+      .FocusPage .Figure figure figcaption {
+        font-size: 1.6rem;
+        line-height: 2.1rem; } }
+
+.ArticlePage .figure-title,
+.FocusPage .figure-title {
+  font-weight: normal;
+  font-size: 2.1rem;
+  line-height: 2.8rem; }
+  @media (min-width: 732px) {
+    .ArticlePage .figure-title,
+    .FocusPage .figure-title {
+      font-size: 2.4rem;
+      line-height: 3.2rem; } }
+
+.Footer {
+  background: white;
+  color: #666;
+  font-size: 1.2rem;
+  padding-bottom: 48px;
+  padding-top: 24px; }
+  .Footer h2 {
+    letter-spacing: 4px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 0;
+    text-transform: uppercase; }
+  .Footer ul, .Footer ol {
+    line-height: 1em;
+    margin-top: 1em;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0; }
+  .Footer li {
+    margin-top: 8px; }
+  .Footer a {
+    color: inherit; }
+  .Footer img {
+    width: 130px; }
+  .Footer .FooterRow {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 16px; }
+    .Footer .FooterRow > div {
+      width: 50%; }
+      @media (min-width: 732px) {
+        .Footer .FooterRow > div {
+          width: 25%; } }
+    @media (min-width: 732px) {
+      .Footer .FooterRow .FooterColLogo {
+        order: -1; } }
+
+.FocusIcon {
+  background-repeat: no-repeat;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase; }
+  @media (min-width: 732px) {
+    .FocusIcon {
+      font-size: 2.1rem; } }
+
+.DocInterTitle {
+  font-size: 2.1rem;
+  line-height: 2.8rem; }
+  @media (min-width: 732px) {
+    .DocInterTitle {
+      font-size: 2.4rem;
+      line-height: 3.2rem; } }
+
+.DocParagraph {
+  font-family: "Gentium Basic", serif;
+  font-size: 1.84rem;
+  line-height: 2.8rem; }
+  @media (min-width: 732px) {
+    .DocParagraph {
+      font-size: 2.1rem;
+      line-height: 3.2rem; } }
+
+a.LexiconLink {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+  transition-duration: 0.2s;
+  transition-property: all;
+  background-color: #d1d6e0;
+  padding: 3px 8px; }
+  a.LexiconLink:focus, a.LexiconLink:hover {
+    text-decoration: underline;
+    color: white;
+    background-color: #4778d1; }
+
+.DocFooter {
+  background-color: #d1d6e0;
+  padding: 24px 0; }
+  .DocFooter section {
+    margin-bottom: 48px; }
+  .DocFooter section:last-child {
+    margin-bottom: 0; }
+  .DocFooter h2 {
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+    margin-top: 0; }
+    @media (min-width: 732px) {
+      .DocFooter h2 {
+        font-size: 2.1rem;
+        line-height: 2.4rem; } }
+
+.Keywords ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.Keywords li {
+  display: inline-block;
+  margin-right: 8px; }
+
+.Keywords a {
+  background-color: #ffe9a1;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: "Gentium Basic", serif;
+  font-size: 1.39rem;
+  line-height: 2.5rem;
+  padding: 3px 8px;
+  text-decoration: none;
+  transition-duration: 0.2s;
+  transition-property: all; }
+  .Keywords a:focus, .Keywords a:hover {
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.8);
+    background-color: #ffd754; }
+  @media (min-width: 732px) {
+    .Keywords a {
+      font-size: 1.58rem;
+      line-height: 2.8rem; } }
+
+.Quote .blockquote {
+  border-left: 4px solid white;
+  font-family: "Gentium Basic", serif;
+  font-size: 1.39rem;
+  line-height: 2.1rem;
+  margin: 0px;
+  padding-left: 16px; }
+  @media (min-width: 732px) {
+    .Quote .blockquote {
+      font-size: 1.58rem;
+      line-height: 2.4rem; } }
+
+.Quote ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.Quote li {
+  display: inline-block;
+  margin-right: 8px; }
+
+.Quote a {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+  padding: 3px 8px;
+  text-decoration: none;
+  transition-duration: 0.2s;
+  transition-property: all; }
+  .Quote a:focus, .Quote a:hover {
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.8);
+    background-color: #ffd754; }
+
+.ArticleResourceComment {
+  margin-top: 0.5em; }
+  .ArticleResourceComment .comment-title {
+    float: left;
+    display: block;
+    margin: 0 2em 1em 0; }
+
+.Footnotes ol {
+  margin: 0;
+  padding: 0 0 0 1em; }
+
+.Footnotes li {
+  font-family: "Gentium Basic", serif;
+  font-size: 1.39rem;
+  line-height: 2.1rem;
+  margin-bottom: 8px; }
+  @media (min-width: 732px) {
+    .Footnotes li {
+      font-size: 1.58rem;
+      line-height: 2.4rem; } }
+
+.Footnotes li:target {
+  background: white; }
+
+.Footnotes a {
+  color: inherit;
+  text-decoration: none; }
+
+.Footnotes a:focus,
+.Footnotes a:hover {
+  text-decoration: underline; }
+
+.Footnotes .number {
+  font-weight: bold; }
+
+.Footnotes .back {
+  margin: 0 8px; }
+
+.Footnotes .external {
+  border-bottom: 2px solid #ffe9a1; }
+  .Footnotes .external:focus, .Footnotes .external:hover {
+    box-shadow: inset 0 -4px 0 #ffe9a1; }
+
+.Lexicon {
+  background-color: #d1d6e0;
+  bottom: 0;
+  box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.06);
+  font-family: "Gentium Basic", serif;
+  max-height: 60%;
+  position: fixed;
+  z-index: 3;
+  width: 100%; }
+  .Lexicon dl {
+    color: #5e6776;
+    font-size: 1.58rem;
+    line-height: 2.4rem;
+    margin: 8px; }
+    @media (min-width: 732px) {
+      .Lexicon dl {
+        font-size: 1.84rem;
+        line-height: 2.8rem; } }
+  .Lexicon dt {
+    font-weight: bold; }
+    .Lexicon dt a {
+      color: inherit; }
+    .Lexicon dt .root-definition {
+      font-weight: lighter; }
+  .Lexicon dd {
+    margin-left: 0; }
+
+.Summaries {
+  color: #5e6776;
+  margin-bottom: 48px;
+  margin-top: 48px;
+  position: relative; }
+  .Summaries h2 {
+    background: white;
+    display: inline-block;
+    font-size: 2.2rem;
+    margin-top: 0;
+    padding: 0 8px;
+    position: relative;
+    text-align: center;
+    top: -16px; }
+    @media (min-width: 732px) {
+      .Summaries h2 {
+        font-size: 2.4rem; } }
+  .Summaries p {
+    font-family: "Gentium Basic", serif;
+    font-size: 1.45rem;
+    line-height: 2.2rem;
+    text-align: left; }
+    @media (min-width: 732px) {
+      .Summaries p {
+        font-size: 1.7rem;
+        line-height: 2.6rem; } }
+  .Summaries .tab-content {
+    border-top: #5e6776 1px solid;
+    border-bottom: #5e6776 1px solid;
+    padding: 0 16px;
+    text-align: center; }
+  .Summaries .tab-pane {
+    position: relative; }
+  .Summaries .langs {
+    background: white;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: -12px;
+    z-index: 1; }
+    .Summaries .langs li {
+      display: inline-block;
+      margin-right: 5px;
+      height: 24px;
+      width: 24px; }
+    .Summaries .langs a {
+      border: 1px solid #5e6776;
+      color: #5e6776;
+      display: block;
+      height: 24px;
+      text-decoration: none;
+      width: 24px; }
+    .Summaries .langs li.active a,
+    .Summaries .langs li.active a:hover,
+    .Summaries .langs li.active a:focus {
+      color: white;
+      background-color: #5e6776; }
+
+.AboutUsLegalsPage {
+  padding-top: 100px; }
+
+.A11yPage {
+  padding-top: 100px; }
+
+.HomeTeam ul,
+.AboutTeam ul {
+  display: inline-block;
+  list-style: none;
+  justify-content: space-between;
+  padding: 0; }
+
+.HomeTeam button,
+.AboutTeam button {
+  background: transparent;
+  color: initial;
+  margin: 0; }
+  .HomeTeam button img,
+  .AboutTeam button img {
+    height: auto;
+    max-width: 110px; }
+
+.HomeTeam .TeamMember,
+.AboutTeam .TeamMember {
+  align-items: center;
+  display: flex;
+  justify-content: start;
+  margin-bottom: 8px; }
+  @media (min-width: 732px) {
+    .HomeTeam .TeamMember,
+    .AboutTeam .TeamMember {
+      flex-direction: column; } }
+
+.HomeTeam .TeamMemberName,
+.AboutTeam .TeamMemberName {
+  display: block; }
+  @media (min-width: 732px) {
+    .HomeTeam .TeamMemberName,
+    .AboutTeam .TeamMemberName {
+      text-align: center;
+      white-space: nowrap; } }
+
+.HomeTeam .avatar,
+.AboutTeam .avatar {
+  background: #ffe9a1;
+  border-radius: 50%;
+  height: 96px;
+  margin: 0 8px 0 0;
+  width: 96px; }
+  @media (min-width: 732px) {
+    .HomeTeam .avatar,
+    .AboutTeam .avatar {
+      margin: 0 auto 8px; } }
+
+.HomeTeam .modal img,
+.AboutTeam .modal img {
+  width: 50%; }
+  @media (min-width: 732px) {
+    .HomeTeam .modal img,
+    .AboutTeam .modal img {
+      width: 100%; } }
+
+.HomeTeam .modal .TeamMemberLinks a,
+.AboutTeam .modal .TeamMemberLinks a {
+  margin-right: 8px; }
+
+.LinkToTop {
+  background-color: transparent;
+  color: black;
+  margin: 5px;
+  padding: 5px 10px;
+  position: fixed;
+  text-align: center;
+  text-decoration: none;
+  bottom: 1em;
+  right: 0;
+  z-index: 2; }
+  .LinkToTop span {
+    display: none; }
+  .LinkToTop:before {
+    background-image: url(../assets/img/back-top.svg);
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem; }
+
+.ArticlePage .ArticleHeader {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  text-align: center;
+  z-index: 0; }
+  .ArticlePage .ArticleHeader h1 {
+    margin: 0; }
+  .ArticlePage .ArticleHeader .ImageHeader {
+    background-color: #5e6776;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-size: cover;
+    min-height: 100vh;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    filter: blur(25px);
+    transition: filter 0.2s linear;
+    box-shadow: inset 0 40px 100px black; }
+  .ArticlePage .ArticleHeader .ArticleHeaderInfo {
+    margin: auto; }
+  .ArticlePage .ArticleHeader .title-position-top {
+    margin-top: 15rem; }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticleHeader .title-position-top {
+        margin-top: 34rem; } }
+  .ArticlePage .ArticleHeader .title-position-bottom {
+    margin-bottom: 16rem; }
+  .ArticlePage .ArticleHeader .ArticleTitle {
+    font-size: 3.8rem;
+    font-weight: normal;
+    line-height: 4.1rem;
+    box-decoration-break: clone;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px; }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticleHeader .ArticleTitle {
+        font-size: 7rem;
+        line-height: 7rem;
+        padding: 10px; } }
+  .ArticlePage .ArticleHeader .PublishedAt {
+    margin: 8px 30% 0 30%;
+    font-family: "Gentium Basic", serif;
+    font-size: 1.45rem;
+    font-style: italic;
+    line-height: 1.45rem;
+    text-shadow: 0em 0em 10px #444;
+    box-decoration-break: clone;
+    display: inline-block;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.7); }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticleHeader .PublishedAt {
+        margin-top: 16px;
+        font-size: 1.8rem;
+        line-height: 1.8rem; } }
+  .ArticlePage .ArticleHeader .imageHeaderInfo {
+    margin: 0 0 10px 0;
+    text-align: left;
+    font-size: 1.4rem; }
+    .ArticlePage .ArticleHeader .imageHeaderInfo > a {
+      font-size: 1.4rem;
+      text-decoration: none; }
+    .ArticlePage .ArticleHeader .imageHeaderInfo p {
+      display: table;
+      margin: 0;
+      padding: 2px 4px;
+      color: #5e6776;
+      background-color: white; }
+    .ArticlePage .ArticleHeader .imageHeaderInfo p:first-of-type {
+      margin-top: 10px; }
+
+.ArticlePage .ArticleBreadcrumb {
+  background-color: #5e6776;
+  font-family: "Gentium Basic", serif;
+  font-size: 1.5rem;
+  height: 24px; }
+  .ArticlePage .ArticleBreadcrumb a {
+    color: white;
+    line-height: 24px;
+    display: inline-block;
+    white-space: nowrap; }
+  .ArticlePage .ArticleBreadcrumb .TopicLink {
+    max-width: 480px;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+    @media (max-width: 732px) {
+      .ArticlePage .ArticleBreadcrumb .TopicLink {
+        max-width: 200px; } }
+  .ArticlePage .ArticleBreadcrumb .LangLink {
+    float: right; }
+    .ArticlePage .ArticleBreadcrumb .LangLink .current,
+    .ArticlePage .ArticleBreadcrumb .LangLink .disabled {
+      pointer-events: none; }
+
+.ArticlePage .ArticleResourceDownload a {
+  color: #5e6776;
+  font-style: italic;
+  font-size: 1.4rem; }
+
+.ArticlePage .ArticleResourceComment {
+  font-size: 1.45rem;
+  line-height: 1.9rem; }
+  @media (min-width: 732px) {
+    .ArticlePage .ArticleResourceComment {
+      font-size: 1.6rem;
+      line-height: 2.1rem; } }
+  .ArticlePage .ArticleResourceComment > a {
+    color: #5e6776;
+    display: block;
+    margin-right: 1em;
+    font-weight: bold;
+    text-decoration: none; }
+
+.ArticlePage .ArticleFocus {
+  color: black;
+  font-size: 2rem;
+  margin-top: 0; }
+  .ArticlePage .ArticleFocus > div {
+    background-color: #fff7d9;
+    border-left: 4px solid #ffe9a1;
+    padding: 10px 20px;
+    transition: all 0.2s ease; }
+    .ArticlePage .ArticleFocus > div:hover {
+      background-color: #ffe9a1; }
+  .ArticlePage .ArticleFocus a {
+    color: initial;
+    display: block;
+    text-decoration: none; }
+
+.ArticlePage .ArticlePrevNextInline {
+  margin-bottom: 24px;
+  margin-top: 40px;
+  overflow: hidden; }
+
+.ArticlePage .ArticlePrevInline,
+.ArticlePage .ArticleNextInline {
+  align-items: center;
+  background-color: transparent;
+  color: black;
+  display: flex;
+  text-decoration: none; }
+  .ArticlePage .ArticlePrevInline .ArticlePrevNextTopicInline,
+  .ArticlePage .ArticlePrevInline .ArticlePrevNextTitleInline,
+  .ArticlePage .ArticleNextInline .ArticlePrevNextTopicInline,
+  .ArticlePage .ArticleNextInline .ArticlePrevNextTitleInline {
+    color: black;
+    text-decoration: none;
+    width: 200px; }
+  .ArticlePage .ArticlePrevInline .ArticlePrevNextTopicInline,
+  .ArticlePage .ArticleNextInline .ArticlePrevNextTopicInline {
+    font-family: "Gentium Basic", serif;
+    font-size: 1.39rem;
+    line-height: 2.1rem; }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticlePrevInline .ArticlePrevNextTopicInline,
+      .ArticlePage .ArticleNextInline .ArticlePrevNextTopicInline {
+        font-size: 1.58rem;
+        line-height: 2.4rem; } }
+  .ArticlePage .ArticlePrevInline .ArticlePrevNextTitleInline,
+  .ArticlePage .ArticleNextInline .ArticlePrevNextTitleInline {
+    font-size: 1.58rem;
+    font-weight: bold;
+    line-height: 1.84rem;
+    padding: 0; }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticlePrevInline .ArticlePrevNextTitleInline,
+      .ArticlePage .ArticleNextInline .ArticlePrevNextTitleInline {
+        font-size: 1.8rem;
+        line-height: 2.1rem; } }
+  .ArticlePage .ArticlePrevInline .ArticleImage,
+  .ArticlePage .ArticleNextInline .ArticleImage {
+    background: #ccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-size: cover;
+    display: block;
+    flex-shrink: 0;
+    height: 64px;
+    margin: 0 16px;
+    width: 200px; }
+
+.ArticlePage .ArticlePrevInline {
+  text-align: left;
+  margin-bottom: 16px; }
+  .ArticlePage .ArticlePrevInline:before {
+    content: '';
+    background-image: url(../assets/img/prev-article.svg);
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem; }
+
+.ArticlePage .ArticleNextWrapperInline {
+  display: flex;
+  justify-content: flex-end; }
+
+.ArticlePage .ArticleNextInline {
+  text-align: right; }
+  .ArticlePage .ArticleNextInline:after {
+    content: '';
+    background-image: url(../assets/img/next-article.svg);
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem; }
+
+.ArticlePrev,
+.ArticleNext {
+  background-color: transparent;
+  color: black;
+  margin: 5px;
+  padding: 5px 10px;
+  position: fixed;
+  text-align: center;
+  text-decoration: none;
+  top: 40%;
+  z-index: 2; }
+  .ArticlePrev:before,
+  .ArticleNext:before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem; }
+  .ArticlePrev:hover,
+  .ArticleNext:hover {
+    padding-top: 3.5rem;
+    background-color: white;
+    border: 1px solid #eeeeee;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-decoration: none; }
+  .ArticlePrev:hover .ArticlePrevNextTopic,
+  .ArticlePrev:hover .ArticlePrevNextTitle,
+  .ArticleNext:hover .ArticlePrevNextTopic,
+  .ArticleNext:hover .ArticlePrevNextTitle {
+    display: block; }
+  .ArticlePrev .ArticlePrevNextTopic,
+  .ArticlePrev .ArticlePrevNextTitle,
+  .ArticleNext .ArticlePrevNextTopic,
+  .ArticleNext .ArticlePrevNextTitle {
+    display: none;
+    color: black;
+    text-decoration: none;
+    width: 200px; }
+  .ArticlePrev .ArticlePrevNextTopic,
+  .ArticleNext .ArticlePrevNextTopic {
+    font-family: "Gentium Basic", serif;
+    font-size: 1.58rem; }
+  .ArticlePrev .ArticlePrevNextTitle,
+  .ArticleNext .ArticlePrevNextTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 0;
+    margin: 5px 0 15px 0; }
+  @media (max-width: 732px) {
+    .ArticlePrev,
+    .ArticleNext {
+      display: none; } }
+
+.ArticlePrev {
+  margin: 5px 5px 5px 0;
+  left: 0;
+  text-align: left; }
+  .ArticlePrev:hover {
+    border-left: none; }
+  .ArticlePrev:before {
+    background-image: url(../assets/img/prev-article.svg); }
+  .ArticlePrev:hover:before {
+    position: absolute;
+    left: 10px;
+    top: 5px; }
+
+.ArticleNext {
+  margin: 5px 0 5px 5px;
+  right: 0;
+  text-align: right; }
+  .ArticleNext:hover {
+    border-right: none; }
+  .ArticleNext:before {
+    background-image: url(../assets/img/next-article.svg); }
+  .ArticleNext:hover:before {
+    position: absolute;
+    right: 10px;
+    top: 5px; }
+
+.ArticlePage,
+.ResourcePage {
+  background: white; }
+  .ArticlePage .ArticleSeeAlso ul,
+  .ResourcePage .ArticleSeeAlso ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .ArticlePage .ArticleSeeAlso li,
+  .ResourcePage .ArticleSeeAlso li {
+    margin-bottom: 24px; }
+  .ArticlePage .ArticleSeeAlso a,
+  .ResourcePage .ArticleSeeAlso a {
+    color: #333;
+    display: flex;
+    text-decoration: none;
+    transition: all 0.2s ease; }
+  .ArticlePage .ArticleSeeAlso .imgSeeAlso,
+  .ResourcePage .ArticleSeeAlso .imgSeeAlso {
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-size: cover;
+    border: 0;
+    margin-right: 16px;
+    height: 72px;
+    width: 200px; }
+  .ArticlePage .ArticleSeeAlso .ArticleSeeAlsoTopic,
+  .ResourcePage .ArticleSeeAlso .ArticleSeeAlsoTopic {
+    font-family: "Gentium Basic", serif;
+    font-size: 1.39rem;
+    line-height: 2.1rem; }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticleSeeAlso .ArticleSeeAlsoTopic,
+      .ResourcePage .ArticleSeeAlso .ArticleSeeAlsoTopic {
+        font-size: 1.58rem;
+        line-height: 2.4rem; } }
+  .ArticlePage .ArticleSeeAlso .ArticleSeeAlsoTitle,
+  .ResourcePage .ArticleSeeAlso .ArticleSeeAlsoTitle {
+    font-size: 1.58rem;
+    font-weight: bold;
+    line-height: 1.84rem; }
+    @media (min-width: 732px) {
+      .ArticlePage .ArticleSeeAlso .ArticleSeeAlsoTitle,
+      .ResourcePage .ArticleSeeAlso .ArticleSeeAlsoTitle {
+        font-size: 1.8rem;
+        line-height: 2.1rem; } }
+
+.FocusPage {
+  background: linear-gradient(#fff7d9, #ffe180); }
+  .FocusPage .FocusBackToArticle {
+    background: #5e6776;
+    margin-bottom: 8px;
+    margin-top: 50px;
+    padding: 8px 0; }
+    .FocusPage .FocusBackToArticle a {
+      color: white;
+      font-size: 1.8rem; }
+  .FocusPage .FocusHeader {
+    margin-bottom: 48px; }
+    .FocusPage .FocusHeader .FocusTitle {
+      font-size: 3.8rem;
+      font-weight: normal;
+      line-height: 4.1rem;
+      margin-top: 24px; }
+      @media (min-width: 732px) {
+        .FocusPage .FocusHeader .FocusTitle {
+          font-size: 7rem;
+          line-height: 7rem; } }
+    .FocusPage .FocusHeader .PublishedAt {
+      font-family: "Gentium Basic", serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      line-height: 1.45rem; }
+      @media (min-width: 732px) {
+        .FocusPage .FocusHeader .PublishedAt {
+          font-size: 1.8rem;
+          line-height: 1.8rem; } }
+
+.HomePage {
+  overflow: hidden; }
+  .HomePage .text-right {
+    text-align: right; }
+  .HomePage .HomeVideo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; }
+    .HomePage .HomeVideo video {
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; }
+  .HomePage .HomeVideoController {
+    position: relative;
+    z-index: 2;
+    left: 2rem;
+    top: -2rem;
+    background-color: transparent;
+    opacity: 0.5; }
+    .HomePage .HomeVideoController.hover {
+      opacity: 1; }
+    .HomePage .HomeVideoController:hover, .HomePage .HomeVideoController:focus {
+      background: rgba(0, 0, 0, 0.2);
+      opacity: 1; }
+    .HomePage .HomeVideoController.playing .iconPlay, .HomePage .HomeVideoController.paused .iconPause {
+      display: none; }
+  .HomePage .HomeHeader {
+    margin-bottom: 96px;
+    padding-top: 48px;
+    position: relative;
+    z-index: 2; }
+    .HomePage .HomeHeader .HomeTitle {
+      color: white;
+      font-size: 4rem;
+      font-weight: bold;
+      line-height: 4rem;
+      margin-top: 96px;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); }
+      @media (min-width: 732px) {
+        .HomePage .HomeHeader .HomeTitle {
+          font-size: 7rem;
+          line-height: 7rem; } }
+    .HomePage .HomeHeader .HomeTitleTyped {
+      color: #fdc900;
+      font-weight: normal;
+      margin-top: 0; }
+  .HomePage .HomeTopics,
+  .HomePage .HomeAbout,
+  .HomePage .HomeBook {
+    background: white; }
+  .HomePage .HomeTeam,
+  .HomePage .HomeBook {
+    background: #d1d6e0; }
+  .HomePage .HomeProject {
+    background: white; }
+    .HomePage .HomeProject img {
+      width: 270px;
+      margin: 16px 0 0 0; }
+  .HomePage .HomeContact {
+    background: #ffe9a1;
+    padding: 0 0 32px 0; }
+  .HomePage .logo img {
+    width: 210px; }
+  .HomePage img {
+    margin: 16px 0 0 0; }
+    @media (min-width: 732px) {
+      .HomePage img {
+        margin: 0; } }
+  .HomePage section {
+    padding: 32px 0; }
+  .HomePage section,
+  .HomePage p,
+  .HomePage li {
+    font-size: 1.6rem; }
+    @media (min-width: 732px) {
+      .HomePage section,
+      .HomePage p,
+      .HomePage li {
+        font-size: 1.8rem; } }
+  .HomePage h2 {
+    font-size: 3.3rem; }
+    @media (min-width: 732px) {
+      .HomePage h2 {
+        font-size: 3.8rem; } }
+  .HomePage h2:first-of-type {
+    margin-top: 32px; }
+  .HomePage h2,
+  .HomePage h3 {
+    color: #5e6776;
+    margin-top: 0; }
+  .HomePage h3.viz {
+    margin-bottom: 0; }
+  .HomePage input {
+    border: 1px solid #d1d6e0;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    margin-right: 8px;
+    padding: 8px;
+    width: 50%; }
+  .HomePage a.more {
+    color: #5e6776;
+    font-style: italic;
+    font-weight: bold; }
+  .HomePage .HomeTopics {
+    padding-top: 0;
+    position: relative;
+    z-index: 2; }
+    .HomePage .HomeTopics .HomeTopic h2 {
+      line-height: 3.3rem;
+      margin: 40px 0 8px 0;
+      padding: 0; }
+      .HomePage .HomeTopics .HomeTopic h2 a {
+        transition: 0.5s all ease;
+        text-decoration: none;
+        color: #5e6776;
+        font-family: 'Fira Sans', sans-serif;
+        font-size: 2.8rem;
+        font-weight: bold; }
+        .HomePage .HomeTopics .HomeTopic h2 a:focus, .HomePage .HomeTopics .HomeTopic h2 a:hover {
+          text-decoration: underline;
+          transition: 0.3s all ease;
+          border-bottom: 2px solid #ffd653;
+          box-shadow: inset 0 -4px 0 #ffd653; }
+    .HomePage .HomeTopics .HomeTopic .carousel .slick-arrow:before {
+      opacity: 0.5; }
+    .HomePage .HomeTopics .HomeTopic .carousel .slick-arrow:hover:before {
+      opacity: 1.0; }
+    .HomePage .HomeTopics .HomeTopic .slick-dots li button:before {
+      opacity: 0.4; }
+    .HomePage .HomeTopics .HomeTopic .slick-dots li button:hover:before, .HomePage .HomeTopics .HomeTopic .slick-dots li button:focus:before {
+      opacity: 1.0; }
+    .HomePage .HomeTopics .TopicCarousel {
+      height: 144px; }
+      .HomePage .HomeTopics .TopicCarousel .carousel-item {
+        margin: 0;
+        padding: 0;
+        height: 144px;
+        width: 342px;
+        overflow: hidden;
+        position: relative; }
+  .HomePage .HomeFeatures {
+    background: #ffe9a1; }
+    .HomePage .HomeFeatures ul {
+      display: inline-block;
+      list-style: none;
+      justify-content: space-between;
+      padding: 0; }
+    .HomePage .HomeFeatures img {
+      width: 120px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto; }
+    .HomePage .HomeFeatures .FeaturesTitle {
+      text-align: center; }
+  .HomePage section:target {
+    padding: 50px 0; }
+  @media (min-width: 732px) {
+    .HomePage .vcenter,
+    .HomePage .HomeTopics .vcenter {
+      display: flex;
+      align-items: center; } }
+
+.modal {
+  text-align: center; }
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: ' ';
+    height: 100%; } }
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; }
+
+.modal-content {
+  border-radius: 0; }
+
+.modal-backdrop {
+  background-color: #ffe9a1; }
+
+.carousel .slick-arrow {
+  z-index: 2000;
+  width: 100px;
+  height: 100%; }
+  .carousel .slick-arrow:before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-size: 2.5rem 2.5rem;
+    position: absolute;
+    top: 50%;
+    top: calc(50% - 10px);
+    opacity: 0.3; }
+
+.carousel .slick-prev {
+  left: 0; }
+  .carousel .slick-prev:before {
+    background-image: url(../assets/img/prev-article.svg);
+    left: -24px; }
+
+.carousel .slick-next {
+  right: 0; }
+  .carousel .slick-next:before {
+    background-image: url(../assets/img/next-article.svg);
+    right: -24px; }
+
+.carousel .slick-slide {
+  margin: 0 8px; }
+
+.carousel .slick-next,
+.carousel .slick-prev,
+.carousel .slick-slide a {
+  outline: solid; }
+  .carousel .slick-next:focus,
+  .carousel .slick-prev:focus,
+  .carousel .slick-slide a:focus {
+    outline: solid;
+    transition: 0.3s all ease;
+    border-bottom: 2px solid #ffd653;
+    box-shadow: inset 0 -4px 0 #ffd653; }
+
+.carousel .slick-current .carousel-item {
+  transition: 0.3s all ease; }
+  .carousel .slick-current .carousel-item .image {
+    background-color: rgba(255, 214, 83, 0.7);
+    background-blend-mode: multiply; }
+  .carousel .slick-current .carousel-item .caption {
+    background-color: unset;
+    text-shadow: black 0px 0px 10px; }
+  @media (min-width: 600px) {
+    .carousel .slick-current .carousel-item .image {
+      background-color: unset;
+      background-blend-mode: normal; }
+    .carousel .slick-current .carousel-item .caption {
+      background-color: rgba(94, 103, 118, 0.73);
+      text-shadow: none; } }
+
+.carousel .carousel-item {
+  margin: 0;
+  padding: 0;
+  position: relative; }
+  .carousel .carousel-item a {
+    text-decoration: none;
+    display: block;
+    height: 100%; }
+  .carousel .carousel-item .image {
+    display: block;
+    height: 100%;
+    background-size: cover;
+    background-position: center; }
+  .carousel .carousel-item:focus .image,
+  .carousel .carousel-item:hover .image {
+    transition: 0.3s all ease;
+    background-color: rgba(255, 214, 83, 0.7);
+    background-blend-mode: multiply; }
+  .carousel .carousel-item .caption {
+    display: block;
+    left: auto;
+    height: 100%;
+    text-align: center;
+    line-height: 144px;
+    font-family: "Fira Sans", sans-serif;
+    font-size: 2.1rem;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(94, 103, 118, 0.73); }
+    .carousel .carousel-item .caption:focus, .carousel .carousel-item .caption:hover {
+      transition: 0.5s all ease;
+      background-color: unset;
+      color: white;
+      text-shadow: black 0px 0px 10px; }
+  .carousel .carousel-item .image + .caption {
+    position: relative;
+    top: -144px; }
+
+.carousel:not(.slick-initialized) .carousel-item:not(:first-child) {
+  display: none; }
+
+.carousel.slick-dotted.slick-slider {
+  margin-bottom: 0;
+  margin-left: -20px;
+  margin-right: -20px; }
+  .carousel.slick-dotted.slick-slider .slick-dots {
+    bottom: -32px; }
+  @media (min-width: 732px) {
+    .carousel.slick-dotted.slick-slider {
+      margin-left: -8px;
+      margin-right: -8px; } }
+
+.AboutPage .AboutHeader {
+  background: no-repeat fixed 90% 20%/250px url("../assets/img/headers/sciences-po-embleme.png"), linear-gradient(#707682, #b9aa72);
+  color: rgba(255, 255, 255, 0.9);
+  padding-bottom: 96px;
+  padding-top: 96px; }
+  @media (min-width: 732px) {
+    .AboutPage .AboutHeader {
+      background-position: 90% 13%;
+      background-size: 400px; } }
+  .AboutPage .AboutHeader .AboutTitle {
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 4rem;
+    margin-top: 96px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
+    @media (min-width: 732px) {
+      .AboutPage .AboutHeader .AboutTitle {
+        font-size: 7rem;
+        line-height: 7rem; } }
+
+.AboutPage .AboutTeam,
+.AboutPage .AboutBook {
+  background: #d1d6e0; }
+
+.AboutPage .AboutProject,
+.AboutPage .AboutContact {
+  background: white; }
+
+.AboutPage .AboutInfo {
+  list-style: none; }
+  .AboutPage .AboutInfo li {
+    line-height: 2.8rem; }
+
+.AboutPage section {
+  padding: 32px 0; }
+
+.AboutPage section,
+.AboutPage p,
+.AboutPage li {
+  font-size: 1.6rem; }
+  @media (min-width: 732px) {
+    .AboutPage section,
+    .AboutPage p,
+    .AboutPage li {
+      font-size: 1.8rem; } }
+
+.AboutPage h2 {
+  font-size: 3.3rem; }
+  @media (min-width: 732px) {
+    .AboutPage h2 {
+      font-size: 3.8rem; } }
+
+.AboutPage h3 {
+  font-size: 1.8rem; }
+  @media (min-width: 732px) {
+    .AboutPage h3 {
+      font-size: 2.1rem; } }
+
+.AboutPage h2,
+.AboutPage h3 {
+  color: #5e6776;
+  margin-top: 0; }
+
+.AboutPage .logo img {
+  width: 240px;
+  margin: 0 0 20px; }
+
+@media (min-width: 732px) {
+  .AboutPage .vcenter {
+    display: flex;
+    align-items: center; } }
+
+.AboutPage section:target {
+  padding: 100px 0; }
+
+.modal {
+  text-align: center; }
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: ' ';
+    height: 100%; } }
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; }
+
+.modal-content {
+  border-radius: 0; }
+
+.modal-backdrop {
+  background-color: #ffe9a1; }
+
+.ResourcePage {
+  padding-top: 100px;
+  padding-bottom: 32px; }
+  .ResourcePage .ResourceHeader {
+    padding-bottom: 24px; }
+    .ResourcePage .ResourceHeader .PageTitle {
+      font-size: 2rem;
+      font-weight: bold;
+      line-height: 2rem;
+      margin-bottom: 20px; }
+    .ResourcePage .ResourceHeader .ResourceType {
+      font-size: 2rem;
+      font-weight: normal;
+      line-height: 2rem; }
+    .ResourcePage .ResourceHeader .ResourceTitle {
+      font-size: 3rem;
+      font-weight: normal;
+      line-height: 3rem;
+      margin-top: 20px; }
+  .ResourcePage .ResourceImage, .ResourcePage .ResourceMap {
+    text-align: center; }
+  .ResourcePage .ResourceVideo iframe {
+    height: 400px;
+    width: 100%; }
+  .ResourcePage .ResourceCopyright, .ResourcePage .ResourceDescription,
+  .ResourcePage .ResourceTranscript, .ResourcePage .ResourceDownload,
+  .ResourcePage .ArticleSeeAlso {
+    font-size: 1.5rem;
+    line-height: 2.4rem; }
+    .ResourcePage .ResourceCopyright h2, .ResourcePage .ResourceDescription h2,
+    .ResourcePage .ResourceTranscript h2, .ResourcePage .ResourceDownload h2,
+    .ResourcePage .ArticleSeeAlso h2 {
+      font-size: 1.6rem;
+      font-weight: bold;
+      line-height: 1.6rem;
+      margin-top: 24px; }
+  .ResourcePage .ResourceLexicon dt {
+    font-family: "Gentium Basic", serif;
+    font-size: 2rem; }
+  .ResourcePage .ResourceLexicon dd {
+    font-family: "Gentium Basic", serif;
+    margin-bottom: 24px; }
+  .ResourcePage .ResourceSource {
+    margin-top: 16px; }
+    .ResourcePage .ResourceSource .source-content p, .ResourcePage .ResourceSource .source-content div {
+      display: inline-block; }
+  .ResourcePage .ResourceDownload .download-blocks {
+    display: flex;
+    flex-wrap: wrap; }
+    .ResourcePage .ResourceDownload .download-blocks .download-block {
+      background: #d1d6e0;
+      margin: 8px;
+      flex: 1;
+      display: flex;
+      min-width: 300px; }
+      .ResourcePage .ResourceDownload .download-blocks .download-block .download-preview {
+        max-width: 120px;
+        max-height: 80px;
+        object-fit: cover;
+        margin: 0 8px 0 0;
+        padding: 0;
+        flex: 1; }
+      .ResourcePage .ResourceDownload .download-blocks .download-block .download-info {
+        margin: 0;
+        padding: 0;
+        flex: 1; }
+        .ResourcePage .ResourceDownload .download-blocks .download-block .download-info strong {
+          display: block;
+          margin: 0 0 16px 0; }
+        .ResourcePage .ResourceDownload .download-blocks .download-block .download-info a {
+          color: #5e6776;
+          font-size: 1.25rem; }
+          .ResourcePage .ResourceDownload .download-blocks .download-block .download-info a:before {
+            content: '';
+            background-image: url("../assets/img/download.png");
+            background-repeat: no-repeat;
+            background-size: 1.5rem 1.5rem;
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            padding: 0;
+            margin: 0 0.25rem 0 0; }
+          .ResourcePage .ResourceDownload .download-blocks .download-block .download-info a .link {
+            font-weight: bold; }
+
+.TopicPage .TopicHeader {
+  background-color: #5e6776;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: rgba(255, 255, 255, 0.9);
+  padding-bottom: 24px; }
+  .TopicPage .TopicHeader .TopicId {
+    display: block;
+    font-size: 7rem;
+    font-weight: bold;
+    line-height: 7rem;
+    margin-top: 90px;
+    min-height: 7rem; }
+    @media (min-width: 732px) {
+      .TopicPage .TopicHeader .TopicId {
+        font-size: 12rem;
+        line-height: 12rem; } }
+  .TopicPage .TopicHeader .TopicName {
+    display: block;
+    font-size: 3.8rem;
+    line-height: 4.1rem; }
+    @media (min-width: 732px) {
+      .TopicPage .TopicHeader .TopicName {
+        font-size: 7rem;
+        line-height: 7rem; } }
+  .TopicPage .TopicHeader .TopicVideo {
+    height: 400px;
+    width: 100%; }
+  .TopicPage .TopicHeader .TopicImage {
+    max-width: 100%; }
+
+.TopicPage .ArticleList {
+  list-style: none;
+  margin-bottom: 24px;
+  margin-top: 0; }
+  .TopicPage .ArticleList li {
+    margin-top: 24px; }
+  .TopicPage .ArticleList a {
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: all 0.2s ease; }
+    @media (min-width: 732px) {
+      .TopicPage .ArticleList a {
+        flex-direction: row; } }
+  .TopicPage .ArticleList .ArticleImage {
+    background: #ccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-size: cover;
+    display: block;
+    flex-shrink: 0;
+    height: 192px;
+    margin-bottom: 16px;
+    margin-right: 16px;
+    width: 100%; }
+    @media (min-width: 732px) {
+      .TopicPage .ArticleList .ArticleImage {
+        margin-bottom: 0;
+        width: 288px; } }
+  .TopicPage .ArticleList .ArticleListInfo {
+    font-size: 1.5rem;
+    line-height: 2.1rem; }
+  .TopicPage .ArticleList .ArticleListTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 2.1rem;
+    text-decoration: none; }
+    @media (min-width: 732px) {
+      .TopicPage .ArticleList .ArticleListTitle {
+        font-size: 2.1rem;
+        line-height: 2.4rem; } }
+  .TopicPage .ArticleList .PublishedAt {
+    font-family: "Gentium Basic", serif;
+    font-size: 1.39rem;
+    font-style: italic;
+    line-height: 2.1rem; }
+    @media (min-width: 732px) {
+      .TopicPage .ArticleList .PublishedAt {
+        font-size: 1.58rem;
+        line-height: 2.4rem; } }
+  .TopicPage .ArticleList .ArticleListSummary {
+    font-family: "Gentium Basic", serif;
+    font-size: 1.39rem;
+    line-height: 2.1rem; }
+    @media (min-width: 732px) {
+      .TopicPage .ArticleList .ArticleListSummary {
+        font-size: 1.58rem;
+        line-height: 2.4rem; } }
+  .TopicPage .ArticleList .ArticleListFocus {
+    color: #000;
+    font-size: 1.8rem;
+    margin-top: 8px;
+    margin-bottom: 24px; }
+    @media (min-width: 732px) {
+      .TopicPage .ArticleList .ArticleListFocus {
+        font-size: 2.1rem; } }
+    .TopicPage .ArticleList .ArticleListFocus > div {
+      background-color: #fff7d9;
+      border-left: 8px solid #ffe9a1;
+      padding: 10px 20px;
+      transition: all 0.2s ease; }
+      .TopicPage .ArticleList .ArticleListFocus > div:hover {
+        background-color: #ffe9a1; }
+    .TopicPage .ArticleList .ArticleListFocus a {
+      color: initial;
+      display: flex;
+      text-decoration: none; }
+    .TopicPage .ArticleList .ArticleListFocus .FocusIcon {
+      margin-right: 8px; }
+
+.LexiconPage,
+.SearchPage {
+  background: white; }
+  .LexiconPage .SearchForm,
+  .SearchPage .SearchForm {
+    padding-top: 48px;
+    padding-bottom: 16px; }
+    .LexiconPage .SearchForm .search-filters-inputs label,
+    .SearchPage .SearchForm .search-filters-inputs label {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: normal; }
+  .LexiconPage .SearchPageTitle,
+  .SearchPage .SearchPageTitle {
+    display: none;
+    font-size: 2.4rem;
+    margin-bottom: 16px;
+    margin-top: 16px; }
+  .LexiconPage.has-title .SearchPageTitle,
+  .SearchPage.has-title .SearchPageTitle {
+    display: block; }
+  .LexiconPage.has-title .search-filters-container,
+  .SearchPage.has-title .search-filters-container {
+    top: 118px; }
+    @media (max-width: 732px) {
+      .LexiconPage.has-title .search-filters-container,
+      .SearchPage.has-title .search-filters-container {
+        left: auto;
+        right: 0; } }
+  .LexiconPage .search-page-a-z,
+  .SearchPage .search-page-a-z {
+    display: none;
+    padding: 12px 0px;
+    margin: 0; }
+    .LexiconPage .search-page-a-z .search-filter-a-z,
+    .SearchPage .search-page-a-z .search-filter-a-z {
+      padding: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      float: left; }
+      .LexiconPage .search-page-a-z .search-filter-a-z:first-child,
+      .SearchPage .search-page-a-z .search-filter-a-z:first-child {
+        padding-left: 0; }
+      .LexiconPage .search-page-a-z .search-filter-a-z.active,
+      .SearchPage .search-page-a-z .search-filter-a-z.active {
+        font-weight: bold; }
+  .LexiconPage.is-lexicon .search-page-a-z,
+  .SearchPage.is-lexicon .search-page-a-z {
+    display: inline-block; }
+  .LexiconPage .SearchPageTitleType,
+  .SearchPage .SearchPageTitleType {
+    color: #5e6776; }
+  .LexiconPage .SearchResults,
+  .SearchPage .SearchResults {
+    background: white; }
+  .LexiconPage .SearchFiltersCount,
+  .SearchPage .SearchFiltersCount {
+    margin: 0 0.5rem; }
+  .LexiconPage button,
+  .SearchPage button {
+    background-color: #d1d6e0;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.4rem;
+    margin: 8px 8px 0 0;
+    padding: 8px; }
+    .LexiconPage button:focus,
+    .SearchPage button:focus {
+      border: 1px solid #ffd653; }
+    .LexiconPage button.tour,
+    .SearchPage button.tour {
+      background: white;
+      color: #5e6776; }
+    .LexiconPage button img,
+    .SearchPage button img {
+      height: 24px; }
+  .LexiconPage .search-input,
+  .SearchPage .search-input {
+    margin-bottom: 16px;
+    text-align: center; }
+    .LexiconPage .search-input input,
+    .SearchPage .search-input input {
+      width: 90%; }
+      @media (max-width: 732px) {
+        .LexiconPage .search-input input,
+        .SearchPage .search-input input {
+          width: 70%; } }
+  .LexiconPage input,
+  .SearchPage input {
+    border: 1px solid #d1d6e0;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    margin-right: 8px;
+    padding: 2px; }
+  .LexiconPage form,
+  .SearchPage form {
+    position: relative; }
+  .LexiconPage .search-filters-container,
+  .SearchPage .search-filters-container {
+    position: absolute;
+    left: 0;
+    top: 68px; }
+    .LexiconPage .search-filters-container .search-filters.dropdown-menu,
+    .SearchPage .search-filters-container .search-filters.dropdown-menu {
+      width: 300px; }
+    .LexiconPage .search-filters-container .search-filters-title,
+    .SearchPage .search-filters-container .search-filters-title {
+      color: #5e6776;
+      font-size: 1.7rem;
+      margin: 0;
+      padding: 4px; }
+    .LexiconPage .search-filters-container .search-filters-toggle,
+    .SearchPage .search-filters-container .search-filters-toggle {
+      background-color: #f8f8f8;
+      color: #5e6776;
+      font-size: 1.5rem;
+      margin: 8px 0;
+      padding: 8px; }
+      .LexiconPage .search-filters-container .search-filters-toggle .search-filters-subtitle,
+      .SearchPage .search-filters-container .search-filters-toggle .search-filters-subtitle {
+        background: transparent;
+        color: #5e6776;
+        padding: 0;
+        margin: 0; }
+      .LexiconPage .search-filters-container .search-filters-toggle[data-filters-hidden='1'] .toggle-collapse,
+      .SearchPage .search-filters-container .search-filters-toggle[data-filters-hidden='1'] .toggle-collapse {
+        display: none; }
+      .LexiconPage .search-filters-container .search-filters-toggle[data-filters-hidden='1'] + .search-filters-inputs,
+      .SearchPage .search-filters-container .search-filters-toggle[data-filters-hidden='1'] + .search-filters-inputs {
+        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out; }
+      .LexiconPage .search-filters-container .search-filters-toggle[data-filters-hidden='0'] .toggle-expand,
+      .SearchPage .search-filters-container .search-filters-toggle[data-filters-hidden='0'] .toggle-expand {
+        display: none; }
+      .LexiconPage .search-filters-container .search-filters-toggle[data-filters-hidden='0'] + .search-filters-inputs,
+      .SearchPage .search-filters-container .search-filters-toggle[data-filters-hidden='0'] + .search-filters-inputs {
+        max-height: 500px;
+        overflow: hidden;
+        transition: max-height 0.2s ease-in; }
+    .LexiconPage .search-filters-container .search-filters-inputs,
+    .SearchPage .search-filters-container .search-filters-inputs {
+      padding: 0 8px; }
+    @media (max-width: 732px) {
+      .LexiconPage .search-filters-container,
+      .SearchPage .search-filters-container {
+        left: auto;
+        right: 0; }
+        .LexiconPage .search-filters-container .search-filters.dropdown-menu,
+        .SearchPage .search-filters-container .search-filters.dropdown-menu {
+          left: -230px; } }
+    @media (min-width: 1300px) {
+      .LexiconPage .search-filters-container .dropdown-toggle,
+      .SearchPage .search-filters-container .dropdown-toggle {
+        display: none; }
+      .LexiconPage .search-filters-container .search-filters.dropdown-menu,
+      .SearchPage .search-filters-container .search-filters.dropdown-menu {
+        display: block;
+        position: fixed;
+        top: 180px;
+        left: 0;
+        border: none;
+        box-shadow: none;
+        z-index: 10; } }
+  .LexiconPage .SearchResults .search-results-error,
+  .SearchPage .SearchResults .search-results-error {
+    display: none; }
+  .LexiconPage .SearchResults .search-results-success,
+  .SearchPage .SearchResults .search-results-success {
+    display: none; }
+  .LexiconPage .SearchResults[data-status='success'] .search-results-success,
+  .SearchPage .SearchResults[data-status='success'] .search-results-success {
+    display: initial; }
+    .LexiconPage .SearchResults[data-status='success'] .search-results-success .search-page.container,
+    .SearchPage .SearchResults[data-status='success'] .search-results-success .search-page.container {
+      padding-left: 128px; }
+      @media (max-width: 732px) {
+        .LexiconPage .SearchResults[data-status='success'] .search-results-success .search-page.container,
+        .SearchPage .SearchResults[data-status='success'] .search-results-success .search-page.container {
+          padding-left: 12px; } }
+      @media (min-width: 1300px) {
+        .LexiconPage .SearchResults[data-status='success'] .search-results-success .search-page.container,
+        .SearchPage .SearchResults[data-status='success'] .search-results-success .search-page.container {
+          padding-left: 12px; } }
+  .LexiconPage .SearchResults[data-status='error'] .search-results-error,
+  .SearchPage .SearchResults[data-status='error'] .search-results-error {
+    display: initial; }
+  .LexiconPage .SearchResults .search-result,
+  .SearchPage .SearchResults .search-result {
+    display: block;
+    padding: 0 0 8px 0;
+    margin: 0 0 8px 0;
+    border-bottom: 1px solid #d1d6e0;
+    text-decoration: none;
+    color: black; }
+    .LexiconPage .SearchResults .search-result:first-of-type,
+    .SearchPage .SearchResults .search-result:first-of-type {
+      margin-top: 16px; }
+    .LexiconPage .SearchResults .search-result .search-result-type,
+    .SearchPage .SearchResults .search-result .search-result-type {
+      display: block;
+      height: 16px;
+      line-height: 16px;
+      font-size: 1rem;
+      margin: 0;
+      padding: 0;
+      color: #5e6776;
+      font-weight: bold;
+      text-decoration: none; }
+      @media (min-width: 732px) {
+        .LexiconPage .SearchResults .search-result .search-result-type,
+        .SearchPage .SearchResults .search-result .search-result-type {
+          font-size: 1.2rem; } }
+    .LexiconPage .SearchResults .search-result .search-result-text,
+    .SearchPage .SearchResults .search-result .search-result-text {
+      display: inline-block;
+      margin: 0;
+      padding: 0; }
+      .LexiconPage .SearchResults .search-result .search-result-text .search-result-title,
+      .SearchPage .SearchResults .search-result .search-result-text .search-result-title {
+        font-weight: bold;
+        font-size: 1.31rem;
+        line-height: 1.5rem; }
+        @media (min-width: 732px) {
+          .LexiconPage .SearchResults .search-result .search-result-text .search-result-title,
+          .SearchPage .SearchResults .search-result .search-result-text .search-result-title {
+            font-size: 1.5rem;
+            line-height: 2rem; } }
+      .LexiconPage .SearchResults .search-result .search-result-text .search-result-subtitle,
+      .SearchPage .SearchResults .search-result .search-result-text .search-result-subtitle {
+        font-weight: lighter;
+        font-size: 1rem; }
+      .LexiconPage .SearchResults .search-result .search-result-text .search-result-aliases,
+      .SearchPage .SearchResults .search-result .search-result-text .search-result-aliases {
+        font-size: 1.1rem;
+        line-height: 2rem;
+        color: #5e6776; }
+        @media (min-width: 732px) {
+          .LexiconPage .SearchResults .search-result .search-result-text .search-result-aliases,
+          .SearchPage .SearchResults .search-result .search-result-text .search-result-aliases {
+            font-size: 1.3rem;
+            line-height: 2rem; } }
+    .LexiconPage .SearchResults .search-result .search-result-preview,
+    .SearchPage .SearchResults .search-result .search-result-preview {
+      width: 120px;
+      height: 63px;
+      float: left;
+      overflow: hidden;
+      margin: 0 12px 0 0;
+      padding: 0; }
+      .LexiconPage .SearchResults .search-result .search-result-preview img,
+      .SearchPage .SearchResults .search-result .search-result-preview img {
+        max-width: 120px; }
+  .LexiconPage .SearchResults .search-result-definition,
+  .SearchPage .SearchResults .search-result-definition {
+    overflow: hidden;
+    position: relative;
+    font-family: "Gentium Basic", serif;
+    font-size: 1.45rem;
+    line-height: 2.2rem;
+    margin: 8px; }
+    @media (min-width: 732px) {
+      .LexiconPage .SearchResults .search-result-definition,
+      .SearchPage .SearchResults .search-result-definition {
+        font-size: 1.7rem;
+        line-height: 2.6rem; } }
+    .LexiconPage .SearchResults .search-result-definition + .search-result-definition-toggler,
+    .SearchPage .SearchResults .search-result-definition + .search-result-definition-toggler {
+      display: block;
+      width: 100%;
+      margin-top: -1em;
+      background: transparent;
+      color: #333;
+      font-weight: bold;
+      position: relative;
+      z-index: 9; }
+  .LexiconPage .reset-filters,
+  .SearchPage .reset-filters {
+    width: 100%; }
+
+body .selectize-dropdown {
+  z-index: 1500; }
+
+.NotFoundPage {
+  padding-top: 100px; }
+  .NotFoundPage h1 {
+    margin: 0 0 32px 0; }
+  .NotFoundPage p {
+    margin: 0 0 16px 0; }
+  .NotFoundPage p.back-home {
+    text-align: center; }
+
+.SitemapPage {
+  padding: 100px 16px; }
+  .SitemapPage h1 {
+    margin: 0 0 16px 0; }
+  .SitemapPage ul {
+    margin: 0;
+    padding: 0 0 0 32px;
+    list-style-type: none; }
+    .SitemapPage ul li {
+      margin: 0;
+      padding: 0 0 8px 0; }
+      .SitemapPage ul li:first-of-type {
+        padding-top: 8px; }
+      .SitemapPage ul li:last-of-type {
+        padding-bottom: 0; }
+      .SitemapPage ul li .title {
+        font-weight: bold;
+        color: black; }
+      .SitemapPage ul li .info {
+        font-weight: lighter;
+        color: #5e6776; }
+
+.LexiconPage {
+  padding-top: 100px;
+  padding-bottom: 100px; }
+  .LexiconPage h1.SearchPageTitle {
+    display: block; }
+  .LexiconPage section.SearchResults {
+    display: block; }
+    .LexiconPage section.SearchResults .search-results-success {
+      display: block; }
+      .LexiconPage section.SearchResults .search-results-success .search-result:target .definition-anchor,
+      .LexiconPage section.SearchResults .search-results-success .search-result .definition-anchor:target {
+        display: inline-block;
+        padding-top: 70px; }
+      .LexiconPage section.SearchResults .search-results-success .search-page-a-z {
+        display: block; }
+        .LexiconPage section.SearchResults .search-results-success .search-page-a-z a.search-filter-a-z {
+          text-decoration: none;
+          color: #5e6776; }
+          .LexiconPage section.SearchResults .search-results-success .search-page-a-z a.search-filter-a-z.disabled {
+            color: #d1d6e0;
+            pointer-events: none; }
+      .LexiconPage section.SearchResults .search-results-success .search-result-title {
+        font-weight: bold;
+        font-size: 1.31rem;
+        line-height: 1.5rem; }
+        @media (min-width: 732px) {
+          .LexiconPage section.SearchResults .search-results-success .search-result-title {
+            font-size: 1.5rem;
+            line-height: 2rem; } }
+      .LexiconPage section.SearchResults .search-results-success .search-result-aliases {
+        font-size: 1.1rem;
+        line-height: 2rem; }
+        @media (min-width: 732px) {
+          .LexiconPage section.SearchResults .search-results-success .search-result-aliases {
+            font-size: 1.3rem;
+            line-height: 2rem; } }
+      .LexiconPage section.SearchResults .search-results-success .search-result-definition {
+        display: block;
+        font-family: "Gentium Basic", serif;
+        font-size: 1.45rem;
+        line-height: 2.2rem;
+        margin: 8px; }
+        @media (min-width: 732px) {
+          .LexiconPage section.SearchResults .search-results-success .search-result-definition {
+            font-size: 1.7rem;
+            line-height: 2.6rem; } }
+
+.LangSelector {
+  padding: 0;
+  margin-top: 30px; }
+  .LangSelector.short-label a {
+    text-transform: uppercase; }
+  .LangSelector a {
+    text-decoration: none;
+    padding: 2px 5px;
+    font-size: 2.1rem;
+    color: #777;
+    margin-right: 10px; }
+    .LangSelector a:hover {
+      text-decoration: none; }
+    .LangSelector a.other {
+      opacity: 0.5;
+      font-weight: normal; }
+    .LangSelector a.disabled {
+      opacity: 0.5;
+      cursor: not-allowed; }
+    .LangSelector a.current {
+      font-weight: bold;
+      outline: solid; }
+  #topbar .LangSelector {
+    vertical-align: top;
+    margin: 0;
+    padding: 9px 0;
+    display: inline-block; }
+    #topbar .LangSelector a {
+      margin: 0; }
+    #topbar .LangSelector a.other, #topbar .LangSelector a.disabled {
+      color: #fff; }
+    #topbar .LangSelector a.other {
+      opacity: 1; }
+    #topbar .LangSelector a.current {
+      display: none; }
+  body.scrolled #topbar .LangSelector a, #topbar .LangSelector.black a {
+    color: #000; }

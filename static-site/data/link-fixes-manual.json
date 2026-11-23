@@ -1,0 +1,13 @@
+{
+ "http://measurinworth.com": { "to": "https://www.measuringworth.com", "reason": "faute de frappe dans l’adresse" },
+ "https://libertyellisfoundation.org/about-passenger-search,%20https://www.youtube.com/watch?v=%200YaqSr4qQ44": { "to": "https://www.statueofliberty.org/discover/heritagesearch/", "reason": "deux adresses collées, site déplacé" },
+ "http://ghsl.jrc.ec": { "to": "https://ghsl.jrc.ec.europa.eu", "reason": "adresse tronquée" },
+ "http://www.fao.org/3/a-I7695f.pdf,%20http://www.fao.org/state-of-food-security-nutrition/fr": { "to": "https://web.archive.org/web/20180920121958/http://www.fao.org/3/a-I7695f.pdf", "reason": "deux adresses collées, archive" },
+ "http://www.ec.europa.eu": { "to": "https://commission.europa.eu", "reason": "site déplacé" },
+ "http://www.cpi.transparency.org": { "to": "https://www.transparency.org/en/cpi", "reason": "site déplacé" },
+ "http://www.oic-oci.org/home": { "to": "https://www.oic-oci.org", "reason": "site déplacé" },
+ "http://global.fundforpeace.org/": { "to": "https://fragilestatesindex.org", "reason": "site déplacé" },
+ "https://wwf.panda.org/lpr": { "to": "https://livingplanet.panda.org", "reason": "site déplacé" },
+ "http://www.un.org/disarmament/tpnw/index": { "to": "https://disarmament.unoda.org/en/our-work/weapons-mass-destruction/nuclear-weapons/treaty-prohibition-nuclear-weapons", "reason": "site déplacé" },
+ "https://www.metopera.org/Season/Radio/?": { "to": "https://www.metopera.org/season/radio/", "reason": "site déplacé" }
+}
